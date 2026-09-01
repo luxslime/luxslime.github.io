@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Export Apple Podcasts episode metadata</title>
+  <meta name="description" content="Export recent Apple Podcasts episode metadata with includeEpisodes, or snapshot episode charts. From $10 per 1,000 results.">
+  <link rel="canonical" href="https://luxslime.github.io/guides/apple-podcasts-episodes/">
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Guides / Apple Podcasts episodes</nav>
+    <h1>Export Apple Podcasts episode metadata</h1>
+    <p>The <a href="https://apify.com/taroyamada/apple-podcast-scraper">Apple Podcasts Scraper</a> can attach recent episode context to resolved shows, or snapshot official episode charts. It uses official Apple/iTunes endpoints. No proxy is required. Episode inclusion is a published boolean: <code>includeEpisodes</code>. Leave it off unless episode-level context is required; that path is slower.</p>
+
+    <h2>What you get</h2>
+    <p>Episode-related rows are source-linked dataset items. Documented output fields include:</p>
+    <ul>
+      <li><code>episodeTitle</code> — present when recent episodes are included</li>
+      <li><code>collectionId</code> — Apple Podcasts collection ID for the show</li>
+      <li><code>showName</code>, <code>publisher</code>, <code>country</code></li>
+      <li><code>sourceUrl</code> — Apple Podcasts page</li>
+      <li><code>fetchedAt</code> — fetch timestamp</li>
+      <li><code>rowType</code> — row kind for downstream filters</li>
+      <li><code>rank</code> — set on <a href="/guides/apple-podcasts-charts/">chart</a> rows; not a search-rank field</li>
+    </ul>
+    <p>The published input does not expose a per-show episode count, a date window, or a full-catalog dump. For the complete published history of a show you already know, read that show’s public RSS feed. See <a href="/notes/rss-vs-apple-podcasts-scraper/">RSS vs Apple Podcasts Scraper</a>.</p>
+
+    <h2>Recent episodes on known shows</h2>
+    <p>Resolve shows first (<a href="/guides/apple-podcasts-search/">search</a>, charts, or <a href="/guides/apple-podcasts-watchlists/">lookup IDs</a>), then set <code>includeEpisodes</code> true. At least one of <code>searchTerm</code>, <code>chartRequests</code>, or <code>lookupIds</code> is required.</p>
+<pre><code>{
+  "lookupIds": ["1535144780"],
+  "country": "us",
+  "includeEpisodes": true
+}</code></pre>
+    <p>Use this when a short look at what a resolved show is publishing is enough. It is not a substitute for archiving a feed.</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Run an episode-inclusive lookup on Apify</a></p>
+
+    <h2>Episode chart snapshot</h2>
+    <p>To snapshot Apple’s episode rankings, use <code>chartRequests</code> with <code>feedType</code> set to <code>podcast-episodes</code>. Supported <code>feedType</code> values are <code>podcasts</code> and <code>podcast-episodes</code>. Per-item <code>country</code> overrides the default storefront.</p>
+<pre><code>{
+  "chartRequests": [
+    { "country": "us", "feedType": "podcast-episodes", "limit": 25 }
+  ],
+  "includeEpisodes": false
+}</code></pre>
+    <p>That chart request is a ranking snapshot, not a per-show episode list. Rankings differ by storefront. For several countries in one run, see <a href="/guides/apple-podcasts-countries/">multi-country chart and search notes</a>.</p>
+
+    <h2>Export workflow</h2>
+    <ol>
+      <li>Open the Actor on the Apify Store.</li>
+      <li>Choose a source lane: <code>lookupIds</code> (known shows), <code>searchTerm</code> (discovery), or <code>chartRequests</code> with <code>feedType: "podcast-episodes"</code> (episode ranks).</li>
+      <li>Set <code>includeEpisodes</code> true only when you need recent episode titles on resolved shows. Keep the first run small.</li>
+      <li>Leave <code>delivery</code> on <code>dataset</code>. After the run finishes, open the default dataset and export it (JSON or CSV from the dataset view).</li>
+      <li>Switch <code>delivery</code> to <code>webhook</code> only after the payload shape is approved. Set <code>dryRun</code> true to test without saving results or sending webhooks.</li>
+    </ol>
+    <p>Billing is pay-per-event: Actor start plus one result event per default-dataset item.</p>
+    <p class="price">From $10 per 1,000 results</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Open Apple Podcasts Scraper on Apify</a></p>
+
+    <h2>Related guides</h2>
+    <ul>
+      <li><a href="/guides/apple-podcasts-charts/">How to get Apple Podcasts chart metadata</a></li>
+      <li><a href="/guides/apple-podcasts-search/">Apple Podcasts search discovery</a></li>
+      <li><a href="/guides/apple-podcasts-watchlists/">Refresh Apple Podcasts watchlists</a></li>
+      <li><a href="/guides/apple-podcasts-countries/">Apple Podcasts charts and search by country</a></li>
+      <li><a href="/faq/apple-podcasts-scraper/">Apple Podcasts Scraper FAQ</a></li>
+    </ul>
+  </main>
+</body>
+</html>
