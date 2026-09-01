@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Apple Podcasts dataset fields</title>
+  <meta name="description" content="Key Apple Podcasts Scraper output fields: showName, collectionId, rank, sourceUrl, and fetchedAt. From $10 per 1,000 results.">
+  <link rel="canonical" href="https://luxslime.github.io/guides/apple-podcasts-dataset-fields/">
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Guides / Apple Podcasts dataset fields</nav>
+    <h1>Apple Podcasts dataset fields</h1>
+    <p>The <a href="https://apify.com/taroyamada/apple-podcast-scraper">Apple Podcasts Scraper</a> writes source-linked show, chart, and episode rows. Official Apple/iTunes endpoints. No proxy is required. The default dataset is the billable surface. This page lists the fields published in the Actor README. There is no separate output schema on the Store page.</p>
+
+    <h2>Key fields</h2>
+    <p>These identifiers and timestamps are the ones most workflows join on:</p>
+    <ul>
+      <li><code>showName</code> — show title on the row</li>
+      <li><code>collectionId</code> — Apple Podcasts collection ID (stable ID for recurring checks)</li>
+      <li><code>rank</code> — chart position when the row comes from a chart request; the published search sample sets this to null</li>
+      <li><code>sourceUrl</code> — Apple Podcasts page for the show</li>
+      <li><code>fetchedAt</code> — fetch timestamp</li>
+    </ul>
+    <p><code>rank</code> is a snapshot of that chart request, not computed movement between runs. Compare ranks only within the same storefront. Search discovery uses <code>collectionId</code> and <code>sourceUrl</code>; chart tracking uses <code>rank</code> plus <code>fetchedAt</code>.</p>
+
+    <h2>All documented output fields</h2>
+    <p>The README output-field list is:</p>
+    <ul>
+      <li><code>rowType</code></li>
+      <li><code>collectionId</code></li>
+      <li><code>showName</code></li>
+      <li><code>publisher</code></li>
+      <li><code>country</code></li>
+      <li><code>rank</code></li>
+      <li><code>episodeTitle</code></li>
+      <li><code>sourceUrl</code></li>
+      <li><code>fetchedAt</code></li>
+    </ul>
+    <p>Rows also include source URLs, fetch timestamps, warnings when a source is partial, and stable IDs when the workflow supports recurring change detection. <code>episodeTitle</code> is present when recent episodes are included (<code>includeEpisodes</code>). Sample <code>rowType</code> for search is <code>podcast_search_result</code>.</p>
+
+    <h2>Sample discovery row</h2>
+    <p>This is the README discovery-row example (placeholder show data):</p>
+<pre><code>{
+  "meta": {
+    "actorName": "apple-podcast-scraper",
+    "actorTitle": "Apple Podcasts Scraper",
+    "bundle": "Podcast Research &amp; Media Planning Pack",
+    "fetchedAt": "2026-05-06T00:00:00.000Z",
+    "totalRows": 1
+  },
+  "rows": [
+    {
+      "actorName": "apple-podcast-scraper",
+      "rowType": "podcast_search_result",
+      "collectionId": 1535144780,
+      "showName": "Example Podcast",
+      "publisher": "Example Network",
+      "country": "us",
+      "rank": null,
+      "sourceUrl": "https://podcasts.apple.com/us/podcast/example/id1535144780",
+      "fetchedAt": "2026-05-06T00:00:00.000Z"
+    }
+  ],
+  "warnings": []
+}</code></pre>
+    <p>Start with <code>delivery</code> set to <code>dataset</code> so you can review these fields. Switch to <a href="/guides/apple-podcasts-webhooks/">webhook delivery</a> only after the payload shape is approved. <code>dryRun</code> true runs without saving results or sending webhooks.</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Inspect dataset fields on Apify</a></p>
+
+    <h2>How to run it</h2>
+    <ol>
+      <li>Open the Actor on the Apify Store.</li>
+      <li>Choose a source lane: <code>searchTerm</code>, <code>chartRequests</code>, or <code>lookupIds</code>.</li>
+      <li>Keep the first run small. Leave <code>includeEpisodes</code> false unless you need <code>episodeTitle</code>.</li>
+      <li>Leave <code>delivery</code> on <code>dataset</code>. After the run finishes, open the default dataset and export it (JSON or CSV from the dataset view).</li>
+    </ol>
+    <p>Billing is pay-per-event: Actor start plus one result event per default-dataset item.</p>
+    <p class="price">From $10 per 1,000 results</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Open Apple Podcasts Scraper on Apify</a></p>
+
+    <h2>Related guides</h2>
+    <ul>
+      <li><a href="/guides/apple-podcasts-webhooks/">Deliver Apple Podcasts results with webhooks</a></li>
+      <li><a href="/guides/apple-podcasts-search/">Apple Podcasts search discovery</a></li>
+      <li><a href="/guides/apple-podcasts-charts/">How to get Apple Podcasts chart metadata</a></li>
+      <li><a href="/guides/apple-podcasts-watchlists/">Refresh Apple Podcasts watchlists</a></li>
+      <li><a href="/guides/apple-podcasts-episodes/">Export Apple Podcasts episode metadata</a></li>
+      <li><a href="/use-cases/podcast-market-tracking/">Track Apple Podcasts charts over time</a></li>
+      <li><a href="/faq/apple-podcasts-scraper/">Apple Podcasts Scraper FAQ</a></li>
+    </ul>
+  </main>
+</body>
+</html>
