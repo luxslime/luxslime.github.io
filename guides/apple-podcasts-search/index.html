@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Apple Podcasts search discovery</title>
+  <meta name="description" content="Search Apple Podcasts by keyword with the iTunes Search API. Structured show metadata for discovery. From $10 per 1,000 results.">
+  <link rel="canonical" href="https://luxslime.github.io/guides/apple-podcasts-search/">
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Guides / Apple Podcasts search</nav>
+    <h1>Apple Podcasts search discovery</h1>
+    <p>Keyword search is the lowest-friction way to find public shows in Apple Podcasts. The <a href="https://apify.com/taroyamada/apple-podcast-scraper">Apple Podcasts Scraper</a> uses the official iTunes Search API. No proxy is required. A public RSS feed does not search the Apple directory; search is for discovery when you have a topic, not a feed URL.</p>
+
+    <h2>What a search row contains</h2>
+    <p>Search results are source-linked dataset items. Sample <code>rowType</code> is <code>podcast_search_result</code>. Documented fields include:</p>
+    <ul>
+      <li><code>collectionId</code> — stable Apple Podcasts collection ID</li>
+      <li><code>showName</code>, <code>publisher</code>, <code>country</code></li>
+      <li><code>sourceUrl</code> — Apple Podcasts page</li>
+      <li><code>fetchedAt</code> — fetch timestamp</li>
+      <li><code>rank</code> — null on search rows; rank belongs to <a href="/guides/apple-podcasts-charts/">chart requests</a></li>
+    </ul>
+    <p>This Actor does not document genre filters, review text, or pagination beyond <code>limit</code>.</p>
+
+    <h2>Search input</h2>
+    <p>Set <code>searchTerm</code>. At least one of <code>searchTerm</code>, <code>chartRequests</code>, or <code>lookupIds</code> is required. <code>country</code> is the ISO storefront for the search (default <code>us</code>). <code>limit</code> is the maximum number of podcasts returned (1–200; default 50). Keep the first run small.</p>
+<pre><code>{
+  "searchTerm": "founder podcast",
+  "country": "us",
+  "limit": 10,
+  "includeEpisodes": false
+}</code></pre>
+    <p>Set <code>includeEpisodes</code> true only when recent episode context materially helps the workflow. After a search run, pass collection IDs into a <a href="/guides/apple-podcasts-watchlists/">watchlist refresh</a> for recurring lookups.</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Run a search on Apify</a></p>
+
+    <h2>How to run it</h2>
+    <ol>
+      <li>Open the Actor on the Apify Store.</li>
+      <li>Enter a <code>searchTerm</code> and a <code>country</code>. Prefill examples use a small <code>limit</code> (for example 3 or 10).</li>
+      <li>Leave <code>includeEpisodes</code> false until the show list is useful.</li>
+      <li>Review the default dataset. Use <code>delivery: "webhook"</code> and <code>webhookUrl</code> after the payload shape is approved (Slack, Discord, Zapier, or any HTTP endpoint). Use <code>dryRun</code> to test without dataset writes or webhooks.</li>
+    </ol>
+    <p>Billing is pay-per-event: Actor start plus one result event per default-dataset item.</p>
+    <p class="price">From $10 per 1,000 results</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Open Apple Podcasts Scraper on Apify</a></p>
+
+    <h2>Related guides</h2>
+    <ul>
+      <li><a href="/guides/apple-podcasts-charts/">How to get Apple Podcasts chart metadata</a></li>
+      <li><a href="/guides/apple-podcasts-watchlists/">Refresh Apple Podcasts watchlists</a></li>
+    </ul>
+  </main>
+</body>
+</html>

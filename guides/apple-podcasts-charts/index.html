@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How to get Apple Podcasts chart metadata</title>
+  <meta name="description" content="Pull Apple Podcasts chart rankings by country from official Apple/iTunes endpoints. Snapshot show and episode ranks. From $10 per 1,000 results.">
+  <link rel="canonical" href="https://luxslime.github.io/guides/apple-podcasts-charts/">
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Guides / Apple Podcasts charts</nav>
+    <h1>How to get Apple Podcasts chart metadata</h1>
+    <p>Apple publishes country-specific rankings for podcast shows and podcast episodes. The <a href="https://apify.com/taroyamada/apple-podcast-scraper">Apple Podcasts Scraper</a> reads those rankings through official Apple/iTunes endpoints. No proxy is required. This is a chart snapshot: each row can include a <code>rank</code>, show identifiers, and a source URL. It does not compute rank movement between runs.</p>
+
+    <h2>What you get</h2>
+    <p>Chart rows are source-linked dataset items. Documented fields include:</p>
+    <ul>
+      <li><code>rank</code> — position on that chart request</li>
+      <li><code>collectionId</code> — Apple Podcasts collection ID</li>
+      <li><code>showName</code>, <code>publisher</code>, <code>country</code></li>
+      <li><code>sourceUrl</code> — Apple Podcasts page for the show</li>
+      <li><code>fetchedAt</code> — fetch timestamp</li>
+      <li><code>rowType</code> — row kind for downstream filters</li>
+    </ul>
+    <p>Optional recent episodes are available with <code>includeEpisodes</code>. Leave that off unless episode context is required; it slows the run.</p>
+
+    <h2>Chart request input</h2>
+    <p>Use <code>chartRequests</code>. At least one of <code>searchTerm</code>, <code>chartRequests</code>, or <code>lookupIds</code> is required. Each chart item can set <code>country</code>, <code>feedType</code>, and <code>limit</code>. Supported <code>feedType</code> values are <code>podcasts</code> and <code>podcast-episodes</code>. If an item omits <code>limit</code>, the top-level <code>limit</code> applies (1–200). Per-item <code>country</code> overrides the default country (ISO codes such as <code>us</code>, <code>gb</code>, <code>jp</code>).</p>
+<pre><code>{
+  "chartRequests": [
+    { "country": "us", "feedType": "podcasts", "limit": 25 }
+  ],
+  "includeEpisodes": false
+}</code></pre>
+    <p>Keep the first run small, then raise <code>limit</code> after the output is useful. Rankings differ by storefront: a US chart is not a GB or JP chart.</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Run a chart request on Apify</a></p>
+
+    <h2>How to run it</h2>
+    <ol>
+      <li>Open the Actor on the Apify Store.</li>
+      <li>Paste a <code>chartRequests</code> array. Start with one country and <code>feedType: "podcasts"</code>.</li>
+      <li>Leave <code>includeEpisodes</code> false unless you need recent episodes.</li>
+      <li>Deliver to the default dataset. Switch <code>delivery</code> to <code>webhook</code> only after the payload shape is approved. Set <code>dryRun</code> true to test without saving results or sending webhooks.</li>
+    </ol>
+    <p>Billing is pay-per-event: Actor start plus one result event per default-dataset item.</p>
+    <p class="price">From $10 per 1,000 results</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Open Apple Podcasts Scraper on Apify</a></p>
+
+    <h2>Related guides</h2>
+    <ul>
+      <li><a href="/guides/apple-podcasts-search/">Apple Podcasts search discovery</a></li>
+      <li><a href="/guides/apple-podcasts-watchlists/">Refresh Apple Podcasts watchlists</a></li>
+    </ul>
+  </main>
+</body>
+</html>
