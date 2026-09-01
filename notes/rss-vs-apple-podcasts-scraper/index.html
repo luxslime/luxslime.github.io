@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RSS vs Apple Podcasts Scraper</title>
+  <meta name="description" content="When a public RSS feed is enough, and when Apple Podcasts search, charts, and watchlists help.">
+  <style>
+    :root {
+      --text: #1a1a1a;
+      --muted: #5c5c5c;
+      --border: #d9d9d9;
+      --bg: #fafafa;
+      --card: #fff;
+      --link: #0b57d0;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+    }
+    main {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 40px 20px 72px;
+    }
+    nav {
+      font-family: system-ui, -apple-system, sans-serif;
+      font-size: 14px;
+      margin-bottom: 28px;
+    }
+    nav a { color: var(--muted); }
+    h1 {
+      font-size: 32px;
+      line-height: 1.2;
+      font-weight: 600;
+      margin: 0 0 12px;
+    }
+    h2 {
+      font-size: 22px;
+      line-height: 1.3;
+      font-weight: 600;
+      margin: 36px 0 10px;
+    }
+    p, li { font-size: 18px; }
+    p { margin: 0 0 16px; }
+    .lede { color: var(--muted); }
+    a { color: var(--link); }
+    ul { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--card);
+      border: 1px solid var(--border);
+      font-family: system-ui, -apple-system, sans-serif;
+      font-size: 15px;
+      margin: 8px 0 20px;
+    }
+    th, td {
+      text-align: left;
+      vertical-align: top;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    th {
+      background: #f3f3f3;
+      font-weight: 600;
+    }
+    tr:last-child td { border-bottom: 0; }
+    .cta {
+      margin-top: 36px;
+      padding: 20px 18px;
+      background: var(--card);
+      border: 1px solid var(--border);
+    }
+    .cta p { margin: 0 0 8px; }
+    .cta .price {
+      font-family: system-ui, -apple-system, sans-serif;
+      font-size: 15px;
+      color: var(--muted);
+      margin: 0;
+    }
+    .cta a.button {
+      display: inline-block;
+      margin: 4px 0 12px;
+      font-family: system-ui, -apple-system, sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
+      color: #fff;
+      background: #0b57d0;
+      padding: 10px 14px;
+      border-radius: 6px;
+    }
+    .note {
+      font-family: system-ui, -apple-system, sans-serif;
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 28px;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Notes</nav>
+    <h1>RSS vs Apple Podcasts Scraper</h1>
+    <p class="lede">When a public RSS feed is enough, and when Apple catalog search, charts, and watchlists help.</p>
+
+    <h2>RSS is enough for known shows</h2>
+    <p>If you already have a feed URL, RSS is the direct source for that show’s published catalog:</p>
+    <ul>
+      <li>Episode titles, descriptions, and publish dates</li>
+      <li>Audio enclosures</li>
+      <li>Publisher-declared metadata (title, author, artwork, categories)</li>
+    </ul>
+    <p>Use RSS to watch cadence and new episodes on shows you already track. A feed does not search Apple’s directory, and it does not include chart rank.</p>
+
+    <h2>Apple catalog data helps for search, charts, and watchlists</h2>
+    <p>The <a href="https://apify.com/taroyamada/apple-podcast-scraper">Apple Podcasts Scraper</a> reads public Apple/iTunes endpoints for discovery and catalog IDs. It is a source step, not an RSS archive replacement, and it is not affiliated with Apple.</p>
+    <ul>
+      <li><strong>Search</strong> — find shows by keyword in Apple Podcasts. RSS has no catalog search.</li>
+      <li><strong>Charts</strong> — snapshot official rankings by country (shows or episodes). Rank is not in a show’s feed.</li>
+      <li><strong>Watchlists</strong> — refresh known shows by Apple collection ID and keep stable Apple IDs and storefront URLs.</li>
+    </ul>
+    <p>Storefront matters: the same query can differ across <code>us</code>, <code>gb</code>, <code>jp</code>, and other markets.</p>
+    <p>Optional recent episodes are available when you need a short look at what a discovered show is publishing. For a full episode history of a known feed, read RSS directly.</p>
+
+    <h2>A practical split</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>You have</th>
+          <th>Start with</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>A feed URL, and you need new episodes</td>
+          <td>RSS</td>
+        </tr>
+        <tr>
+          <td>A topic, and you need matching shows</td>
+          <td>Apple search</td>
+        </tr>
+        <tr>
+          <td>A market, and you need who is ranking</td>
+          <td>Apple charts</td>
+        </tr>
+        <tr>
+          <td>Apple collection IDs, and you need a recurring refresh</td>
+          <td>Watchlist lookup</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="cta">
+      <p><a class="button" href="https://apify.com/taroyamada/apple-podcast-scraper">Open Apple Podcasts Scraper</a></p>
+      <p class="price">From $10 per 1,000 results.</p>
+    </div>
+
+    <p class="note">Public Apple and RSS endpoints only. No account session. Not affiliated with or endorsed by Apple.</p>
+  </main>
+</body>
+</html>
