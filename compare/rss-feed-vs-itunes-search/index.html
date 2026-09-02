@@ -182,7 +182,7 @@
   "includeEpisodes": false
 }</code></pre>
     <p>Search results are source-linked dataset items. Sample <code>rowType</code> is <code>podcast_search_result</code>. Documented fields include <code>collectionId</code>, <code>showName</code>, <code>publisher</code>, <code>country</code>, <code>sourceUrl</code>, and <code>fetchedAt</code>. <code>rank</code> is null on search rows; rank belongs to chart requests. This Actor does not document genre filters, review text, or pagination beyond <code>limit</code>.</p>
-    <p>Storefront matters: the same query can differ across <code>us</code>, <code>gb</code>, <code>jp</code>, and other markets. Search and lookup use a single default <code>country</code> per run. See <a href="/guides/apple-podcasts-search/">Apple Podcasts search discovery</a>.</p>
+    <p>Storefront matters: the same query can differ across <code>us</code>, <code>gb</code>, <code>jp</code>, and other markets. Search and lookup use a single default <code>country</code> per run. See <a href="/guides/apple-podcasts-search/">Apple Podcasts search discovery (iTunes Search API)</a>.</p>
 
     <h2>What each source does not do</h2>
     <ul>
@@ -211,7 +211,7 @@
         </tr>
         <tr>
           <td>Search hits you want to keep, and you need Apple IDs / storefront URLs</td>
-          <td>The search dataset, then a <a href="/compare/one-time-export-vs-watchlist/">watchlist refresh</a> on <code>lookupIds</code></td>
+          <td>The search dataset, then a <a href="/compare/one-time-export-vs-watchlist/">iTunes Lookup watchlist refresh</a> on <code>lookupIds</code></td>
         </tr>
         <tr>
           <td>News queries, and you need article URLs</td>
@@ -264,18 +264,18 @@
 
     <h2>Related pages</h2>
     <ul>
-      <li><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> — search, episodes, and watchlists</li>
+      <li><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> — iTunes search, episodes, and watchlists</li>
       <li><a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> — Top Podcasts ranks and movement reports</li>
       <li><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> — ratings and review monitoring</li>
       <li><a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a> — known-publisher RSS/Atom feeds</li>
       <li><a href="/google-news-scraper/">Google News Scraper</a> — query-based news discovery</li>
       <li><a href="/notes/rss-vs-apple-podcasts-scraper/">RSS vs Apple Podcasts Scraper</a></li>
-      <li><a href="/guides/apple-podcasts-search/">Apple Podcasts search discovery</a></li>
+      <li><a href="/guides/apple-podcasts-search/">Apple Podcasts search discovery (iTunes Search API)</a></li>
       <li><a href="/compare/one-time-export-vs-watchlist/">One-time export vs watchlist</a></li>
-      <li><a href="/guides/apple-podcasts-watchlists/">Refresh Apple Podcasts watchlists</a></li>
-      <li><a href="/guides/apple-podcasts-episodes/">Export Apple Podcasts episode metadata</a></li>
-      <li><a href="/guides/apple-podcasts-charts/">How to get Apple Podcasts chart metadata</a></li>
-      <li><a href="/guides/apple-podcasts-countries/">Apple Podcasts charts and search by country</a></li>
+      <li><a href="/guides/apple-podcasts-watchlists/">Refresh Apple Podcasts watchlists (iTunes Lookup API)</a></li>
+      <li><a href="/guides/apple-podcasts-episodes/">Export Apple Podcasts episode metadata via Apple/iTunes endpoints</a></li>
+      <li><a href="/guides/apple-podcasts-charts/">How to get Apple Podcasts chart metadata from Apple/iTunes endpoints</a></li>
+      <li><a href="/guides/apple-podcasts-countries/">Apple Podcasts charts and iTunes Search by country</a></li>
       <li><a href="/guides/apple-podcasts-dataset-fields/">Apple Podcasts dataset fields</a></li>
       <li><a href="/guides/apple-podcasts-webhooks/">Deliver Apple Podcasts results with webhooks</a></li>
       <li><a href="/use-cases/podcast-outreach/">Shortlist podcasts for outreach</a></li>

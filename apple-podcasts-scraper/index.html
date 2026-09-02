@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Apple Podcasts Scraper — keyword search, chart snapshots, episodes, and watchlists</title>
-  <meta name="description" content="Search Apple Podcasts, snapshot chart rankings, list recent episodes, and refresh collection-ID watchlists via official Apple/iTunes endpoints. No proxy required. From $10.00 / 1,000 results.">
+  <title>Apple Podcasts / iTunes Scraper — keyword search, chart snapshots, episodes, and watchlists</title>
+  <meta name="description" content="Search Apple Podcasts with the iTunes Search API, snapshot chart rankings, list recent episodes, and refresh collection-ID watchlists via the iTunes Lookup API. Official Apple/iTunes endpoints. No proxy required. From $10.00 / 1,000 results.">
   <link rel="canonical" href="https://luxslime.github.io/apple-podcasts-scraper/">
   <script type="application/ld+json">
   {
@@ -148,6 +148,7 @@
   <main>
     <nav><a href="/">Home</a> / Apple Podcasts Scraper</nav>
     <h1>Search Apple Podcasts, snapshot official charts, and refresh collection-ID watchlists</h1>
+    <p>The Actor title is Apple Podcasts Scraper: Search, Charts, Episodes &amp; Watchlists. The live Store SEO name is Apple Podcasts / iTunes Scraper: Search, Charts, Episodes. Search uses the official iTunes Search API; collection-ID lookup uses the official iTunes Lookup API.</p>
     <p>Find public Apple Podcasts shows by keyword, snapshot a <code>chartRequests</code> ranking, attach recent episode titles, and refresh known collection IDs. This Actor uses official Apple/iTunes endpoints. No proxy is required. It is not a storefront movement monitor or a review collector — those jobs belong on <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> and <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a>.</p>
     <p class="price">From $10.00 / 1,000 results ($0.01 per result; Actor Start $0.005)</p>
     <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Open Apple Podcasts Scraper on Apify</a></p>
@@ -235,7 +236,7 @@
   ],
   "warnings": []
 }</code></pre>
-    <p>This Actor does not document genre filters, review text, contact emails, or pagination beyond <code>limit</code>. After a search run, pass collection IDs into a <a href="/guides/apple-podcasts-watchlists/">watchlist refresh</a>. See <a href="/guides/apple-podcasts-search/">Apple Podcasts search discovery</a>.</p>
+    <p>This Actor does not document genre filters, review text, contact emails, or pagination beyond <code>limit</code>. After a search run, pass collection IDs into a <a href="/guides/apple-podcasts-watchlists/">iTunes Lookup watchlist refresh</a>. See <a href="/guides/apple-podcasts-search/">Apple Podcasts search discovery (iTunes Search API)</a>.</p>
     <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Run a search on Apify</a></p>
 
     <h2>Chart snapshot</h2>
@@ -246,7 +247,7 @@
   ],
   "includeEpisodes": false
 }</code></pre>
-    <p>Each chart row can include <code>rank</code>, <code>collectionId</code>, show identifiers, <code>sourceUrl</code>, and <code>fetchedAt</code>. This is a snapshot: the Actor does not compute rank movement between runs. For new, changed, or dropped positions on a saved monitor, use <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a>. See <a href="/guides/apple-podcasts-charts/">How to get Apple Podcasts chart metadata</a>.</p>
+    <p>Each chart row can include <code>rank</code>, <code>collectionId</code>, show identifiers, <code>sourceUrl</code>, and <code>fetchedAt</code>. This is a snapshot: the Actor does not compute rank movement between runs. For new, changed, or dropped positions on a saved monitor, use <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a>. See <a href="/guides/apple-podcasts-charts/">How to get Apple Podcasts chart metadata from Apple/iTunes endpoints</a>.</p>
     <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Run a chart snapshot on Apify</a></p>
 
     <h2>Watchlist refresh</h2>
@@ -256,7 +257,7 @@
   "country": "us",
   "includeEpisodes": false
 }</code></pre>
-    <p>Empty or no-change watchlist polls are described as avoiding payable default-dataset writes when nothing is saved. See <a href="/guides/apple-podcasts-watchlists/">Refresh Apple Podcasts watchlists</a> and <a href="/compare/one-time-export-vs-watchlist/">One-time export vs watchlist lookup</a>.</p>
+    <p>Empty or no-change watchlist polls are described as avoiding payable default-dataset writes when nothing is saved. See <a href="/guides/apple-podcasts-watchlists/">Refresh Apple Podcasts watchlists (iTunes Lookup API)</a> and <a href="/compare/one-time-export-vs-watchlist/">One-time export vs iTunes watchlist lookup</a>.</p>
     <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Run a watchlist refresh on Apify</a></p>
 
     <h2>How is Apple Podcasts Scraper different from Chart Scraper and Reviews Scraper?</h2>
@@ -368,7 +369,7 @@
     <p>No. <code>includeEpisodes</code> fetches recent episode context for each resolved podcast and is slower. The published input does not expose a per-show episode count, a date window, or a full-catalog dump. For official episode rankings, use <code>chartRequests</code> with <code>feedType</code> <code>podcast-episodes</code>. For a known show’s complete published history, read public RSS. See the <a href="/guides/apple-podcasts-episodes/">episode metadata export workflow</a>.</p>
 
     <h2>What happens on an empty or no-change watchlist poll?</h2>
-    <p>Empty no-change watchlist polls are described as avoiding payable default-dataset writes when nothing is saved. Result events are charged per default-dataset item ($0.01 each; $10.00 per 1,000). Actor Start is a separate $0.005 event charged when the Actor starts (one event per GB, minimum one event). Dry runs do not save results or send webhooks. See <a href="/guides/apple-podcasts-watchlists/">watchlist refresh</a>.</p>
+    <p>Empty no-change watchlist polls are described as avoiding payable default-dataset writes when nothing is saved. Result events are charged per default-dataset item ($0.01 each; $10.00 per 1,000). Actor Start is a separate $0.005 event charged when the Actor starts (one event per GB, minimum one event). Dry runs do not save results or send webhooks. See <a href="/guides/apple-podcasts-watchlists/">iTunes Lookup watchlist refresh</a>.</p>
 
     <h2>Can I filter Apple Podcasts search results by genre?</h2>
     <p>No. This Actor does not document genre filters on <code>searchTerm</code>. <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> accepts an optional <code>genreId</code> for Top Podcasts charts. This Actor’s search and lookup paths use <code>country</code> plus <code>searchTerm</code> or <code>lookupIds</code> only. Pagination beyond <code>limit</code> is not documented.</p>
@@ -389,18 +390,18 @@
     <ul>
       <li><a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> — Top Podcasts ranks and movement reports</li>
       <li><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> — public ratings and review monitoring</li>
-      <li><a href="/guides/apple-podcasts-search/">Apple Podcasts search discovery</a></li>
-      <li><a href="/guides/apple-podcasts-charts/">How to get Apple Podcasts chart metadata</a></li>
-      <li><a href="/guides/apple-podcasts-watchlists/">Refresh Apple Podcasts watchlists</a></li>
-      <li><a href="/guides/apple-podcasts-episodes/">Export Apple Podcasts episode metadata</a></li>
-      <li><a href="/guides/apple-podcasts-countries/">Apple Podcasts charts and search by country</a></li>
+      <li><a href="/guides/apple-podcasts-search/">Apple Podcasts search discovery (iTunes Search API)</a></li>
+      <li><a href="/guides/apple-podcasts-charts/">How to get Apple Podcasts chart metadata from Apple/iTunes endpoints</a></li>
+      <li><a href="/guides/apple-podcasts-watchlists/">Refresh Apple Podcasts watchlists (iTunes Lookup API)</a></li>
+      <li><a href="/guides/apple-podcasts-episodes/">Export Apple Podcasts episode metadata via Apple/iTunes endpoints</a></li>
+      <li><a href="/guides/apple-podcasts-countries/">Apple Podcasts charts and iTunes Search by country</a></li>
       <li><a href="/guides/apple-podcasts-webhooks/">Deliver Apple Podcasts results with webhooks</a></li>
       <li><a href="/guides/apple-podcasts-dataset-fields/">Apple Podcasts dataset fields</a></li>
       <li><a href="/faq/apple-podcasts-scraper/">Apple Podcasts Scraper FAQ</a></li>
       <li><a href="/use-cases/podcast-outreach/">Shortlist podcasts for outreach</a></li>
       <li><a href="/use-cases/podcast-market-tracking/">Track Apple Podcasts charts over time</a></li>
       <li><a href="/compare/rss-feed-vs-itunes-search/">RSS feed vs iTunes Search API</a></li>
-      <li><a href="/compare/one-time-export-vs-watchlist/">One-time export vs watchlist lookup</a></li>
+      <li><a href="/compare/one-time-export-vs-watchlist/">One-time export vs iTunes watchlist lookup</a></li>
       <li><a href="/notes/rss-vs-apple-podcasts-scraper/">RSS vs Apple Podcasts Scraper</a></li>
       <li><a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a></li>
       <li><a href="/website-content-extractor/">Website Content Extractor</a></li>

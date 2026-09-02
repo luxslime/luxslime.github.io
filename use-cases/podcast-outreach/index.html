@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Shortlist podcasts for outreach</title>
-  <meta name="description" content="Build an outreach shortlist with Apple Podcasts search, then refresh known collection IDs as a watchlist. From $10 per 1,000 results.">
+  <meta name="description" content="Build an outreach shortlist with the iTunes Search API, then refresh known collection IDs via the iTunes Lookup API. From $10 per 1,000 results.">
   <link rel="canonical" href="https://luxslime.github.io/use-cases/podcast-outreach/">
   <script type="application/ld+json">
   {
@@ -16,7 +16,7 @@
         "name": "How do I shortlist podcasts for outreach with Apple Podcasts Scraper?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Run a small searchTerm query for the topic and country you care about. Review the default dataset and keep collectionId values for the shows you want. On later runs, pass those IDs as lookupIds. Leave includeEpisodes false until the show list is useful. The Actor does not score fit, rank outreach priority, or invent audience size."
+          "text": "Run a small searchTerm query against the official iTunes Search API for the topic and country you care about. Review the default dataset and keep collectionId values for the shows you want. On later runs, pass those IDs as lookupIds through the iTunes Lookup API. Leave includeEpisodes false until the show list is useful. The Actor does not score fit, rank outreach priority, or invent audience size."
         }
       },
       {
@@ -116,7 +116,7 @@
   <main>
     <nav><a href="/">Home</a> / Use cases / Podcast outreach</nav>
     <h1>Shortlist podcasts for outreach</h1>
-    <p>The published <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> use cases include creating shortlists for media buying or outreach from topic, country, and public show metadata. Search finds candidate shows. A watchlist refresh re-resolves the collection IDs you keep. Official Apple/iTunes endpoints. No proxy is required.</p>
+    <p>The published <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> use cases include creating shortlists for media buying or outreach from topic, country, and public show metadata. Search finds candidate shows via the official iTunes Search API. A watchlist refresh re-resolves the collection IDs you keep through the iTunes Lookup API. Official Apple/iTunes endpoints. No proxy is required.</p>
     <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Open Apple Podcasts Scraper on Apify</a></p>
 
     <h2>Search, then watchlist, then optional reviews</h2>
@@ -163,7 +163,7 @@
   "includeEpisodes": false
 }</code></pre>
     <p>Search rows are source-linked dataset items. Sample <code>rowType</code> is <code>podcast_search_result</code>. Documented fields include <code>collectionId</code>, <code>showName</code>, <code>publisher</code>, <code>country</code>, <code>sourceUrl</code>, and <code>fetchedAt</code>. <code>rank</code> is null on search rows; rank belongs to <a href="/guides/apple-podcasts-charts/">chart requests</a>. This Actor does not document genre filters, review text, contact emails, or pagination beyond <code>limit</code>.</p>
-    <p>See <a href="/guides/apple-podcasts-search/">Apple Podcasts search discovery</a>.</p>
+    <p>See <a href="/guides/apple-podcasts-search/">Apple Podcasts search discovery (iTunes Search API)</a>.</p>
 
     <h2>Keep collection IDs as the shortlist</h2>
     <p>Apple Podcasts collection IDs are stable identifiers for recurring checks. After a search run, export the default dataset and keep the <code>collectionId</code> values you want on the list. You can also take an ID from an Apple Podcasts URL (<code>id1535144780</code> → <code>1535144780</code>). A public RSS feed does not search the Apple directory; search is for discovery when you have a topic, not a feed URL. See <a href="/compare/rss-feed-vs-itunes-search/">RSS feed vs iTunes Search</a>.</p>
@@ -177,11 +177,11 @@
   "includeEpisodes": false
 }</code></pre>
     <p>Documented lookup fields include <code>collectionId</code>, <code>showName</code>, <code>publisher</code>, <code>country</code>, <code>sourceUrl</code>, and <code>fetchedAt</code>. Set <code>includeEpisodes</code> true only when recent episode titles help the shortlist; that path is slower. Empty or no-change watchlist polls are described as avoiding payable default-dataset writes when nothing is saved.</p>
-    <p>For the complete published history of a show you already know, read that show’s public RSS feed. See <a href="/notes/rss-vs-apple-podcasts-scraper/">RSS vs Apple Podcasts Scraper</a> and <a href="/guides/apple-podcasts-watchlists/">Refresh Apple Podcasts watchlists</a>.</p>
+    <p>For the complete published history of a show you already know, read that show’s public RSS feed. See <a href="/notes/rss-vs-apple-podcasts-scraper/">RSS vs Apple Podcasts Scraper</a> and <a href="/guides/apple-podcasts-watchlists/">Refresh Apple Podcasts watchlists (iTunes Lookup API)</a>.</p>
     <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Run search and watchlist refreshes on Apify</a></p>
 
     <h2>How do I shortlist podcasts for outreach with Apple Podcasts Scraper?</h2>
-    <p>Run a small <code>searchTerm</code> query for the topic and country you care about. Review the default dataset and keep <code>collectionId</code> values for the shows you want. On later runs, pass those IDs as <code>lookupIds</code>. Leave <code>includeEpisodes</code> false until the show list is useful. The Actor does not score fit, rank outreach priority, or invent audience size.</p>
+    <p>Run a small <code>searchTerm</code> query against the official iTunes Search API for the topic and country you care about. Review the default dataset and keep <code>collectionId</code> values for the shows you want. On later runs, pass those IDs as <code>lookupIds</code> through the iTunes Lookup API. Leave <code>includeEpisodes</code> false until the show list is useful. The Actor does not score fit, rank outreach priority, or invent audience size.</p>
 
     <h2>Does this Actor find contact emails or audience size?</h2>
     <p>No. This Actor does not document genre filters, review text, contact emails, or pagination beyond <code>limit</code>. Use the public fields that are present: show name, publisher, country, and Apple page URL. Do not invent audience figures from rank or search position.</p>
@@ -196,7 +196,7 @@
     <p>Billing is pay-per-event: Actor start plus one result event per default-dataset item. The published Store price is $0.005 per Actor start and $10.00 per 1,000 dataset results ($0.01 per row). Empty no-change watchlist polls are described as avoiding payable default-dataset writes when nothing is saved.</p>
 
     <h2>Should I repeat searchTerm instead of switching to lookupIds?</h2>
-    <p>After you keep <code>collectionId</code> values, later runs should pass those IDs as <code>lookupIds</code>. Recurring refreshes re-check show metadata without a new keyword search. See <a href="/compare/one-time-export-vs-watchlist/">One-time export vs watchlist lookup</a>.</p>
+    <p>After you keep <code>collectionId</code> values, later runs should pass those IDs as <code>lookupIds</code>. Recurring refreshes re-check show metadata without a new keyword search. See <a href="/compare/one-time-export-vs-watchlist/">One-time export vs iTunes watchlist lookup</a>.</p>
 
     <h2>Does a search shortlist include chart rank?</h2>
     <p>No. <code>rank</code> is null on search rows. Use <code>chartRequests</code> when the shortlist should start from official rankings. Rank is catalog metadata, not audience size.</p>
@@ -226,15 +226,15 @@
       <li><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper landing</a></li>
       <li><a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a></li>
       <li><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a></li>
-      <li><a href="/guides/apple-podcasts-search/">Apple Podcasts search discovery</a></li>
-      <li><a href="/guides/apple-podcasts-watchlists/">Refresh Apple Podcasts watchlists</a></li>
-      <li><a href="/guides/apple-podcasts-episodes/">Export Apple Podcasts episode metadata</a></li>
-      <li><a href="/guides/apple-podcasts-charts/">How to get Apple Podcasts chart metadata</a></li>
-      <li><a href="/guides/apple-podcasts-countries/">Apple Podcasts charts and search by country</a></li>
+      <li><a href="/guides/apple-podcasts-search/">Apple Podcasts search discovery (iTunes Search API)</a></li>
+      <li><a href="/guides/apple-podcasts-watchlists/">Refresh Apple Podcasts watchlists (iTunes Lookup API)</a></li>
+      <li><a href="/guides/apple-podcasts-episodes/">Export Apple Podcasts episode metadata via Apple/iTunes endpoints</a></li>
+      <li><a href="/guides/apple-podcasts-charts/">How to get Apple Podcasts chart metadata from Apple/iTunes endpoints</a></li>
+      <li><a href="/guides/apple-podcasts-countries/">Apple Podcasts charts and iTunes Search by country</a></li>
       <li><a href="/guides/apple-podcasts-dataset-fields/">Apple Podcasts dataset fields</a></li>
       <li><a href="/guides/apple-podcasts-webhooks/">Deliver Apple Podcasts results with webhooks</a></li>
       <li><a href="/use-cases/podcast-market-tracking/">Track Apple Podcasts charts over time</a></li>
-      <li><a href="/compare/one-time-export-vs-watchlist/">One-time export vs watchlist lookup</a></li>
+      <li><a href="/compare/one-time-export-vs-watchlist/">One-time export vs iTunes watchlist lookup</a></li>
       <li><a href="/compare/rss-feed-vs-itunes-search/">RSS feed vs iTunes Search API</a></li>
       <li><a href="/notes/rss-vs-apple-podcasts-scraper/">RSS vs Apple Podcasts Scraper</a></li>
       <li><a href="/faq/apple-podcasts-scraper/">Apple Podcasts Scraper FAQ</a></li>

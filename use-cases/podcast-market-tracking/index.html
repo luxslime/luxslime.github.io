@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Track Apple Podcasts charts over time</title>
-  <meta name="description" content="Snapshot Apple Podcasts chart ranks on a schedule. Compare collectionId, rank, and fetchedAt across runs. From $10 per 1,000 results.">
+  <meta name="description" content="Snapshot Apple Podcasts chart ranks on a schedule through official Apple/iTunes endpoints. Compare collectionId, rank, and fetchedAt across runs. From $10 per 1,000 results.">
   <link rel="canonical" href="https://luxslime.github.io/use-cases/podcast-market-tracking/">
   <script type="application/ld+json">
   {
@@ -174,13 +174,13 @@
   ],
   "includeEpisodes": false
 }</code></pre>
-    <p>Keep the first run small, then raise <code>limit</code> after the output is useful. Rankings differ by storefront: a US chart is not a GB or JP chart. See <a href="/guides/apple-podcasts-charts/">How to get Apple Podcasts chart metadata</a>.</p>
+    <p>Keep the first run small, then raise <code>limit</code> after the output is useful. Rankings differ by storefront: a US chart is not a GB or JP chart. See <a href="/guides/apple-podcasts-charts/">How to get Apple Podcasts chart metadata from Apple/iTunes endpoints</a>.</p>
     <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Run a chart snapshot on Apify</a></p>
 
     <h2>Turning snapshots into a time series</h2>
     <p>Run the same <code>chartRequests</code> on a schedule (an Apify schedule, or any job that starts the Actor). Keep each default-dataset export. Join later runs on <code>collectionId</code> and <code>country</code>, and order by <code>fetchedAt</code>. Plot <code>rank</code> against <code>fetchedAt</code> in your own sheet or warehouse if you need a chart.</p>
     <p>Compare ranks only within the same country and <code>feedType</code>. Do not mix show charts (<code>podcasts</code>) and episode charts (<code>podcast-episodes</code>) as one ranking series. A show that is absent from a later snapshot is not a computed “dropped” event in this Actor; it is simply not in that run’s rows.</p>
-    <p>For known shows that may not appear on the chart, pass <code>lookupIds</code> as a <a href="/guides/apple-podcasts-watchlists/">watchlist refresh</a> instead of inferring presence from a missing rank. Empty or no-change watchlist polls are described as avoiding payable default-dataset writes when nothing is saved.</p>
+    <p>For known shows that may not appear on the chart, pass <code>lookupIds</code> as a <a href="/guides/apple-podcasts-watchlists/">iTunes Lookup watchlist refresh</a> instead of inferring presence from a missing rank. Empty or no-change watchlist polls are described as avoiding payable default-dataset writes when nothing is saved.</p>
 
     <h2>Does Apple Podcasts Scraper compute rank movement?</h2>
     <p>No. Each run is a chart snapshot. The Actor does not compute rank movement between runs and it does not draw charts. A time series is the sequence of snapshots you keep. A show that is absent from a later snapshot is not a computed dropped event in this Actor.</p>
@@ -228,15 +228,15 @@
       <li><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper landing</a></li>
       <li><a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a></li>
       <li><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a></li>
-      <li><a href="/guides/apple-podcasts-charts/">How to get Apple Podcasts chart metadata</a></li>
-      <li><a href="/guides/apple-podcasts-countries/">Apple Podcasts charts and search by country</a></li>
-      <li><a href="/guides/apple-podcasts-watchlists/">Refresh Apple Podcasts watchlists</a></li>
-      <li><a href="/guides/apple-podcasts-search/">Apple Podcasts search discovery</a></li>
+      <li><a href="/guides/apple-podcasts-charts/">How to get Apple Podcasts chart metadata from Apple/iTunes endpoints</a></li>
+      <li><a href="/guides/apple-podcasts-countries/">Apple Podcasts charts and iTunes Search by country</a></li>
+      <li><a href="/guides/apple-podcasts-watchlists/">Refresh Apple Podcasts watchlists (iTunes Lookup API)</a></li>
+      <li><a href="/guides/apple-podcasts-search/">Apple Podcasts search discovery (iTunes Search API)</a></li>
       <li><a href="/guides/apple-podcasts-dataset-fields/">Apple Podcasts dataset fields</a></li>
-      <li><a href="/guides/apple-podcasts-episodes/">Export Apple Podcasts episode metadata</a></li>
+      <li><a href="/guides/apple-podcasts-episodes/">Export Apple Podcasts episode metadata via Apple/iTunes endpoints</a></li>
       <li><a href="/guides/apple-podcasts-webhooks/">Deliver Apple Podcasts results with webhooks</a></li>
       <li><a href="/use-cases/podcast-outreach/">Shortlist podcasts for outreach</a></li>
-      <li><a href="/compare/one-time-export-vs-watchlist/">One-time export vs watchlist lookup</a></li>
+      <li><a href="/compare/one-time-export-vs-watchlist/">One-time export vs iTunes watchlist lookup</a></li>
       <li><a href="/compare/rss-feed-vs-itunes-search/">RSS feed vs iTunes Search API</a></li>
       <li><a href="/notes/rss-vs-apple-podcasts-scraper/">RSS vs Apple Podcasts Scraper</a></li>
       <li><a href="/faq/apple-podcasts-scraper/">Apple Podcasts Scraper FAQ</a></li>
