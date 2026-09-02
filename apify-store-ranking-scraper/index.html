@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Apify Store Ranking Scraper — keyword rankings via the Store API</title>
+  <meta name="description" content="Query the official Apify Store API by platform keyword and return ranked Actor rows with pricing model, opportunity score, and maintenance hints. From $1.00 per 1,000 results. Not website HTML and not product reviews.">
+  <link rel="canonical" href="https://luxslime.github.io/apify-store-ranking-scraper/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is Apify Store Ranking Scraper different from Website Content Extractor and review scrapers?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "This Actor queries the official Apify Store API for platform or use-case search terms and returns ranked Store Actor rows. The live Store description is: Scrape Apify Store rankings by platform keyword, compare competitor demand, and find low-maintenance Actor opportunities. It does not fetch arbitrary website HTML and it does not scrape product-review pages. Website Content Extractor cleans docs, product, pricing, policy, and help-center pages you already have (urls, maximum 200) into markdown, text, or HTML. Shopify App Store Review Scraper and G2 & Capterra Review Scraper read public merchant or B2B review listings. Apple Podcasts Reviews Scraper reads Apple/iTunes Customer Reviews RSS JSON. Chrome Web Store Extension Intelligence reads chromewebstore.google.com listing and search HTML — a different catalog, not Apify Store search. Use this Actor to rank Actors already listed on the Apify Store. Use Website Content Extractor for page body cleanup. Use the review landings for review pages."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What input is required?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The live input schema has no required array. Fields are searches (Platform Searches; Apify Store search terms such as youtube transcript, reddit keyword monitor, or meta ad library; editor stringList; prefill those three terms), sortBy (Sort Modes; Store sort modes to query; editor stringList; prefill popularity, newest, lastUpdate), maxResultsPerSearch (integer, default 50, minimum 1, maximum 1000; Maximum Store actors returned per search/sort combination), pricingModel (optional select; default empty string meaning Any; enum empty, FREE, PAY_PER_EVENT, PRICE_PER_DATASET_ITEM, FLAT_PRICE_PER_MONTH), minUsers30Days (integer, default 0, minimum 0, maximum 1000000; Filter out rows below this monthly active user count), includeUnrunnableActors (boolean, default false; Include actors that Apify excludes from automatically runnable search results), and dryRun (boolean, default false; Emit sample rows without calling the Apify Store API). The schema does not set additionalProperties. It does not publish delivery, webhookUrl, or maxChargeUsd. The README Input list also names sort mode relevance; live schema sortBy has no enum, and schema prefill plus Store API examples omit relevance. The Store Quickstart input is only dryRun false."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does a result row contain?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The published README output list is search, sortBy, rank, slug, title, totalUsers, totalUsers30Days, totalRuns, pricingModel, primaryPriceUsd, opportunityScore, maintenanceHint, url, and scrapedAt. The README What It Does sentence also mentions categories; that name is not in the output field list. There is no published output JSON schema and no sample result object on the Store README. The field list is a README inventory, not a live coverage guarantee. Those user-count and run-count names are columns on each ranked Store Actor row the Actor returns; they are not metrics about this landing or about this Actor's own Store card."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does dry-run work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "dryRun is a boolean, default false. The live schema description is: Emit sample rows without calling the Apify Store API. The Store Quickstart uses dryRun false. The README Local Run section states the default input uses dryRun true. Live schema does not include delivery or webhookUrl, so dataset-versus-webhook switching is not a published input on this Actor."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Apify Store Ranking Scraper priced?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Billing is pay per event. The live Store card is from $1.00 / 1,000 results. Live Store events are Actor Start at $0.00005 (charged when the Actor starts running; number of events charged depends on Actor memory, one event per GB, minimum one event) and Result at $0.001 (charged automatically for each item saved to the default dataset; this is the primary event). The Store README Pricing section states: This Actor is paid per event. You are not charged for the Apify platform usage, but only a fixed price for specific events. The README Recommended launch pricing list also quotes a future opportunity report event at $0.03 per summary report; that event is not in the live Store pricing events, which currently list only Actor Start and Result."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does this scrape website content or product reviews?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. The README states the Actor queries the official Apify Store API for search terms such as youtube transcript, reddit keyword monitor, and meta ad library. That is Store search ranking for Actors, not page HTML extraction and not review-page scraping. Website body cleanup belongs on Website Content Extractor. Merchant and B2B review pages belong on Shopify App Store Review Scraper or G2 & Capterra Review Scraper. Chrome Web Store listings belong on Chrome Web Store Extension Intelligence."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Apify Store Ranking Scraper</nav>
+    <h1>Scrape Apify Store Actor rankings by platform keyword</h1>
+    <p>Apify Store Ranking Scraper (Store README title: Apify Store Ranking Radar; Store id <code>taroyamada/apify-store-ranking-radar</code>) queries the official Apify Store API for platform or use-case search terms and returns ranked Actor rows. The live Store description is: scrape Apify Store rankings by platform keyword, compare competitor demand, and find low-maintenance Actor opportunities. It is Store catalog ranking, not website HTML extraction and not product-review scraping. Page-body cleanup belongs on <a href="/website-content-extractor/">Website Content Extractor</a>. Review pages belong on <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a>, <a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a>, or <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a>.</p>
+    <p class="price">From $1.00 per 1,000 results</p>
+    <p><a href="https://apify.com/taroyamada/apify-store-ranking-radar">Open Apify Store Ranking Scraper on Apify</a></p>
+
+    <h2>Apify Store keyword rankings, not website content or reviews</h2>
+    <p>Use this page when the job is to search the Apify Store by keyword and rank existing Actors. Use <a href="/website-content-extractor/">Website Content Extractor</a> when the job is cleaned markdown or text from docs, product, pricing, policy, or help-center URLs you already have. Use the <a href="/review-intelligence/">Review Intelligence pack</a> when the job is public reviews on Apple Podcasts, Shopify App Store, or G2/Capterra. Use <a href="/chrome-web-store-extension-intelligence/">Chrome Web Store Extension Intelligence</a> when the catalog is <code>chromewebstore.google.com</code>, not Apify Store.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>This Actor</th>
+          <th>Website Content Extractor</th>
+          <th>Review scrapers</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>Rank Apify Store Actors by platform keyword via the official Store API</td>
+          <td>Clean docs, product, pricing, policy, and help-center HTML</td>
+          <td>Normalize public review listings (Shopify App Store, G2/Capterra, Apple Podcasts reviews)</td>
+        </tr>
+        <tr>
+          <td>Input</td>
+          <td>Store search terms in <code>searches</code> plus optional sort and filters (no schema <code>required</code> array)</td>
+          <td>Page URLs in <code>urls</code> (maximum 200)</td>
+          <td>App listing URLs, review page URLs, or podcast collection IDs — not Apify Store keywords</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>Official Apify Store API search results</td>
+          <td>Live page HTML you authorize</td>
+          <td>Public review-store HTML or Apple/iTunes reviews RSS JSON</td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td>Ranked Store Actor row: <code>rank</code>, <code>slug</code>, <code>title</code>, pricing fields, <code>opportunityScore</code>, <code>maintenanceHint</code>, <code>url</code></td>
+          <td>Cleaned <code>markdown</code>/<code>text</code>/<code>html</code> plus title and fetch metadata</td>
+          <td>Ratings, review rows, and store-specific rollups — not Apify Store rank</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store categories on the listing are Developer tools, Marketing, and AI. The README says this is designed for Actor developers who want to decide what to build next without manually checking Store pages every day.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Scan Apify Store search results to identify new Actor ideas and development opportunities.</li>
+      <li>Rank existing Actors by demand and price-positioning to find pricing room.</li>
+      <li>Assess maintenance risk and operational signals for candidate Actor projects.</li>
+      <li>Monitor specific platform or use-case keywords (README examples: <code>youtube transcript</code>, <code>reddit keyword monitor</code>, <code>meta ad library</code>).</li>
+      <li>Support decision-making about what Actors to build next without manually checking Store pages.</li>
+    </ul>
+    <p>Store Quickstart: run the documented first-run input (review the pricing section before increasing the scope), which is <code>dryRun: false</code> with no other fields.</p>
+
+    <h2>How is Apify Store Ranking Scraper different from Website Content Extractor and review scrapers?</h2>
+    <p>This Actor queries the official Apify Store API for platform or use-case search terms and returns ranked Store Actor rows. The live Store description is: Scrape Apify Store rankings by platform keyword, compare competitor demand, and find low-maintenance Actor opportunities. It does not fetch arbitrary website HTML and it does not scrape product-review pages. <a href="/website-content-extractor/">Website Content Extractor</a> cleans docs, product, pricing, policy, and help-center pages you already have (<code>urls</code>, maximum 200) into markdown, text, or HTML. <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a> and <a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a> read public merchant or B2B review listings. <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> reads Apple/iTunes Customer Reviews RSS JSON. <a href="/chrome-web-store-extension-intelligence/">Chrome Web Store Extension Intelligence</a> reads <code>chromewebstore.google.com</code> listing and search HTML — a different catalog, not Apify Store search. Use this Actor to rank Actors already listed on the Apify Store. Use Website Content Extractor for page body cleanup. Use the review landings for review pages.</p>
+
+    <h2>What input is required?</h2>
+    <p>The live input schema has no <code>required</code> array. Live schema fields:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>searches</code></td>
+          <td>string[]</td>
+          <td>prefill only</td>
+          <td>Platform Searches. Apify Store search terms such as youtube transcript, reddit keyword monitor, or meta ad library. Editor is <code>stringList</code>. Prefill is those three terms.</td>
+        </tr>
+        <tr>
+          <td><code>sortBy</code></td>
+          <td>string[]</td>
+          <td>prefill only</td>
+          <td>Sort Modes. Store sort modes to query. Editor is <code>stringList</code> with no enum. Prefill is <code>popularity</code>, <code>newest</code>, <code>lastUpdate</code>.</td>
+        </tr>
+        <tr>
+          <td><code>maxResultsPerSearch</code></td>
+          <td>integer</td>
+          <td>50</td>
+          <td>Maximum Store actors returned per search/sort combination. Minimum 1, maximum 1000.</td>
+        </tr>
+        <tr>
+          <td><code>pricingModel</code></td>
+          <td>string</td>
+          <td><code>""</code> (Any)</td>
+          <td>Optional Apify Store pricing model filter. Enum: empty, <code>FREE</code>, <code>PAY_PER_EVENT</code>, <code>PRICE_PER_DATASET_ITEM</code>, <code>FLAT_PRICE_PER_MONTH</code> (titles Any, Free, Pay per event, Price per dataset item, Flat price per month).</td>
+        </tr>
+        <tr>
+          <td><code>minUsers30Days</code></td>
+          <td>integer</td>
+          <td>0</td>
+          <td>Filter out rows below this monthly active user count. Minimum 0, maximum 1000000.</td>
+        </tr>
+        <tr>
+          <td><code>includeUnrunnableActors</code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Include actors that Apify excludes from automatically runnable search results.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Emit sample rows without calling the Apify Store API.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>The schema does not set <code>additionalProperties</code>. It does not publish <code>delivery</code>, <code>webhookUrl</code>, or <code>maxChargeUsd</code>. The README Input list also names sort mode <code>relevance</code>; live schema <code>sortBy</code> has no enum, and schema prefill plus Store API examples omit <code>relevance</code>. The Store Quickstart input is only <code>dryRun: false</code>.</p>
+    <p>Published Store Quickstart:</p>
+<pre><code>{
+  "dryRun": false
+}</code></pre>
+    <p>Published README input object example:</p>
+<pre><code>{
+  "searches": [
+    "youtube transcript",
+    "reddit keyword monitor",
+    "meta ad library"
+  ],
+  "sortBy": [
+    "popularity",
+    "newest",
+    "lastUpdate"
+  ],
+  "maxResultsPerSearch": 50,
+  "pricingModel": "",
+  "minUsers30Days": 0,
+  "includeUnrunnableActors": false,
+  "dryRun": false
+}</code></pre>
+    <p>Published Store API examples (JavaScript, Python, CLI) send only <code>searches</code> and <code>sortBy</code> (<code>popularity</code>, <code>newest</code>, <code>lastUpdate</code>). The README Local Run section states the default input uses <code>dryRun: true</code>.</p>
+    <p><a href="https://apify.com/taroyamada/apify-store-ranking-radar">Run Apify Store Ranking Scraper on Apify</a></p>
+
+    <h2>What does a result row contain?</h2>
+    <p>The published README output list is <code>search</code>, <code>sortBy</code>, <code>rank</code>, <code>slug</code>, <code>title</code>, <code>totalUsers</code>, <code>totalUsers30Days</code>, <code>totalRuns</code>, <code>pricingModel</code>, <code>primaryPriceUsd</code>, <code>opportunityScore</code>, <code>maintenanceHint</code>, <code>url</code>, and <code>scrapedAt</code>. The README What It Does sentence also mentions categories; that name is not in the output field list. There is no published output JSON schema and no sample result object on the Store README. The field list is a README inventory, not a live coverage guarantee. Those user-count and run-count names are columns on each ranked Store Actor row the Actor returns; they are not metrics about this landing or about this Actor's own Store card.</p>
+    <p>Website HTML fields such as <code>markdown</code> or article body belong on <a href="/website-content-extractor/">Website Content Extractor</a> or <a href="/article-content-extractor/">Article Content Extractor</a>. Review text belongs on the review landings.</p>
+
+    <h2>How does dry-run work?</h2>
+    <p><code>dryRun</code> is a boolean, default false. The live schema description is: Emit sample rows without calling the Apify Store API. The Store Quickstart uses <code>dryRun: false</code>. The README Local Run section states the default input uses <code>dryRun: true</code>. Live schema does not include <code>delivery</code> or <code>webhookUrl</code>, so dataset-versus-webhook switching is not a published input on this Actor.</p>
+
+    <h2>How is Apify Store Ranking Scraper priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $1.00 / 1,000 results</strong>. Live Store events are <strong>Actor Start</strong> at <strong>$0.00005</strong> (charged when the Actor starts running; number of events charged depends on Actor memory, one event per GB, minimum one event) and <strong>Result</strong> at <strong>$0.001</strong> (charged automatically for each item saved to the default dataset; this is the primary event). The Store README Pricing section states: This Actor is paid per event. You are not charged for the Apify platform usage, but only a fixed price for specific events. The README Recommended launch pricing list also quotes a future opportunity report event at $0.03 per summary report; that event is not in the live Store pricing events, which currently list only Actor Start and Result.</p>
+    <p class="price">From $1.00 per 1,000 results ($0.001 per default-dataset Result; Actor Start $0.00005)</p>
+    <p><a href="https://apify.com/taroyamada/apify-store-ranking-radar/pricing">See Apify Store Ranking Scraper pricing on Apify</a></p>
+
+    <h2>Does this scrape website content or product reviews?</h2>
+    <p>No. The README states the Actor queries the official Apify Store API for search terms such as <code>youtube transcript</code>, <code>reddit keyword monitor</code>, and <code>meta ad library</code>. That is Store search ranking for Actors, not page HTML extraction and not review-page scraping. Website body cleanup belongs on <a href="/website-content-extractor/">Website Content Extractor</a>. Merchant and B2B review pages belong on <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a> or <a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a>. Chrome Web Store listings belong on <a href="/chrome-web-store-extension-intelligence/">Chrome Web Store Extension Intelligence</a>.</p>
+    <p><a href="https://apify.com/taroyamada/apify-store-ranking-radar">Open Apify Store Ranking Scraper on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Queries the official Apify Store API by keyword. Not website HTML. Not product reviews. Not Chrome Web Store listings.</li>
+      <li>Live schema has no <code>required</code> array. Store Quickstart is <code>dryRun: false</code> only.</li>
+      <li><code>maxResultsPerSearch</code> default 50, maximum 1000 per search/sort combination.</li>
+      <li>README sort mode <code>relevance</code> is not in schema prefill or Store API examples; live <code>sortBy</code> has no enum.</li>
+      <li>Live schema does not publish <code>delivery</code>, <code>webhookUrl</code>, or <code>maxChargeUsd</code>.</li>
+      <li>README future opportunity report event at $0.03 is not a live Store pricing event.</li>
+      <li>Start with the Store Quickstart, then add <code>searches</code> before widening <code>maxResultsPerSearch</code>.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/apify-store-ranking-radar">Open Apify Store Ranking Scraper on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/website-content-extractor/">Website Content Extractor</a> — page HTML cleanup, not Apify Store rankings</li>
+      <li><a href="/article-content-extractor/">Article Content Extractor</a> — article HTML cleanup, not Store Actor rank</li>
+      <li><a href="/chrome-web-store-extension-intelligence/">Chrome Web Store Extension Intelligence</a> — Chrome Web Store listings, not Apify Store search</li>
+      <li><a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a> — merchant reviews, not Apify Store rankings</li>
+      <li><a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a> — B2B review pages, not Apify Store rankings</li>
+      <li><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> — Apple/iTunes reviews RSS, not Store Actor rank</li>
+      <li><a href="/review-intelligence/">Review Intelligence pack</a> — choose a review-store Actor, not Apify Store keyword rank</li>
+      <li><a href="/meta-tag-opengraph-scraper/">Meta Tag &amp; OpenGraph Scraper</a> — HTML head metadata, not Store search</li>
+      <li><a href="/structured-data-scraper-validator/">Structured Data Scraper &amp; Validator</a> — JSON-LD/Microdata on pages, not Store rankings</li>
+      <li><a href="/sitemap-scraper-analyzer/">Sitemap Scraper &amp; Analyzer</a> — sitemap URL inventory, not Store Actor rank</li>
+      <li><a href="/bulk-url-status-checker/">Bulk URL Status Checker</a> — HTTP status on a known URL list</li>
+      <li><a href="/contact-details-extractor/">Contact Page Audit &amp; Business Channel Extractor</a> — public business channels from pages</li>
+      <li><a href="/bulk-email-syntax-mx-validator/">Bulk Email Syntax &amp; MX Validator</a> — email syntax/MX, not Store rankings</li>
+      <li><a href="/hhs-healthcare-data-breach-scraper/">HHS Healthcare Data Breach Change Scraper</a></li>
+      <li><a href="/tech-events-cfp-calendar/">Tech Events &amp; CFP Calendar Scraper</a></li>
+      <li><a href="/youtube-transcript-scraper/">YouTube Transcript Scraper</a></li>
+      <li><a href="/packs/content-intelligence/">Content Intelligence pack</a></li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>
