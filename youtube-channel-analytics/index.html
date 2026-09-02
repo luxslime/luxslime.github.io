@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>YouTube Channel Analytics Scraper — public subscribers, uploads, and Shorts</title>
+  <meta name="description" content="Scrape public YouTube channel metadata, subscriber text, lifetime views, recent uploads, and optional Shorts. No YouTube Data API key. Not a caption or transcript extractor.">
+  <link rel="canonical" href="https://luxslime.github.io/youtube-channel-analytics/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is YouTube Channel Analytics Scraper different from YouTube Transcript Scraper?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "This Actor reads public YouTube channel pages. Required input is channelUrls (channel URLs or bare @handles). It returns channel-level public metrics, recent long-form uploads from the Videos tab, and optional Shorts from the Shorts tab. YouTube Transcript Scraper extracts captions from public videos (timestamps, SRT, VTT, and plain text). This Actor does not return transcripts, captions, subtitles, or speech-to-text. Use this page for competitor cadence and upload mix. Use a transcript Actor when the job is video captions."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need a YouTube Data API key or OAuth?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. The published README states the Actor collects public metrics without OAuth tokens or YouTube Data API keys. It crawls public channel surfaces: @handle, /channel/, /user/, /c/ URLs, and bare @handles."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What input is required?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "channelUrls is required: one or more YouTube channel URLs or bare @handles. Optional published schema fields are videoLimit (integer, default 8, minimum 1, maximum 25; recent items per section), includeShorts (boolean, default true), timeoutMs (integer, default 20000, minimum 5000, maximum 60000), delivery (dataset or webhook, default dataset), webhookUrl (when delivery is webhook), dryRun (boolean, default false), and maxChargeUsd (number, default 1, minimum 0). additionalProperties is false. README examples that use channels, includeUploadCadence, or includeRecentVideos are not live schema fields."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does a result contain?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The published README sample is a meta object plus channels[]. meta includes generatedAt, implementationStatus, totalSources, totals (resolved channels, uploads, Shorts, content, warningCount), limits, and notes. Each channels[] item includes inputUrl, status, channel metadata (channelId, title, handle, canonicalUrl, subscriberCountText, totalViewCountText), recentUploads (videoId, title, viewCountText, durationText, keywords), recentShorts (videoId, isShort), rollups (totalResolvedVideos, recentPostingCadenceHint), availability (videosTab, shortsTab, aboutTab), and warnings. README prose also names numeric subscriber count when public, avatar/banner, description/about fields, about-page links, thumbnail, and publish/upload dates when public. There is no published output JSON schema on the Store page. Status values are ok, partial, missing, blocked, invalid, and error."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can it return YouTube Studio analytics or hidden subscriber counts?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Because the Actor uses public pages only, it cannot provide private YouTube Studio analytics such as watch time, revenue, CTR, impressions, audience demographics, traffic sources, or hidden subscriber counts. Subscriber and view figures exist when YouTube exposes them. Posting cadence is a hint inferred from recent public labels, not official Studio analytics."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is YouTube Channel Analytics Scraper priced?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Billing is pay per event. The published Store card is from $8.00 per 1,000 results. Published events are Actor Start at $0.001 (charged when the Actor starts; number of events depends on Actor memory, one event per GB, minimum one event) and result at $0.008 (single result in the default dataset). You are not charged for Apify platform usage, only the fixed event price. Total cost mainly follows how many channelUrls you analyze and how many recent items you resolve. maxChargeUsd defaults to 1; billable rows beyond the cap are returned as no-charge limit_reached summaries."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / YouTube Channel Analytics Scraper</nav>
+    <h1>Track public YouTube subscriber counts, recent uploads, and Shorts without an API key</h1>
+    <p>Collect structured public YouTube channel metadata for competitor tracking and content research: subscriber text when public, lifetime view totals when exposed, channel descriptions, recent long-form uploads, and optional Shorts. This Actor crawls public channel surfaces. It is not a caption or transcript extractor — video captions belong on <a href="/youtube-transcript-scraper/">YouTube Transcript Scraper</a>.</p>
+    <p><a href="https://apify.com/taroyamada/youtube-channel-analytics">Open YouTube Channel Analytics Scraper on Apify</a></p>
+
+    <h2>Channel metrics and uploads, not captions</h2>
+    <p>Use this page when the job is public channel health: publishing cadence, upload mix, Shorts usage, and outbound about-page links. Use <a href="/youtube-transcript-scraper/">YouTube Transcript Scraper</a> when the job is captions from public videos (timestamps, SRT, VTT, or plain text).</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>This Actor</th>
+          <th>YouTube Transcript Scraper</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>Public channel metrics, recent uploads, and Shorts</td>
+          <td>Captions and transcript text from public videos</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td><code>channelUrls</code> (channel URLs or bare <code>@handles</code>)</td>
+          <td>Video URLs, video IDs, playlist URLs, or channel URLs (captions job)</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>Public channel, Videos, Shorts, About, and watch pages</td>
+          <td>Public caption tracks</td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td>Subscriber/view text, recent upload metadata, cadence hints, availability warnings</td>
+          <td>Captions, timestamps, SRT, VTT, and plain text</td>
+        </tr>
+        <tr>
+          <td>Transcripts / captions</td>
+          <td>No. Not documented and not returned</td>
+          <td>Yes — that is the documented job</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>This Actor does not return transcripts, captions, subtitles, or speech-to-text. It also does not provide private YouTube Studio analytics.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Creator teams: benchmark publishing cadence, upload mix, and Shorts usage.</li>
+      <li>Brand marketers: vet partner channels and content fit without API quota setup.</li>
+      <li>Analysts: track recent uploads, tags, and view text at scale.</li>
+      <li>Ecommerce teams: pair channel activity with Shopify or app-store signals.</li>
+    </ul>
+    <p>The published README also positions the Actor for content strategists, SEO professionals, and digital marketers who want to skip browsing individual YouTube pages to check publishing frequency. You can schedule it to pull fresh public subscriber counts, lifetime views, channel descriptions, and recent long-form uploads or Shorts when YouTube exposes them. Market research and competitor performance reviews get structured public channel data, outbound about-page links, follower-growth snapshots, and recent upload metadata for dashboards.</p>
+
+    <h2>How is YouTube Channel Analytics Scraper different from YouTube Transcript Scraper?</h2>
+    <p>This Actor reads public YouTube channel pages. Required input is <code>channelUrls</code> (channel URLs or bare <code>@handles</code>). It returns channel-level public metrics, recent long-form uploads from the Videos tab, and optional Shorts from the Shorts tab. <a href="/youtube-transcript-scraper/">YouTube Transcript Scraper</a> extracts captions from public videos (timestamps, SRT, VTT, and plain text). This Actor does not return transcripts, captions, subtitles, or speech-to-text. Use this page for competitor cadence and upload mix. Use a transcript Actor when the job is video captions.</p>
+
+    <h2>Do I need a YouTube Data API key or OAuth?</h2>
+    <p>No. The published README states the Actor collects public metrics without OAuth tokens or YouTube Data API keys. It crawls public channel surfaces: <code>@handle</code>, <code>/channel/</code>, <code>/user/</code>, <code>/c/</code> URLs, and bare <code>@handles</code>.</p>
+
+    <h2>What input is required?</h2>
+    <p><code>channelUrls</code> is required. The published schema accepts YouTube channel URLs or bare <code>@handles</code>. Other published fields:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>channelUrls</code></td>
+          <td>string[]</td>
+          <td>required</td>
+          <td>YouTube channel URLs or bare <code>@handles</code>. Schema prefill is <code>https://www.youtube.com/@Google</code>, <code>@YouTubeCreators</code>.</td>
+        </tr>
+        <tr>
+          <td><code>videoLimit</code></td>
+          <td>integer</td>
+          <td>8</td>
+          <td>Recent items per section (uploads and, when enabled, Shorts). OpenAPI: 1–25.</td>
+        </tr>
+        <tr>
+          <td><code>includeShorts</code></td>
+          <td>boolean</td>
+          <td>true</td>
+          <td>Also resolve public Shorts from the channel Shorts tab.</td>
+        </tr>
+        <tr>
+          <td><code>timeoutMs</code></td>
+          <td>integer</td>
+          <td>20000</td>
+          <td>HTTP timeout per public page request (ms). OpenAPI: 5000–60000.</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string</td>
+          <td><code>dataset</code></td>
+          <td><code>dataset</code> or <code>webhook</code></td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td>—</td>
+          <td>POST target when <code>delivery</code> is <code>webhook</code></td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Run without saving rows to the dataset (README: skip dataset/webhook delivery)</td>
+        </tr>
+        <tr>
+          <td><code>maxChargeUsd</code></td>
+          <td>number</td>
+          <td>1</td>
+          <td>Safety cap for this run (minimum 0). Billable rows beyond the cap are returned as no-charge <code>limit_reached</code> summaries.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>The schema sets <code>additionalProperties</code> to false. Use <code>channelUrls</code>, <code>videoLimit</code>, and <code>includeShorts</code>. README examples that use <code>channels</code>, <code>includeUploadCadence</code>, or <code>includeRecentVideos</code> are not live input fields.</p>
+    <p>Published Store Quickstart:</p>
+<pre><code>{
+  "channelUrls": [
+    "https://www.youtube.com/@Google",
+    "@YouTubeCreators"
+  ],
+  "dryRun": false,
+  "maxChargeUsd": 1
+}</code></pre>
+    <p>Published Store input-object example (includes schema defaults):</p>
+<pre><code>{
+  "channelUrls": [
+    "https://www.youtube.com/@Google",
+    "@YouTubeCreators"
+  ],
+  "videoLimit": 8,
+  "includeShorts": true,
+  "timeoutMs": 20000,
+  "delivery": "dataset",
+  "dryRun": false,
+  "maxChargeUsd": 1
+}</code></pre>
+    <p>Start with 1–3 channel URLs or <code>@handles</code> and keep <code>videoLimit</code> at 8 or below for the first run. Leave <code>includeShorts</code> on if you care about creator cadence; turn it off when long-form uploads are enough. Use dataset delivery first so you can inspect channel-level warnings and resolved content counts. After the first useful run, the README points to a recurring cadence-watch template, then a webhook handoff template for new-upload alerts.</p>
+    <p><a href="https://apify.com/taroyamada/youtube-channel-analytics">Run YouTube Channel Analytics Scraper on Apify</a></p>
+
+    <h2>What does a result contain?</h2>
+    <p>The published README sample is a <code>meta</code> object plus <code>channels[]</code>. There is no separate published dataset or output JSON schema on the Store page.</p>
+    <p>Published README sample:</p>
+<pre><code>{
+  "meta": {
+    "generatedAt": "2025-01-01T00:00:00.000Z",
+    "implementationStatus": "live",
+    "totalSources": 1,
+    "totals": {
+      "totalResolvedChannels": 1,
+      "totalResolvedUploads": 8,
+      "totalResolvedShorts": 4,
+      "totalResolvedContent": 12,
+      "warningCount": 1
+    },
+    "limits": {
+      "recentItemsPerSection": 8,
+      "includeShorts": true,
+      "timeoutMs": 20000
+    },
+    "notes": ["..."]
+  },
+  "channels": [
+    {
+      "inputUrl": "https://www.youtube.com/@Google",
+      "status": "ok",
+      "channel": {
+        "channelId": "UC...",
+        "title": "Google",
+        "handle": "@Google",
+        "canonicalUrl": "https://www.youtube.com/@Google",
+        "subscriberCountText": "14.1M subscribers",
+        "totalViewCountText": "6,332,598,834 views"
+      },
+      "recentUploads": [{ "videoId": "...", "title": "...", "viewCountText": "...", "durationText": "...", "keywords": ["..."] }],
+      "recentShorts": [{ "videoId": "...", "isShort": true }],
+      "rollups": {
+        "totalResolvedVideos": 12,
+        "recentPostingCadenceHint": "Roughly weekly posting inferred from recent public labels."
+      },
+      "availability": {
+        "videosTab": "ok",
+        "shortsTab": "ok",
+        "aboutTab": "ok"
+      },
+      "warnings": []
+    }
+  ]
+}</code></pre>
+    <p>That sample is the published README illustration, not a live coverage guarantee. README “What it does” also names numeric subscriber count when public, avatar/banner, description/about fields, about-page links, thumbnail, and publish/upload dates when public. Status values are <code>ok</code> (all requested public surfaces resolved), <code>partial</code> (some surfaces or enrichments unavailable, but useful data collected), <code>missing</code> (YouTube returned a missing page), <code>blocked</code> (challenge or block page), <code>invalid</code> (input was not a supported channel URL or handle), and <code>error</code> (no usable public data).</p>
+
+    <h2>Can it return YouTube Studio analytics or hidden subscriber counts?</h2>
+    <p>No. Because the Actor uses public pages only, it cannot provide private YouTube Studio analytics such as watch time, revenue, CTR, impressions, audience demographics, traffic sources, or hidden subscriber counts. Subscriber and view figures exist when YouTube exposes them. Posting cadence is a hint inferred from recent public labels, not official Studio analytics.</p>
+
+    <h2>How is YouTube Channel Analytics Scraper priced?</h2>
+    <p>Billing is pay per event. The published Store card is <strong>from $8.00 / 1,000 results</strong>. Published events are Actor Start at <strong>$0.001</strong> (charged when the Actor starts; number of events depends on Actor memory, one event per GB, minimum one event) and result at <strong>$0.008</strong> (single result in the default dataset). You are not charged for Apify platform usage, only the fixed event price.</p>
+    <p>Total cost mainly follows how many <code>channelUrls</code> you analyze and how many recent items you resolve. Start with a short <code>channelUrls</code> list. Keep <code>videoLimit</code> low while testing. Disable <code>includeShorts</code> when you only need long-form uploads. Use <code>dryRun: true</code> before larger batches or webhook delivery. <code>maxChargeUsd</code> defaults to 1; billable rows beyond the cap are returned as no-charge <code>limit_reached</code> summaries. Check the Store pricing card for the current per-event rates.</p>
+    <p class="price">From $8.00 per 1,000 results ($0.008 per default-dataset result; Actor Start $0.001)</p>
+    <p><a href="https://apify.com/taroyamada/youtube-channel-analytics/pricing">See YouTube Channel Analytics Scraper pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Public pages only — no Studio watch time, revenue, CTR, impressions, demographics, traffic sources, or hidden subscriber counts.</li>
+      <li><code>videoLimit</code> caps recent items per section (uploads and, if enabled, Shorts); OpenAPI range is 1–25.</li>
+      <li>The required field is <code>channelUrls</code>. Live schema names do not include <code>channels</code>, <code>includeUploadCadence</code>, or <code>includeRecentVideos</code>.</li>
+      <li>Cadence is inferred from recent public labels, not official YouTube Analytics.</li>
+      <li>YouTube may return missing, challenge, or block pages (<code>missing</code> / <code>blocked</code>).</li>
+      <li>This Actor does not extract captions or transcripts.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/youtube-channel-analytics">Open YouTube Channel Analytics Scraper on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/tools/">Tools</a></li>
+      <li><a href="/youtube-transcript-scraper/">YouTube Transcript Scraper</a> — public captions, not channel metrics</li>
+      <li><a href="/wayback-machine-bulk-checker/">Wayback Machine Bulk Checker</a></li>
+      <li><a href="/meta-tag-opengraph-scraper/">Meta Tag &amp; OpenGraph Scraper</a></li>
+      <li><a href="/short-url-resolver-scraper/">Short URL Resolver &amp; Scraper</a></li>
+      <li><a href="/contact-details-extractor/">Contact Page Audit &amp; Business Channel Extractor</a></li>
+      <li><a href="/google-news-scraper/">Google News Scraper</a></li>
+      <li><a href="/website-content-extractor/">Website Content Extractor</a></li>
+      <li><a href="/article-content-extractor/">Article Content Extractor</a></li>
+      <li><a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a></li>
+      <li><a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a></li>
+      <li><a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a></li>
+      <li><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a></li>
+      <li><a href="/dns-propagation-checker/">DNS Propagation Checker</a></li>
+    </ul>
+  </main>
+</body>
+</html>
