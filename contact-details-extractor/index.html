@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact Page Audit &amp; Business Channel Extractor — support paths, phones, socials</title>
+  <meta name="description" content="Audit public contact, about, support, and policy pages for business-channel inventory: support paths, phones, and social profiles. Person-level emails are suppressed. From $2.00 per 1,000 results.">
+  <link rel="canonical" href="https://luxslime.github.io/contact-details-extractor/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is Contact Page Audit & Business Channel Extractor different from Website Content Extractor and Meta Tag & OpenGraph Scraper?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "This Actor inventories public business contact channels from contact, about, support, policy, and company pages you supply. Required input is urls (maximum 100). Each published row is a public_contact_channel observation: supportChannel, phone, socialUrls, domain, sourceUrl, confidence, warnings, and fetchedAt. Person-level email candidates are suppressed. Website Content Extractor cleans docs, product, pricing, policy, and help-center HTML into markdown, text, or HTML (max 200 URLs) and does not emit this contact-channel inventory. Meta Tag & OpenGraph Scraper audits head metadata — title, canonical, robots, Open Graph, Twitter Card, hreflang, and schema.org JSON-LD — and does not extract support forms, phones, or social profiles as business channels. Use this Actor for contact-channel QA and account hygiene. Use Website Content Extractor for cleaned page body. Use Meta Tag & OpenGraph Scraper for crawler/social head metadata."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What input is required?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "urls is required: one to 100 contact, about, support, or company HTTP(S) URLs. Optional live schema fields are concurrency (integer, default 5, minimum 1, maximum 5), timeoutMs (integer, default 15000, minimum 1000, maximum 30000), delivery (dataset or webhook, default dataset), webhookUrl (when delivery is webhook and dryRun is false), dryRun (boolean, default false), and maxChargeUsd (number, default 1, minimum 0). Schema prefill is https://www.icann.org/contact and https://automattic.com/contact/. README examples that send domains and paths instead of urls are not live schema fields."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does a result row contain?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The published README field list is rowType, domain, sourceUrl, supportChannel, phone, socialUrls, confidence, warnings, and fetchedAt. The published sample wraps rows in a meta object (actorName, actorTitle, bundle, fetchedAt, totalRows). Sample rowType is public_contact_channel. Rows also include source URLs, fetch timestamps, warnings when a source is partial, and stable IDs when the workflow supports recurring change detection. The sample is a README illustration, not a live coverage guarantee. There is no published full-page markdown or meta-tag audit field."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Are person-level emails collected?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. The live input schema states person-level email candidates are suppressed. The README states the Actor emits public business contact-channel rows only; person-level private-contact candidates are suppressed and counted in warnings. Individual contact harvesting, personal profile collection, bulk promotional messaging, and consent-free communication workflows are outside the intended use."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Contact Page Audit & Business Channel Extractor priced?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Billing is pay-per-event. Live Store events are Actor Start at $0.001 (charged when the Actor starts; number of events depends on Actor memory, one event per GB, minimum one event) and result at $0.002 (single result in the default dataset). That is $2.00 per 1,000 results plus start. The README pricing section still quotes $0.008 per verified public business contact-channel row; live Store billing for a default-dataset result is $0.002. Empty scans, person-level-only pages, unverified rows, and policy-suppressed candidates should not create dataset charges. maxChargeUsd defaults to 1; billable rows beyond that cap are returned as no-charge limit_reached summaries."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do dataset, webhook, dry runs, and the charge cap work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "delivery defaults to dataset. Non-dry-run Apify runs write canonical dataset rows first. webhook delivery POSTs one full payload only after dataset output succeeds, when delivery is webhook, webhookUrl is set, and dryRun is false. dryRun true skips dataset writes and webhook delivery; local output/result.json is still written. maxChargeUsd is a safety cap for the run (default 1, minimum 0). The default dataset is the billable surface. Dry runs, validation-only runs, missing-key warnings, and unchanged recurring polls should not write payable default-dataset rows."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Contact Page Audit &amp; Business Channel Extractor</nav>
+    <h1>Inventory public business contact channels from contact and support pages</h1>
+    <p>Audit public contact, about, support, policy, location, legal, privacy, or company pages you supply and emit structured public business contact-channel rows: labeled support paths and forms, phone numbers, social profiles, domain and source URL context, fetch timestamps, and warnings. Person-level private-contact candidates are suppressed. This is not a page-body cleaner and not a head-metadata audit — those jobs belong on <a href="/website-content-extractor/">Website Content Extractor</a> and <a href="/meta-tag-opengraph-scraper/">Meta Tag &amp; OpenGraph Scraper</a>.</p>
+    <p class="price">From $2.00 per 1,000 results</p>
+    <p><a href="https://apify.com/taroyamada/contact-details-extractor">Open Contact Page Audit &amp; Business Channel Extractor on Apify</a></p>
+
+    <h2>Public contact-channel inventory, not page body or meta-tag audit</h2>
+    <p>Use this page when the job is a reviewable inventory of public business channels on contact and support surfaces. Use <a href="/website-content-extractor/">Website Content Extractor</a> when the job is cleaned markdown or text from docs, product, pricing, policy, or help-center HTML. Use <a href="/meta-tag-opengraph-scraper/">Meta Tag &amp; OpenGraph Scraper</a> when the job is title, canonical, robots, Open Graph, Twitter Card, hreflang, and JSON-LD from the HTML head.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>This Actor</th>
+          <th>Website Content Extractor</th>
+          <th>Meta Tag &amp; OpenGraph Scraper</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>Inventory public business contact channels for site QA and account hygiene</td>
+          <td>Clean docs, product, pricing, policy, and help-center HTML</td>
+          <td>Technical SEO audit of head metadata, social previews, JSON-LD, and robots</td>
+        </tr>
+        <tr>
+          <td>Input</td>
+          <td>Contact, about, support, or company URLs in <code>urls</code> (max 100)</td>
+          <td>HTTP(S) page URLs in <code>urls</code> (max 200)</td>
+          <td>HTTP(S) page URLs in <code>urls</code> (max 500)</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>Public contact / about / support / policy / company pages</td>
+          <td>Live page HTML for cleaned body content</td>
+          <td>HTML head and embedded JSON-LD (no JavaScript render)</td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td><code>public_contact_channel</code> rows: support path, phone, social URLs, source context</td>
+          <td><code>web_content</code> rows: title, markdown/text, word count, optional metadata</td>
+          <td>Title, description, canonical, robots, Open Graph, Twitter Card, hreflang, JSON-LD, issue flags</td>
+        </tr>
+        <tr>
+          <td>Person-level emails</td>
+          <td>Suppressed; counted in warnings</td>
+          <td>Not a contact extractor</td>
+          <td>Not a contact extractor</td>
+        </tr>
+        <tr>
+          <td>Full page body / head audit</td>
+          <td>No published markdown or meta-tag field list</td>
+          <td>Yes — cleaned content is the deliverable</td>
+          <td>Yes — head metadata and issue flags, not body text</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>This Actor is not a ranking tool, a full-site crawler, or a legal-advice product. Fetch public HTTP(S) URLs you own or are authorized to audit, with a lawful basis for downstream processing. Individual contact harvesting, personal profile collection, bulk promotional messaging, and consent-free communication workflows are outside the intended use.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Site QA and compliance review of public contact, about, and support pages.</li>
+      <li>Support-path inventory and support-channel mapping for RevOps and support ops teams.</li>
+      <li>Policy-coverage checks and reviewable audit exports for legal, privacy, and compliance workflows.</li>
+      <li>Account data hygiene and support-channel inventory for data teams.</li>
+      <li>Generating structured contact observations for monitoring, research, and workflow handoff.</li>
+    </ul>
+    <p>The published README positions the Actor for RevOps, support ops, compliance reviewers, and data teams. Start with owned or target-account contact, about, or support pages. Keep the first run small and expand only after the output shape is useful. This Actor returns bounded contact-channel rows. It does not emit a Site QA report; those are separate follow-on Actors on the Store page.</p>
+
+    <h2>How is Contact Page Audit &amp; Business Channel Extractor different from Website Content Extractor and Meta Tag &amp; OpenGraph Scraper?</h2>
+    <p>This Actor inventories public business contact channels from contact, about, support, policy, and company pages you supply. Required input is <code>urls</code> (maximum 100). Each published row is a <code>public_contact_channel</code> observation: <code>supportChannel</code>, <code>phone</code>, <code>socialUrls</code>, <code>domain</code>, <code>sourceUrl</code>, <code>confidence</code>, <code>warnings</code>, and <code>fetchedAt</code>. Person-level email candidates are suppressed. <a href="/website-content-extractor/">Website Content Extractor</a> cleans docs, product, pricing, policy, and help-center HTML into markdown, text, or HTML (max 200 URLs) and does not emit this contact-channel inventory. <a href="/meta-tag-opengraph-scraper/">Meta Tag &amp; OpenGraph Scraper</a> audits head metadata — title, canonical, robots, Open Graph, Twitter Card, hreflang, and schema.org JSON-LD — and does not extract support forms, phones, or social profiles as business channels. Use this Actor for contact-channel QA and account hygiene. Use Website Content Extractor for cleaned page body. Use Meta Tag &amp; OpenGraph Scraper for crawler and social head metadata.</p>
+
+    <h2>What input is required?</h2>
+    <p><code>urls</code> is required. The published schema accepts contact, about, support, or company URLs (minimum 1, maximum 100). Person-level emails are suppressed. Other live schema fields:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>urls</code></td>
+          <td>string[]</td>
+          <td>required</td>
+          <td>Contact, about, support, or company URLs; min 1, max 100. Schema prefill is <code>https://www.icann.org/contact</code>, <code>https://automattic.com/contact/</code>.</td>
+        </tr>
+        <tr>
+          <td><code>concurrency</code></td>
+          <td>integer</td>
+          <td>5</td>
+          <td>Parallel requests; minimum 1, maximum 5 (1–5 recommended for public contact pages)</td>
+        </tr>
+        <tr>
+          <td><code>timeoutMs</code></td>
+          <td>integer</td>
+          <td>15000</td>
+          <td>Request timeout in milliseconds; minimum 1000, maximum 30000</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string</td>
+          <td><code>dataset</code></td>
+          <td><code>dataset</code> or <code>webhook</code>. Non-dry-run writes canonical dataset rows first.</td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td>—</td>
+          <td>POST target when <code>delivery</code> is <code>webhook</code> and <code>dryRun</code> is false, after dataset output succeeds</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Skip dataset writes and webhook delivery; local <code>output/result.json</code> is still written</td>
+        </tr>
+        <tr>
+          <td><code>maxChargeUsd</code></td>
+          <td>number</td>
+          <td>1</td>
+          <td>Safety cap; minimum 0. Billable rows beyond the cap return as no-charge <code>limit_reached</code> summaries</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Live schema names are <code>urls</code>, <code>concurrency</code>, <code>timeoutMs</code>, <code>delivery</code>, <code>webhookUrl</code>, <code>dryRun</code>, and <code>maxChargeUsd</code>. A README “Account data hygiene” example that sends <code>domains</code> and <code>paths</code> is not a live schema input — pass full page URLs in <code>urls</code>.</p>
+    <p>Published Store example run input:</p>
+<pre><code>{
+  "urls": [
+    "https://www.mozilla.org/en-US/contact/",
+    "https://about.gitlab.com/company/contact/"
+  ],
+  "concurrency": 5,
+  "timeoutMs": 15000,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p>Published README first run (schema-valid):</p>
+<pre><code>{
+  "urls": [
+    "https://example.com/contact"
+  ],
+  "maxChargeUsd": 1,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p>Start with owned or target-account contact, about, or support pages. Keep the first run small. Use <code>dryRun: true</code> before recurring watches or larger URL lists.</p>
+    <p><a href="https://apify.com/taroyamada/contact-details-extractor">Run a contact-page audit on Apify</a></p>
+
+    <h2>What does a result row contain?</h2>
+    <p>The published README field list is <code>rowType</code>, <code>domain</code>, <code>sourceUrl</code>, <code>supportChannel</code>, <code>phone</code>, <code>socialUrls</code>, <code>confidence</code>, <code>warnings</code>, and <code>fetchedAt</code>. Sample <code>rowType</code> is <code>public_contact_channel</code>. Rows also include source URLs, fetch timestamps, warnings when a source is partial, and stable IDs when the workflow supports recurring change detection. There is no published full-page markdown or meta-tag audit field.</p>
+    <p>Published README sample:</p>
+<pre><code>{
+  "meta": {
+    "actorName": "contact-details-extractor",
+    "actorTitle": "Contact Details Extractor",
+    "bundle": "Site QA &amp; Content Intelligence Pack",
+    "fetchedAt": "2026-05-06T00:00:00.000Z",
+    "totalRows": 1
+  },
+  "rows": [
+    {
+      "actorName": "contact-details-extractor",
+      "rowType": "public_contact_channel",
+      "domain": "example.com",
+      "sourceUrl": "https://example.com/contact",
+      "supportChannel": "support form",
+      "phone": "+1 555 0100",
+      "socialUrls": [
+        "https://www.linkedin.com/company/example"
+      ],
+      "fetchedAt": "2026-05-06T00:00:00.000Z"
+    }
+  ],
+  "warnings": []
+}</code></pre>
+    <p>That sample is the published README illustration, not a live coverage guarantee. The field list also includes <code>confidence</code>, which is not shown on the sample row. For cleaned page body after this inventory, send docs, product, or policy URLs to <a href="/website-content-extractor/">Website Content Extractor</a>. For news, blog, or press URLs, use <a href="/article-content-extractor/">Article Content Extractor</a>.</p>
+
+    <h2>Are person-level emails collected?</h2>
+    <p>No. The live input schema states person-level email candidates are suppressed. The README states the Actor emits public business contact-channel rows only; person-level private-contact candidates are suppressed and counted in warnings. Use it with public business contact, about, support, location, legal, privacy, or company pages and a lawful basis for downstream processing. Individual contact harvesting, personal profile collection, bulk promotional messaging, and consent-free communication workflows are outside the intended use. Do not use provider emblems or wording that implies approval by an upstream data provider.</p>
+
+    <h2>How is Contact Page Audit &amp; Business Channel Extractor priced?</h2>
+    <p>Billing is pay-per-event. Live Store events are <strong>Actor Start</strong> at <strong>$0.001</strong> (charged when the Actor starts; number of events depends on Actor memory, one event per GB, minimum one event) and <strong>result</strong> at <strong>$0.002</strong> (single result in the default dataset). That is <strong>$2.00 per 1,000 results</strong> plus start. The README pricing section still quotes $0.008 per verified public business contact-channel row; live Store billing for a default-dataset result is $0.002.</p>
+    <p>Empty scans, person-level-only pages, unverified rows, and policy-suppressed candidates should not create dataset charges. The default dataset is the billable surface. <code>maxChargeUsd</code> defaults to 1; billable rows beyond that cap are returned as no-charge <code>limit_reached</code> summaries. Dry runs, validation-only runs, missing-key warnings, and unchanged recurring polls should not write payable default-dataset rows.</p>
+    <p class="price">From $2.00 per 1,000 results ($0.001 Actor Start + $0.002 per default-dataset result)</p>
+    <p><a href="https://apify.com/taroyamada/contact-details-extractor/pricing">See Contact Page Audit &amp; Business Channel Extractor pricing on Apify</a></p>
+
+    <h2>How do dataset, webhook, dry runs, and the charge cap work?</h2>
+    <p><code>delivery</code> defaults to <code>dataset</code>. Non-dry-run Apify runs write canonical dataset rows first. Webhook delivery POSTs one full payload only after dataset output succeeds, when <code>delivery</code> is <code>webhook</code>, <code>webhookUrl</code> is set, and <code>dryRun</code> is false. <code>dryRun</code> true skips dataset writes and webhook delivery; local <code>output/result.json</code> is still written. <code>maxChargeUsd</code> is a safety cap for the run (default 1, minimum 0).</p>
+    <p>Published README webhook example (schema-valid):</p>
+<pre><code>{
+  "urls": [
+    "https://example.com/support"
+  ],
+  "delivery": "webhook",
+  "webhookUrl": "https://example.com/webhook",
+  "dryRun": false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/contact-details-extractor">Open Contact Page Audit &amp; Business Channel Extractor on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Maximum 100 URLs per run. Required field is <code>urls</code>.</li>
+      <li><code>concurrency</code> is 1–5 (default 5). <code>timeoutMs</code> is 1000–30000 (default 15000).</li>
+      <li>Person-level private-contact candidates are suppressed, not emitted.</li>
+      <li>README <code>domains</code> / <code>paths</code> examples are not live schema fields.</li>
+      <li>This is a public contact-channel inventory, not a full-page content extract and not a meta-tag audit.</li>
+      <li>Not a ranking tool, full-site crawler, or legal-advice product.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/contact-details-extractor">Open Contact Page Audit &amp; Business Channel Extractor on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/website-content-extractor/">Website Content Extractor</a> — cleaned docs, product, pricing, policy, and help-center body text, not this contact-channel inventory</li>
+      <li><a href="/meta-tag-opengraph-scraper/">Meta Tag &amp; OpenGraph Scraper</a> — head metadata, Open Graph, JSON-LD, and robots audit, not contact-channel inventory</li>
+      <li><a href="/article-content-extractor/">Article Content Extractor</a> — article body, byline, date, excerpt, and hero image</li>
+      <li><a href="/dns-propagation-checker/">DNS Propagation Checker</a> — public DNS lookups, not HTML contact extraction</li>
+      <li><a href="/wayback-machine-bulk-checker/">Wayback Machine Bulk Checker</a> — Internet Archive availability checks, not live contact-channel extraction</li>
+      <li><a href="/short-url-resolver-scraper/">Short URL Resolver &amp; Scraper</a></li>
+      <li><a href="/youtube-transcript-scraper/">YouTube Transcript Scraper</a></li>
+      <li><a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a></li>
+      <li><a href="/google-news-scraper/">Google News Scraper</a></li>
+      <li><a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a></li>
+      <li><a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a></li>
+      <li><a href="/ted-sam-grants-bid-alerts/">TED, SAM.gov &amp; Grants Bid Alerts Scraper</a></li>
+      <li><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a></li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>
