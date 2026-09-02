@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Shopify App Store Review Scraper — merchant ratings, pricing, and themes</title>
+  <meta name="description" content="Monitor public Shopify App Store listings for ratings, pricing hints, review samples, Shopify AI summaries, and merchant feedback themes. Not podcast reviews.">
+  <link rel="canonical" href="https://luxslime.github.io/shopify-app-store-review-scraper/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is Shopify App Store Review Scraper different from Apple Podcasts Reviews Scraper?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "This Actor reads public Shopify App Store merchant listings at apps.shopify.com/{slug}. Inputs are appUrls (full listing URLs or bare slugs). Each delivered app-level report covers listing metadata, rating summary, pricing hints, Shopify's listing AI review summary, sampled merchant reviews, and keyword theme rollups. Apple Podcasts Reviews Scraper reads Apple/iTunes Customer Reviews RSS for podcast collection IDs and storefronts. It does not scrape Shopify apps. This Actor does not accept podcast IDs, Apple show URLs, or episode feeds."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does a listing report contain?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The published README sample is a meta object plus apps[]. Each apps[] item includes slug, url, status, app metadata (name, developer, description, icon, category), rating (overall, totalReviews, distribution, starCounts), pricing (hasFreeOption, hasFreeTrial, pricingHint, plans), reviewSummary, reviewSamples (id, stars, date, storeName, body; README prose also lists location, usage duration, and developer replies), rollups (themes with theme/count and featureRequests), warnings, endpointStatuses (listing, reviews), and error. meta includes generatedAt, implementationStatus, totalSources, totals, and notes."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What input is required?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "appUrls is required: one or more Shopify App Store URLs (for example https://apps.shopify.com/omnisend) or bare slugs (for example omnisend). Optional fields in the published schema are reviewLimit (integer, default 100, minimum 1, maximum 500), timeoutMs (integer, default 20000, minimum 5000, maximum 60000), delivery (dataset or webhook, default dataset), webhookUrl (when delivery is webhook), and dryRun (boolean, default false). additionalProperties is false. The published input schema does not include appSlugs, maxReviewsPerApp, sinceDays, or sortBy."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What happens if reviews or listing HTML are unavailable?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "If certain surfaces are unavailable (for example no reviews or a changed HTML structure), the Actor returns explicit warnings instead of failing silently. A good first run also exposes endpointStatuses for the listing and reviews surfaces so thin review pages or a degraded listing are visible."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Shopify App Store Review Scraper priced?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Billing is pay-per-event. The published Store card is $30.00 per 1,000 Shopify app review and pricing reports. The billed event is Shopify app review and pricing report at $0.03, charged once for each delivered app-level report containing public rating, pricing, sampled-review, and feedback-theme evidence. You are not charged for Apify platform usage, only the fixed event price. Total cost mainly follows how many app listings you analyze and how many review pages you sample."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do dataset, webhook, and dry-run delivery work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "delivery defaults to dataset. Set delivery to webhook and provide webhookUrl to POST results after the payload shape is useful. dryRun true runs without saving results to the dataset or webhook. The Store quickstart starts with a single-listing dataset run, then a multi-app recurring watch, then webhook-routed alerts once the schema is stable."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Shopify App Store Review Scraper</nav>
+    <h1>Shopify App Store Review Scraper</h1>
+    <p>Monitor one public Shopify App Store listing with a structured row of ratings, pricing hints, Shopify AI summary text, sampled merchant reviews, and recurring feedback themes. This Actor fetches <code>apps.shopify.com/{slug}</code> listing and paginated review pages. It is not a podcast-review tool — Apple show ratings belong on <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a>.</p>
+    <p><a href="https://apify.com/taroyamada/shopify-app-store-review-intelligence">Open Shopify App Store Review Scraper on Apify</a></p>
+
+    <h2>Shopify App Store apps, not podcasts</h2>
+    <p>Use this page when the job is merchant feedback on a Shopify app listing: praise patterns, complaint clusters, pricing posture, and onboarding friction from public App Store pages. Use <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> when the source is Apple/iTunes Customer Reviews RSS for podcast collection IDs.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>This Actor</th>
+          <th>Apple Podcasts Reviews Scraper</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Source</td>
+          <td>Public <code>apps.shopify.com/{slug}</code> listing and review pages</td>
+          <td>Official iTunes Customer Reviews RSS JSON</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td><code>appUrls</code> (listing URLs or slugs)</td>
+          <td><code>podcastIds</code>, <code>countries</code>, <code>maxPagesPerPair</code></td>
+        </tr>
+        <tr>
+          <td>Reviewer fields</td>
+          <td>Merchant <code>storeName</code>, location, usage duration, developer replies</td>
+          <td>Podcast <code>reviewerName</code>, rating, title, content, storefront</td>
+        </tr>
+        <tr>
+          <td>Deliverable</td>
+          <td>One app-level report: rating, pricing hints, AI summary, samples, theme rollups</td>
+          <td>Raw <code>podcast_review</code> rows or one <code>podcast_review_report</code></td>
+        </tr>
+      </tbody>
+    </table>
+    <p>This Actor does not accept podcast IDs, Apple show URLs, or episode feeds. It does not search Apple Podcasts, snapshot Top Podcasts ranks, or read iTunes review RSS.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Shopify app teams: track merchant praise, complaints, and onboarding friction without manual review reading.</li>
+      <li>Partnerships / GTM teams: compare category rivals on pricing posture, review volume, and recurring merchant themes.</li>
+      <li>Support / success teams: pull fresh review evidence into churn-risk, escalation, or FAQ workflows.</li>
+      <li>Product teams: spot feature gaps, support pain points, and billing friction from public merchant feedback.</li>
+    </ul>
+
+    <h2>What it does</h2>
+    <p>For each app URL or slug you provide, the Actor:</p>
+    <ol>
+      <li>Fetches the public listing page at <code>apps.shopify.com/{slug}</code>.</li>
+      <li>Extracts structured metadata from JSON-LD and HTML (name, developer, description, icon, category).</li>
+      <li>Parses the rating summary — overall score, total review count, per-star distribution, and star counts.</li>
+      <li>Extracts pricing plan details — plan names, pricing hints, free-trial indicators, and feature-list snippets.</li>
+      <li>Collects the AI-generated review summary that Shopify surfaces on listing pages.</li>
+      <li>Samples individual reviews from listing and paginated review pages (stars, date, store name, location, usage duration, body text, developer replies).</li>
+      <li>Builds keyword-based rollups — top themes (support, ease of use, bugs, billing, onboarding, and similar) and feature-request excerpts.</li>
+    </ol>
+
+    <h2>How is Shopify App Store Review Scraper different from Apple Podcasts Reviews Scraper?</h2>
+    <p>This Actor reads public Shopify App Store merchant listings at <code>apps.shopify.com/{slug}</code>. Inputs are <code>appUrls</code> (full listing URLs or bare slugs). Each delivered app-level report covers listing metadata, rating summary, pricing hints, Shopify’s listing AI review summary, sampled merchant reviews, and keyword theme rollups. <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> reads Apple/iTunes Customer Reviews RSS for podcast collection IDs and storefronts. It does not scrape Shopify apps. This Actor does not accept podcast IDs, Apple show URLs, or episode feeds.</p>
+
+    <h2>What input is required?</h2>
+    <p><code>appUrls</code> is required. The published schema accepts Shopify App Store URLs or bare slugs. Other published fields:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>appUrls</code></td>
+          <td>string[]</td>
+          <td>required</td>
+          <td>Listing URLs or slugs (for example <code>https://apps.shopify.com/omnisend</code> or <code>omnisend</code>)</td>
+        </tr>
+        <tr>
+          <td><code>reviewLimit</code></td>
+          <td>integer</td>
+          <td>100</td>
+          <td>Max reviews per app; minimum 1, maximum 500</td>
+        </tr>
+        <tr>
+          <td><code>timeoutMs</code></td>
+          <td>integer</td>
+          <td>20000</td>
+          <td>HTTP timeout per page; minimum 5000, maximum 60000</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string</td>
+          <td><code>dataset</code></td>
+          <td><code>dataset</code> or <code>webhook</code></td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td>—</td>
+          <td>POST target when <code>delivery</code> is <code>webhook</code></td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Skip dataset and webhook writes</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>The schema sets <code>additionalProperties</code> to false. Use <code>appUrls</code>, not unpublished aliases. The published input schema does not include <code>appSlugs</code>, <code>maxReviewsPerApp</code>, <code>sinceDays</code>, or <code>sortBy</code>.</p>
+    <p>Published input example (matches the schema):</p>
+<pre><code>{
+  "appUrls": [
+    "https://apps.shopify.com/omnisend",
+    "klaviyo-email-marketing"
+  ],
+  "reviewLimit": 50,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p>Single-listing Store example:</p>
+<pre><code>{
+  "appUrls": ["https://apps.shopify.com/omnisend"],
+  "reviewLimit": 100,
+  "timeoutMs": 20000,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p>Start with a Quickstart Baseline on 1–2 listings in dataset mode. Keep <code>reviewLimit</code> modest for a Recurring Baseline; raise it only when deeper theme clustering changes decisions. Use <code>dryRun: true</code> before recurring runs or larger watchlists.</p>
+    <p><a href="https://apify.com/taroyamada/shopify-app-store-review-intelligence">Run a listing report on Apify</a></p>
+
+    <h2>What does a listing report contain?</h2>
+    <p>A good first run gives you <code>apps[]</code> (one merchant-review row with rating, pricing hints, AI summary text, and recurring themes), <code>reviewSamples[]</code> plus <code>rollups</code> (raw evidence and grouped complaints), and <code>warnings</code> / <code>endpointStatuses</code> when review pages are thin or a listing surface degrades.</p>
+    <p>Published README sample shape:</p>
+<pre><code>{
+  "meta": {
+    "generatedAt": "2026-04-10T17:06:42.111Z",
+    "implementationStatus": "live",
+    "totalSources": 1,
+    "totals": {
+      "apps": 1,
+      "ok": 1,
+      "errors": 0,
+      "warningCount": 0,
+      "totalReviewsSampled": 10
+    },
+    "notes": ["..."]
+  },
+  "apps": [
+    {
+      "slug": "omnisend",
+      "url": "https://apps.shopify.com/omnisend",
+      "status": "ok",
+      "app": {
+        "name": "...",
+        "developer": "...",
+        "description": "...",
+        "icon": "...",
+        "category": "..."
+      },
+      "rating": {
+        "overall": 4.8,
+        "totalReviews": 2939,
+        "distribution": { "5": 90 },
+        "starCounts": { "5": 2632 }
+      },
+      "pricing": {
+        "hasFreeOption": true,
+        "hasFreeTrial": false,
+        "pricingHint": "Free to install",
+        "plans": ["..."]
+      },
+      "reviewSummary": "Merchants praise this app for ...",
+      "reviewSamples": [
+        {
+          "id": "2090002",
+          "stars": 5,
+          "date": "February 21, 2026",
+          "storeName": "...",
+          "body": "..."
+        }
+      ],
+      "rollups": {
+        "themes": [{ "theme": "customer support", "count": 5 }],
+        "featureRequests": ["..."]
+      },
+      "warnings": [],
+      "endpointStatuses": { "listing": "ok", "reviews": "ok" },
+      "error": null
+    }
+  ]
+}</code></pre>
+    <p>That sample is the published README illustration, not a live coverage guarantee. README prose also lists location, usage duration, and developer replies on sampled reviews. There is no separate published dataset/output JSON schema on the Store page.</p>
+
+    <h2>What happens if reviews or listing HTML are unavailable?</h2>
+    <p>If certain surfaces are unavailable (for example no reviews or a changed HTML structure), the Actor returns explicit <code>warnings</code> instead of failing silently. A good first run also exposes <code>endpointStatuses</code> for the listing and reviews surfaces so thin review pages or a degraded listing are visible.</p>
+
+    <h2>How is Shopify App Store Review Scraper priced?</h2>
+    <p>Billing is pay-per-event. The published Store card is <strong>$30.00 / 1,000 shopify app review and pricing reports</strong>. The billed event title is Shopify app review and pricing report at <strong>$0.03</strong>, charged once for each delivered app-level report containing public rating, pricing, sampled-review, and feedback-theme evidence. You are not charged for Apify platform usage, only the fixed event price.</p>
+    <p>Total cost mainly follows how many app listings you analyze and how many review pages you sample. Check the Store pricing card for the current per-event rates.</p>
+    <p class="price">$30.00 per 1,000 Shopify app review and pricing reports ($0.03 per delivered app-level report)</p>
+    <p><a href="https://apify.com/taroyamada/shopify-app-store-review-intelligence/pricing">See Shopify App Store Review Scraper pricing on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p><code>delivery</code> defaults to <code>dataset</code>. Set <code>delivery</code> to <code>webhook</code> and provide <code>webhookUrl</code> to POST results after the payload shape is useful. <code>dryRun</code> true runs without saving results to the dataset or webhook. The Store quickstart starts with a single-listing dataset run, then a multi-app recurring watch, then webhook-routed alerts once the schema is stable.</p>
+    <p><a href="https://apify.com/taroyamada/shopify-app-store-review-intelligence">Open Shopify App Store Review Scraper on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/tools/">Tools</a></li>
+      <li><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> — public podcast review RSS, not Shopify apps</li>
+      <li><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> — show search, episodes, and watchlists</li>
+      <li><a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> — storefront ranks</li>
+      <li><a href="/website-content-extractor/">Website Content Extractor</a></li>
+      <li><a href="/article-content-extractor/">Article Content Extractor</a></li>
+      <li><a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a></li>
+    </ul>
+  </main>
+</body>
+</html>
