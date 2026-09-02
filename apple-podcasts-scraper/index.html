@@ -214,7 +214,7 @@
     <p>Output is source-linked dataset rows. The published README field list is <code>rowType</code>, <code>collectionId</code>, <code>showName</code>, <code>publisher</code>, <code>country</code>, <code>rank</code>, <code>episodeTitle</code>, <code>sourceUrl</code>, and <code>fetchedAt</code>. Sample search <code>rowType</code> is <code>podcast_search_result</code>. <code>rank</code> is null on search rows. Rows also include warnings when a source is partial, and stable IDs when the workflow supports recurring checks. This Actor does not document genre filters, review text, or pagination beyond <code>limit</code>. See <a href="/guides/apple-podcasts-dataset-fields/">Apple Podcasts dataset fields</a>.</p>
 
     <h2>How do I export episode metadata?</h2>
-    <p>Set <code>includeEpisodes</code> to true to fetch recent episodes for each resolved podcast. That path is slower. For official episode rankings, use <code>chartRequests</code> with <code>feedType</code> <code>podcast-episodes</code>. After a dataset run, export the default dataset (JSON or CSV from the dataset view). The published input does not expose a full-catalog dump; for a known show’s complete feed, read public RSS. See the <a href="/guides/apple-podcasts-episodes/">episode metadata export workflow</a> and <a href="/notes/rss-vs-apple-podcasts-scraper/">RSS vs Apple Podcasts Scraper</a>.</p>
+    <p>Set <code>includeEpisodes</code> to true to fetch recent episodes for each resolved podcast. That path is slower. For official episode rankings, use <code>chartRequests</code> with <code>feedType</code> <code>podcast-episodes</code>. After a dataset run, export the default dataset (JSON or CSV from the dataset view). The published input does not expose a full-catalog dump; for a known show’s complete feed, read public RSS. See the <a href="/guides/apple-podcasts-episodes/">episode metadata export workflow</a>, <a href="/notes/rss-vs-apple-podcasts-scraper/">RSS vs Apple Podcasts Scraper</a>, and <a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a> when you already have public feed URLs to parse into item lists.</p>
     <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Export episode rows on Apify</a></p>
 
     <h2>Can I pull charts or search for more than one country?</h2>
@@ -248,6 +248,7 @@
       <li><a href="/compare/rss-feed-vs-itunes-search/">RSS feed vs iTunes Search API</a></li>
       <li><a href="/compare/one-time-export-vs-watchlist/">One-time export vs watchlist lookup</a></li>
       <li><a href="/notes/rss-vs-apple-podcasts-scraper/">RSS vs Apple Podcasts Scraper</a></li>
+      <li><a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a></li>
       <li><a href="/website-content-extractor/">Website Content Extractor</a></li>
       <li><a href="/article-content-extractor/">Article Content Extractor</a></li>
       <li><a href="/tools/">Tools</a></li>
