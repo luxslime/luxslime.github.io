@@ -56,7 +56,39 @@
         "name": "How is Apple Podcasts Scraper priced?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Billing is pay-per-event: Actor start plus one result event per default-dataset item. The published Store price is $0.005 per Actor start and $10.00 per 1,000 dataset results ($0.01 per row). From $10 per 1,000 results."
+          "text": "Billing is pay-per-event: Actor start plus one result event per default-dataset item. The published Store price is $0.005 per Actor start and $10.00 per 1,000 dataset results ($0.01 per row)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can RSS tell me who is ranking on Apple Podcasts?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. A feed does not include chart rank. Rank belongs to chartRequests snapshots or Apple Podcasts Chart Scraper. RSS is the catalog of a show you already know."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does iTunes Search return episode enclosures?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Search rows document collectionId, showName, publisher, country, sourceUrl, and fetchedAt. rank is null on search rows. Audio enclosures belong on a public RSS feed. includeEpisodes is recent episode context, not a full feed archive."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Apple Podcasts Scraper accept a feed URL input?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Published inputs are searchTerm, chartRequests, and lookupIds. If you already have a public feed URL and need that show’s published catalog, read the feed directly or use RSS & Atom Feed Extractor."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is RSS & Atom Feed Extractor a replacement for chartRequests?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. RSS & Atom Feed Extractor parses known publisher feeds into item URL lists. It does not snapshot Apple chart rank. Use chartRequests or Apple Podcasts Chart Scraper for official rankings."
         }
       }
     ]
@@ -197,13 +229,13 @@
     <p>Use keyword search when you have a topic, not a feed URL. <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> sets <code>searchTerm</code> against the official iTunes Search API. At least one of <code>searchTerm</code>, <code>chartRequests</code>, or <code>lookupIds</code> is required. <code>country</code> is the ISO storefront (default <code>us</code>). <code>limit</code> is 1–200 (default 50).</p>
 
     <h2>Does Apple Podcasts Scraper parse RSS feeds?</h2>
-    <p>No. The published input does not expose a full-catalog dump. Optional <code>includeEpisodes</code> is a short look at what a resolved show is publishing; that path is slower and is not a full feed archive. For a known show’s complete history, read that show’s public RSS feed. See the <a href="/guides/apple-podcasts-episodes/">episode metadata export workflow</a>.</p>
+    <p>No. The published input does not expose a full-catalog dump. Optional <code>includeEpisodes</code> is a short look at what a resolved show is publishing; that path is slower and is not a full feed archive. For a known show’s complete history, read that show’s public RSS feed.</p>
 
     <h2>How is this different from RSS &amp; Atom Feed Extractor?</h2>
     <p><a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a> parses public RSS or Atom XML you already have (<code>feedUrls</code>) into item URL lists. It is a feed discovery layer for publishers you trust, not Apple directory search. iTunes Search finds shows in Apple Podcasts when you do not have feed URLs yet. <a href="/google-news-scraper/">Google News Scraper</a> is a different query-based news discovery surface, not a podcast catalog.</p>
 
     <h2>What does an iTunes Search row contain?</h2>
-    <p>Search results are source-linked dataset items. Sample <code>rowType</code> is <code>podcast_search_result</code>. Documented fields include <code>collectionId</code>, <code>showName</code>, <code>publisher</code>, <code>country</code>, <code>sourceUrl</code>, and <code>fetchedAt</code>. <code>rank</code> is null on search rows; rank belongs to chart requests. See <a href="/guides/apple-podcasts-dataset-fields/">dataset fields</a>.</p>
+    <p>Search results are source-linked dataset items. Sample <code>rowType</code> is <code>podcast_search_result</code>. Documented fields include <code>collectionId</code>, <code>showName</code>, <code>publisher</code>, <code>country</code>, <code>sourceUrl</code>, and <code>fetchedAt</code>. <code>rank</code> is null on search rows; rank belongs to chart requests.</p>
 
     <h2>How to run search</h2>
     <ol>
@@ -218,6 +250,18 @@
     <p class="price">From $10 per 1,000 results</p>
     <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Open Apple Podcasts Scraper on Apify</a></p>
 
+    <h2>Can RSS tell me who is ranking on Apple Podcasts?</h2>
+    <p>No. A feed does not include chart rank. Rank belongs to <code>chartRequests</code> snapshots or Apple Podcasts Chart Scraper. RSS is the catalog of a show you already know.</p>
+
+    <h2>Does iTunes Search return episode enclosures?</h2>
+    <p>Search rows document <code>collectionId</code>, <code>showName</code>, <code>publisher</code>, <code>country</code>, <code>sourceUrl</code>, and <code>fetchedAt</code>. <code>rank</code> is null on search rows. Audio enclosures belong on a public RSS feed. <code>includeEpisodes</code> is recent episode context, not a full feed archive.</p>
+
+    <h2>Does Apple Podcasts Scraper accept a feed URL input?</h2>
+    <p>No. Published inputs are <code>searchTerm</code>, <code>chartRequests</code>, and <code>lookupIds</code>. If you already have a public feed URL and need that show’s published catalog, read the feed directly or use <a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a>.</p>
+
+    <h2>Is RSS &amp; Atom Feed Extractor a replacement for chartRequests?</h2>
+    <p>No. RSS &amp; Atom Feed Extractor parses known publisher feeds into item URL lists. It does not snapshot Apple chart rank. Use <code>chartRequests</code> or Apple Podcasts Chart Scraper for official rankings.</p>
+
     <h2>Related pages</h2>
     <ul>
       <li><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> — search, episodes, and watchlists</li>
@@ -230,6 +274,12 @@
       <li><a href="/compare/one-time-export-vs-watchlist/">One-time export vs watchlist</a></li>
       <li><a href="/guides/apple-podcasts-watchlists/">Refresh Apple Podcasts watchlists</a></li>
       <li><a href="/guides/apple-podcasts-episodes/">Export Apple Podcasts episode metadata</a></li>
+      <li><a href="/guides/apple-podcasts-charts/">How to get Apple Podcasts chart metadata</a></li>
+      <li><a href="/guides/apple-podcasts-countries/">Apple Podcasts charts and search by country</a></li>
+      <li><a href="/guides/apple-podcasts-dataset-fields/">Apple Podcasts dataset fields</a></li>
+      <li><a href="/guides/apple-podcasts-webhooks/">Deliver Apple Podcasts results with webhooks</a></li>
+      <li><a href="/use-cases/podcast-outreach/">Shortlist podcasts for outreach</a></li>
+      <li><a href="/use-cases/podcast-market-tracking/">Track Apple Podcasts charts over time</a></li>
       <li><a href="/faq/apple-podcasts-scraper/">Apple Podcasts Scraper FAQ</a></li>
       <li><a href="/tools/">Tools</a></li>
     </ul>

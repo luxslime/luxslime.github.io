@@ -50,6 +50,46 @@
           "@type": "Answer",
           "text": "Set searchTerm. At least one of searchTerm, chartRequests, or lookupIds is required. country is the ISO storefront (default us). limit is the maximum number of podcasts returned (1–200; default 50). Keep the first run small."
         }
+      },
+      {
+        "@type": "Question",
+        "name": "Is searchTerm an Apple Podcasts URL or a keyword?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Published searchTerm is a keyword for the iTunes Search API. Collection IDs belong on lookupIds. You can take an ID from an Apple Podcasts URL (id290783428 → 290783428) after you already know the show."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the maximum Apple Podcasts search limit?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "limit is 1–200 (default 50). Pagination beyond limit is not documented. Keep the first run small, then raise limit after the output is useful."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I combine searchTerm and chartRequests in one run?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Runtime requires at least one of searchTerm, chartRequests, or lookupIds, not exactly one. A run can search and snapshot charts together. Rank remains null on search rows; chart rows carry rank."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is an Apple Podcasts keyword search priced?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Billing is pay-per-event. The live Store card is from $10.00 / 1,000 results. Published events are Actor Start at $0.005 and result at $0.01 per default-dataset item ($10.00 per 1,000)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does a search run accept a public RSS feed URL?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Published inputs are searchTerm, chartRequests, and lookupIds. A public RSS feed does not search the Apple directory. If you already have feed URLs, read them directly or use RSS & Atom Feed Extractor."
+        }
       }
     ]
   }
@@ -135,16 +175,34 @@
     <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Run a search on Apify</a></p>
 
     <h2>What does an Apple Podcasts search row contain?</h2>
-    <p>Search results are source-linked dataset items. Sample <code>rowType</code> is <code>podcast_search_result</code>. Documented fields include <code>collectionId</code>, <code>showName</code>, <code>publisher</code>, <code>country</code>, <code>sourceUrl</code>, and <code>fetchedAt</code>. <code>rank</code> is null on search rows; rank belongs to chart requests. See <a href="/guides/apple-podcasts-dataset-fields/">dataset fields</a>.</p>
+    <p>Search results are source-linked dataset items. Sample <code>rowType</code> is <code>podcast_search_result</code>. Documented fields include <code>collectionId</code>, <code>showName</code>, <code>publisher</code>, <code>country</code>, <code>sourceUrl</code>, and <code>fetchedAt</code>. <code>rank</code> is null on search rows; rank belongs to chart requests.</p>
 
     <h2>Does keyword search return rank or reviews?</h2>
     <p>No. <code>rank</code> is null on search rows. This Actor does not document genre filters, review text, or pagination beyond <code>limit</code>. For official rankings use <code>chartRequests</code> or <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a>. For public ratings on IDs you already have, use <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a>.</p>
 
     <h2>How do I search more than one country?</h2>
-    <p>Search and lookup use a single default <code>country</code> per run (ISO storefront, default <code>us</code>). There is no country array on search. To compare markets, run once per storefront and keep <code>country</code> on the output rows. Charts can request several storefronts in one run because <code>chartRequests</code> is an array. See <a href="/guides/apple-podcasts-countries/">charts and search by country</a>.</p>
+    <p>Search and lookup use a single default <code>country</code> per run (ISO storefront, default <code>us</code>). There is no country array on search. To compare markets, run once per storefront and keep <code>country</code> on the output rows. Charts can request several storefronts in one run because <code>chartRequests</code> is an array.</p>
 
     <h2>What should I do after I have collection IDs?</h2>
-    <p>Pass collection IDs into a <a href="/guides/apple-podcasts-watchlists/">watchlist refresh</a> (<code>lookupIds</code>) for recurring lookups. Use those IDs as <code>podcastIds</code> on Reviews Scraper if you need public ratings. A public RSS feed does not search the Apple directory; see <a href="/compare/rss-feed-vs-itunes-search/">RSS feed vs iTunes Search</a> and the <a href="/use-cases/podcast-outreach/">outreach shortlist</a> workflow.</p>
+    <p>Pass collection IDs into a watchlist refresh (<code>lookupIds</code>) for recurring lookups. Use those IDs as <code>podcastIds</code> on Reviews Scraper if you need public ratings. A public RSS feed does not search the Apple directory; search is for discovery when you have a topic, not a feed URL.</p>
+
+    <h2>What input does a search run need?</h2>
+    <p>Set <code>searchTerm</code>. At least one of <code>searchTerm</code>, <code>chartRequests</code>, or <code>lookupIds</code> is required. <code>country</code> is the ISO storefront (default <code>us</code>). <code>limit</code> is the maximum number of podcasts returned (1–200; default 50). Keep the first run small.</p>
+
+    <h2>Is searchTerm an Apple Podcasts URL or a keyword?</h2>
+    <p>Published <code>searchTerm</code> is a keyword for the iTunes Search API. Collection IDs belong on <code>lookupIds</code>. You can take an ID from an Apple Podcasts URL (<code>id290783428</code> → <code>290783428</code>) after you already know the show.</p>
+
+    <h2>What is the maximum Apple Podcasts search limit?</h2>
+    <p><code>limit</code> is 1–200 (default 50). Pagination beyond <code>limit</code> is not documented. Keep the first run small, then raise <code>limit</code> after the output is useful.</p>
+
+    <h2>Can I combine searchTerm and chartRequests in one run?</h2>
+    <p>Yes. Runtime requires at least one of <code>searchTerm</code>, <code>chartRequests</code>, or <code>lookupIds</code>, not exactly one. A run can search and snapshot charts together. Rank remains null on search rows; chart rows carry rank.</p>
+
+    <h2>How is an Apple Podcasts keyword search priced?</h2>
+    <p>Billing is pay-per-event. The live Store card is from $10.00 / 1,000 results. Published events are Actor Start at $0.005 and result at $0.01 per default-dataset item ($10.00 per 1,000).</p>
+
+    <h2>Does a search run accept a public RSS feed URL?</h2>
+    <p>No. Published inputs are <code>searchTerm</code>, <code>chartRequests</code>, and <code>lookupIds</code>. A public RSS feed does not search the Apple directory. If you already have feed URLs, read them directly or use <a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a>.</p>
 
     <h2>How to run it</h2>
     <ol>
@@ -166,8 +224,14 @@
       <li><a href="/guides/apple-podcasts-watchlists/">Refresh Apple Podcasts watchlists</a></li>
       <li><a href="/guides/apple-podcasts-episodes/">Export Apple Podcasts episode metadata</a></li>
       <li><a href="/guides/apple-podcasts-countries/">Apple Podcasts charts and search by country</a></li>
+      <li><a href="/guides/apple-podcasts-dataset-fields/">Apple Podcasts dataset fields</a></li>
+      <li><a href="/guides/apple-podcasts-webhooks/">Deliver Apple Podcasts results with webhooks</a></li>
       <li><a href="/faq/apple-podcasts-scraper/">Apple Podcasts Scraper FAQ</a></li>
       <li><a href="/use-cases/podcast-outreach/">Shortlist podcasts for outreach</a></li>
+      <li><a href="/use-cases/podcast-market-tracking/">Track Apple Podcasts charts over time</a></li>
+      <li><a href="/compare/rss-feed-vs-itunes-search/">RSS feed vs iTunes Search API</a></li>
+      <li><a href="/compare/one-time-export-vs-watchlist/">One-time export vs watchlist lookup</a></li>
+      <li><a href="/notes/rss-vs-apple-podcasts-scraper/">RSS vs Apple Podcasts Scraper</a></li>
       <li><a href="/tools/">Tools</a></li>
     </ul>
   </main>

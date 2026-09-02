@@ -50,6 +50,46 @@
           "@type": "Answer",
           "text": "A lookupIds watchlist re-resolves known collection IDs. Chart Scraper’s monitorKey path emits at most one podcast_chart_movement_report when storefront ranks are new, changed, or dropped. Use the scraper watchlist for show metadata you already track; use Chart Scraper when the job is rank movement on Top Podcasts charts."
         }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I keep collection IDs from a one-time export for later lookupIds?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. A common sequence is search or charts first, keep the collectionId values you care about, then switch later runs to lookupIds. That is how the outreach shortlist workflow is described."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is a one-time export priced versus a watchlist poll?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Billing is pay-per-event for both lanes. The live Store card is from $10.00 / 1,000 results. Published events are Actor Start at $0.005 and result at $0.01 per default-dataset item ($10.00 per 1,000). Empty or no-change watchlist polls are described as avoiding payable default-dataset writes when nothing is saved."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Should I use a watchlist to compute rank movement?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Apple Podcasts Scraper does not compute rank movement. lookupIds refresh show metadata. For a source-linked movement report when a saved monitor sees new, changed, or dropped Top Podcasts positions, use Apple Podcasts Chart Scraper."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does a one-time search return review text?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. This Actor does not document review text on the search path. Use Apple Podcasts Reviews Scraper after you have collection IDs if reputation context is required."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "When should I read RSS instead of either lane?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "For a known show’s complete published catalog, read that show’s public RSS feed. Neither a one-shot export nor a watchlist is a full RSS archive. See RSS feed vs iTunes Search API."
+        }
       }
     ]
   }
@@ -203,6 +243,21 @@
     <h2>How is this different from Chart Scraper’s monitor?</h2>
     <p>A <code>lookupIds</code> watchlist re-resolves known collection IDs. Chart Scraper’s <code>monitorKey</code> path emits at most one <code>podcast_chart_movement_report</code> when storefront ranks are new, changed, or dropped. Use the scraper watchlist for show metadata you already track; use Chart Scraper when the job is rank movement on Top Podcasts charts.</p>
 
+    <h2>Can I keep collection IDs from a one-time export for later lookupIds?</h2>
+    <p>Yes. A common sequence is search or charts first, keep the <code>collectionId</code> values you care about, then switch later runs to <code>lookupIds</code>. That is how the outreach shortlist workflow is described.</p>
+
+    <h2>How is a one-time export priced versus a watchlist poll?</h2>
+    <p>Billing is pay-per-event for both lanes. The live Store card is from $10.00 / 1,000 results. Published events are Actor Start at $0.005 and result at $0.01 per default-dataset item ($10.00 per 1,000). Empty or no-change watchlist polls are described as avoiding payable default-dataset writes when nothing is saved.</p>
+
+    <h2>Should I use a watchlist to compute rank movement?</h2>
+    <p>No. Apple Podcasts Scraper does not compute rank movement. <code>lookupIds</code> refresh show metadata. For a source-linked movement report when a saved monitor sees new, changed, or dropped Top Podcasts positions, use <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a>.</p>
+
+    <h2>Does a one-time search return review text?</h2>
+    <p>No. This Actor does not document review text on the search path. Use <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> after you have collection IDs if reputation context is required.</p>
+
+    <h2>When should I read RSS instead of either lane?</h2>
+    <p>For a known show’s complete published catalog, read that show’s public RSS feed. Neither a one-shot export nor a watchlist is a full RSS archive. See <a href="/compare/rss-feed-vs-itunes-search/">RSS feed vs iTunes Search API</a>.</p>
+
     <h2>How to run it</h2>
     <ol>
       <li>Open <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a>, then the Actor on the Apify Store.</li>
@@ -222,8 +277,14 @@
       <li><a href="/guides/apple-podcasts-watchlists/">Refresh Apple Podcasts watchlists</a></li>
       <li><a href="/guides/apple-podcasts-search/">Apple Podcasts search discovery</a></li>
       <li><a href="/guides/apple-podcasts-webhooks/">Deliver Apple Podcasts results with webhooks</a></li>
+      <li><a href="/guides/apple-podcasts-charts/">How to get Apple Podcasts chart metadata</a></li>
+      <li><a href="/guides/apple-podcasts-dataset-fields/">Apple Podcasts dataset fields</a></li>
+      <li><a href="/guides/apple-podcasts-episodes/">Export Apple Podcasts episode metadata</a></li>
+      <li><a href="/guides/apple-podcasts-countries/">Apple Podcasts charts and search by country</a></li>
       <li><a href="/compare/rss-feed-vs-itunes-search/">RSS feed vs iTunes Search</a></li>
       <li><a href="/use-cases/podcast-outreach/">Shortlist podcasts for outreach</a></li>
+      <li><a href="/use-cases/podcast-market-tracking/">Track Apple Podcasts charts over time</a></li>
+      <li><a href="/notes/rss-vs-apple-podcasts-scraper/">RSS vs Apple Podcasts Scraper</a></li>
       <li><a href="/faq/apple-podcasts-scraper/">Apple Podcasts Scraper FAQ</a></li>
       <li><a href="/tools/">Tools</a></li>
     </ul>

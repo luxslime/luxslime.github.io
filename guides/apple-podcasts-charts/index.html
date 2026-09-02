@@ -24,7 +24,7 @@
         "name": "What feedTypes are supported for chart snapshots?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Supported feedType values are podcasts and podcast-episodes. Each chartRequests item can set country, feedType, and limit. If an item omits limit, the top-level limit applies (1–200). Per-item country overrides the default storefront."
+          "text": "Supported feedType values are podcasts and podcast-episodes. Each chartRequests item can set country, feedType, and limit. If an item omits limit, the top-level limit applies (1–200). Per-item country overrides the default storefront. Episode charts are rankings, not a per-show episode list."
         }
       },
       {
@@ -32,7 +32,7 @@
         "name": "Does a chartRequests run compute rank movement?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "No. This is a chart snapshot: each row can include a rank, show identifiers, and a source URL. Rank movement between runs is not computed here. For a source-linked movement report, use Apple Podcasts Chart Scraper. To join snapshots yourself, see the market-tracking use case."
+          "text": "No. This is a chart snapshot. Rank movement between runs is not computed here. For a source-linked movement report, use Apple Podcasts Chart Scraper. To join snapshots yourself, see Track Apple Podcasts charts over time."
         }
       },
       {
@@ -49,6 +49,46 @@
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "chartRequests is an array; add one item per storefront. Rankings differ by storefront: a US chart is not a GB or JP chart. Compare rows by the country field instead of mixing ranks."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does a chartRequests snapshot require a searchTerm?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. At least one of searchTerm, chartRequests, or lookupIds is required. A chart-only run can send chartRequests alone. Keyword discovery is a different source lane."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Should I mix podcasts and podcast-episodes ranks in one series?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Show charts (podcasts) and episode charts (podcast-episodes) are different rankings. Do not treat them as one list. Rankings also differ by storefront, so keep country on the row."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does includeEpisodes change chart rank values?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. rank is the position on that chart request. includeEpisodes attaches recent episode context and slows the run. Leave it false unless episode context is required."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is a chartRequests run priced?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Billing is pay-per-event. The live Store card is from $10.00 / 1,000 results. Published events are Actor Start at $0.005 and result at $0.01 per default-dataset item ($10.00 per 1,000)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "When should I use Reviews Scraper instead of a chart snapshot?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use Apple Podcasts Reviews Scraper for public ratings and review text on collection IDs you already have. A chartRequests snapshot is ranks, not review rows. Get collection IDs from the chart or search first, then pass them as podcastIds."
         }
       }
     ]
@@ -140,10 +180,31 @@
     <p>Apple Podcasts Scraper <code>chartRequests</code> is a rank snapshot on the search, episode, and watchlist actor. It does not emit movement reports. <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> is storefront Top Podcasts rankings only: raw <code>chart_rank</code> rows, or one movement report when a saved monitor sees new, changed, or dropped positions. Chart Scraper does not search by keyword, look up collection IDs, or attach episode catalogs.</p>
 
     <h2>What feedTypes are supported for chart snapshots?</h2>
-    <p>Supported <code>feedType</code> values are <code>podcasts</code> and <code>podcast-episodes</code>. Each <code>chartRequests</code> item can set <code>country</code>, <code>feedType</code>, and <code>limit</code>. If an item omits <code>limit</code>, the top-level <code>limit</code> applies (1–200). Per-item <code>country</code> overrides the default storefront. Episode charts are rankings, not a per-show episode list — see the <a href="/guides/apple-podcasts-episodes/">episode metadata export workflow</a>.</p>
+    <p>Supported <code>feedType</code> values are <code>podcasts</code> and <code>podcast-episodes</code>. Each <code>chartRequests</code> item can set <code>country</code>, <code>feedType</code>, and <code>limit</code>. If an item omits <code>limit</code>, the top-level <code>limit</code> applies (1–200). Per-item <code>country</code> overrides the default storefront. Episode charts are rankings, not a per-show episode list.</p>
 
     <h2>Does a chartRequests run compute rank movement?</h2>
-    <p>No. This is a chart snapshot. Rank movement between runs is not computed here. For a source-linked movement report, use Chart Scraper. To join snapshots yourself, see <a href="/use-cases/podcast-market-tracking/">Track Apple Podcasts charts over time</a>.</p>
+    <p>No. This is a chart snapshot. Rank movement between runs is not computed here. For a source-linked movement report, use <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a>. To join snapshots yourself, see <a href="/use-cases/podcast-market-tracking/">Track Apple Podcasts charts over time</a>.</p>
+
+    <h2>What fields does a chart row include?</h2>
+    <p>Documented fields include <code>rank</code>, <code>collectionId</code>, <code>showName</code>, <code>publisher</code>, <code>country</code>, <code>sourceUrl</code>, <code>fetchedAt</code>, and <code>rowType</code>. Optional recent episodes are available with <code>includeEpisodes</code>; leave that off unless episode context is required.</p>
+
+    <h2>How do I snapshot charts for more than one country?</h2>
+    <p><code>chartRequests</code> is an array; add one item per storefront. Rankings differ by storefront: a US chart is not a GB or JP chart. Compare rows by the <code>country</code> field instead of mixing ranks.</p>
+
+    <h2>Does a chartRequests snapshot require a searchTerm?</h2>
+    <p>No. At least one of <code>searchTerm</code>, <code>chartRequests</code>, or <code>lookupIds</code> is required. A chart-only run can send <code>chartRequests</code> alone. Keyword discovery is a different source lane.</p>
+
+    <h2>Should I mix podcasts and podcast-episodes ranks in one series?</h2>
+    <p>No. Show charts (<code>podcasts</code>) and episode charts (<code>podcast-episodes</code>) are different rankings. Do not treat them as one list. Rankings also differ by storefront, so keep <code>country</code> on the row.</p>
+
+    <h2>Does includeEpisodes change chart rank values?</h2>
+    <p>No. <code>rank</code> is the position on that chart request. <code>includeEpisodes</code> attaches recent episode context and slows the run. Leave it false unless episode context is required.</p>
+
+    <h2>How is a chartRequests run priced?</h2>
+    <p>Billing is pay-per-event. The live Store card is from $10.00 / 1,000 results. Published events are Actor Start at $0.005 and result at $0.01 per default-dataset item ($10.00 per 1,000).</p>
+
+    <h2>When should I use Reviews Scraper instead of a chart snapshot?</h2>
+    <p>Use <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> for public ratings and review text on collection IDs you already have. A <code>chartRequests</code> snapshot is ranks, not review rows. Get collection IDs from the chart or search first, then pass them as <code>podcastIds</code>.</p>
 
     <h2>How to run it</h2>
     <ol>
@@ -165,8 +226,14 @@
       <li><a href="/guides/apple-podcasts-watchlists/">Refresh Apple Podcasts watchlists</a></li>
       <li><a href="/guides/apple-podcasts-episodes/">Export Apple Podcasts episode metadata</a></li>
       <li><a href="/guides/apple-podcasts-countries/">Apple Podcasts charts and search by country</a></li>
+      <li><a href="/guides/apple-podcasts-dataset-fields/">Apple Podcasts dataset fields</a></li>
+      <li><a href="/guides/apple-podcasts-webhooks/">Deliver Apple Podcasts results with webhooks</a></li>
       <li><a href="/faq/apple-podcasts-scraper/">Apple Podcasts Scraper FAQ</a></li>
       <li><a href="/use-cases/podcast-market-tracking/">Track Apple Podcasts charts over time</a></li>
+      <li><a href="/use-cases/podcast-outreach/">Shortlist podcasts for outreach</a></li>
+      <li><a href="/compare/rss-feed-vs-itunes-search/">RSS feed vs iTunes Search API</a></li>
+      <li><a href="/compare/one-time-export-vs-watchlist/">One-time export vs watchlist lookup</a></li>
+      <li><a href="/notes/rss-vs-apple-podcasts-scraper/">RSS vs Apple Podcasts Scraper</a></li>
       <li><a href="/tools/">Tools</a></li>
     </ul>
   </main>

@@ -56,7 +56,7 @@
         "name": "How do I export episode metadata?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Set includeEpisodes to true to fetch recent episodes for each resolved podcast. That path is slower. For official episode rankings, use chartRequests with feedType podcast-episodes. After a dataset run, export the default dataset (JSON or CSV from the dataset view). The published input does not expose a full-catalog dump; for a known show’s complete feed, read public RSS."
+          "text": "Set includeEpisodes to true to fetch recent episodes for each resolved podcast. That path is slower. For official episode rankings, use chartRequests with feedType podcast-episodes. After a dataset run, export the default dataset (JSON or CSV from the dataset view). The published input does not expose a full-catalog dump; for a known show’s complete feed, read public RSS. See the episode metadata export workflow."
         }
       },
       {
@@ -64,7 +64,7 @@
         "name": "Can I pull charts or search for more than one country?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Charts can. chartRequests is an array; each item can set its own country (ISO codes such as us, gb, jp). Search and lookup use a single default country per run. Rankings and search results differ by storefront, so compare rows by the country field instead of mixing ranks."
+          "text": "Charts can. chartRequests is an array; each item can set its own country (ISO codes such as us, gb, jp). Search and lookup use a single default country per run. Rankings and search results differ by storefront, so compare rows by the country field instead of mixing ranks. See charts and search by country."
         }
       },
       {
@@ -72,7 +72,7 @@
         "name": "How do dataset delivery, webhooks, and dry runs work on Apple Podcasts Scraper?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "delivery defaults to dataset for reviewable output. Set delivery to webhook and provide webhookUrl after the payload shape is approved (Slack, Discord, Zapier, or any HTTP endpoint). The published enum is dataset or webhook. dryRun true runs without saving results or sending webhooks, which is useful before a live watch or webhook."
+          "text": "delivery defaults to dataset for reviewable output. Set delivery to webhook and provide webhookUrl after the payload shape is approved (Slack, Discord, Zapier, or any HTTP endpoint). The published enum is dataset or webhook. dryRun true runs without saving results or sending webhooks, which is useful before a live watch or webhook. See webhooks and dataset fields."
         }
       },
       {
@@ -80,7 +80,7 @@
         "name": "When should I use RSS instead of this Actor?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "If you already have a public feed URL and need that show’s published catalog (titles, descriptions, dates, enclosures), RSS is the direct source. RSS does not search Apple’s directory and does not include chart rank. Use this Actor for keyword search, country charts, and collection-ID watchlists. RSS & Atom Feed Extractor parses known publisher feeds into URL lists; Google News Scraper is query-based news discovery, not a podcast catalog."
+          "text": "If you already have a public feed URL and need that show’s published catalog (titles, descriptions, dates, enclosures), RSS is the direct source. RSS does not search Apple’s directory and does not include chart rank. Use this Actor for keyword search, country charts, and collection-ID watchlists. See RSS vs Apple Podcasts Scraper and RSS feed vs iTunes Search."
         }
       },
       {
@@ -277,8 +277,13 @@
       <li><a href="/guides/apple-podcasts-watchlists/">Refresh Apple Podcasts watchlists</a></li>
       <li><a href="/guides/apple-podcasts-episodes/">Export Apple Podcasts episode metadata</a></li>
       <li><a href="/guides/apple-podcasts-countries/">Apple Podcasts charts and search by country</a></li>
+      <li><a href="/guides/apple-podcasts-webhooks/">Deliver Apple Podcasts results with webhooks</a></li>
+      <li><a href="/guides/apple-podcasts-dataset-fields/">Apple Podcasts dataset fields</a></li>
       <li><a href="/use-cases/podcast-outreach/">Shortlist podcasts for outreach</a></li>
       <li><a href="/use-cases/podcast-market-tracking/">Track Apple Podcasts charts over time</a></li>
+      <li><a href="/compare/rss-feed-vs-itunes-search/">RSS feed vs iTunes Search API</a></li>
+      <li><a href="/compare/one-time-export-vs-watchlist/">One-time export vs watchlist lookup</a></li>
+      <li><a href="/notes/rss-vs-apple-podcasts-scraper/">RSS vs Apple Podcasts Scraper</a></li>
       <li><a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a></li>
       <li><a href="/google-news-scraper/">Google News Scraper</a></li>
       <li><a href="/tools/">Tools</a></li>
