@@ -85,7 +85,7 @@
       },
       {
         "@type": "Question",
-        "name": "How is G2 & Capterra Review Scraper priced on pay-per-event?",
+        "name": "How is G2 & Capterra Review Scraper priced on the live Store PPE tab?",
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "Billing is pay-per-event. The live Store card is from $10.00 / 1,000 results. Published events are Actor Start at $0.001 (charged when the Actor starts; number of events depends on Actor memory, one event per GB, minimum one event) and result at $0.01 (single result in the default dataset). Platform usage is free. You are not charged for Apify platform usage, only the fixed event price. Check the Store pricing card for the current per-event rates."
@@ -93,7 +93,7 @@
       },
       {
         "@type": "Question",
-        "name": "How do reviewPageUrls dataset, webhook, and dryRun delivery work on G2 & Capterra Review Scraper?",
+        "name": "How do dataset, webhook, and dryRun bill G2 and Capterra review-page results?",
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "delivery defaults to dataset. Set delivery to webhook and provide webhookUrl to POST results. dryRun true validates input and returns scaffold output without fetching live data. The published enum is dataset or webhook. The Store quickstart starts with a small reviewPageUrls sample in dataset mode, mixes G2 and Capterra only after a small-sample schema check, then uses dryRun before larger monitoring runs."
@@ -109,7 +109,7 @@
       },
       {
         "@type": "Question",
-        "name": "Does the published input schema include a login, cookie, or private G2/Capterra API field?",
+        "name": "Does G2 & Capterra Review Scraper accept a login, cookie, or private review API field?",
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "No. The published input schema is reviewPageUrls, reviewLimit, delivery, webhookUrl, and dryRun. There is no login, cookie, API key, or private-endpoint field. Reviews are extracted from server-rendered HTML on public G2 and Capterra review pages. Blocked requests are reported honestly. This independent Actor is not affiliated with or endorsed by G2 or Capterra. Do not use the output to target individual reviewers."
@@ -331,20 +331,20 @@
     <h2>How is a billed result different from one nested reviews[] item?</h2>
     <p>The live billed event title is <code>result</code> at <strong>$0.01</strong> for a single result in the default dataset (<code>apify-default-dataset-item</code>). The published README output is a per-product object with nested <code>reviews[]</code>. There is no separate published per-review billing event. README cost control says total cost mainly follows how many <code>reviewPageUrls</code> you process and how deep you sample reviews. Lower <code>reviewLimit</code> for faster exploratory runs.</p>
 
-    <h2>How is G2 &amp; Capterra Review Scraper priced on pay-per-event?</h2>
+    <h2>How is G2 &amp; Capterra Review Scraper priced on the live Store PPE tab?</h2>
     <p>Billing is pay-per-event. The live Store card is <strong>from $10.00 / 1,000 results</strong>. Published events are Actor Start at <strong>$0.001</strong> (charged when the Actor starts; number of events depends on Actor memory, one event per GB, minimum one event) and result at <strong>$0.01</strong> (single result in the default dataset). Platform usage is free. You are not charged for Apify platform usage, only the fixed event price.</p>
     <p>Total cost mainly follows how many <code>reviewPageUrls</code> you process and how deep you sample reviews. Keep batches small while validating source mix. Lower <code>reviewLimit</code> for faster exploratory runs. Use dataset delivery first to inspect <code>blocked</code> or <code>partial</code> results. Check the Store pricing card for the current per-event rates.</p>
     <p class="price">from $10.00 / 1,000 results ($0.01 per default-dataset result titled result; Actor Start $0.001)</p>
     <p><a href="https://apify.com/taroyamada/g2-capterra-review-intelligence/pricing">See G2 &amp; Capterra Review Scraper pricing on Apify</a></p>
 
-    <h2>How do reviewPageUrls dataset, webhook, and dryRun delivery work on G2 &amp; Capterra Review Scraper?</h2>
+    <h2>How do dataset, webhook, and dryRun bill G2 and Capterra review-page results?</h2>
     <p><code>delivery</code> defaults to <code>dataset</code>. Set <code>delivery</code> to <code>webhook</code> and provide <code>webhookUrl</code> to POST results. <code>dryRun</code> true validates input and returns scaffold output without fetching live data. The published enum is <code>dataset</code> or <code>webhook</code>. The Store quickstart starts with a small <code>reviewPageUrls</code> sample in dataset mode, mixes G2 and Capterra only after a small-sample schema check, then uses <code>dryRun</code> before larger monitoring runs.</p>
     <p><a href="https://apify.com/taroyamada/g2-capterra-review-intelligence">Open G2 &amp; Capterra Review Scraper on Apify</a></p>
 
     <h2>Does G2 &amp; Capterra Review Scraper accept Shopify slugs, podcastIds, or Apple show URLs?</h2>
     <p>No. Required input is <code>reviewPageUrls</code>. <code>additionalProperties</code> is false, so unpublished fields such as <code>appUrls</code>, Shopify slugs, <code>podcastIds</code>, <code>countries</code>, Apple show URLs, episode feeds, <code>products</code>, <code>source</code>, <code>slug</code>, <code>maxReviewsPerProduct</code>, and <code>emitDeltas</code> are not accepted. Shopify App Store merchant listings belong on <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a>. Apple/iTunes podcast review RSS belongs on <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a>. Use the <a href="/review-intelligence/">Review Intelligence pack</a> to choose among those three sources.</p>
 
-    <h2>Does the published input schema include a login, cookie, or private G2/Capterra API field?</h2>
+    <h2>Does G2 &amp; Capterra Review Scraper accept a login, cookie, or private review API field?</h2>
     <p>No. The published input schema is <code>reviewPageUrls</code>, <code>reviewLimit</code>, <code>delivery</code>, <code>webhookUrl</code>, and <code>dryRun</code>. There is no login, cookie, API key, or private-endpoint field. Reviews are extracted from server-rendered HTML on public G2 and Capterra review pages. Blocked requests are reported honestly. This independent Actor is not affiliated with or endorsed by G2 or Capterra. Do not use the output to target individual reviewers.</p>
 
     <h2>What does meta.implementationStatus report on a G2 or Capterra run?</h2>
