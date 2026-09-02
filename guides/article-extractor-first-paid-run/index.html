@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cheapest first paid run for Article Extractor — one news or blog URL</title>
+  <meta name="description" content="Cheapest first paid run for the Article Extractor actor: one public news, blog, or press URL. Documented PPE math only — Actor Start $0.00005 plus $0.008 per useful article row. Leave the $2.50 audit report and $5.00 batch export off.">
+  <link rel="canonical" href="https://luxslime.github.io/guides/article-extractor-first-paid-run/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "HowTo",
+        "name": "Cheapest first paid run for Article Extractor",
+        "description": "Run taroyamada/article-content-extractor on one public article URL with Store Quickstart flags, then add the documented PPE events.",
+        "url": "https://luxslime.github.io/guides/article-extractor-first-paid-run/",
+        "step": [
+          {
+            "@type": "HowToStep",
+            "name": "Open the Store listing",
+            "text": "Open Article Content Extractor & Reader Scraper at apify.com/taroyamada/article-content-extractor."
+          },
+          {
+            "@type": "HowToStep",
+            "name": "Paste the smallest useful input",
+            "text": "Send one public article URL. Set includeImages false, delivery dataset, and dryRun false. Leave generateReport and emitExport off."
+          },
+          {
+            "@type": "HowToStep",
+            "name": "Add the documented PPE events",
+            "text": "If the run starts and one useful article row is written, documented live events are Actor Start $0.00005 plus useful article row $0.008."
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is the cheapest first paid article extractor input?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The published Store Quickstart low-cost extractor input is one urls item, includeImages false, delivery dataset, and dryRun false. urls is required. Leave generateReport and emitExport at their defaults (false). That is a paid run only when dryRun is false and a useful article row is written."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What does that first paid article extractor run cost on documented PPE?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Live events already quoted on this site’s Article Content Extractor pages: Actor Start (apify-actor-start) $0.00005, one event per GB with a minimum of one event; useful article row (apify-default-dataset-item) $0.008 for one successfully extracted or partially extracted public article row. If the run charges the minimum one Actor Start event and writes one useful row, those two events add to $0.00805. Failed or no-content rows stay out of the default dataset. Platform usage is included."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why leave generateReport and emitExport off on the first paid run?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Those are this Actor’s published value events, not the cheapest source row. generateReport true emits one article-content-audit-report when at least one article is usable ($2.50). emitExport true emits one article-batch-export when at least one article is usable ($5.00). The live Store card is from $2,500.00 / 1,000 article content audit reports because the primary event is that $2.50 report. The cheapest first paid run keeps both flags false."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does a dryRun count as a first paid article extractor run?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. dryRun validates input and writes only local output — no dataset writes, webhooks, or payable rows. A first paid run needs dryRun false so a useful article row can be billed at $0.008."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Guides / Article extractor first paid run</nav>
+    <h1>Cheapest first paid run for an article extractor</h1>
+    <p>This page is the smallest useful paid run for the Article Extractor actor on Apify: one public news, blog, newsroom, or press URL, then the documented pay-per-event (PPE) add. It is not a full product FAQ. For field lists and routing, use the <a href="/article-content-extractor/">Article Content Extractor</a> landing.</p>
+    <p>Live Store listing: <strong>Article Content Extractor &amp; Reader Scraper</strong> (<code>taroyamada/article-content-extractor</code>). This site’s landing name is Article Content Extractor. Open the Actor: <a href="https://apify.com/taroyamada/article-content-extractor">https://apify.com/taroyamada/article-content-extractor</a>.</p>
+    <p class="price">Documented first-paid PPE if one Actor Start event and one useful article row charge: $0.00005 + $0.008 = $0.00805. Leave the $2.50 audit report and $5.00 batch export off.</p>
+
+    <h2>Smallest useful input JSON</h2>
+    <p>The published Store Quickstart low-cost extractor input is one <code>urls</code> item, <code>includeImages</code> false, <code>delivery</code> dataset, and <code>dryRun</code> false. <code>urls</code> is required (maximum 300). <code>outputFormat</code> defaults to markdown. <code>generateReport</code> and <code>emitExport</code> default to false — omit them.</p>
+<pre><code>{
+  "urls": [
+    "https://example.com/news/example"
+  ],
+  "includeImages": false,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p>Replace the placeholder URL with a public HTTP(S) article-shaped page you own or are authorized to fetch. Schema prefill on the Store is three <code>blog.google</code> article URLs; one URL is enough for a first paid proof. Do not send Website fields such as <code>includeMetadata</code> or <code>maxChargeUsd</code>, Google News <code>queries</code>, or RSS <code>feedUrls</code>.</p>
+    <p><a href="https://apify.com/taroyamada/article-content-extractor">Run this article extractor input on Apify</a></p>
+
+    <h2>Documented PPE cost math</h2>
+    <p>Prices below are the live events already shown on this site’s Article Content Extractor pages. They are not invented rates. The live Store card is <strong>from $2,500.00 / 1,000 article content audit reports</strong> because the primary event is <code>article-content-audit-report</code> at <strong>$2.50</strong>. The cheapest first paid run does not request that event.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Documented price</th>
+          <th>This run</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Actor Start (<code>apify-actor-start</code>)</td>
+          <td>$0.00005, one event per GB, minimum one event</td>
+          <td>Charge the minimum one start event: <strong>$0.00005</strong>. Extra start events only if memory is above 1 GB (one event per GB).</td>
+        </tr>
+        <tr>
+          <td>Useful article row (<code>apify-default-dataset-item</code>)</td>
+          <td>$0.008 ($8.00 / 1,000) for one successfully extracted or partially extracted public article row</td>
+          <td>One URL → one useful row if extraction succeeds: <strong>$0.008</strong>. Failed or no-content rows stay out of the default dataset.</td>
+        </tr>
+        <tr>
+          <td>Article content audit report (<code>article-content-audit-report</code>)</td>
+          <td>$2.50 when <code>generateReport</code> is true and at least one article is usable</td>
+          <td><strong>$0</strong> — leave <code>generateReport</code> false.</td>
+        </tr>
+        <tr>
+          <td>Article batch export (<code>article-batch-export</code>)</td>
+          <td>$5.00 when <code>emitExport</code> is true and at least one article is usable</td>
+          <td><strong>$0</strong> — leave <code>emitExport</code> false.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>If the run charges the minimum one Actor Start event and writes one useful article row:</p>
+<pre><code>$0.00005  Actor Start (minimum one event)
+$0.008    useful article row × 1
+--------
+$0.00805  documented PPE total for this input</code></pre>
+    <p>Platform usage is included. You are not charged for Apify platform usage, only the fixed event prices. A webhook is not needed for this first paid run; dataset delivery is the billable surface. <code>dryRun</code> true is not a paid run.</p>
+    <p class="price">Useful article row $0.008. Actor Start $0.00005. Audit report $2.50 and batch export $5.00 stay off.</p>
+    <p><a href="https://apify.com/taroyamada/article-content-extractor/pricing">See Article Content Extractor pricing on Apify</a></p>
+
+    <h2>What is the cheapest first paid article extractor input?</h2>
+    <p>The published Store Quickstart low-cost extractor input is one <code>urls</code> item, <code>includeImages</code> false, <code>delivery</code> dataset, and <code>dryRun</code> false. <code>urls</code> is required. Leave <code>generateReport</code> and <code>emitExport</code> at their defaults (false). That is a paid run only when <code>dryRun</code> is false and a useful article row is written.</p>
+
+    <h2>What does that first paid article extractor run cost on documented PPE?</h2>
+    <p>Live events already quoted on this site’s Article Content Extractor pages: Actor Start (<code>apify-actor-start</code>) <strong>$0.00005</strong>, one event per GB with a minimum of one event; useful article row (<code>apify-default-dataset-item</code>) <strong>$0.008</strong> for one successfully extracted or partially extracted public article row. If the run charges the minimum one Actor Start event and writes one useful row, those two events add to <strong>$0.00805</strong>. Failed or no-content rows stay out of the default dataset. Platform usage is included.</p>
+
+    <h2>Why leave generateReport and emitExport off on the first paid run?</h2>
+    <p>Those are this Actor’s published value events, not the cheapest source row. <code>generateReport</code> true emits one <code>article-content-audit-report</code> when at least one article is usable ($2.50). <code>emitExport</code> true emits one <code>article-batch-export</code> when at least one article is usable ($5.00). The live Store card is from $2,500.00 / 1,000 article content audit reports because the primary event is that $2.50 report. The cheapest first paid run keeps both flags false.</p>
+
+    <h2>Does a dryRun count as a first paid article extractor run?</h2>
+    <p>No. <code>dryRun</code> validates input and writes only local output — no dataset writes, webhooks, or payable rows. A first paid run needs <code>dryRun</code> false so a useful article row can be billed at $0.008.</p>
+
+    <h2>How to run it</h2>
+    <ol>
+      <li>Open <a href="https://apify.com/taroyamada/article-content-extractor">Article Content Extractor &amp; Reader Scraper</a> on the Apify Store.</li>
+      <li>Paste the Quickstart JSON above. Swap in one public article URL you are authorized to fetch.</li>
+      <li>Keep <code>includeImages</code> false, <code>delivery</code> dataset, and <code>dryRun</code> false. Do not set <code>generateReport</code> or <code>emitExport</code>.</li>
+      <li>Start the run. Confirm the default dataset has one <code>article</code> row before raising URL count or turning on value events.</li>
+    </ol>
+    <p>Discovery before extraction belongs on RSS or Google News, then this Actor. The four extractors in that pipeline are grouped on the <a href="/packs/content-intelligence/">Content Intelligence pack</a> hub.</p>
+    <p><a href="https://apify.com/taroyamada/article-content-extractor">Open Article Extractor on Apify</a></p>
+  </main>
+</body>
+</html>
