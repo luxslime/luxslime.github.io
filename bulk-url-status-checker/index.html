@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bulk URL Status Checker — HTTP status, redirect chains, and broken-URL QA</title>
+  <meta name="description" content="Check a known URL list for HTTP status codes, redirect chains, response timing, and broken URL findings. Does not crawl pages, query DNS, expand short links, or look up Internet Archive snapshots.">
+  <link rel="canonical" href="https://luxslime.github.io/bulk-url-status-checker/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is Bulk URL Status Checker different from DNS Propagation Checker, Short URL Resolver, and Wayback Machine Bulk Checker?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "This Actor checks a known URL list for HTTP status, redirect chains, response timing, and broken URL findings. Required input is urls (maximum 1000). It does not crawl pages to discover links. DNS Propagation Checker queries public DNS for hostnames in domains (maximum 200) and does not fetch HTTP(S) HTML. Short URL Resolver & Scraper expands shortened or obfuscated links and logs the hop path; it is unshortening, not a status-QA pass over a known list. Wayback Machine Bulk Checker queries the Internet Archive available endpoint for historical cache availability (maximum 500 URLs) and does not check live HTTP status. Use this Actor for live HTTP QA on URLs you already have."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does this Actor crawl pages to find broken links?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. The live input schema states this Actor does not crawl pages. Pass known URLs in urls. For crawl or page-level broken-link discovery from source HTML, the schema points to Broken Link Checker. README handoff names for the same URL set are Site QA Broken Link Report Scraper, Site QA Content Report Scraper, and Site QA Indexability AI Crawler Report Scraper. Those are downstream report paths, not this Actor and not extra landings on this site."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What input is required?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "urls is required: known URLs to check (maximum 1000 per run). Optional live schema fields are concurrency (integer, default 10), timeoutMs (integer, default 10000), followRedirects (boolean, default true), delivery (dataset or webhook, default dataset), webhookUrl (required when delivery is webhook), and dryRun (boolean, default false). additionalProperties is false. The published input schema does not include includeHealthyRows, maxChargeUsd, maxRedirects, or crawl-related aliases."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does a result row contain?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The published README output field list is rowType, url, statusCode, finalUrl, redirectChain, responseMs, severity, warnings, and fetchedAt. The published raw status sample wraps rows in a meta object (actorName, actorTitle, bundle, fetchedAt, totalRows). The sample row is rowType url_health_finding with url, statusCode, finalUrl, responseMs, severity, fetchedAt, and actorName; redirectChain is in the field list and not shown on that sample row. warnings appears on the sample as a top-level array. The sample is a README illustration, not a live coverage guarantee."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do dataset, webhook, and dry-run delivery work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Non-dry-run runs always write canonical URL-level dataset rows first. delivery defaults to dataset. Set delivery to webhook and provide webhookUrl to POST one full payload only after dataset/PPE output succeeds and dryRun is false. dryRun true skips dataset writes and webhook delivery; local output/result.json is still written. The default dataset is the billable surface. Dry runs, validation-only runs, missing-key warnings, and unchanged recurring polls should not write payable default-dataset rows."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Bulk URL Status Checker priced?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Billing is pay per event. The published Store card is from $8.00 per 1,000 results. Live Store events are Actor Start at $0.001 (charged when the Actor starts; number of events depends on Actor memory, one event per GB, minimum one event) and result at $0.008 (single result in the default dataset). The README pricing section matches those figures: $0.001 actor start and $0.008 per emitted URL finding row. You are not charged extra for Apify platform usage beyond the included platform usage on the pricing page. Platform usage is listed as included."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Bulk URL Status Checker</nav>
+    <h1>Check HTTP status, redirect chains, and response timing on a known URL list</h1>
+    <p>Bulk URL Status Checker processes lists of URLs you already have and records HTTP status codes, redirect chains, final destinations, response times, and severity flags. It is live HTTP QA for migration, SEO, and site operations — not a DNS lookup, not short-link expansion, and not an Internet Archive availability check.</p>
+    <p class="price">From $8.00 per 1,000 results</p>
+    <p><a href="https://apify.com/taroyamada/bulk-url-health-checker">Open Bulk URL Status Checker on Apify</a></p>
+
+    <h2>Live HTTP status QA, not DNS, short-link expansion, or archive lookup</h2>
+    <p>Use this page when you already have URLs and need status codes, redirect chains, timing, and broken-URL findings. Use <a href="/dns-propagation-checker/">DNS Propagation Checker</a> for public A/MX/NS records on hostnames. Use <a href="/short-url-resolver-scraper/">Short URL Resolver &amp; Scraper</a> to expand bit.ly, t.co, and custom shorteners. Use <a href="/wayback-machine-bulk-checker/">Wayback Machine Bulk Checker</a> to check Internet Archive cache availability.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Bulk URL Status Checker</th>
+          <th>DNS Propagation Checker</th>
+          <th>Short URL Resolver &amp; Scraper</th>
+          <th>Wayback Machine Bulk Checker</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>HTTP status, redirect-chain, timing, and broken-URL QA on a known list</td>
+          <td>Audit worldwide nameserver and record propagation</td>
+          <td>Expand short/obfuscated links and log the HTTP hop path</td>
+          <td>Verify Internet Archive cache availability and closest snapshots</td>
+        </tr>
+        <tr>
+          <td>Input</td>
+          <td>Known page URLs in <code>urls</code> (max 1000)</td>
+          <td>Hostnames in <code>domains</code> (max 200)</td>
+          <td>Shortened URLs in <code>urls</code> (max 1000)</td>
+          <td>URLs in <code>urls</code> (max 500)</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>Live HTTP(S) responses for those URLs; it does not crawl pages</td>
+          <td>Public DNS via Node.js <code>dns.Resolver</code></td>
+          <td>Server-side HTTP redirects on short links</td>
+          <td>Wayback Machine <code>available</code> endpoint</td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td>Status code, final URL, redirect chain, response time, severity</td>
+          <td>Resolved values, TTL, resolver identity, consistency flags</td>
+          <td>Final URL, hop chain, loop and HTTPS-downgrade flags</td>
+          <td>Availability plus closest snapshot URL and timestamp when present</td>
+        </tr>
+        <tr>
+          <td>Not this job</td>
+          <td>DNS records, shortener expansion, archive snapshots, HTML crawl</td>
+          <td>HTTP status of page URLs</td>
+          <td>Status QA of a known (already expanded) URL list</td>
+          <td>Live HTTP status of current pages</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>The live schema description also names content type and SSL validity as check surfaces. The published README output field list does not include those names. Treat content type and SSL as schema-described checks, not as documented dataset columns.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Migration QA for validating URL status and redirects during site migrations.</li>
+      <li>SEO audits and ongoing monitoring of HTTP status, redirects, and response timing.</li>
+      <li>Broken-link detection handoff to a broken-link report scraper for remediation workflows.</li>
+      <li>Content-issue reporting handoff to a content report scraper for content QA.</li>
+      <li>Indexability and crawler-access analysis handoff to an indexability/crawler-access report scraper.</li>
+      <li>Site operations and web operations monitoring of URL health and severity trends.</li>
+      <li>Webhook-based status reporting for integration with external tooling and automated workflows.</li>
+    </ul>
+    <p>The published README positions the Actor for Site QA &amp; Content Intelligence workflows: provide focused source inputs, keep the first run small, and expand only after the output shape is useful. Each emitted row includes source context, timestamps, and fields designed for monitoring, QA, research, or workflow handoff.</p>
+    <p>Store Quickstart: start with a small URL list as the source step. Confirm status and redirect findings, then send the same URLs to the linked broken-link, content, or indexability report actor named in the README.</p>
+
+    <h2>How is Bulk URL Status Checker different from DNS Propagation Checker, Short URL Resolver, and Wayback Machine Bulk Checker?</h2>
+    <p>This Actor checks a known URL list for HTTP status, redirect chains, response timing, and broken URL findings. Required input is <code>urls</code> (maximum 1000). It does not crawl pages to discover links. <a href="/dns-propagation-checker/">DNS Propagation Checker</a> queries public DNS for hostnames in <code>domains</code> (maximum 200) and does not fetch HTTP(S) HTML. <a href="/short-url-resolver-scraper/">Short URL Resolver &amp; Scraper</a> expands shortened or obfuscated links and logs the hop path; it is unshortening, not a status-QA pass over a known list. <a href="/wayback-machine-bulk-checker/">Wayback Machine Bulk Checker</a> queries the Internet Archive <code>available</code> endpoint for historical cache availability (maximum 500 URLs) and does not check live HTTP status. Use this Actor for live HTTP QA on URLs you already have.</p>
+
+    <h2>Does this Actor crawl pages to find broken links?</h2>
+    <p>No. The live input schema states this Actor does not crawl pages. Pass known URLs in <code>urls</code>. For crawl or page-level broken-link discovery from source HTML, the schema points to Broken Link Checker. README handoff names for the same URL set are Site QA Broken Link Report Scraper, Site QA Content Report Scraper, and Site QA Indexability AI Crawler Report Scraper. Those are downstream report paths, not this Actor and not extra landings on this site.</p>
+    <p>The README “Run the next report” section treats this Actor as the source step. A paid report/export handoff is produced by those linked report actors, not by adding more raw status rows here.</p>
+
+    <h2>What input is required?</h2>
+    <p><code>urls</code> is required: known URLs to check (maximum 1000 per run). Optional live schema fields are <code>concurrency</code> (integer, default 10), <code>timeoutMs</code> (integer, default 10000), <code>followRedirects</code> (boolean, default true), <code>delivery</code> (<code>dataset</code> or <code>webhook</code>, default <code>dataset</code>), <code>webhookUrl</code> (required when delivery is webhook), and <code>dryRun</code> (boolean, default false). <code>additionalProperties</code> is false. The published input schema does not include <code>includeHealthyRows</code>, <code>maxChargeUsd</code>, <code>maxRedirects</code>, or crawl-related aliases.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>urls</code></td>
+          <td>string[]</td>
+          <td>required</td>
+          <td>Known URLs to check (max 1000). Schema prefill: <code>https://example.com</code>, <code>https://example.com/about</code>, <code>https://httpstat.us/404</code>, <code>https://httpstat.us/301</code></td>
+        </tr>
+        <tr>
+          <td><code>concurrency</code></td>
+          <td>integer</td>
+          <td>10</td>
+          <td>Maximum parallel requests. Higher is faster and may trigger rate limits. Schema has no min/max.</td>
+        </tr>
+        <tr>
+          <td><code>timeoutMs</code></td>
+          <td>integer</td>
+          <td>10000</td>
+          <td>Request timeout in milliseconds. Schema has no min/max.</td>
+        </tr>
+        <tr>
+          <td><code>followRedirects</code></td>
+          <td>boolean</td>
+          <td>true</td>
+          <td>If true, follows redirects and reports the chain. If false, reports the first response.</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string</td>
+          <td><code>dataset</code></td>
+          <td><code>dataset</code> or <code>webhook</code></td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td>—</td>
+          <td>Required when <code>delivery</code> is <code>webhook</code></td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Skip dataset writes and webhook delivery; local <code>output/result.json</code> is still written</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>The README Migration QA example sends <code>includeHealthyRows: false</code>. That field is not in the live schema. Do not send it.</p>
+    <p>Published Store Quickstart / small URL batch (schema-valid):</p>
+<pre><code>{
+  "urls": [
+    "https://example.com",
+    "https://example.com/docs"
+  ],
+  "followRedirects": true,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p>Published Store example run input:</p>
+<pre><code>{
+  "urls": [
+    "https://google.com",
+    "https://github.com",
+    "https://httpstat.us/404",
+    "https://httpstat.us/301",
+    "https://example.com"
+  ],
+  "concurrency": 3,
+  "timeoutMs": 10000,
+  "followRedirects": true,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p>Published README webhook status report (schema-valid):</p>
+<pre><code>{
+  "urls": [
+    "https://example.com/pricing"
+  ],
+  "delivery": "webhook",
+  "webhookUrl": "https://example.com/webhook",
+  "dryRun": false
+}</code></pre>
+    <p>Keep the first run small. Raise concurrency only with reasonable settings against infrastructure you are allowed to check. The README compliance notes: use for migration QA, SEO, and site operations; do not use aggressive settings against third-party infrastructure; do not use provider emblems or wording that implies approval by an upstream data provider.</p>
+    <p><a href="https://apify.com/taroyamada/bulk-url-health-checker">Run Bulk URL Status Checker on Apify</a></p>
+
+    <h2>What does a result row contain?</h2>
+    <p>The published README output field list is <code>rowType</code>, <code>url</code>, <code>statusCode</code>, <code>finalUrl</code>, <code>redirectChain</code>, <code>responseMs</code>, <code>severity</code>, <code>warnings</code>, and <code>fetchedAt</code>. The published raw status sample wraps rows in a <code>meta</code> object (<code>actorName</code>, <code>actorTitle</code>, <code>bundle</code>, <code>fetchedAt</code>, <code>totalRows</code>). The sample row is <code>rowType</code> <code>url_health_finding</code> with <code>url</code>, <code>statusCode</code>, <code>finalUrl</code>, <code>responseMs</code>, <code>severity</code>, <code>fetchedAt</code>, and <code>actorName</code>; <code>redirectChain</code> is in the field list and not shown on that sample row. <code>warnings</code> appears on the sample as a top-level array. The sample is a README illustration, not a live coverage guarantee.</p>
+    <p>Published README raw status sample:</p>
+<pre><code>{
+  "meta": {
+    "actorName": "bulk-url-health-checker",
+    "actorTitle": "Bulk URL Status Checker",
+    "bundle": "Site QA &amp; Content Intelligence Pack",
+    "fetchedAt": "2026-05-06T00:00:00.000Z",
+    "totalRows": 1
+  },
+  "rows": [
+    {
+      "actorName": "bulk-url-health-checker",
+      "rowType": "url_health_finding",
+      "url": "https://example.com/missing",
+      "statusCode": 404,
+      "finalUrl": "https://example.com/missing",
+      "responseMs": 240,
+      "severity": "error",
+      "fetchedAt": "2026-05-06T00:00:00.000Z"
+    }
+  ],
+  "warnings": []
+}</code></pre>
+    <p>README rows also include source URLs, fetch timestamps, warnings when a source is partial, and stable IDs when the workflow supports recurring change detection. The README “Value path output preview” sample is a downstream <code>url_health_report</code> from <code>site-qa-broken-link-report-scraper</code>, not this Actor’s status row.</p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>Non-dry-run runs always write canonical URL-level dataset rows first. <code>delivery</code> defaults to <code>dataset</code>. Set <code>delivery</code> to <code>webhook</code> and provide <code>webhookUrl</code> to POST one full payload only after dataset/PPE output succeeds and <code>dryRun</code> is false. <code>dryRun</code> true skips dataset writes and webhook delivery; local <code>output/result.json</code> is still written. The default dataset is the billable surface. Dry runs, validation-only runs, missing-key warnings, and unchanged recurring polls should not write payable default-dataset rows.</p>
+    <p>The README states healthy no-issue batches can be held out of the default dataset when configured. The live input schema does not publish an <code>includeHealthyRows</code> field.</p>
+
+    <h2>How is Bulk URL Status Checker priced?</h2>
+    <p>Billing is pay per event. The published Store card is <strong>from $8.00 per 1,000 results</strong>. Live Store events are <strong>Actor Start</strong> at <strong>$0.001</strong> (charged when the Actor starts; number of events depends on Actor memory, one event per GB, minimum one event) and <strong>result</strong> at <strong>$0.008</strong> (single result in the default dataset). The README pricing section matches those figures: $0.001 actor start and $0.008 per emitted URL finding row. You are not charged extra for Apify platform usage beyond the included platform usage on the pricing page. Platform usage is listed as included.</p>
+    <p class="price">From $8.00 per 1,000 results ($0.001 Actor Start + $0.008 per default-dataset result)</p>
+    <p><a href="https://apify.com/taroyamada/bulk-url-health-checker/pricing">See Bulk URL Status Checker pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Known URL list only — maximum 1000 URLs per run. This Actor does not crawl pages.</li>
+      <li>Required field is <code>urls</code>. Live schema names do not include <code>includeHealthyRows</code>, <code>maxChargeUsd</code>, or <code>maxRedirects</code>.</li>
+      <li><code>followRedirects</code> defaults to true (report the chain). Set it false to report the first response only.</li>
+      <li><code>concurrency</code> defaults to 10. Higher values may trigger rate limits. Use reasonable concurrency on public URLs.</li>
+      <li>Not DNS, not short-link expansion, and not Wayback archive lookup.</li>
+      <li>Keep the first run small. Expand after the output shape is useful.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/bulk-url-health-checker">Open Bulk URL Status Checker on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/dns-propagation-checker/">DNS Propagation Checker</a> — public DNS records, not HTTP status</li>
+      <li><a href="/short-url-resolver-scraper/">Short URL Resolver &amp; Scraper</a> — expand short links, not status QA on a known list</li>
+      <li><a href="/wayback-machine-bulk-checker/">Wayback Machine Bulk Checker</a> — Internet Archive availability, not live HTTP status</li>
+      <li><a href="/website-content-extractor/">Website Content Extractor</a> — clean docs, pricing, policy, or product HTML</li>
+      <li><a href="/meta-tag-opengraph-scraper/">Meta Tag &amp; OpenGraph Scraper</a> — head metadata audit, not status codes</li>
+      <li><a href="/contact-details-extractor/">Contact Page Audit &amp; Business Channel Extractor</a></li>
+      <li><a href="/bulk-phone-format-validator/">Bulk Phone Format Validator</a></li>
+      <li><a href="/chrome-web-store-extension-intelligence/">Chrome Web Store Extension Intelligence</a></li>
+      <li><a href="/article-content-extractor/">Article Content Extractor</a></li>
+      <li><a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a></li>
+      <li><a href="/google-news-scraper/">Google News Scraper</a></li>
+      <li><a href="/packs/content-intelligence/">Content Intelligence pack</a></li>
+      <li><a href="/review-intelligence/">Review Intelligence pack</a></li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>
