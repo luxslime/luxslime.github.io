@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>robots.txt Parser &amp; AI Crawler Block Checker — GPTBot and ClaudeBot disallow audits</title>
+  <meta name="description" content="Parse robots.txt files to audit GPTBot, ClaudeBot, Google-Extended, and other AI crawler allow/disallow rules. Max 500 domains. Pay per event: $11.00 per 1,000 robots.txt AI policy rows.">
+  <link rel="canonical" href="https://luxslime.github.io/robotstxt-ai-crawler-block-checker/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is robots.txt Parser & AI Crawler Block Checker different from Meta Tag & OpenGraph Scraper and Sitemap Scraper & Analyzer?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "This Actor fetches and parses robots.txt files. It extracts per-user-agent allow/disallow rules, restricted paths, and crawl-delay directives, then reports per-bot dispositions (blocked, partially blocked, allowed) for AI crawlers such as GPTBot, ClaudeBot, and Google-Extended. Meta Tag & OpenGraph Scraper audits HTML head tags on known page URLs: title, canonical, the HTML robots meta tag, Open Graph, Twitter Card, hreflang, and JSON-LD. That robots field is page-head metadata, not a robots.txt file. Sitemap Scraper & Analyzer reads sitemap.xml and nested sitemap indexes to discover URL inventories; it does not parse robots.txt AI crawler policies. Use this Actor to audit crawl policies in robots.txt, including GPTBot/ClaudeBot disallow. Use Meta Tag & OpenGraph Scraper for page head tags. Use Sitemap Scraper & Analyzer for XML sitemap URL discovery."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What input is required?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "domains is required: a list of domains to analyze robots.txt for AI crawler policies, maximum 500. Live schema fields are domains, delivery (dataset or webhook, default dataset; in demoMode, delivery is always dataset), webhookUrl (used when delivery is webhook; Slack, Discord, or any HTTP endpoint), snapshotKey (default robotstxt-snapshots; record key inside the fixed robotstxt-ai-checker-state Key-Value Store), datasetMode (all or changes_only; live schema default changes_only), concurrency (integer, default 5, minimum 1, maximum 10), dryRun (boolean, default false), and demoMode (boolean, default false; checks only 1 domain, returns compact policy fields, and disables webhook/snapshot writes). additionalProperties is false. Schema prefill is google.com, github.com, nytimes.com, openai.com. The live schema description is: Analyze robots.txt files for AI crawler blocking policies. Track which sites block GPTBot, ClaudeBot, Google-Extended, and 13 more. The README input table still lists datasetMode default as all; the live schema default is changes_only."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which README input examples are not live schema fields?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "README examples labeled Single domain AI bot audit, Bulk competitor sites, and All-AI-bot policy snapshot send bots, emitPerBotDisposition, and detectAllAiBots. Those names are not in the live input schema. additionalProperties is false, so do not send them. Schema-valid published inputs use domains plus optional delivery, webhookUrl, snapshotKey, datasetMode, concurrency, dryRun, and demoMode. The Store Quickstart JSON uses the schema prefill domains with delivery dataset, snapshotKey robotstxt-snapshots, datasetMode all, concurrency 5, dryRun false, and demoMode false. The published Store example run input uses domains openai.com, github.com, nytimes.com with demoMode true, concurrency 3, and dryRun false."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does a result contain?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The published README output table lists meta, results, and per-result domain, status, summary, aiPolicies, changes, checkedAt, actorName, rowType, sourceUrl, fetchedAt, warnings, chargedEvent, billingEventName, demoApplied, detailsMasked, and error. Published rowType values are robots_txt_policy_snapshot, robots_txt_missing, robots_txt_error, or robots_txt_invalid_domain. chargedEvent is apify-default-dataset-item for billed Dataset rows, otherwise null. billingEventName is apify-default-dataset-item. sourceUrl is the validated final robots.txt URL. The published Store sample is truncated after the first GPTBot aiPolicies object. It shows a demoMode openai.com row with status ok, summary.totalCrawlers 16, blocked 0, partialBlock 16, allowed 0, changed 0, and GPTBot blocked false, partialBlock true, allowed false. meta.limits in that sample are maxDomains 1, compactPolicies true, webhookEnabled false, snapshotWriteEnabled false. The sample is a README illustration, not a live coverage guarantee."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do datasetMode, demoMode, snapshots, and delivery work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Live schema default datasetMode is changes_only: it emits only changed results and emits zero rows and zero charges when nothing changed. all emits every result. The README Monitoring Contract and README input table still call all the default; the live schema default is changes_only. Snapshots persist in the fixed named Key-Value Store robotstxt-ai-checker-state; snapshotKey selects only the record inside that store (default robotstxt-snapshots). The snapshot write is not a Dataset event. demoMode true checks only 1 domain, returns compact policy fields, and disables webhook/snapshot writes. delivery defaults to dataset; webhook sends to webhookUrl. In demoMode, delivery is always dataset. dryRun true runs without saving results or sending webhooks. Store Quickstart starts with store-input.example.json at demoMode true, then store-input.templates.json: Demo Quickstart, Production Monitor, or Webhook Alert."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is robots.txt Parser & AI Crawler Block Checker priced?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Billing is pay per event. The published Store card is $11.00 / 1,000 robots.txt AI policy rows. The billed event is robots.txt AI policy row at $0.011, charged for one delivered source-linked robots.txt AI crawler policy or missing-file row. The README Cost section names apify-default-dataset-item at $0.011 per delivered result and gives 1,000 delivered items = $11.00 as the example after scheduled start-fee removal. The same README notes that current transition pricing may include a temporary legacy start fee until that update activates. changes_only runs with no changed domains emit zero rows and incur zero result charges. The fixed snapshot write is not a Dataset event. No subscription is required."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / robots.txt Parser &amp; AI Crawler Block Checker</nav>
+    <h1>Audit robots.txt GPTBot and ClaudeBot disallow rules across domains</h1>
+    <p>robots.txt Parser &amp; AI Crawler Block Checker fetches public <code>robots.txt</code> files and parses crawl rules for AI crawlers and LLM-training bots (examples: GPTBot, ClaudeBot, Google-Extended). It extracts per-user-agent allow/disallow rules, restricted paths, and crawl-delay directives, then reports per-bot dispositions (blocked, partially blocked, allowed). This is a robots.txt policy audit — not HTML head-tag extraction, and not sitemap.xml URL discovery.</p>
+    <p class="price">$11.00 per 1,000 robots.txt AI policy rows ($0.011 per delivered policy or missing-file row)</p>
+    <p><a href="https://apify.com/taroyamada/robotstxt-ai-checker">Open robots.txt Parser &amp; AI Crawler Block Checker on Apify</a></p>
+
+    <h2>robots.txt AI crawl policies, not page head tags and not sitemap XML</h2>
+    <p>Use this page when the job is bulk parsing of <code>robots.txt</code> to see whether named AI crawlers are allowed, partially blocked, or disallowed. Use <a href="/meta-tag-opengraph-scraper/">Meta Tag &amp; OpenGraph Scraper</a> when the job is title, canonical, Open Graph, Twitter Card, hreflang, JSON-LD, and the HTML <code>robots</code> meta tag on known page URLs. Use <a href="/sitemap-scraper-analyzer/">Sitemap Scraper &amp; Analyzer</a> when the job is nested <code>sitemap.xml</code> URL inventories.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>This Actor</th>
+          <th>Meta Tag &amp; OpenGraph Scraper</th>
+          <th>Sitemap Scraper &amp; Analyzer</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>Audit robots.txt crawl policies for GPTBot, ClaudeBot, Google-Extended, and other AI crawlers</td>
+          <td>Technical SEO audit of HTML head metadata, social previews, JSON-LD, and the robots meta tag</td>
+          <td>Discover URLs from nested XML sitemaps; optional HEAD 200 check</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td>Required <code>domains</code> (maximum 500)</td>
+          <td>Known page URLs in <code>urls</code> (maximum 500)</td>
+          <td>Required <code>sitemapUrls</code> (sitemap.xml or a domain that auto-discovers <code>/sitemap.xml</code>)</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>Public HTTP(S) <code>robots.txt</code> bodies and response headers</td>
+          <td>HTML head and embedded JSON-LD from the initial HTML (no JavaScript render)</td>
+          <td>Sitemap XML and sitemap index files; optional HEAD on discovered URLs</td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td>Per-domain policy snapshots: <code>aiPolicies</code>, dispositions, <code>rowType</code>, source robots.txt URL, change diffs</td>
+          <td>Title, description, canonical, robots meta, Open Graph, Twitter Card, hreflang, JSON-LD, issue flags</td>
+          <td>URL inventory, directory structure, lastmod/changefreq analysis, optional HTTP 200</td>
+        </tr>
+        <tr>
+          <td>GPTBot / ClaudeBot disallow</td>
+          <td>Yes — parsed from robots.txt user-agent directives</td>
+          <td>No — HTML robots meta is not a robots.txt AI-bot policy</td>
+          <td>No — sitemap XML does not encode GPTBot/ClaudeBot allow/disallow</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>The live Store description is: Audit robots.txt files across thousands of websites to detect specific crawl policies, disallowed paths, and user-agents for GPTBot and ClaudeBot. The live schema description is: Analyze robots.txt files for AI crawler blocking policies. Track which sites block GPTBot, ClaudeBot, Google-Extended, and 13 more. Published README copy also names allow/disallow rules, restricted directory paths, crawl-delay directives, policy snapshots, change diffs, severity-scored findings with remediation guidance, and raw header/body evidence.</p>
+    <p>Source requests allow only public HTTP(S) hosts. Local, private, link-local, metadata, credential-bearing, and non-HTTP(S) URLs are rejected. Redirects are rechecked and limited to 3 hops; responses are capped at 1 MiB and requests time out after 10 seconds. The published README says this is passive scanning of public signals, not a penetration test: no exploitation, fuzzing, or auth bypass. Only scan sites you have authorization for.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Audit robots.txt policies for named AI crawlers (for example GPTBot and ClaudeBot) across large domain lists.</li>
+      <li>Monitor domains on a schedule (daily or weekly) to detect policy changes and configuration drift.</li>
+      <li>Bulk-verify competitor and market sites for AI-crawler dispositions and indexability signals.</li>
+      <li>Produce audit-ready policy snapshots and evidence for compliance and security reviews, mapping findings to standards (WCAG, GDPR, SOC2).</li>
+      <li>Generate severity-scored findings with remediation guidance for engineering and ops triage.</li>
+      <li>Capture raw headers and responses to support compliance documentation.</li>
+      <li>Integrate policy-change detection into CI/ops workflows to gate releases or trigger alerts.</li>
+    </ul>
+    <p>Published README Use Cases table: Developers automate recurring fetches; data teams pipe structured output into analytics warehouses; ops teams monitor changes via webhook alerts; product managers track competitor/market signals. Published Key Features: compliance-first reports mapping findings to WCAG, GDPR, and SOC2; non-invasive scanning of observable public signals; severity-scored output with remediation guidance; delta-alerting of new findings since the last run via webhook; evidence export of raw headers/responses.</p>
+    <p>Store Quickstart starts with <code>store-input.example.json</code> at <code>demoMode=true</code>. Published templates are Demo Quickstart (trial run), Production Monitor (recurring dataset snapshots), and Webhook Alert (policy-change notifications). README tips: schedule weekly runs against production domains to catch config drift; use webhook delivery to pipe findings into a SIEM (Splunk, Datadog, Elastic); for CI, block releases on <code>critical</code> severity findings using exit codes. Combine with <a href="/ssl-tls-certificate-scraper/">SSL/TLS Certificate Scraper</a> when you also need certificate expiry coverage.</p>
+
+    <h2>How is robots.txt Parser &amp; AI Crawler Block Checker different from Meta Tag &amp; OpenGraph Scraper and Sitemap Scraper &amp; Analyzer?</h2>
+    <p>This Actor fetches and parses <code>robots.txt</code> files. It extracts per-user-agent allow/disallow rules, restricted paths, and crawl-delay directives, then reports per-bot dispositions (blocked, partially blocked, allowed) for AI crawlers such as GPTBot, ClaudeBot, and Google-Extended. <a href="/meta-tag-opengraph-scraper/">Meta Tag &amp; OpenGraph Scraper</a> audits HTML head tags on known page URLs: title, canonical, the HTML robots meta tag, Open Graph, Twitter Card, hreflang, and JSON-LD. That robots field is page-head metadata, not a robots.txt file. <a href="/sitemap-scraper-analyzer/">Sitemap Scraper &amp; Analyzer</a> reads <code>sitemap.xml</code> and nested sitemap indexes to discover URL inventories; it does not parse robots.txt AI crawler policies. Use this Actor to audit crawl policies in robots.txt, including GPTBot/ClaudeBot disallow. Use Meta Tag &amp; OpenGraph Scraper for page head tags. Use Sitemap Scraper &amp; Analyzer for XML sitemap URL discovery.</p>
+
+    <h2>What input is required?</h2>
+    <p>Open the Actor on the Apify Store and supply <code>domains</code> (required, maximum 500). Live input schema fields:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>domains</code></td>
+          <td>string[]</td>
+          <td>required</td>
+          <td>Domains to analyze robots.txt for AI crawler policies (max 500). Schema prefill is <code>google.com</code>, <code>github.com</code>, <code>nytimes.com</code>, <code>openai.com</code>.</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string</td>
+          <td><code>dataset</code></td>
+          <td><code>dataset</code> or <code>webhook</code>. In <code>demoMode</code>, delivery is always dataset.</td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td>—</td>
+          <td>POST target when <code>delivery</code> is <code>webhook</code>. Slack, Discord, or any HTTP endpoint.</td>
+        </tr>
+        <tr>
+          <td><code>snapshotKey</code></td>
+          <td>string</td>
+          <td><code>robotstxt-snapshots</code></td>
+          <td>Record key for change snapshots inside the fixed <code>robotstxt-ai-checker-state</code> Key-Value Store.</td>
+        </tr>
+        <tr>
+          <td><code>datasetMode</code></td>
+          <td>string</td>
+          <td><code>changes_only</code> (live schema)</td>
+          <td><code>all</code> or <code>changes_only</code>. <code>all</code> emits every result. <code>changes_only</code> emits only changed results and emits zero rows and zero charges when nothing changed. The README input table still lists default <code>all</code>.</td>
+        </tr>
+        <tr>
+          <td><code>concurrency</code></td>
+          <td>integer</td>
+          <td>5</td>
+          <td>Parallel requests; minimum 1, maximum 10.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Run without saving results or sending webhooks (for testing).</td>
+        </tr>
+        <tr>
+          <td><code>demoMode</code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Checks only 1 domain, returns compact policy fields, and disables webhook/snapshot writes.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>The schema sets <code>additionalProperties</code> to false. Required field is <code>domains</code> only.</p>
+    <p>Published Store Quickstart input that matches the live schema (prefill domains; this example sets <code>datasetMode</code> to <code>all</code> rather than the live default <code>changes_only</code>):</p>
+<pre><code>{
+  "domains": [
+    "google.com",
+    "github.com",
+    "nytimes.com",
+    "openai.com"
+  ],
+  "delivery": "dataset",
+  "snapshotKey": "robotstxt-snapshots",
+  "datasetMode": "all",
+  "concurrency": 5,
+  "dryRun": false,
+  "demoMode": false
+}</code></pre>
+    <p>Published Store example run input (<code>demoMode</code> true, schema-valid):</p>
+<pre><code>{
+  "domains": [
+    "openai.com",
+    "github.com",
+    "nytimes.com"
+  ],
+  "demoMode": true,
+  "concurrency": 3,
+  "dryRun": false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/robotstxt-ai-checker">Run a robots.txt AI crawler policy check on Apify</a></p>
+
+    <h2>Which README input examples are not live schema fields?</h2>
+    <p>README examples labeled Single domain AI bot audit, Bulk competitor sites, and All-AI-bot policy snapshot send <code>bots</code>, <code>emitPerBotDisposition</code>, and <code>detectAllAiBots</code>. Those names are not in the live input schema. <code>additionalProperties</code> is false, so do not send them. Schema-valid published inputs use <code>domains</code> plus optional <code>delivery</code>, <code>webhookUrl</code>, <code>snapshotKey</code>, <code>datasetMode</code>, <code>concurrency</code>, <code>dryRun</code>, and <code>demoMode</code>.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>The published README output table lists <code>meta</code>, <code>results</code>, and per-result <code>domain</code>, <code>status</code>, <code>summary</code>, <code>aiPolicies</code>, <code>changes</code>, <code>checkedAt</code>, <code>actorName</code> (stable actor identifier), <code>rowType</code> (<code>robots_txt_policy_snapshot</code>, <code>robots_txt_missing</code>, <code>robots_txt_error</code>, or <code>robots_txt_invalid_domain</code>), <code>sourceUrl</code> (validated final robots.txt URL, or null), <code>fetchedAt</code>, <code>warnings</code>, <code>chargedEvent</code> (<code>apify-default-dataset-item</code> for billed Dataset rows; otherwise null), <code>billingEventName</code> (<code>apify-default-dataset-item</code>), <code>demoApplied</code>, <code>detailsMasked</code>, and <code>error</code>.</p>
+    <p>The published Store README sample is truncated mid-object after the first GPTBot <code>aiPolicies</code> fields. It is a README illustration, not a live coverage guarantee. Published fragment:</p>
+<pre><code>{
+  "meta": {
+    "generatedAt": "2026-02-22T17:50:20.909Z",
+    "totals": {
+      "total": 1,
+      "requestedDomains": 2,
+      "processedDomains": 1,
+      "withRobotsTxt": 1,
+      "noRobotsTxt": 0,
+      "invalidDomains": 0,
+      "blockingAi": 0,
+      "errors": 0
+    },
+    "demoApplied": true,
+    "limits": {
+      "maxDomains": 1,
+      "compactPolicies": true,
+      "webhookEnabled": false,
+      "snapshotWriteEnabled": false
+    },
+    "upgradeHint": "Demo mode checks 1 domain, disables webhook delivery, and returns a compact policy view. Set demoMode=false to unlock bulk checks and full policy details."
+  },
+  "results": [
+    {
+      "domain": "openai.com",
+      "status": "ok",
+      "summary": {
+        "totalCrawlers": 16,
+        "blocked": 0,
+        "partialBlock": 16,
+        "allowed": 0,
+        "changed": 0
+      },
+      "aiPolicies": [
+        {
+          "crawler": "GPTBot",
+          "company": "OpenAI",
+          "blocked": false,
+          "partialBlock": true,
+          "allowed": false
+</code></pre>
+    <p>The live Store README cuts off at <code>"allowed": false</code> on that GPTBot object. The <code>upgradeHint</code> in the fragment restates that demo mode checks 1 domain, disables webhook delivery, and returns a compact policy view.</p>
+
+    <h2>How do datasetMode, demoMode, snapshots, and delivery work?</h2>
+    <p>Live schema default <code>datasetMode</code> is <code>changes_only</code>: it emits only changed results and emits zero rows and zero charges when nothing changed. <code>all</code> emits every result. The README Monitoring Contract still says <code>datasetMode: "all"</code> is the default and that <code>changes_only</code> emits the first observed baseline, then only changed domains. Snapshots persist in the fixed named Key-Value Store <code>robotstxt-ai-checker-state</code>; <code>snapshotKey</code> selects only the record inside that store (default <code>robotstxt-snapshots</code>). A pending state reservation is saved before delivery and committed only after delivery succeeds. Failed delivery stays blocked instead of being charged again automatically. Every emitted Dataset row is pushed individually through the Apify Actor SDK and must receive <code>chargedCount &gt;= 1</code>. The run writes <code>PHASE89_DELIVERY_AUDIT</code> after delivery. The fixed snapshot write is not a Dataset event.</p>
+    <p><code>demoMode</code> true checks only 1 domain, returns compact policy fields, and disables webhook/snapshot writes. <code>delivery</code> defaults to <code>dataset</code>; set <code>webhook</code> and provide <code>webhookUrl</code> for Slack, Discord, or any HTTP endpoint. In <code>demoMode</code>, delivery is always dataset. <code>dryRun</code> true runs without saving results or sending webhooks. Store Quickstart: start with <code>store-input.example.json</code> at <code>demoMode=true</code>, then <code>store-input.templates.json</code> with Demo Quickstart, Production Monitor, or Webhook Alert.</p>
+
+    <h2>How is robots.txt Parser &amp; AI Crawler Block Checker priced?</h2>
+    <p>Billing is pay per event. The published Store card is <strong>$11.00 / 1,000 robots.txt AI policy rows</strong>. The billed event is robots.txt AI policy row at <strong>$0.011</strong>, charged for one delivered source-linked robots.txt AI crawler policy or missing-file row. The README Cost section names <code>apify-default-dataset-item</code> at $0.011 per delivered result and gives 1,000 delivered items = <strong>$11.00</strong> as the example after scheduled start-fee removal. The same README notes that current transition pricing may include a temporary legacy start fee until that update activates. <code>changes_only</code> runs with no changed domains emit zero rows and incur zero result charges. The fixed snapshot write is not a Dataset event. No subscription is required — you only pay for what you use.</p>
+    <p class="price">$11.00 per 1,000 robots.txt AI policy rows ($0.011 per delivered policy or missing-file row)</p>
+    <p><a href="https://apify.com/taroyamada/robotstxt-ai-checker/pricing">See robots.txt Parser &amp; AI Crawler Block Checker pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Maximum 500 domains per run. Required field is <code>domains</code>.</li>
+      <li><code>concurrency</code> is 1–10 (default 5). Requests time out after 10 seconds. Responses are capped at 1 MiB. Redirects are limited to 3 hops.</li>
+      <li>Public HTTP(S) hosts only. Local, private, link-local, metadata, credential-bearing, and non-HTTP(S) URLs are rejected.</li>
+      <li><code>demoMode</code> checks 1 domain, returns compact fields, and disables webhook/snapshot writes.</li>
+      <li>Live schema names are <code>domains</code>, <code>delivery</code>, <code>webhookUrl</code>, <code>snapshotKey</code>, <code>datasetMode</code>, <code>concurrency</code>, <code>dryRun</code>, and <code>demoMode</code>. Unpublished README aliases <code>bots</code>, <code>emitPerBotDisposition</code>, and <code>detectAllAiBots</code> are not working inputs.</li>
+      <li>This is a robots.txt policy audit, not HTML head-tag extraction and not sitemap XML discovery. It is not a penetration test.</li>
+      <li>Published README FAQ: only scan sites you have authorization for; weekly scans for production domains, daily if config-change velocity is high; webhook or Dataset API for compliance-tool export; evidence artifacts may support SOC2 CC7.1 continuous monitoring, but the Actor is not itself a SOC2 certification.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/robotstxt-ai-checker">Open robots.txt Parser &amp; AI Crawler Block Checker on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/meta-tag-opengraph-scraper/">Meta Tag &amp; OpenGraph Scraper</a> — HTML head tags, Open Graph, JSON-LD, and the robots meta tag, not robots.txt AI crawler policies</li>
+      <li><a href="/sitemap-scraper-analyzer/">Sitemap Scraper &amp; Analyzer</a> — nested sitemap.xml URL inventories, not robots.txt allow/disallow</li>
+      <li><a href="/ssl-tls-certificate-scraper/">SSL/TLS Certificate Scraper</a> — certificate expiry and fingerprints; the README pairs it with this Actor for layered coverage</li>
+      <li><a href="/ai-brand-visibility-scraper/">AI Brand Visibility Scraper | ChatGPT Search Rank</a> — published README see-also for measuring public AI brand visibility after crawler policy changes; not a robots.txt parser</li>
+      <li><a href="/structured-data-scraper-validator/">Structured Data Scraper &amp; Validator</a> — schema.org JSON-LD on page HTML, not robots.txt</li>
+      <li><a href="/bulk-url-status-checker/">Bulk URL Status Checker</a> — HTTP status on a known URL list, not robots.txt parsing</li>
+      <li><a href="/website-content-extractor/">Website Content Extractor</a> — cleaned page body, not crawl-policy files</li>
+      <li><a href="/dmarc-email-security-checker/">DMARC &amp; Email Security Checker</a> — SPF/DKIM/DMARC DNS, not robots.txt</li>
+      <li><a href="/dns-propagation-checker/">DNS Propagation Checker</a> — public DNS records, not robots.txt</li>
+      <li><a href="/hhs-healthcare-data-breach-scraper/">HHS Healthcare Data Breach Change Scraper</a> — HHS OCR disclosure changes, not robots.txt</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>
