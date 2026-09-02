@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Apple Podcasts / iTunes Scraper vs a cheaper Store episode scraper</title>
-  <meta name="description" content="Public Apify Store facts for apple podcast: logiover ranks first (~15 monthly users, $2.50 / 1k). Apple Podcasts / iTunes Scraper ranks second (5 monthly users, $10 / 1k) with official Apple/iTunes endpoints, no proxy, and search + charts + watchlist.">
+  <title>Apple Podcasts / iTunes Scraper vs a Store episode scraper</title>
+  <meta name="description" content="Public Apify Store facts for apple podcast: logiover ranks first (~15 monthly users, $2.50 / 1k). Apple Podcasts / iTunes Scraper ranks second (5 monthly users, $2.50 / 1k) with official Apple/iTunes endpoints, no proxy, and search + charts + watchlist.">
   <link rel="canonical" href="https://luxslime.github.io/compare/apple-podcasts-vs-cheaper-store-episode-scraper/">
   <script type="application/ld+json">
   {
@@ -24,7 +24,7 @@
         "name": "How do the public Store prices compare?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "logiover’s published result event is $0.0025 ($2.50 per 1,000 results). Apple Podcasts / iTunes Scraper’s published result event is $0.01 ($10.00 per 1,000 results), plus Actor Start at $0.005. This page does not suggest a price change."
+          "text": "Both listings publish a $0.0025 result event ($2.50 per 1,000 results). Apple Podcasts / iTunes Scraper also charges Actor Start at $0.005. Differentiation is the job: iTunes search, charts, and watchlist versus episode archives — not result PPE."
         }
       },
       {
@@ -37,7 +37,7 @@
       },
       {
         "@type": "Question",
-        "name": "When is the $10 per 1,000 iTunes scraper the better fit?",
+        "name": "When is the iTunes scraper the better fit?",
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "When the job is Apple directory discovery (searchTerm), official chart snapshots (chartRequests), or a watchlist of known collection IDs (lookupIds). Start with the cheapest first paid run: searchTerm technology, country us, limit 3, includeEpisodes false."
@@ -48,7 +48,7 @@
         "name": "Does this comparison recommend changing prices?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "No. PPE on Apple Podcasts / iTunes Scraper stays at result $10 per 1,000 plus Actor Start $0.005. The cheaper listing is a different job, not a reason to change this Actor’s price."
+          "text": "No. Both listings publish result $2.50 per 1,000. Apple Podcasts / iTunes Scraper also charges Actor Start at $0.005. The episode-scraper listing is a different job (episodes, audio URLs, RSS archives), not a price clone."
         }
       }
     ]
@@ -75,9 +75,9 @@
 </head>
 <body>
   <main>
-    <nav><a href="/">Home</a> / Compare / vs cheaper Store episode scraper</nav>
-    <h1>Apple Podcasts / iTunes Scraper vs a cheaper Store episode scraper</h1>
-    <p>This is a short Store-facts comparison, not a ranking of quality. Both Actors are public community listings. Neither is affiliated with or endorsed by Apple. Prices below are the published pay-per-event result rates; this page does not suggest changing them.</p>
+    <nav><a href="/">Home</a> / Compare / vs Store episode scraper</nav>
+    <h1>Apple Podcasts / iTunes Scraper vs a Store episode scraper</h1>
+    <p>This is a short Store-facts comparison, not a ranking of quality. Both Actors are public community listings. Neither is affiliated with or endorsed by Apple. Result PPE is the same published $2.50 per 1,000. Differentiation is official Apple/iTunes endpoints, charts, and watchlist — not price.</p>
     <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Open Apple Podcasts / iTunes Scraper on Apify</a></p>
 
     <h2>Public Store facts for the query “apple podcast”</h2>
@@ -104,7 +104,7 @@
         <tr>
           <td>Published result PPE</td>
           <td>$0.0025 ($2.50 / 1,000)</td>
-          <td>$0.01 ($10.00 / 1,000)</td>
+          <td>$0.0025 ($2.50 / 1,000)</td>
         </tr>
         <tr>
           <td>Live Store title</td>
@@ -118,27 +118,27 @@
         </tr>
       </tbody>
     </table>
-    <p>Rank here is Store search order for that query, not Apple Podcasts chart rank. Monthly-user counts come from the public Store cards. Result PPE is the published per-item event: $0.0025 × 1,000 = $2.50, and $0.01 × 1,000 = $10.00.</p>
+    <p>Rank here is Store search order for that query, not Apple Podcasts chart rank. Monthly-user counts come from the public Store cards. Result PPE is the published per-item event: $0.0025 × 1,000 = $2.50 on both listings.</p>
 
-    <h2>Different jobs, not a cheaper clone</h2>
-    <p>The cheaper listing is built around episode archives and audio file URLs. <a href="/apple-podcasts-scraper/">Apple Podcasts / iTunes Scraper</a> is built around directory discovery and recurring show checks:</p>
+    <h2>Different jobs, not a price clone</h2>
+    <p>The episode-scraper listing is built around episode archives and audio file URLs. <a href="/apple-podcasts-scraper/">Apple Podcasts / iTunes Scraper</a> is built around directory discovery and recurring show checks:</p>
     <ul>
       <li><strong>Official Apple/iTunes endpoints</strong> — <code>searchTerm</code> uses the iTunes Search API; <code>lookupIds</code> uses the iTunes Lookup API; <code>chartRequests</code> snapshot Apple rankings.</li>
       <li><strong>No proxy</strong> — public Apple and RSS endpoints; no account session or browser automation.</li>
       <li><strong>Search + charts + watchlist</strong> — one Actor for keyword discovery, chart snapshots, and collection-ID refresh. It does not emit rank-movement reports or review rows; those are separate Actors.</li>
     </ul>
-    <p>Use the cheaper episode scraper when the deliverable is episode-level audio URLs or a full RSS archive. Use this iTunes scraper when the deliverable is matching shows, a chart snapshot, or a watchlist of <code>collectionId</code> values. For a known show’s complete published catalog, a public RSS feed remains the direct source.</p>
+    <p>Use the episode scraper when the deliverable is episode-level audio URLs or a full RSS archive. Use this iTunes scraper when the deliverable is matching shows, a chart snapshot, or a watchlist of <code>collectionId</code> values. For a known show’s complete published catalog, a public RSS feed remains the direct source.</p>
 
     <h2>Which Actor ranks first for apple podcast on the Apify Store?</h2>
     <p>A Store search for <code>apple podcast</code> lists <a href="https://apify.com/logiover/apple-podcasts-episode-scraper">logiover/apple-podcasts-episode-scraper</a> first, with about 15 monthly users. <a href="https://apify.com/taroyamada/apple-podcast-scraper">taroyamada/apple-podcast-scraper</a> is second, with 5 monthly users. Rank here means Store search order for that query, not Apple Podcasts chart rank.</p>
 
     <h2>How do the public Store prices compare?</h2>
-    <p>logiover’s published result event is $0.0025 ($2.50 per 1,000 results). Apple Podcasts / iTunes Scraper’s published result event is $0.01 ($10.00 per 1,000 results), plus Actor Start at $0.005. This page does not suggest a price change.</p>
+    <p>Both listings publish a $0.0025 result event ($2.50 per 1,000 results). Apple Podcasts / iTunes Scraper also charges Actor Start at $0.005. Differentiation is the job: iTunes search, charts, and watchlist versus episode archives — not result PPE.</p>
 
     <h2>How do the jobs differ?</h2>
     <p>The logiover listing is an episode-oriented scraper: episodes, audio URLs, and RSS archives. Apple Podcasts / iTunes Scraper is search, chart snapshots, and collection-ID watchlists on official Apple/iTunes endpoints, with no proxy required.</p>
 
-    <h2>When is the $10 per 1,000 iTunes scraper the better fit?</h2>
+    <h2>When is the iTunes scraper the better fit?</h2>
     <p>When the job is Apple directory discovery (<code>searchTerm</code>), official chart snapshots (<code>chartRequests</code>), or a watchlist of known collection IDs (<code>lookupIds</code>). Start with the cheapest first paid run: <code>searchTerm</code> <code>technology</code>, <code>country</code> <code>us</code>, <code>limit</code> 3, <code>includeEpisodes</code> false. See <a href="/guides/itunes-podcast-scraper-first-run/">the cheapest Apple Podcasts first paid run</a>.</p>
 <pre><code>{
   "searchTerm": "technology",
@@ -146,10 +146,10 @@
   "limit": 3,
   "includeEpisodes": false
 }</code></pre>
-    <p>If that run writes 3 result rows and charges one Actor Start event, the estimate is $0.005 + (3 × $0.01) = $0.035. Same PPE as the Store card. Do not set <code>maxEpisodesPerShow</code>; it is not in this Actor’s live schema.</p>
+    <p>If that run writes 3 result rows and charges one Actor Start event, the estimate is $0.005 + (3 × $0.0025) = $0.0125. Same PPE as the Store card. Do not set <code>maxEpisodesPerShow</code>; it is not in this Actor’s live schema.</p>
 
     <h2>Does this comparison recommend changing prices?</h2>
-    <p>No. PPE on Apple Podcasts / iTunes Scraper stays at result $10 per 1,000 plus Actor Start $0.005. The cheaper listing is a different job, not a reason to change this Actor’s price.</p>
+    <p>No. Both listings publish result $2.50 per 1,000. Apple Podcasts / iTunes Scraper also charges Actor Start at $0.005. The episode-scraper listing is a different job (episodes, audio URLs, RSS archives), not a price clone.</p>
 
     <h2>How to run the iTunes scraper</h2>
     <ol>
@@ -157,7 +157,7 @@
       <li>Paste the first-run JSON above. Leave <code>includeEpisodes</code> false.</li>
       <li>Review the default dataset, then raise <code>limit</code> or add <code>chartRequests</code> / <code>lookupIds</code>.</li>
     </ol>
-    <p class="price">From $10 per 1,000 results ($0.01 per result; Actor Start $0.005)</p>
+    <p class="price">From $2.50 per 1,000 results ($0.0025 per result; Actor Start $0.005)</p>
     <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Run a search, chart, or watchlist on Apify</a></p>
 
     <h2>Related pages</h2>
