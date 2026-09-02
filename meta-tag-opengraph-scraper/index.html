@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Meta Tag &amp; OpenGraph Scraper — Open Graph, JSON-LD, and robots audits</title>
+  <meta name="description" content="Audit title, canonical, robots, Open Graph, Twitter Card, hreflang, and schema.org JSON-LD across up to 500 URLs. Metadata and issue rows, not full page content.">
+  <link rel="canonical" href="https://luxslime.github.io/meta-tag-opengraph-scraper/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is Meta Tag & OpenGraph Scraper different from Website Content Extractor?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "This Actor is a technical SEO metadata audit. It parses HTML head content for title, meta description, canonical, robots, charset, viewport, Open Graph, Twitter Card, hreflang, and schema.org JSON-LD, then flags issues such as truncated titles, missing canonicals, missing social preview images, and hreflang errors. Website Content Extractor cleans docs, product, pricing, policy, and help-center pages into markdown or text. It does not produce this metadata-and-issue audit row. Use this Actor when you need what a crawler or social platform sees in the head. Use Website Content Extractor when you need the page body as cleaned content."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I start a run?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Open the Actor on the Apify Store and supply urls (required, maximum 500). The live input schema sets concurrency default 5 (minimum 1, maximum 10), timeoutMs default 10000 (1000–30000), delivery default dataset (dataset or webhook), optional webhookUrl when delivery is webhook, and dryRun default false. additionalProperties is false. Do not send unpublished aliases such as includeOpenGraph, emitSeoWarnings, or detectDuplicateTitles. Store Quickstart starts with the 3-demo-URL template; SEO Audit uses 50+ URLs; Open Graph Monitor is the published path for ongoing social sharing validation."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does a result row contain?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The published README output table lists url, title, description, canonical, ogTitle, ogDescription, ogImage, twitterCard, twitterTitle, robots, and lang. The published output example uses nested objects instead: og (title, image, type), twitter (card), hreflang (lang and href), jsonLd (@type and name), and issues. Key Features also lists keywords, viewport, and charset. The sample is a README illustration, not a live coverage guarantee. There is no published full-page markdown or article-body field."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What issues are flagged?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The published FAQ lists truncated titles (over 60 characters), missing description, missing canonical, missing og:image, and duplicate meta description. Key Features also lists missing canonical, truncated titles, missing OG image, and hreflang errors. Use-case copy also covers missing descriptions and malformed structured data on product pages. Catch truncated page titles, missing canonical links, broken social preview images, or accidental noindex directives before they affect search or shares."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does it render JavaScript or follow redirects?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "It follows redirects: meta tags are extracted from the final URL. It does not render JavaScript. Tags are extracted from the initial HTML only. Tags injected client-side are not captured."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Meta Tag & OpenGraph Scraper priced?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Billing is pay per event. The published Store card is $3.00 per 1,000 page metadata audits. The billed event is Page metadata audit at $0.003, charged only for one delivered metadata and issue audit row. You are not charged for Apify platform usage, only the fixed event price."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Meta Tag &amp; OpenGraph Scraper</nav>
+    <h1>Audit Open Graph, JSON-LD, and robots metadata across URLs</h1>
+    <p>Meta Tag &amp; OpenGraph Scraper crawls a URL list and returns the head metadata a search crawler or social platform sees: title, description, canonical, robots, charset, viewport, Open Graph, Twitter Card, hreflang, and schema.org JSON-LD, plus issue flags. It is a technical SEO metadata audit, not a full-page content extract. For cleaned docs or help-center markdown, use <a href="/website-content-extractor/">Website Content Extractor</a>.</p>
+    <p><a href="https://apify.com/taroyamada/meta-tag-analyzer">Open Meta Tag &amp; OpenGraph Scraper on Apify</a></p>
+
+    <h2>Metadata and issue audit, not full content extract</h2>
+    <p>Use this page when the job is bulk validation of tags, social previews, robots directives, and structured markup. Use <a href="/website-content-extractor/">Website Content Extractor</a> when the job is cleaned page body from docs, product, pricing, policy, or help-center URLs. Use <a href="/article-content-extractor/">Article Content Extractor</a> when the URLs are article-shaped and you need headline, byline, body, and hero image. The published README tip is to pair this Actor with Article Content Extractor when you want full content plus metadata analysis — they are separate steps.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Meta Tag &amp; OpenGraph Scraper</th>
+          <th>Website Content Extractor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>Technical SEO audit of head metadata, social previews, JSON-LD, and robots</td>
+          <td>Clean docs, product, pricing, policy, and help-center HTML</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>HTML head and embedded JSON-LD from the initial HTML (no JavaScript render)</td>
+          <td>Live page HTML for cleaned markdown, text, or HTML body</td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td>Title, description, canonical, robots, Open Graph, Twitter Card, hreflang, JSON-LD, issue flags</td>
+          <td><code>web_content</code> rows: title, markdown/text, word count, optional metadata</td>
+        </tr>
+        <tr>
+          <td>Max URLs</td>
+          <td>500 per run</td>
+          <td>200 per run</td>
+        </tr>
+        <tr>
+          <td>Full page body</td>
+          <td>No published markdown or article-body field</td>
+          <td>Yes — cleaned content is the deliverable</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>This Actor is not a ranking tool and not a full-site crawler. Pass HTTP(S) URLs you own or are authorized to audit. Tags injected only after client-side JavaScript will not appear in the row.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>SEO specialists: audit title and meta tags for length, missing canonicals, and duplicate content.</li>
+      <li>Social media managers: verify Open Graph images before Facebook or LinkedIn shares.</li>
+      <li>International teams: validate hreflang alternate links on multilingual sites.</li>
+      <li>Content marketers: check that Twitter Cards display when content is shared.</li>
+      <li>Schema.org auditors: detect missing or malformed structured data on product pages.</li>
+      <li>Site migrations: bulk-validate canonical and meta tag consistency across a URL list.</li>
+      <li>Ongoing monitoring: schedule runs to catch truncated titles, missing canonicals, broken social preview images, or accidental noindex after deploys.</li>
+    </ul>
+    <p>Published Key Features: all listed meta tags (title, description, keywords, canonical, robots, viewport, charset); Open Graph (<code>og:title</code>, <code>og:image</code>, <code>og:description</code>, <code>og:type</code>, <code>og:url</code> and more); Twitter Card (<code>twitter:card</code>, <code>twitter:image</code>, <code>twitter:creator</code>, <code>twitter:site</code>); hreflang alternates; schema.org JSON-LD types (Article, Product, Organization, and similar); issue flags for missing canonical, truncated titles, missing OG image, and hreflang errors.</p>
+
+    <h2>How is Meta Tag &amp; OpenGraph Scraper different from Website Content Extractor?</h2>
+    <p>This Actor is a technical SEO metadata audit. It parses HTML head content for title, meta description, canonical, robots, charset, viewport, Open Graph, Twitter Card, hreflang, and schema.org JSON-LD, then flags issues such as truncated titles, missing canonicals, missing social preview images, and hreflang errors. <a href="/website-content-extractor/">Website Content Extractor</a> cleans docs, product, pricing, policy, and help-center pages into markdown or text. It does not produce this metadata-and-issue audit row. Use this Actor when you need what a crawler or social platform sees in the head. Use Website Content Extractor when you need the page body as cleaned content.</p>
+
+    <h2>How do I start a run?</h2>
+    <p>Open the Actor on the Apify Store and supply <code>urls</code> (required, maximum 500). Live input schema fields:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>urls</code></td>
+          <td>string[]</td>
+          <td>required</td>
+          <td>URLs to extract meta tags from (max 500). Schema prefill is <code>https://github.com</code>, <code>https://news.ycombinator.com</code>.</td>
+        </tr>
+        <tr>
+          <td><code>concurrency</code></td>
+          <td>integer</td>
+          <td>5</td>
+          <td>Parallel requests; minimum 1, maximum 10. The README input table shows 10; the live schema default is 5.</td>
+        </tr>
+        <tr>
+          <td><code>timeoutMs</code></td>
+          <td>integer</td>
+          <td>10000</td>
+          <td>Request timeout in milliseconds; 1000–30000</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string</td>
+          <td><code>dataset</code></td>
+          <td><code>dataset</code> or <code>webhook</code></td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td>—</td>
+          <td>POST target when <code>delivery</code> is <code>webhook</code></td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Run without saving results (for testing)</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>The schema sets <code>additionalProperties</code> to false. Do not send unpublished aliases from older README examples: <code>includeOpenGraph</code>, <code>emitSeoWarnings</code>, or <code>detectDuplicateTitles</code>.</p>
+    <p>Store Quickstart starts with the 3-demo-URL template. SEO Audit is the published path for 50+ URLs. Open Graph Monitor is the published path for ongoing social sharing validation.</p>
+    <p>Published input that matches the live schema (prefill URLs, schema defaults):</p>
+<pre><code>{
+  "urls": [
+    "https://github.com",
+    "https://news.ycombinator.com"
+  ],
+  "concurrency": 5,
+  "timeoutMs": 10000,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p>Published README input example (schema-valid <code>concurrency</code> at the maximum):</p>
+<pre><code>{
+  "urls": [
+    "https://example.com/product/1",
+    "https://example.com/blog/post-1"
+  ],
+  "concurrency": 10
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/meta-tag-analyzer">Run a metadata audit on Apify</a></p>
+
+    <h2>What does a result row contain?</h2>
+    <p>The published README output table lists <code>url</code>, <code>title</code>, <code>description</code>, <code>canonical</code>, <code>ogTitle</code>, <code>ogDescription</code>, <code>ogImage</code>, <code>twitterCard</code>, <code>twitterTitle</code>, <code>robots</code>, and <code>lang</code>. The published output example uses nested objects instead: <code>og</code> (<code>title</code>, <code>image</code>, <code>type</code>), <code>twitter</code> (<code>card</code>), <code>hreflang</code> (<code>lang</code> and <code>href</code>), <code>jsonLd</code> (<code>@type</code> and <code>name</code>), and <code>issues</code>. Key Features also lists keywords, viewport, and charset. There is no published full-page markdown or article-body field.</p>
+    <p>Published README sample:</p>
+<pre><code>{
+  "url": "https://example.com/product/1",
+  "title": "Premium Widget — Example Store",
+  "description": "Buy the best widget...",
+  "canonical": "https://example.com/product/1",
+  "og": {
+    "title": "Premium Widget",
+    "image": "https://example.com/widget.jpg",
+    "type": "product"
+  },
+  "twitter": {
+    "card": "summary_large_image"
+  },
+  "hreflang": [
+    { "lang": "en-us", "href": "..." }
+  ],
+  "jsonLd": [
+    { "@type": "Product", "name": "Premium Widget" }
+  ],
+  "issues": []
+}</code></pre>
+    <p>That sample is the published README illustration, not a live coverage guarantee. For cleaned page body after this audit, send docs, product, or policy URLs to <a href="/website-content-extractor/">Website Content Extractor</a> and news, blog, or press URLs to <a href="/article-content-extractor/">Article Content Extractor</a>.</p>
+
+    <h2>What issues are flagged?</h2>
+    <p>The published FAQ lists truncated titles (over 60 characters), missing description, missing canonical, missing <code>og:image</code>, and duplicate meta description. Key Features also lists missing canonical, truncated titles, missing OG image, and hreflang errors. Use-case copy also covers missing descriptions and malformed structured data on product pages. Schedule runs to catch truncated page titles, missing canonical links, broken social preview images, or accidental noindex directives after deploys.</p>
+
+    <h2>Does it render JavaScript or follow redirects?</h2>
+    <p>It follows redirects: meta tags are extracted from the final URL. It does not render JavaScript. Tags are extracted from the initial HTML only. Tags injected client-side are not captured.</p>
+
+    <h2>How is Meta Tag &amp; OpenGraph Scraper priced?</h2>
+    <p>Billing is pay per event. The published Store card is <strong>$3.00 / 1,000 page metadata audits</strong>. The billed event is Page metadata audit at <strong>$0.003</strong>, charged only for one delivered metadata and issue audit row. You are not charged for Apify platform usage, only the fixed event price.</p>
+    <p class="price">$3.00 per 1,000 page metadata audits ($0.003 per delivered metadata and issue audit row)</p>
+    <p><a href="https://apify.com/taroyamada/meta-tag-analyzer/pricing">See Meta Tag &amp; OpenGraph Scraper pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Maximum 500 URLs per run. Required field is <code>urls</code>.</li>
+      <li><code>concurrency</code> is 1–10 (live default 5). <code>timeoutMs</code> is 1000–30000 (default 10000).</li>
+      <li>No JavaScript rendering. Client-side-injected tags are not captured.</li>
+      <li>This is a head-metadata and issue audit, not a full content extract.</li>
+      <li>Live schema names are <code>urls</code>, <code>concurrency</code>, <code>timeoutMs</code>, <code>delivery</code>, <code>webhookUrl</code>, and <code>dryRun</code>. Unpublished aliases are not working inputs.</li>
+    </ul>
+    <p>Published README FAQ also notes that title, description, canonical, and robots are critical; <code>og:image</code> matters for social shares; hreflang matters for multilingual content.</p>
+    <p><a href="https://apify.com/taroyamada/meta-tag-analyzer">Open Meta Tag &amp; OpenGraph Scraper on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/website-content-extractor/">Website Content Extractor</a> — cleaned docs, product, pricing, policy, and help-center body text, not this metadata audit</li>
+      <li><a href="/article-content-extractor/">Article Content Extractor</a> — article body, byline, date, excerpt, and hero image</li>
+      <li><a href="/google-news-scraper/">Google News Scraper</a> — query-based headline URL discovery</li>
+      <li><a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a> — known-publisher feed items</li>
+      <li><a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a></li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>
