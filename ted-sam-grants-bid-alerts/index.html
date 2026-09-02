@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>TED, SAM.gov &amp; Grants Bid Alerts — source-linked public-sector bid queues</title>
-  <meta name="description" content="Queue TED tenders, SAM.gov opportunities, and grants notices into source-linked bid alerts with deadline, award-watch, and rebid signals. Live PPE: $8.00 / 1,000 opportunity or alert rows. Not Google News RSS and not PubMed citation watch.">
+  <title>SAM.gov, TED &amp; Grants Bid Alerts — source-linked public-sector bid queues</title>
+  <meta name="description" content="Queue TED tenders, SAM.gov opportunities, and Grants.gov notices into source-linked bid alerts with deadline, award-watch, and rebid signals. Live PPE: $8.00 / 1,000 opportunity or alert rows. Not Google News RSS and not PubMed citation watch.">
   <link rel="canonical" href="https://luxslime.github.io/ted-sam-grants-bid-alerts/">
   <script type="application/ld+json">
   {
@@ -16,7 +16,7 @@
         "name": "How is TED, SAM.gov & Grants Bid Alerts different from Google News Scraper and PubMed Literature Watch?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "This Actor is a public-sector procurement queue. It searches official TED, SAM.gov, and Simpler.Grants.gov notice APIs and returns normalized tenders, grants, deadline/status alerts, and optional award-watch or rebid signals. Google News Scraper is query-based Google News RSS discovery of headlines and article URLs; it does not read procurement notice APIs and it does not clean HTML. PubMed Literature Watch queries NCBI E-utilities for citation metadata, literature-update reports, and new-PMID alerts; it is not a bid queue. This page is TED/SAM.gov/grants bid alerts, not news RSS and not PubMed."
+          "text": "This Actor is a public-sector procurement queue. It searches official TED, SAM.gov, and Grants.gov / Simpler.Grants.gov notice APIs and returns normalized TED tenders, SAM.gov opportunities, Grants.gov notices, deadline/status alerts, and optional award-watch or rebid signals. Google News Scraper is query-based Google News RSS discovery of headlines and article URLs; it does not read procurement notice APIs and it does not clean HTML. PubMed Literature Watch queries NCBI E-utilities for citation metadata, literature-update reports, and new-PMID alerts; it is not a bid queue. This page is TED/SAM.gov/Grants.gov bid alerts, not news RSS and not PubMed."
         }
       },
       {
@@ -37,10 +37,10 @@
       },
       {
         "@type": "Question",
-        "name": "What happens when SAM.gov or grants lanes are skipped or throttled?",
+        "name": "What happens when SAM.gov or Grants.gov lanes are skipped or throttled?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "The actor does not pretend coverage is complete. It returns the useful sources it could fetch, then surfaces explicit warnings or source errors for the missing lane. SAM.gov and grants are additive, not required. Official schema-default endpoints are https://api.ted.europa.eu/v3/notices/search, https://api.sam.gov/opportunities/v2/search, and https://api.simpler.grants.gov/v1/opportunities/search. A partial source response is never presented as complete coverage."
+          "text": "The actor does not pretend coverage is complete. It returns the useful sources it could fetch, then surfaces explicit warnings or source errors for the missing lane. SAM.gov and Grants.gov are additive, not required. Official schema-default endpoints are https://api.ted.europa.eu/v3/notices/search, https://api.sam.gov/opportunities/v2/search, and https://api.simpler.grants.gov/v1/opportunities/search. A partial source response is never presented as complete coverage."
         }
       },
       {
@@ -53,7 +53,7 @@
       },
       {
         "@type": "Question",
-        "name": "How are overlapping TED, SAM.gov, and grants notices deduplicated?",
+        "name": "How are overlapping TED, SAM.gov, and Grants.gov notices deduplicated?",
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "The actor normalizes notices and deduplicates them across comparable identifiers so recurring queues stay cleaner when similar records appear across sources. Bid-alert prioritization rolls deadline pressure, value, award/rebid phrasing, and watch-term hits into the review queue. Watch terms highlight buyers, incumbents, frameworks, or competitor names in summaries and notice signals without changing upstream source queries."
@@ -61,10 +61,10 @@
       },
       {
         "@type": "Question",
-        "name": "How do recurring bid-alert runs and grants state snapshots work?",
+        "name": "How do recurring bid-alert runs and Grants.gov state snapshots work?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "The actor is designed for daily or weekly recurring runs. datasetMode all emits the current matched opportunity queue. changes_only emits only stateful alert rows and writes zero rows when nothing changed. Grants deadline and status alerts rely on saved state in a named key-value store (default procurement-intel-grants-state), so recurring runs matter more than one-off tests. grantsOpportunityStatuses default is posted,forecasted. grantsAlertClosingSoonDays defaults to 7."
+          "text": "The actor is designed for daily or weekly recurring runs. datasetMode all emits the current matched opportunity queue. changes_only emits only stateful alert rows and writes zero rows when nothing changed. Grants.gov deadline and status alerts rely on saved state in a named key-value store (default procurement-intel-grants-state), so recurring runs matter more than one-off tests. grantsOpportunityStatuses default is posted,forecasted. grantsAlertClosingSoonDays defaults to 7."
         }
       },
       {
@@ -104,12 +104,12 @@
         "name": "Which official notice APIs does this Actor call?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Schema defaults are the TED notices search API at https://api.ted.europa.eu/v3/notices/search, the SAM.gov opportunities API at https://api.sam.gov/opportunities/v2/search, and the Simpler.Grants.gov opportunities search API at https://api.simpler.grants.gov/v1/opportunities/search. This Actor does not scrape a procurement HTML UI, does not query Google News RSS, and does not call NCBI E-utilities. It is not a page HTML extractor."
+          "text": "Schema defaults are the TED notices search API at https://api.ted.europa.eu/v3/notices/search, the SAM.gov opportunities API at https://api.sam.gov/opportunities/v2/search, and the Grants.gov / Simpler.Grants.gov opportunities search API at https://api.simpler.grants.gov/v1/opportunities/search. This Actor does not scrape a procurement HTML UI, does not query Google News RSS, and does not call NCBI E-utilities. It is not a page HTML extractor."
         }
       },
       {
         "@type": "Question",
-        "name": "Do watch terms change upstream TED, SAM.gov, or grants queries?",
+        "name": "Do watch terms change upstream TED, SAM.gov, or Grants.gov queries?",
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "No. watchTerms highlight buyers, incumbents, frameworks, or competitor names in summaries and notice signals without changing upstream source queries. Add them after the first useful run. keywords, cpvCodes, and naicsCodes are the filters sent to source APIs."
@@ -148,7 +148,8 @@
   <main>
     <nav><a href="/">Home</a> / TED, SAM.gov &amp; Grants Bid Alerts Scraper</nav>
     <h1>Queue TED tenders, SAM.gov opportunities, and grants notices into source-linked bid alerts</h1>
-    <p>Start with a TED-only quickstart, then turn TED tenders, SAM.gov opportunities, and grants notices into source-linked bid queues, report bundles, export files, deadlines, award watch, and rebid watch signals. This Actor is a public-sector bid-alert queue — not Google News RSS, not PubMed citation watch, and not a website or article HTML extractor.</p>
+    <p>The Actor title is TED, SAM.gov &amp; Grants Bid Alerts Scraper. The live Store SEO name is SAM.gov, TED &amp; Grants Bid Alerts Scraper. It searches official TED, SAM.gov, and Grants.gov / Simpler.Grants.gov notice APIs.</p>
+    <p>Start with a TED-only quickstart, then turn TED tenders, SAM.gov opportunities, and Grants.gov notices into source-linked bid queues, report bundles, export files, deadlines, award watch, and rebid watch signals. This Actor is a public-sector bid-alert queue — not Google News RSS, not PubMed citation watch, and not a website or article HTML extractor.</p>
     <p>Source availability and rate limits are reported in <code>warnings[]</code> and <code>errors[]</code>. A partial source response is never presented as complete coverage.</p>
     <p class="price">$8.00 / 1,000 procurement opportunity or alert rows ($0.008 per delivered source-linked opportunity or stateful alert row)</p>
     <p><a href="https://apify.com/taroyamada/procurement-intel-actor">Open TED, SAM.gov &amp; Grants Bid Alerts Scraper on Apify</a></p>
@@ -167,13 +168,13 @@
       <tbody>
         <tr>
           <td>Intent</td>
-          <td>TED / SAM.gov / grants bid-alert queue, award watch, rebid signals, deadline and status deltas</td>
+          <td>TED / SAM.gov / Grants.gov bid-alert queue, award watch, rebid signals, deadline and status deltas</td>
           <td>Discover current article URLs by news query</td>
           <td>PubMed literature watch, citation reports, and new-PMID alerts</td>
         </tr>
         <tr>
           <td>What it reads</td>
-          <td>TED, SAM.gov, and Simpler.Grants.gov notice APIs</td>
+          <td>TED, SAM.gov, and Grants.gov / Simpler.Grants.gov notice APIs</td>
           <td>Google News RSS</td>
           <td>Official NCBI ESearch and ESummary JSON</td>
         </tr>
@@ -200,15 +201,15 @@
 
     <h2>Use cases</h2>
     <ul>
-      <li>Business development teams: turn TED and federal opportunity noise into one shortlist of current bids worth opening today.</li>
+      <li>Business development teams: turn TED, SAM.gov, and Grants.gov opportunity noise into one shortlist of current bids worth opening today.</li>
       <li>Capture / bid managers: spot deadline pressure, strategic-value tenders, award-watch rows, and rebid hints in one queue.</li>
       <li>Public-sector consultants: keep a reusable buyer/framework watchlist without maintaining source-specific scrapers.</li>
       <li>RevOps / automation teams: push recurring procurement summaries into CRM, Slack, webhook routers, or internal dashboards.</li>
-      <li>Grants teams: add closing-soon and status-delta alerts once the TED starter lane is already useful.</li>
+      <li>Grants teams: add Grants.gov closing-soon and status-delta alerts once the TED starter lane is already useful.</li>
     </ul>
 
     <h2>How is TED, SAM.gov &amp; Grants Bid Alerts different from Google News Scraper and PubMed Literature Watch?</h2>
-    <p>This Actor is a public-sector procurement queue. It searches official TED, SAM.gov, and Simpler.Grants.gov notice APIs and returns normalized tenders, grants, deadline/status alerts, and optional award-watch or rebid signals. <a href="/google-news-scraper/">Google News Scraper</a> is query-based Google News RSS discovery of headlines and article URLs; it does not read procurement notice APIs and it does not clean HTML. <a href="/pubmed-literature-watch/">PubMed Literature Watch &amp; Research Report</a> queries NCBI E-utilities for citation metadata, literature-update reports, and new-PMID alerts; it is not a bid queue. This page is TED/SAM.gov/grants bid alerts, not news RSS and not PubMed.</p>
+    <p>This Actor is a public-sector procurement queue. It searches official TED, SAM.gov, and Grants.gov / Simpler.Grants.gov notice APIs and returns normalized TED tenders, SAM.gov opportunities, Grants.gov notices, deadline/status alerts, and optional award-watch or rebid signals. <a href="/google-news-scraper/">Google News Scraper</a> is query-based Google News RSS discovery of headlines and article URLs; it does not read procurement notice APIs and it does not clean HTML. <a href="/pubmed-literature-watch/">PubMed Literature Watch &amp; Research Report</a> queries NCBI E-utilities for citation metadata, literature-update reports, and new-PMID alerts; it is not a bid queue. This page is TED/SAM.gov/Grants.gov bid alerts, not news RSS and not PubMed.</p>
 
     <h2>What is the TED-only first run for a bid-alert queue?</h2>
     <p>Start TED-only. The published Store quickstart needs no external key:</p>
@@ -272,17 +273,17 @@
 }</code></pre>
     <p>That sample is the published README illustration of the starter payload, not a live coverage guarantee.</p>
 
-    <h2>What happens when SAM.gov or grants lanes are skipped or throttled?</h2>
-    <p>The actor does not pretend coverage is complete. It returns the useful sources it could fetch, then surfaces explicit warnings or source errors for the missing lane. If <code>us</code> is present without a SAM.gov key, the actor warns and skips that source instead of failing the whole run. SAM.gov and grants are additive, not required. Official endpoints used by the schema defaults are <code>https://api.ted.europa.eu/v3/notices/search</code>, <code>https://api.sam.gov/opportunities/v2/search</code>, and <code>https://api.simpler.grants.gov/v1/opportunities/search</code>.</p>
+    <h2>What happens when SAM.gov or Grants.gov lanes are skipped or throttled?</h2>
+    <p>The actor does not pretend coverage is complete. It returns the useful sources it could fetch, then surfaces explicit warnings or source errors for the missing lane. If <code>us</code> is present without a SAM.gov key, the actor warns and skips that source instead of failing the whole run. SAM.gov and Grants.gov are additive, not required. Official endpoints used by the schema defaults are <code>https://api.ted.europa.eu/v3/notices/search</code>, <code>https://api.sam.gov/opportunities/v2/search</code>, and <code>https://api.simpler.grants.gov/v1/opportunities/search</code>.</p>
 
     <h2>When should award-watch or rebid-watch be turned on?</h2>
     <p>After the starter or recurring TED queue already proves useful. Those workflows are best when you care about incumbent movement, renewals, or follow-on phrasing more than net-new open bids. <code>includeAwarded</code> defaults to false. Turn it on for award watch, incumbent movement, or rebid monitoring.</p>
 
-    <h2>How are overlapping TED, SAM.gov, and grants notices deduplicated?</h2>
+    <h2>How are overlapping TED, SAM.gov, and Grants.gov notices deduplicated?</h2>
     <p>The actor normalizes notices and deduplicates them across comparable identifiers so recurring queues stay cleaner when similar records appear across sources. Bid-alert prioritization rolls deadline pressure, value, award/rebid phrasing, and watch-term hits into the review queue.</p>
 
-    <h2>How do recurring bid-alert runs and grants state snapshots work?</h2>
-    <p>The actor is designed for daily or weekly recurring runs. <code>datasetMode</code> <code>all</code> emits the current matched opportunity queue. <code>changes_only</code> emits only stateful alert rows and writes zero rows when nothing changed. Grants closing-soon and status-delta alerts persist snapshots in a named Apify key-value store (default <code>procurement-intel-grants-state</code>) so deadline and status alerts stay comparable. <code>grantsOpportunityStatuses</code> default is <code>posted,forecasted</code>. <code>grantsAlertClosingSoonDays</code> default is 7.</p>
+    <h2>How do recurring bid-alert runs and Grants.gov state snapshots work?</h2>
+    <p>The actor is designed for daily or weekly recurring runs. <code>datasetMode</code> <code>all</code> emits the current matched opportunity queue. <code>changes_only</code> emits only stateful alert rows and writes zero rows when nothing changed. Grants.gov closing-soon and status-delta alerts persist snapshots in a named Apify key-value store (default <code>procurement-intel-grants-state</code>) so deadline and status alerts stay comparable. <code>grantsOpportunityStatuses</code> default is <code>posted,forecasted</code>. <code>grantsAlertClosingSoonDays</code> default is 7.</p>
 
     <h2>How is TED, SAM.gov &amp; Grants Bid Alerts Scraper priced on the live Store PPE tab?</h2>
     <p>Billing is pay-per-event. The live Store card is <strong>$8.00 / 1,000 procurement opportunity or alert rows</strong>. Current live PPE:</p>
@@ -466,9 +467,9 @@
     <p>Other live fields: <code>tedFields</code>, <code>webhookUrl</code>, <code>samApiUrl</code>, <code>tedApiUrl</code>, <code>grantsApiKey</code>, <code>grantsApiUrl</code>, <code>grantsApplicantTypes</code>, <code>grantsFundingInstruments</code>, <code>grantsAlertStateKey</code>, plus testing fixture paths and <code>nowIso</code>.</p>
 
     <h2>Which official notice APIs does this Actor call?</h2>
-    <p>Schema defaults are the TED notices search API at <code>https://api.ted.europa.eu/v3/notices/search</code>, the SAM.gov opportunities API at <code>https://api.sam.gov/opportunities/v2/search</code>, and the Simpler.Grants.gov opportunities search API at <code>https://api.simpler.grants.gov/v1/opportunities/search</code>. This Actor does not scrape a procurement HTML UI, does not query Google News RSS, and does not call NCBI E-utilities. It is not a page HTML extractor.</p>
+    <p>Schema defaults are the TED notices search API at <code>https://api.ted.europa.eu/v3/notices/search</code>, the SAM.gov opportunities API at <code>https://api.sam.gov/opportunities/v2/search</code>, and the Grants.gov / Simpler.Grants.gov opportunities search API at <code>https://api.simpler.grants.gov/v1/opportunities/search</code>. This Actor does not scrape a procurement HTML UI, does not query Google News RSS, and does not call NCBI E-utilities. It is not a page HTML extractor.</p>
 
-    <h2>Do watch terms change upstream TED, SAM.gov, or grants queries?</h2>
+    <h2>Do watch terms change upstream TED, SAM.gov, or Grants.gov queries?</h2>
     <p>No. <code>watchTerms</code> highlight buyers, incumbents, frameworks, or competitor names in summaries and notice signals without changing upstream source queries. Add them after the first useful run. <code>keywords</code>, <code>cpvCodes</code>, and <code>naicsCodes</code> are the filters sent to source APIs.</p>
 
     <h2>Are empty bid queues or unchanged changes_only polls billed?</h2>
@@ -476,7 +477,7 @@
 
     <h2>Limits to keep in mind</h2>
     <ul>
-      <li>Official TED / SAM.gov / Simpler.Grants.gov notice APIs only — not Google News RSS, not NCBI E-utilities, not page HTML cleanup.</li>
+      <li>Official TED / SAM.gov / Grants.gov (Simpler.Grants.gov) notice APIs only — not Google News RSS, not NCBI E-utilities, not page HTML cleanup.</li>
       <li>TED-only first run needs no external key. The US lane needs a SAM.gov API key; missing key skips that source with a warning.</li>
       <li>Live schema names only. <code>additionalProperties</code> is false.</li>
       <li>Live billed event is <code>apify-default-dataset-item</code> at $0.008. Empty queues and unchanged <code>changes_only</code> polls emit zero rows and zero charge.</li>
@@ -487,9 +488,9 @@
 
     <h2>Related pages</h2>
     <ul>
-      <li><a href="/google-news-scraper/">Google News Scraper</a> — Google News RSS headlines and article URLs, not TED/SAM.gov/grants bids</li>
+      <li><a href="/google-news-scraper/">Google News Scraper</a> — Google News RSS headlines and article URLs, not TED/SAM.gov/Grants.gov bids</li>
       <li><a href="/pubmed-literature-watch/">PubMed Literature Watch &amp; Research Report</a> — NCBI E-utilities citation watch, not procurement queues</li>
-      <li><a href="/hhs-healthcare-data-breach-scraper/">HHS Healthcare Data Breach Change Scraper</a> — HHS OCR healthcare breach disclosures, not TED/SAM.gov/grants bids</li>
+      <li><a href="/hhs-healthcare-data-breach-scraper/">HHS Healthcare Data Breach Change Scraper</a> — HHS OCR healthcare breach disclosures, not TED/SAM.gov/Grants.gov bids</li>
       <li><a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a> — known-publisher feed XML, not procurement notice APIs</li>
       <li><a href="/article-content-extractor/">Article Content Extractor</a> — article HTML cleanup, not bid queues</li>
       <li><a href="/website-content-extractor/">Website Content Extractor</a> — docs and product HTML cleanup</li>

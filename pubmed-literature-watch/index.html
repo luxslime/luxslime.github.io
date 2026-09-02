@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>PubMed Literature Watch &amp; Research Report — NCBI E-utilities citation monitors and reports</title>
-  <meta name="description" content="Search PubMed through official NCBI E-utilities, monitor new publications, and generate citation-metadata literature reports and exports. Not TED/SAM bid alerts and not Google News RSS.">
+  <meta name="description" content="Search PubMed through official NCBI E-utilities, monitor new publications, and generate citation-metadata literature reports and exports. Not TED/SAM.gov/Grants.gov bid alerts and not Google News RSS.">
   <link rel="canonical" href="https://luxslime.github.io/pubmed-literature-watch/">
   <script type="application/ld+json">
   {
@@ -16,7 +16,7 @@
         "name": "How is PubMed Literature Watch different from TED, SAM.gov & Grants Bid Alerts and Google News Scraper?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "This Actor queries official NCBI E-utilities (ESearch and ESummary JSON). It returns PubMed citation metadata, literature-update reports, systematic-review citation exports, and new-publication alerts for saved queries. It does not scrape a browser UI and it does not log in. TED, SAM.gov & Grants Bid Alerts Scraper is a public-sector procurement queue: TED tenders, SAM.gov opportunities, and grants notices. Google News Scraper is query-based Google News RSS discovery of headlines and article URLs. This page is biomedical literature watch on PubMed, not procurement and not news RSS."
+          "text": "This Actor queries official NCBI E-utilities (ESearch and ESummary JSON). It returns PubMed citation metadata, literature-update reports, systematic-review citation exports, and new-publication alerts for saved queries. It does not scrape a browser UI and it does not log in. TED, SAM.gov & Grants Bid Alerts Scraper is a public-sector procurement queue: TED tenders, SAM.gov opportunities, and Grants.gov notices. Google News Scraper is query-based Google News RSS discovery of headlines and article URLs. This page is biomedical literature watch on PubMed, not procurement and not news RSS."
         }
       },
       {
@@ -85,12 +85,12 @@
     <nav><a href="/">Home</a> / PubMed Literature Watch &amp; Research Report</nav>
     <h1>Watch PubMed literature via NCBI E-utilities and generate citation reports</h1>
     <p>PubMed Literature Watch &amp; Research Report queries PubMed through official NCBI E-utilities. Biomedical research, evidence, and research-operations teams enter PubMed queries or PMIDs. The first-run value path returns a source-linked literature report and optional citation export, with recurring new-publication alerts afterward. Outputs are descriptive citation metadata, not medical conclusions or treatment guidance.</p>
-    <p>This is official NCBI/PubMed E-utilities literature watch. It is not a TED/SAM.gov/grants procurement queue and not Google News RSS.</p>
+    <p>This is official NCBI/PubMed E-utilities literature watch. It is not a TED/SAM.gov/Grants.gov procurement queue and not Google News RSS.</p>
     <p class="price">from $4.00 / 1,000 pubmed metadata rows ($0.004 per delivered citation, author, or journal metadata row)</p>
     <p><a href="https://apify.com/taroyamada/pubmed-research-intelligence">Open PubMed Literature Watch &amp; Research Report on Apify</a></p>
 
     <h2>Official PubMed E-utilities, not procurement bids and not news RSS</h2>
-    <p>Use this page when the job is PubMed citation metadata, literature-update reports, systematic-review citation exports, or saved-query new-publication alerts. Use <a href="/ted-sam-grants-bid-alerts/">TED, SAM.gov &amp; Grants Bid Alerts Scraper</a> when the job is public-sector bid queues. Use <a href="/google-news-scraper/">Google News Scraper</a> when the job is query-based Google News RSS headlines and article URLs.</p>
+    <p>Use this page when the job is PubMed citation metadata, literature-update reports, systematic-review citation exports, or saved-query new-publication alerts. Use <a href="/ted-sam-grants-bid-alerts/">TED, SAM.gov &amp; Grants Bid Alerts Scraper</a> when the job is TED, SAM.gov, and Grants.gov bid queues. Use <a href="/google-news-scraper/">Google News Scraper</a> when the job is query-based Google News RSS headlines and article URLs.</p>
     <table>
       <thead>
         <tr>
@@ -110,7 +110,7 @@
         <tr>
           <td>What it reads</td>
           <td>Official NCBI ESearch and ESummary JSON</td>
-          <td>TED, SAM.gov, and grants notice APIs</td>
+          <td>TED, SAM.gov, and Grants.gov notice APIs</td>
           <td>Google News RSS</td>
         </tr>
         <tr>
@@ -146,7 +146,7 @@
     </ul>
 
     <h2>How is PubMed Literature Watch different from TED, SAM.gov &amp; Grants Bid Alerts and Google News Scraper?</h2>
-    <p>This Actor queries official NCBI E-utilities (ESearch and ESummary JSON). It returns PubMed citation metadata, literature-update reports, systematic-review citation exports, and new-publication alerts for saved queries. It does not scrape a browser UI and it does not log in. <a href="/ted-sam-grants-bid-alerts/">TED, SAM.gov &amp; Grants Bid Alerts Scraper</a> is a public-sector procurement queue: TED tenders, SAM.gov opportunities, and grants notices. <a href="/google-news-scraper/">Google News Scraper</a> is query-based Google News RSS discovery of headlines and article URLs. This page is biomedical literature watch on PubMed, not procurement and not news RSS.</p>
+    <p>This Actor queries official NCBI E-utilities (ESearch and ESummary JSON). It returns PubMed citation metadata, literature-update reports, systematic-review citation exports, and new-publication alerts for saved queries. It does not scrape a browser UI and it does not log in. <a href="/ted-sam-grants-bid-alerts/">TED, SAM.gov &amp; Grants Bid Alerts Scraper</a> is a public-sector procurement queue: TED tenders, SAM.gov opportunities, and Grants.gov notices. <a href="/google-news-scraper/">Google News Scraper</a> is query-based Google News RSS discovery of headlines and article URLs. This page is biomedical literature watch on PubMed, not procurement and not news RSS.</p>
 
     <h2>What is the best first run?</h2>
     <p>The published README splits two first-run paths. For a low-cost new-publication signal, use a bounded monitor. The baseline and unchanged poll emit zero rows and zero charges:</p>
@@ -443,7 +443,7 @@
       <li>Optional NCBI API key: up to 10 requests/second. Keyless mode is supported at 3 requests/second.</li>
       <li>A query with no matches emits no report/export events and no value-event charge. Unchanged monitor polls emit zero rows and zero charges.</li>
       <li>If <code>maxChargeUsd</code> is too low for the planned delivery, no rows are delivered and monitor state is not committed.</li>
-      <li>Not medical advice. Not affiliated with NCBI or PubMed. Not TED/SAM procurement. Not Google News RSS.</li>
+      <li>Not medical advice. Not affiliated with NCBI or PubMed. Not TED/SAM.gov/Grants.gov procurement. Not Google News RSS.</li>
     </ul>
     <p>Published README next-report Store listings (no local landings):</p>
     <ul>
@@ -455,7 +455,7 @@
 
     <h2>Related pages</h2>
     <ul>
-      <li><a href="/ted-sam-grants-bid-alerts/">TED, SAM.gov &amp; Grants Bid Alerts Scraper</a> — public-sector bid queues, not PubMed literature</li>
+      <li><a href="/ted-sam-grants-bid-alerts/">TED, SAM.gov &amp; Grants Bid Alerts Scraper</a> — TED tenders, SAM.gov opportunities, and Grants.gov notices, not PubMed literature</li>
       <li><a href="/google-news-scraper/">Google News Scraper</a> — Google News RSS headlines and article URLs, not NCBI E-utilities</li>
       <li><a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a> — known-publisher feed XML, not PubMed</li>
       <li><a href="/article-content-extractor/">Article Content Extractor</a> — article HTML cleanup, not PubMed citation metadata</li>
