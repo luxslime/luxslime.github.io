@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Website Content Extractor — docs, pricing, and help-center pages</title>
-  <meta name="description" content="Extract clean text and markdown from public docs, pricing, product, policy, and help-center pages for content QA and RAG source work. From $9 per 1,000 results.">
+  <title>Website Content Extractor — clean docs, pricing, and help-center markdown</title>
+  <meta name="description" content="Clean public docs, pricing, product, policy, and help-center HTML into markdown or text for content QA and RAG source work. Live PPE from $9.00 / 1,000 results.">
   <link rel="canonical" href="https://luxslime.github.io/website-content-extractor/">
   <script type="application/ld+json">
   {
@@ -13,50 +13,114 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "What pages is Website Content Extractor for?",
+        "name": "How is Website Content Extractor different from Article Content Extractor and Meta Tag & OpenGraph Scraper?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Public docs, product, pricing, policy, and help-center or knowledge-base pages. Pass HTTP(S) URLs you own or are authorized to fetch. Maximum 200 URLs per run. For news, blog, or article URLs, use Article Content Extractor."
+          "text": "Website Content Extractor is the bounded HTML cleaner for public docs, product, pricing, policy, and help-center pages (urls, maximum 200). It returns cleaned markdown, text, or HTML plus title, optional metadata, word count, source URL, and fetch timestamp. Sample rowType is web_content. Article Content Extractor is for article-shaped news, blog, newsroom, and press URLs (maximum 300) when you need headline, byline, publish date, article body, excerpt, and hero image. Meta Tag & OpenGraph Scraper is a technical SEO head-metadata audit (title, canonical, robots, Open Graph, Twitter Card, hreflang, JSON-LD, issue flags) and does not emit cleaned page body. Use this Actor for site-page body cleanup. Use Article Content Extractor for article body. Use Meta Tag & OpenGraph Scraper for crawler and social head tags."
         }
       },
       {
         "@type": "Question",
-        "name": "What does a result row contain?",
+        "name": "What input is required for a docs, pricing, or help-center extraction?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Cleaned page content as markdown, plain text, or HTML, plus title, optional metadata (description, author, language, published date when present), word count, source URL, fetch timestamp, and warnings for partial fetches. Sample rowType is web_content. The published README field list is rowType, url, title, markdown, text, wordCount, metadata, sourceUrl, and fetchedAt."
+          "text": "urls is required: public broad website pages to clean (maximum 200). Live schema fields are urls, outputFormat (text, markdown, or html; default markdown), includeMetadata (default true), concurrency (default 5), timeoutMs (default 15000), delivery (dataset or webhook; default dataset), webhookUrl (when delivery is webhook), dryRun (default false), and maxChargeUsd (default 1). additionalProperties is false. Schema prefill is https://docs.apify.com/platform/actors, https://docs.apify.com/platform/storage/dataset, and https://docs.apify.com/platform/storage/key-value-store. Do not send report-only fields such as generateReport, emitExport, authorizedUseConfirmed, or emitUnchanged on this extractor."
         }
       },
       {
         "@type": "Question",
-        "name": "How do I start a run?",
+        "name": "Which fields appear on a web_content extraction row?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Open the Actor on the Apify Store and supply a urls list. outputFormat defaults to markdown. includeMetadata defaults to true. delivery defaults to dataset; set webhook plus webhookUrl after the payload shape is useful. dryRun validates without dataset or webhook writes. maxChargeUsd defaults to 1."
+          "text": "The published README field list is rowType, url, title, markdown, text, wordCount, metadata, sourceUrl, and fetchedAt. Sample rowType is web_content. includeMetadata defaults to true and adds page metadata such as description, author, language, and published date when present. Rows also include warnings when a source is partial, and stable IDs when the workflow supports recurring change detection. The published sample is a README illustration, not a live coverage guarantee. There is no published Open Graph issue list, article byline, or Site QA report field on this Actor."
         }
       },
       {
         "@type": "Question",
-        "name": "When should I use Article Content Extractor instead?",
+        "name": "Which public page types belong on Website Content Extractor?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "When the URLs are news, blog, newsroom, or press pages and you need article body, byline, publish date, excerpt, and hero image. Website Content Extractor is the broader HTML cleaner for site pages that are not article-shaped."
+          "text": "The live schema description is: flagship cleaner for broad HTML pages such as docs, pricing, policy, help-center, and product pages. Pass HTTP(S) URLs you own or are authorized to fetch. Maximum 200 URLs per run. For article, news, or blog URLs, route to Article Content Extractor."
         }
       },
       {
         "@type": "Question",
-        "name": "How is Website Content Extractor priced?",
+        "name": "How is Website Content Extractor priced on pay-per-event?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Billing is pay-per-event. The published Store price is $0.001 per Actor start and $0.009 per useful content row ($9.00 per 1,000 results). Failed or no-content rows should stay out of the default dataset. maxChargeUsd defaults to 1; billable rows beyond that cap are returned as no-charge limit_reached summaries. Dry runs do not write the dataset or send webhooks."
+          "text": "Billing is pay-per-event. The live Store card is from $9.00 / 1,000 results. Live events are Actor Start at $0.001 (charged when the Actor starts; number of events depends on Actor memory, one event per GB, minimum one event) and result at $0.009 (single result in the default dataset). Platform usage is listed as Included on the live pricing page. The README pricing section matches those event amounts: $0.001 actor start and $0.009 per useful content row. Failed or no-content rows should stay out of the default dataset. The default dataset is the billable surface."
         }
       },
       {
         "@type": "Question",
-        "name": "How do delivery, webhooks, dry runs, and the charge cap work?",
+        "name": "How does Website Content Extractor deliver dataset, webhook, and dry-run output?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "delivery defaults to dataset. A non-dry-run always writes canonical dataset rows first; webhook delivery runs only after dataset and pay-per-event output succeed. webhookUrl is used when delivery is webhook and is skipped on dryRun. dryRun validates the setup and writes only local output. maxChargeUsd is a safety cap for billable rows on the run."
+          "text": "delivery defaults to dataset. A non-dry-run always writes canonical dataset rows first; webhook delivery runs only after dataset and pay-per-event output succeed. webhookUrl is used when delivery is webhook and is skipped on dryRun. dryRun validates the setup and writes only local output: dataset writes and webhook delivery are disabled. Store Quickstart starts with a short urls list, outputFormat markdown, delivery dataset, and dryRun false."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Website Content Extractor emit a Site QA or RAG report?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. This Actor returns bounded source rows. The README positions it as the low-cost extraction step, then you pass the same URLs to a linked Site QA or RAG report Actor in a separate run. Do not treat raw markdown as the buyer-facing deliverable. Linked report actors have separate report and export events; do not infer those charges from a raw content row."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What happens to failed, no-content, dry-run, and unchanged Website Content Extractor rows?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Failed or no-content rows should stay out of the default dataset. Dry runs, validation-only runs, missing-key warnings, and unchanged recurring polls should not write payable default-dataset rows. Result events are charged per default-dataset item ($0.009 each; $9.00 per 1,000). Actor Start is a separate $0.001 event charged when the Actor starts (one event per GB, minimum one event)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do generateReport and emitExport belong on this extractor input?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. The README says do not add report-only fields to this extractor input. generateReport, emitExport, authorizedUseConfirmed, and emitUnchanged are shown as a separate input for a linked Site QA or RAG report Actor, not for Website Content Extractor. additionalProperties is false on this Actor, so unpublished report aliases are not accepted."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the URL cap, and which unpublished fields are rejected?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Maximum 200 URLs per run. Required field is urls. Live schema names are urls, outputFormat, includeMetadata, concurrency, timeoutMs, delivery, webhookUrl, dryRun, and maxChargeUsd. additionalProperties is false. Unpublished report-only names such as generateReport, emitExport, authorizedUseConfirmed, and emitUnchanged are not working inputs on this extractor."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does maxChargeUsd cap billable Website Content Extractor rows?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "maxChargeUsd defaults to 1 as a safety cap for this run. Billable rows beyond that cap are returned as no-charge limit_reached summaries. It does not replace the live PPE events: Actor Start at $0.001 and result at $0.009 per default-dataset item."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Should news, blog, newsroom, or press URLs go to Website Content Extractor?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Route article-shaped news, blog, newsroom, and press URLs to Article Content Extractor when you need headline, byline, publish date, article body, excerpt, and hero image (maximum 300 URLs; markdown or text, no HTML emit). This Actor is for broader site pages that are not article-shaped (maximum 200 URLs; markdown, text, or HTML)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Website Content Extractor audit Open Graph, robots meta, or JSON-LD issues?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. This Actor cleans page body into markdown, text, or HTML. It does not produce a metadata-and-issue audit row. Title, canonical, robots, Open Graph, Twitter Card, hreflang, schema.org JSON-LD, and issue flags belong on Meta Tag & OpenGraph Scraper. There is no published full-page markdown field on that metadata Actor, and no published Open Graph issue list on this one."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What compliance guardrails apply to pages fetched by Website Content Extractor?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Fetch public pages supplied by the user. Pass HTTP(S) URLs you own or are authorized to audit. Respect site policies, rate limits, and robots guidance where applicable. Use output for content operations, QA, and RAG workflows. Do not use provider emblems or wording that implies approval by an upstream data provider. This Actor is not a ranking tool, a full-site crawler, or a legal-advice product."
         }
       }
     ]
@@ -83,19 +147,20 @@
 <body>
   <main>
     <nav><a href="/">Home</a> / Website Content Extractor</nav>
-    <h1>Website Content Extractor</h1>
-    <p>Clean public docs, pricing, product, policy, and help-center pages into markdown or text. Use it as a bounded source step for content QA, indexability checks, and RAG datasets — not as a ranking tool or a full-site crawler. For news, blog, newsroom, or press URLs, use <a href="/article-content-extractor/">Article Content Extractor</a>.</p>
-    <p class="price">From $9.00 per 1,000 results</p>
+    <h1>Clean docs, pricing, product, and help-center pages into markdown</h1>
+    <p>Website Content Extractor fetches public docs, pricing, product, policy, and help-center URLs and returns cleaned markdown, text, or HTML. Use it as a bounded source step for content QA, indexability checks, and RAG datasets — not as a ranking tool or a full-site crawler. For news, blog, newsroom, or press URLs, use <a href="/article-content-extractor/">Article Content Extractor</a>. For head Open Graph, robots, and JSON-LD issue audits, use <a href="/meta-tag-opengraph-scraper/">Meta Tag &amp; OpenGraph Scraper</a>.</p>
+    <p class="price">From $9.00 / 1,000 results ($0.009 per result; Actor Start $0.001)</p>
     <p><a href="https://apify.com/taroyamada/website-content-extractor">Open Website Content Extractor on Apify</a></p>
 
-    <h2>Website pages versus article pages</h2>
-    <p>Use this page when the URLs are broad site pages: documentation, product, pricing, policy, or help-center. Use <a href="/article-content-extractor/">Article Content Extractor</a> when the URLs are article-shaped and you need headline, byline, publish date, excerpt, and hero image.</p>
+    <h2>Site pages versus articles and metadata audits</h2>
+    <p>Use this page when the URLs are broad site pages: documentation, product, pricing, policy, or help-center. Use <a href="/article-content-extractor/">Article Content Extractor</a> when the URLs are article-shaped and you need headline, byline, publish date, excerpt, and hero image. Use <a href="/meta-tag-opengraph-scraper/">Meta Tag &amp; OpenGraph Scraper</a> when the job is title, canonical, robots, Open Graph, Twitter Card, hreflang, and JSON-LD issue flags in the HTML head.</p>
     <table>
       <thead>
         <tr>
           <th></th>
           <th>Website Content Extractor</th>
           <th>Article Content Extractor</th>
+          <th>Meta Tag &amp; OpenGraph Scraper</th>
         </tr>
       </thead>
       <tbody>
@@ -103,30 +168,35 @@
           <td>Intent</td>
           <td>Clean docs, product, pricing, policy, and help-center HTML</td>
           <td>Parse news, blog, newsroom, and press article pages</td>
+          <td>Technical SEO audit of head metadata, social previews, JSON-LD, and robots</td>
         </tr>
         <tr>
           <td>Max URLs</td>
           <td>200 per run</td>
           <td>300 per run</td>
+          <td>500 per run</td>
         </tr>
         <tr>
           <td>Output format</td>
           <td><code>markdown</code> (default), <code>text</code>, or <code>html</code></td>
           <td><code>markdown</code> (default) or <code>text</code> — no HTML emit</td>
+          <td>Metadata and issue fields — no published page-body markdown</td>
         </tr>
         <tr>
           <td>Sample row</td>
           <td><code>web_content</code></td>
           <td><code>article</code></td>
+          <td>Head tags plus <code>issues</code></td>
         </tr>
         <tr>
           <td>Optional extras</td>
           <td><code>includeMetadata</code>, <code>maxChargeUsd</code></td>
           <td><code>includeImages</code>, <code>generateReport</code>, <code>emitExport</code></td>
+          <td>Issue flags on the metadata row</td>
         </tr>
       </tbody>
     </table>
-    <p>Neither Actor is a ranking tool, a full-site crawler, or a legal-advice product. Fetch public HTTP(S) URLs you own or are authorized to audit. Respect site policies, rate limits, and robots guidance where applicable.</p>
+    <p>None of these Actors is a ranking tool, a full-site crawler, or a legal-advice product. Fetch public HTTP(S) URLs you own or are authorized to audit. Respect site policies, rate limits, and robots guidance where applicable.</p>
 
     <h2>Use cases</h2>
     <ul>
@@ -137,10 +207,10 @@
       <li>Pull product and pricing pages as a low-cost source step before Site QA or RAG reporting.</li>
       <li>Support recurring change detection with stable identifiers and fetch timestamps.</li>
     </ul>
-    <p>Route news, blog, and article URLs to <a href="/article-content-extractor/">Article Content Extractor</a>. This Actor is for broad site pages (max 200 URLs).</p>
+    <p>The published README also positions the Actor for AI builders, content ops, SEO teams, and documentation teams that supply public pages they own or are allowed to audit. Route news, blog, and article URLs to <a href="/article-content-extractor/">Article Content Extractor</a>. This Actor is for broad site pages (max 200 URLs).</p>
 
     <h2>Docs and pricing extraction</h2>
-    <p>The default path delivers cleaned source rows. Start with a short <code>urls</code> list. <code>outputFormat</code> defaults to markdown. <code>includeMetadata</code> defaults to true.</p>
+    <p>The default path delivers cleaned source rows. Start with a short <code>urls</code> list. <code>outputFormat</code> defaults to markdown. <code>includeMetadata</code> defaults to true. This Actor returns bounded source rows. It does not emit a Site QA or RAG report; keep extraction and the buyer-facing report as separate runs.</p>
 <pre><code>{
   "urls": [
     "https://example.com/docs",
@@ -175,29 +245,105 @@
   ],
   "warnings": []
 }</code></pre>
-    <p>Rows also include warnings when a source is partial, and stable IDs when the workflow supports recurring change detection. This Actor returns bounded source rows. It does not emit a Site QA or RAG report; those are separate follow-on Actors on the Store page.</p>
+    <p>Rows also include warnings when a source is partial, and stable IDs when the workflow supports recurring change detection. The sample is a README illustration, not a live coverage guarantee.</p>
     <p><a href="https://apify.com/taroyamada/website-content-extractor">Run a docs extraction on Apify</a></p>
 
-    <h2>What pages is Website Content Extractor for?</h2>
-    <p>Public docs, product, pricing, policy, and help-center or knowledge-base pages. Pass HTTP(S) URLs you own or are authorized to fetch. Maximum 200 URLs per run. For news, blog, or article URLs, use <a href="/article-content-extractor/">Article Content Extractor</a>.</p>
+    <h2>How is Website Content Extractor different from Article Content Extractor and Meta Tag &amp; OpenGraph Scraper?</h2>
+    <p>Website Content Extractor is the bounded HTML cleaner for public docs, product, pricing, policy, and help-center pages (<code>urls</code>, maximum 200). It returns cleaned markdown, text, or HTML plus title, optional metadata, word count, source URL, and fetch timestamp. Sample <code>rowType</code> is <code>web_content</code>. <a href="/article-content-extractor/">Article Content Extractor</a> is for article-shaped news, blog, newsroom, and press URLs (maximum 300) when you need headline, byline, publish date, article body, excerpt, and hero image. <a href="/meta-tag-opengraph-scraper/">Meta Tag &amp; OpenGraph Scraper</a> is a technical SEO head-metadata audit (title, canonical, robots, Open Graph, Twitter Card, hreflang, JSON-LD, issue flags) and does not emit cleaned page body. Use this Actor for site-page body cleanup. Use Article Content Extractor for article body. Use Meta Tag &amp; OpenGraph Scraper for crawler and social head tags.</p>
 
-    <h2>What does a result row contain?</h2>
-    <p>Cleaned page content as markdown, plain text, or HTML, plus title, optional metadata (description, author, language, published date when present), word count, source URL, fetch timestamp, and warnings for partial fetches. Sample <code>rowType</code> is <code>web_content</code>. The published README field list is <code>rowType</code>, <code>url</code>, <code>title</code>, <code>markdown</code>, <code>text</code>, <code>wordCount</code>, <code>metadata</code>, <code>sourceUrl</code>, and <code>fetchedAt</code>.</p>
-
-    <h2>How do I start a run?</h2>
-    <p>Open the Actor on the Apify Store and supply a <code>urls</code> list. <code>outputFormat</code> defaults to markdown. <code>includeMetadata</code> defaults to true. <code>delivery</code> defaults to dataset; set webhook plus <code>webhookUrl</code> after the payload shape is useful. <code>dryRun</code> validates without dataset or webhook writes. <code>maxChargeUsd</code> defaults to 1. Published input also includes <code>concurrency</code> (default 5) and <code>timeoutMs</code> (default 15000).</p>
+    <h2>What input is required for a docs, pricing, or help-center extraction?</h2>
+    <p><code>urls</code> is required: public broad website pages to clean (maximum 200). <code>additionalProperties</code> is false. Live input schema fields:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>urls</code></td>
+          <td>string[]</td>
+          <td>required</td>
+          <td>Public docs, product, pricing, policy, or knowledge-base pages (max 200). Schema prefill is <code>https://docs.apify.com/platform/actors</code>, <code>https://docs.apify.com/platform/storage/dataset</code>, <code>https://docs.apify.com/platform/storage/key-value-store</code>.</td>
+        </tr>
+        <tr>
+          <td><code>outputFormat</code></td>
+          <td>string</td>
+          <td><code>markdown</code></td>
+          <td>Enum: <code>text</code>, <code>markdown</code>, or <code>html</code>.</td>
+        </tr>
+        <tr>
+          <td><code>includeMetadata</code></td>
+          <td>boolean</td>
+          <td>true</td>
+          <td>Include description, author, language, and published date when available.</td>
+        </tr>
+        <tr>
+          <td><code>concurrency</code></td>
+          <td>integer</td>
+          <td>5</td>
+          <td>Number of pages to fetch in parallel.</td>
+        </tr>
+        <tr>
+          <td><code>timeoutMs</code></td>
+          <td>integer</td>
+          <td>15000</td>
+          <td>HTTP timeout per page in milliseconds.</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string</td>
+          <td><code>dataset</code></td>
+          <td>Enum: <code>dataset</code> or <code>webhook</code>.</td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td>—</td>
+          <td>Used when <code>delivery</code> is <code>webhook</code>. Skipped on <code>dryRun</code>.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Validate without dataset writes or webhook delivery.</td>
+        </tr>
+        <tr>
+          <td><code>maxChargeUsd</code></td>
+          <td>number</td>
+          <td>1</td>
+          <td>Safety cap. Billable rows beyond this cap return no-charge <code>limit_reached</code> summaries.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Do not send unpublished report-only aliases such as <code>generateReport</code>, <code>emitExport</code>, <code>authorizedUseConfirmed</code>, or <code>emitUnchanged</code> on this extractor. Those belong on a linked Site QA or RAG report Actor.</p>
+    <p>Published Store Quickstart (schema defaults):</p>
+<pre><code>{
+  "urls": [
+    "https://example.com/docs"
+  ],
+  "outputFormat": "markdown",
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
     <p><a href="https://apify.com/taroyamada/website-content-extractor">Start a run on Apify</a></p>
 
-    <h2>When should I use Article Content Extractor instead?</h2>
-    <p>When the URLs are news, blog, newsroom, or press pages and you need article body, byline, publish date, excerpt, and hero image. Website Content Extractor is the broader HTML cleaner for site pages that are not article-shaped.</p>
+    <h2>Which fields appear on a web_content extraction row?</h2>
+    <p>The published README field list is <code>rowType</code>, <code>url</code>, <code>title</code>, <code>markdown</code>, <code>text</code>, <code>wordCount</code>, <code>metadata</code>, <code>sourceUrl</code>, and <code>fetchedAt</code>. Sample <code>rowType</code> is <code>web_content</code>. <code>includeMetadata</code> defaults to true and adds page metadata such as description, author, language, and published date when present. Rows also include warnings when a source is partial, and stable IDs when the workflow supports recurring change detection. The published sample is a README illustration, not a live coverage guarantee. There is no published Open Graph issue list, article byline, or Site QA report field on this Actor.</p>
 
-    <h2>How is Website Content Extractor priced?</h2>
-    <p>Billing is pay-per-event. The published Store price is $0.001 per Actor start and $0.009 per useful content row ($9.00 per 1,000 results). Failed or no-content rows should stay out of the default dataset. <code>maxChargeUsd</code> defaults to 1; billable rows beyond that cap are returned as no-charge <code>limit_reached</code> summaries. Dry runs, validation-only runs, missing-key warnings, and unchanged recurring polls should not write payable default-dataset rows. The default dataset is the billable surface.</p>
-    <p class="price">From $9.00 per 1,000 results</p>
-    <p><a href="https://apify.com/taroyamada/website-content-extractor">See Website Content Extractor pricing on Apify</a></p>
+    <h2>Which public page types belong on Website Content Extractor?</h2>
+    <p>The live schema description is: flagship cleaner for broad HTML pages such as docs, pricing, policy, help-center, and product pages. Pass HTTP(S) URLs you own or are authorized to fetch. Maximum 200 URLs per run. For article, news, or blog URLs, route to <a href="/article-content-extractor/">Article Content Extractor</a>.</p>
 
-    <h2>How do delivery, webhooks, dry runs, and the charge cap work?</h2>
-    <p><code>delivery</code> defaults to <code>dataset</code>. A non-dry-run always writes canonical dataset rows first; webhook delivery runs only after dataset and pay-per-event output succeed. <code>webhookUrl</code> is used when <code>delivery</code> is <code>webhook</code> and is skipped on <code>dryRun</code>. <code>dryRun</code> validates the setup and writes only local output. <code>maxChargeUsd</code> is a safety cap for billable rows on the run.</p>
+    <h2>How is Website Content Extractor priced on pay-per-event?</h2>
+    <p>Billing is pay-per-event. The live Store card is <strong>from $9.00 / 1,000 results</strong>. Live events are Actor Start at <strong>$0.001</strong> (charged when the Actor starts; number of events depends on Actor memory, one event per GB, minimum one event) and result at <strong>$0.009</strong> (single result in the default dataset). Platform usage is listed as Included on the live pricing page. The README pricing section matches those event amounts: $0.001 actor start and $0.009 per useful content row. Failed or no-content rows should stay out of the default dataset. The default dataset is the billable surface.</p>
+    <p class="price">From $9.00 / 1,000 results ($0.009 per result; Actor Start $0.001)</p>
+    <p><a href="https://apify.com/taroyamada/website-content-extractor/pricing">See Website Content Extractor pricing on Apify</a></p>
+
+    <h2>How does Website Content Extractor deliver dataset, webhook, and dry-run output?</h2>
+    <p><code>delivery</code> defaults to <code>dataset</code>. A non-dry-run always writes canonical dataset rows first; webhook delivery runs only after dataset and pay-per-event output succeed. <code>webhookUrl</code> is used when <code>delivery</code> is <code>webhook</code> and is skipped on <code>dryRun</code>. <code>dryRun</code> validates the setup and writes only local output: dataset writes and webhook delivery are disabled.</p>
 <pre><code>{
   "urls": [
     "https://example.com/help"
@@ -207,6 +353,31 @@
   "webhookUrl": "https://example.com/webhook",
   "dryRun": false
 }</code></pre>
+    <p><a href="https://apify.com/taroyamada/website-content-extractor">Open Website Content Extractor on Apify</a></p>
+
+    <h2>Does Website Content Extractor emit a Site QA or RAG report?</h2>
+    <p>No. This Actor returns bounded source rows. The README positions it as the low-cost extraction step, then you pass the same URLs to a linked Site QA or RAG report Actor in a separate run. Do not treat raw markdown as the buyer-facing deliverable. Linked report actors have separate report and export events; do not infer those charges from a raw content row.</p>
+
+    <h2>What happens to failed, no-content, dry-run, and unchanged Website Content Extractor rows?</h2>
+    <p>Failed or no-content rows should stay out of the default dataset. Dry runs, validation-only runs, missing-key warnings, and unchanged recurring polls should not write payable default-dataset rows. Result events are charged per default-dataset item ($0.009 each; $9.00 per 1,000). Actor Start is a separate $0.001 event charged when the Actor starts (one event per GB, minimum one event).</p>
+
+    <h2>Do generateReport and emitExport belong on this extractor input?</h2>
+    <p>No. The README says do not add report-only fields to this extractor input. <code>generateReport</code>, <code>emitExport</code>, <code>authorizedUseConfirmed</code>, and <code>emitUnchanged</code> are shown as a separate input for a linked Site QA or RAG report Actor, not for Website Content Extractor. <code>additionalProperties</code> is false on this Actor, so unpublished report aliases are not accepted.</p>
+
+    <h2>What is the URL cap, and which unpublished fields are rejected?</h2>
+    <p>Maximum 200 URLs per run. Required field is <code>urls</code>. Live schema names are <code>urls</code>, <code>outputFormat</code>, <code>includeMetadata</code>, <code>concurrency</code>, <code>timeoutMs</code>, <code>delivery</code>, <code>webhookUrl</code>, <code>dryRun</code>, and <code>maxChargeUsd</code>. <code>additionalProperties</code> is false. Unpublished report-only names such as <code>generateReport</code>, <code>emitExport</code>, <code>authorizedUseConfirmed</code>, and <code>emitUnchanged</code> are not working inputs on this extractor.</p>
+
+    <h2>How does maxChargeUsd cap billable Website Content Extractor rows?</h2>
+    <p><code>maxChargeUsd</code> defaults to 1 as a safety cap for this run. Billable rows beyond that cap are returned as no-charge <code>limit_reached</code> summaries. It does not replace the live PPE events: Actor Start at $0.001 and result at $0.009 per default-dataset item.</p>
+
+    <h2>Should news, blog, newsroom, or press URLs go to Website Content Extractor?</h2>
+    <p>No. Route article-shaped news, blog, newsroom, and press URLs to <a href="/article-content-extractor/">Article Content Extractor</a> when you need headline, byline, publish date, article body, excerpt, and hero image (maximum 300 URLs; markdown or text, no HTML emit). This Actor is for broader site pages that are not article-shaped (maximum 200 URLs; markdown, text, or HTML).</p>
+
+    <h2>Does Website Content Extractor audit Open Graph, robots meta, or JSON-LD issues?</h2>
+    <p>No. This Actor cleans page body into markdown, text, or HTML. It does not produce a metadata-and-issue audit row. Title, canonical, robots, Open Graph, Twitter Card, hreflang, schema.org JSON-LD, and issue flags belong on <a href="/meta-tag-opengraph-scraper/">Meta Tag &amp; OpenGraph Scraper</a>. There is no published full-page markdown field on that metadata Actor, and no published Open Graph issue list on this one.</p>
+
+    <h2>What compliance guardrails apply to pages fetched by Website Content Extractor?</h2>
+    <p>Fetch public pages supplied by the user. Pass HTTP(S) URLs you own or are authorized to audit. Respect site policies, rate limits, and robots guidance where applicable. Use output for content operations, QA, and RAG workflows. Do not use provider emblems or wording that implies approval by an upstream data provider. This Actor is not a ranking tool, a full-site crawler, or a legal-advice product.</p>
     <p><a href="https://apify.com/taroyamada/website-content-extractor">Open Website Content Extractor on Apify</a></p>
 
     <h2>Related pages</h2>
