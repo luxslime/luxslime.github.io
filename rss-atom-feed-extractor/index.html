@@ -101,6 +101,30 @@
       },
       {
         "@type": "Question",
+        "name": "Can I pass Google News queries or article page URLs into this feed Actor?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Required input is feedUrls: public RSS or Atom XML URLs (maximum 50). Google News search terms belong on Google News Scraper as queries. Article-shaped HTTP(S) pages belong on Article Content Extractor as urls. Docs, pricing, policy, or product pages belong on Website Content Extractor. After this Actor returns item links, send news, blog, and press URLs to Article Content Extractor."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does this Actor crawl a site, open a browser, or parse sitemap.xml?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. It reads public RSS or Atom feed XML from the URLs in feedUrls. It does not crawl a website to find pages, it does not use browser automation, and it does not parse sitemap.xml URL inventories. Podcast catalog RSS versus iTunes Search is a different comparison page, not this Actor."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Are unsuccessful feed fetches billed as RSS or Atom items?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The live Store event RSS or Atom item (apify-default-dataset-item) is charged only for one successfully parsed public feed item at $0.001. dryRun runs without saving results. There is no Actor start event on the current pricing tab. Platform usage is listed as Included."
+        }
+      },
+      {
+        "@type": "Question",
         "name": "How is RSS & Atom Feed Extractor priced on the live Store?",
         "acceptedAnswer": {
           "@type": "Answer",
@@ -337,6 +361,15 @@
       <li>Send docs, product, or policy links to <a href="/website-content-extractor/">Website Content Extractor</a>.</li>
     </ol>
     <p>Those four steps are the published first-run buyer path. Start with a small set of high-trust feeds.</p>
+
+    <h2>Can I pass Google News queries or article page URLs into this feed Actor?</h2>
+    <p>No. Required input is <code>feedUrls</code>: public RSS or Atom XML URLs (maximum 50). Google News search terms belong on <a href="/google-news-scraper/">Google News Scraper</a> as <code>queries</code>. Article-shaped HTTP(S) pages belong on <a href="/article-content-extractor/">Article Content Extractor</a> as <code>urls</code>. Docs, pricing, policy, or product pages belong on <a href="/website-content-extractor/">Website Content Extractor</a>. After this Actor returns item links, send news, blog, and press URLs to Article Content Extractor.</p>
+
+    <h2>Does this Actor crawl a site, open a browser, or parse sitemap.xml?</h2>
+    <p>No. It reads public RSS or Atom feed XML from the URLs in <code>feedUrls</code>. It does not crawl a website to find pages, it does not use browser automation, and it does not parse <code>sitemap.xml</code> URL inventories. Podcast catalog RSS versus iTunes Search is a different comparison: <a href="/compare/rss-feed-vs-itunes-search/">RSS feed vs iTunes Search API</a>, not this Actor.</p>
+
+    <h2>Are unsuccessful feed fetches billed as RSS or Atom items?</h2>
+    <p>The live Store event RSS or Atom item (<code>apify-default-dataset-item</code>) is charged only for one successfully parsed public feed item at $0.001. <code>dryRun</code> runs without saving results. There is no Actor start event on the current pricing tab. Platform usage is listed as Included.</p>
 
     <h2>How is RSS &amp; Atom Feed Extractor priced on the live Store?</h2>
     <p>Billing is pay per event. The live Store card is <strong>$1.00 / 1,000 rss or atom items</strong>. Current PPE:</p>
