@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PubMed Literature Watch &amp; Research Report — NCBI E-utilities citation monitors and reports</title>
+  <meta name="description" content="Search PubMed through official NCBI E-utilities, monitor new publications, and generate citation-metadata literature reports and exports. Not TED/SAM bid alerts and not Google News RSS.">
+  <link rel="canonical" href="https://luxslime.github.io/pubmed-literature-watch/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is PubMed Literature Watch different from TED, SAM.gov & Grants Bid Alerts and Google News Scraper?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "This Actor queries official NCBI E-utilities (ESearch and ESummary JSON). It returns PubMed citation metadata, literature-update reports, systematic-review citation exports, and new-publication alerts for saved queries. It does not scrape a browser UI and it does not log in. TED, SAM.gov & Grants Bid Alerts Scraper is a public-sector procurement queue: TED tenders, SAM.gov opportunities, and grants notices. Google News Scraper is query-based Google News RSS discovery of headlines and article URLs. This page is biomedical literature watch on PubMed, not procurement and not news RSS."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the best first run?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The published README splits two first-run paths. For a low-cost new-publication signal, runMode monitor with searchTerms machine learning healthcare, maxResultsPerQuery 10, maxArticles 10, monitorKey starter-machine-learning-healthcare, initialRunMode emit_backfill, emitRawRows false, generateReport false, generateExport false, and maxChargeUsd 0.30. That starter can emit up to ten new-publication-alert rows at $0.03 each (planned maximum $0.30). The first baseline_only monitor and an unchanged poll emit zero rows and zero charges. For a grouped literature update plus citation-metadata export, use the separate report/export path: runMode audit, searchTerms cancer immunotherapy, fromDate 2026, generateReport true, generateExport true, emitRawRows false, maxChargeUsd 7. A non-empty report plus export plans $7.00 ($2.00 + $5.00). A query with no matches emits no value rows and no value-event charge. Do not force the $2.00 report event under a $1.00 cap."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does a result contain?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The published README sample is a literature_update_report row with billingEventName literature-update-report, query.searchTerms, query.fromDate, articleCount, pmids, topJournals (value and count), summary, and sourceUrl https://pubmed.ncbi.nlm.nih.gov/. That sample is a README illustration, not a live coverage guarantee. An export uses the same matched citations in a reusable citations array. A monitor run adds one new-publication-alert for each newly observed PMID. Raw extract rows are citation, author, or journal metadata billed as apify-default-dataset-item. Outputs are descriptive citation metadata, not medical conclusions or treatment guidance, and not article full text or abstracts."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do audit, monitor, and extract modes work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Live schema runMode default is audit. Schema description: report-first audit generates the current report; monitor emits new PMIDs; extract is the compatibility path for raw metadata rows. Default generateReport and generateExport are true; emitRawRows default is false. initialRunMode default is baseline_only (store a free baseline or emit_backfill for the first matching publications). monitorKey is a stable private state namespace for a scheduled PubMed query. The first baseline_only monitor emits no rows; later runs emit only newly observed PMIDs; an unchanged run writes zero rows and zero charges. Use raw extraction only when an integration explicitly needs article, author, or journal metadata rows."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does this Actor return full text or abstracts?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. The published README Source and limits section states that this Actor exports citation metadata, not article full text or abstracts. It uses official NCBI ESearch and ESummary JSON endpoints; no browser scraping or login is required. Outputs support literature research and screening workflows. They are not medical advice, clinical efficacy claims, or a substitute for reviewing the source publication. Keep NCBI attribution and source URLs in downstream reports. This independent Actor is not affiliated with, sponsored by, or endorsed by NCBI or PubMed."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is PubMed Literature Watch & Research Report priced?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Billing is pay per event. The live Store card is from $4.00 / 1,000 pubmed metadata rows. Current PPE: PubMed metadata row (apify-default-dataset-item) $0.004 for one delivered citation, author, or journal metadata row; New publication alert (new-publication-alert) $0.03 for one new source-linked publication matched by a saved monitor; Literature update report (literature-update-report) $2.00 for one generated query-level literature update report; Systematic review export (systematic-review-export) $5.00 for one citation metadata export for screening or reference workflows. There is no start charge. The live pricing tab lists Platform usage as included. maxChargeUsd default is 7; if the cap is too low, no rows are delivered and monitor state is not committed. A monitor baseline-only run and an unchanged monitor poll both cost $0.00."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / PubMed Literature Watch &amp; Research Report</nav>
+    <h1>Watch PubMed literature via NCBI E-utilities and generate citation reports</h1>
+    <p>PubMed Literature Watch &amp; Research Report queries PubMed through official NCBI E-utilities. Biomedical research, evidence, and research-operations teams enter PubMed queries or PMIDs. The first-run value path returns a source-linked literature report and optional citation export, with recurring new-publication alerts afterward. Outputs are descriptive citation metadata, not medical conclusions or treatment guidance.</p>
+    <p>This is official NCBI/PubMed E-utilities literature watch. It is not a TED/SAM.gov/grants procurement queue and not Google News RSS.</p>
+    <p class="price">from $4.00 / 1,000 pubmed metadata rows ($0.004 per delivered citation, author, or journal metadata row)</p>
+    <p><a href="https://apify.com/taroyamada/pubmed-research-intelligence">Open PubMed Literature Watch &amp; Research Report on Apify</a></p>
+
+    <h2>Official PubMed E-utilities, not procurement bids and not news RSS</h2>
+    <p>Use this page when the job is PubMed citation metadata, literature-update reports, systematic-review citation exports, or saved-query new-publication alerts. Use <a href="/ted-sam-grants-bid-alerts/">TED, SAM.gov &amp; Grants Bid Alerts Scraper</a> when the job is public-sector bid queues. Use <a href="/google-news-scraper/">Google News Scraper</a> when the job is query-based Google News RSS headlines and article URLs.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>This Actor</th>
+          <th>TED, SAM.gov &amp; Grants Bid Alerts</th>
+          <th>Google News Scraper</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>PubMed literature watch, citation reports, and new-PMID alerts</td>
+          <td>Public-sector bid-alert queue, award watch, rebid signals</td>
+          <td>Discover current article URLs by news query</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>Official NCBI ESearch and ESummary JSON</td>
+          <td>TED, SAM.gov, and grants notice APIs</td>
+          <td>Google News RSS</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td>PubMed <code>searchTerms</code> or known <code>pmids</code></td>
+          <td>Jurisdictions, keywords, CPV/NAICS codes</td>
+          <td>News <code>queries</code> (max 50)</td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td>Citation metadata, literature-update reports, citation exports, new-publication alerts</td>
+          <td>Normalized tenders/grants, alerts, optional procurement report/export</td>
+          <td>Headline, article URL, publisher, timestamps, snippet</td>
+        </tr>
+        <tr>
+          <td>Full text / HTML cleanup</td>
+          <td>No. Citation metadata only; not abstracts or full text</td>
+          <td>Not a page extractor</td>
+          <td>No. Discovery only; not article bodies</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>This independent Actor is not affiliated with, sponsored by, or endorsed by NCBI or PubMed. PubMed and NCBI are public data sources used by the Actor; they do not sponsor, approve, or endorse it.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Continuous literature surveillance: recurring monitors that emit alerts for newly published PubMed records matching saved queries.</li>
+      <li>Periodic literature updates: grouped, source-linked literature-update reports summarizing matched publications and journal distributions.</li>
+      <li>Citation-metadata export: produce exportable citation collections for systematic reviews or downstream review artifacts.</li>
+      <li>Targeted PMID extraction: retrieve article, author, and journal metadata for specified identifiers to integrate with other systems.</li>
+      <li>Evidence synthesis and trial matching: generate literature sets to feed trial/publication matching and evidence-gap alerts.</li>
+      <li>Research-ops workflows: combine focused PubMed queries with other discovery sources, then compare related award landscapes.</li>
+    </ul>
+
+    <h2>How is PubMed Literature Watch different from TED, SAM.gov &amp; Grants Bid Alerts and Google News Scraper?</h2>
+    <p>This Actor queries official NCBI E-utilities (ESearch and ESummary JSON). It returns PubMed citation metadata, literature-update reports, systematic-review citation exports, and new-publication alerts for saved queries. It does not scrape a browser UI and it does not log in. <a href="/ted-sam-grants-bid-alerts/">TED, SAM.gov &amp; Grants Bid Alerts Scraper</a> is a public-sector procurement queue: TED tenders, SAM.gov opportunities, and grants notices. <a href="/google-news-scraper/">Google News Scraper</a> is query-based Google News RSS discovery of headlines and article URLs. This page is biomedical literature watch on PubMed, not procurement and not news RSS.</p>
+
+    <h2>What is the best first run?</h2>
+    <p>The published README splits two first-run paths. For a low-cost new-publication signal, use a bounded monitor. The baseline and unchanged poll emit zero rows and zero charges:</p>
+<pre><code>{
+  "searchTerms": ["machine learning healthcare"],
+  "sort": "most_recent",
+  "maxResultsPerQuery": 10,
+  "maxArticles": 10,
+  "runMode": "monitor",
+  "monitorKey": "starter-machine-learning-healthcare",
+  "initialRunMode": "emit_backfill",
+  "emitRawRows": false,
+  "generateReport": false,
+  "generateExport": false,
+  "maxChargeUsd": 0.30,
+  "dryRun": false
+}</code></pre>
+    <p>This starter is a discovery signal, not a literature report or medical recommendation. It can emit up to ten <code>new-publication-alert</code> rows at the configured $0.03 each, for a maximum planned value charge of $0.30.</p>
+    <p>Use this separate path when you need a grouped literature update and citation-metadata export. With the configured prices, a non-empty report plus export plans $7.00 total ($2.00 + $5.00). A query with no matches emits no value rows and creates no value-event charge. Do not force the $2.00 report event under a $1.00 cap:</p>
+<pre><code>{
+  "searchTerms": ["cancer immunotherapy"],
+  "fromDate": "2026",
+  "sort": "most_recent",
+  "maxResultsPerQuery": 25,
+  "maxArticles": 25,
+  "runMode": "audit",
+  "emitRawRows": false,
+  "generateReport": true,
+  "generateExport": true,
+  "maxChargeUsd": 7,
+  "dryRun": false
+}</code></pre>
+    <p>Schema prefill for <code>searchTerms</code> is <code>cancer immunotherapy</code>. Live schema <code>additionalProperties</code> is false; send only the published field names below.</p>
+    <p><a href="https://apify.com/taroyamada/pubmed-research-intelligence">Run PubMed Literature Watch on Apify</a></p>
+
+    <h2>How do audit, monitor, and extract modes work?</h2>
+    <p>Live schema <code>runMode</code> default is <code>audit</code>. The schema description: report-first audit generates the current report; monitor emits new PMIDs; extract is the compatibility path for raw metadata rows. Default <code>generateReport</code> and <code>generateExport</code> are true. <code>emitRawRows</code> default is false. Leave raw rows off for the report/export value path.</p>
+    <p>Published README input examples:</p>
+    <p>Current literature report:</p>
+<pre><code>{
+  "searchTerms": ["GLP-1 obesity"],
+  "fromDate": "2025",
+  "maxResultsPerQuery": 25,
+  "maxArticles": 50,
+  "runMode": "audit",
+  "emitRawRows": false,
+  "generateReport": true,
+  "dryRun": false
+}</code></pre>
+    <p>PMID metadata export. Use raw extraction only when an integration explicitly needs article, author, or journal metadata rows. Raw rows use the configured $0.004 dataset event; they are not the report-first value path:</p>
+<pre><code>{
+  "pmids": ["39763750", "39763800"],
+  "runMode": "extract",
+  "emitRawRows": true,
+  "generateReport": false,
+  "generateExport": true,
+  "dryRun": false
+}</code></pre>
+    <p>New-publication monitor. The first <code>baseline_only</code> monitor emits no rows. Later runs emit only newly observed PMIDs; an unchanged run writes zero rows and creates zero charges:</p>
+<pre><code>{
+  "searchTerms": ["CAR-T solid tumor"],
+  "sort": "most_recent",
+  "maxArticles": 100,
+  "runMode": "monitor",
+  "monitorKey": "car-t-solid-tumor-watch",
+  "initialRunMode": "baseline_only",
+  "emitRawRows": false,
+  "generateReport": true,
+  "generateExport": false,
+  "dryRun": false
+}</code></pre>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>searchTerms</code></td>
+          <td>string[]</td>
+          <td><code>[]</code></td>
+          <td>PubMed query strings passed to NCBI ESearch. Schema prefill: <code>cancer immunotherapy</code>.</td>
+        </tr>
+        <tr>
+          <td><code>pmids</code></td>
+          <td>string[]</td>
+          <td><code>[]</code></td>
+          <td>Known PubMed IDs to summarize directly.</td>
+        </tr>
+        <tr>
+          <td><code>fromDate</code></td>
+          <td>string</td>
+          <td>empty</td>
+          <td>Optional publication date lower bound accepted by PubMed.</td>
+        </tr>
+        <tr>
+          <td><code>toDate</code></td>
+          <td>string</td>
+          <td>empty</td>
+          <td>Optional publication date upper bound accepted by PubMed.</td>
+        </tr>
+        <tr>
+          <td><code>sort</code></td>
+          <td>string</td>
+          <td><code>most_recent</code></td>
+          <td><code>relevance</code>, <code>pub_date</code>, or <code>most_recent</code>.</td>
+        </tr>
+        <tr>
+          <td><code>maxResultsPerQuery</code></td>
+          <td>integer</td>
+          <td>25</td>
+          <td>Maximum PMIDs fetched from each query; 1–200.</td>
+        </tr>
+        <tr>
+          <td><code>maxArticles</code></td>
+          <td>integer</td>
+          <td>25</td>
+          <td>Maximum deduplicated PubMed records processed in one bounded run; 1–500.</td>
+        </tr>
+        <tr>
+          <td><code>runMode</code></td>
+          <td>string</td>
+          <td><code>audit</code></td>
+          <td><code>audit</code>, <code>monitor</code>, or <code>extract</code>.</td>
+        </tr>
+        <tr>
+          <td><code>monitorKey</code></td>
+          <td>string</td>
+          <td>empty</td>
+          <td>Stable private state namespace for a scheduled PubMed query.</td>
+        </tr>
+        <tr>
+          <td><code>initialRunMode</code></td>
+          <td>string</td>
+          <td><code>baseline_only</code></td>
+          <td><code>baseline_only</code> or <code>emit_backfill</code>.</td>
+        </tr>
+        <tr>
+          <td><code>emitRawRows</code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Optional compatibility output. Raw citation, author, and journal rows use the dataset event.</td>
+        </tr>
+        <tr>
+          <td><code>generateReport</code></td>
+          <td>boolean</td>
+          <td>true</td>
+          <td>One non-empty query-level literature update report. No matches means no report event and no report charge.</td>
+        </tr>
+        <tr>
+          <td><code>generateExport</code></td>
+          <td>boolean</td>
+          <td>true</td>
+          <td>One citation-metadata export for screening workflows. No matches means no export event and no export charge.</td>
+        </tr>
+        <tr>
+          <td><code>email</code></td>
+          <td>string</td>
+          <td>empty</td>
+          <td>Optional registered developer contact sent to NCBI.</td>
+        </tr>
+        <tr>
+          <td><code>apiKey</code></td>
+          <td>string</td>
+          <td>—</td>
+          <td>Optional free NCBI key for up to 10 requests/second. Keyless mode is supported at 3 requests/second.</td>
+        </tr>
+        <tr>
+          <td><code>tool</code></td>
+          <td>string</td>
+          <td><code>pubmed-research-intelligence</code></td>
+          <td>Tool identifier sent to NCBI E-utilities.</td>
+        </tr>
+        <tr>
+          <td><code>timeoutMs</code></td>
+          <td>integer</td>
+          <td>20000</td>
+          <td>Maximum time for each NCBI request; 1000–60000.</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string</td>
+          <td><code>dataset</code></td>
+          <td><code>dataset</code> or <code>webhook</code>. Webhook also POSTs the billed row payload to an HTTPS URL.</td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td>—</td>
+          <td>Optional public HTTPS destination when <code>delivery</code> is <code>webhook</code>.</td>
+        </tr>
+        <tr>
+          <td><code>maxChargeUsd</code></td>
+          <td>number</td>
+          <td>7</td>
+          <td>Optional Actor-side spending cap; 0–1000. Default report plus export plans up to $7.00. If a cap is too low, delivery stops before any row or state is committed.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Return illustrative rows without NCBI requests or billing.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>The live schema has no <code>required</code> array. <code>additionalProperties</code> is false. Published Store example run input (schema-valid; omitted fields take schema defaults, including <code>runMode</code> <code>audit</code>, <code>generateReport</code> true, and <code>generateExport</code> true):</p>
+<pre><code>{
+  "searchTerms": [
+    "cancer immunotherapy",
+    "GLP-1 obesity"
+  ],
+  "pmids": [],
+  "fromDate": "2024",
+  "toDate": "",
+  "sort": "relevance",
+  "maxResultsPerQuery": 10,
+  "maxArticles": 20,
+  "email": "",
+  "apiKey": "",
+  "tool": "pubmed-research-intelligence",
+  "timeoutMs": 20000,
+  "delivery": "dataset",
+  "webhookUrl": "",
+  "dryRun": false
+}</code></pre>
+
+    <h2>What does a result contain?</h2>
+    <p>The published README sample is a <code>literature_update_report</code> row. It is a README illustration, not a live coverage guarantee:</p>
+<pre><code>{
+  "rowType": "literature_update_report",
+  "billingEventName": "literature-update-report",
+  "query": {
+    "searchTerms": ["cancer immunotherapy"],
+    "fromDate": "2026"
+  },
+  "articleCount": 12,
+  "pmids": ["39763750", "39763800"],
+  "topJournals": [{"value": "Cancer Research", "count": 3}],
+  "summary": "12 PubMed publications matched this literature update.",
+  "sourceUrl": "https://pubmed.ncbi.nlm.nih.gov/"
+}</code></pre>
+    <p>An export uses the same matched citations in a reusable <code>citations</code> array. A monitor run adds one <code>new-publication-alert</code> for each newly observed PMID; the first <code>baseline_only</code> run and an unchanged run emit zero rows and zero charges. Raw extract rows are citation, author, or journal metadata billed as <code>apify-default-dataset-item</code>.</p>
+
+    <h2>Does this Actor return full text or abstracts?</h2>
+    <p>No. The published README Source and limits section states that this Actor exports citation metadata, not article full text or abstracts. It uses official NCBI ESearch and ESummary JSON endpoints; no browser scraping or login is required. An optional free NCBI API key increases the documented request allowance; keyless mode is paced conservatively. PubMed records can be incomplete or updated after publication.</p>
+    <p>Outputs support literature research and screening workflows. They are not medical advice, clinical efficacy claims, or a substitute for reviewing the source publication. Keep NCBI attribution and source URLs in downstream reports.</p>
+
+    <h2>How is PubMed Literature Watch &amp; Research Report priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $4.00 / 1,000 pubmed metadata rows</strong>. Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>apify-default-dataset-item</code> (PubMed metadata row)</td>
+          <td>$0.004</td>
+          <td>One delivered citation, author, or journal metadata row</td>
+        </tr>
+        <tr>
+          <td><code>new-publication-alert</code></td>
+          <td>$0.03</td>
+          <td>One new source-linked publication matched by a saved monitor</td>
+        </tr>
+        <tr>
+          <td><code>literature-update-report</code></td>
+          <td>$2.00</td>
+          <td>One generated query-level literature update report</td>
+        </tr>
+        <tr>
+          <td><code>systematic-review-export</code></td>
+          <td>$5.00</td>
+          <td>One citation metadata export for screening or reference workflows</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>There is no start charge. The default input is report-first (<code>audit</code>, raw rows off, report and export on). Use <code>maxChargeUsd</code> to cap the complete planned delivery: if the cap is too low, no rows are delivered and monitor state is not committed. A monitor baseline-only run and an unchanged monitor poll both cost $0.00. The live pricing tab lists Platform usage as included.</p>
+    <p class="price">from $4.00 per 1,000 pubmed metadata rows; $0.03 per new-publication alert; $2.00 per literature-update report; $5.00 per systematic-review export</p>
+    <p><a href="https://apify.com/taroyamada/pubmed-research-intelligence/pricing">See PubMed Literature Watch &amp; Research Report pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Official NCBI ESearch and ESummary JSON only — no browser scraping, no login, no article full text, no abstracts.</li>
+      <li><code>maxResultsPerQuery</code> is 1–200 (default 25). <code>maxArticles</code> is 1–500 (default 25). <code>timeoutMs</code> is 1000–60000 (default 20000).</li>
+      <li>Live schema names only. <code>additionalProperties</code> is false.</li>
+      <li>Optional NCBI API key: up to 10 requests/second. Keyless mode is supported at 3 requests/second.</li>
+      <li>A query with no matches emits no report/export events and no value-event charge. Unchanged monitor polls emit zero rows and zero charges.</li>
+      <li>If <code>maxChargeUsd</code> is too low for the planned delivery, no rows are delivered and monitor state is not committed.</li>
+      <li>Not medical advice. Not affiliated with NCBI or PubMed. Not TED/SAM procurement. Not Google News RSS.</li>
+    </ul>
+    <p>Published README next-report Store listings (no local landings):</p>
+    <ul>
+      <li><a href="https://apify.com/taroyamada/biomedical-trial-literature-evidence-report">Biomedical Trial Literature Evidence Report on Apify</a> — trial/publication matching, evidence-gap alerts, and an exportable review artifact</li>
+      <li><a href="https://apify.com/taroyamada/openalex-research-intelligence">OpenAlex Research Intelligence on Apify</a> — broader discovery, then confirm a focused PubMed query</li>
+      <li><a href="https://apify.com/taroyamada/nih-research-funding-landscape-report">NIH RePORTER Funding Landscape Report on Apify</a> — related award landscape</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/pubmed-research-intelligence">Open PubMed Literature Watch &amp; Research Report on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/ted-sam-grants-bid-alerts/">TED, SAM.gov &amp; Grants Bid Alerts Scraper</a> — public-sector bid queues, not PubMed literature</li>
+      <li><a href="/google-news-scraper/">Google News Scraper</a> — Google News RSS headlines and article URLs, not NCBI E-utilities</li>
+      <li><a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a> — known-publisher feed XML, not PubMed</li>
+      <li><a href="/article-content-extractor/">Article Content Extractor</a> — article HTML cleanup, not PubMed citation metadata</li>
+      <li><a href="/hhs-healthcare-data-breach-scraper/">HHS Healthcare Data Breach Change Scraper</a> — HHS OCR disclosure changes, not PubMed</li>
+      <li><a href="/website-content-extractor/">Website Content Extractor</a> — docs and product HTML cleanup</li>
+      <li><a href="/packs/content-intelligence/">Content Intelligence pack</a> — RSS, Google News, article, and website extractors</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>
