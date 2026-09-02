@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Chrome Web Store Extension Intelligence — detail and search metadata</title>
+  <meta name="description" content="Extract public Chrome Web Store extension metadata from listing and search pages: IDs, ratings, category, version, and permission hints. Not Shopify App Store or G2/Capterra reviews.">
+  <link rel="canonical" href="https://luxslime.github.io/chrome-web-store-extension-intelligence/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is Chrome Web Store Extension Intelligence different from Shopify App Store Review Scraper and G2 & Capterra Review Scraper?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "This Actor reads public chromewebstore.google.com listing and search HTML. Inputs are extensionUrls (Chrome Web Store detail URLs) and searchTerms (search listings and normalize the first results page). Each extension row covers listing metadata such as extensionId, name, description, category, rating, reviewCount, users, version, permissionsHints, hostPermissionsHints, websiteUrl, privacyPolicyUrl, lastUpdatedAt, and searchTerm, plus meta diagnostics for search coverage and public-surface limitations. Shopify App Store Review Scraper reads apps.shopify.com/{slug} merchant listings (appUrls) and delivers app-level rating, pricing-hint, AI-summary, and theme-rollup reports. G2 & Capterra Review Scraper reads public G2 and Capterra product review pages (reviewPageUrls) and normalizes B2B ratings and review rows with pros and cons. This Actor does not accept Shopify slugs, G2 or Capterra review URLs, podcast IDs, or Apple show URLs. It is Chrome Web Store extension detail and search metadata, not those review stores."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What input is required?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The published input schema has an empty required list. Fields are extensionUrls (Chrome Web Store detail URLs), searchTerms (search Chrome Web Store listings and normalize the first results page), maxSearchResults (integer, default 20, minimum 1, maximum 60), delivery (dataset or webhook, default dataset), webhookUrl (when delivery is webhook), and dryRun (boolean, default false). additionalProperties is false. Schema prefill is the Google Translate detail URL and the search term translate. The published input schema does not include extensionIds, slugs, maxPages, or reviewLimit."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does an extension row contain?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The published README lists extensionId, name, description, category, rating, reviewCount, users, version, permissionsHints, hostPermissionsHints, websiteUrl, privacyPolicyUrl, lastUpdatedAt, and searchTerm. It also returns meta diagnostics for search coverage and public-surface limitations. There is no separate published dataset/output JSON schema on the Store page. Some fields, especially permissions and version, are only available on detail pages."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What do search terms scrape?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Search terms scrape the first search page and normalize visible result cards. maxSearchResults is the maximum extensions to capture per search term (default 20, minimum 1, maximum 60). The Actor works from the public chromewebstore.google.com HTML only, without authentication."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Chrome Web Store Extension Intelligence priced?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Billing is pay-per-event. The published Store card is from $3.00 per 1,000 results. Published events are Actor Start at $0.001 (charged when the Actor starts; number of events depends on Actor memory, one event per GB, minimum one event) and result at $0.003 (single result in the default dataset). You are not charged for Apify platform usage, only the fixed event price."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do dataset, webhook, and dry-run delivery work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "delivery defaults to dataset. Set delivery to webhook and provide webhookUrl to POST results when delivery is webhook. dryRun true runs without saving results to the dataset."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Chrome Web Store Extension Intelligence</nav>
+    <h1>Extract Chrome Web Store extension detail and search metadata</h1>
+    <p>Normalize public Chrome Web Store listing and search HTML into structured extension rows: title, ID, publisher website, rating, review count, user count, category, version, manifest permission hints, and last-update hints. The Actor reads HTML that is publicly available without authentication on <code>chromewebstore.google.com</code>. It is not a Shopify App Store merchant-review tool and not a G2 or Capterra review-page tool — those jobs belong on <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a> and <a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a>.</p>
+    <p><a href="https://apify.com/taroyamada/chrome-web-store-extension-intelligence">Open Chrome Web Store Extension Intelligence on Apify</a></p>
+
+    <h2>Chrome Web Store listings, not Shopify App Store or G2/Capterra reviews</h2>
+    <p>Use this page when the source is a public Chrome Web Store detail URL or a Chrome Web Store search term. Use <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a> when the source is a merchant listing at <code>apps.shopify.com/{slug}</code>. Use <a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a> when the source is a public G2 or Capterra product review page. The <a href="/review-intelligence/">Review Intelligence pack</a> chooses among those review stores; this Actor is Chrome Web Store extension detail and search metadata, not those review stores.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>This Actor</th>
+          <th>Shopify App Store Review Scraper</th>
+          <th>G2 &amp; Capterra Review Scraper</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Source</td>
+          <td>Public <code>chromewebstore.google.com</code> listing and search HTML</td>
+          <td>Public <code>apps.shopify.com/{slug}</code> listing and review pages</td>
+          <td>Public G2 and Capterra review-page HTML</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td><code>extensionUrls</code> and/or <code>searchTerms</code></td>
+          <td><code>appUrls</code> (listing URLs or slugs)</td>
+          <td><code>reviewPageUrls</code> (G2 or Capterra review URLs)</td>
+        </tr>
+        <tr>
+          <td>Deliverable</td>
+          <td>Extension rows plus search-coverage diagnostics</td>
+          <td>One app-level report: rating, pricing hints, AI summary, samples, theme rollups</td>
+          <td>Normalized B2B product ratings, breakdowns, and review rows with pros and cons</td>
+        </tr>
+        <tr>
+          <td>Review store?</td>
+          <td>No. Listing and search metadata, not a review-store scraper</td>
+          <td>Yes — Shopify App Store merchant reviews</td>
+          <td>Yes — G2 and Capterra software reviews</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>This Actor does not accept Shopify slugs, G2 or Capterra review URLs, podcast IDs, or Apple show URLs. It does not scrape <code>apps.shopify.com</code>, G2, or Capterra.</p>
+
+    <h2>What it returns</h2>
+    <p>The published README lists these extension-row fields:</p>
+    <ul>
+      <li><code>extensionId</code>, <code>name</code>, <code>description</code>, <code>category</code></li>
+      <li><code>rating</code>, <code>reviewCount</code>, <code>users</code></li>
+      <li><code>version</code>, <code>permissionsHints</code>, <code>hostPermissionsHints</code></li>
+      <li><code>websiteUrl</code>, <code>privacyPolicyUrl</code>, <code>lastUpdatedAt</code>, <code>searchTerm</code></li>
+    </ul>
+    <p>It also returns meta diagnostics for search coverage and public-surface limitations. Those <code>rating</code>, <code>reviewCount</code>, and <code>users</code> names are listing fields on Chrome Web Store pages, not Actor popularity metrics.</p>
+
+    <h2>How is Chrome Web Store Extension Intelligence different from Shopify App Store Review Scraper and G2 &amp; Capterra Review Scraper?</h2>
+    <p>This Actor reads public <code>chromewebstore.google.com</code> listing and search HTML. Inputs are <code>extensionUrls</code> (Chrome Web Store detail URLs) and <code>searchTerms</code> (search listings and normalize the first results page). Each extension row covers listing metadata such as <code>extensionId</code>, <code>name</code>, <code>description</code>, <code>category</code>, <code>rating</code>, <code>reviewCount</code>, <code>users</code>, <code>version</code>, <code>permissionsHints</code>, <code>hostPermissionsHints</code>, <code>websiteUrl</code>, <code>privacyPolicyUrl</code>, <code>lastUpdatedAt</code>, and <code>searchTerm</code>, plus meta diagnostics for search coverage and public-surface limitations. <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a> reads <code>apps.shopify.com/{slug}</code> merchant listings (<code>appUrls</code>) and delivers app-level rating, pricing-hint, AI-summary, and theme-rollup reports. <a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a> reads public G2 and Capterra product review pages (<code>reviewPageUrls</code>) and normalizes B2B ratings and review rows with pros and cons. This Actor does not accept Shopify slugs, G2 or Capterra review URLs, podcast IDs, or Apple show URLs. It is Chrome Web Store extension detail and search metadata, not those review stores.</p>
+
+    <h2>What input is required?</h2>
+    <p>The published input schema has an empty required list. Pass Chrome Web Store detail URLs, search terms, or both. Other published fields:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>extensionUrls</code></td>
+          <td>string[]</td>
+          <td>—</td>
+          <td>Chrome Web Store detail URLs. Schema prefill is <code>https://chromewebstore.google.com/detail/google-translate/aapbdbdomjkkjkaonfhkkikfgjllcleb</code>.</td>
+        </tr>
+        <tr>
+          <td><code>searchTerms</code></td>
+          <td>string[]</td>
+          <td>—</td>
+          <td>Search Chrome Web Store listings and normalize the first results page. Schema prefill is <code>translate</code>.</td>
+        </tr>
+        <tr>
+          <td><code>maxSearchResults</code></td>
+          <td>integer</td>
+          <td>20</td>
+          <td>Maximum extensions to capture per search term; minimum 1, maximum 60</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string</td>
+          <td><code>dataset</code></td>
+          <td><code>dataset</code> or <code>webhook</code></td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td>—</td>
+          <td>POST target when <code>delivery</code> is <code>webhook</code></td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Run without saving results to the dataset</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>The schema sets <code>additionalProperties</code> to false. The published input schema does not include <code>extensionIds</code>, <code>slugs</code>, <code>maxPages</code>, or <code>reviewLimit</code>.</p>
+    <p>Published input example (matches the schema):</p>
+<pre><code>{
+  "extensionUrls": [
+    "https://chromewebstore.google.com/detail/google-translate/aapbdbdomjkkjkaonfhkkikfgjllcleb"
+  ],
+  "searchTerms": [
+    "translate"
+  ],
+  "maxSearchResults": 20,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/chrome-web-store-extension-intelligence">Run Chrome Web Store Extension Intelligence on Apify</a></p>
+
+    <h2>What does an extension row contain?</h2>
+    <p>The published README lists <code>extensionId</code>, <code>name</code>, <code>description</code>, <code>category</code>, <code>rating</code>, <code>reviewCount</code>, <code>users</code>, <code>version</code>, <code>permissionsHints</code>, <code>hostPermissionsHints</code>, <code>websiteUrl</code>, <code>privacyPolicyUrl</code>, <code>lastUpdatedAt</code>, and <code>searchTerm</code>. It also returns meta diagnostics for search coverage and public-surface limitations. There is no separate published dataset/output JSON schema on the Store page. Some fields, especially permissions and version, are only available on detail pages.</p>
+
+    <h2>What do search terms scrape?</h2>
+    <p>Search terms scrape the first search page and normalize visible result cards. <code>maxSearchResults</code> is the maximum extensions to capture per search term (default 20, minimum 1, maximum 60). The Actor works from the public <code>chromewebstore.google.com</code> HTML only, without authentication.</p>
+
+    <h2>How is Chrome Web Store Extension Intelligence priced?</h2>
+    <p>Billing is pay-per-event. The published Store card is <strong>from $3.00 / 1,000 results</strong>. Published events are Actor Start at <strong>$0.001</strong> (charged when the Actor starts; number of events depends on Actor memory, one event per GB, minimum one event) and result at <strong>$0.003</strong> (single result in the default dataset). You are not charged for Apify platform usage, only the fixed event price.</p>
+    <p class="price">From $3.00 per 1,000 results ($0.003 per default-dataset result; Actor Start $0.001)</p>
+    <p><a href="https://apify.com/taroyamada/chrome-web-store-extension-intelligence/pricing">See Chrome Web Store Extension Intelligence pricing on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p><code>delivery</code> defaults to <code>dataset</code>. Set <code>delivery</code> to <code>webhook</code> and provide <code>webhookUrl</code> to POST results when <code>delivery</code> is webhook. <code>dryRun</code> true runs without saving results to the dataset.</p>
+    <p><a href="https://apify.com/taroyamada/chrome-web-store-extension-intelligence">Open Chrome Web Store Extension Intelligence on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Public <code>chromewebstore.google.com</code> HTML only — no authenticated Chrome Web Store surfaces.</li>
+      <li>Search terms scrape the first search page and visible result cards only.</li>
+      <li><code>maxSearchResults</code> is 1–60 per search term (default 20).</li>
+      <li>Some fields, especially permissions and version, are only available on detail pages.</li>
+      <li>Not a Shopify App Store, G2, or Capterra review scraper.</li>
+    </ul>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/tools/">Tools</a></li>
+      <li><a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a> — Shopify merchant listings, not Chrome Web Store extensions</li>
+      <li><a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a> — G2 and Capterra B2B software review pages, not Chrome Web Store listings</li>
+      <li><a href="/review-intelligence/">Review Intelligence pack</a> — Apple Podcasts, Shopify App Store, and G2/Capterra reviews</li>
+      <li><a href="/packs/content-intelligence/">Content Intelligence pack</a></li>
+      <li><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> — public podcast review RSS</li>
+      <li><a href="/youtube-channel-analytics/">YouTube Channel Analytics Scraper</a></li>
+      <li><a href="/youtube-transcript-scraper/">YouTube Transcript Scraper</a></li>
+      <li><a href="/contact-details-extractor/">Contact Page Audit &amp; Business Channel Extractor</a></li>
+      <li><a href="/short-url-resolver-scraper/">Short URL Resolver &amp; Scraper</a></li>
+      <li><a href="/meta-tag-opengraph-scraper/">Meta Tag &amp; OpenGraph Scraper</a></li>
+      <li><a href="/website-content-extractor/">Website Content Extractor</a></li>
+      <li><a href="/article-content-extractor/">Article Content Extractor</a></li>
+      <li><a href="/dns-propagation-checker/">DNS Propagation Checker</a></li>
+      <li><a href="/wayback-machine-bulk-checker/">Wayback Machine Bulk Checker</a></li>
+    </ul>
+  </main>
+</body>
+</html>
