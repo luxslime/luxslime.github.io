@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TED, SAM.gov &amp; Grants Bid Alerts Scraper — public-sector bid queues</title>
+  <meta name="description" content="Monitor TED, SAM.gov, and grants bid alerts with opportunity_record rows, procurement_summary reports, alert_event deltas, and opt-in source-linked exports.">
+  <link rel="canonical" href="https://luxslime.github.io/ted-sam-grants-bid-alerts/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the best first run?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Start TED-only with jurisdictions eu, dataset delivery, no SAM.gov key, and a tight 21-day window. The published Store quickstart uses keywords cloud,cybersecurity,IT services, CPV codes 72000000 and 72220000, maxItemsPerSource 40, and minValue 100000. That path needs no external key. Add grants, then us once a SAM.gov API key is available."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does a run return?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A normal run returns four surfaces: meta.executiveSummary (queue size, top buyers, review urgency, source mix, and overallStatus stable, watch, or action_needed), notices[] (one normalized tender or grant row per opportunity), alerts[] (deadline, status, closing-soon, award-watch, or rebid events when enabled), and warnings[] / errors[] for missing keys, skipped sources, throttling, or degraded upstream responses. Dataset delivery attaches the opportunity_record event name to each notices[] row. procurement_summary and alert_event are additive compatibility labels under meta and alerts[]. The actor does not emit top-level aliases with those PPE names."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What happens if SAM.gov or grants are unavailable?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The actor does not pretend coverage is complete. It returns the useful sources it could fetch, then surfaces explicit warnings or source errors for the missing lane. If jurisdictions includes us without a SAM.gov API key, the actor warns and skips that source instead of failing the whole run. A partial source response is never presented as complete coverage."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "When should I enable award watch or rebid watch?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "After the starter or recurring TED queue already proves useful. includeAwarded defaults to false for open-opportunity runs. Turn it on for award watch, incumbent movement, or rebid monitoring, when incumbent movement, renewals, or follow-on phrasing matter more than net-new open bids."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How are duplicates handled?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The actor normalizes notices and deduplicates them across comparable identifiers so recurring queues stay cleaner when similar records appear across sources."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I schedule recurring bid alerts?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. The actor is designed for daily or weekly recurring runs. datasetMode all emits the current matched opportunity queue. changes_only emits only stateful alert rows and writes zero rows when nothing changed. Grants deadline and status alerts rely on saved state in a named key-value store (default procurement-intel-grants-state), so recurring runs matter more than one-off tests. grantsAlertClosingSoonDays defaults to 7."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is TED, SAM.gov & Grants Bid Alerts Scraper priced?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Billing is pay-per-event. The live Store pricing tab charges $0.008 for one delivered source-linked procurement opportunity or stateful alert row (apify-default-dataset-item). The published README also names procurement-summary-report at $5.00 for one matched source-linked executive report and procurement-opportunity-export at $7.00 for one matched source-linked opportunity export bundle; check the live pricing tab before treating those as current billed events. generateReport and emitExport opt in to those report and export events when matched notices or alerts exist. An empty result emits zero rows and zero charges. maxChargeUsd fails closed before delivery when the planned charge would exceed the cap; zero means no cap. Unchanged changes_only polls emit zero rows and zero charge."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do dataset, webhook, and dry-run delivery work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "delivery defaults to dataset and writes billed output. webhook mode first writes and bills the same canonical dataset or value rows, verifies chargedCount, then forwards the run payload. Webhook delivery never replaces dataset billing and is not a free webhook-only path. dryRun skips dataset writes and webhook delivery side effects while validating inputs. Runtime is Node.js 20+."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / TED, SAM.gov &amp; Grants Bid Alerts Scraper</nav>
+    <h1>TED, SAM.gov &amp; Grants Bid Alerts Scraper</h1>
+    <p>Start with a TED-only quickstart, then turn TED tenders, SAM.gov opportunities, and grants notices into source-linked bid queues, report bundles, export files, deadlines, award watch, and rebid watch signals. This Actor is a public-sector bid-alert queue — not a podcast search, chart, or reviews tool, and not a website or article HTML extractor.</p>
+    <p>Source availability and rate limits are reported in <code>warnings[]</code> and <code>errors[]</code>. A partial source response is never presented as complete coverage.</p>
+    <p><a href="https://apify.com/taroyamada/procurement-intel-actor">Open TED, SAM.gov &amp; Grants Bid Alerts Scraper on Apify</a></p>
+
+    <h2>Public-sector bid alerts, not podcasts or page extraction</h2>
+    <p>Use this page when the job is monitoring official TED, SAM.gov, and Grants.gov / Simpler.Grants.gov notice feeds into one reviewable queue. Use <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a>, <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a>, or <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> for storefront shows, ranks, or reviews. Use <a href="/website-content-extractor/">Website Content Extractor</a> or <a href="/article-content-extractor/">Article Content Extractor</a> when the input is a list of page URLs to clean.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>This Actor</th>
+          <th>Podcast / extractor pages</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>TED / SAM.gov / Grants bid-alert queue, award watch, rebid signals, deadline and status deltas</td>
+          <td>Show search, chart ranks, review RSS, or HTML article/docs cleanup</td>
+        </tr>
+        <tr>
+          <td>Starter lane</td>
+          <td><code>jurisdictions: "eu"</code> against the TED notices search API — no external key</td>
+          <td>Apple/iTunes endpoints or a <code>urls</code> list</td>
+        </tr>
+        <tr>
+          <td>Expansion</td>
+          <td><code>grants</code> then <code>us</code> (SAM.gov key required for the US lane)</td>
+          <td>Countries, collection IDs, or more URLs</td>
+        </tr>
+        <tr>
+          <td>Deliverable</td>
+          <td>Normalized notices, alerts, optional executive report and JSON export</td>
+          <td>Show, rank, review, or page-content rows</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Business development teams: turn TED and federal opportunity noise into one shortlist of current bids worth opening today.</li>
+      <li>Capture / bid managers: spot deadline pressure, strategic-value tenders, award-watch rows, and rebid hints in one queue.</li>
+      <li>Public-sector consultants: keep a reusable buyer/framework watchlist without maintaining source-specific scrapers.</li>
+      <li>RevOps / automation teams: push recurring procurement summaries into CRM, Slack, webhook routers, or internal dashboards.</li>
+      <li>Grants teams: add closing-soon and status-delta alerts once the TED starter lane is already useful.</li>
+    </ul>
+    <p>Watch terms highlight buyers, incumbents, frameworks, or competitor names in summaries and notice signals without changing upstream source queries. Add them after the first useful run.</p>
+
+    <h2>What is the best first run?</h2>
+    <p>Start TED-only. The published Store quickstart needs no external key:</p>
+<pre><code>{
+  "jurisdictions": "eu",
+  "keywords": "cloud,cybersecurity,IT services",
+  "cpvCodes": "72000000,72220000",
+  "daysAhead": 21,
+  "maxItemsPerSource": 40,
+  "minValue": 100000,
+  "delivery": "dataset"
+}</code></pre>
+    <ul>
+      <li><code>jurisdictions</code> default is <code>eu</code> (TED tenders). Add <code>grants</code> for Grants.gov notices, then <code>us</code> for SAM.gov opportunities when you have a SAM.gov API key.</li>
+      <li><code>keywords</code> default is <code>cloud,cybersecurity,IT services</code>. Keep terms narrow enough that the first queue feels reviewable.</li>
+      <li><code>cpvCodes</code> default is <code>72000000,72220000</code> (software / IT services on TED). <code>naicsCodes</code> default is <code>541512,541519</code> for the optional SAM.gov lane.</li>
+      <li><code>daysAhead</code> default is 21 so the dataset reads like a current bid-alert queue. <code>minValue</code> default is 100000 and hides smaller notices when an estimated value is present. <code>maxItemsPerSource</code> default is 40.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/procurement-intel-actor">Run the TED-only quickstart on Apify</a></p>
+
+    <h2>What does a run return?</h2>
+    <p>A normal run returns four surfaces:</p>
+    <ol>
+      <li><code>meta.executiveSummary</code> — current queue size, top buyers, review urgency, source mix, and whether the run is <code>stable</code>, <code>watch</code>, or <code>action_needed</code>.</li>
+      <li><code>notices[]</code> — one normalized tender or grant row per opportunity, with <code>source</code>, <code>noticeId</code>, <code>title</code>, <code>buyer</code>, <code>deadlineAt</code>, <code>estimatedValue</code>, <code>signalTags</code>, <code>lanePriority</code>, and a source-derived <code>recommendedAction</code>.</li>
+      <li><code>alerts[]</code> — recurring delta events such as <code>deadline_changed</code>, <code>status_changed</code>, or <code>closing_soon</code>, plus award-watch or rebid events when enabled. Empty starter runs still return <code>alerts: []</code>.</li>
+      <li><code>warnings[]</code> / <code>errors[]</code> — missing API keys, skipped sources, throttling, or degraded upstream responses.</li>
+    </ol>
+    <p>Dataset delivery attaches the <code>opportunity_record</code> event name to each <code>notices[]</code> row. <code>procurement_summary</code> and <code>alert_event</code> are additive compatibility labels under <code>meta</code> and <code>alerts[]</code>. The actor continues to return top-level <code>meta</code>, <code>errors</code>, <code>notices</code>, and <code>alerts</code>; it does not emit top-level PPE-name aliases.</p>
+    <p>Published README sample (TED starter shape):</p>
+<pre><code>{
+  "meta": {
+    "generatedAt": "2026-04-23T11:48:39.536Z",
+    "warnings": [],
+    "executiveSummary": {
+      "overallStatus": "action_needed",
+      "brief": "Tracked 40 tender / grant notice(s) this run. 1 notice(s) need same-day bid review. Source mix: 40 TED.",
+      "recommendedCadence": "daily",
+      "trackedNoticeCount": 40,
+      "immediateReviewCount": 1,
+      "strategicValueCount": 14,
+      "sourceMix": { "ted": 40 }
+    }
+  },
+  "notices": [
+    {
+      "source": "ted",
+      "noticeId": "c97dfecb-0cf9-4ba7-800d-685dbd87bbda",
+      "title": "Sweden – IT services: consulting, software development, Internet and support – Upphandling - IT-konsulttjänster ramavtal",
+      "buyer": "Transportstyrelsen",
+      "deadlineAt": "2026-04-23T22:00:00.000Z",
+      "estimatedValue": 736000000,
+      "urgencyLevel": "critical",
+      "signalTags": ["urgent_deadline", "strategic_value"],
+      "lanePriority": "now",
+      "recommendedAction": "Triage before the deadline"
+    }
+  ],
+  "alerts": []
+}</code></pre>
+    <p>That sample is the published README illustration of the starter payload, not a live coverage guarantee.</p>
+
+    <h2>Report and export path</h2>
+    <p>Use the report/export path only after the narrow TED queue is useful. Opt in to one source-linked executive procurement report and/or one source-linked JSON opportunity export when matched notices or alerts exist. The low-cost queue and high-value report are separate paths; a raw notice row is not a report or export purchase. Set <code>emitRawRows</code> false when the report/export bundle is the only required deliverable.</p>
+<pre><code>{
+  "jurisdictions": "eu",
+  "keywords": "cloud,cybersecurity",
+  "cpvCodes": "72000000,72220000",
+  "daysAhead": 21,
+  "maxItemsPerSource": 40,
+  "minValue": 100000,
+  "delivery": "dataset",
+  "datasetMode": "all",
+  "emitRawRows": false,
+  "generateReport": true,
+  "emitExport": true,
+  "maxChargeUsd": 12,
+  "dryRun": false
+}</code></pre>
+    <p>An empty result emits zero rows and zero charges, including for report/export mode. <code>maxChargeUsd</code> is checked before any dataset write, so the actor fails closed instead of delivering a partial bundle. Zero means no cap.</p>
+    <p><a href="https://apify.com/taroyamada/procurement-intel-actor">Configure a report or export run on Apify</a></p>
+
+    <h2>What happens if SAM.gov or grants are unavailable?</h2>
+    <p>The actor does not pretend coverage is complete. It returns the useful sources it could fetch, then surfaces explicit warnings or source errors for the missing lane. If <code>us</code> is present without a SAM.gov key, the actor warns and skips that source instead of failing the whole run. SAM.gov and grants are additive, not required. Official endpoints used by the schema defaults are <code>https://api.ted.europa.eu/v3/notices/search</code>, <code>https://api.sam.gov/opportunities/v2/search</code>, and <code>https://api.simpler.grants.gov/v1/opportunities/search</code>.</p>
+
+    <h2>When should I enable award watch or rebid watch?</h2>
+    <p>After the starter or recurring TED queue already proves useful. Those workflows are best when you care about incumbent movement, renewals, or follow-on phrasing more than net-new open bids. <code>includeAwarded</code> defaults to false. Turn it on for award watch, incumbent movement, or rebid monitoring.</p>
+
+    <h2>How are duplicates handled?</h2>
+    <p>The actor normalizes notices and deduplicates them across comparable identifiers so recurring queues stay cleaner when similar records appear across sources. Bid-alert prioritization rolls deadline pressure, value, award/rebid phrasing, and watch-term hits into the review queue.</p>
+
+    <h2>Can I schedule recurring bid alerts?</h2>
+    <p>Yes. The actor is designed for daily or weekly recurring runs. <code>datasetMode</code> <code>all</code> emits the current matched opportunity queue. <code>changes_only</code> emits only stateful alert rows and writes zero rows when nothing changed. Grants closing-soon and status-delta alerts persist snapshots in a named Apify key-value store (default <code>procurement-intel-grants-state</code>) so deadline and status alerts stay comparable. <code>grantsOpportunityStatuses</code> default is <code>posted,forecasted</code>. <code>grantsAlertClosingSoonDays</code> default is 7.</p>
+
+    <h2>How is TED, SAM.gov &amp; Grants Bid Alerts Scraper priced?</h2>
+    <p>Billing is pay-per-event. The live Store pricing tab charges <strong>$0.008</strong> for one delivered source-linked procurement opportunity or stateful alert row.</p>
+    <p>The published README also names <code>procurement-summary-report</code> at $5.00 for one matched source-linked executive report and <code>procurement-opportunity-export</code> at $7.00 for one matched source-linked opportunity export bundle. The README says to check the live Apify pricing tab before publishing customer-facing estimates; those two events are listed there as a scheduled pricing change. Unchanged <code>changes_only</code> polls and empty report/export runs emit zero rows and zero charge.</p>
+    <p class="price">$0.008 per delivered opportunity or alert row</p>
+    <p><a href="https://apify.com/taroyamada/procurement-intel-actor/pricing">See TED, SAM.gov &amp; Grants Bid Alerts Scraper pricing on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p><code>delivery</code> defaults to <code>dataset</code> and writes billed output. Webhook mode first writes and bills the same canonical dataset/value rows through <code>Actor.pushData</code>, verifies <code>chargedCount</code>, then forwards the run payload. Webhook delivery never replaces dataset billing and does not create a free webhook-only path. Downstream webhook failure is treated as a warning without rebilling on retry. <code>dryRun</code> skips dataset writes and webhook delivery side effects while validating inputs. Runtime is Node.js 20+.</p>
+    <p><a href="https://apify.com/taroyamada/procurement-intel-actor">Open TED, SAM.gov &amp; Grants Bid Alerts Scraper on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/tools/">Tools</a></li>
+      <li><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> — show search, episodes, and watchlists</li>
+      <li><a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> — storefront ranks</li>
+      <li><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> — public review RSS</li>
+      <li><a href="/website-content-extractor/">Website Content Extractor</a></li>
+      <li><a href="/article-content-extractor/">Article Content Extractor</a></li>
+    </ul>
+  </main>
+</body>
+</html>
