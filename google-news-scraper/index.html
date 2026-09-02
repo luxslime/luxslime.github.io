@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Google News Scraper — query Google News RSS for headlines and article URLs</title>
-  <meta name="description" content="Query Google News RSS to extract headlines, article URLs, publishers, and timestamps. Deduplicate links and feed URLs into article extraction pipelines. Does not clean HTML.">
+  <title>Google News Scraper — query Google News RSS for localized headlines and article URLs</title>
+  <meta name="description" content="Query Google News RSS by keyword for localized headlines, publishers, timestamps, and article URLs. Live PPE: $3.00 / 1,000 google news rss articles. Discovery only — not publisher feed XML and not article HTML cleanup.">
   <link rel="canonical" href="https://luxslime.github.io/google-news-scraper/">
   <script type="application/ld+json">
   {
@@ -13,50 +13,122 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "How is Google News Scraper different from RSS & Atom Feed Extractor?",
+        "name": "How is query-based Google News RSS different from known-publisher feed XML and from article HTML cleanup?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "This Actor is query-based Google News discovery. Required input is queries (maximum 50 search terms). It reads Google News RSS for those queries and localizes with language and country. RSS & Atom Feed Extractor is for known-publisher feeds: you already have public RSS or Atom feed URLs and pass them in feedUrls. Use this Actor when you do not have feed URLs yet and want broader query-based discovery. Use the RSS Actor when you already know the publishers you trust."
+          "text": "This Actor is query-based Google News discovery. Required input is queries (maximum 50 search terms). It reads Google News RSS for those queries and localizes with language (default en) and country (default US). RSS & Atom Feed Extractor is known-publisher feed discovery: you already have public RSS or Atom URLs and pass them in feedUrls (maximum 50). Article Content Extractor is HTML cleanup: it fetches article-shaped news, blog, newsroom, and press pages (maximum 300 URLs) and returns headline, byline, publish date, article body, excerpt, and hero image. Website Content Extractor cleans docs, pricing, policy, or product pages that are not article-shaped. Use this Actor when you do not have feed URLs yet and want broader query-based discovery."
         }
       },
       {
         "@type": "Question",
-        "name": "Does this Actor clean HTML or extract full article text?",
+        "name": "Does Google News Scraper return full article bodies or clean HTML?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "No. Google News Scraper is a discovery layer only. It does not return full article bodies and it does not clean HTML. Each row is metadata plus a direct article URL. Use Article Content Extractor to extract article bodies from those URLs. Use Website Content Extractor when a discovered URL is a docs, product, or policy page rather than an article."
+          "text": "No. Google News Scraper is a discovery layer only. It does not return full article bodies and it does not clean HTML. Each row is metadata plus a direct article URL. Use Article Content Extractor to extract article bodies from those URLs. Use Website Content Extractor when a discovered URL is a docs, product, or policy page rather than an article. The published README FAQ states: this actor discovers URLs and returns metadata only."
         }
       },
       {
         "@type": "Question",
-        "name": "What does a result row contain?",
+        "name": "What live input does Google News Scraper require?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "The published README fields are title (headline), link (direct article URL for downstream cleanup), source (publisher name), pubDate (original RSS publish date), pubDateISO (ISO timestamp), description (short Google News snippet), and query (the search query that surfaced the row). There is no published full-article text field."
+          "text": "The live OpenAPI input schema requires queries. Optional fields are language (string, default en), country (string, default US), maxItems (integer, default 25, minimum 1, maximum 100; schema title: Max Items per Query), deduplicate (boolean, default true; remove duplicate article URLs across queries), timeoutMs (integer, default 15000, minimum 1000, maximum 30000), delivery (enum dataset or webhook, default dataset), webhookUrl (string; URL to POST discovery results when delivery=webhook), and dryRun (boolean, default false; run without saving results). Schema prefill for queries is OpenAI and Google AI. The published Store example run uses queries artificial intelligence with maxItems 10."
         }
       },
       {
         "@type": "Question",
-        "name": "How do I start a run?",
+        "name": "Which fields does a Google News RSS article row include?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Open the Actor on the Apify Store and supply queries. language defaults to en. country defaults to US. maxItems defaults to 25 (1–100 per query). deduplicate defaults to true. timeoutMs defaults to 15000 (1000–30000). delivery defaults to dataset; set webhook plus webhookUrl when you want webhook delivery. dryRun runs without saving results. The Store Quickstart (company news) is the published first-run path; Brand Monitoring tracks multiple companies or themes; Google News → Article Cleanup is the handoff when the next step is article extraction."
+          "text": "The published README output table lists title (article headline), link (direct article URL for downstream cleanup), source (publisher name), pubDate (original RSS publish date), pubDateISO (ISO timestamp version of pubDate), description (short Google News snippet), and query (the search query that surfaced the row). There is no published full-article text field. That table is the published field inventory, not a live coverage guarantee for every query. The published README sample is an OpenAI headline row for the query OpenAI."
         }
       },
       {
         "@type": "Question",
-        "name": "Why query Google News RSS instead of scraping the Google News UI?",
+        "name": "Why query Google News RSS instead of scraping the Google News HTML interface?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "The published README positions the RSS surface as lighter, more stable, and better suited for recurring discovery runs than scraping the Google News UI. This Actor queries Google News RSS, not the Google News HTML interface, and does not require a paid news API."
+          "text": "The published README FAQ positions the RSS surface as lighter, more stable, and better suited for recurring discovery runs than scraping the Google News UI. This Actor queries Google News RSS, not the Google News HTML interface, and does not require a paid news API. Key features in the README are query-based discovery from Google News RSS without a paid API, localization by language and country, deduplication across queries, and a lightweight feeder step before deeper extraction."
         }
       },
       {
         "@type": "Question",
-        "name": "How is Google News Scraper priced?",
+        "name": "How do language and country localize Google News RSS results?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Billing is pay per event. The published Store price is $3.00 per 1,000 Google News RSS articles. You are charged only for one successfully parsed public RSS article row ($0.003 per event), not for Apify platform usage."
+          "text": "language defaults to en (schema description: Language code, for example en, ja, de). country defaults to US (schema description: Country code, for example US, JP, GB). Together they tune Google News RSS for a region. The published README Input Examples include a localized JP run with language ja, country JP, and query 人工知能. This page is a search surface; RSS & Atom Feed Extractor has no language or country fields because it reads feed URLs you already have."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does the live schema accept maxItemsPerQuery or dedupeAcrossQueries?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. The live required field is queries. Live names are maxItems (Max Items per Query; 1–100, default 25) and deduplicate (Remove duplicate article URLs across queries; default true). README Input Examples that show maxItemsPerQuery or dedupeAcrossQueries are not live input names. Do not send unpublished aliases, feedUrls, or article-page urls lists."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do dataset delivery, webhookUrl, and dryRun work for Google News discovery?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "delivery defaults to dataset (How to deliver results). Live enum values are dataset and webhook; dataset_and_webhook is not a live enum value on this Actor. Set delivery to webhook and supply webhookUrl when you want webhook delivery. The live schema description for webhookUrl is: URL to POST discovery results when delivery=webhook. dryRun defaults to false and runs without saving results. The live schema description for dryRun is: Run without saving results."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does cross-query deduplicate treat overlapping article URLs?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "deduplicate defaults to true. The live schema description is: Remove duplicate article URLs across queries. Keep that default when several search terms surface the same article URL. Set it false only when you need one row per originating query even if the link repeats."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the published Quickstart path for company news?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Store Quickstart section says: start with Quickstart (company news) for a reliable first run; use Brand Monitoring to track multiple companies or themes; use Google News to Article Cleanup when the next step is article extraction. The published first-run buyer path is: run Quickstart (company news); confirm the dataset shows real article URLs, not generic homepages; pick the top URLs and send them to Article Content Extractor; if a discovered URL is a docs, product, or policy page, clean it with Website Content Extractor instead. Start with broad terms for the strongest first-run proof; prefer several narrower queries over one overloaded boolean query when relevance matters."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I pass publisher feed URLs or article page URLs into Google News Scraper?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Required input is queries: Google News search terms (maximum 50). Known-publisher RSS or Atom XML URLs belong on RSS & Atom Feed Extractor as feedUrls. Article-shaped HTTP(S) pages belong on Article Content Extractor as urls. Docs, pricing, policy, or product pages belong on Website Content Extractor. After this Actor returns article links, send news, blog, and press URLs to Article Content Extractor."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Google News Scraper crawl news sites, open a browser, or parse sitemap.xml?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. It queries Google News RSS for the keywords you supply. It does not scrape the Google News HTML interface, it does not crawl entire news sites blindly, it does not use browser automation, and it does not parse sitemap.xml URL inventories. The published README states: instead of scraping entire news sites blindly, use this tool to discover highly relevant, localized content."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Are unsuccessful Google News RSS fetches billed as Google News RSS articles?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The live Store event Google News RSS article (apify-default-dataset-item) is charged only for one successfully parsed public RSS article row at $0.003. dryRun runs without saving results. There is no Actor start event on the current pricing tab. Platform usage is listed as Included."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I schedule recurring Google News monitoring from search queries?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. The published README FAQ states you can run it on a schedule, then pass the discovered URLs into an article-cleanup step. Recurring monitoring is scheduling this Actor, then sending news, blog, and press links to Article Content Extractor and docs, product, or policy links to Website Content Extractor."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Google News Scraper priced on the live Store?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Billing is pay per event. The live Store card is $3.00 / 1,000 google news rss articles. The current PPE event is Google News RSS article (apify-default-dataset-item) at $0.003, charged only for one successfully parsed public RSS article row. There is no Actor start event on the current pricing tab. The live pricing tab lists Platform usage as Included. Align billing copy to this live PPE only; do not use older README Cost lines that listed actor-start."
         }
       }
     ]
@@ -84,11 +156,12 @@
   <main>
     <nav><a href="/">Home</a> / Google News Scraper</nav>
     <h1>Query Google News RSS for localized headlines and article URLs</h1>
-    <p>Discover fresh article URLs by querying Google News RSS. This Actor returns localized headlines, publisher names, timestamps, and short snippets, then deduplicates overlapping links across queries so you can feed URLs into a downstream extraction step. It is a query-driven discovery surface, not an HTML cleaner and not a full-article scraper.</p>
+    <p>Google News Scraper discovers fresh article URLs by querying Google News RSS. It returns localized headlines, publisher names, timestamps, and short snippets, then deduplicates overlapping links across queries so you can feed URLs into a downstream extraction step. It is a query-driven discovery surface, not known-publisher feed XML parsing, not an HTML cleaner, and not a full-article scraper.</p>
+    <p class="price">$3.00 / 1,000 Google News RSS articles ($0.003 per successfully parsed public RSS article row)</p>
     <p><a href="https://apify.com/taroyamada/google-news-scraper">Open Google News Scraper on Apify</a></p>
 
     <h2>Query-based Google News discovery, not publisher feeds or HTML cleanup</h2>
-    <p>Use this page when you search Google News by keyword and need article URLs you do not already have. Use <a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a> when you already know the publishers you trust and have their public feed URLs. Use <a href="/article-content-extractor/">Article Content Extractor</a> after discovery, when you need cleaned article bodies — this Actor does not clean HTML.</p>
+    <p>Use this page when you search Google News by keyword and need article URLs you do not already have. Use <a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a> when you already know the publishers you trust and have their public feed URLs. Use <a href="/article-content-extractor/">Article Content Extractor</a> after discovery, when you need cleaned article bodies — this Actor does not clean HTML. Use <a href="/website-content-extractor/">Website Content Extractor</a> when a discovered URL is a docs, product, or policy page rather than an article.</p>
     <table>
       <thead>
         <tr>
@@ -146,39 +219,16 @@
       <li>Content ops: discover trending stories before enrichment.</li>
       <li>AI / RAG teams: create a steady article URL feed for downstream extraction.</li>
     </ul>
-    <p>The published README also positions the Actor for brand tracking, localized topic and sentiment analysis, weekly topic digests, and a continuous stream of training URLs for AI models. It does not scrape entire news sites blindly; it queries Google News RSS for the keywords you supply.</p>
+    <p>Those four bullets are the published README use cases. The README also positions the Actor for brand tracking, localized topic and sentiment analysis, weekly topic digests, and a continuous stream of training URLs for AI models. It does not scrape entire news sites blindly; it queries Google News RSS for the keywords you supply.</p>
 
-    <h2>How is Google News Scraper different from RSS &amp; Atom Feed Extractor?</h2>
-    <p>This Actor is query-based Google News discovery. Required input is <code>queries</code> (maximum 50 search terms). It reads Google News RSS for those queries and localizes with <code>language</code> and <code>country</code>. <a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a> is for known-publisher feeds: you already have public RSS or Atom feed URLs and pass them in <code>feedUrls</code>. Use this Actor when you do not have feed URLs yet and want broader query-based discovery. Use the RSS Actor when you already know the publishers you trust.</p>
+    <h2>How is query-based Google News RSS different from known-publisher feed XML and from article HTML cleanup?</h2>
+    <p>This Actor is query-based Google News discovery. Required input is <code>queries</code> (maximum 50 search terms). It reads Google News RSS for those queries and localizes with <code>language</code> (default <code>en</code>) and <code>country</code> (default <code>US</code>). <a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a> is known-publisher feed discovery: you already have public RSS or Atom URLs and pass them in <code>feedUrls</code> (maximum 50). <a href="/article-content-extractor/">Article Content Extractor</a> is HTML cleanup: it fetches article-shaped news, blog, newsroom, and press pages (maximum 300 URLs) and returns headline, byline, publish date, article body, excerpt, and hero image. <a href="/website-content-extractor/">Website Content Extractor</a> cleans docs, pricing, policy, or product pages that are not article-shaped. Use this Actor when you do not have feed URLs yet and want broader query-based discovery.</p>
 
-    <h2>Does this Actor clean HTML or extract full article text?</h2>
-    <p>No. Google News Scraper is a discovery layer only. It does not return full article bodies and it does not clean HTML. Each row is metadata plus a direct article URL. Use <a href="/article-content-extractor/">Article Content Extractor</a> to extract article bodies from those URLs. Use <a href="/website-content-extractor/">Website Content Extractor</a> when a discovered URL is a docs, product, or policy page rather than an article.</p>
-    <p>Published first-run buyer path: run Quickstart (company news); confirm the dataset shows real article URLs, not generic homepages; pick the top URLs and send them to Article Content Extractor; if a discovered URL is a docs, product, or policy page, clean it with Website Content Extractor instead.</p>
+    <h2>Does Google News Scraper return full article bodies or clean HTML?</h2>
+    <p>No. Google News Scraper is a discovery layer only. It does not return full article bodies and it does not clean HTML. Each row is metadata plus a direct article URL. Use <a href="/article-content-extractor/">Article Content Extractor</a> to extract article bodies from those URLs. Use <a href="/website-content-extractor/">Website Content Extractor</a> when a discovered URL is a docs, product, or policy page rather than an article. The published README FAQ states: this actor discovers URLs and returns metadata only.</p>
 
-    <h2>How do I start a run?</h2>
-    <p>Open the Actor on the Apify Store and supply <code>queries</code>. <code>language</code> defaults to <code>en</code>. <code>country</code> defaults to <code>US</code>. <code>maxItems</code> defaults to 25 (1–100 per query). <code>deduplicate</code> defaults to true. <code>timeoutMs</code> defaults to 15000 (1000–30000). <code>delivery</code> defaults to dataset; set webhook plus <code>webhookUrl</code> when you want webhook delivery. <code>dryRun</code> runs without saving results.</p>
-    <p>The Store Quickstart (company news) is the published first-run path. Brand Monitoring tracks multiple companies or themes. Google News → Article Cleanup is the handoff when the next step is article extraction. Start with broad terms for the strongest first-run proof; prefer several narrower queries over one overloaded boolean query when relevance matters.</p>
-    <p>Published input example (matches the schema):</p>
-<pre><code>{
-  "queries": ["OpenAI", "Google AI"],
-  "language": "en",
-  "country": "US",
-  "maxItems": 25,
-  "deduplicate": true,
-  "timeoutMs": 15000,
-  "delivery": "dataset",
-  "dryRun": false
-}</code></pre>
-    <p>Published Store example run input:</p>
-<pre><code>{
-  "queries": ["artificial intelligence"],
-  "language": "en",
-  "country": "US",
-  "maxItems": 10,
-  "deduplicate": true,
-  "delivery": "dataset",
-  "dryRun": false
-}</code></pre>
+    <h2>What live input does Google News Scraper require?</h2>
+    <p>The live OpenAPI input schema requires <code>queries</code>. Optional fields are <code>language</code>, <code>country</code>, <code>maxItems</code>, <code>deduplicate</code>, <code>timeoutMs</code>, <code>delivery</code>, <code>webhookUrl</code>, and <code>dryRun</code>.</p>
     <table>
       <thead>
         <tr>
@@ -193,7 +243,7 @@
           <td><code>queries</code></td>
           <td>string[]</td>
           <td>required</td>
-          <td>Google News search queries (max 50). Schema prefill is <code>OpenAI</code>, <code>Google AI</code>.</td>
+          <td>Google News search queries (max 50). Schema prefill is <code>OpenAI</code>, <code>Google AI</code>. Schema description: Start with broad terms for the strongest first-run proof.</td>
         </tr>
         <tr>
           <td><code>language</code></td>
@@ -245,11 +295,32 @@
         </tr>
       </tbody>
     </table>
-    <p>The live input fields are <code>maxItems</code> and <code>deduplicate</code>. Do not send unpublished aliases.</p>
+    <p>Published README input example (schema-valid names):</p>
+<pre><code>{
+  "queries": ["OpenAI", "Google AI"],
+  "language": "en",
+  "country": "US",
+  "maxItems": 25,
+  "deduplicate": true,
+  "timeoutMs": 15000,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p>Published Store example run input:</p>
+<pre><code>{
+  "queries": ["artificial intelligence"],
+  "language": "en",
+  "country": "US",
+  "maxItems": 10,
+  "deduplicate": true,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p>The live fields are <code>queries</code>, <code>maxItems</code>, and <code>deduplicate</code>. Do not send unpublished aliases.</p>
     <p><a href="https://apify.com/taroyamada/google-news-scraper">Run Google News Scraper on Apify</a></p>
 
-    <h2>What does a result row contain?</h2>
-    <p>The published README fields are <code>title</code> (headline), <code>link</code> (direct article URL for downstream cleanup), <code>source</code> (publisher name), <code>pubDate</code> (original RSS publish date), <code>pubDateISO</code> (ISO timestamp), <code>description</code> (short Google News snippet), and <code>query</code> (the search query that surfaced the row). There is no published full-article text field.</p>
+    <h2>Which fields does a Google News RSS article row include?</h2>
+    <p>The published README output table lists <code>title</code> (article headline), <code>link</code> (direct article URL for downstream cleanup), <code>source</code> (publisher name), <code>pubDate</code> (original RSS publish date), <code>pubDateISO</code> (ISO timestamp version of <code>pubDate</code>), <code>description</code> (short Google News snippet), and <code>query</code> (the search query that surfaced the row). There is no published full-article text field. That table is the published field inventory, not a live coverage guarantee for every query.</p>
     <p>Published README sample:</p>
 <pre><code>{
   "title": "Codex for (almost) everything",
@@ -262,20 +333,73 @@
 }</code></pre>
     <p>That sample is the published README illustration, not a live coverage guarantee. After you confirm real article URLs, send news, blog, and press links to <a href="/article-content-extractor/">Article Content Extractor</a> and docs, product, or policy links to <a href="/website-content-extractor/">Website Content Extractor</a>.</p>
 
-    <h2>Why query Google News RSS instead of scraping the Google News UI?</h2>
-    <p>The published README positions the RSS surface as lighter, more stable, and better suited for recurring discovery runs than scraping the Google News UI. This Actor queries Google News RSS, not the Google News HTML interface, and does not require a paid news API. Recurring monitoring is supported by scheduling the Actor, then passing discovered URLs into an article-cleanup step.</p>
+    <h2>Why query Google News RSS instead of scraping the Google News HTML interface?</h2>
+    <p>The published README FAQ positions the RSS surface as lighter, more stable, and better suited for recurring discovery runs than scraping the Google News UI. This Actor queries Google News RSS, not the Google News HTML interface, and does not require a paid news API. Key features in the README are query-based discovery from Google News RSS without a paid API, localization by <code>language</code> and <code>country</code>, deduplication across queries, and a lightweight feeder step before deeper extraction.</p>
 
-    <h2>How is Google News Scraper priced?</h2>
-    <p>Billing is pay per event. The published Store price is <strong>$3.00 / 1,000 google news rss articles</strong>. The billed event is Google News RSS article at <strong>$0.003</strong>, charged only for one successfully parsed public RSS article row. You are not charged for Apify platform usage, only the fixed event price.</p>
-    <p class="price">$3.00 per 1,000 Google News RSS articles ($0.003 per successfully parsed public RSS article row)</p>
+    <h2>How do language and country localize Google News RSS results?</h2>
+    <p><code>language</code> defaults to <code>en</code> (schema description: Language code, for example <code>en</code>, <code>ja</code>, <code>de</code>). <code>country</code> defaults to <code>US</code> (schema description: Country code, for example <code>US</code>, <code>JP</code>, <code>GB</code>). Together they tune Google News RSS for a region. The published README Input Examples include a localized JP run with <code>language</code> <code>ja</code>, <code>country</code> <code>JP</code>, and query <code>人工知能</code>. This page is a search surface; <a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a> has no <code>language</code> or <code>country</code> fields because it reads feed URLs you already have.</p>
+
+    <h2>Does the live schema accept maxItemsPerQuery or dedupeAcrossQueries?</h2>
+    <p>No. The live required field is <code>queries</code>. Live names are <code>maxItems</code> (Max Items per Query; 1–100, default 25) and <code>deduplicate</code> (Remove duplicate article URLs across queries; default true). README Input Examples that show <code>maxItemsPerQuery</code> or <code>dedupeAcrossQueries</code> are not live input names. Do not send unpublished aliases, <code>feedUrls</code>, or article-page <code>urls</code> lists.</p>
+
+    <h2>How do dataset delivery, webhookUrl, and dryRun work for Google News discovery?</h2>
+    <p><code>delivery</code> defaults to <code>dataset</code> (How to deliver results). Live enum values are <code>dataset</code> and <code>webhook</code>; <code>dataset_and_webhook</code> is not a live enum value on this Actor. Set <code>delivery</code> to <code>webhook</code> and supply <code>webhookUrl</code> when you want webhook delivery. The live schema description for <code>webhookUrl</code> is: URL to POST discovery results when delivery=webhook. <code>dryRun</code> defaults to false and runs without saving results. The live schema description for <code>dryRun</code> is: Run without saving results.</p>
+
+    <h2>How does cross-query deduplicate treat overlapping article URLs?</h2>
+    <p><code>deduplicate</code> defaults to true. The live schema description is: Remove duplicate article URLs across queries. Keep that default when several search terms surface the same article URL. Set it false only when you need one row per originating query even if the link repeats.</p>
+
+    <h2>What is the published Quickstart path for company news?</h2>
+    <p>The Store Quickstart section says: start with <strong>Quickstart (company news)</strong> for a reliable first run; use <strong>Brand Monitoring</strong> to track multiple companies or themes; use <strong>Google News → Article Cleanup</strong> when the next step is article extraction.</p>
+    <ol>
+      <li>Run Quickstart (company news).</li>
+      <li>Confirm the dataset shows real article URLs, not generic homepages.</li>
+      <li>Pick the top URLs and send them to <a href="/article-content-extractor/">Article Content Extractor</a>.</li>
+      <li>If a discovered URL is a docs, product, or policy page, clean it with <a href="/website-content-extractor/">Website Content Extractor</a> instead.</li>
+    </ol>
+    <p>Those four steps are the published first-run buyer path. Start with broad terms for the strongest first-run proof; prefer several narrower queries over one overloaded boolean query when relevance matters.</p>
+
+    <h2>Can I pass publisher feed URLs or article page URLs into Google News Scraper?</h2>
+    <p>No. Required input is <code>queries</code>: Google News search terms (maximum 50). Known-publisher RSS or Atom XML URLs belong on <a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a> as <code>feedUrls</code>. Article-shaped HTTP(S) pages belong on <a href="/article-content-extractor/">Article Content Extractor</a> as <code>urls</code>. Docs, pricing, policy, or product pages belong on <a href="/website-content-extractor/">Website Content Extractor</a>. After this Actor returns article links, send news, blog, and press URLs to Article Content Extractor.</p>
+
+    <h2>Does Google News Scraper crawl news sites, open a browser, or parse sitemap.xml?</h2>
+    <p>No. It queries Google News RSS for the keywords you supply. It does not scrape the Google News HTML interface, it does not crawl entire news sites blindly, it does not use browser automation, and it does not parse <code>sitemap.xml</code> URL inventories. The published README states: instead of scraping entire news sites blindly, use this tool to discover highly relevant, localized content.</p>
+
+    <h2>Are unsuccessful Google News RSS fetches billed as Google News RSS articles?</h2>
+    <p>The live Store event Google News RSS article (<code>apify-default-dataset-item</code>) is charged only for one successfully parsed public RSS article row at $0.003. <code>dryRun</code> runs without saving results. There is no Actor start event on the current pricing tab. Platform usage is listed as Included.</p>
+
+    <h2>Can I schedule recurring Google News monitoring from search queries?</h2>
+    <p>Yes. The published README FAQ states you can run it on a schedule, then pass the discovered URLs into an article-cleanup step. Recurring monitoring is scheduling this Actor, then sending news, blog, and press links to <a href="/article-content-extractor/">Article Content Extractor</a> and docs, product, or policy links to <a href="/website-content-extractor/">Website Content Extractor</a>.</p>
+
+    <h2>How is Google News Scraper priced on the live Store?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>$3.00 / 1,000 google news rss articles</strong>. Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>apify-default-dataset-item</code> (Google News RSS article)</td>
+          <td>$0.003</td>
+          <td>Charged only for one successfully parsed public RSS article row</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>There is no Actor start event on the current pricing tab. The live pricing tab lists Platform usage as Included. Align billing copy to this live PPE only; do not use older README Cost lines that listed <code>actor-start</code>.</p>
+    <p class="price">$3.00 / 1,000 Google News RSS articles ($0.003 per successfully parsed public RSS article row)</p>
     <p><a href="https://apify.com/taroyamada/google-news-scraper/pricing">See Google News Scraper pricing on Apify</a></p>
 
     <h2>Limits to keep in mind</h2>
     <ul>
       <li>RSS is a discovery layer only — it does not return full article bodies and it does not clean HTML.</li>
-      <li>At most 50 search queries per run. <code>maxItems</code> is 1–100 per query; <code>timeoutMs</code> is 1000–30000.</li>
-      <li>The required field is <code>queries</code>. Live schema names are <code>maxItems</code> and <code>deduplicate</code>.</li>
+      <li>At most 50 search queries per run. <code>maxItems</code> is 1–100 per query (default 25). <code>timeoutMs</code> is 1000–30000 (default 15000).</li>
+      <li>The required field is <code>queries</code>. Live schema names only — not <code>maxItemsPerQuery</code> or <code>dedupeAcrossQueries</code>.</li>
       <li>Use broad queries for the first run; refine later. Prefer multiple narrower queries over one overloaded boolean query when relevance matters.</li>
+      <li>This is query-based Google News RSS, not known-publisher feed XML, not article HTML cleanup, and not <code>sitemap.xml</code> URL inventories.</li>
+      <li>Live PPE is one event: Google News RSS article at $0.003. Platform usage is Included.</li>
     </ul>
     <p><a href="https://apify.com/taroyamada/google-news-scraper">Open Google News Scraper on Apify</a></p>
 
