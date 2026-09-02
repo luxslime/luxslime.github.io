@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bulk Email Syntax &amp; MX Validator — RFC syntax, DNS MX, disposable-domain checks</title>
+  <meta name="description" content="Audit user-supplied email strings for RFC syntax, disposable domains, and missing MX. Max 1,000 emails. $3.00 per 1,000 email data-quality results. Does not send mail or discover addresses.">
+  <link rel="canonical" href="https://luxslime.github.io/bulk-email-syntax-mx-validator/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is Bulk Email Syntax & MX Validator different from DMARC & Email Security Checker and Bulk Phone Format Validator?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "This Actor checks RFC syntax, DNS MX, and disposable-domain membership on email strings you already have. Required input is emails (maximum 1000). The Store description states it audits user-supplied email data using syntax, DNS MX, and disposable-domain checks; no messages are sent and no addresses are discovered or enriched. DMARC & Email Security Checker audits public SPF, DMARC, and MX (optional DKIM) on domains you supply (domains, maximum 500) and returns a 0–100 score with an A–F grade — domain email-auth policy, not per-address syntax on a list. Bulk Phone Format Validator is offline libphonenumber formatting of phone strings in numbers (maximum 1000). Use this Actor to validate a consented email-string list. Use DMARC & Email Security Checker for SPF/DMARC/MX posture on authorized domains. Use Bulk Phone Format Validator for E.164 hygiene."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What input is required?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "emails is required: Emails to validate (max 1000). Schema prefill is test@gmail.com, user@mailinator.com, bad@@invalid. Optional live schema fields are checkMx (boolean, default true; Check MX records via DNS lookup), checkDisposable (boolean, default true; Check against disposable email providers), delivery (dataset or webhook, default dataset), webhookUrl (when delivery is webhook), and dryRun (boolean, default false). additionalProperties is false. The README Input table lists only emails, checkMx, and checkDisposable. README examples that send includeDisposable or mxOnly are not live schema fields."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does a result row contain?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The published README output table lists domain, hasMx, mxRecords, spfPass, spfRecord, dmarcPass, dmarcPolicy, dkimPass, and bimiPass. The published README sample uses email, isValid, syntaxOk, mxValid, mxRecords (priority plus exchange), isDisposable, domain, and score (0–100). There is no published output JSON schema on the Store page. The sample is a README illustration, not a live coverage guarantee. Live schema names do not include checkDkim or checkBimi."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does it send mail, discover addresses, or check if an inbox exists?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. The Store description states: audit user-supplied email data using syntax, DNS MX, and disposable-domain checks; no messages are sent and no addresses are discovered or enriched. The README states the Actor never sends a message and does not discover, enrich, or acquire addresses. A positive result is a technical signal only and does not prove mailbox ownership, consent, or permission to send. The published FAQ states it does not check if the inbox exists — that would require an SMTP handshake, which is not safe for bulk checking."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Bulk Email Syntax & MX Validator priced?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Billing is pay-per-event. The live Store card is $3.00 / 1,000 email data-quality results. The billed event is Email data-quality result at $0.003, charged only for one delivered technical validation result for a user-supplied address. You are not charged for Apify platform usage, only the fixed event price. The README Cost section still quotes actor-start $0.01 plus dataset-item $0.003 ($3.01 for 1,000 items); live Store billing currently lists only the $0.003 Email data-quality result event."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do dataset, webhook, and dry-run delivery work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "delivery defaults to dataset. Set delivery to webhook and provide webhookUrl to POST results. dryRun true runs without saving results (for testing). The Store Quickstart starts with Quickstart (5 Demo Emails) on a mixed set of valid, invalid, and disposable addresses, then Database migration audit, Sales Outreach Pre-Flight, or CRM Hygiene Audit (bulk-validate up to 1,000 addresses from an existing CRM export)."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Bulk Email Syntax &amp; MX Validator</nav>
+    <h1>Check RFC syntax, DNS MX, and disposable domains on up to 1,000 supplied emails</h1>
+    <p>Bulk Email Syntax &amp; MX Validator (Store README title: Email Deliverability Checker) audits email strings you already hold. It checks RFC syntax, live DNS MX, and known disposable-domain patterns, then returns per-address technical signals including a 0–100 score. It does not send mail and does not discover, enrich, or acquire addresses. Domain SPF/DMARC policy grades belong on <a href="/dmarc-email-security-checker/">DMARC &amp; Email Security Checker</a>. Phone-string E.164 formatting belongs on <a href="/bulk-phone-format-validator/">Bulk Phone Format Validator</a>.</p>
+    <p class="price">$3.00 per 1,000 email data-quality results</p>
+    <p><a href="https://apify.com/taroyamada/email-deliverability-checker">Open Bulk Email Syntax &amp; MX Validator on Apify</a></p>
+
+    <h2>Syntax, MX, and disposable checks on email strings, not domain policy or phone numbers</h2>
+    <p>Use this page when the job is list hygiene on a consented email export: syntax, MX presence, disposable-provider flags, and a composite score. Use <a href="/dmarc-email-security-checker/">DMARC &amp; Email Security Checker</a> when the job is SPF, DMARC, MX, and optional DKIM posture on domains you supply. Use <a href="/bulk-phone-format-validator/">Bulk Phone Format Validator</a> when the job is offline E.164 normalization of phone strings.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>This Actor</th>
+          <th>DMARC &amp; Email Security Checker</th>
+          <th>Bulk Phone Format Validator</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>Validate user-supplied email strings: RFC syntax, DNS MX, disposable-domain checks</td>
+          <td>Audit SPF, DMARC, MX, and optional DKIM; return a 0–100 / A–F grade</td>
+          <td>Normalize user-supplied phone strings to E.164 with type detection</td>
+        </tr>
+        <tr>
+          <td>Input</td>
+          <td>Email strings in <code>emails</code> (max 1000)</td>
+          <td>Hostnames in <code>domains</code> (max 500)</td>
+          <td>Phone strings in <code>numbers</code> (max 1000)</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>The strings you pass; live DNS MX when <code>checkMx</code> is true; disposable-provider blocklist when <code>checkDisposable</code> is true</td>
+          <td>Public SPF, DKIM, DMARC, MX, and related DNS for email-auth review</td>
+          <td>The strings you pass; google-libphonenumber runs locally, no network</td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td>Per-address technical row: validity, syntax, MX, disposable flag, domain, 0–100 score</td>
+          <td>Per-domain <code>score</code>, <code>spf</code>, <code>dmarc</code>, <code>dkim</code>, <code>mx</code></td>
+          <td>Format-validation row: validity, E.164, country, line type</td>
+        </tr>
+        <tr>
+          <td>Sends mail / discovers addresses</td>
+          <td>None. No messages sent; no address discovery or enrichment</td>
+          <td>None. Passive public DNS only</td>
+          <td>None. Does not acquire numbers or crawl profiles</td>
+        </tr>
+        <tr>
+          <td>Inbox / mailbox proof</td>
+          <td>No. Published FAQ: no SMTP handshake; a positive result does not prove mailbox ownership</td>
+          <td>Not an email-string validator</td>
+          <td>Not a phone reachability ping</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>The Store description is: audit user-supplied email data using syntax, DNS MX, and disposable-domain checks. No messages are sent and no addresses are discovered or enriched. The README states a positive result is a technical signal only and does not prove mailbox ownership, consent, or permission to send messages. Pass an authorized CRM or customer-supplied list — not a harvest from public pages.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Email marketers: clean lists before bulk sends to protect sender reputation.</li>
+      <li>Data operations: audit consented records before a database migration.</li>
+      <li>Growth teams: verify signups to reduce fake or disposable accounts.</li>
+      <li>SaaS platforms: pre-validate emails at signup to block junk.</li>
+      <li>CRM managers: periodic list hygiene to remove invalid emails.</li>
+    </ul>
+    <p>Published Key Features: RFC-compliant syntax validation; DNS MX lookup for working mail exchangers; disposable detection (tempmail, guerrillamail, mailinator, 10minutemail); 0–100 composite score per email; bulk processing up to 1,000 emails per run; no sending required. The README Lead Enrichment Pack places this Actor as step 2 after a consented CSV clean, then <a href="/bulk-phone-format-validator/">Bulk Phone Format Validator</a> for phone strings.</p>
+    <p>Store Quickstart: start with Quickstart (5 Demo Emails) on a mixed set of valid, invalid, and disposable addresses, then Database migration audit, Sales Outreach Pre-Flight, or CRM Hygiene Audit.</p>
+
+    <h2>How is Bulk Email Syntax &amp; MX Validator different from DMARC &amp; Email Security Checker and Bulk Phone Format Validator?</h2>
+    <p>This Actor checks RFC syntax, DNS MX, and disposable-domain membership on email strings you already have. Required input is <code>emails</code> (maximum 1000). The Store description states it audits user-supplied email data using syntax, DNS MX, and disposable-domain checks; no messages are sent and no addresses are discovered or enriched. <a href="/dmarc-email-security-checker/">DMARC &amp; Email Security Checker</a> audits public SPF, DMARC, and MX (optional DKIM) on domains you supply (<code>domains</code>, maximum 500) and returns a 0–100 score with an A–F grade — domain email-auth policy, not per-address syntax on a list. <a href="/bulk-phone-format-validator/">Bulk Phone Format Validator</a> is offline libphonenumber formatting of phone strings in <code>numbers</code> (maximum 1000). Use this Actor to validate a consented email-string list. Use DMARC &amp; Email Security Checker for SPF/DMARC/MX posture on authorized domains. Use Bulk Phone Format Validator for E.164 hygiene.</p>
+
+    <h2>What input is required?</h2>
+    <p><code>emails</code> is required. The live schema description is “Emails to validate (max 1000).” Other live schema fields:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>emails</code></td>
+          <td>string[]</td>
+          <td>required</td>
+          <td>Emails to validate (max 1000). Schema prefill is <code>test@gmail.com</code>, <code>user@mailinator.com</code>, <code>bad@@invalid</code>.</td>
+        </tr>
+        <tr>
+          <td><code>checkMx</code></td>
+          <td>boolean</td>
+          <td>true</td>
+          <td>Check MX records via DNS lookup.</td>
+        </tr>
+        <tr>
+          <td><code>checkDisposable</code></td>
+          <td>boolean</td>
+          <td>true</td>
+          <td>Check against disposable email providers.</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string</td>
+          <td><code>dataset</code></td>
+          <td><code>dataset</code> or <code>webhook</code></td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td>—</td>
+          <td>POST target when <code>delivery</code> is <code>webhook</code></td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Run without saving results (for testing)</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>The schema sets <code>additionalProperties</code> to false. The README Input table lists only <code>emails</code>, <code>checkMx</code>, and <code>checkDisposable</code>. Live schema also includes <code>delivery</code>, <code>webhookUrl</code>, and <code>dryRun</code>. README examples that send <code>includeDisposable</code> or <code>mxOnly</code> are not live schema fields. Live schema names do not include <code>checkDkim</code> or <code>checkBimi</code>.</p>
+    <p>Published Store example run input:</p>
+<pre><code>{
+  "emails": [
+    "test@gmail.com",
+    "user@mailinator.com",
+    "bad@@invalid"
+  ],
+  "checkMx": true,
+  "checkDisposable": true,
+  "dryRun": false
+}</code></pre>
+    <p>Published README input example (schema-valid):</p>
+<pre><code>{
+  "emails": ["user@example.com", "fake@10minutemail.com"],
+  "checkMx": true,
+  "checkDisposable": true
+}</code></pre>
+    <p>README examples labeled Bulk pre-send hygiene (<code>includeDisposable</code>) and MX-only mode (<code>mxOnly</code>) are not live input fields. Start with Quickstart (5 Demo Emails). Use <code>dryRun: true</code> before larger batches or webhook delivery.</p>
+    <p><a href="https://apify.com/taroyamada/email-deliverability-checker">Run Bulk Email Syntax &amp; MX Validator on Apify</a></p>
+
+    <h2>What does a result row contain?</h2>
+    <p>The published README output table lists <code>domain</code>, <code>hasMx</code>, <code>mxRecords</code>, <code>spfPass</code>, <code>spfRecord</code>, <code>dmarcPass</code>, <code>dmarcPolicy</code>, <code>dkimPass</code>, and <code>bimiPass</code>. The published README sample uses <code>email</code>, <code>isValid</code>, <code>syntaxOk</code>, <code>mxValid</code>, <code>mxRecords</code> (priority plus exchange), <code>isDisposable</code>, <code>domain</code>, and <code>score</code> (0–100). There is no published output JSON schema on the Store page.</p>
+    <p>Published README sample:</p>
+<pre><code>{
+  "email": "user@example.com",
+  "isValid": true,
+  "syntaxOk": true,
+  "mxValid": true,
+  "mxRecords": [{"priority": 10, "exchange": "mail.example.com"}],
+  "isDisposable": false,
+  "domain": "example.com",
+  "score": 95
+}</code></pre>
+    <p>That sample is the published README illustration, not a live coverage guarantee. The output table lists SPF, DMARC, DKIM, and BIMI fields; the sample does not. The table describes <code>dkimPass</code> as applying if <code>checkDkim</code> is enabled and <code>bimiPass</code> if <code>checkBimi</code> is enabled; those names are not live schema fields. Domain SPF/DMARC policy grades for hostnames you supply belong on <a href="/dmarc-email-security-checker/">DMARC &amp; Email Security Checker</a>.</p>
+    <p>Published FAQ on the score field: 90+ is described as safe for sending, 70–90 as risky, and below 70 as discard or double opt-in. Typos such as gmial.com are described as invalid when the domain has no MX records. The embedded disposable list is described as 3,000+ known providers, updated with releases (examples: tempmail, guerrillamail, mailinator, 10minutemail).</p>
+
+    <h2>Does it send mail, discover addresses, or check if an inbox exists?</h2>
+    <p>No. The Store description states: audit user-supplied email data using syntax, DNS MX, and disposable-domain checks; no messages are sent and no addresses are discovered or enriched. The README states the Actor never sends a message and does not discover, enrich, or acquire addresses. A positive result is a technical signal only and does not prove mailbox ownership, consent, or permission to send. The published FAQ states it does not check if the inbox exists — that would require an SMTP handshake, which is not safe for bulk checking.</p>
+    <p>The published FAQ also states this is not a per-mailbox existence check (“domain-level configuration only”) and that <code>dkimPass=true</code> would mean at least one DKIM selector was detected (default, google, k1, mail, etc.), not that all senders sign correctly. Use an authorized export. This Actor is not a people-finder, not a mailer, and not an SMTP probe.</p>
+
+    <h2>How is Bulk Email Syntax &amp; MX Validator priced?</h2>
+    <p>Billing is pay-per-event. The live Store card is <strong>$3.00 / 1,000 email data-quality results</strong>. The billed event is Email data-quality result at <strong>$0.003</strong>, charged only for one delivered technical validation result for a user-supplied address. You are not charged for Apify platform usage, only the fixed event price.</p>
+    <p>The README Cost section still quotes <code>actor-start</code> $0.01 plus <code>dataset-item</code> $0.003 ($3.01 for 1,000 items); live Store billing currently lists only the $0.003 Email data-quality result event. Check the Store pricing card for the current per-event rates.</p>
+    <p class="price">$3.00 per 1,000 email data-quality results ($0.003 per delivered technical validation result)</p>
+    <p><a href="https://apify.com/taroyamada/email-deliverability-checker/pricing">See Bulk Email Syntax &amp; MX Validator pricing on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p><code>delivery</code> defaults to <code>dataset</code>. Set <code>delivery</code> to <code>webhook</code> and provide <code>webhookUrl</code> to POST results. <code>dryRun</code> true runs without saving results (for testing). The Store Quickstart starts with Quickstart (5 Demo Emails) on a mixed set of valid, invalid, and disposable addresses, then Database migration audit, Sales Outreach Pre-Flight, or CRM Hygiene Audit (bulk-validate up to 1,000 addresses from an existing CRM export).</p>
+    <p><a href="https://apify.com/taroyamada/email-deliverability-checker">Open Bulk Email Syntax &amp; MX Validator on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Maximum 1000 email strings per run. Required field is <code>emails</code>.</li>
+      <li>Syntax, DNS MX, and disposable-domain checks on strings you supply — not domain SPF/DMARC policy grades, not phone-string formatting.</li>
+      <li>Does not send mail. Does not discover, enrich, or acquire addresses. Does not perform an SMTP inbox probe.</li>
+      <li>README <code>includeDisposable</code>, <code>mxOnly</code>, <code>checkDkim</code>, and <code>checkBimi</code> examples are not live schema fields.</li>
+      <li>A positive result is a technical signal only — not mailbox ownership, consent, or permission to send.</li>
+      <li>Pass consented, user-supplied lists. Keep the first run small.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/email-deliverability-checker">Open Bulk Email Syntax &amp; MX Validator on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/dmarc-email-security-checker/">DMARC &amp; Email Security Checker</a> — SPF/DMARC/MX policy on supplied domains, not per-address syntax/MX/disposable checks</li>
+      <li><a href="/bulk-phone-format-validator/">Bulk Phone Format Validator</a> — offline E.164 phone strings, not email syntax/MX</li>
+      <li><a href="/dns-propagation-checker/">DNS Propagation Checker</a> — A/NS/SOA (and other records) across eight resolvers, not email-list hygiene</li>
+      <li><a href="/contact-details-extractor/">Contact Page Audit &amp; Business Channel Extractor</a> — public business channels from pages, not email-string validation</li>
+      <li><a href="/sitemap-scraper-analyzer/">Sitemap Scraper &amp; Analyzer</a> — sitemap URL inventory, not email syntax/MX</li>
+      <li><a href="/structured-data-scraper-validator/">Structured Data Scraper &amp; Validator</a> — JSON-LD/Microdata on pages, not email-string validation</li>
+      <li><a href="/bulk-url-status-checker/">Bulk URL Status Checker</a> — HTTP status on a known URL list</li>
+      <li><a href="/hhs-healthcare-data-breach-scraper/">HHS Healthcare Data Breach Change Scraper</a></li>
+      <li><a href="/tech-events-cfp-calendar/">Tech Events &amp; CFP Calendar Scraper</a></li>
+      <li><a href="/chrome-web-store-extension-intelligence/">Chrome Web Store Extension Intelligence</a></li>
+      <li><a href="/website-content-extractor/">Website Content Extractor</a></li>
+      <li><a href="/meta-tag-opengraph-scraper/">Meta Tag &amp; OpenGraph Scraper</a></li>
+      <li><a href="/wayback-machine-bulk-checker/">Wayback Machine Bulk Checker</a></li>
+      <li><a href="/short-url-resolver-scraper/">Short URL Resolver &amp; Scraper</a></li>
+      <li><a href="/article-content-extractor/">Article Content Extractor</a></li>
+      <li><a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a></li>
+      <li><a href="/google-news-scraper/">Google News Scraper</a></li>
+      <li><a href="/packs/content-intelligence/">Content Intelligence pack</a></li>
+      <li><a href="/review-intelligence/">Review Intelligence pack</a></li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>
