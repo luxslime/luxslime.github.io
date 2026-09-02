@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trade Show Exhibitor Intelligence — company and booth fields from supplied URLs</title>
+  <meta name="description" content="Extract company names, categories, countries/regions, URLs, social links, and booth fields from public event and exhibitor pages you supply. Direct-source URLs only. Not a confs.tech CFP calendar.">
+  <link rel="canonical" href="https://luxslime.github.io/trade-show-exhibitor-intelligence/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is Trade Show Exhibitor Intelligence different from Tech Events & CFP Calendar Scraper and Contact Page Audit & Business Channel Extractor?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "This Actor extracts exhibitor company and booth fields from public event, sponsor, and exhibitor pages using direct-source URLs or domains you supply, plus same-domain exhibitor links found on those pages. Live schema sources are urls (event exhibitor directory, exhibitor profile, sponsor, or booth listing URLs; maxItems 100) and domains (optional bare event domains, maxItems 100). Published Store description: company names, categories, countries/regions, URLs, social links, and booth information. Tech Events & CFP Calendar Scraper aggregates developer conferences, meetups, and Call for Papers deadlines from confs.tech by topic; required input is topics, not exhibitor page URLs. Contact Page Audit & Business Channel Extractor inventories public business contact channels (support paths, phones, socials) from contact, about, and support pages; person-level emails are suppressed. This Actor is booth and company extraction from supplied exhibitor sources, not a developer speaking calendar and not a contact-page channel audit."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What input is required?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The published input schema has an empty required list. Schema description: provide at least one public event/exhibitor URL or event domain. Live fields are urls (string array, default [], maxItems 100; Public event exhibitor directory, exhibitor profile, sponsor, or booth listing URLs to fetch directly. No search engine discovery is used. Prefill https://www.ces.tech/exhibitors/ and https://www.bio.org/events/bio-international-convention/exhibitor-directory), domains (string array, default [], maxItems 100; optional bare event domains normalized to https://domain/ and inspected for same-domain exhibitor or directory links only; prefill ces.tech, bio.org), eventName (string, default empty; optional event or trade show name used as a parsing hint and fallback eventName field), countryRegionHint (string, default empty; optional country, state, or region used only as a local classification hint when that text appears on the page), maxLinkedPages (integer, default 2, minimum 0, maximum 8), maxResults (integer, default 25, minimum 1, maximum 250), and dryRun (boolean, default false). additionalProperties is false. The published input schema does not include delivery, webhookUrl, search queries, topics, or authentication fields."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does a result row contain?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The published Store README lists company name, event name, profile URL, and website; categories, country or region, social URLs, booth hall, booth number, and booth label; and description, confidence, status, chargedEvent, sourceUrls, and errors on every dataset row. The published dataset overview view (Trade Show Exhibitor Profiles) lists companyName, eventName, profileUrl, website, categories, countryRegion, booth, boothHall, boothNumber, socialUrls, confidence, status, chargedEvent, sourceUrls, and errors. There is no published output JSON schema sample object on the Store README. The overview field list is the published dataset view, not a live coverage guarantee for every source page."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does it use search engines or private exhibitor databases?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. The live Store README states V1 is direct-source only: it uses URLs or domains you provide plus same-domain exhibitor links found on those pages. It does not use search engines, private portals, authentication, or paid event databases. The live schema description repeats: no search engines, no private portals, no authentication, and no paid/private exhibitor data collection. urls are fetched directly; domains are inspected for same-domain exhibitor or directory links only."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Trade Show Exhibitor Intelligence priced?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Billing is pay per event. Live Store events are Exhibitor profile enriched at $0.03 ($30.00 / 1,000): a public exhibitor page or directory entry was structured into company, booth, category, country, URL, or social fields; Partial exhibitor profile at $0.012 ($12.00 / 1,000): a public exhibitor source produced partial but useful exhibitor intelligence fields; and Actor Start at $0.00005, charged when the Actor starts running (number of events depends on Actor memory, one event per GB, minimum one event). Platform usage is listed as included on the pricing page. The README PPE section matches those charged events as exhibitor_profile_enriched (useful enriched exhibitor profile) and exhibitor_partial (useful partial exhibitor evidence). invalid, blocked, not_found, not_exhibitor_page, and error are no-charge diagnostic rows."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do dry runs and no-charge diagnostic rows work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "dryRun true validates input and writes local output without sending dataset rows or charging custom PPE events. Enriched and useful partial rows are charged with custom PPE events; invalid, blocked, not_found, not_exhibitor_page, and error rows are no-charge diagnostics. The published input schema does not include delivery or webhookUrl. The README says keep maxLinkedPages low for cheap proof runs."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Trade Show Exhibitor Intelligence</nav>
+    <h1>Extract exhibitor company and booth fields from public event pages you supply</h1>
+    <p>Trade Show Exhibitor Intelligence structures public event, sponsor, and trade show exhibitor pages into company, booth, category, country/region, URL, and social fields. V1 is direct-source only: it uses URLs or domains you provide plus same-domain exhibitor links found on those pages. It is not a confs.tech developer conference / CFP calendar and not a contact-page business-channel inventory — those jobs belong on <a href="/tech-events-cfp-calendar/">Tech Events &amp; CFP Calendar Scraper</a> and <a href="/contact-details-extractor/">Contact Page Audit &amp; Business Channel Extractor</a>.</p>
+    <p class="price">$30.00 per 1,000 exhibitor_profile_enriched events; $12.00 per 1,000 exhibitor_partial events</p>
+    <p><a href="https://apify.com/taroyamada/trade-show-exhibitor-intelligence">Open Trade Show Exhibitor Intelligence on Apify</a></p>
+
+    <h2>Exhibitor company and booth fields, not a CFP calendar or contact-page audit</h2>
+    <p>Use this page when the job is company and booth extraction from public exhibitor directory, profile, sponsor, or booth listing URLs you already have. Use <a href="/tech-events-cfp-calendar/">Tech Events &amp; CFP Calendar Scraper</a> when the job is a dated developer conference, meetup, and Call for Papers calendar from confs.tech topic search. Use <a href="/contact-details-extractor/">Contact Page Audit &amp; Business Channel Extractor</a> when the job is public support paths, phones, and social profiles on contact, about, or support pages.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>This Actor</th>
+          <th>Tech Events &amp; CFP Calendar Scraper</th>
+          <th>Contact Page Audit &amp; Business Channel Extractor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>Exhibitor company, booth, category, country/region, URL, and social fields</td>
+          <td>Developer conference, meetup, and CFP deadline calendar</td>
+          <td>Public business contact-channel inventory</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td>Direct-source <code>urls</code> and/or <code>domains</code> (at least one)</td>
+          <td>Required <code>topics</code>; optional <code>year</code></td>
+          <td>Required <code>urls</code> (contact, about, support, or company pages; max 100)</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>Public event/exhibitor/sponsor/booth pages you supply, plus same-domain exhibitor links</td>
+          <td>Public conference, meetup, and CFP listings (schema: aggregate from confs.tech by topic)</td>
+          <td>Public contact / about / support / policy / company pages</td>
+        </tr>
+        <tr>
+          <td>Deliverable</td>
+          <td>Exhibitor rows with company, booth, category, country/region, URLs, socials, plus diagnostics</td>
+          <td>Deduplicated dated event records with CFP URL/deadline when present</td>
+          <td><code>public_contact_channel</code> rows: support path, phone, social URLs</td>
+        </tr>
+        <tr>
+          <td>Not this job</td>
+          <td>confs.tech speaking calendars; contact-page channel audits; search-engine discovery</td>
+          <td>Exhibitor booth directories from supplied event URLs</td>
+          <td>Booth hall/number extraction from exhibitor directories</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>The published Store description is: Extract company names, categories, countries/regions, URLs, social links, and booth information from public event and exhibitor pages using direct-source URLs only, with PPE charged events and no-charge diagnostics. The README positions this as an experimental lead-generation lane that is intentionally lighter than browser-based event scraping.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Extract lead-ready exhibitor fields from public event, sponsor, and trade show exhibitor pages you supply.</li>
+      <li>Capture booth hall, booth number, and booth label from those exhibitor sources.</li>
+      <li>Capture company name, website, categories, country or region, and social URLs with source URL provenance.</li>
+      <li>Run a cheap proof with low <code>maxLinkedPages</code> and <code>dryRun</code> before charged PPE events.</li>
+    </ul>
+    <p>Pass public exhibitor directory or profile URLs in <code>urls</code>, or bare event domains in <code>domains</code>. V1 does not discover events via search engines.</p>
+
+    <h2>How is Trade Show Exhibitor Intelligence different from Tech Events &amp; CFP Calendar Scraper and Contact Page Audit &amp; Business Channel Extractor?</h2>
+    <p>This Actor extracts exhibitor company and booth fields from public event, sponsor, and exhibitor pages using direct-source URLs or domains you supply, plus same-domain exhibitor links found on those pages. Live schema sources are <code>urls</code> (event exhibitor directory, exhibitor profile, sponsor, or booth listing URLs; maxItems 100) and <code>domains</code> (optional bare event domains, maxItems 100). Published Store description: company names, categories, countries/regions, URLs, social links, and booth information. <a href="/tech-events-cfp-calendar/">Tech Events &amp; CFP Calendar Scraper</a> aggregates developer conferences, meetups, and Call for Papers deadlines from confs.tech by topic; required input is <code>topics</code>, not exhibitor page URLs. <a href="/contact-details-extractor/">Contact Page Audit &amp; Business Channel Extractor</a> inventories public business contact channels (support paths, phones, socials) from contact, about, and support pages; person-level emails are suppressed. This Actor is booth and company extraction from supplied exhibitor sources, not a developer speaking calendar and not a contact-page channel audit.</p>
+
+    <h2>What input is required?</h2>
+    <p>The published input schema has an empty <code>required</code> list. Schema description: provide at least one public event/exhibitor URL or event domain. Live fields:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>urls</code></td>
+          <td>string[]</td>
+          <td><code>[]</code></td>
+          <td>Public event exhibitor directory, exhibitor profile, sponsor, or booth listing URLs to fetch directly. No search engine discovery is used. maxItems 100. Schema prefill is <code>https://www.ces.tech/exhibitors/</code>, <code>https://www.bio.org/events/bio-international-convention/exhibitor-directory</code>.</td>
+        </tr>
+        <tr>
+          <td><code>domains</code></td>
+          <td>string[]</td>
+          <td><code>[]</code></td>
+          <td>Optional bare event domains. Domains are normalized to <code>https://domain/</code> and inspected for same-domain exhibitor or directory links only. maxItems 100. Schema prefill is <code>ces.tech</code>, <code>bio.org</code>.</td>
+        </tr>
+        <tr>
+          <td><code>eventName</code></td>
+          <td>string</td>
+          <td>empty</td>
+          <td>Optional event or trade show name used as a parsing hint and fallback <code>eventName</code> field</td>
+        </tr>
+        <tr>
+          <td><code>countryRegionHint</code></td>
+          <td>string</td>
+          <td>empty</td>
+          <td>Optional country, state, or region used only as a local classification hint when that text appears on the page</td>
+        </tr>
+        <tr>
+          <td><code>maxLinkedPages</code></td>
+          <td>integer</td>
+          <td>2</td>
+          <td>When a supplied page links to same-domain exhibitor, sponsor, booth, directory, or company profile pages, fetch up to this many extra direct-source pages as evidence. Minimum 0, maximum 8.</td>
+        </tr>
+        <tr>
+          <td><code>maxResults</code></td>
+          <td>integer</td>
+          <td>25</td>
+          <td>Maximum normalized direct sources and extracted exhibitor rows to emit. Minimum 1, maximum 250.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Validate input and write local output without sending dataset rows or charging custom PPE events</td>
+        </tr>
+      </tbody>
+    </table>
+    <p><code>additionalProperties</code> is false. The published input schema does not include <code>delivery</code>, <code>webhookUrl</code>, search queries, <code>topics</code>, or authentication fields. Use <code>urls</code> for exact exhibitor directory/profile pages, or <code>domains</code> when you want the actor to inspect an event domain for same-domain exhibitor links.</p>
+    <p>Published schema prefill (first-run shape):</p>
+<pre><code>{
+  "urls": [
+    "https://www.ces.tech/exhibitors/",
+    "https://www.bio.org/events/bio-international-convention/exhibitor-directory"
+  ],
+  "domains": [
+    "ces.tech",
+    "bio.org"
+  ],
+  "maxLinkedPages": 2,
+  "maxResults": 25,
+  "dryRun": false
+}</code></pre>
+    <p>Keep <code>maxLinkedPages</code> low for cheap proof runs. Use <code>dryRun: true</code> before charging custom PPE events.</p>
+    <p><a href="https://apify.com/taroyamada/trade-show-exhibitor-intelligence">Run Trade Show Exhibitor Intelligence on Apify</a></p>
+
+    <h2>What does a result row contain?</h2>
+    <p>The published Store README lists company name, event name, profile URL, and website; categories, country or region, social URLs, booth hall, booth number, and booth label; and description, confidence, status, chargedEvent, sourceUrls, and errors on every dataset row. The published dataset overview view (Trade Show Exhibitor Profiles) lists <code>companyName</code>, <code>eventName</code>, <code>profileUrl</code>, <code>website</code>, <code>categories</code>, <code>countryRegion</code>, <code>booth</code>, <code>boothHall</code>, <code>boothNumber</code>, <code>socialUrls</code>, <code>confidence</code>, <code>status</code>, <code>chargedEvent</code>, <code>sourceUrls</code>, and <code>errors</code>. There is no published output JSON schema sample object on the Store README. The overview field list is the published dataset view, not a live coverage guarantee for every source page.</p>
+    <p>For a developer conference / CFP calendar instead of exhibitor booth rows, use <a href="/tech-events-cfp-calendar/">Tech Events &amp; CFP Calendar Scraper</a>. For public contact-channel inventory on contact pages, use <a href="/contact-details-extractor/">Contact Page Audit &amp; Business Channel Extractor</a>.</p>
+
+    <h2>Does it use search engines or private exhibitor databases?</h2>
+    <p>No. The live Store README states V1 is direct-source only: it uses URLs or domains you provide plus same-domain exhibitor links found on those pages. It does not use search engines, private portals, authentication, or paid event databases. The live schema description repeats: no search engines, no private portals, no authentication, and no paid/private exhibitor data collection. <code>urls</code> are fetched directly; <code>domains</code> are inspected for same-domain exhibitor or directory links only.</p>
+
+    <h2>How is Trade Show Exhibitor Intelligence priced?</h2>
+    <p>Billing is pay per event. Live Store events are <strong>Exhibitor profile enriched</strong> at <strong>$0.03</strong> (<strong>$30.00 / 1,000</strong>): a public exhibitor page or directory entry was structured into company, booth, category, country, URL, or social fields; <strong>Partial exhibitor profile</strong> at <strong>$0.012</strong> (<strong>$12.00 / 1,000</strong>): a public exhibitor source produced partial but useful exhibitor intelligence fields; and <strong>Actor Start</strong> at <strong>$0.00005</strong>, charged when the Actor starts running (number of events depends on Actor memory, one event per GB, minimum one event). Platform usage is listed as included on the pricing page.</p>
+    <p>The README PPE section matches those charged events as <code>exhibitor_profile_enriched</code> (useful enriched exhibitor profile) and <code>exhibitor_partial</code> (useful partial exhibitor evidence). <code>invalid</code>, <code>blocked</code>, <code>not_found</code>, <code>not_exhibitor_page</code>, and <code>error</code> are no-charge diagnostic rows.</p>
+    <p class="price">$30.00 / 1,000 exhibitor_profile_enriched; $12.00 / 1,000 exhibitor_partial; Actor Start $0.00005</p>
+    <p><a href="https://apify.com/taroyamada/trade-show-exhibitor-intelligence/pricing">See Trade Show Exhibitor Intelligence pricing on Apify</a></p>
+
+    <h2>How do dry runs and no-charge diagnostic rows work?</h2>
+    <p><code>dryRun</code> true validates input and writes local output without sending dataset rows or charging custom PPE events. Enriched and useful partial rows are charged with custom PPE events; <code>invalid</code>, <code>blocked</code>, <code>not_found</code>, <code>not_exhibitor_page</code>, and <code>error</code> rows are no-charge diagnostics. The published input schema does not include <code>delivery</code> or <code>webhookUrl</code>. The README says keep <code>maxLinkedPages</code> low for cheap proof runs.</p>
+    <p><a href="https://apify.com/taroyamada/trade-show-exhibitor-intelligence">Open Trade Show Exhibitor Intelligence on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Provide at least one public event/exhibitor URL or event domain. <code>urls</code> and <code>domains</code> each allow maxItems 100.</li>
+      <li><code>maxLinkedPages</code> is 0–8 (default 2). <code>maxResults</code> is 1–250 (default 25).</li>
+      <li>V1 is direct-source only: no search engines, private portals, authentication, or paid/private exhibitor data collection.</li>
+      <li>The published input schema does not include <code>delivery</code> or <code>webhookUrl</code>.</li>
+      <li>This is exhibitor company/booth extraction from supplied pages, not a confs.tech CFP calendar and not a contact-page channel audit.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/trade-show-exhibitor-intelligence">Open Trade Show Exhibitor Intelligence on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/tech-events-cfp-calendar/">Tech Events &amp; CFP Calendar Scraper</a> — confs.tech developer conferences, meetups, and CFP deadlines, not exhibitor booth rows</li>
+      <li><a href="/contact-details-extractor/">Contact Page Audit &amp; Business Channel Extractor</a> — public business channels from contact/support pages, not exhibitor booth extraction</li>
+      <li><a href="/ted-sam-grants-bid-alerts/">TED, SAM.gov &amp; Grants Bid Alerts Scraper</a> — procurement bid notices, not trade-show exhibitor directories</li>
+      <li><a href="/google-news-scraper/">Google News Scraper</a> — Google News RSS headlines, not exhibitor booth fields</li>
+      <li><a href="/website-content-extractor/">Website Content Extractor</a> — cleaned page body, not exhibitor field normalization</li>
+      <li><a href="/structured-data-scraper-validator/">Structured Data Scraper &amp; Validator</a> — JSON-LD/Microdata quality on pages</li>
+      <li><a href="/sitemap-scraper-analyzer/">Sitemap Scraper &amp; Analyzer</a> — sitemap URL inventory</li>
+      <li><a href="/apify-store-ranking-scraper/">Apify Store Ranking Scraper</a> — Store API keyword rankings, not exhibitor booth extraction</li>
+      <li><a href="/bulk-email-syntax-mx-validator/">Bulk Email Syntax &amp; MX Validator</a> — RFC syntax/MX on email strings, not exhibitor pages</li>
+      <li><a href="/meta-tag-opengraph-scraper/">Meta Tag &amp; OpenGraph Scraper</a></li>
+      <li><a href="/article-content-extractor/">Article Content Extractor</a></li>
+      <li><a href="/bulk-url-status-checker/">Bulk URL Status Checker</a></li>
+      <li><a href="/chrome-web-store-extension-intelligence/">Chrome Web Store Extension Intelligence</a></li>
+      <li><a href="/hhs-healthcare-data-breach-scraper/">HHS Healthcare Data Breach Change Scraper</a></li>
+      <li><a href="/packs/content-intelligence/">Content Intelligence pack</a></li>
+      <li><a href="/review-intelligence/">Review Intelligence pack</a></li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>
