@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Wayback Machine Bulk Checker — Internet Archive availability lookups</title>
-  <meta name="description" content="Check bulk URL lists against the Internet Archive Wayback Machine available endpoint. Find closest snapshots, archive URLs, and cache availability for migrations and recovery.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wayback Machine Bulk Checker — Internet Archive closest-snapshot availability</title>
+  <meta name="description" content="Query the Wayback Machine available endpoint for up to 500 known URLs. Return cache availability and the closest snapshot URL and timestamp. Read-only archive lookup — not live HTTP status and not sitemap XML discovery. $8.00 per 1,000 wayback archive results.">
   <link rel="canonical" href="https://luxslime.github.io/wayback-machine-bulk-checker/">
   <script type="application/ld+json">
   {
@@ -13,26 +13,50 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "How is Wayback Machine Bulk Checker different from live HTML extractors?",
+        "name": "How is Wayback Machine Bulk Checker different from Bulk URL Status Checker and Sitemap Scraper & Analyzer?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "This Actor queries the Internet Archive Wayback Machine available endpoint for a list of URLs. It checks whether a URL was archived, finds the snapshot closest to a target date, and returns structured lookup rows. It does not fetch live page HTML and it does not extract article bodies. Website Content Extractor cleans live docs, pricing, policy, and product pages. Article Content Extractor cleans live news, blog, and press pages. Use this Actor when the job is historical cache availability, not live page text."
+          "text": "This Actor queries the Internet Archive Wayback Machine available endpoint for a list of URLs you already have (urls, maximum 500). It reports whether a URL was archived and, when present, the snapshot closest to a target date. Bulk URL Status Checker checks a known URL list (urls, maximum 1000) for live HTTP status, redirect chains, response timing, and broken-URL findings; it does not query the archive. Sitemap Scraper & Analyzer reads sitemap.xml and nested sitemap indexes (sitemapUrls) to discover URL inventories, with optional HEAD checks for HTTP 200; it does not look up historical cache availability. Use this Actor for read-only archive availability. Use Bulk URL Status Checker for live HTTP QA. Use Sitemap Scraper & Analyzer to discover URLs from nested XML sitemaps."
         }
       },
       {
         "@type": "Question",
-        "name": "What input is required?",
+        "name": "What input is required for Wayback Machine Bulk Checker?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "urls is required: URLs to check in the Wayback Machine (maximum 500). Optional published fields are closest (YYYYMMDD; leave empty for the latest snapshot), concurrency (integer, default 3, minimum 1, maximum 5), maxChargeUsd (number, default 1, minimum 0, maximum 100), delivery (dataset or webhook, default dataset), webhookUrl (when delivery is webhook), and dryRun (boolean, default false). additionalProperties is false. The published input schema does not include checkAvailability, includeCdx, maxSnapshotsPerUrl, compareToLatestLive, or closestDate."
+          "text": "urls is required: URLs to check in the Wayback Machine (maximum 500). Schema editor is stringList. Schema prefill is https://example.com and https://google.com. Optional live schema fields are closest (YYYYMMDD; leave empty for the latest snapshot), concurrency (integer, default 3, minimum 1, maximum 5), maxChargeUsd (number, default 1, minimum 0, maximum 100), delivery (dataset or webhook, default dataset), webhookUrl (when delivery is webhook), and dryRun (boolean, default false). additionalProperties is false. The live schema description for urls is: URLs to check in the Wayback Machine (max 500). The live schema description for closest is: Find snapshot closest to this date (YYYYMMDD format). Leave empty for latest."
         }
       },
       {
         "@type": "Question",
-        "name": "What does a result row contain?",
+        "name": "Which README Wayback input examples are not live schema fields?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "The published README output example includes url, available, closestSnapshot (archive url and timestamp), and archivedVersions. The README output table lists url, archived, closestSnapshotUrl, closestSnapshotDate (YYYYMMDDhhmmss), totalSnapshots, firstSnapshotDate, and lastSnapshotDate. README prose also describes the timestamp of the most recent snapshot, the direct Wayback Machine URL for cached HTML, and the HTTP status of the original capture. There is no published output_schema.json on the Store page. The sample is an illustration, not a live coverage guarantee."
+          "text": "The README Input table lists closest as YYYY-MM-DD and includes checkAvailability (boolean, default true). README examples labeled Bulk archived snapshot history and Domain change-detection digest send includeCdx, maxSnapshotsPerUrl, and compareToLatestLive. Those names are not in the live input schema. additionalProperties is false, so do not send them. Use closest in YYYYMMDD form (for example 20200101), not YYYY-MM-DD. Schema-valid published inputs use urls plus optional closest, concurrency, maxChargeUsd, delivery, webhookUrl, and dryRun. The README single-URL availability example (urls only) matches the schema."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does a Wayback lookup result row contain?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The published README output table lists url, archived, closestSnapshotUrl, closestSnapshotDate (YYYYMMDDhhmmss), totalSnapshots, firstSnapshotDate, and lastSnapshotDate. The published README output example uses url, available, closestSnapshot (archive url and timestamp), and archivedVersions. README prose also describes the timestamp of the most recent snapshot, the direct Wayback Machine URL for cached HTML, and the HTTP status of the original capture. There is no published output_schema.json on the Store page. The sample is an illustration, not a live coverage guarantee. Treat snapshot counts, first/last capture dates, and original HTTP status as README-claimed columns, not as a published dataset schema."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do Wayback dataset delivery, dry-run, and the charge cap work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "delivery defaults to dataset. Set delivery to webhook and provide webhookUrl to POST results. dryRun true runs without saving results (for testing). maxChargeUsd defaults to 1 as a safety cap; results beyond the cap are kept in output as no-charge limit_reached rows. Store templates named in the README are Quickstart (verify 3 archived URLs), Portfolio Archive Check (bulk verification, up to 500 URLs), and 404 Recovery after a broken-link crawl. 404 Recovery names Broken Link Checker as a README Store path, not an extra landing on this site."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does this Actor return cached HTML or a CDX full-history dump?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. This Actor queries the Wayback Machine available endpoint. It returns structured lookup rows for availability and the closest snapshot metadata when present. It does not fetch live page HTML, does not extract article bodies, and does not dump CDX full history. The published schema does not include includeCdx, maxSnapshotsPerUrl, or compareToLatestLive. Website Content Extractor cleans live docs, pricing, policy, and product pages. Article Content Extractor cleans live news, blog, and press pages. Use this Actor when the job is historical cache availability, not live page text and not a CDX timeline."
         }
       },
       {
@@ -40,7 +64,7 @@
         "name": "How far back can I check?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Internet Archive has snapshots back to 1996. Coverage depends on whether a URL was crawled."
+          "text": "Internet Archive has snapshots back to 1996. Coverage depends on whether a URL was crawled. Snapshots exist only where the Archive crawled the page; availability is not guaranteed per URL."
         }
       },
       {
@@ -61,10 +85,18 @@
       },
       {
         "@type": "Question",
+        "name": "Is an Internet Archive API key required?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. The published README positions the Actor as using the official Internet Archive available endpoint (archive.org/wayback/available) with no API key needed. The README compares a single lookup to curl against archive.org, with bulk processing, error handling, and structured dataset output as the difference."
+        }
+      },
+      {
+        "@type": "Question",
         "name": "How is Wayback Machine Bulk Checker priced?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Billing is pay per event. The published Store price is $8.00 per 1,000 wayback archive results. The billed event is Wayback archive result at $0.008, charged only for one successfully delivered Wayback Machine lookup row. You are not charged for Apify platform usage, only the fixed event price. maxChargeUsd is a safety cap; results beyond the cap are kept as no-charge limit_reached rows."
+          "text": "Billing is pay per event. The published Store card is $8.00 / 1,000 wayback archive results. Live Store events list only Wayback archive result at $0.008 (charged only for one successfully delivered Wayback Machine lookup row; event key apify-default-dataset-item). Current PPE lists only that event (no Actor Start). Platform usage is listed as Included on the pricing page. The README Cost section still quotes actor-start $0.01 plus dataset-item $0.003 ($3.01 for 1,000 items); those figures are not the live Store rates. maxChargeUsd is a safety cap; results beyond the cap are kept as no-charge limit_reached rows. No subscription is required."
         }
       }
     ]
@@ -91,55 +123,56 @@
 <body>
   <main>
     <nav><a href="/">Home</a> / Wayback Machine Bulk Checker</nav>
-    <h1>Wayback Machine Bulk Checker</h1>
-    <p>Check bulk lists of URLs against the Internet Archive database to verify cache availability and discover historical web pages. This Actor queries the Wayback Machine <code>available</code> endpoint for up to 500 URLs per run. It is a read-only archive lookup — not a live HTML cleaner, not a CDX history dump, and not a tool that saves new snapshots.</p>
+    <h1>Look up Internet Archive snapshot availability and closest cache URLs for up to 500 known URLs</h1>
+    <p>Wayback Machine Bulk Checker queries the Internet Archive Wayback Machine <code>available</code> endpoint for URL lists you already have (maximum 500 per run). It reports whether a URL was archived and, when present, the closest snapshot URL and timestamp. It is a read-only archive lookup — not live HTTP status QA, not nested sitemap XML discovery, and not a tool that saves new snapshots.</p>
+    <p class="price">$8.00 per 1,000 wayback archive results</p>
     <p><a href="https://apify.com/taroyamada/wayback-machine-checker">Open Wayback Machine Bulk Checker on Apify</a></p>
 
-    <h2>Archive availability lookups, not live HTML extraction</h2>
-    <p>Use this page when you already have URLs and need to know whether the Internet Archive cached them. Use <a href="/website-content-extractor/">Website Content Extractor</a> to clean live docs, pricing, policy, or product pages. Use <a href="/article-content-extractor/">Article Content Extractor</a> to clean live news, blog, or press pages. Those Actors fetch current HTML. This one reads the Wayback Machine API.</p>
+    <h2>Archive availability lookups, not live HTTP status and not sitemap XML</h2>
+    <p>Use this page when you already have URLs and need to know whether the Internet Archive cached them. Use <a href="/bulk-url-status-checker/">Bulk URL Status Checker</a> when you need live HTTP status, redirect chains, and timing on a known list. Use <a href="/sitemap-scraper-analyzer/">Sitemap Scraper &amp; Analyzer</a> when the job is to parse nested <code>sitemap.xml</code> files and invent URL lists. Use <a href="/website-content-extractor/">Website Content Extractor</a> to clean live docs, pricing, policy, or product pages. Use <a href="/article-content-extractor/">Article Content Extractor</a> to clean live news, blog, or press pages.</p>
     <table>
       <thead>
         <tr>
           <th></th>
           <th>Wayback Machine Bulk Checker</th>
-          <th>Website Content Extractor</th>
-          <th>Article Content Extractor</th>
+          <th>Bulk URL Status Checker</th>
+          <th>Sitemap Scraper &amp; Analyzer</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>Intent</td>
           <td>Verify Internet Archive cache availability and closest snapshots</td>
-          <td>Clean live docs, product, pricing, policy, and help-center HTML</td>
-          <td>Parse live news, blog, newsroom, and press article pages</td>
+          <td>HTTP status, redirect-chain, timing, and broken-URL QA on a known list</td>
+          <td>Discover URLs from nested XML sitemaps; optional HEAD 200 / indexability check</td>
         </tr>
         <tr>
           <td>Input</td>
-          <td><code>urls</code> (max 500)</td>
-          <td>Site page URLs (max 200)</td>
-          <td>Article-shaped page URLs (max 300)</td>
+          <td>Known URLs in <code>urls</code> (max 500)</td>
+          <td>Known page URLs in <code>urls</code> (max 1000)</td>
+          <td>Required <code>sitemapUrls</code> (sitemap.xml or a domain that auto-discovers <code>/sitemap.xml</code>)</td>
         </tr>
         <tr>
           <td>What it reads</td>
           <td>Wayback Machine <code>archive.org/wayback/available</code> endpoint</td>
-          <td>Live page HTML</td>
-          <td>Live article HTML</td>
+          <td>Live HTTP(S) responses for those URLs; it does not crawl pages</td>
+          <td>Sitemap XML and sitemap index files; optional HEAD on discovered URLs when <code>checkStatus</code> is true</td>
         </tr>
         <tr>
           <td>Primary output</td>
           <td>Availability plus closest snapshot URL and timestamp when present</td>
-          <td>Cleaned markdown or text plus page metadata</td>
-          <td>Article body, byline, date, excerpt, hero image</td>
+          <td>Status code, final URL, redirect chain, response time, severity</td>
+          <td>URL inventory plus structure and freshness analysis; optional HTTP 200 sampling</td>
         </tr>
         <tr>
-          <td>Creates snapshots</td>
-          <td>No — read-only</td>
-          <td>No</td>
-          <td>No</td>
+          <td>Not this job</td>
+          <td>Live HTTP status, sitemap XML discovery, live HTML extraction, creating snapshots</td>
+          <td>Internet Archive availability; discovering URLs from sitemap XML</td>
+          <td>Historical cache lookup; status QA of a URL list you already have</td>
         </tr>
       </tbody>
     </table>
-    <p>No Internet Archive API key is required. The published README positions the Actor as a bulk alternative to loading the archive UI for every broken link.</p>
+    <p>No Internet Archive API key is required. The published README positions the Actor as a bulk alternative to loading the archive UI for every broken link. The live Store description is: Check bulk lists of URLs against the Internet Archive database to instantly verify cache availability. Automate historical web page discovery for large sites.</p>
 
     <h2>Use cases</h2>
     <ul>
@@ -151,11 +184,11 @@
     </ul>
     <p>The published README also positions the Actor for technical SEO and site administration: cross-reference dead, 404, or orphaned URLs with historical cache data, map legacy site structures, audit domain history before acquisitions, and rescue deleted content that Google search previously indexed. Store templates named in the README are Quickstart (verify 3 archived URLs), Portfolio Archive Check (bulk verification, up to 500 URLs), and 404 Recovery after a broken-link crawl.</p>
 
-    <h2>How is Wayback Machine Bulk Checker different from live HTML extractors?</h2>
-    <p>This Actor queries the Internet Archive Wayback Machine <code>available</code> endpoint for a list of URLs. It checks whether a URL was archived, finds the snapshot closest to a target date, and returns structured lookup rows. It does not fetch live page HTML and it does not extract article bodies. <a href="/website-content-extractor/">Website Content Extractor</a> cleans live docs, pricing, policy, and product pages. <a href="/article-content-extractor/">Article Content Extractor</a> cleans live news, blog, and press pages. Use this Actor when the job is historical cache availability, not live page text.</p>
+    <h2>How is Wayback Machine Bulk Checker different from Bulk URL Status Checker and Sitemap Scraper &amp; Analyzer?</h2>
+    <p>This Actor queries the Internet Archive Wayback Machine <code>available</code> endpoint for a list of URLs you already have (<code>urls</code>, maximum 500). It reports whether a URL was archived and, when present, the snapshot closest to a target date. <a href="/bulk-url-status-checker/">Bulk URL Status Checker</a> checks a known URL list (<code>urls</code>, maximum 1000) for live HTTP status, redirect chains, response timing, and broken-URL findings; it does not query the archive. <a href="/sitemap-scraper-analyzer/">Sitemap Scraper &amp; Analyzer</a> reads <code>sitemap.xml</code> and nested sitemap indexes (<code>sitemapUrls</code>) to discover URL inventories, with optional HEAD checks for HTTP 200; it does not look up historical cache availability. Use this Actor for read-only archive availability. Use Bulk URL Status Checker for live HTTP QA. Use Sitemap Scraper &amp; Analyzer to discover URLs from nested XML sitemaps.</p>
 
-    <h2>What input is required?</h2>
-    <p><code>urls</code> is required. Other published schema fields:</p>
+    <h2>What input is required for Wayback Machine Bulk Checker?</h2>
+    <p><code>urls</code> is required: URLs to check in the Wayback Machine (maximum 500). Schema editor is <code>stringList</code>. Schema prefill is <code>https://example.com</code> and <code>https://google.com</code>. Optional live schema fields are <code>closest</code> (<code>YYYYMMDD</code>; leave empty for the latest snapshot), <code>concurrency</code> (integer, default 3, minimum 1, maximum 5), <code>maxChargeUsd</code> (number, default 1, minimum 0, maximum 100), <code>delivery</code> (<code>dataset</code> or <code>webhook</code>, default <code>dataset</code>), <code>webhookUrl</code> (when delivery is webhook), and <code>dryRun</code> (boolean, default false). <code>additionalProperties</code> is false. The live schema description for <code>urls</code> is: URLs to check in the Wayback Machine (max 500). The live schema description for <code>closest</code> is: Find snapshot closest to this date (YYYYMMDD format). Leave empty for latest.</p>
     <table>
       <thead>
         <tr>
@@ -210,7 +243,6 @@
         </tr>
       </tbody>
     </table>
-    <p>The schema sets <code>additionalProperties</code> to false. The published input schema does not include <code>checkAvailability</code>, <code>includeCdx</code>, <code>maxSnapshotsPerUrl</code>, <code>compareToLatestLive</code>, or <code>closestDate</code>. Use <code>closest</code> in <code>YYYYMMDD</code> form, not <code>YYYY-MM-DD</code>.</p>
     <p>Published input example (matches the schema):</p>
 <pre><code>{
   "urls": ["https://example.com", "https://google.com"],
@@ -231,8 +263,11 @@
     <p>Start with the Store Quickstart to verify a few archived URLs. Use Portfolio Archive Check for bulk verification (up to 500 URLs). Keep <code>concurrency</code> low. Use <code>dryRun: true</code> before larger runs.</p>
     <p><a href="https://apify.com/taroyamada/wayback-machine-checker">Run a Wayback lookup on Apify</a></p>
 
-    <h2>What does a result row contain?</h2>
-    <p>The published README output example includes <code>url</code>, <code>available</code>, <code>closestSnapshot</code> (archive <code>url</code> and <code>timestamp</code>), and <code>archivedVersions</code>. The README output table lists <code>url</code>, <code>archived</code>, <code>closestSnapshotUrl</code>, <code>closestSnapshotDate</code> (<code>YYYYMMDDhhmmss</code>), <code>totalSnapshots</code>, <code>firstSnapshotDate</code>, and <code>lastSnapshotDate</code>. README prose also describes the timestamp of the most recent snapshot, the direct Wayback Machine URL for cached HTML, and the HTTP status of the original capture. There is no published <code>output_schema.json</code> on the Store page.</p>
+    <h2>Which README Wayback input examples are not live schema fields?</h2>
+    <p>The README Input table lists <code>closest</code> as <code>YYYY-MM-DD</code> and includes <code>checkAvailability</code> (boolean, default true). README examples labeled Bulk archived snapshot history and Domain change-detection digest send <code>includeCdx</code>, <code>maxSnapshotsPerUrl</code>, and <code>compareToLatestLive</code>. Those names are not in the live input schema. <code>additionalProperties</code> is false, so do not send them. Use <code>closest</code> in <code>YYYYMMDD</code> form (for example <code>20200101</code>), not <code>YYYY-MM-DD</code>. Schema-valid published inputs use <code>urls</code> plus optional <code>closest</code>, <code>concurrency</code>, <code>maxChargeUsd</code>, <code>delivery</code>, <code>webhookUrl</code>, and <code>dryRun</code>. The README single-URL availability example (<code>urls</code> only) matches the schema.</p>
+
+    <h2>What does a Wayback lookup result row contain?</h2>
+    <p>The published README output table lists <code>url</code>, <code>archived</code>, <code>closestSnapshotUrl</code>, <code>closestSnapshotDate</code> (<code>YYYYMMDDhhmmss</code>), <code>totalSnapshots</code>, <code>firstSnapshotDate</code>, and <code>lastSnapshotDate</code>. The published README output example uses <code>url</code>, <code>available</code>, <code>closestSnapshot</code> (archive <code>url</code> and <code>timestamp</code>), and <code>archivedVersions</code>. README prose also describes the timestamp of the most recent snapshot, the direct Wayback Machine URL for cached HTML, and the HTTP status of the original capture. There is no published <code>output_schema.json</code> on the Store page. The sample is an illustration, not a live coverage guarantee. Treat snapshot counts, first/last capture dates, and original HTTP status as README-claimed columns, not as a published dataset schema.</p>
     <p>Published README sample:</p>
 <pre><code>{
   "url": "https://example.com/old-article",
@@ -243,21 +278,28 @@
   },
   "archivedVersions": 23
 }</code></pre>
-    <p>That sample is the published README illustration, not a live coverage guarantee. Field names differ between the README table and the example. Treat snapshot counts, first/last capture dates, and original HTTP status as README-claimed columns, not as a published dataset schema.</p>
+    <p>Field names differ between the README table and the example. The sample is the published README illustration, not a live coverage guarantee.</p>
+
+    <h2>How do Wayback dataset delivery, dry-run, and the charge cap work?</h2>
+    <p><code>delivery</code> defaults to <code>dataset</code>. Set <code>delivery</code> to <code>webhook</code> and provide <code>webhookUrl</code> to POST results. <code>dryRun</code> true runs without saving results (for testing). <code>maxChargeUsd</code> defaults to 1 as a safety cap; results beyond the cap are kept in output as no-charge <code>limit_reached</code> rows. Store templates named in the README are Quickstart (verify 3 archived URLs), Portfolio Archive Check (bulk verification, up to 500 URLs), and 404 Recovery after a broken-link crawl. 404 Recovery names Broken Link Checker as a README Store path, not an extra landing on this site.</p>
+
+    <h2>Does this Actor return cached HTML or a CDX full-history dump?</h2>
+    <p>No. This Actor queries the Wayback Machine <code>available</code> endpoint. It returns structured lookup rows for availability and the closest snapshot metadata when present. It does not fetch live page HTML, does not extract article bodies, and does not dump CDX full history. The published schema does not include <code>includeCdx</code>, <code>maxSnapshotsPerUrl</code>, or <code>compareToLatestLive</code>. <a href="/website-content-extractor/">Website Content Extractor</a> cleans live docs, pricing, policy, and product pages. <a href="/article-content-extractor/">Article Content Extractor</a> cleans live news, blog, and press pages. Use this Actor when the job is historical cache availability, not live page text and not a CDX timeline.</p>
 
     <h2>How far back can I check?</h2>
-    <p>Internet Archive has snapshots back to 1996. Coverage depends on whether a URL was crawled.</p>
+    <p>Internet Archive has snapshots back to 1996. Coverage depends on whether a URL was crawled. Snapshots exist only where the Archive crawled the page; availability is not guaranteed per URL.</p>
 
     <h2>Why is a URL not available?</h2>
     <p>Either it was never archived, or Internet Archive excluded it (due to robots.txt or a removal request). The README also notes that <code>archived</code> can be false when the URL was not crawled yet, or robots.txt blocked it at the time.</p>
 
     <h2>Can I archive new URLs or trigger a snapshot?</h2>
     <p>No. This Actor only reads the archive. To save new pages, the README points to archive.org’s <code>/save/</code> endpoint. To trigger a new snapshot, use the Wayback Machine Save Page Now feature manually. This Actor cannot create snapshots.</p>
-    <p>The README compares a single lookup to <code>curl</code> against archive.org, with bulk processing, error handling, and structured dataset output as the difference. It is not a live-page versus archive diff tool, and the published schema does not expose CDX full-history fields.</p>
+
+    <h2>Is an Internet Archive API key required?</h2>
+    <p>No. The published README positions the Actor as using the official Internet Archive <code>available</code> endpoint (<code>archive.org/wayback/available</code>) with no API key needed. The README compares a single lookup to <code>curl</code> against archive.org, with bulk processing, error handling, and structured dataset output as the difference.</p>
 
     <h2>How is Wayback Machine Bulk Checker priced?</h2>
-    <p>Billing is pay per event. The published Store card is <strong>$8.00 / 1,000 wayback archive results</strong>. The billed event title is Wayback archive result at <strong>$0.008</strong>, charged only for one successfully delivered Wayback Machine lookup row. You are not charged for Apify platform usage, only the fixed event price.</p>
-    <p><code>maxChargeUsd</code> defaults to 1 (minimum 0, maximum 100). Results beyond that safety cap are kept in output as no-charge <code>limit_reached</code> rows. No subscription is required.</p>
+    <p>Billing is pay per event. The published Store card is <strong>$8.00 / 1,000 wayback archive results</strong>. Live Store events list only <strong>Wayback archive result</strong> at <strong>$0.008</strong> (charged only for one successfully delivered Wayback Machine lookup row; event key <code>apify-default-dataset-item</code>). Current PPE lists only that event (no Actor Start). Platform usage is listed as Included on the pricing page. The README Cost section still quotes <code>actor-start</code> $0.01 plus <code>dataset-item</code> $0.003 ($3.01 for 1,000 items); those figures are not the live Store rates. <code>maxChargeUsd</code> is a safety cap; results beyond the cap are kept as no-charge <code>limit_reached</code> rows. No subscription is required.</p>
     <p class="price">$8.00 per 1,000 wayback archive results ($0.008 per successfully delivered lookup row)</p>
     <p><a href="https://apify.com/taroyamada/wayback-machine-checker/pricing">See Wayback Machine Bulk Checker pricing on Apify</a></p>
 
@@ -265,17 +307,22 @@
     <ul>
       <li>Read-only: this Actor does not save new pages and cannot trigger a snapshot.</li>
       <li>At most 500 URLs per run. Keep <code>concurrency</code> low (schema maximum 5) because Internet Archive rate-limits aggressive callers.</li>
-      <li><code>closest</code> is <code>YYYYMMDD</code>. Leave it empty for the latest snapshot.</li>
+      <li><code>closest</code> is <code>YYYYMMDD</code>. Leave it empty for the latest snapshot. Do not send README aliases such as <code>checkAvailability</code>, <code>includeCdx</code>, <code>maxSnapshotsPerUrl</code>, <code>compareToLatestLive</code>, or <code>closestDate</code>.</li>
       <li>Coverage is not guaranteed per URL. Snapshots exist back to 1996 only where the Archive crawled the page.</li>
       <li>A URL may be unavailable because it was never archived, blocked by robots.txt, or removed by a removal request.</li>
-      <li>The published schema does not include <code>checkAvailability</code>, <code>includeCdx</code>, <code>maxSnapshotsPerUrl</code>, <code>compareToLatestLive</code>, or <code>closestDate</code>.</li>
+      <li>Not live HTTP status QA, not sitemap XML discovery, not live HTML extraction, and not a CDX full-history dump.</li>
     </ul>
     <p><a href="https://apify.com/taroyamada/wayback-machine-checker">Open Wayback Machine Bulk Checker on Apify</a></p>
 
     <h2>Related pages</h2>
     <ul>
+      <li><a href="/bulk-url-status-checker/">Bulk URL Status Checker</a> — live HTTP status on a known URL list, not archive availability</li>
+      <li><a href="/sitemap-scraper-analyzer/">Sitemap Scraper &amp; Analyzer</a> — nested XML sitemap URL inventories, not Wayback lookups</li>
+      <li><a href="/short-url-resolver-scraper/">Short URL Resolver &amp; Scraper</a> — expand short links, not Internet Archive snapshots</li>
       <li><a href="/website-content-extractor/">Website Content Extractor</a> — live docs, pricing, policy, or product HTML, not archive lookups</li>
       <li><a href="/article-content-extractor/">Article Content Extractor</a> — live article, news, and blog HTML</li>
+      <li><a href="/meta-tag-opengraph-scraper/">Meta Tag &amp; OpenGraph Scraper</a> — HTML head metadata on known URLs, not archive availability</li>
+      <li><a href="/robotstxt-ai-crawler-block-checker/">robots.txt Parser &amp; AI Crawler Block Checker</a> — robots.txt AI crawler policies, not Wayback snapshots</li>
       <li><a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a></li>
       <li><a href="/google-news-scraper/">Google News Scraper</a></li>
       <li><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a></li>
@@ -285,6 +332,8 @@
       <li><a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a></li>
       <li><a href="/dns-propagation-checker/">DNS Propagation Checker</a></li>
       <li><a href="/ted-sam-grants-bid-alerts/">TED, SAM.gov &amp; Grants Bid Alerts Scraper</a></li>
+      <li><a href="/packs/content-intelligence/">Content Intelligence pack</a></li>
+      <li><a href="/review-intelligence/">Review Intelligence pack</a></li>
       <li><a href="/tools/">Tools</a></li>
     </ul>
   </main>
