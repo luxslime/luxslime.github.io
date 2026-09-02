@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Review Intelligence pack — Apple Podcasts, Shopify App Store, and G2/Capterra reviews</title>
+  <meta name="description" content="Choose the public-review Actor that matches your source: Apple/iTunes podcast reviews, Shopify App Store merchant listings, or G2 and Capterra B2B software review pages.">
+  <link rel="canonical" href="https://luxslime.github.io/review-intelligence/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the Review Intelligence pack?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "This hub is a chooser for the three public-review landings already on this site: Apple Podcasts Reviews Scraper, Shopify App Store Review Scraper, and G2 & Capterra Review Scraper. They read different sources, take different inputs, and emit different row shapes. Use this page to pick the matching landing; then open that Actor on the Apify Store from the confirmed Store URL on that landing."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I choose among Apple Podcasts, Shopify App Store, and G2/Capterra review scrapers?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use Apple Podcasts Reviews Scraper when the source is public Apple/iTunes Customer Reviews RSS JSON for podcast collection IDs and storefronts you already have. Use Shopify App Store Review Scraper when the source is a public apps.shopify.com listing (URL or slug) and you need merchant ratings, pricing hints, sampled reviews, and theme rollups. Use G2 & Capterra Review Scraper when the source is a public G2 or Capterra product review page (reviewPageUrls) and you need normalized B2B ratings, rating breakdowns, and review rows with pros and cons."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can one Actor scrape podcast, Shopify, and G2/Capterra reviews together?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Apple Podcasts Reviews Scraper does not scrape Shopify apps or G2/Capterra pages. Shopify App Store Review Scraper does not accept podcast IDs, Apple show URLs, episode feeds, or G2/Capterra review URLs. G2 & Capterra Review Scraper does not accept Shopify slugs, podcast IDs, Apple show URLs, or episode feeds. Run the Actor whose source matches the catalog you need."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does each Actor deliver?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Apple Podcasts Reviews Scraper delivers podcast_review rows (rating, title, content, storefront, sourceUrl) or one podcast_review_report when generateReport is true, and can emit only new or changed reviews in monitor mode. Shopify App Store Review Scraper delivers one app-level report per listing: listing metadata, rating summary, pricing hints, Shopify listing AI review summary, sampled merchant reviews, and keyword theme rollups. G2 & Capterra Review Scraper delivers a per-product row with source (g2 or capterra), productName, overallRating, totalReviewCount, ratingBreakdown, reviews[] (title, rating, date, author, body, pros, cons, verified), and status."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is each Actor priced?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "All three Actors use pay-per-event billing published on their Store pages. Apple Podcasts Reviews Scraper is $0.003 per delivered apify-default-dataset-item (raw review row) and $1.50 per delivered podcast-review-report. Shopify App Store Review Scraper is $30.00 per 1,000 Shopify app review and pricing reports ($0.03 per delivered app-level report). G2 & Capterra Review Scraper is from $10.00 per 1,000 results ($0.01 per default-dataset result; Actor Start $0.001). Check the live Store pricing cards for current rates. This hub does not invent user counts or ratings."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does this pack include G2 or Capterra reviews?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. This site publishes a G2 & Capterra Review Scraper landing at /g2-capterra-review-scraper/. Use that Actor for public G2 (g2.com/products/{slug}/reviews) and Capterra (capterra.com/p/{id}/{slug}/reviews/) review pages. It is not a Shopify App Store listing tool and not an Apple Podcasts review RSS tool."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I start a run?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Match the source, open the landing, then use that page’s Store CTA. For Apple/iTunes podcast reviews, pass podcastIds and countries. For Shopify App Store merchant listings, pass appUrls. For G2 or Capterra product reviews, pass reviewPageUrls. Keep the first run small. All three Actors support dataset delivery by default, optional webhook delivery, and dryRun."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Review Intelligence pack</nav>
+    <h1>Review Intelligence pack: Apple Podcasts, Shopify App Store, and G2/Capterra reviews</h1>
+    <p>Pick the public-review Actor that matches the catalog you already have. This pack is a hub, not a fourth scraper: it links the three review landings on this site and keeps their intents separate. Apple/iTunes podcast reviews, Shopify App Store merchant listings, and G2/Capterra B2B software review pages are different sources, different inputs, and different deliverables.</p>
+    <ul>
+      <li><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> — public Apple/iTunes Customer Reviews RSS for known collection IDs</li>
+      <li><a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a> — public <code>apps.shopify.com/{slug}</code> listings, ratings, pricing hints, and merchant themes</li>
+      <li><a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a> — public G2 and Capterra product review pages, normalized ratings, pros, and cons</li>
+    </ul>
+    <p>
+      <a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor">Open Apple Podcasts Reviews Scraper on Apify</a>
+      ·
+      <a href="https://apify.com/taroyamada/shopify-app-store-review-intelligence">Open Shopify App Store Review Scraper on Apify</a>
+      ·
+      <a href="https://apify.com/taroyamada/g2-capterra-review-intelligence">Open G2 &amp; Capterra Review Scraper on Apify</a>
+    </p>
+
+    <h2>Three review sources, three Actors</h2>
+    <p>Use <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> when the job is reputation on known podcast shows. Use <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a> when the job is merchant feedback on a Shopify app listing. Use <a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a> when the job is B2B software reputation on G2 or Capterra.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Apple Podcasts Reviews</th>
+          <th>Shopify App Store Reviews</th>
+          <th>G2 &amp; Capterra Reviews</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>Public podcast review rows, optional rating report, delta monitor</td>
+          <td>One app-level merchant-review report per listing</td>
+          <td>Normalized B2B product ratings, breakdowns, and review rows</td>
+        </tr>
+        <tr>
+          <td>Source</td>
+          <td>Official iTunes Customer Reviews RSS JSON</td>
+          <td>Public <code>apps.shopify.com/{slug}</code> listing and review pages</td>
+          <td>Public G2 and Capterra review-page HTML</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td><code>podcastIds</code>, <code>countries</code>, <code>maxPagesPerPair</code></td>
+          <td><code>appUrls</code> (listing URLs or slugs)</td>
+          <td><code>reviewPageUrls</code> (G2 or Capterra review URLs)</td>
+        </tr>
+        <tr>
+          <td>Default deliverable</td>
+          <td><code>podcast_review</code> rows, or one <code>podcast_review_report</code> when <code>generateReport</code> is true</td>
+          <td>App-level report: rating, pricing hints, AI summary, samples, theme rollups</td>
+          <td>Per-product row: ratings, breakdown, review samples, status</td>
+        </tr>
+        <tr>
+          <td>Reviewer fields</td>
+          <td>Podcast <code>reviewerName</code>, rating, title, content, storefront</td>
+          <td>Merchant <code>storeName</code>, location, usage duration, developer replies</td>
+          <td>Normalized <code>author</code>, <code>pros</code>, <code>cons</code>, <code>verified</code></td>
+        </tr>
+        <tr>
+          <td>Published price</td>
+          <td>$0.003 per raw review row; $1.50 per review report</td>
+          <td>$30.00 per 1,000 Shopify app review and pricing reports ($0.03 per app-level report)</td>
+          <td>From $10.00 per 1,000 results ($0.01 per result; Actor Start $0.001)</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>None of these Actors is affiliated with or endorsed by Apple, Shopify, G2, or Capterra. Review text is public source material for reputation and market research. Do not use the output to target individual reviewers. The Apple reviews Actor does not infer private reviewer identity.</p>
+
+    <h2>How to start a run</h2>
+    <ol>
+      <li>Match the source: Apple/iTunes podcast reviews, Shopify App Store merchant listings, or G2/Capterra B2B software review pages.</li>
+      <li>Open the landing for that source — <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a>, <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a>, or <a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a>.</li>
+      <li>Open that page’s Store CTA. Confirmed Store URLs: <a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor">Apple Podcasts Reviews Scraper</a>, <a href="https://apify.com/taroyamada/shopify-app-store-review-intelligence">Shopify App Store Review Scraper</a>, and <a href="https://apify.com/taroyamada/g2-capterra-review-intelligence">G2 &amp; Capterra Review Scraper</a>.</li>
+      <li>Pass only the published input for that Actor. Keep the first run small. Use <code>dryRun</code> before a recurring watch or webhook.</li>
+    </ol>
+
+    <h2>Apple/iTunes podcast reviews</h2>
+    <p><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> reads the official Apple/iTunes Customer Reviews RSS JSON for collection IDs and storefronts you pass. It is not a keyword search, episode catalog, or Top Podcasts rank tool. At most 25 unique iTunes collection IDs, 10 unique ISO-3166-1 alpha-2 country codes, and 10 review pages per show/country pair are accepted. Over-limit input fails instead of being silently truncated.</p>
+<pre><code>{
+  "podcastIds": ["1535809341"],
+  "countries": ["us"],
+  "maxPagesPerPair": 1,
+  "generateReport": false,
+  "maxChargeUsd": 0.5,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p>Published raw fields include <code>podcastId</code>, <code>country</code>, <code>page</code>, <code>reviewerName</code>, <code>rating</code>, <code>title</code>, <code>content</code>, <code>version</code>, <code>voteCount</code>, <code>updated</code>, and <code>reviewId</code>, plus <code>sourceUrl</code> (the official iTunes Customer Reviews RSS URL). Set <code>generateReport</code> to true for one <code>podcast_review_report</code>. Set <code>mode</code> to <code>monitor</code> with a stable <code>monitorKey</code> to emit only new or changed reviews after a <code>baseline_only</code> first run.</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor">Run Apple Podcasts Reviews Scraper on Apify</a></p>
+
+    <h2>Shopify App Store merchant listings</h2>
+    <p><a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a> fetches <code>apps.shopify.com/{slug}</code> listing and paginated review pages. <code>appUrls</code> is required (full listing URLs or bare slugs). Optional published fields are <code>reviewLimit</code> (default 100, minimum 1, maximum 500), <code>timeoutMs</code>, <code>delivery</code>, <code>webhookUrl</code>, and <code>dryRun</code>. The published input schema does not include <code>appSlugs</code>, <code>maxReviewsPerApp</code>, <code>sinceDays</code>, or <code>sortBy</code>.</p>
+<pre><code>{
+  "appUrls": ["https://apps.shopify.com/omnisend"],
+  "reviewLimit": 100,
+  "timeoutMs": 20000,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p>A good first run gives you <code>apps[]</code> (rating, pricing hints, AI summary text, recurring themes), <code>reviewSamples[]</code> plus <code>rollups</code>, and <code>warnings</code> / <code>endpointStatuses</code> when review pages are thin or a listing surface degrades.</p>
+    <p><a href="https://apify.com/taroyamada/shopify-app-store-review-intelligence">Run Shopify App Store Review Scraper on Apify</a></p>
+
+    <h2>G2 and Capterra B2B software reviews</h2>
+    <p><a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a> reads public G2 and Capterra product review pages. Required input is <code>reviewPageUrls</code> in the published formats <code>g2.com/products/{slug}/reviews</code> and <code>capterra.com/p/{id}/{slug}/reviews/</code>. It auto-detects source and normalizes product metadata, ratings, and review rows with pros and cons. Optional published fields are <code>reviewLimit</code> (default 200), <code>delivery</code>, <code>webhookUrl</code>, and <code>dryRun</code>. The published input schema does not include <code>products</code>, <code>source</code>, <code>slug</code>, <code>maxReviewsPerProduct</code>, or <code>emitDeltas</code>.</p>
+<pre><code>{
+  "reviewPageUrls": [
+    "https://www.g2.com/products/notion/reviews",
+    "https://www.capterra.com/p/147384/Notion/reviews/"
+  ],
+  "reviewLimit": 200,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p>A good first run gives you a per-product row with ratings and review samples, plus <code>status</code> / <code>warnings</code> when a page is thin, blocked, or structurally changed. <code>dryRun</code> true validates input and returns scaffold output without fetching live data.</p>
+    <p><a href="https://apify.com/taroyamada/g2-capterra-review-intelligence">Run G2 &amp; Capterra Review Scraper on Apify</a></p>
+
+    <h2>What is the Review Intelligence pack?</h2>
+    <p>This hub is a chooser for the three public-review landings already on this site: <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a>, <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a>, and <a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a>. They read different sources, take different inputs, and emit different row shapes. Use this page to pick the matching landing; then open that Actor on the Apify Store from the confirmed Store URL on that landing.</p>
+
+    <h2>How do I choose among Apple Podcasts, Shopify App Store, and G2/Capterra review scrapers?</h2>
+    <p>Use <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> when the source is public Apple/iTunes Customer Reviews RSS JSON for podcast collection IDs and storefronts you already have. Use <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a> when the source is a public <code>apps.shopify.com</code> listing (URL or slug) and you need merchant ratings, pricing hints, sampled reviews, and theme rollups. Use <a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a> when the source is a public G2 or Capterra product review page (<code>reviewPageUrls</code>) and you need normalized B2B ratings, rating breakdowns, and review rows with pros and cons.</p>
+
+    <h2>Can one Actor scrape podcast, Shopify, and G2/Capterra reviews together?</h2>
+    <p>No. Apple Podcasts Reviews Scraper does not scrape Shopify apps or G2/Capterra pages. Shopify App Store Review Scraper does not accept podcast IDs, Apple show URLs, episode feeds, or G2/Capterra review URLs. G2 &amp; Capterra Review Scraper does not accept Shopify slugs, podcast IDs, Apple show URLs, or episode feeds. Run the Actor whose source matches the catalog you need.</p>
+
+    <h2>What does each Actor deliver?</h2>
+    <p>Apple Podcasts Reviews Scraper delivers <code>podcast_review</code> rows (rating, title, content, storefront, <code>sourceUrl</code>) or one <code>podcast_review_report</code> when <code>generateReport</code> is true, and can emit only new or changed reviews in <code>monitor</code> mode. Shopify App Store Review Scraper delivers one app-level report per listing: listing metadata, rating summary, pricing hints, Shopify listing AI review summary, sampled merchant reviews, and keyword theme rollups. G2 &amp; Capterra Review Scraper delivers a per-product row with <code>source</code> (<code>g2</code> or <code>capterra</code>), <code>productName</code>, <code>overallRating</code>, <code>totalReviewCount</code>, <code>ratingBreakdown</code>, <code>reviews[]</code> (title, rating, date, author, body, pros, cons, verified), and <code>status</code>.</p>
+
+    <h2>How is each Actor priced?</h2>
+    <p>All three Actors use pay-per-event billing published on their Store pages. Apple Podcasts Reviews Scraper is <strong>$0.003</strong> per delivered <code>apify-default-dataset-item</code> (raw review row) and <strong>$1.50</strong> per delivered <code>podcast-review-report</code>. Shopify App Store Review Scraper is <strong>$30.00</strong> per 1,000 Shopify app review and pricing reports (<strong>$0.03</strong> per delivered app-level report). G2 &amp; Capterra Review Scraper is <strong>from $10.00</strong> per 1,000 results (<strong>$0.01</strong> per default-dataset result; Actor Start <strong>$0.001</strong>). Check the live Store pricing cards for current rates. This hub does not invent user counts or ratings.</p>
+    <p class="price">Apple Podcasts reviews: from $0.003 per raw review row; $1.50 per review report. Shopify App Store: $30.00 per 1,000 app review and pricing reports. G2 &amp; Capterra: from $10.00 per 1,000 results.</p>
+    <p>
+      <a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor">See Apple Podcasts Reviews Scraper on Apify</a>
+      ·
+      <a href="https://apify.com/taroyamada/shopify-app-store-review-intelligence/pricing">See Shopify App Store Review Scraper pricing on Apify</a>
+      ·
+      <a href="https://apify.com/taroyamada/g2-capterra-review-intelligence/pricing">See G2 &amp; Capterra Review Scraper pricing on Apify</a>
+    </p>
+
+    <h2>Does this pack include G2 or Capterra reviews?</h2>
+    <p>Yes. This site publishes a <a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a> landing. Use that Actor for public G2 (<code>g2.com/products/{slug}/reviews</code>) and Capterra (<code>capterra.com/p/{id}/{slug}/reviews/</code>) review pages. It is not a Shopify App Store listing tool and not an Apple Podcasts review RSS tool.</p>
+
+    <h2>How do I start a run?</h2>
+    <p>Match the source, open the landing, then use that page’s Store CTA. For Apple/iTunes podcast reviews, pass <code>podcastIds</code> and <code>countries</code> on <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a>. For Shopify App Store merchant listings, pass <code>appUrls</code> on <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a>. For G2 or Capterra product reviews, pass <code>reviewPageUrls</code> on <a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a>. Keep the first run small. All three Actors support dataset delivery by default, optional webhook delivery, and <code>dryRun</code>.</p>
+    <p>
+      <a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor">Open Apple Podcasts Reviews Scraper on Apify</a>
+      ·
+      <a href="https://apify.com/taroyamada/shopify-app-store-review-intelligence">Open Shopify App Store Review Scraper on Apify</a>
+      ·
+      <a href="https://apify.com/taroyamada/g2-capterra-review-intelligence">Open G2 &amp; Capterra Review Scraper on Apify</a>
+    </p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> — public podcast review RSS</li>
+      <li><a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a> — Shopify App Store merchant listings</li>
+      <li><a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a> — G2 and Capterra B2B software review pages</li>
+      <li><a href="/tools/">Tools</a></li>
+      <li><a href="/">Home</a></li>
+    </ul>
+  </main>
+</body>
+</html>
