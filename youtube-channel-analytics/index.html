@@ -16,7 +16,7 @@
         "name": "How is YouTube Channel Analytics Scraper different from YouTube Transcript Scraper?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "This Actor reads public YouTube channel pages. Required input is channelUrls (channel URLs or bare @handles). It returns channel-level public metrics, recent long-form uploads from the Videos tab, and optional Shorts from the Shorts tab. YouTube Transcript Scraper extracts captions from public videos (timestamps, SRT, VTT, and plain text). This Actor does not return transcripts, captions, subtitles, or speech-to-text. Use this page for competitor cadence and upload mix. Use a transcript Actor when the job is video captions."
+          "text": "This Actor reads public YouTube channel pages. Required input is channelUrls (channel URLs or bare @handles). It returns channel-level public metrics, recent long-form uploads from the Videos tab, and optional Shorts from the Shorts tab. YouTube Transcript Scraper extracts public caption tracks. Its live inputs are videoUrls, videoIds, playlistUrls, and/or channelUrls. It is HTTP-first, does not use a browser, and returns one row per video with full text, timed segments, and formatted SRT, VTT, or plain text. Both Actors can accept channel URLs, but this Actor does not expand channels into caption rows and does not return transcripts. Use this page for competitor cadence and upload mix. Use YouTube Transcript Scraper when the job is video captions."
         }
       },
       {
@@ -88,7 +88,7 @@
     <p><a href="https://apify.com/taroyamada/youtube-channel-analytics">Open YouTube Channel Analytics Scraper on Apify</a></p>
 
     <h2>Channel metrics and uploads, not captions</h2>
-    <p>Use this page when the job is public channel health: publishing cadence, upload mix, Shorts usage, and outbound about-page links. Use <a href="/youtube-transcript-scraper/">YouTube Transcript Scraper</a> when the job is captions from public videos (timestamps, SRT, VTT, or plain text).</p>
+    <p>Use this page when the job is public channel health: publishing cadence, upload mix, Shorts usage, and outbound about-page links. Use <a href="/youtube-transcript-scraper/">YouTube Transcript Scraper</a> when the job is public YouTube caption tracks as timed text, SRT, VTT, or plain text (HTTP-first, no browser).</p>
     <table>
       <thead>
         <tr>
@@ -101,31 +101,41 @@
         <tr>
           <td>Intent</td>
           <td>Public channel metrics, recent uploads, and Shorts</td>
-          <td>Captions and transcript text from public videos</td>
+          <td>Bulk public YouTube captions for pipelines, RAG, and subtitle export</td>
         </tr>
         <tr>
           <td>Primary input</td>
-          <td><code>channelUrls</code> (channel URLs or bare <code>@handles</code>)</td>
-          <td>Video URLs, video IDs, playlist URLs, or channel URLs (captions job)</td>
+          <td>Required <code>channelUrls</code> (channel URLs or bare <code>@handles</code>)</td>
+          <td><code>videoUrls</code>, <code>videoIds</code>, <code>playlistUrls</code>, and/or <code>channelUrls</code></td>
+        </tr>
+        <tr>
+          <td>Channel URLs mean</td>
+          <td>Resolve public channel surfaces, uploads, and optional Shorts</td>
+          <td>Expand visible video IDs, then fetch public caption tracks</td>
         </tr>
         <tr>
           <td>What it reads</td>
           <td>Public channel, Videos, Shorts, About, and watch pages</td>
-          <td>Public caption tracks</td>
+          <td>Public YouTube caption tracks (HTTP-first, no browser)</td>
         </tr>
         <tr>
           <td>Primary output</td>
           <td>Subscriber/view text, recent upload metadata, cadence hints, availability warnings</td>
-          <td>Captions, timestamps, SRT, VTT, and plain text</td>
+          <td>One row per video: metadata, full text, timed segments, SRT/VTT/text</td>
         </tr>
         <tr>
           <td>Transcripts / captions</td>
           <td>No. Not documented and not returned</td>
           <td>Yes — that is the documented job</td>
         </tr>
+        <tr>
+          <td>Channel subscriber / cadence metrics</td>
+          <td>Yes, when YouTube exposes them publicly</td>
+          <td>No. Captions only</td>
+        </tr>
       </tbody>
     </table>
-    <p>This Actor does not return transcripts, captions, subtitles, or speech-to-text. It also does not provide private YouTube Studio analytics.</p>
+    <p>This Actor does not return transcripts, captions, subtitles, <code>fullText</code>, timed segments, SRT, VTT, or speech-to-text. It also does not provide private YouTube Studio analytics.</p>
 
     <h2>Use cases</h2>
     <ul>
@@ -137,7 +147,7 @@
     <p>The published README also positions the Actor for content strategists, SEO professionals, and digital marketers who want to skip browsing individual YouTube pages to check publishing frequency. You can schedule it to pull fresh public subscriber counts, lifetime views, channel descriptions, and recent long-form uploads or Shorts when YouTube exposes them. Market research and competitor performance reviews get structured public channel data, outbound about-page links, follower-growth snapshots, and recent upload metadata for dashboards.</p>
 
     <h2>How is YouTube Channel Analytics Scraper different from YouTube Transcript Scraper?</h2>
-    <p>This Actor reads public YouTube channel pages. Required input is <code>channelUrls</code> (channel URLs or bare <code>@handles</code>). It returns channel-level public metrics, recent long-form uploads from the Videos tab, and optional Shorts from the Shorts tab. <a href="/youtube-transcript-scraper/">YouTube Transcript Scraper</a> extracts captions from public videos (timestamps, SRT, VTT, and plain text). This Actor does not return transcripts, captions, subtitles, or speech-to-text. Use this page for competitor cadence and upload mix. Use a transcript Actor when the job is video captions.</p>
+    <p>This Actor reads public YouTube channel pages. Required input is <code>channelUrls</code> (channel URLs or bare <code>@handles</code>). It returns channel-level public metrics, recent long-form uploads from the Videos tab, and optional Shorts from the Shorts tab. <a href="/youtube-transcript-scraper/">YouTube Transcript Scraper</a> extracts public caption tracks. Its live inputs are <code>videoUrls</code>, <code>videoIds</code>, <code>playlistUrls</code>, and/or <code>channelUrls</code>. It is HTTP-first, does not use a browser, and returns one row per video with full text, timed segments, and formatted SRT, VTT, or plain text. Both Actors can accept channel URLs, but this Actor does not expand channels into caption rows and does not return transcripts. Use this page for competitor cadence and upload mix. Use YouTube Transcript Scraper when the job is video captions.</p>
 
     <h2>Do I need a YouTube Data API key or OAuth?</h2>
     <p>No. The published README states the Actor collects public metrics without OAuth tokens or YouTube Data API keys. It crawls public channel surfaces: <code>@handle</code>, <code>/channel/</code>, <code>/user/</code>, <code>/c/</code> URLs, and bare <code>@handles</code>.</p>
@@ -304,7 +314,7 @@
     <h2>Related pages</h2>
     <ul>
       <li><a href="/tools/">Tools</a></li>
-      <li><a href="/youtube-transcript-scraper/">YouTube Transcript Scraper</a> — public captions, not channel metrics</li>
+      <li><a href="/youtube-transcript-scraper/">YouTube Transcript Scraper</a> — public captions (timed text, SRT, VTT), not channel metrics</li>
       <li><a href="/wayback-machine-bulk-checker/">Wayback Machine Bulk Checker</a></li>
       <li><a href="/meta-tag-opengraph-scraper/">Meta Tag &amp; OpenGraph Scraper</a></li>
       <li><a href="/short-url-resolver-scraper/">Short URL Resolver &amp; Scraper</a></li>
