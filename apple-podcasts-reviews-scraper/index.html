@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Apple Podcasts Reviews Scraper — ratings and review monitoring</title>
+  <meta name="description" content="Collect public Apple Podcasts review rows with rating, storefront, source links, and an optional aggregate rating report for reputation research.">
+  <link rel="canonical" href="https://luxslime.github.io/apple-podcasts-reviews-scraper/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is Apple Podcasts Reviews Scraper different from the search and chart actors?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Reviews Scraper reads the public Apple/iTunes Customer Reviews RSS JSON for collection IDs you already have. It delivers podcast_review rows or one podcast_review_report, and can emit only new or changed reviews on a scheduled monitor. It does not search by keyword, attach episode catalogs, or snapshot Top Podcasts ranks. Apple Podcasts Scraper is search, episodes, and watchlists. Apple Podcasts Chart Scraper is storefront ranks and movement reports."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does a raw review row contain?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Each delivered raw row has rowType podcast_review. Published fields are podcastId, country, page, reviewerName, rating, title, content, version, voteCount, updated, and reviewId, plus actorName apple-podcast-reviews-monitor, sourceUrl (the official iTunes Customer Reviews RSS URL), fetchedAt, and billingEventName apify-default-dataset-item. Review text is public source material for reputation and market research. The Actor does not infer private reviewer identity or claim Apple endorsement."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "When does a review summary report emit, and what does it include?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Set generateReport to true. Canonical delivery then contains exactly one podcast_review_report row; raw reviews stay in the runtime reviews array and are not sent to the dataset. The report includes showCountrySummaries (review count, average rating, five-point rating distribution, latest review date per show/country pair), totalReviewCount, up to ten rating-1 or rating-2 lowRatingSourceLinkedSamples with source URLs, sourceUrls, generatedAt, fetchedAt, and billingEventName podcast-review-report. reportMode is summary."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does scheduled delta monitoring work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Set mode to monitor and pass a stable monitorKey on every scheduled run. The default initialRunMode baseline_only stores the first snapshot with zero dataset rows and zero charge. Later runs emit only new or changed reviews. Leave emitUnchanged false so an unchanged poll stays zero rows and zero charge. State advances only after canonical pay-per-event delivery succeeds; partial source failures do not advance it. emit_backfill delivers the first snapshot."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How many shows, countries, and pages can I request?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Actor accepts at most 25 unique iTunes collection IDs, 10 unique ISO-3166-1 alpha-2 country codes (lowercase), and 10 review pages per show/country pair (50 reviews each; iTunes cap). Over-limit input fails instead of being silently truncated. A failed pair is reported in meta.warnings; successful pairs remain available."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Apple Podcasts Reviews Scraper priced?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Billing is pay-per-event. The published Store price is $0.003 per delivered apify-default-dataset-item (raw review row) and $1.50 per delivered podcast-review-report event. maxChargeUsd defaults to 2 and fails closed before dataset write when the estimate would exceed the cap. A baseline_only first monitor run and later unchanged polls with emitUnchanged false emit zero rows and zero charge."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do delivery, webhooks, and dry runs work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "delivery defaults to dataset and sends non-empty canonical rows through Actor.pushData. webhook sends the complete runtime envelope to webhookUrl and still sends only the canonical rows to the default dataset. Empty output does not issue a dataset POST. A non-2xx dataset response fails the run. dryRun performs no external write."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Apple Podcasts Reviews Scraper</nav>
+    <h1>Apple Podcasts Reviews Scraper</h1>
+    <p>Collect public Apple Podcasts review rows with rating, storefront, and source links, then optionally emit one source-linked rating summary report. This Actor fetches the official Apple/iTunes Customer Reviews RSS JSON for the collection IDs and storefronts you pass. It is not a keyword search, episode catalog, or Top Podcasts rank tool — those jobs belong on <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> and <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a>.</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor">Open Apple Podcasts Reviews Scraper on Apify</a></p>
+
+    <h2>Reviews versus search and charts</h2>
+    <p>Use this page when the job is reputation: public ratings and review text for known shows, a bounded snapshot, a summary report, or a scheduled delta of new or changed reviews. Use <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> to find collection IDs by keyword or refresh a watchlist. Use <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> for storefront Top Podcasts ranks and movement.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Reviews Scraper</th>
+          <th>Chart Scraper</th>
+          <th>Apple Podcasts Scraper</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>Public review rows, optional rating report, delta monitor</td>
+          <td>Top Podcasts chart rows and optional rank movement</td>
+          <td>Search, chart snapshot, watchlist lookup, optional episodes</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td><code>podcastIds</code>, <code>countries</code>, <code>maxPagesPerPair</code></td>
+          <td><code>countries</code>, optional <code>genreId</code>, <code>limit</code></td>
+          <td><code>searchTerm</code>, <code>lookupIds</code>, <code>chartRequests</code></td>
+        </tr>
+        <tr>
+          <td>Default row</td>
+          <td><code>podcast_review</code></td>
+          <td><code>chart_rank</code></td>
+          <td>Search / lookup / chart snapshot rows</td>
+        </tr>
+        <tr>
+          <td>Optional report</td>
+          <td>One <code>podcast_review_report</code> when <code>generateReport</code> is true</td>
+          <td>One movement report when a <code>monitorKey</code> sees new, changed, or dropped ranks</td>
+          <td>None</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>None of these Actors is affiliated with or endorsed by Apple. Review text is public source material for reputation and market research. Do not use the output to target individual reviewers. The Actor does not infer private reviewer identity.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Reputation monitoring and collection of public podcast reviews for networks and brands.</li>
+      <li>Generating sponsor-evidence exports that link public review samples to source URLs.</li>
+      <li>Building media-buyer shortlists using topic, country, cadence, and public-fit signals.</li>
+      <li>Low-cost raw review checks for quick sentiment or activity snapshots.</li>
+      <li>High-value review summary reports for handoff to research or commercial workflows.</li>
+      <li>Scheduled delta monitoring to emit only new or changed reviews after an initial baseline run.</li>
+    </ul>
+    <p>Get collection IDs first with <a href="/guides/apple-podcasts-search/">search discovery</a> or a <a href="/guides/apple-podcasts-watchlists/">watchlist refresh</a>. Storefronts differ: see <a href="/guides/apple-podcasts-countries/">charts and search by country</a>.</p>
+
+    <h2>Low-cost raw review check</h2>
+    <p>The default path keeps raw review behavior and a small page cap. <code>mode</code> defaults to <code>snapshot</code>. <code>generateReport</code> stays false so canonical <code>rows</code> are the raw review array.</p>
+<pre><code>{
+  "podcastIds": ["1535809341"],
+  "countries": ["us"],
+  "maxPagesPerPair": 1,
+  "generateReport": false,
+  "maxChargeUsd": 0.5,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p>Published raw fields: <code>podcastId</code>, <code>country</code>, <code>page</code>, <code>reviewerName</code>, <code>rating</code>, <code>title</code>, <code>content</code>, <code>version</code>, <code>voteCount</code>, <code>updated</code>, and <code>reviewId</code>, plus <code>actorName</code>, <code>rowType</code>, <code>sourceUrl</code>, <code>fetchedAt</code>, and <code>billingEventName</code>. README sample (placeholder review data):</p>
+<pre><code>{
+  "actorName": "apple-podcast-reviews-monitor",
+  "rowType": "podcast_review",
+  "billingEventName": "apify-default-dataset-item",
+  "podcastId": "1535809341",
+  "country": "us",
+  "page": 1,
+  "reviewerName": "public-reviewer",
+  "rating": 1,
+  "title": "A critical review",
+  "content": "Public review text.",
+  "version": "1.0",
+  "voteCount": 0,
+  "updated": "2026-07-31T00:00:00Z",
+  "reviewId": "review-1",
+  "sourceUrl": "https://itunes.apple.com/us/rss/customerreviews/id=1535809341/sortby=mostrecent/json",
+  "fetchedAt": "2026-08-01T00:00:00.000Z"
+}</code></pre>
+    <p><code>sourceUrl</code> is the official iTunes Customer Reviews RSS URL used for the row. Up to 25 unique podcast IDs, 10 unique country codes, and 10 pages per pair are accepted. Over-limit input fails instead of being silently truncated. A failed pair is reported in <code>meta.warnings</code>; successful pairs remain available.</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor">Run a raw review check on Apify</a></p>
+
+    <h2>High-value review report</h2>
+    <p>Set <code>generateReport</code> to true when you need one aggregate <code>podcast_review_report</code> row. Raw reviews remain in the runtime <code>reviews</code> array and are not sent to the dataset. <code>reportMode</code> is <code>summary</code>.</p>
+<pre><code>{
+  "podcastIds": ["1535809341", "1641234567"],
+  "countries": ["us", "gb"],
+  "maxPagesPerPair": 1,
+  "generateReport": true,
+  "reportMode": "summary",
+  "maxChargeUsd": 2,
+  "dryRun": false
+}</code></pre>
+    <p>The single report row includes <code>showCountrySummaries</code> (review count, average rating, five-point rating distribution, and latest review date for every show/country pair), <code>totalReviewCount</code>, <code>lowRatingSourceLinkedSamples</code> (up to ten rating-1 or rating-2 samples with source URLs), <code>sourceUrls</code>, <code>generatedAt</code>, <code>fetchedAt</code>, and <code>billingEventName</code> <code>podcast-review-report</code>. README sample:</p>
+<pre><code>{
+  "actorName": "apple-podcast-reviews-monitor",
+  "rowType": "podcast_review_report",
+  "billingEventName": "podcast-review-report",
+  "reportMode": "summary",
+  "showCountrySummaries": [
+    {
+      "podcastId": "1535809341",
+      "country": "us",
+      "reviewCount": 2,
+      "averageRating": 3,
+      "ratingDistribution": { "1": 1, "2": 0, "3": 0, "4": 0, "5": 1 },
+      "latestReviewDate": "2026-07-31T00:00:00Z"
+    }
+  ],
+  "totalReviewCount": 2,
+  "lowRatingThreshold": 2,
+  "lowRatingSourceLinkedSamples": [
+    {
+      "podcastId": "1535809341",
+      "country": "us",
+      "reviewId": "review-1",
+      "rating": 1,
+      "title": "A critical review",
+      "content": "Public review text.",
+      "updated": "2026-07-31T00:00:00Z",
+      "sourceUrl": "https://itunes.apple.com/us/rss/customerreviews/id=1535809341/sortby=mostrecent/json"
+    }
+  ],
+  "sourceUrls": ["https://itunes.apple.com/us/rss/customerreviews/id=1535809341/sortby=mostrecent/json"],
+  "generatedAt": "2026-08-01T00:00:00.000Z",
+  "fetchedAt": "2026-08-01T00:00:00.000Z"
+}</code></pre>
+    <p>The published README treats this report as the handoff to source-linked sponsor evidence or a media-buyer shortlist. Those follow-on Actors are listed on the Store page; this landing stays on review monitoring.</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor">Generate a review summary report on Apify</a></p>
+
+    <h2>Scheduled delta monitor</h2>
+    <p>Use a stable <code>monitorKey</code> on every scheduled run. The first <code>baseline_only</code> run stores the current feed with zero dataset rows and zero charge. Later runs emit only new or changed reviews; an unchanged poll remains zero rows and zero charge when <code>emitUnchanged</code> is false.</p>
+<pre><code>{
+  "mode": "monitor",
+  "monitorKey": "network-show-1535809341-us",
+  "initialRunMode": "baseline_only",
+  "emitUnchanged": false,
+  "podcastIds": ["1535809341"],
+  "countries": ["us"],
+  "maxPagesPerPair": 1,
+  "generateReport": true,
+  "maxChargeUsd": 2,
+  "dryRun": false
+}</code></pre>
+    <p>In <code>mode=monitor</code>, the runtime <code>reviews</code> array still holds the current fetched snapshot for diagnostics, while canonical <code>rows</code> contain only the new or changed delivery. State advances only after canonical pay-per-event delivery succeeds; partial source failures do not advance it. <code>emit_backfill</code> delivers the first snapshot instead of storing it with zero rows.</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor">Configure a review monitor on Apify</a></p>
+
+    <h2>How is Apple Podcasts Reviews Scraper different from the search and chart actors?</h2>
+    <p>Reviews Scraper reads the public Apple/iTunes Customer Reviews RSS JSON for collection IDs you already have. It delivers <code>podcast_review</code> rows or one <code>podcast_review_report</code>, and can emit only new or changed reviews on a scheduled monitor. It does not search by keyword, attach episode catalogs, or snapshot Top Podcasts ranks. <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> is search, episodes, and watchlists. <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> is storefront ranks and movement reports.</p>
+
+    <h2>What does a raw review row contain?</h2>
+    <p>Each delivered raw row has <code>rowType</code> <code>podcast_review</code>. Published fields are <code>podcastId</code>, <code>country</code>, <code>page</code>, <code>reviewerName</code>, <code>rating</code>, <code>title</code>, <code>content</code>, <code>version</code>, <code>voteCount</code>, <code>updated</code>, and <code>reviewId</code>, plus <code>actorName</code> <code>apple-podcast-reviews-monitor</code>, <code>sourceUrl</code> (the official iTunes Customer Reviews RSS URL), <code>fetchedAt</code>, and <code>billingEventName</code> <code>apify-default-dataset-item</code>. Review text is public source material for reputation and market research. The Actor does not infer private reviewer identity or claim Apple endorsement.</p>
+
+    <h2>When does a review summary report emit, and what does it include?</h2>
+    <p>Set <code>generateReport</code> to true. Canonical delivery then contains exactly one <code>podcast_review_report</code> row; raw reviews stay in the runtime <code>reviews</code> array and are not sent to the dataset. The report includes <code>showCountrySummaries</code> (review count, average rating, five-point rating distribution, latest review date per show/country pair), <code>totalReviewCount</code>, up to ten rating-1 or rating-2 <code>lowRatingSourceLinkedSamples</code> with source URLs, <code>sourceUrls</code>, <code>generatedAt</code>, <code>fetchedAt</code>, and <code>billingEventName</code> <code>podcast-review-report</code>. <code>reportMode</code> is <code>summary</code>.</p>
+
+    <h2>How does scheduled delta monitoring work?</h2>
+    <p>Set <code>mode</code> to <code>monitor</code> and pass a stable <code>monitorKey</code> on every scheduled run. The default <code>initialRunMode</code> <code>baseline_only</code> stores the first snapshot with zero dataset rows and zero charge. Later runs emit only new or changed reviews. Leave <code>emitUnchanged</code> false so an unchanged poll stays zero rows and zero charge. State advances only after canonical pay-per-event delivery succeeds; partial source failures do not advance it. <code>emit_backfill</code> delivers the first snapshot.</p>
+
+    <h2>How many shows, countries, and pages can I request?</h2>
+    <p>The Actor accepts at most 25 unique iTunes collection IDs, 10 unique ISO-3166-1 alpha-2 country codes (lowercase), and 10 review pages per show/country pair (50 reviews each; iTunes cap). Over-limit input fails instead of being silently truncated. Each source request has a timeout and bounded retry for network and server errors. A failed pair is reported in <code>meta.warnings</code>; successful pairs remain available. Storefronts differ: see <a href="/guides/apple-podcasts-countries/">charts and search by country</a>.</p>
+
+    <h2>How is Apple Podcasts Reviews Scraper priced?</h2>
+    <p>Billing is pay-per-event. The published Store price is $0.003 per delivered <code>apify-default-dataset-item</code> (raw review row) and $1.50 per delivered <code>podcast-review-report</code> event. That is $3.00 per 1,000 raw review rows. <code>maxChargeUsd</code> defaults to 2 and fails closed before dataset write when the estimate would exceed the cap. For report runs, the Actor checks fetched raw rows plus the report price contract before write; <code>maxChargeUsd</code> is then applied to the rows actually delivered (the single report row in report mode). A <code>baseline_only</code> first monitor run and later unchanged polls with <code>emitUnchanged</code> false emit zero rows and zero charge.</p>
+    <p class="price">From $0.003 per raw review row; $1.50 per review report</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor">See Apple Podcasts Reviews Scraper pricing on Apify</a></p>
+
+    <h2>How do delivery, webhooks, and dry runs work?</h2>
+    <p><code>delivery</code> defaults to <code>dataset</code> and sends non-empty canonical <code>rows</code> through <code>Actor.pushData</code>. <code>webhook</code> sends the complete runtime envelope to <code>webhookUrl</code> and still sends only the canonical <code>rows</code> to the default dataset. Empty output does not issue a dataset POST. A non-2xx dataset response or dataset network failure fails the run; partial success is not reported as success. <code>dryRun</code> performs no external write. After the payload shape is useful, see <a href="/guides/apple-podcasts-webhooks/">webhooks</a> for delivery patterns used on the related Apple Podcasts actors.</p>
+    <p>The Actor uses public Apple/iTunes Customer Reviews RSS JSON only. No login, cookie, API key, CAPTCHA bypass, or private endpoint is used.</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor">Open Apple Podcasts Reviews Scraper on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> — search, episodes, and watchlists</li>
+      <li><a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> — Top Podcasts ranks and movement reports</li>
+      <li><a href="/guides/apple-podcasts-watchlists/">Refresh Apple Podcasts watchlists</a> — collection IDs for <code>podcastIds</code></li>
+      <li><a href="/guides/apple-podcasts-search/">Apple Podcasts search discovery</a></li>
+      <li><a href="/guides/apple-podcasts-countries/">Apple Podcasts charts and search by country</a></li>
+      <li><a href="/guides/apple-podcasts-webhooks/">Deliver Apple Podcasts results with webhooks</a></li>
+      <li><a href="/use-cases/podcast-outreach/">Shortlist podcasts for outreach</a></li>
+      <li><a href="/faq/apple-podcasts-scraper/">Apple Podcasts Scraper FAQ</a></li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>
