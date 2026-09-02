@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Brand Visibility Scraper | ChatGPT Search Rank — Google SERP and Reddit ranks</title>
+  <meta name="description" content="Track AI brand organic rankings on Google SERPs and Reddit. Rank deltas, competitor overlap, social mentions. $20.00 per 1,000 visibility result rows. Unchanged runs free.">
+  <link rel="canonical" href="https://luxslime.github.io/ai-brand-visibility-scraper/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is AI Brand Visibility Scraper different from Google News Scraper and review scrapers?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "This Actor tracks brand organic rankings on Google search results pages and Reddit threads for AI-visibility monitoring. The live Store description is: Track your AI brand's organic rankings across Google SERPs and Reddit threads. Extract precise rank deltas, competitor overlap, and social mentions. The live searchSources description is: Sources to check for each keyword. Starter mode should stay Google-first; add Reddit only after the Google-first run is reliable. Google News Scraper queries Google News RSS for headlines, article URLs, publishers, and timestamps (required queries, maximum 50). That is news-article discovery, not SERP rank tracking. G2 & Capterra Review Scraper and Shopify App Store Review Scraper read public review-page HTML. Apple Podcasts Reviews Scraper reads Apple/iTunes Customer Reviews RSS. This Actor does not accept Google News queries, G2 or Capterra review URLs, Shopify slugs, or podcast IDs."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What input is required?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "brand and keywords are required. additionalProperties is false. Live schema fields are brand (string; prefill OpenAI), brandTerms (array; prefill openai.com, openai), competitors (optional array; each item a string or an object with name and terms[]; prefill empty), keywords (array; prefill ai api pricing), searchSources (array; prefill google), requestTimeoutSeconds (integer, default 30, minimum 5, maximum 120), maxResultsPerKeyword (integer, default 10, minimum 5, maximum 20), userAgent (optional string), delivery (dataset, webhook, or email; default dataset), datasetMode (changes_only or all; default changes_only), webhookUrl (required when delivery is webhook), emailTo (required when delivery is email), notifyOnNoChange (boolean, default false), snapshotKey (string, default ai-visibility-snapshots), nowIso (optional ISO timestamp), and dryRun (boolean, default false). The published input schema does not include queries, surfaces, extractAiOverviewCitations, or chatgpt."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does a visibility result contain?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The published README output table lists meta, results, and per-row fields: id, name, kind, keyword, source, status, visibilityStatus, changed, previousBrandRank, currentBrandRank, rankChange, previousCompetitorCount, currentCompetitorCount, capturedAt, previousCapturedAt, searchUrl, matchedBrandUrl, summary, trend, actionItems, topResults, warning, error, and priority. The truncated README sample also shows meta.generatedAt, meta.now, meta.input, meta.snapshot, meta.warnings, meta.totals (targets, changed, initial, unchanged, errors, improved, declined, stable, newAppearances, disappeared), and meta.executiveSummary.overallStatus. There is no published output JSON schema on the Store page. The sample is a README illustration, not a live coverage guarantee."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does this Actor query ChatGPT or an AI search API?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. The live Store description names Google SERPs and Reddit threads. The live searchSources field description names Google-first starter mode, then Reddit. The live input schema has no ChatGPT, AI Overview, or search-API field. A README Input Examples block titled ChatGPT search rank focus uses unpublished names queries, surfaces, and extractAiOverviewCitations. additionalProperties is false, so those names are not live schema fields. The Store title includes ChatGPT Search Rank as a listing title; that is not a published ChatGPT API integration."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do dataset, webhook, email, and changes_only delivery work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "delivery defaults to dataset. Enum is dataset, webhook, and email. webhookUrl is required when delivery is webhook. emailTo is required when delivery is email. datasetMode defaults to changes_only; enum is changes_only and all. Starter mode should keep changes_only. notifyOnNoChange defaults to false; when false, webhook/email mode skips if no event items were produced. dryRun true skips delivery side effects and snapshot saves. Store Quickstart starts with a one-keyword, Google-first, brand-only run, then optional upgrades: Competitor Snapshot, Weekly Executive Email, Webhook Alert, and Brand vs Competitors (Google + Reddit) only after the Google-first canary is stable."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is AI Brand Visibility Scraper priced?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Billing is pay-per-event. The live Store card is $20.00 / 1,000 ai visibility result rows. The billed event is AI visibility result row at $0.02, charged only when a visibility result row is delivered. Unchanged monitoring runs are free. Current PPE lists only that event (no actor-start). You are not charged for Apify platform usage, only the fixed event price. The README Cost section still quotes actor-start $0.01 plus dataset-item $0.003 ($3.01 for 1,000 items); those figures are not the live Store rates."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / AI Brand Visibility Scraper</nav>
+    <h1>Track brand organic ranks on Google SERPs and Reddit for AI-visibility monitoring</h1>
+    <p>AI Brand Visibility Scraper | ChatGPT Search Rank (Store id <code>taroyamada/ai-visibility-monitor-actor</code>) monitors a brand’s organic positions on Google search results and Reddit threads. The live Store description is: track your AI brand’s organic rankings across Google SERPs and Reddit threads; extract precise rank deltas, competitor overlap, and social mentions. It parses SERP and community HTML for ranking details, rank deltas, and visibility scores. It is not a Google News RSS discovery tool and not a review-page scraper.</p>
+    <p class="price">$20.00 per 1,000 AI visibility result rows</p>
+    <p><a href="https://apify.com/taroyamada/ai-visibility-monitor-actor">Open AI Brand Visibility Scraper on Apify</a></p>
+
+    <h2>Google SERP and Reddit rank tracking, not Google News RSS or review pages</h2>
+    <p>Use this page when the job is brand keyword rank on live Google SERPs and, after a Google-first run is reliable, Reddit threads. Use <a href="/google-news-scraper/">Google News Scraper</a> when the job is query-based Google News RSS headlines and article URLs. Use <a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a> or <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a> when the source is a public review page. Use <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> when the source is iTunes Customer Reviews RSS.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>This Actor</th>
+          <th>Google News Scraper</th>
+          <th>G2 &amp; Capterra / Shopify reviews</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>Brand organic rank and competitor overlap for AI-visibility monitoring</td>
+          <td>Discover current article URLs by Google News query</td>
+          <td>Normalize public software or Shopify app reviews</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>Google SERP HTML and Reddit thread HTML (<code>searchSources</code>: Google-first, then Reddit)</td>
+          <td>Google News RSS for <code>queries</code></td>
+          <td>G2/Capterra review-page HTML or <code>apps.shopify.com/{slug}</code> listings</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td>Required <code>brand</code> and <code>keywords</code></td>
+          <td>Required <code>queries</code> (max 50)</td>
+          <td><code>reviewPageUrls</code> or <code>appUrls</code></td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td>Rank, rank delta, competitor counts, matched brand URL, visibility status</td>
+          <td>Headline, article URL, publisher, timestamps, snippet</td>
+          <td>Ratings, review rows, pros/cons or app-level reports</td>
+        </tr>
+        <tr>
+          <td>ChatGPT API?</td>
+          <td>Not in the live schema. Store title is a listing name, not a ChatGPT API</td>
+          <td>No</td>
+          <td>No</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>This Actor does not accept Google News queries, G2 or Capterra review URLs, Shopify slugs, or podcast IDs. README Key Features also mentions reviews, listings, catalogs, and iOS/Android/Shopify market data; those names are not in the live <code>searchSources</code> description, which only documents Google-first then Reddit.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Schedule daily or weekly competitive intelligence checks across Google and Reddit for brand keyword monitoring.</li>
+      <li>Detect ranking changes and compute rank deltas and visibility score shifts for brand vs competitors.</li>
+      <li>Build competitor overlap matrices to identify which sites are overtaking organic positions.</li>
+      <li>Track shifting SERP features and trending community discussions relevant to a brand or product.</li>
+      <li>Generate weekly executive summaries and trend reports for stakeholders.</li>
+      <li>Trigger webhook alerts on sudden drops in brand sentiment or search rankings.</li>
+      <li>Automate recurring data collection for analytics warehouses and BI dashboards without custom scraper development.</li>
+    </ul>
+    <p>Those bullets are the published README use-case list. The same README also lists a generic “aggregate cross-platform signals (search, app stores, e-commerce storefronts, reviews)” line; live <code>searchSources</code> still documents Google and Reddit only.</p>
+
+    <h2>How is AI Brand Visibility Scraper different from Google News Scraper and review scrapers?</h2>
+    <p>This Actor tracks brand organic rankings on Google search results pages and Reddit threads for AI-visibility monitoring. The live Store description is: Track your AI brand's organic rankings across Google SERPs and Reddit threads. Extract precise rank deltas, competitor overlap, and social mentions. The live <code>searchSources</code> description is: Sources to check for each keyword. Starter mode should stay Google-first; add Reddit only after the Google-first run is reliable. <a href="/google-news-scraper/">Google News Scraper</a> queries Google News RSS for headlines, article URLs, publishers, and timestamps (required <code>queries</code>, maximum 50). That is news-article discovery, not SERP rank tracking. <a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a> and <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a> read public review-page HTML. <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> reads Apple/iTunes Customer Reviews RSS. This Actor does not accept Google News queries, G2 or Capterra review URLs, Shopify slugs, or podcast IDs.</p>
+
+    <h2>What input is required?</h2>
+    <p><code>brand</code> and <code>keywords</code> are required. The schema sets <code>additionalProperties</code> to false. Live schema fields:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>brand</code></td>
+          <td>string</td>
+          <td>required</td>
+          <td>Primary brand label used in summaries. Schema prefill is <code>OpenAI</code>. Starter runs can be just your brand plus one keyword.</td>
+        </tr>
+        <tr>
+          <td><code>brandTerms</code></td>
+          <td>array</td>
+          <td>—</td>
+          <td>Terms that indicate your brand in titles/URLs, such as domains and product names. Schema prefill is <code>openai.com</code>, <code>openai</code>.</td>
+        </tr>
+        <tr>
+          <td><code>competitors</code></td>
+          <td>array</td>
+          <td>—</td>
+          <td>Optional. Leave empty for a brand-only first run, then add 1–3 competitors for overlap context. Each item can be a string or an object with <code>name</code> and <code>terms[]</code>. Schema prefill is empty.</td>
+        </tr>
+        <tr>
+          <td><code>keywords</code></td>
+          <td>array</td>
+          <td>required</td>
+          <td>Keywords or prompts to monitor across search sources. Schema prefill is <code>ai api pricing</code>. Starter mode should begin with one high-intent keyword.</td>
+        </tr>
+        <tr>
+          <td><code>searchSources</code></td>
+          <td>array</td>
+          <td>—</td>
+          <td>Sources to check for each keyword. Schema prefill is <code>google</code>. Starter mode should stay Google-first; add Reddit only after that run is reliable. No enum is published.</td>
+        </tr>
+        <tr>
+          <td><code>maxResultsPerKeyword</code></td>
+          <td>integer</td>
+          <td>10</td>
+          <td>How many top results to inspect per keyword and source; minimum 5, maximum 20</td>
+        </tr>
+        <tr>
+          <td><code>requestTimeoutSeconds</code></td>
+          <td>integer</td>
+          <td>30</td>
+          <td>HTTP timeout per request; minimum 5, maximum 120</td>
+        </tr>
+        <tr>
+          <td><code>userAgent</code></td>
+          <td>string</td>
+          <td>—</td>
+          <td>Optional custom user-agent header</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string</td>
+          <td><code>dataset</code></td>
+          <td><code>dataset</code>, <code>webhook</code>, or <code>email</code>. Starter mode uses dataset.</td>
+        </tr>
+        <tr>
+          <td><code>datasetMode</code></td>
+          <td>string</td>
+          <td><code>changes_only</code></td>
+          <td><code>changes_only</code> or <code>all</code>. Starter mode should keep <code>changes_only</code>.</td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td>—</td>
+          <td>Required when <code>delivery</code> is <code>webhook</code></td>
+        </tr>
+        <tr>
+          <td><code>emailTo</code></td>
+          <td>array</td>
+          <td>—</td>
+          <td>Required when <code>delivery</code> is <code>email</code>. Schema prefill is <code>alerts@example.com</code>.</td>
+        </tr>
+        <tr>
+          <td><code>notifyOnNoChange</code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>When false, webhook/email mode skips if no event items were produced</td>
+        </tr>
+        <tr>
+          <td><code>snapshotKey</code></td>
+          <td>string</td>
+          <td><code>ai-visibility-snapshots</code></td>
+          <td>Storage key used for rank snapshots</td>
+        </tr>
+        <tr>
+          <td><code>nowIso</code></td>
+          <td>string</td>
+          <td>—</td>
+          <td>Optional fixed timestamp for deterministic tests</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Skip delivery side effects and snapshot saves</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>The published input schema does not include <code>queries</code>, <code>surfaces</code>, <code>extractAiOverviewCitations</code>, or <code>chatgpt</code>.</p>
+    <p>Published README input example (matches the schema):</p>
+<pre><code>{
+  "brand": "OpenAI",
+  "brandTerms": [
+    "openai.com",
+    "openai"
+  ],
+  "competitors": [],
+  "keywords": [
+    "ai api pricing"
+  ],
+  "searchSources": [
+    "google"
+  ],
+  "requestTimeoutSeconds": 30,
+  "maxResultsPerKeyword": 10,
+  "delivery": "dataset",
+  "datasetMode": "changes_only",
+  "emailTo": [
+    "alerts@example.com"
+  ],
+  "notifyOnNoChange": false,
+  "snapshotKey": "ai-visibility-snapshots",
+  "dryRun": false
+}</code></pre>
+    <p>Published Store example run input:</p>
+<pre><code>{
+  "brand": "OpenAI",
+  "brandTerms": [
+    "openai.com",
+    "openai"
+  ],
+  "competitors": [
+    {
+      "name": "Anthropic",
+      "terms": [
+        "anthropic.com",
+        "claude.ai",
+        "anthropic"
+      ]
+    },
+    {
+      "name": "Perplexity",
+      "terms": [
+        "perplexity.ai",
+        "perplexity"
+      ]
+    }
+  ],
+  "keywords": [
+    "ai api pricing"
+  ],
+  "searchSources": [
+    "google"
+  ],
+  "requestTimeoutSeconds": 20,
+  "maxResultsPerKeyword": 10,
+  "delivery": "dataset",
+  "datasetMode": "changes_only",
+  "notifyOnNoChange": false,
+  "snapshotKey": "ai-visibility-snapshots",
+  "dryRun": false
+}</code></pre>
+    <p>Store Quickstart: start with a one-keyword, Google-first, brand-only run. If that output fits, published templates are Competitor Snapshot (1 keyword, Google), Weekly Executive Email (Google-first recurring), Webhook Alert (Google-first change alerts), and Brand vs Competitors (Google + Reddit) only after the Google-first canary is stable.</p>
+    <p><a href="https://apify.com/taroyamada/ai-visibility-monitor-actor">Run AI Brand Visibility Scraper on Apify</a></p>
+
+    <h2>What does a visibility result contain?</h2>
+    <p>The published README output table lists <code>meta</code>, <code>results</code>, and per-row fields: <code>id</code>, <code>name</code>, <code>kind</code>, <code>keyword</code>, <code>source</code>, <code>status</code>, <code>visibilityStatus</code>, <code>changed</code>, <code>previousBrandRank</code>, <code>currentBrandRank</code>, <code>rankChange</code>, <code>previousCompetitorCount</code>, <code>currentCompetitorCount</code>, <code>capturedAt</code>, <code>previousCapturedAt</code>, <code>searchUrl</code>, <code>matchedBrandUrl</code>, <code>summary</code>, <code>trend</code>, <code>actionItems</code>, <code>topResults</code>, <code>warning</code>, <code>error</code>, and <code>priority</code>. The truncated README sample also shows <code>meta.generatedAt</code>, <code>meta.now</code>, <code>meta.input</code>, <code>meta.snapshot</code>, <code>meta.warnings</code>, <code>meta.totals</code> (<code>targets</code>, <code>changed</code>, <code>initial</code>, <code>unchanged</code>, <code>errors</code>, <code>improved</code>, <code>declined</code>, <code>stable</code>, <code>newAppearances</code>, <code>disappeared</code>), and <code>meta.executiveSummary.overallStatus</code>. There is no published output JSON schema on the Store page. The sample is a README illustration, not a live coverage guarantee.</p>
+    <p>Published README sample (the Store README is truncated after <code>overallStatus</code>; no further keys are published):</p>
+<pre><code>{
+  "meta": {
+    "generatedAt": "2026-03-29T13:38:02.262Z",
+    "now": "2026-03-25T12:00:00.000Z",
+    "input": {
+      "brand": "OpenAI",
+      "keywordCount": 1,
+      "keywords": [
+        "ai api pricing"
+      ],
+      "searchSources": [
+        "google"
+      ],
+      "delivery": "dataset",
+      "datasetMode": "changes_only",
+      "emailToCount": 0,
+      "dryRun": false
+    },
+    "snapshot": {
+      "key": "sample-output-runtime-upgrade",
+      "loadedFrom": "local",
+      "savedTo": "local"
+    },
+    "warnings": [
+      "target(google-ai-api-pricing): competitors is empty; starter mode will still track brand presence, but add competitors later for overlap context"
+    ],
+    "totals": {
+      "targets": 1,
+      "changed": 0,
+      "initial": 1,
+      "unchanged": 0,
+      "errors": 0,
+      "improved": 0,
+      "declined": 0,
+      "stable": 0,
+      "newAppearances": 0,
+      "disappeared": 0
+    },
+    "executiveSummary": {
+      "overallStatus": "watch",
+</code></pre>
+    <p>The README cuts off at that comma. Do not treat missing keys as published fields. <code>previousBrandRank</code> and <code>currentBrandRank</code> are listed in the output table with type null.</p>
+
+    <h2>Does this Actor query ChatGPT or an AI search API?</h2>
+    <p>No. The live Store description names Google SERPs and Reddit threads. The live <code>searchSources</code> field description names Google-first starter mode, then Reddit. The live input schema has no ChatGPT, AI Overview, or search-API field. A README Input Examples block titled ChatGPT search rank focus uses unpublished names <code>queries</code>, <code>surfaces</code>, and <code>extractAiOverviewCitations</code>. <code>additionalProperties</code> is false, so those names are not live schema fields. The Store title includes ChatGPT Search Rank as a listing title; that is not a published ChatGPT API integration.</p>
+    <p>Use live field names <code>keywords</code> and <code>searchSources</code> (prefill <code>google</code>). Do not send unpublished aliases.</p>
+
+    <h2>How do dataset, webhook, email, and changes_only delivery work?</h2>
+    <p><code>delivery</code> defaults to <code>dataset</code>. Enum is <code>dataset</code>, <code>webhook</code>, and <code>email</code>. <code>webhookUrl</code> is required when <code>delivery</code> is <code>webhook</code>. <code>emailTo</code> is required when <code>delivery</code> is <code>email</code>. <code>datasetMode</code> defaults to <code>changes_only</code>; enum is <code>changes_only</code> and <code>all</code>. Starter mode should keep <code>changes_only</code>. <code>notifyOnNoChange</code> defaults to false; when false, webhook/email mode skips if no event items were produced. <code>dryRun</code> true skips delivery side effects and snapshot saves. Store Quickstart starts with a one-keyword, Google-first, brand-only run, then optional upgrades: Competitor Snapshot, Weekly Executive Email, Webhook Alert, and Brand vs Competitors (Google + Reddit) only after the Google-first canary is stable.</p>
+    <p>README tips: run weekly for trend tracking; daily for competitive launch monitoring. Use webhook delivery to push insights into BI tools or research Slack. Archive results in Apify Dataset for historical trend analysis. Start with a small watchlist and iterate on keyword precision before scaling.</p>
+    <p><a href="https://apify.com/taroyamada/ai-visibility-monitor-actor">Open AI Brand Visibility Scraper on Apify</a></p>
+
+    <h2>How is AI Brand Visibility Scraper priced?</h2>
+    <p>Billing is pay-per-event. The live Store card is <strong>$20.00 / 1,000 ai visibility result rows</strong>. The billed event is AI visibility result row at <strong>$0.02</strong>, charged only when a visibility result row is delivered. Unchanged monitoring runs are free. Current PPE lists only that event (no actor-start). You are not charged for Apify platform usage, only the fixed event price. The README Cost section still quotes <code>actor-start</code> $0.01 plus <code>dataset-item</code> $0.003 ($3.01 for 1,000 items); those figures are not the live Store rates.</p>
+    <p class="price">$20.00 per 1,000 AI visibility result rows ($0.02 per delivered visibility result row; unchanged monitoring runs are free)</p>
+    <p><a href="https://apify.com/taroyamada/ai-visibility-monitor-actor/pricing">See AI Brand Visibility Scraper pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Live sources documented on the Store and in <code>searchSources</code> are Google SERPs and Reddit threads — not a ChatGPT API.</li>
+      <li>Required fields are <code>brand</code> and <code>keywords</code>. <code>additionalProperties</code> is false.</li>
+      <li><code>maxResultsPerKeyword</code> is 5–20 (default 10). <code>requestTimeoutSeconds</code> is 5–120 (default 30).</li>
+      <li>Starter mode is one keyword, Google-first, brand-only, <code>datasetMode</code> <code>changes_only</code>. Add Reddit only after that canary is stable.</li>
+      <li>Unchanged monitoring runs are free under current PPE; you are charged only when a visibility result row is delivered.</li>
+      <li>Not Google News RSS discovery and not G2, Capterra, Shopify, or Apple Podcasts review scraping.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/ai-visibility-monitor-actor">Open AI Brand Visibility Scraper on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/google-news-scraper/">Google News Scraper</a> — Google News RSS headlines and article URLs, not SERP rank tracking</li>
+      <li><a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a> — B2B software review pages, not organic SERP ranks</li>
+      <li><a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a> — Shopify merchant listings, not Google/Reddit rank tracking</li>
+      <li><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> — iTunes Customer Reviews RSS, not SERP ranks</li>
+      <li><a href="/review-intelligence/">Review Intelligence pack</a> — podcast vs Shopify App Store vs G2/Capterra reviews</li>
+      <li><a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a> — known-publisher feeds, not Google SERP ranks</li>
+      <li><a href="/article-content-extractor/">Article Content Extractor</a> — cleaned article HTML after URL discovery</li>
+      <li><a href="/website-content-extractor/">Website Content Extractor</a> — docs, product, and policy page cleanup</li>
+      <li><a href="/apify-store-ranking-scraper/">Apify Store Ranking Scraper</a> — Apify Store API Actor rankings, not Google SERP ranks</li>
+      <li><a href="/chrome-web-store-extension-intelligence/">Chrome Web Store Extension Intelligence</a> — Chrome Web Store listing metadata</li>
+      <li><a href="/packs/content-intelligence/">Content Intelligence pack</a> — RSS, Google News, article, and website extraction</li>
+      <li><a href="/meta-tag-opengraph-scraper/">Meta Tag &amp; OpenGraph Scraper</a></li>
+      <li><a href="/structured-data-scraper-validator/">Structured Data Scraper &amp; Validator</a></li>
+      <li><a href="/sitemap-scraper-analyzer/">Sitemap Scraper &amp; Analyzer</a></li>
+      <li><a href="/trade-show-exhibitor-intelligence/">Trade Show Exhibitor Intelligence</a></li>
+      <li><a href="/ssl-tls-certificate-scraper/">SSL/TLS Certificate Scraper</a></li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>
