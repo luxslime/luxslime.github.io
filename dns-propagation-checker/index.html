@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DNS Propagation Checker — bulk A, MX, and NS audits across 8 public resolvers</title>
+  <meta name="description" content="Check DNS propagation worldwide across Google, Cloudflare, and Quad9. Query A, AAAA, MX, TXT, CNAME, NS, and SOA records for up to 200 domains. From $8.00 per 1,000 results.">
+  <link rel="canonical" href="https://luxslime.github.io/dns-propagation-checker/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is DNS Propagation Checker different from Website Content Extractor?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "This Actor queries public DNS. Required input is domains (maximum 200 hostnames), not page URLs. It looks up A, AAAA, MX, TXT, CNAME, NS, and SOA records across eight public resolvers using Node.js dns.Resolver and does not fetch HTTP(S) HTML. Website Content Extractor fetches public docs, product, pricing, policy, and help-center URLs and returns cleaned markdown, text, or HTML. Use this Actor to verify nameserver and record propagation. Use Website Content Extractor when you need page content."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why query 8 public resolvers instead of one lookup?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "DNS caching varies by resolver. Checking multiple resolvers shows which ones have updated after a change. The published resolvers are Google, Cloudflare, Quad9, OpenDNS, Cisco Umbrella, Level3, Verisign, and Dyn. README examples compare 8.8.8.8, 1.1.1.1, and 208.67.222.222. This is not a geographic probe: all queried resolvers are major public ones."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What input is required?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "domains is required: up to 200 hostnames. Optional published schema fields are recordTypes (supported: A, AAAA, MX, TXT, CNAME, NS, SOA; schema prefill A and MX; README default A), delivery (dataset or webhook, default dataset), webhookUrl (when delivery is webhook), dryRun (boolean, default false), and maxChargeUsd (number, default 1, minimum 0). additionalProperties is false. README examples that include waitForFullPropagation or resolvers are not live schema fields."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does a result contain?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The published README field table lists domain, recordType, resolver, values, ttl, queryTimeMs, and error. The published README sample is one row per domain and record type with a resolvers array (name, ip, values, ttl), plus isConsistent and inconsistencies. There is no separate published dataset or output JSON schema on the Store page. The sample is a README illustration, not a live coverage guarantee."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does it check geographic, private, or DNSSEC records?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No geographic check: all resolvers queried are major public ones. Private or internal DNS is not supported; those names return NXDOMAIN. DNSSEC chain verification is not currently supported. Typical propagation time is TTL-dependent; the README states most DNS changes propagate globally within 1-24 hours. Low TTLs under 300 seconds propagate fast; high TTLs over 3600 seconds may take hours globally."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is DNS Propagation Checker priced?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Billing is pay per event. The published Store price is $8.00 per 1,000 DNS propagation results. The billed event is DNS propagation result at $0.008, charged only for one successfully delivered DNS propagation result row. You are not charged for Apify platform usage, only the fixed event price. maxChargeUsd defaults to 1 as a safety cap for billable dataset rows in the run. Dry runs do not save results."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / DNS Propagation Checker</nav>
+    <h1>Audit DNS propagation across 8 public resolvers for up to 200 domains</h1>
+    <p>Query public DNS for bulk domain audits. This Actor looks up A, AAAA, MX, TXT, CNAME, NS, and SOA records across eight public resolvers and flags resolver disagreements plus TTL variation. It uses Node.js <code>dns.Resolver</code> and does not need an API key. It does not fetch page HTML — for docs, pricing, or help-center content use <a href="/website-content-extractor/">Website Content Extractor</a>.</p>
+    <p><a href="https://apify.com/taroyamada/dns-propagation-checker">Open DNS Propagation Checker on Apify</a></p>
+
+    <h2>Public DNS lookups, not website HTML extraction</h2>
+    <p>Use this page when the job is nameserver and record propagation: confirm an A record IP, an NS switch, or MX/TXT email records after a change. Use <a href="/website-content-extractor/">Website Content Extractor</a> when the job is cleaned markdown or text from public HTTP(S) pages.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>DNS Propagation Checker</th>
+          <th>Website Content Extractor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>Audit worldwide nameserver and record propagation</td>
+          <td>Clean docs, product, pricing, policy, and help-center HTML</td>
+        </tr>
+        <tr>
+          <td>Input</td>
+          <td>Hostnames in <code>domains</code> (max 200)</td>
+          <td>HTTP(S) page URLs in <code>urls</code> (max 200)</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>Public DNS via Node.js <code>dns.Resolver</code></td>
+          <td>Live page HTML</td>
+        </tr>
+        <tr>
+          <td>Record / format options</td>
+          <td>A, AAAA, MX, TXT, CNAME, NS, SOA</td>
+          <td><code>markdown</code> (default), <code>text</code>, or <code>html</code></td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td>Resolved values, TTL, resolver identity, consistency flags</td>
+          <td>Cleaned page content, title, word count, metadata</td>
+        </tr>
+        <tr>
+          <td>HTML cleanup</td>
+          <td>No. DNS only; it does not fetch pages</td>
+          <td>Yes — bounded website extraction</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>This Actor does not accept page URLs, crawl a site, or extract article bodies. It queries major public resolvers such as Google (8.8.8.8), Cloudflare (1.1.1.1), and Quad9. It is not a geographic DNS map and not a private-DNS checker.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>DNS administrators: verify DNS changes propagated globally before changing URLs.</li>
+      <li>Hosting migrations: confirm a nameserver switch completed at all listed resolvers.</li>
+      <li>Email deliverability: check MX, SPF, and DKIM TXT record consistency in one run.</li>
+      <li>Security teams: detect DNS hijacking via inconsistent resolver responses.</li>
+      <li>DevOps teams: pre-deploy DNS verification for a production cutover.</li>
+    </ul>
+    <p>The published README also positions the Actor for identifying regional caching delays during migrations, tracking NS record shifts, validating A record IPs, and keeping historical DNS-state logs. Start after a DNS change, before pointing production traffic.</p>
+
+    <h2>How is DNS Propagation Checker different from Website Content Extractor?</h2>
+    <p>This Actor queries public DNS. Required input is <code>domains</code> (maximum 200 hostnames), not page URLs. It looks up A, AAAA, MX, TXT, CNAME, NS, and SOA records across eight public resolvers using Node.js <code>dns.Resolver</code> and does not fetch HTTP(S) HTML. <a href="/website-content-extractor/">Website Content Extractor</a> fetches public docs, product, pricing, policy, and help-center URLs and returns cleaned markdown, text, or HTML. Use this Actor to verify nameserver and record propagation. Use Website Content Extractor when you need page content.</p>
+
+    <h2>Why query 8 public resolvers instead of one lookup?</h2>
+    <p>DNS caching varies by resolver. Checking multiple resolvers shows which ones have updated after a change. The published resolvers are Google, Cloudflare, Quad9, OpenDNS, Cisco Umbrella, Level3, Verisign, and Dyn. README examples compare 8.8.8.8, 1.1.1.1, and 208.67.222.222. This is not a geographic probe: all queried resolvers are major public ones.</p>
+    <ul>
+      <li>Inconsistency detection — spots resolvers that disagree.</li>
+      <li>TTL reporting — see caching behavior across resolvers.</li>
+      <li>No API key — Node.js built-in <code>dns.Resolver</code>.</li>
+    </ul>
+
+    <h2>What input is required?</h2>
+    <p><code>domains</code> is required. The published schema accepts up to 200 hostnames. Other published fields:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>domains</code></td>
+          <td>string[]</td>
+          <td>required</td>
+          <td>Domains to check DNS for (max 200). Schema prefill is <code>example.com</code>, <code>google.com</code>.</td>
+        </tr>
+        <tr>
+          <td><code>recordTypes</code></td>
+          <td>string[]</td>
+          <td>README default <code>["A"]</code></td>
+          <td>Supported: A, AAAA, MX, TXT, CNAME, NS, SOA. Schema prefill is <code>A</code>, <code>MX</code>.</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string</td>
+          <td><code>dataset</code></td>
+          <td><code>dataset</code> or <code>webhook</code></td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td>—</td>
+          <td>POST target when <code>delivery</code> is <code>webhook</code></td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Run without saving results (for testing)</td>
+        </tr>
+        <tr>
+          <td><code>maxChargeUsd</code></td>
+          <td>number</td>
+          <td>1</td>
+          <td>Safety cap for billable dataset rows in this run (minimum 0)</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>The schema sets <code>additionalProperties</code> to false. README examples that include <code>waitForFullPropagation</code> or <code>resolvers</code> are not live input fields. Do not send unpublished aliases.</p>
+    <p>The Store Quickstart is 3 domains with A records. For a multi-record audit, use Full DNS Audit (A, AAAA, MX, TXT, CNAME, NS). Query MX and TXT together to audit email configuration in one run.</p>
+    <p>Published README input example:</p>
+<pre><code>{
+  "domains": ["example.com", "api.example.com"],
+  "recordTypes": ["A", "MX", "TXT"]
+}</code></pre>
+    <p>Published Store input-object example (includes schema defaults):</p>
+<pre><code>{
+  "domains": [
+    "example.com",
+    "google.com"
+  ],
+  "recordTypes": [
+    "A",
+    "MX"
+  ],
+  "delivery": "dataset",
+  "dryRun": false,
+  "maxChargeUsd": 1
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/dns-propagation-checker">Run a DNS propagation check on Apify</a></p>
+
+    <h2>What does a result contain?</h2>
+    <p>The published README field table lists <code>domain</code>, <code>recordType</code>, <code>resolver</code>, <code>values</code>, <code>ttl</code>, <code>queryTimeMs</code>, and <code>error</code>. The published README sample is one row per domain and record type with a <code>resolvers</code> array (<code>name</code>, <code>ip</code>, <code>values</code>, <code>ttl</code>), plus <code>isConsistent</code> and <code>inconsistencies</code>. There is no separate published dataset or output JSON schema on the Store page.</p>
+    <p>Published README sample:</p>
+<pre><code>{
+  "domain": "example.com",
+  "recordType": "A",
+  "resolvers": [
+    {"name": "Google", "ip": "8.8.8.8", "values": ["93.184.216.34"], "ttl": 86400},
+    {"name": "Cloudflare", "ip": "1.1.1.1", "values": ["93.184.216.34"], "ttl": 86400}
+  ],
+  "isConsistent": true,
+  "inconsistencies": []
+}</code></pre>
+    <p>That sample is the published README illustration, not a live coverage guarantee. Compare values across resolvers to confirm rollout before pointing production traffic.</p>
+
+    <h2>Does it check geographic, private, or DNSSEC records?</h2>
+    <p>No geographic check: all resolvers queried are major public ones. Private or internal DNS is not supported; those names return NXDOMAIN. DNSSEC chain verification is not currently supported. Typical propagation time is TTL-dependent; the README states most DNS changes propagate globally within 1-24 hours. Low TTLs under 300 seconds propagate fast; high TTLs over 3600 seconds may take hours globally.</p>
+
+    <h2>How is DNS Propagation Checker priced?</h2>
+    <p>Billing is pay per event. The published Store price is <strong>$8.00 / 1,000 dns propagation results</strong>. The billed event is DNS propagation result at <strong>$0.008</strong>, charged only for one successfully delivered DNS propagation result row. You are not charged for Apify platform usage, only the fixed event price.</p>
+    <p><code>maxChargeUsd</code> defaults to 1 as a safety cap for billable dataset rows in the run. <code>dryRun</code> true runs without saving results. <code>delivery</code> defaults to <code>dataset</code>; set <code>delivery</code> to <code>webhook</code> and provide <code>webhookUrl</code> to POST results.</p>
+    <p class="price">$8.00 per 1,000 DNS propagation results ($0.008 per successfully delivered result row)</p>
+    <p><a href="https://apify.com/taroyamada/dns-propagation-checker/pricing">See DNS Propagation Checker pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Public DNS only — private or internal names return NXDOMAIN.</li>
+      <li>At most 200 domains per run. Supported record types are A, AAAA, MX, TXT, CNAME, NS, and SOA.</li>
+      <li>The required field is <code>domains</code>. Live schema names do not include <code>waitForFullPropagation</code> or <code>resolvers</code>.</li>
+      <li>Not a geographic map and not DNSSEC validation.</li>
+      <li>This Actor does not fetch or clean website HTML.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/dns-propagation-checker">Open DNS Propagation Checker on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/website-content-extractor/">Website Content Extractor</a> — clean docs, pricing, policy, or product pages, not DNS lookups</li>
+      <li><a href="/article-content-extractor/">Article Content Extractor</a> — clean article, news, and blog pages</li>
+      <li><a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a></li>
+      <li><a href="/google-news-scraper/">Google News Scraper</a></li>
+      <li><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a></li>
+      <li><a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a></li>
+      <li><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a></li>
+      <li><a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a></li>
+      <li><a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a></li>
+      <li><a href="/ted-sam-grants-bid-alerts/">TED, SAM.gov &amp; Grants Bid Alerts Scraper</a></li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>
