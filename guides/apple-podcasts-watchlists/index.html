@@ -6,6 +6,54 @@
   <title>Refresh Apple Podcasts watchlists</title>
   <meta name="description" content="Refresh known Apple Podcasts shows by collection ID via the iTunes Lookup API. Recurring watchlist metadata. From $10 per 1,000 results.">
   <link rel="canonical" href="https://luxslime.github.io/guides/apple-podcasts-watchlists/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I get Apple Podcasts collection IDs for a watchlist?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use this after search or charts have produced collection IDs, or when you already store IDs from Apple Podcasts URLs (id1535144780 → 1535144780). Pass those values as lookupIds. Lookup uses the official iTunes Lookup API."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do unchanged watchlist polls write payable rows?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Empty or no-change watchlist polls are described as avoiding payable default-dataset writes when nothing is saved. Use dryRun to validate a setup without saving results or sending webhooks. Billing is pay-per-event: Actor start plus one result event per default-dataset item."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I look up more than one country per run?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Search and lookup use a single default country per run (default us). There is no country array on lookupIds. Charts can request several storefronts in one run because chartRequests is an array."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is a watchlist different from Reviews Scraper?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A lookupIds watchlist re-resolves show metadata (name, publisher, source URL, optional recent episode titles). Apple Podcasts Reviews Scraper reads public Customer Reviews RSS for podcastIds you already have and can emit review rows or one rating report. Pass the same collection IDs to Reviews Scraper when reputation context is required."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does a watchlist compute rank movement?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. lookupIds refresh known shows. For storefront Top Podcasts movement (new, changed, or dropped positions), use Apple Podcasts Chart Scraper. For joining chart snapshots yourself, use chartRequests on a schedule."
+        }
+      }
+    ]
+  }
+  </script>
   <style>
     body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
     main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
@@ -14,9 +62,13 @@
     h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
     p, li { font-size: 16px; line-height: 1.5; color: #444; }
     p { margin: 0 0 16px; }
-    ul { margin: 0 0 16px; padding-left: 1.2em; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
     li { margin: 0 0 8px; }
     pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
     .price { color: #202223; }
   </style>
 </head>
@@ -24,7 +76,41 @@
   <main>
     <nav><a href="/">Home</a> / Guides / Apple Podcasts watchlists</nav>
     <h1>Refresh Apple Podcasts watchlists</h1>
-    <p>A watchlist refresh re-resolves shows you already know. The <a href="https://apify.com/taroyamada/apple-podcast-scraper">Apple Podcasts Scraper</a> looks up Apple Podcasts collection IDs through the official iTunes Lookup API. No proxy is required. Use this after <a href="/guides/apple-podcasts-search/">search</a> or <a href="/guides/apple-podcasts-charts/">charts</a> have produced collection IDs, or when you already store IDs from Apple Podcasts URLs (<code>id1535144780</code> → <code>1535144780</code>).</p>
+    <p>A watchlist refresh re-resolves shows you already know. <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> looks up Apple Podcasts collection IDs through the official iTunes Lookup API. No proxy is required. Use this after <a href="/guides/apple-podcasts-search/">search</a> or <a href="/guides/apple-podcasts-charts/">charts</a> have produced collection IDs, or when you already store IDs from Apple Podcasts URLs (<code>id1535144780</code> → <code>1535144780</code>).</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Open Apple Podcasts Scraper on Apify</a></p>
+
+    <h2>Watchlist versus reviews and rank movement</h2>
+    <p>Use this guide when the job is refreshing known collection IDs. Use <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> for public ratings on those IDs. Use <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> for Top Podcasts movement, not a show watchlist. See <a href="/compare/one-time-export-vs-watchlist/">one-time export vs watchlist</a>.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Watchlist (<code>lookupIds</code>)</th>
+          <th>Reviews Scraper</th>
+          <th>Chart Scraper monitor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Input IDs</td>
+          <td>Apple collection IDs</td>
+          <td><code>podcastIds</code> (same IDs)</td>
+          <td>Storefront <code>countries</code>, not a show list</td>
+        </tr>
+        <tr>
+          <td>Output</td>
+          <td>Show metadata, optional <code>episodeTitle</code></td>
+          <td>Review rows or one rating report</td>
+          <td>Chart rows or one movement report</td>
+        </tr>
+        <tr>
+          <td>Unchanged polls</td>
+          <td>Described as avoiding payable dataset writes when nothing is saved</td>
+          <td>Zero rows / zero charge when <code>emitUnchanged</code> is false</td>
+          <td>Zero rows / zero charges when ranks are unchanged</td>
+        </tr>
+      </tbody>
+    </table>
 
     <h2>What a watchlist refresh returns</h2>
     <p>Lookup rows are source-linked dataset items with stable identifiers for recurring checks. Documented fields include:</p>
@@ -47,26 +133,41 @@
     <p>Empty or no-change watchlist polls are described as avoiding payable default-dataset writes when nothing is saved. Use <code>dryRun</code> to validate a setup without saving results or sending webhooks.</p>
     <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Run a watchlist refresh on Apify</a></p>
 
+    <h2>How do I get Apple Podcasts collection IDs for a watchlist?</h2>
+    <p>Use this after search or charts have produced collection IDs, or when you already store IDs from Apple Podcasts URLs (<code>id1535144780</code> → <code>1535144780</code>). Pass those values as <code>lookupIds</code>. Lookup uses the official iTunes Lookup API. The <a href="/use-cases/podcast-outreach/">outreach shortlist</a> workflow keeps IDs from a search export, then switches later runs to lookup.</p>
+
+    <h2>Do unchanged watchlist polls write payable rows?</h2>
+    <p>Empty or no-change watchlist polls are described as avoiding payable default-dataset writes when nothing is saved. Use <code>dryRun</code> to validate a setup without saving results or sending webhooks. See <a href="/guides/apple-podcasts-webhooks/">webhooks</a> before switching <code>delivery</code>.</p>
+
+    <h2>How is a watchlist different from Reviews Scraper?</h2>
+    <p>A <code>lookupIds</code> watchlist re-resolves show metadata (name, publisher, source URL, optional recent episode titles). <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> reads public Customer Reviews RSS for <code>podcastIds</code> you already have and can emit review rows or one rating report. Pass the same collection IDs to Reviews Scraper when reputation context is required.</p>
+
+    <h2>Does a watchlist compute rank movement?</h2>
+    <p>No. <code>lookupIds</code> refresh known shows. For storefront Top Podcasts movement (new, changed, or dropped positions), use <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a>. For joining chart snapshots yourself, use <a href="/guides/apple-podcasts-charts/">chartRequests</a> on a schedule.</p>
+
     <h2>How to run it</h2>
     <ol>
-      <li>Open the Actor on the Apify Store.</li>
+      <li>Open <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a>, then the Actor on the Apify Store.</li>
       <li>Paste Apple Podcasts collection IDs into <code>lookupIds</code>.</li>
       <li>Set <code>country</code> to the storefront you track. Turn on <code>includeEpisodes</code> only if recent episodes are needed.</li>
       <li>Start with <code>delivery: "dataset"</code>. After the payload is approved, you can set <code>delivery</code> to <code>webhook</code> and provide <code>webhookUrl</code> (Slack, Discord, Zapier, or any HTTP endpoint).</li>
     </ol>
-    <p>Billing is pay-per-event: Actor start plus one result event per default-dataset item.</p>
+    <p>Billing is pay-per-event: Actor start plus one result event per default-dataset item. The published Store price is $0.005 per Actor start and $10.00 per 1,000 dataset results ($0.01 per row).</p>
     <p class="price">From $10 per 1,000 results</p>
     <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Open Apple Podcasts Scraper on Apify</a></p>
 
     <h2>Related guides</h2>
     <ul>
+      <li><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> — search, episodes, and watchlists</li>
+      <li><a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a></li>
+      <li><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> — public ratings for known collection IDs</li>
       <li><a href="/guides/apple-podcasts-charts/">How to get Apple Podcasts chart metadata</a></li>
       <li><a href="/guides/apple-podcasts-search/">Apple Podcasts search discovery</a></li>
       <li><a href="/guides/apple-podcasts-episodes/">Export Apple Podcasts episode metadata</a></li>
       <li><a href="/guides/apple-podcasts-countries/">Apple Podcasts charts and search by country</a></li>
       <li><a href="/faq/apple-podcasts-scraper/">Apple Podcasts Scraper FAQ</a></li>
       <li><a href="/use-cases/podcast-outreach/">Shortlist podcasts for outreach</a></li>
-      <li><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> — public ratings for known collection IDs</li>
+      <li><a href="/tools/">Tools</a></li>
     </ul>
   </main>
 </body>

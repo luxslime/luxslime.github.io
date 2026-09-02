@@ -6,6 +6,54 @@
   <title>Apple Podcasts search discovery</title>
   <meta name="description" content="Search Apple Podcasts by keyword with the iTunes Search API. Structured show metadata for discovery. From $10 per 1,000 results.">
   <link rel="canonical" href="https://luxslime.github.io/guides/apple-podcasts-search/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What does an Apple Podcasts search row contain?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Search results are source-linked dataset items. Sample rowType is podcast_search_result. Documented fields include collectionId, showName, publisher, country, sourceUrl, and fetchedAt. rank is null on search rows; rank belongs to chart requests."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does keyword search return rank or reviews?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. rank is null on search rows. This Actor does not document genre filters, review text, or pagination beyond limit. For official rankings use chartRequests or Apple Podcasts Chart Scraper. For public ratings on IDs you already have, use Apple Podcasts Reviews Scraper."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I search more than one country?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Search and lookup use a single default country per run (ISO storefront, default us). There is no country array on search. To compare markets, run once per storefront and keep country on the output rows. Charts can request several storefronts in one run because chartRequests is an array."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What should I do after I have collection IDs?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Pass collection IDs into a watchlist refresh (lookupIds) for recurring lookups. Use those IDs as podcastIds on Reviews Scraper if you need public ratings. A public RSS feed does not search the Apple directory; search is for discovery when you have a topic, not a feed URL."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What input does a search run need?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Set searchTerm. At least one of searchTerm, chartRequests, or lookupIds is required. country is the ISO storefront (default us). limit is the maximum number of podcasts returned (1–200; default 50). Keep the first run small."
+        }
+      }
+    ]
+  }
+  </script>
   <style>
     body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
     main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
@@ -14,9 +62,13 @@
     h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
     p, li { font-size: 16px; line-height: 1.5; color: #444; }
     p { margin: 0 0 16px; }
-    ul { margin: 0 0 16px; padding-left: 1.2em; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
     li { margin: 0 0 8px; }
     pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
     .price { color: #202223; }
   </style>
 </head>
@@ -24,7 +76,41 @@
   <main>
     <nav><a href="/">Home</a> / Guides / Apple Podcasts search</nav>
     <h1>Apple Podcasts search discovery</h1>
-    <p>Keyword search is the lowest-friction way to find public shows in Apple Podcasts. The <a href="https://apify.com/taroyamada/apple-podcast-scraper">Apple Podcasts Scraper</a> uses the official iTunes Search API. No proxy is required. A public RSS feed does not search the Apple directory; search is for discovery when you have a topic, not a feed URL.</p>
+    <p>Keyword search is the lowest-friction way to find public shows in Apple Podcasts. <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> uses the official iTunes Search API. No proxy is required. A public RSS feed does not search the Apple directory; search is for discovery when you have a topic, not a feed URL.</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Open Apple Podcasts Scraper on Apify</a></p>
+
+    <h2>Search versus charts, reviews, and RSS</h2>
+    <p>Use this guide when the job is finding shows by keyword. Use <a href="/guides/apple-podcasts-charts/">chartRequests</a> or <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> for storefront ranks. Use <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> after you have collection IDs. Use <a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a> when you already have publisher feed URLs.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Search (<code>searchTerm</code>)</th>
+          <th>Charts</th>
+          <th>Reviews</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>You have</td>
+          <td>A topic</td>
+          <td>A storefront / market</td>
+          <td>Collection IDs</td>
+        </tr>
+        <tr>
+          <td>Primary actor</td>
+          <td><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a></td>
+          <td>Scraper <code>chartRequests</code> or <a href="/apple-podcasts-chart-scraper/">Chart Scraper</a></td>
+          <td><a href="/apple-podcasts-reviews-scraper/">Reviews Scraper</a></td>
+        </tr>
+        <tr>
+          <td><code>rank</code></td>
+          <td>Null on search rows</td>
+          <td>Set on chart rows</td>
+          <td>Not a rank tool</td>
+        </tr>
+      </tbody>
+    </table>
 
     <h2>What a search row contains</h2>
     <p>Search results are source-linked dataset items. Sample <code>rowType</code> is <code>podcast_search_result</code>. Documented fields include:</p>
@@ -48,25 +134,41 @@
     <p>Set <code>includeEpisodes</code> true only when recent episode context materially helps the workflow. After a search run, pass collection IDs into a <a href="/guides/apple-podcasts-watchlists/">watchlist refresh</a> for recurring lookups.</p>
     <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Run a search on Apify</a></p>
 
+    <h2>What does an Apple Podcasts search row contain?</h2>
+    <p>Search results are source-linked dataset items. Sample <code>rowType</code> is <code>podcast_search_result</code>. Documented fields include <code>collectionId</code>, <code>showName</code>, <code>publisher</code>, <code>country</code>, <code>sourceUrl</code>, and <code>fetchedAt</code>. <code>rank</code> is null on search rows; rank belongs to chart requests. See <a href="/guides/apple-podcasts-dataset-fields/">dataset fields</a>.</p>
+
+    <h2>Does keyword search return rank or reviews?</h2>
+    <p>No. <code>rank</code> is null on search rows. This Actor does not document genre filters, review text, or pagination beyond <code>limit</code>. For official rankings use <code>chartRequests</code> or <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a>. For public ratings on IDs you already have, use <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a>.</p>
+
+    <h2>How do I search more than one country?</h2>
+    <p>Search and lookup use a single default <code>country</code> per run (ISO storefront, default <code>us</code>). There is no country array on search. To compare markets, run once per storefront and keep <code>country</code> on the output rows. Charts can request several storefronts in one run because <code>chartRequests</code> is an array. See <a href="/guides/apple-podcasts-countries/">charts and search by country</a>.</p>
+
+    <h2>What should I do after I have collection IDs?</h2>
+    <p>Pass collection IDs into a <a href="/guides/apple-podcasts-watchlists/">watchlist refresh</a> (<code>lookupIds</code>) for recurring lookups. Use those IDs as <code>podcastIds</code> on Reviews Scraper if you need public ratings. A public RSS feed does not search the Apple directory; see <a href="/compare/rss-feed-vs-itunes-search/">RSS feed vs iTunes Search</a> and the <a href="/use-cases/podcast-outreach/">outreach shortlist</a> workflow.</p>
+
     <h2>How to run it</h2>
     <ol>
-      <li>Open the Actor on the Apify Store.</li>
+      <li>Open <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a>, then the Actor on the Apify Store.</li>
       <li>Enter a <code>searchTerm</code> and a <code>country</code>. Prefill examples use a small <code>limit</code> (for example 3 or 10).</li>
       <li>Leave <code>includeEpisodes</code> false until the show list is useful.</li>
       <li>Review the default dataset. Use <code>delivery: "webhook"</code> and <code>webhookUrl</code> after the payload shape is approved (Slack, Discord, Zapier, or any HTTP endpoint). Use <code>dryRun</code> to test without dataset writes or webhooks.</li>
     </ol>
-    <p>Billing is pay-per-event: Actor start plus one result event per default-dataset item.</p>
+    <p>Billing is pay-per-event: Actor start plus one result event per default-dataset item. The published Store price is $0.005 per Actor start and $10.00 per 1,000 dataset results ($0.01 per row).</p>
     <p class="price">From $10 per 1,000 results</p>
     <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Open Apple Podcasts Scraper on Apify</a></p>
 
     <h2>Related guides</h2>
     <ul>
+      <li><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> — search, episodes, and watchlists</li>
+      <li><a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a></li>
+      <li><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a></li>
       <li><a href="/guides/apple-podcasts-charts/">How to get Apple Podcasts chart metadata</a></li>
       <li><a href="/guides/apple-podcasts-watchlists/">Refresh Apple Podcasts watchlists</a></li>
       <li><a href="/guides/apple-podcasts-episodes/">Export Apple Podcasts episode metadata</a></li>
       <li><a href="/guides/apple-podcasts-countries/">Apple Podcasts charts and search by country</a></li>
       <li><a href="/faq/apple-podcasts-scraper/">Apple Podcasts Scraper FAQ</a></li>
       <li><a href="/use-cases/podcast-outreach/">Shortlist podcasts for outreach</a></li>
+      <li><a href="/tools/">Tools</a></li>
     </ul>
   </main>
 </body>

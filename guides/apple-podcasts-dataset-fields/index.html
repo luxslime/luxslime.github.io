@@ -6,6 +6,54 @@
   <title>Apple Podcasts dataset fields</title>
   <meta name="description" content="Key Apple Podcasts Scraper output fields: showName, collectionId, rank, sourceUrl, and fetchedAt. From $10 per 1,000 results.">
   <link rel="canonical" href="https://luxslime.github.io/guides/apple-podcasts-dataset-fields/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What Apple Podcasts Scraper fields are documented?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The README output-field list is rowType, collectionId, showName, publisher, country, rank, episodeTitle, sourceUrl, and fetchedAt. There is no separate output schema on the Store page. Sample rowType for search is podcast_search_result."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is rank present on search rows?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The published search sample sets rank to null. rank is a snapshot of that chart request, not computed movement between runs. Compare ranks only within the same storefront. Search discovery uses collectionId and sourceUrl; chart tracking uses rank plus fetchedAt."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "When is episodeTitle present?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "episodeTitle is present when recent episodes are included (includeEpisodes). Leave includeEpisodes false unless you need that field; the path is slower. The published input does not expose a full-catalog dump."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I export the default dataset?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Start with delivery set to dataset so you can review these fields. After the run finishes, open the default dataset and export it (JSON or CSV from the dataset view). Switch to webhook delivery only after the payload shape is approved. dryRun true runs without saving results or sending webhooks."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do Chart Scraper and Reviews Scraper fields differ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Chart Scraper raw rows use rowType chart_rank with country, rank, showId, showName, artistName, and sourceUrl. Reviews Scraper raw rows use rowType podcast_review with rating, title, content, and an iTunes Customer Reviews RSS sourceUrl. Do not mix those field lists with Apple Podcasts Scraper’s README list."
+        }
+      }
+    ]
+  }
+  </script>
   <style>
     body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
     main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
@@ -17,6 +65,10 @@
     ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
     li { margin: 0 0 8px; }
     pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
     .price { color: #202223; }
   </style>
 </head>
@@ -24,7 +76,41 @@
   <main>
     <nav><a href="/">Home</a> / Guides / Apple Podcasts dataset fields</nav>
     <h1>Apple Podcasts dataset fields</h1>
-    <p>The <a href="https://apify.com/taroyamada/apple-podcast-scraper">Apple Podcasts Scraper</a> writes source-linked show, chart, and episode rows. Official Apple/iTunes endpoints. No proxy is required. The default dataset is the billable surface. This page lists the fields published in the Actor README. There is no separate output schema on the Store page.</p>
+    <p><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> writes source-linked show, chart, and episode rows. Official Apple/iTunes endpoints. No proxy is required. The default dataset is the billable surface. This page lists the fields published in the Actor README. There is no separate output schema on the Store page.</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Open Apple Podcasts Scraper on Apify</a></p>
+
+    <h2>Scraper fields versus Chart and Reviews rows</h2>
+    <p>Use this guide for Apple Podcasts Scraper output. <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> and <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> publish different <code>rowType</code> values and field lists. Do not join them as one schema.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Apple Podcasts Scraper</th>
+          <th>Chart Scraper</th>
+          <th>Reviews Scraper</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Sample / default <code>rowType</code></td>
+          <td><code>podcast_search_result</code> (search sample)</td>
+          <td><code>chart_rank</code></td>
+          <td><code>podcast_review</code></td>
+        </tr>
+        <tr>
+          <td>Identity</td>
+          <td><code>collectionId</code></td>
+          <td><code>showId</code> (legacy alias <code>collectionId</code>)</td>
+          <td><code>podcastId</code></td>
+        </tr>
+        <tr>
+          <td>Distinctive fields</td>
+          <td><code>rank</code> on charts; <code>episodeTitle</code> when included</td>
+          <td><code>rank</code>, optional movement-report <code>changes</code></td>
+          <td><code>rating</code>, <code>title</code>, <code>content</code>, <code>reviewId</code></td>
+        </tr>
+      </tbody>
+    </table>
 
     <h2>Key fields</h2>
     <p>These identifiers and timestamps are the ones most workflows join on:</p>
@@ -80,19 +166,31 @@
     <p>Start with <code>delivery</code> set to <code>dataset</code> so you can review these fields. Switch to <a href="/guides/apple-podcasts-webhooks/">webhook delivery</a> only after the payload shape is approved. <code>dryRun</code> true runs without saving results or sending webhooks.</p>
     <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Inspect dataset fields on Apify</a></p>
 
+    <h2>What Apple Podcasts Scraper fields are documented?</h2>
+    <p>The README output-field list is <code>rowType</code>, <code>collectionId</code>, <code>showName</code>, <code>publisher</code>, <code>country</code>, <code>rank</code>, <code>episodeTitle</code>, <code>sourceUrl</code>, and <code>fetchedAt</code>. There is no separate output schema on the Store page. Sample <code>rowType</code> for search is <code>podcast_search_result</code>.</p>
+
+    <h2>Is rank present on search rows?</h2>
+    <p>The published search sample sets <code>rank</code> to null. <code>rank</code> is a snapshot of that chart request, not computed movement between runs. Compare ranks only within the same storefront. Search discovery uses <code>collectionId</code> and <code>sourceUrl</code>; chart tracking uses <code>rank</code> plus <code>fetchedAt</code>. See <a href="/guides/apple-podcasts-charts/">chart metadata</a> and <a href="/use-cases/podcast-market-tracking/">chart tracking over time</a>.</p>
+
+    <h2>How do Chart Scraper and Reviews Scraper fields differ?</h2>
+    <p>Chart Scraper raw rows use <code>rowType</code> <code>chart_rank</code> with <code>country</code>, <code>rank</code>, <code>showId</code>, <code>showName</code>, <code>artistName</code>, and <code>sourceUrl</code>. Reviews Scraper raw rows use <code>rowType</code> <code>podcast_review</code> with <code>rating</code>, <code>title</code>, <code>content</code>, and an iTunes Customer Reviews RSS <code>sourceUrl</code>. Do not mix those field lists with Apple Podcasts Scraper’s README list.</p>
+
     <h2>How to run it</h2>
     <ol>
-      <li>Open the Actor on the Apify Store.</li>
+      <li>Open <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a>, then the Actor on the Apify Store.</li>
       <li>Choose a source lane: <code>searchTerm</code>, <code>chartRequests</code>, or <code>lookupIds</code>.</li>
       <li>Keep the first run small. Leave <code>includeEpisodes</code> false unless you need <code>episodeTitle</code>.</li>
       <li>Leave <code>delivery</code> on <code>dataset</code>. After the run finishes, open the default dataset and export it (JSON or CSV from the dataset view).</li>
     </ol>
-    <p>Billing is pay-per-event: Actor start plus one result event per default-dataset item.</p>
+    <p>Billing is pay-per-event: Actor start plus one result event per default-dataset item. The published Store price is $0.005 per Actor start and $10.00 per 1,000 dataset results ($0.01 per row).</p>
     <p class="price">From $10 per 1,000 results</p>
     <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Open Apple Podcasts Scraper on Apify</a></p>
 
     <h2>Related guides</h2>
     <ul>
+      <li><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> — search, episodes, and watchlists</li>
+      <li><a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a></li>
+      <li><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a></li>
       <li><a href="/guides/apple-podcasts-webhooks/">Deliver Apple Podcasts results with webhooks</a></li>
       <li><a href="/guides/apple-podcasts-search/">Apple Podcasts search discovery</a></li>
       <li><a href="/guides/apple-podcasts-charts/">How to get Apple Podcasts chart metadata</a></li>
@@ -100,6 +198,7 @@
       <li><a href="/guides/apple-podcasts-episodes/">Export Apple Podcasts episode metadata</a></li>
       <li><a href="/use-cases/podcast-market-tracking/">Track Apple Podcasts charts over time</a></li>
       <li><a href="/faq/apple-podcasts-scraper/">Apple Podcasts Scraper FAQ</a></li>
+      <li><a href="/tools/">Tools</a></li>
     </ul>
   </main>
 </body>
