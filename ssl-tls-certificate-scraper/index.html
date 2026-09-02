@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SSL/TLS Certificate Scraper — expiry, SHA-256 fingerprints, optional Web Risk</title>
+  <meta name="description" content="Inspect TLS certificates on supplied domains: expiry, issuer, SHA-256 fingerprints, and optional Google Web Risk. Max 200 domains. $9.00 per 1,000 delivered monitoring result rows. No browser.">
+  <link rel="canonical" href="https://luxslime.github.io/ssl-tls-certificate-scraper/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is SSL/TLS Certificate Scraper different from Bulk URL Status Checker and DNS Propagation Checker?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "This Actor inspects TLS certificates on hostnames you supply: expiry, issuer, SHA-256 fingerprints, rotation, and optional Google Web Risk. Required input is domains (maximum 200). The Store description states it scans for expiring TLS certs, extracts fingerprint hashes, and can run Google Web Risk malware checks without rendering a browser. Bulk URL Status Checker checks a known URL list for HTTP status, redirect chains, response timing, and broken URL findings. Required input is urls (maximum 1000). It does not crawl pages. DNS Propagation Checker queries public DNS for A, AAAA, MX, TXT, CNAME, NS, and SOA across eight public resolvers. Required input is domains (maximum 200). It does not fetch HTTP(S) HTML. Use this Actor for TLS cert expiry and fingerprint monitoring. Use Bulk URL Status Checker for live HTTP status on URLs you already have. Use DNS Propagation Checker for nameserver and record propagation."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What input is required?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "domains is required: List of domains to check SSL certificates for (maximum 200 per run; OpenAPI minItems 1). Schema prefill is google.com, github.com, expired.badssl.com. Optional live schema fields are port (integer, default 443, minimum 1, maximum 65535), expiryWarningDays (integer, default 30, minimum 1, maximum 365), delivery (dataset or webhook, default dataset), webhookUrl (required when delivery is webhook), snapshotKey (string, default ssl-cert-snapshots), concurrency (integer, default 5, minimum 1, maximum 10), emitUnchanged (boolean, default false), dryRun (boolean, default false), enableReputationLookup (boolean, default false), reputationApiKey (required only when Google Web Risk lookup is enabled), and reputationThreatTypes (array, maxItems 3; supported values MALWARE, SOCIAL_ENGINEERING, UNWANTED_SOFTWARE). additionalProperties is false. The README Input table omits emitUnchanged and the three reputation fields; those names are live schema fields."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does a monitoring result contain?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The published README output table lists meta, results, results[].domain, results[].status, results[].cert, results[].changes, results[].warnings, results[].reputation, results[].checkedAt, and results[].error. The published README sample is one row with domain, status (initial), cert (subject, issuer, validFrom, validTo, serialNumber, bits, altNames, authorized, protocol), changes, warnings (type expiring_soon, message, daysLeft), and reputation (provider google_webrisk). The README body also names precise expiry timestamps, SHA-256 fingerprint hashes, and full certificate chain coverage; the sample cert object does not include a fingerprint key. There is no published output JSON schema on the Store page. The sample is a README illustration, not a live coverage guarantee."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does it render a browser or fetch HTTP page HTML?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. The Store description says without rendering a browser. README key features: Direct TLS inspection — Connects at the protocol level, not through HTTP. README also states validating connections directly at the protocol level rather than heavy web browser rendering. Required input is domains (hostnames), not page URLs. Optional Google Web Risk is off by default. This is not a pentest: the published FAQ states the Actor performs passive compliance scanning only, with no exploitation, fuzzing, or auth bypass. Only scan sites you have authorization for."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do unchanged rows, webhooks, and optional Google Web Risk work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Recurring runs write only initial or changed successful checks to the billable Dataset by default. Stable checks produce 0 Dataset rows and 0 result charges; certificate or reputation lookup failures remain available in the free OUTPUT diagnostic record and are never billed as result rows. emitUnchanged defaults to false; keep it off for recurring monitoring so unchanged runs produce zero dataset rows and zero result charges. Set emitUnchanged true only when you explicitly need stable successful rows. delivery defaults to dataset. Set delivery to webhook and provide webhookUrl to POST results. dryRun true runs without saving results or sending webhooks. enableReputationLookup defaults to false so SSL-only runs behave as before. When enabled, reputationApiKey is required and must be a Google Cloud billing/API key, not the non-commercial Safe Browsing API. Supported threat types are MALWARE, SOCIAL_ENGINEERING, and UNWANTED_SOFTWARE (max 3)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is SSL/TLS Certificate Scraper priced?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Billing is pay-per-event. The live Store card is $9.00 / 1,000 delivered monitoring result rows. The billed event is Delivered monitoring result row at $0.009, charged only when a new or changed monitoring result row is delivered. Unchanged runs are free. You are not charged for Apify platform usage, only the fixed event price. Current PPE lists only that event (no actor-start). The README Cost section still quotes actor-start $0.01 plus dataset-item $0.003 ($3.01 for 1,000 items); those figures are not the live Store rates."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / SSL/TLS Certificate Scraper</nav>
+    <h1>Inspect TLS certificate expiry and SHA-256 fingerprints on supplied domains without a browser</h1>
+    <p>SSL/TLS Certificate Scraper bulk-checks certificates on hostnames you already have. It connects at the TLS protocol level (default port 443), reports expiry and issuer details, tracks fingerprint and issuer changes between runs, and can optionally query Google Web Risk. It does not render a browser, does not fetch page HTML, and does not check HTTP status of known URLs or DNS record propagation.</p>
+    <p class="price">$9.00 per 1,000 delivered monitoring result rows</p>
+    <p><a href="https://apify.com/taroyamada/ssl-certificate-monitor">Open SSL/TLS Certificate Scraper on Apify</a></p>
+
+    <h2>TLS certificate inspection, not HTTP status QA or DNS propagation</h2>
+    <p>Use this page when the job is certificate expiry, SHA-256 fingerprints, issuer rotation, and optional reputation on supplied domains. Use <a href="/bulk-url-status-checker/">Bulk URL Status Checker</a> for live HTTP status, redirect chains, and response timing on a known URL list. Use <a href="/dns-propagation-checker/">DNS Propagation Checker</a> for public A/MX/NS (and other) records across eight resolvers.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>SSL/TLS Certificate Scraper</th>
+          <th>Bulk URL Status Checker</th>
+          <th>DNS Propagation Checker</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>TLS cert expiry, fingerprint, issuer, optional Web Risk</td>
+          <td>HTTP status, redirect-chain, timing, and broken-URL QA</td>
+          <td>Audit nameserver and record propagation</td>
+        </tr>
+        <tr>
+          <td>Input</td>
+          <td>Hostnames in <code>domains</code> (max 200)</td>
+          <td>Known page URLs in <code>urls</code> (max 1000)</td>
+          <td>Hostnames in <code>domains</code> (max 200)</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>TLS on the supplied host (default port 443); no browser</td>
+          <td>Live HTTP(S) responses; it does not crawl pages</td>
+          <td>Public DNS via Node.js <code>dns.Resolver</code></td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td>Expiry, issuer, cert fields, changes, warnings; optional reputation</td>
+          <td>Status code, final URL, redirect chain, response time, severity</td>
+          <td>Resolved values, TTL, resolver identity, consistency flags</td>
+        </tr>
+        <tr>
+          <td>Not this job</td>
+          <td>HTTP status of page URLs; multi-resolver DNS records</td>
+          <td>TLS certificate expiry or fingerprint monitoring</td>
+          <td>TLS handshake or certificate chain inspection</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>README key features: direct TLS inspection (protocol level, not through HTTP); configurable expiry warnings (default 30 days); fingerprint-change tracking between runs; issuer-change alerts; optional commercially usable Google Web Risk with your own Google Cloud API key; detection of expired, self-signed, and misconfigured certificates.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>DevOps teams: prevent certificate expiry outages across all domains.</li>
+      <li>Security teams: detect unauthorized certificate changes.</li>
+      <li>MSPs: monitor client SSL certificates at scale.</li>
+      <li>SEO agencies: verify client sites have valid HTTPS.</li>
+    </ul>
+    <p>The published README also positions scheduled audits to detect expiring certificates before browsers block access or search engines penalize organic results, extract issuer organization names, pinpoint self-signed certs, and verify active protocol versions. Store Quickstart templates are Quickstart (Dataset), Portfolio Watch, and Webhook Alert. The published FAQ cadence is weekly for production domains; daily if you have high config-change velocity.</p>
+
+    <h2>How is SSL/TLS Certificate Scraper different from Bulk URL Status Checker and DNS Propagation Checker?</h2>
+    <p>This Actor inspects TLS certificates on hostnames you supply: expiry, issuer, SHA-256 fingerprints, rotation, and optional Google Web Risk. Required input is <code>domains</code> (maximum 200). The Store description states it scans for expiring TLS certs, extracts fingerprint hashes, and can run Google Web Risk malware checks without rendering a browser. <a href="/bulk-url-status-checker/">Bulk URL Status Checker</a> checks a known URL list for HTTP status, redirect chains, response timing, and broken URL findings. Required input is <code>urls</code> (maximum 1000). It does not crawl pages. <a href="/dns-propagation-checker/">DNS Propagation Checker</a> queries public DNS for A, AAAA, MX, TXT, CNAME, NS, and SOA across eight public resolvers. Required input is <code>domains</code> (maximum 200). It does not fetch HTTP(S) HTML. Use this Actor for TLS cert expiry and fingerprint monitoring. Use Bulk URL Status Checker for live HTTP status on URLs you already have. Use DNS Propagation Checker for nameserver and record propagation.</p>
+
+    <h2>What input is required?</h2>
+    <p><code>domains</code> is required: List of domains to check SSL certificates for (maximum 200 per run; OpenAPI minItems 1). Schema prefill is <code>google.com</code>, <code>github.com</code>, <code>expired.badssl.com</code>. Optional live schema fields are <code>port</code> (integer, default 443, minimum 1, maximum 65535), <code>expiryWarningDays</code> (integer, default 30, minimum 1, maximum 365), <code>delivery</code> (<code>dataset</code> or <code>webhook</code>, default <code>dataset</code>), <code>webhookUrl</code> (required when delivery is webhook), <code>snapshotKey</code> (string, default <code>ssl-cert-snapshots</code>), <code>concurrency</code> (integer, default 5, minimum 1, maximum 10), <code>emitUnchanged</code> (boolean, default false), <code>dryRun</code> (boolean, default false), <code>enableReputationLookup</code> (boolean, default false), <code>reputationApiKey</code> (required only when Google Web Risk lookup is enabled), and <code>reputationThreatTypes</code> (array, maxItems 3; supported values <code>MALWARE</code>, <code>SOCIAL_ENGINEERING</code>, <code>UNWANTED_SOFTWARE</code>). <code>additionalProperties</code> is false. The README Input table omits <code>emitUnchanged</code> and the three reputation fields; those names are live schema fields.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>domains</code></td>
+          <td>string[]</td>
+          <td>required</td>
+          <td>Domains to check SSL certificates for (max 200). Schema prefill: <code>google.com</code>, <code>github.com</code>, <code>expired.badssl.com</code></td>
+        </tr>
+        <tr>
+          <td><code>port</code></td>
+          <td>integer</td>
+          <td>443</td>
+          <td>TLS port (minimum 1, maximum 65535)</td>
+        </tr>
+        <tr>
+          <td><code>expiryWarningDays</code></td>
+          <td>integer</td>
+          <td>30</td>
+          <td>Alert when the certificate expires within this many days (minimum 1, maximum 365)</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string</td>
+          <td><code>dataset</code></td>
+          <td><code>dataset</code> or <code>webhook</code></td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td>—</td>
+          <td>Required when <code>delivery</code> is <code>webhook</code></td>
+        </tr>
+        <tr>
+          <td><code>snapshotKey</code></td>
+          <td>string</td>
+          <td><code>ssl-cert-snapshots</code></td>
+          <td>Key name for snapshots used for change detection between runs. The Store example run input uses <code>ssl-certificate-snapshots</code>.</td>
+        </tr>
+        <tr>
+          <td><code>concurrency</code></td>
+          <td>integer</td>
+          <td>5</td>
+          <td>Maximum parallel requests (minimum 1, maximum 10). Higher is faster and may trigger rate limits.</td>
+        </tr>
+        <tr>
+          <td><code>emitUnchanged</code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Write stable rows to the default dataset. Keep off for recurring monitoring so unchanged runs produce zero dataset rows and zero result charges.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Run without saving results or sending webhooks (for testing)</td>
+        </tr>
+        <tr>
+          <td><code>enableReputationLookup</code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Optional commercially usable Google Web Risk lookup. Disabled by default.</td>
+        </tr>
+        <tr>
+          <td><code>reputationApiKey</code></td>
+          <td>string</td>
+          <td>—</td>
+          <td>Required only when lookup is enabled. Google Cloud billing/API key, not the non-commercial Safe Browsing API.</td>
+        </tr>
+        <tr>
+          <td><code>reputationThreatTypes</code></td>
+          <td>string[]</td>
+          <td>—</td>
+          <td>Supported: <code>MALWARE</code>, <code>SOCIAL_ENGINEERING</code>, <code>UNWANTED_SOFTWARE</code> (max 3). Schema prefill <code>MALWARE</code>.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published README input example:</p>
+<pre><code>{
+  "domains": ["google.com", "github.com", "expired.badssl.com"],
+  "expiryWarningDays": 30,
+  "concurrency": 5,
+  "delivery": "dataset"
+}</code></pre>
+    <p>Published Store input-object example (includes schema defaults):</p>
+<pre><code>{
+  "domains": [
+    "google.com",
+    "github.com",
+    "expired.badssl.com"
+  ],
+  "port": 443,
+  "expiryWarningDays": 30,
+  "delivery": "dataset",
+  "snapshotKey": "ssl-cert-snapshots",
+  "concurrency": 5,
+  "emitUnchanged": false,
+  "dryRun": false,
+  "enableReputationLookup": false,
+  "reputationThreatTypes": [
+    "MALWARE"
+  ]
+}</code></pre>
+    <p>Published Store example run input:</p>
+<pre><code>{
+  "domains": ["google.com", "github.com", "cloudflare.com"],
+  "port": 443,
+  "expiryWarningDays": 90,
+  "concurrency": 3,
+  "delivery": "dataset",
+  "snapshotKey": "ssl-certificate-snapshots",
+  "dryRun": false
+}</code></pre>
+    <p>The README Single host SSL audit example is <code>domains</code> plus <code>port</code> 443. Bulk monitoring with expiry alerts sends <code>emitUnchanged: false</code>. Recurring certificate and reputation watch sets <code>snapshotKey</code> to <code>production-certificates</code> and <code>enableReputationLookup: false</code>.</p>
+    <p><a href="https://apify.com/taroyamada/ssl-certificate-monitor">Run SSL/TLS Certificate Scraper on Apify</a></p>
+
+    <h2>What does a monitoring result contain?</h2>
+    <p>The published README output table lists <code>meta</code>, <code>results</code>, <code>results[].domain</code>, <code>results[].status</code>, <code>results[].cert</code>, <code>results[].changes</code>, <code>results[].warnings</code>, <code>results[].reputation</code>, <code>results[].checkedAt</code>, and <code>results[].error</code>. The published README sample is one row with <code>domain</code>, <code>status</code> (<code>initial</code>), <code>cert</code> (<code>subject</code>, <code>issuer</code>, <code>validFrom</code>, <code>validTo</code>, <code>serialNumber</code>, <code>bits</code>, <code>altNames</code>, <code>authorized</code>, <code>protocol</code>), <code>changes</code>, <code>warnings</code> (<code>type</code> <code>expiring_soon</code>, <code>message</code>, <code>daysLeft</code>), and <code>reputation</code> (<code>provider</code> <code>google_webrisk</code>). The README body also names precise expiry timestamps, SHA-256 fingerprint hashes, and full certificate chain coverage; the sample cert object does not include a fingerprint key. There is no published output JSON schema on the Store page. The sample is a README illustration, not a live coverage guarantee.</p>
+    <p>Published README sample:</p>
+<pre><code>{
+  "domain": "google.com",
+  "status": "initial",
+  "cert": {
+    "subject": "CN=*.google.com, O=Google LLC, C=US",
+    "issuer": "CN=WR2, O=Google Trust Services, C=US",
+    "validFrom": "Jan 27 08:36:26 2026 GMT",
+    "validTo": "Apr 21 08:36:25 2026 GMT",
+    "serialNumber": "1A2B3C4D...",
+    "bits": 256,
+    "altNames": ["*.google.com", "google.com"],
+    "authorized": true,
+    "protocol": "TLSv1.3"
+  },
+  "changes": [],
+  "warnings": [
+    {
+      "type": "expiring_soon",
+      "message": "Certificate expires in 28 days",
+      "daysLeft": 28
+    }
+  ],
+  "reputation": {
+    "provider": "google_webrisk",
+    "status": "clean",
+    "uri": "https://google.com/",
+    "checkedAt": "2026-02-22T05:00:54.606Z",
+    "requestedThreatTypes": ["MALWARE", "SOCIAL_ENGINEERING"],
+    "threatTypes": [],
+    "hasThreats": false,
+    "expireTime": null
+  }
+}</code></pre>
+    <p>The published FAQ states this Actor produces evidence artifacts suitable for SOC2 CC7.1 (continuous monitoring). It is not itself a SOC2 certification. Export: use webhook delivery or Dataset API — the README states formats map well to Drata, Vanta, OneTrust import templates.</p>
+
+    <h2>Does it render a browser or fetch HTTP page HTML?</h2>
+    <p>No. The Store description says without rendering a browser. README key features: Direct TLS inspection — Connects at the protocol level, not through HTTP. README also states validating connections directly at the protocol level rather than heavy web browser rendering. Required input is <code>domains</code> (hostnames), not page URLs. Optional Google Web Risk is off by default. This is not a pentest: the published FAQ states the Actor performs passive compliance scanning only, with no exploitation, fuzzing, or auth bypass. Only scan sites you have authorization for.</p>
+    <p>HTTP status, redirect chains, and broken-URL QA on URLs you already have belong on <a href="/bulk-url-status-checker/">Bulk URL Status Checker</a>. Multi-resolver A/MX/NS lookups belong on <a href="/dns-propagation-checker/">DNS Propagation Checker</a>. Domain SPF/DMARC/MX grades belong on <a href="/dmarc-email-security-checker/">DMARC &amp; Email Security Checker</a>.</p>
+
+    <h2>How do unchanged rows, webhooks, and optional Google Web Risk work?</h2>
+    <p>Recurring runs write only initial or changed successful checks to the billable Dataset by default. Stable checks produce 0 Dataset rows and 0 result charges; certificate or reputation lookup failures remain available in the free <code>OUTPUT</code> diagnostic record and are never billed as result rows. <code>emitUnchanged</code> defaults to false; keep it off for recurring monitoring so unchanged runs produce zero dataset rows and zero result charges. Set <code>emitUnchanged</code> true only when you explicitly need stable successful rows. <code>delivery</code> defaults to <code>dataset</code>. Set <code>delivery</code> to <code>webhook</code> and provide <code>webhookUrl</code> to POST results. <code>dryRun</code> true runs without saving results or sending webhooks. <code>enableReputationLookup</code> defaults to false so SSL-only runs behave as before. When enabled, <code>reputationApiKey</code> is required and must be a Google Cloud billing/API key, not the non-commercial Safe Browsing API. Supported threat types are <code>MALWARE</code>, <code>SOCIAL_ENGINEERING</code>, and <code>UNWANTED_SOFTWARE</code> (max 3).</p>
+    <p>README tips: schedule weekly runs against production domains to catch config drift; use webhook delivery to pipe findings into a SIEM (Splunk, Datadog, Elastic); for CI, block releases on <code>critical</code> severity findings using exit codes. Those tips are README claims; <code>severity</code> is not a column in the published output table.</p>
+
+    <h2>How is SSL/TLS Certificate Scraper priced?</h2>
+    <p>Billing is pay-per-event. The live Store card is <strong>$9.00 / 1,000 delivered monitoring result rows</strong>. The billed event is Delivered monitoring result row at <strong>$0.009</strong>, charged only when a new or changed monitoring result row is delivered. Unchanged runs are free. You are not charged for Apify platform usage, only the fixed event price. Current PPE lists only that event (no actor-start). The README Cost section still quotes <code>actor-start</code> $0.01 plus <code>dataset-item</code> $0.003 ($3.01 for 1,000 items); those figures are not the live Store rates.</p>
+    <p class="price">$9.00 per 1,000 delivered monitoring result rows ($0.009 per new or changed monitoring result row)</p>
+    <p><a href="https://apify.com/taroyamada/ssl-certificate-monitor/pricing">See SSL/TLS Certificate Scraper pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Maximum 200 domains per run. Required field is <code>domains</code>.</li>
+      <li>Protocol-level TLS inspection — no browser, no page-HTML fetch, not HTTP status QA, not DNS propagation.</li>
+      <li>Concurrency maximum 10. Default TLS port 443. Expiry warning default 30 days (1–365).</li>
+      <li>Unchanged successful checks are not billed unless <code>emitUnchanged</code> is true. Failures stay in free <code>OUTPUT</code> and are never billed as result rows.</li>
+      <li>Google Web Risk is optional and off by default; it needs your Google Cloud API key, not Safe Browsing.</li>
+      <li>Passive compliance scanning only. Not a pentest and not a SOC2 certification. Only scan sites you have authorization for.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/ssl-certificate-monitor">Open SSL/TLS Certificate Scraper on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/bulk-url-status-checker/">Bulk URL Status Checker</a> — HTTP status of known URLs, not TLS cert expiry or fingerprints</li>
+      <li><a href="/dns-propagation-checker/">DNS Propagation Checker</a> — public DNS across eight resolvers, not TLS handshake inspection</li>
+      <li><a href="/dmarc-email-security-checker/">DMARC &amp; Email Security Checker</a> — SPF/DMARC/MX on domains, not certificate chains</li>
+      <li><a href="/bulk-email-syntax-mx-validator/">Bulk Email Syntax &amp; MX Validator</a> — RFC syntax, DNS MX, disposable-domain checks on email strings</li>
+      <li><a href="/structured-data-scraper-validator/">Structured Data Scraper &amp; Validator</a> — JSON-LD/Microdata on pages, not TLS certificates</li>
+      <li><a href="/sitemap-scraper-analyzer/">Sitemap Scraper &amp; Analyzer</a> — sitemap URL inventory, not certificate expiry</li>
+      <li><a href="/apify-store-ranking-scraper/">Apify Store Ranking Scraper</a> — Apify Store search rank, not TLS cert expiry or fingerprints</li>
+      <li><a href="/trade-show-exhibitor-intelligence/">Trade Show Exhibitor Intelligence</a> — exhibitor booth directories, not TLS cert expiry or fingerprints</li>
+      <li><a href="/website-content-extractor/">Website Content Extractor</a> — cleaned page HTML, not protocol-level TLS</li>
+      <li><a href="/meta-tag-opengraph-scraper/">Meta Tag &amp; OpenGraph Scraper</a> — HTML head metadata, not cert fingerprints</li>
+      <li><a href="/hhs-healthcare-data-breach-scraper/">HHS Healthcare Data Breach Change Scraper</a></li>
+      <li><a href="/bulk-phone-format-validator/">Bulk Phone Format Validator</a></li>
+      <li><a href="/contact-details-extractor/">Contact Page Audit &amp; Business Channel Extractor</a></li>
+      <li><a href="/wayback-machine-bulk-checker/">Wayback Machine Bulk Checker</a></li>
+      <li><a href="/short-url-resolver-scraper/">Short URL Resolver &amp; Scraper</a></li>
+      <li><a href="/chrome-web-store-extension-intelligence/">Chrome Web Store Extension Intelligence</a></li>
+      <li><a href="/tech-events-cfp-calendar/">Tech Events &amp; CFP Calendar Scraper</a></li>
+      <li><a href="/article-content-extractor/">Article Content Extractor</a></li>
+      <li><a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a></li>
+      <li><a href="/google-news-scraper/">Google News Scraper</a></li>
+      <li><a href="/packs/content-intelligence/">Content Intelligence pack</a></li>
+      <li><a href="/review-intelligence/">Review Intelligence pack</a></li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>
