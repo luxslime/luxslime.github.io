@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Apple Podcasts Scraper — search, charts, episodes, and watchlists</title>
-  <meta name="description" content="Search Apple Podcasts, snapshot chart rankings, list recent episodes, and refresh collection-ID watchlists via official Apple/iTunes endpoints. No proxy required. From $10 per 1,000 results.">
+  <title>Apple Podcasts Scraper — keyword search, chart snapshots, episodes, and watchlists</title>
+  <meta name="description" content="Search Apple Podcasts, snapshot chart rankings, list recent episodes, and refresh collection-ID watchlists via official Apple/iTunes endpoints. No proxy required. From $10.00 / 1,000 results.">
   <link rel="canonical" href="https://luxslime.github.io/apple-podcasts-scraper/">
   <script type="application/ld+json">
   {
@@ -24,7 +24,7 @@
         "name": "What input is required to start a run?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "At least one of searchTerm, chartRequests, or lookupIds is required. searchTerm uses the iTunes Search API. chartRequests snapshot Apple rankings (feedType podcasts or podcast-episodes). lookupIds resolve known collection IDs through the iTunes Lookup API. Keep the first run small, then raise limit after the output is useful."
+          "text": "The published input schema has no required array. Runtime and schema description still require at least one of searchTerm, chartRequests, or lookupIds. searchTerm uses the iTunes Search API. chartRequests snapshot Apple rankings (feedType podcasts or podcast-episodes). lookupIds resolve known collection IDs through the iTunes Lookup API. country defaults to us. limit is 1–200 (default 50). Keep the first run small, then raise limit after the output is useful."
         }
       },
       {
@@ -32,7 +32,7 @@
         "name": "What does a result row contain?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Output is source-linked dataset rows. The published README field list is rowType, collectionId, showName, publisher, country, rank, episodeTitle, sourceUrl, and fetchedAt. Sample search rowType is podcast_search_result. rank is null on search rows. Rows also include warnings when a source is partial, and stable IDs when the workflow supports recurring checks. This Actor does not document genre filters, review text, or pagination beyond limit."
+          "text": "Output is source-linked dataset rows. The published README field list is rowType, collectionId, showName, publisher, country, rank, episodeTitle, sourceUrl, and fetchedAt. Sample search rowType is podcast_search_result. rank is null on search rows. Rows also include warnings when a source is partial, and stable IDs when the workflow supports recurring checks. There is no separate output schema on the Store page."
         }
       },
       {
@@ -40,7 +40,7 @@
         "name": "How do I export episode metadata?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Set includeEpisodes to true to fetch recent episodes for each resolved podcast. That path is slower. For official episode rankings, use chartRequests with feedType podcast-episodes. After a dataset run, export the default dataset (JSON or CSV from the dataset view). The published input does not expose a full-catalog dump; for a known show’s complete feed, read public RSS."
+          "text": "Set includeEpisodes to true to fetch recent episodes for each resolved podcast. That path is slower. For official episode rankings, use chartRequests with feedType podcast-episodes. After a dataset run, export the default dataset (JSON or CSV from the dataset view). The published input does not expose a per-show episode count, a date window, or a full-catalog dump; for a known show’s complete feed, read public RSS."
         }
       },
       {
@@ -56,15 +56,71 @@
         "name": "How is Apple Podcasts Scraper priced?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Billing is pay-per-event: Actor start plus one result event per default-dataset item. The published Store price is $0.005 per Actor start and $10.00 per 1,000 dataset results ($0.01 per row). Empty no-change watchlist polls are described as avoiding payable default-dataset writes when nothing is saved. Dry runs do not save results or send webhooks."
+          "text": "Billing is pay-per-event. The live Store card is from $10.00 / 1,000 results. Published events are Actor Start at $0.005 (charged when the Actor starts; number of events charged depends on Actor memory, one event per GB, minimum one event) and result at $0.01 (single result in the default dataset). You are not charged for Apify platform usage, only the fixed event price. Empty no-change watchlist polls are described as avoiding payable default-dataset writes when nothing is saved. Dry runs do not save results or send webhooks. The default dataset is the billable surface."
         }
       },
       {
         "@type": "Question",
-        "name": "How do delivery, webhooks, and dry runs work?",
+        "name": "How does Apple Podcasts Scraper deliver dataset, webhook, and dry-run output?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "delivery defaults to dataset for reviewable output. Set delivery to webhook and provide webhookUrl after the payload shape is approved (Slack, Discord, Zapier, or any HTTP endpoint). dryRun true runs without saving results or sending webhooks, which is useful before a live watch or webhook."
+          "text": "delivery defaults to dataset for reviewable output. Set delivery to webhook and provide webhookUrl after the payload shape is approved (Slack, Discord, Zapier, or any HTTP endpoint). The published enum is dataset or webhook. dryRun true runs without saving results or sending webhooks, which is useful before a live watch or webhook."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need a proxy or an Apple ID to run Apple Podcasts Scraper?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. The Actor uses public Apple and RSS endpoints. It does not require account sessions, browser automation, or private podcast dashboards. No proxy is required. It is not affiliated with or endorsed by Apple."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does keyword search return chart rank or review text?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. rank is null on search rows. This Actor does not document review text on the search path. For official rankings use chartRequests on this Actor, or Apple Podcasts Chart Scraper when you need a movement report. For public ratings on IDs you already have, use Apple Podcasts Reviews Scraper."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I pass a public RSS feed URL into Apple Podcasts Scraper?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Published inputs are searchTerm, chartRequests, and lookupIds. additionalProperties is false, so an unpublished RSS URL field is not accepted. RSS is used internally when includeEpisodes is true. If you already have a public feed URL and need that show’s published catalog, read the feed directly or use RSS & Atom Feed Extractor."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does includeEpisodes dump a show's full episode catalog?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. includeEpisodes fetches recent episode context for each resolved podcast and is slower. The published input does not expose a per-show episode count, a date window, or a full-catalog dump. For official episode rankings, use chartRequests with feedType podcast-episodes. For a known show’s complete published history, read public RSS."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What happens on an empty or no-change watchlist poll?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Empty no-change watchlist polls are described as avoiding payable default-dataset writes when nothing is saved. Result events are charged per default-dataset item ($0.01 each; $10.00 per 1,000). Actor Start is a separate $0.005 event charged when the Actor starts (one event per GB, minimum one event). Dry runs do not save results or send webhooks."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I filter Apple Podcasts search results by genre?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. This Actor does not document genre filters on searchTerm. Apple Podcasts Chart Scraper accepts an optional genreId for Top Podcasts charts. This Actor’s search and lookup paths use country plus searchTerm or lookupIds only. Pagination beyond limit is not documented."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What should I do with collection IDs after a search run?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Pass collection IDs into lookupIds for a watchlist refresh through the iTunes Lookup API. You can take an ID from an Apple Podcasts URL (id290783428 → 290783428). Use those IDs as podcastIds on Apple Podcasts Reviews Scraper if you need public ratings. This Actor does not emit review rows or rank-movement reports from a search run."
         }
       }
     ]
@@ -91,9 +147,9 @@
 <body>
   <main>
     <nav><a href="/">Home</a> / Apple Podcasts Scraper</nav>
-    <h1>Apple Podcasts Scraper</h1>
-    <p>Search Apple Podcasts, snapshot chart rankings, attach recent episode titles, and refresh show watchlists. This Actor uses official Apple/iTunes endpoints. No proxy is required. It is not a storefront movement monitor or a review collector — those jobs belong on <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> and <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a>.</p>
-    <p class="price">From $10 per 1,000 results</p>
+    <h1>Search Apple Podcasts, snapshot official charts, and refresh collection-ID watchlists</h1>
+    <p>Find public Apple Podcasts shows by keyword, snapshot a <code>chartRequests</code> ranking, attach recent episode titles, and refresh known collection IDs. This Actor uses official Apple/iTunes endpoints. No proxy is required. It is not a storefront movement monitor or a review collector — those jobs belong on <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> and <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a>.</p>
+    <p class="price">From $10.00 / 1,000 results ($0.01 per result; Actor Start $0.005)</p>
     <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Open Apple Podcasts Scraper on Apify</a></p>
 
     <h2>Search versus charts and reviews</h2>
@@ -207,14 +263,81 @@
     <p>Apple Podcasts Scraper is the search, episode, and watchlist actor. It finds public shows through official Apple/iTunes endpoints: <code>searchTerm</code>, <code>chartRequests</code> snapshots, <code>lookupIds</code>, and optional recent episodes. It does not emit rank movement reports or review rows. <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> is storefront Top Podcasts ranks and optional movement reports. <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> reads public Customer Reviews RSS for collection IDs you already have.</p>
 
     <h2>What input is required to start a run?</h2>
-    <p>At least one of <code>searchTerm</code>, <code>chartRequests</code>, or <code>lookupIds</code> is required. <code>searchTerm</code> uses the iTunes Search API. <code>chartRequests</code> snapshot Apple rankings (<code>feedType</code> <code>podcasts</code> or <code>podcast-episodes</code>). <code>lookupIds</code> resolve known collection IDs through the iTunes Lookup API. Keep the first run small, then raise <code>limit</code> after the output is useful.</p>
+    <p>The published input schema has no required array. Runtime and schema description still require at least one of <code>searchTerm</code>, <code>chartRequests</code>, or <code>lookupIds</code>. <code>additionalProperties</code> is false. Live input schema fields:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>searchTerm</code></td>
+          <td>string</td>
+          <td>—</td>
+          <td>iTunes Search API keyword. Schema prefill is <code>technology</code>.</td>
+        </tr>
+        <tr>
+          <td><code>chartRequests</code></td>
+          <td>array</td>
+          <td><code>[]</code></td>
+          <td>Items can set <code>country</code>, <code>feedType</code> (<code>podcasts</code> or <code>podcast-episodes</code>), and <code>limit</code>.</td>
+        </tr>
+        <tr>
+          <td><code>lookupIds</code></td>
+          <td>array</td>
+          <td><code>[]</code></td>
+          <td>Numeric Apple Podcasts collection IDs for iTunes Lookup.</td>
+        </tr>
+        <tr>
+          <td><code>country</code></td>
+          <td>string</td>
+          <td><code>us</code></td>
+          <td>Default ISO storefront for search and lookup. Charts can override per item.</td>
+        </tr>
+        <tr>
+          <td><code>limit</code></td>
+          <td>integer</td>
+          <td>50</td>
+          <td>1–200. Caps search and chart items that omit their own <code>limit</code>. Schema prefill is 3.</td>
+        </tr>
+        <tr>
+          <td><code>includeEpisodes</code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Fetch recent episodes for each resolved podcast (slower).</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string</td>
+          <td><code>dataset</code></td>
+          <td>Enum: <code>dataset</code> or <code>webhook</code>.</td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td>—</td>
+          <td>Used when <code>delivery</code> is <code>webhook</code>.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Runs without saving results or sending webhooks.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Do not send unpublished aliases such as an RSS feed URL field, <code>genreId</code>, <code>maxEpisodesPerShow</code>, or <code>webhook</code> as a <code>delivery</code> value. Keep the first run small, then raise <code>limit</code> after the output is useful.</p>
     <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Start a run on Apify</a></p>
 
     <h2>What does a result row contain?</h2>
-    <p>Output is source-linked dataset rows. The published README field list is <code>rowType</code>, <code>collectionId</code>, <code>showName</code>, <code>publisher</code>, <code>country</code>, <code>rank</code>, <code>episodeTitle</code>, <code>sourceUrl</code>, and <code>fetchedAt</code>. Sample search <code>rowType</code> is <code>podcast_search_result</code>. <code>rank</code> is null on search rows. Rows also include warnings when a source is partial, and stable IDs when the workflow supports recurring checks. This Actor does not document genre filters, review text, or pagination beyond <code>limit</code>. See <a href="/guides/apple-podcasts-dataset-fields/">Apple Podcasts dataset fields</a>.</p>
+    <p>Output is source-linked dataset rows. The published README field list is <code>rowType</code>, <code>collectionId</code>, <code>showName</code>, <code>publisher</code>, <code>country</code>, <code>rank</code>, <code>episodeTitle</code>, <code>sourceUrl</code>, and <code>fetchedAt</code>. Sample search <code>rowType</code> is <code>podcast_search_result</code>. <code>rank</code> is null on search rows. Rows also include warnings when a source is partial, and stable IDs when the workflow supports recurring checks. There is no separate output schema on the Store page. See <a href="/guides/apple-podcasts-dataset-fields/">Apple Podcasts dataset fields</a>.</p>
 
     <h2>How do I export episode metadata?</h2>
-    <p>Set <code>includeEpisodes</code> to true to fetch recent episodes for each resolved podcast. That path is slower. For official episode rankings, use <code>chartRequests</code> with <code>feedType</code> <code>podcast-episodes</code>. After a dataset run, export the default dataset (JSON or CSV from the dataset view). The published input does not expose a full-catalog dump; for a known show’s complete feed, read public RSS. See the <a href="/guides/apple-podcasts-episodes/">episode metadata export workflow</a>, <a href="/notes/rss-vs-apple-podcasts-scraper/">RSS vs Apple Podcasts Scraper</a>, and <a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a> when you already have public feed URLs to parse into item lists.</p>
+    <p>Set <code>includeEpisodes</code> to true to fetch recent episodes for each resolved podcast. That path is slower. For official episode rankings, use <code>chartRequests</code> with <code>feedType</code> <code>podcast-episodes</code>. After a dataset run, export the default dataset (JSON or CSV from the dataset view). The published input does not expose a per-show episode count, a date window, or a full-catalog dump; for a known show’s complete feed, read public RSS. See the <a href="/guides/apple-podcasts-episodes/">episode metadata export workflow</a>, <a href="/notes/rss-vs-apple-podcasts-scraper/">RSS vs Apple Podcasts Scraper</a>, and <a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a> when you already have public feed URLs to parse into item lists.</p>
     <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Export episode rows on Apify</a></p>
 
     <h2>Can I pull charts or search for more than one country?</h2>
@@ -222,13 +345,44 @@
     <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Run a country-specific request on Apify</a></p>
 
     <h2>How is Apple Podcasts Scraper priced?</h2>
-    <p>Billing is pay-per-event: Actor start plus one result event per default-dataset item. The published Store price is $0.005 per Actor start and $10.00 per 1,000 dataset results ($0.01 per row). Empty no-change watchlist polls are described as avoiding payable default-dataset writes when nothing is saved. Dry runs do not save results or send webhooks. The default dataset is the billable surface.</p>
-    <p class="price">From $10 per 1,000 results</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">See Apple Podcasts Scraper pricing on Apify</a></p>
+    <p>Billing is pay-per-event. The live Store card is <strong>from $10.00 / 1,000 results</strong>. Published events are Actor Start at <strong>$0.005</strong> (charged when the Actor starts; number of events charged depends on Actor memory, one event per GB, minimum one event) and result at <strong>$0.01</strong> (single result in the default dataset). You are not charged for Apify platform usage, only the fixed event price. Empty no-change watchlist polls are described as avoiding payable default-dataset writes when nothing is saved. Dry runs do not save results or send webhooks. The default dataset is the billable surface.</p>
+    <p class="price">From $10.00 / 1,000 results ($0.01 per result; Actor Start $0.005)</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/pricing">See Apple Podcasts Scraper pricing on Apify</a></p>
 
-    <h2>How do delivery, webhooks, and dry runs work?</h2>
-    <p><code>delivery</code> defaults to <code>dataset</code> for reviewable output. Set <code>delivery</code> to <code>webhook</code> and provide <code>webhookUrl</code> after the payload shape is approved (Slack, Discord, Zapier, or any HTTP endpoint). <code>dryRun</code> true runs without saving results or sending webhooks, which is useful before a live watch or webhook. See <a href="/guides/apple-podcasts-webhooks/">Deliver Apple Podcasts results with webhooks</a>.</p>
+    <h2>How does Apple Podcasts Scraper deliver dataset, webhook, and dry-run output?</h2>
+    <p><code>delivery</code> defaults to <code>dataset</code> for reviewable output. Set <code>delivery</code> to <code>webhook</code> and provide <code>webhookUrl</code> after the payload shape is approved (Slack, Discord, Zapier, or any HTTP endpoint). The published enum is <code>dataset</code> or <code>webhook</code>. <code>dryRun</code> true runs without saving results or sending webhooks, which is useful before a live watch or webhook. See <a href="/guides/apple-podcasts-webhooks/">Deliver Apple Podcasts results with webhooks</a>.</p>
     <p>The Actor uses public Apple and RSS endpoints. It does not require account sessions, browser automation, or private podcast dashboards. No proxy is required. It is not affiliated with or endorsed by Apple.</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Open Apple Podcasts Scraper on Apify</a></p>
+
+    <h2>Do I need a proxy or an Apple ID to run Apple Podcasts Scraper?</h2>
+    <p>No. The Actor uses public Apple and RSS endpoints. It does not require account sessions, browser automation, or private podcast dashboards. No proxy is required. It is not affiliated with or endorsed by Apple.</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Run without a proxy on Apify</a></p>
+
+    <h2>Does keyword search return chart rank or review text?</h2>
+    <p>No. <code>rank</code> is null on search rows. This Actor does not document review text on the search path. For official rankings use <code>chartRequests</code> on this Actor, or <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> when you need a movement report. For public ratings on IDs you already have, use <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a>.</p>
+
+    <h2>Can I pass a public RSS feed URL into Apple Podcasts Scraper?</h2>
+    <p>No. Published inputs are <code>searchTerm</code>, <code>chartRequests</code>, and <code>lookupIds</code>. <code>additionalProperties</code> is false, so an unpublished RSS URL field is not accepted. RSS is used internally when <code>includeEpisodes</code> is true. If you already have a public feed URL and need that show’s published catalog, read the feed directly or use <a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a>. See <a href="/notes/rss-vs-apple-podcasts-scraper/">RSS vs Apple Podcasts Scraper</a> and <a href="/compare/rss-feed-vs-itunes-search/">RSS feed vs iTunes Search</a>.</p>
+
+    <h2>Does includeEpisodes dump a show's full episode catalog?</h2>
+    <p>No. <code>includeEpisodes</code> fetches recent episode context for each resolved podcast and is slower. The published input does not expose a per-show episode count, a date window, or a full-catalog dump. For official episode rankings, use <code>chartRequests</code> with <code>feedType</code> <code>podcast-episodes</code>. For a known show’s complete published history, read public RSS. See the <a href="/guides/apple-podcasts-episodes/">episode metadata export workflow</a>.</p>
+
+    <h2>What happens on an empty or no-change watchlist poll?</h2>
+    <p>Empty no-change watchlist polls are described as avoiding payable default-dataset writes when nothing is saved. Result events are charged per default-dataset item ($0.01 each; $10.00 per 1,000). Actor Start is a separate $0.005 event charged when the Actor starts (one event per GB, minimum one event). Dry runs do not save results or send webhooks. See <a href="/guides/apple-podcasts-watchlists/">watchlist refresh</a>.</p>
+
+    <h2>Can I filter Apple Podcasts search results by genre?</h2>
+    <p>No. This Actor does not document genre filters on <code>searchTerm</code>. <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> accepts an optional <code>genreId</code> for Top Podcasts charts. This Actor’s search and lookup paths use <code>country</code> plus <code>searchTerm</code> or <code>lookupIds</code> only. Pagination beyond <code>limit</code> is not documented.</p>
+
+    <h2>What should I do with collection IDs after a search run?</h2>
+    <p>Pass collection IDs into <code>lookupIds</code> for a watchlist refresh through the iTunes Lookup API. You can take an ID from an Apple Podcasts URL (<code>id290783428</code> → <code>290783428</code>). Use those IDs as <code>podcastIds</code> on <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> if you need public ratings. This Actor does not emit review rows or rank-movement reports from a search run.</p>
+
+    <h2>How to start a run</h2>
+    <ol>
+      <li>Open this page, then the Actor on the Apify Store.</li>
+      <li>Provide at least one of <code>searchTerm</code>, <code>chartRequests</code>, or <code>lookupIds</code>. Keep the first run small.</li>
+      <li>Leave <code>includeEpisodes</code> false unless recent episode titles are required.</li>
+      <li>Leave <code>delivery</code> on <code>dataset</code>. Switch to <code>webhook</code> only after the payload shape is approved. Use <code>dryRun</code> to test without saving results or sending webhooks.</li>
+    </ol>
     <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Open Apple Podcasts Scraper on Apify</a></p>
 
     <h2>Related pages</h2>
