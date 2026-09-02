@@ -6,6 +6,54 @@
   <title>Apple Podcasts charts and search by country</title>
   <meta name="description" content="Run Apple Podcasts charts for multiple storefronts and search one country at a time. ISO codes such as us, gb, jp. From $10 per 1,000 results.">
   <link rel="canonical" href="https://luxslime.github.io/guides/apple-podcasts-countries/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Can I search multiple Apple Podcasts countries in one run?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Search and lookup use a single default country per run (default us). There is no country array on search. To compare markets, run once per storefront (or schedule separate runs) and keep country on the output rows."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do chartRequests handle multiple storefronts?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Charts can request several storefronts in one run because chartRequests is an array. Add one item per storefront. Each item can set country, feedType, and limit. Per-item country overrides the default country. Compare rows by the country field; do not treat ranks from different storefronts as one list."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Should I compare ranks across countries?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. A US chart is not a GB or JP chart, and the same keyword can return a different set of shows. Rankings and search results differ by storefront. This is a snapshot: Apple Podcasts Scraper does not compute rank movement between runs. Chart Scraper also treats unsupported storefronts as warnings, never as a mass drop."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which country codes are documented?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The published input uses ISO 3166-1 alpha-2 storefront codes. Examples in the Actor input include us, gb, and jp. The iTunes Search API documents the country value as a two-letter storefront code. This page does not list every storefront Apple currently serves."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does Chart Scraper’s countries field differ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Apple Podcasts Chart Scraper accepts countries as a list of unique ISO-3166-1 alpha-2 codes (at most 20 per run; default [\"us\"]). That Actor is Top Podcasts ranks and optional movement reports, not keyword search. Apple Podcasts Scraper search/lookup still use one default country string per run."
+        }
+      }
+    ]
+  }
+  </script>
   <style>
     body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
     main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
@@ -17,6 +65,10 @@
     ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
     li { margin: 0 0 8px; }
     pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
     .price { color: #202223; }
   </style>
 </head>
@@ -24,7 +76,41 @@
   <main>
     <nav><a href="/">Home</a> / Guides / Apple Podcasts countries</nav>
     <h1>Apple Podcasts charts and search by country</h1>
-    <p>Apple Podcasts rankings and search results are storefront-specific. A US chart is not a GB or JP chart, and the same keyword can return a different set of shows. The <a href="https://apify.com/taroyamada/apple-podcast-scraper">Apple Podcasts Scraper</a> passes ISO country codes through official Apple/iTunes endpoints. No proxy is required.</p>
+    <p>Apple Podcasts rankings and search results are storefront-specific. A US chart is not a GB or JP chart, and the same keyword can return a different set of shows. <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> passes ISO country codes through official Apple/iTunes endpoints. No proxy is required. <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> also takes storefront codes, as a <code>countries</code> list for Top Podcasts ranks.</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Open Apple Podcasts Scraper on Apify</a></p>
+
+    <h2>One default country versus a chart array</h2>
+    <p>Use this guide when the job is picking storefronts on Apple Podcasts Scraper. Reviews Scraper also takes a <code>countries</code> list (at most 10) for review RSS — that is ratings, not search. Chart Scraper’s <code>countries</code> list is Top Podcasts ranks, not keyword search.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Search / lookup</th>
+          <th>Scraper <code>chartRequests</code></th>
+          <th>Chart Scraper</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Country input</td>
+          <td>One default <code>country</code> string</td>
+          <td>Per-item <code>country</code> on an array</td>
+          <td><code>countries</code> list (at most 20)</td>
+        </tr>
+        <tr>
+          <td>Default</td>
+          <td><code>us</code></td>
+          <td>Default country unless an item overrides</td>
+          <td><code>["us"]</code></td>
+        </tr>
+        <tr>
+          <td>Multi-storefront in one run</td>
+          <td>No — run once per storefront</td>
+          <td>Yes — one array item per storefront</td>
+          <td>Yes — unique codes in <code>countries</code></td>
+        </tr>
+      </tbody>
+    </table>
 
     <h2>How country is applied</h2>
     <p>The published input has one default <code>country</code> string (default <code>us</code>) plus optional per-chart overrides:</p>
@@ -44,7 +130,7 @@
   ],
   "includeEpisodes": false
 }</code></pre>
-    <p>Each chart row can include <code>rank</code>, <code>country</code>, show identifiers, and <code>sourceUrl</code>. Compare rows by <code>country</code>; do not treat ranks from different storefronts as one list. This is a snapshot: the Actor does not compute rank movement between runs.</p>
+    <p>Each chart row can include <code>rank</code>, <code>country</code>, show identifiers, and <code>sourceUrl</code>. Compare rows by <code>country</code>; do not treat ranks from different storefronts as one list. This is a snapshot: the Actor does not compute rank movement between runs. For joining snapshots over time, see <a href="/use-cases/podcast-market-tracking/">chart tracking over time</a>.</p>
     <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Run a multi-country chart request on Apify</a></p>
 
     <h2>Search one storefront at a time</h2>
@@ -57,27 +143,41 @@
 }</code></pre>
     <p>Watchlist refreshes work the same way: <code>lookupIds</code> plus one default <code>country</code>. After you have collection IDs from search or charts, pass them into a <a href="/guides/apple-podcasts-watchlists/">watchlist refresh</a>.</p>
 
+    <h2>Can I search multiple Apple Podcasts countries in one run?</h2>
+    <p>No. Search and lookup use a single default <code>country</code> per run (default <code>us</code>). There is no country array on search. To compare markets, run once per storefront (or schedule separate runs) and keep <code>country</code> on the output rows. See <a href="/guides/apple-podcasts-search/">search discovery</a>.</p>
+
+    <h2>How do chartRequests handle multiple storefronts?</h2>
+    <p>Charts can request several storefronts in one run because <code>chartRequests</code> is an array. Add one item per storefront. Each item can set <code>country</code>, <code>feedType</code>, and <code>limit</code>. Per-item <code>country</code> overrides the default country. Compare rows by the <code>country</code> field; do not treat ranks from different storefronts as one list.</p>
+
+    <h2>Should I compare ranks across countries?</h2>
+    <p>No. A US chart is not a GB or JP chart, and the same keyword can return a different set of shows. Rankings and search results differ by storefront. This is a snapshot: Apple Podcasts Scraper does not compute rank movement between runs. <a href="/apple-podcasts-chart-scraper/">Chart Scraper</a> also treats unsupported storefronts as warnings, never as a mass drop.</p>
+
+    <h2>How does Chart Scraper’s countries field differ?</h2>
+    <p><a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> accepts <code>countries</code> as a list of unique ISO-3166-1 alpha-2 codes (at most 20 per run; default <code>["us"]</code>). That Actor is Top Podcasts ranks and optional movement reports, not keyword search. Apple Podcasts Scraper search/lookup still use one default country string per run. <a href="/apple-podcasts-reviews-scraper/">Reviews Scraper</a> accepts at most 10 country codes for review RSS.</p>
+
     <h2>How to run it</h2>
     <ol>
-      <li>Open the Actor on the Apify Store.</li>
+      <li>Open <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a>, then the Actor on the Apify Store.</li>
       <li>For charts, paste a <code>chartRequests</code> array with one item per country you need. For search, set <code>searchTerm</code> and one <code>country</code>.</li>
       <li>Leave <code>includeEpisodes</code> false unless recent episode context is required. See the <a href="/guides/apple-podcasts-episodes/">episode metadata export workflow</a>.</li>
       <li>Deliver to the default dataset. Switch <code>delivery</code> to <code>webhook</code> only after the payload shape is approved. Set <code>dryRun</code> true to test without saving results or sending webhooks.</li>
     </ol>
-    <p>Billing is pay-per-event: Actor start plus one result event per default-dataset item.</p>
+    <p>Billing is pay-per-event: Actor start plus one result event per default-dataset item. The published Store price is $0.005 per Actor start and $10.00 per 1,000 dataset results ($0.01 per row).</p>
     <p class="price">From $10 per 1,000 results</p>
     <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Open Apple Podcasts Scraper on Apify</a></p>
 
     <h2>Related guides</h2>
     <ul>
+      <li><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> — search, episodes, and watchlists</li>
+      <li><a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a></li>
+      <li><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a></li>
       <li><a href="/guides/apple-podcasts-charts/">How to get Apple Podcasts chart metadata</a></li>
       <li><a href="/guides/apple-podcasts-search/">Apple Podcasts search discovery</a></li>
       <li><a href="/guides/apple-podcasts-episodes/">Export Apple Podcasts episode metadata</a></li>
       <li><a href="/guides/apple-podcasts-watchlists/">Refresh Apple Podcasts watchlists</a></li>
       <li><a href="/faq/apple-podcasts-scraper/">Apple Podcasts Scraper FAQ</a></li>
       <li><a href="/use-cases/podcast-market-tracking/">Track Apple Podcasts charts over time</a></li>
-      <li><a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a></li>
-      <li><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a></li>
+      <li><a href="/tools/">Tools</a></li>
     </ul>
   </main>
 </body>

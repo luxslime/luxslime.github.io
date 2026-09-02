@@ -21,6 +21,14 @@
       },
       {
         "@type": "Question",
+        "name": "How is Apple Podcasts Scraper different from Chart Scraper and Reviews Scraper?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Apple Podcasts Scraper is the search, episode, and watchlist actor. Its chartRequests path is a rank snapshot and does not emit movement reports. Apple Podcasts Chart Scraper is storefront Top Podcasts ranks and optional movement reports. Apple Podcasts Reviews Scraper reads public Customer Reviews RSS for collection IDs you already have."
+        }
+      },
+      {
+        "@type": "Question",
         "name": "Do I need a proxy or an Apple account?",
         "acceptedAnswer": {
           "@type": "Answer",
@@ -32,7 +40,7 @@
         "name": "How is Apple Podcasts Scraper priced?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Billing is pay-per-event: Actor start plus one result event per default-dataset item. From $10 per 1,000 results. Empty no-change watchlist polls are described as avoiding payable default-dataset writes when nothing is saved. Dry runs do not save results or send webhooks."
+          "text": "Billing is pay-per-event: Actor start plus one result event per default-dataset item. The published Store price is $0.005 per Actor start and $10.00 per 1,000 dataset results ($0.01 per row). From $10 per 1,000 results. Empty no-change watchlist polls are described as avoiding payable default-dataset writes when nothing is saved. Dry runs do not save results or send webhooks."
         }
       },
       {
@@ -72,7 +80,7 @@
         "name": "When should I use RSS instead of this Actor?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "If you already have a public feed URL and need that show’s published catalog (titles, descriptions, dates, enclosures), RSS is the direct source. RSS does not search Apple’s directory and does not include chart rank. Use this Actor for keyword search, country charts, and collection-ID watchlists."
+          "text": "If you already have a public feed URL and need that show’s published catalog (titles, descriptions, dates, enclosures), RSS is the direct source. RSS does not search Apple’s directory and does not include chart rank. Use this Actor for keyword search, country charts, and collection-ID watchlists. RSS & Atom Feed Extractor parses known publisher feeds into URL lists; Google News Scraper is query-based news discovery, not a podcast catalog."
         }
       }
     ]
@@ -86,8 +94,13 @@
     h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
     p, li { font-size: 16px; line-height: 1.5; color: #444; }
     p { margin: 0 0 16px; }
-    ul { margin: 0 0 16px; padding-left: 1.2em; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
     li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
     .price { color: #202223; }
   </style>
 </head>
@@ -95,23 +108,69 @@
   <main>
     <nav><a href="/">Home</a> / FAQ / Apple Podcasts Scraper</nav>
     <h1>Apple Podcasts Scraper FAQ</h1>
-    <p>Factual answers from the published <a href="https://apify.com/taroyamada/apple-podcast-scraper">Apple Podcasts Scraper</a> input schema and README. Public Apple and RSS endpoints only. Not affiliated with or endorsed by Apple.</p>
+    <p>Factual answers from the published <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> input schema and README. Public Apple and RSS endpoints only. Not affiliated with or endorsed by Apple. For storefront rank movement, see <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a>. For public ratings on IDs you already have, see <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a>.</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Open Apple Podcasts Scraper on Apify</a></p>
+
+    <h2>Search versus charts and reviews</h2>
+    <p>Use this FAQ when the job is Apple Podcasts Scraper: keyword search, <code>chartRequests</code> snapshots, watchlists, and optional recent episodes. It does not emit rank movement reports or review rows.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Apple Podcasts Scraper</th>
+          <th>Chart Scraper</th>
+          <th>Reviews Scraper</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>Search, chart snapshot, watchlist lookup, optional episodes</td>
+          <td>Top Podcasts chart rows and optional rank movement</td>
+          <td>Public review rows, optional rating report, delta monitor</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td><code>searchTerm</code>, <code>lookupIds</code>, <code>chartRequests</code></td>
+          <td><code>countries</code>, optional <code>genreId</code>, <code>limit</code></td>
+          <td><code>podcastIds</code>, <code>countries</code>, <code>maxPagesPerPair</code></td>
+        </tr>
+        <tr>
+          <td>Optional report</td>
+          <td>None; chart path is a snapshot only</td>
+          <td>One movement report when a <code>monitorKey</code> sees new, changed, or dropped ranks</td>
+          <td>One <code>podcast_review_report</code> when <code>generateReport</code> is true</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>None of these Actors is affiliated with or endorsed by Apple. Rank and search results are public catalog metadata, not download counts, audience estimates, or advertising guarantees.</p>
 
     <h2>What does Apple Podcasts Scraper do?</h2>
     <p>It finds public Apple Podcasts shows and metadata through official Apple/iTunes endpoints. You can search by keyword, snapshot chart rankings, look up known collection IDs, and optionally include recent episode context. Output is source-linked dataset rows with fields such as <code>collectionId</code>, <code>showName</code>, <code>publisher</code>, <code>country</code>, <code>rank</code>, <code>episodeTitle</code>, <code>sourceUrl</code>, and <code>fetchedAt</code>.</p>
+    <p>Published first-run path: start with a small <code>searchTerm</code>, leave <code>includeEpisodes</code> false, review the default dataset, then raise <code>limit</code> or switch to <code>lookupIds</code> / <code>chartRequests</code> after the payload is useful.</p>
     <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Open Apple Podcasts Scraper on Apify</a></p>
+
+    <h2>How is Apple Podcasts Scraper different from Chart Scraper and Reviews Scraper?</h2>
+    <p>Apple Podcasts Scraper is the search, episode, and watchlist actor. Its <code>chartRequests</code> path is a rank snapshot and does not emit movement reports. <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> is storefront Top Podcasts ranks and optional movement reports. <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> reads public Customer Reviews RSS for collection IDs you already have.</p>
 
     <h2>Do I need a proxy or an Apple account?</h2>
     <p>No. The Actor uses public Apple and RSS endpoints. It does not require account sessions, browser automation, or private podcast dashboards. No proxy is required. It is not affiliated with or endorsed by Apple.</p>
     <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Run without a proxy on Apify</a></p>
 
     <h2>How is Apple Podcasts Scraper priced?</h2>
-    <p>Billing is pay-per-event: Actor start plus one result event per default-dataset item. Empty no-change watchlist polls are described as avoiding payable default-dataset writes when nothing is saved. Dry runs do not save results or send webhooks.</p>
+    <p>Billing is pay-per-event: Actor start plus one result event per default-dataset item. The published Store price is $0.005 per Actor start and $10.00 per 1,000 dataset results ($0.01 per row). Empty no-change watchlist polls are described as avoiding payable default-dataset writes when nothing is saved. Dry runs do not save results or send webhooks.</p>
     <p class="price">From $10 per 1,000 results</p>
     <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">See Apple Podcasts Scraper on Apify</a></p>
 
     <h2>What input is required to start a run?</h2>
     <p>At least one of <code>searchTerm</code>, <code>chartRequests</code>, or <code>lookupIds</code> is required. <code>searchTerm</code> uses the iTunes Search API. <code>chartRequests</code> snapshot Apple rankings (<code>feedType</code> <code>podcasts</code> or <code>podcast-episodes</code>). <code>lookupIds</code> resolve known collection IDs through the iTunes Lookup API. Keep the first run small, then raise <code>limit</code> after the output is useful.</p>
+<pre><code>{
+  "searchTerm": "founder podcast",
+  "country": "us",
+  "limit": 10,
+  "includeEpisodes": false
+}</code></pre>
+    <p>See <a href="/guides/apple-podcasts-search/">search discovery</a>, <a href="/guides/apple-podcasts-charts/">chart snapshots</a>, and <a href="/guides/apple-podcasts-watchlists/">watchlist refresh</a>.</p>
     <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Start a run on Apify</a></p>
 
     <h2>How do I export episode metadata?</h2>
@@ -123,27 +182,39 @@
     <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Run a country-specific request on Apify</a></p>
 
     <h2>How do dataset delivery, webhooks, and dry runs work?</h2>
-    <p><code>delivery</code> defaults to <code>dataset</code> for reviewable output. Set <code>delivery</code> to <code>webhook</code> and provide <code>webhookUrl</code> after the payload shape is approved (Slack, Discord, Zapier, or any HTTP endpoint). <code>dryRun</code> true runs without saving results or sending webhooks, which is useful before a live watch or webhook.</p>
+    <p><code>delivery</code> defaults to <code>dataset</code> for reviewable output. Set <code>delivery</code> to <code>webhook</code> and provide <code>webhookUrl</code> after the payload shape is approved (Slack, Discord, Zapier, or any HTTP endpoint). <code>dryRun</code> true runs without saving results or sending webhooks, which is useful before a live watch or webhook. See <a href="/guides/apple-podcasts-webhooks/">webhooks</a> and <a href="/guides/apple-podcasts-dataset-fields/">dataset fields</a>.</p>
     <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Configure delivery on Apify</a></p>
 
     <h2>When should I use RSS instead of this Actor?</h2>
-    <p>If you already have a public feed URL and need that show’s published catalog (titles, descriptions, dates, enclosures), RSS is the direct source. RSS does not search Apple’s directory and does not include chart rank. Use this Actor for keyword search, country charts, and collection-ID watchlists. See <a href="/notes/rss-vs-apple-podcasts-scraper/">RSS vs Apple Podcasts Scraper</a>.</p>
+    <p>If you already have a public feed URL and need that show’s published catalog (titles, descriptions, dates, enclosures), RSS is the direct source. RSS does not search Apple’s directory and does not include chart rank. Use this Actor for keyword search, country charts, and collection-ID watchlists. See <a href="/notes/rss-vs-apple-podcasts-scraper/">RSS vs Apple Podcasts Scraper</a> and <a href="/compare/rss-feed-vs-itunes-search/">RSS feed vs iTunes Search</a>.</p>
+    <p><a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a> parses known publisher feeds into URL lists. <a href="/google-news-scraper/">Google News Scraper</a> is query-based news discovery, not a podcast catalog.</p>
     <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Open Apple Podcasts Scraper on Apify</a></p>
+
+    <h2>How to start a run</h2>
+    <ol>
+      <li>Open <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a>, then the Actor on the Apify Store.</li>
+      <li>Provide at least one of <code>searchTerm</code>, <code>chartRequests</code>, or <code>lookupIds</code>. Keep the first run small.</li>
+      <li>Leave <code>includeEpisodes</code> false unless recent episode titles are required.</li>
+      <li>Leave <code>delivery</code> on <code>dataset</code>. Switch to <code>webhook</code> only after the payload shape is approved. Use <code>dryRun</code> to test without saving results or sending webhooks.</li>
+    </ol>
 
     <p class="price">From $10 per 1,000 results</p>
 
     <h2>Related pages</h2>
     <ul>
+      <li><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper landing</a></li>
+      <li><a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a></li>
+      <li><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a></li>
       <li><a href="/guides/apple-podcasts-charts/">How to get Apple Podcasts chart metadata</a></li>
       <li><a href="/guides/apple-podcasts-search/">Apple Podcasts search discovery</a></li>
       <li><a href="/guides/apple-podcasts-watchlists/">Refresh Apple Podcasts watchlists</a></li>
       <li><a href="/guides/apple-podcasts-episodes/">Export Apple Podcasts episode metadata</a></li>
       <li><a href="/guides/apple-podcasts-countries/">Apple Podcasts charts and search by country</a></li>
-      <li><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper landing</a></li>
-      <li><a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a></li>
-      <li><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a></li>
       <li><a href="/use-cases/podcast-outreach/">Shortlist podcasts for outreach</a></li>
       <li><a href="/use-cases/podcast-market-tracking/">Track Apple Podcasts charts over time</a></li>
+      <li><a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a></li>
+      <li><a href="/google-news-scraper/">Google News Scraper</a></li>
+      <li><a href="/tools/">Tools</a></li>
     </ul>
   </main>
 </body>

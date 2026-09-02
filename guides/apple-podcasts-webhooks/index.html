@@ -6,6 +6,54 @@
   <title>Deliver Apple Podcasts results with webhooks</title>
   <meta name="description" content="Send Apple Podcasts Scraper output to a webhook after you approve the dataset payload. dryRun tests without saving or sending. From $10 per 1,000 results.">
   <link rel="canonical" href="https://luxslime.github.io/guides/apple-podcasts-webhooks/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Does webhook delivery replace the Apple Podcasts Scraper dataset?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The published input describes delivery as dataset (default, reviewable output) or webhook (send results to webhookUrl after you approve the payload shape). Start with dataset delivery so you can review the payload, then switch to webhook after that shape is approved. The schema does not document HTTP method, headers, retries, or the exact JSON body beyond the Actor’s output rows."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does dryRun do?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "dryRun defaults to false. If true, the run does not save results and does not send webhooks. The published description is that this is useful for testing a new watch setup or validating a webhook endpoint before going live. Dry runs, validation-only runs, missing-key warnings, and unchanged recurring polls should not write payable default-dataset rows."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What endpoints work with webhookUrl?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The published input describes webhookUrl as working with Slack, Discord, Zapier, or any HTTP endpoint. You still need at least one of searchTerm, chartRequests, or lookupIds. Webhook delivery is not a substitute for a source lane."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do Chart Scraper and Reviews Scraper webhooks differ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "On Apple Podcasts Chart Scraper, webhook sends the same payload to webhookUrl first, then writes those billable rows to the default dataset; a non-2xx webhook response fails the run before dataset delivery. On Reviews Scraper, webhook sends the complete runtime envelope to webhookUrl and still sends only the canonical rows to the default dataset. This guide documents Apple Podcasts Scraper delivery only; see those landings for their contracts."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What fields will a webhook payload contain?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Documented dataset fields include showName, collectionId, rank, sourceUrl, and fetchedAt, plus rowType, publisher, country, and episodeTitle when recent episodes are included. Review the default dataset before switching delivery to webhook."
+        }
+      }
+    ]
+  }
+  </script>
   <style>
     body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
     main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
@@ -17,6 +65,10 @@
     ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
     li { margin: 0 0 8px; }
     pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
     .price { color: #202223; }
   </style>
 </head>
@@ -24,7 +76,42 @@
   <main>
     <nav><a href="/">Home</a> / Guides / Apple Podcasts webhooks</nav>
     <h1>Deliver Apple Podcasts results with webhooks</h1>
-    <p>The <a href="https://apify.com/taroyamada/apple-podcast-scraper">Apple Podcasts Scraper</a> can write rows to the default dataset or send them to an HTTP webhook. Official Apple/iTunes endpoints. No proxy is required. Start with dataset delivery so you can review the payload, then switch to webhook after that shape is approved.</p>
+    <p><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> can write rows to the default dataset or send them to an HTTP webhook. Official Apple/iTunes endpoints. No proxy is required. Start with dataset delivery so you can review the payload, then switch to webhook after that shape is approved.</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Open Apple Podcasts Scraper on Apify</a></p>
+
+    <h2>Dataset first, then webhook</h2>
+    <p>Use this guide for Apple Podcasts Scraper <code>delivery</code>. Sibling actors also expose webhook delivery; their contracts differ. See <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> and <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> for those landings’ FAQ answers. Do not copy one Actor’s webhook rules onto another.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Apple Podcasts Scraper</th>
+          <th>Chart Scraper (landing)</th>
+          <th>Reviews Scraper (landing)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Default</td>
+          <td><code>dataset</code></td>
+          <td><code>dataset</code></td>
+          <td><code>dataset</code></td>
+        </tr>
+        <tr>
+          <td>Webhook</td>
+          <td>Send to <code>webhookUrl</code> after you approve the payload</td>
+          <td>Webhook first, then dataset; non-2xx fails before dataset write</td>
+          <td>Runtime envelope to webhook; canonical rows still go to the dataset</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>No save, no webhook</td>
+          <td>No dataset, webhook, charge, or state delivery</td>
+          <td>No external write</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Facts in the Chart and Reviews columns come from those landings. This page does not invent additional webhook headers or retry behavior.</p>
 
     <h2>Delivery modes</h2>
     <p><code>delivery</code> is how results are delivered. Published values:</p>
@@ -53,26 +140,38 @@
     <p>After a dry run succeeds, set <code>dryRun</code> to false to send. Leave <code>includeEpisodes</code> false unless episode context is required; that path is slower.</p>
     <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Configure webhook delivery on Apify</a></p>
 
+    <h2>Does webhook delivery replace the Apple Podcasts Scraper dataset?</h2>
+    <p>The published input describes <code>delivery</code> as <code>dataset</code> (default, reviewable output) or <code>webhook</code> (send results to <code>webhookUrl</code> after you approve the payload shape). Start with dataset delivery so you can review the payload, then switch to webhook after that shape is approved. The schema does not document HTTP method, headers, retries, or the exact JSON body beyond the Actor’s output rows.</p>
+
+    <h2>What does dryRun do?</h2>
+    <p><code>dryRun</code> defaults to false. If true, the run does not save results and does not send webhooks. Dry runs, validation-only runs, missing-key warnings, and unchanged recurring polls should not write payable default-dataset rows.</p>
+
+    <h2>How do Chart Scraper and Reviews Scraper webhooks differ?</h2>
+    <p>On <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a>, webhook sends the same payload to <code>webhookUrl</code> first, then writes those billable rows to the default dataset; a non-2xx webhook response fails the run before dataset delivery. On <a href="/apple-podcasts-reviews-scraper/">Reviews Scraper</a>, webhook sends the complete runtime envelope to <code>webhookUrl</code> and still sends only the canonical rows to the default dataset. This guide documents Apple Podcasts Scraper delivery only; see those landings for their contracts.</p>
+
     <h2>How to run it</h2>
     <ol>
-      <li>Open the Actor on the Apify Store.</li>
+      <li>Open <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a>, then the Actor on the Apify Store.</li>
       <li>Run once with <code>delivery</code> left on <code>dataset</code> and a small source input (search, charts, or lookup IDs). Review the payload.</li>
       <li>Set <code>delivery</code> to <code>webhook</code> and fill <code>webhookUrl</code> (Slack, Discord, Zapier, or any HTTP endpoint).</li>
       <li>Set <code>dryRun</code> true to test without saving results or sending webhooks. When the setup is ready, set <code>dryRun</code> false.</li>
     </ol>
-    <p>Billing is pay-per-event: Actor start plus one result event per default-dataset item.</p>
+    <p>Billing is pay-per-event: Actor start plus one result event per default-dataset item. The published Store price is $0.005 per Actor start and $10.00 per 1,000 dataset results ($0.01 per row).</p>
     <p class="price">From $10 per 1,000 results</p>
     <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Open Apple Podcasts Scraper on Apify</a></p>
 
     <h2>Related guides</h2>
     <ul>
+      <li><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> — search, episodes, and watchlists</li>
+      <li><a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a></li>
+      <li><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a></li>
       <li><a href="/guides/apple-podcasts-dataset-fields/">Apple Podcasts dataset fields</a></li>
       <li><a href="/guides/apple-podcasts-search/">Apple Podcasts search discovery</a></li>
       <li><a href="/guides/apple-podcasts-watchlists/">Refresh Apple Podcasts watchlists</a></li>
       <li><a href="/guides/apple-podcasts-charts/">How to get Apple Podcasts chart metadata</a></li>
       <li><a href="/faq/apple-podcasts-scraper/">Apple Podcasts Scraper FAQ</a></li>
       <li><a href="/use-cases/podcast-market-tracking/">Track Apple Podcasts charts over time</a></li>
-      <li><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a></li>
+      <li><a href="/tools/">Tools</a></li>
     </ul>
   </main>
 </body>

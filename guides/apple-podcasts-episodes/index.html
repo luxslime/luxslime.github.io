@@ -6,6 +6,54 @@
   <title>Export Apple Podcasts episode metadata</title>
   <meta name="description" content="Export recent Apple Podcasts episode metadata with includeEpisodes, or snapshot episode charts. From $10 per 1,000 results.">
   <link rel="canonical" href="https://luxslime.github.io/guides/apple-podcasts-episodes/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Does includeEpisodes dump a show’s full catalog?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. The published input does not expose a per-show episode count, a date window, or a full-catalog dump. includeEpisodes fetches recent episodes for each resolved podcast and is slower. For the complete published history of a show you already know, read that show’s public RSS feed."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I snapshot episode charts versus recent episodes?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "To snapshot Apple’s episode rankings, use chartRequests with feedType podcast-episodes. That chart request is a ranking snapshot, not a per-show episode list. To attach recent episode titles to resolved shows, set includeEpisodes true on search, charts, or lookupIds."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "When should I read public RSS instead?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "When you already have a feed URL and need that show’s published catalog (titles, descriptions, dates, enclosures). RSS does not search Apple’s directory and does not include chart rank. RSS & Atom Feed Extractor parses known publisher feeds into URL lists; it is not Apple episode-chart search."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What episode-related fields are documented?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Documented output fields include episodeTitle (when recent episodes are included), collectionId, showName, publisher, country, sourceUrl, fetchedAt, rowType, and rank on chart rows. This Actor’s published input controls episode inclusion with the includeEpisodes boolean only."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I export the dataset after a run?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Leave delivery on dataset. After the run finishes, open the default dataset and export it (JSON or CSV from the dataset view). Switch delivery to webhook only after the payload shape is approved. Set dryRun true to test without saving results or sending webhooks."
+        }
+      }
+    ]
+  }
+  </script>
   <style>
     body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
     main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
@@ -17,6 +65,10 @@
     ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
     li { margin: 0 0 8px; }
     pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
     .price { color: #202223; }
   </style>
 </head>
@@ -24,7 +76,41 @@
   <main>
     <nav><a href="/">Home</a> / Guides / Apple Podcasts episodes</nav>
     <h1>Export Apple Podcasts episode metadata</h1>
-    <p>The <a href="https://apify.com/taroyamada/apple-podcast-scraper">Apple Podcasts Scraper</a> can attach recent episode context to resolved shows, or snapshot official episode charts. It uses official Apple/iTunes endpoints. No proxy is required. Episode inclusion is a published boolean: <code>includeEpisodes</code>. Leave it off unless episode-level context is required; that path is slower.</p>
+    <p><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> can attach recent episode context to resolved shows, or snapshot official episode charts. It uses official Apple/iTunes endpoints. No proxy is required. Episode inclusion is a published boolean: <code>includeEpisodes</code>. Leave it off unless episode-level context is required; that path is slower.</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Open Apple Podcasts Scraper on Apify</a></p>
+
+    <h2>Recent episodes versus episode charts versus RSS</h2>
+    <p>Use this guide when the job is recent episode titles on resolved shows, or an episode-rank snapshot. Use a public RSS feed (or <a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a> for many feeds) when you need a known show’s published catalog. Chart Scraper does not attach episode catalogs — that work stays on Apple Podcasts Scraper. Reviews Scraper does not return episode titles.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th><code>includeEpisodes</code></th>
+          <th><code>feedType: "podcast-episodes"</code></th>
+          <th>Public RSS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>Recent titles on resolved shows</td>
+          <td>Official episode rankings</td>
+          <td>That show’s published catalog</td>
+        </tr>
+        <tr>
+          <td>Full history</td>
+          <td>No</td>
+          <td>No — ranking snapshot</td>
+          <td>Yes, for that feed</td>
+        </tr>
+        <tr>
+          <td>Needs a feed URL?</td>
+          <td>No</td>
+          <td>No</td>
+          <td>Yes</td>
+        </tr>
+      </tbody>
+    </table>
 
     <h2>What you get</h2>
     <p>Episode-related rows are source-linked dataset items. Documented output fields include:</p>
@@ -57,28 +143,42 @@
   ],
   "includeEpisodes": false
 }</code></pre>
-    <p>That chart request is a ranking snapshot, not a per-show episode list. Rankings differ by storefront. For several countries in one run, see <a href="/guides/apple-podcasts-countries/">multi-country chart and search notes</a>.</p>
+    <p>That chart request is a ranking snapshot, not a per-show episode list. Rankings differ by storefront. For several countries in one run, see <a href="/guides/apple-podcasts-countries/">multi-country chart and search notes</a>. For Top Podcasts show-rank movement, use <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> instead of this episode-chart path.</p>
+
+    <h2>Does includeEpisodes dump a show’s full catalog?</h2>
+    <p>No. The published input does not expose a per-show episode count, a date window, or a full-catalog dump. <code>includeEpisodes</code> fetches recent episodes for each resolved podcast and is slower. For the complete published history of a show you already know, read that show’s public RSS feed.</p>
+
+    <h2>How do I snapshot episode charts versus recent episodes?</h2>
+    <p>To snapshot Apple’s episode rankings, use <code>chartRequests</code> with <code>feedType</code> <code>podcast-episodes</code>. That chart request is a ranking snapshot, not a per-show episode list. To attach recent episode titles to resolved shows, set <code>includeEpisodes</code> true on search, charts, or <code>lookupIds</code>.</p>
+
+    <h2>When should I read public RSS instead?</h2>
+    <p>When you already have a feed URL and need that show’s published catalog (titles, descriptions, dates, enclosures). RSS does not search Apple’s directory and does not include chart rank. <a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a> parses known publisher feeds into URL lists; it is not Apple episode-chart search. See <a href="/compare/rss-feed-vs-itunes-search/">RSS feed vs iTunes Search</a>.</p>
 
     <h2>Export workflow</h2>
     <ol>
-      <li>Open the Actor on the Apify Store.</li>
+      <li>Open <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a>, then the Actor on the Apify Store.</li>
       <li>Choose a source lane: <code>lookupIds</code> (known shows), <code>searchTerm</code> (discovery), or <code>chartRequests</code> with <code>feedType: "podcast-episodes"</code> (episode ranks).</li>
       <li>Set <code>includeEpisodes</code> true only when you need recent episode titles on resolved shows. Keep the first run small.</li>
       <li>Leave <code>delivery</code> on <code>dataset</code>. After the run finishes, open the default dataset and export it (JSON or CSV from the dataset view).</li>
       <li>Switch <code>delivery</code> to <code>webhook</code> only after the payload shape is approved. Set <code>dryRun</code> true to test without saving results or sending webhooks.</li>
     </ol>
-    <p>Billing is pay-per-event: Actor start plus one result event per default-dataset item.</p>
+    <p>Billing is pay-per-event: Actor start plus one result event per default-dataset item. The published Store price is $0.005 per Actor start and $10.00 per 1,000 dataset results ($0.01 per row).</p>
     <p class="price">From $10 per 1,000 results</p>
     <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Open Apple Podcasts Scraper on Apify</a></p>
 
     <h2>Related guides</h2>
     <ul>
+      <li><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> — search, episodes, and watchlists</li>
+      <li><a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a></li>
+      <li><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a></li>
+      <li><a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a></li>
       <li><a href="/guides/apple-podcasts-charts/">How to get Apple Podcasts chart metadata</a></li>
       <li><a href="/guides/apple-podcasts-search/">Apple Podcasts search discovery</a></li>
       <li><a href="/guides/apple-podcasts-watchlists/">Refresh Apple Podcasts watchlists</a></li>
       <li><a href="/guides/apple-podcasts-countries/">Apple Podcasts charts and search by country</a></li>
       <li><a href="/faq/apple-podcasts-scraper/">Apple Podcasts Scraper FAQ</a></li>
       <li><a href="/use-cases/podcast-outreach/">Shortlist podcasts for outreach</a></li>
+      <li><a href="/tools/">Tools</a></li>
     </ul>
   </main>
 </body>
