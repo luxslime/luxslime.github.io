@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>G2 &amp; Capterra Review Scraper — B2B software ratings, pros, and cons</title>
+  <meta name="description" content="Normalize public G2 and Capterra review pages into product ratings, rating breakdowns, and review rows with pros and cons. Not Shopify App Store listings. Not Apple Podcasts RSS.">
+  <link rel="canonical" href="https://luxslime.github.io/g2-capterra-review-scraper/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is G2 & Capterra Review Scraper different from Shopify App Store Review Scraper and Apple Podcasts Reviews Scraper?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "This Actor reads public G2 and Capterra product review pages. Required input is reviewPageUrls in the published formats g2.com/products/{slug}/reviews and capterra.com/p/{id}/{slug}/reviews/. It auto-detects source and normalizes product metadata, ratings, and review rows with pros and cons. Shopify App Store Review Scraper reads apps.shopify.com/{slug} merchant listings (appUrls) and delivers app-level rating, pricing-hint, AI-summary, and theme-rollup reports. Apple Podcasts Reviews Scraper reads Apple/iTunes Customer Reviews RSS for podcast collection IDs and storefronts. This Actor does not accept Shopify slugs, podcast IDs, Apple show URLs, or episode feeds."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What input is required?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "reviewPageUrls is required: one or more G2 or Capterra review page URLs. Optional fields in the published schema are reviewLimit (integer, default 200; README documents 1–5000 reviews per product), delivery (dataset or webhook, default dataset), webhookUrl (when delivery is webhook), and dryRun (boolean, default false). additionalProperties is false. The published input schema does not include products, source, slug, maxReviewsPerProduct, or emitDeltas."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does a product result contain?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The published README lists each product in a products array with source (g2 or capterra), productName, overallRating, totalReviewCount, ratingBreakdown, vendorName and categoryName when available, reviews[] (title, rating, date, author, body, pros, cons, verified), status (ok, partial, blocked, or error), and fetchError. meta.implementationStatus is live, partial, degraded, or no_valid_sources. The README output example also shows sourceUrl and warnings. README intro prose also mentions reviewer backgrounds such as industry, role, and company size; those names are not in the published reviews[] field list. There is no separate published dataset/output JSON schema on the Store page."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What happens if a G2 or Capterra page is blocked or the HTML changes?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Actor emits explicit warnings when page shapes change or access is blocked, rather than silently returning bad data. It degrades gracefully and can return partial results (metadata without reviews) with status ok, partial, blocked, or error. Reviews are extracted from server-rendered HTML; pages that render reviews only via client-side JavaScript may return partial results. Blocked requests are reported honestly."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is G2 & Capterra Review Scraper priced?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Billing is pay-per-event. The published Store card is from $10.00 per 1,000 results. Published events are Actor Start at $0.001 (charged when the Actor starts; number of events depends on Actor memory, one event per GB, minimum one event) and result at $0.01 (single result in the default dataset). You are not charged for Apify platform usage, only the fixed event price. Total cost mainly follows how many reviewPageUrls you process and how deep you sample reviews."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do dataset, webhook, and dry-run delivery work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "delivery defaults to dataset. Set delivery to webhook and provide webhookUrl to POST results. dryRun true validates input and returns scaffold output without fetching live data. The Store quickstart starts with a small reviewPageUrls sample in dataset mode, mixes G2 and Capterra only after a small-sample schema check, then uses dryRun before larger monitoring runs."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / G2 &amp; Capterra Review Scraper</nav>
+    <h1>Normalize G2 and Capterra B2B review pages into one ratings dataset</h1>
+    <p>Collect public G2 and Capterra software-review pages into a normalized product row: overall rating, rating breakdown, and individual reviews with title, body, pros, cons, and verified flags. This Actor accepts review-page URLs, auto-detects G2 versus Capterra, and routes each URL to the matching parser. It is not a Shopify App Store listing tool and not an Apple Podcasts review RSS tool — those jobs belong on <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a> and <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a>.</p>
+    <p><a href="https://apify.com/taroyamada/g2-capterra-review-intelligence">Open G2 &amp; Capterra Review Scraper on Apify</a></p>
+
+    <h2>G2 and Capterra software reviews, not Shopify apps or podcasts</h2>
+    <p>Use this page when the job is B2B software reputation on G2 or Capterra: category benchmarks, competitor proof points, and a single schema across both sites. Use <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a> when the source is a merchant listing at <code>apps.shopify.com/{slug}</code>. Use <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> when the source is Apple/iTunes Customer Reviews RSS for podcast collection IDs.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>This Actor</th>
+          <th>Shopify App Store Review Scraper</th>
+          <th>Apple Podcasts Reviews Scraper</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Source</td>
+          <td>Public G2 and Capterra review-page HTML</td>
+          <td>Public <code>apps.shopify.com/{slug}</code> listing and review pages</td>
+          <td>Official iTunes Customer Reviews RSS JSON</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td><code>reviewPageUrls</code> (G2 or Capterra review URLs)</td>
+          <td><code>appUrls</code> (listing URLs or slugs)</td>
+          <td><code>podcastIds</code>, <code>countries</code>, <code>maxPagesPerPair</code></td>
+        </tr>
+        <tr>
+          <td>Reviewer fields</td>
+          <td>Normalized <code>author</code>, <code>pros</code>, <code>cons</code>, <code>verified</code></td>
+          <td>Merchant <code>storeName</code>, location, usage duration, developer replies</td>
+          <td>Podcast <code>reviewerName</code>, rating, title, content, storefront</td>
+        </tr>
+        <tr>
+          <td>Deliverable</td>
+          <td>Per-product row: ratings, breakdown, review samples, status</td>
+          <td>One app-level report: rating, pricing hints, AI summary, samples, theme rollups</td>
+          <td>Raw <code>podcast_review</code> rows or one <code>podcast_review_report</code></td>
+        </tr>
+      </tbody>
+    </table>
+    <p>This Actor does not accept Shopify slugs, podcast IDs, Apple show URLs, or episode feeds.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>B2B product marketers: benchmark category leaders and review themes across G2 and Capterra.</li>
+      <li>RevOps / sales enablement: track competitor proof points, objections, and complaint patterns.</li>
+      <li>Analysts: consolidate G2 and Capterra into one normalized review dataset.</li>
+      <li>Agencies: monitor multiple software products with a reusable schema.</li>
+      <li>Data / ML teams: extract normalized user feedback for sentiment analysis, review-theme extraction, or training datasets.</li>
+    </ul>
+
+    <h2>What it does</h2>
+    <p>For each review-page URL you provide, the Actor:</p>
+    <ol>
+      <li>Classifies the URL as G2 (<code>g2.com/products/*/reviews</code>) or Capterra (<code>capterra.com/p/*/reviews/</code>) and routes it to the matching parser.</li>
+      <li>Tries JSON-LD structured data first, then embedded app data (for example <code>__NEXT_DATA__</code> on Capterra), then <code>og:title</code> meta for product-name fallback, then HTML pattern matching for reviews.</li>
+      <li>Extracts product metadata — <code>productName</code>, <code>vendorName</code>, <code>categoryName</code> when available.</li>
+      <li>Parses overall rating, total review count, and rating breakdown.</li>
+      <li>Collects normalized review rows — <code>title</code>, <code>rating</code>, <code>date</code>, <code>author</code>, <code>body</code>, <code>pros</code>, <code>cons</code>, <code>verified</code>.</li>
+      <li>Returns <code>status</code> and explicit <code>warnings</code> when a page is partial, blocked, or structurally changed, instead of failing silently.</li>
+    </ol>
+
+    <h2>How is G2 &amp; Capterra Review Scraper different from Shopify App Store Review Scraper and Apple Podcasts Reviews Scraper?</h2>
+    <p>This Actor reads public G2 and Capterra product review pages. Required input is <code>reviewPageUrls</code> in the published formats <code>g2.com/products/{slug}/reviews</code> and <code>capterra.com/p/{id}/{slug}/reviews/</code>. It auto-detects source and normalizes product metadata, ratings, and review rows with pros and cons. <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a> reads <code>apps.shopify.com/{slug}</code> merchant listings (<code>appUrls</code>) and delivers app-level rating, pricing-hint, AI-summary, and theme-rollup reports. <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> reads Apple/iTunes Customer Reviews RSS for podcast collection IDs and storefronts. This Actor does not accept Shopify slugs, podcast IDs, Apple show URLs, or episode feeds.</p>
+
+    <h2>What input is required?</h2>
+    <p><code>reviewPageUrls</code> is required. The published schema accepts G2 or Capterra review page URLs. Other published fields:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>reviewPageUrls</code></td>
+          <td>string[]</td>
+          <td>required</td>
+          <td>G2 or Capterra review URLs (for example <code>https://www.g2.com/products/notion/reviews</code> or <code>https://www.capterra.com/p/147384/Notion/reviews/</code>)</td>
+        </tr>
+        <tr>
+          <td><code>reviewLimit</code></td>
+          <td>integer</td>
+          <td>200</td>
+          <td>Max reviews per product page. README documents 1–5000; the published schema does not publish a min/max constraint</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string</td>
+          <td><code>dataset</code></td>
+          <td><code>dataset</code> or <code>webhook</code></td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td>—</td>
+          <td>POST target when <code>delivery</code> is <code>webhook</code></td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Validate input and return scaffold output without fetching live data</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>The schema sets <code>additionalProperties</code> to false. Use <code>reviewPageUrls</code>, not unpublished aliases. The published input schema does not include <code>products</code>, <code>source</code>, <code>slug</code>, <code>maxReviewsPerProduct</code>, or <code>emitDeltas</code>.</p>
+    <p>Published Store quickstart (matches the schema):</p>
+<pre><code>{
+  "reviewPageUrls": [
+    "https://www.g2.com/products/notion/reviews",
+    "https://www.capterra.com/p/147384/Notion/reviews/"
+  ],
+  "dryRun": false
+}</code></pre>
+    <p>Published input-object example:</p>
+<pre><code>{
+  "reviewPageUrls": [
+    "https://www.g2.com/products/notion/reviews",
+    "https://www.capterra.com/p/147384/Notion/reviews/"
+  ],
+  "reviewLimit": 200,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p>Start with 1–5 review URLs and a modest <code>reviewLimit</code> (25–50). Mix G2 and Capterra in one run only after you validate the schema on a small sample. Use <code>dryRun: true</code> for validation-only checks before larger monitoring runs.</p>
+    <p><a href="https://apify.com/taroyamada/g2-capterra-review-intelligence">Run a G2 or Capterra review-page sample on Apify</a></p>
+
+    <h2>What does a product result contain?</h2>
+    <p>A good first run gives you a per-product row with ratings and review samples, plus <code>status</code> / <code>warnings</code> when a page is thin, blocked, or structurally changed. The published README lists each product in a <code>products</code> array. <code>meta.implementationStatus</code> is <code>live</code>, <code>partial</code>, <code>degraded</code>, or <code>no_valid_sources</code>.</p>
+    <p>Published README sample shape:</p>
+<pre><code>{
+  "source": "g2",
+  "status": "ok",
+  "sourceUrl": "https://www.g2.com/products/notion/reviews",
+  "productName": "Notion",
+  "vendorName": "Notion Labs",
+  "overallRating": 4.5,
+  "totalReviewCount": 4321,
+  "ratingBreakdown": { "5": 1200, "4": 800, "3": 300, "2": 50, "1": 10 },
+  "reviews": [
+    {
+      "title": "Great tool",
+      "rating": 5,
+      "author": "Alice",
+      "pros": "Fast setup",
+      "cons": "Needs offline mode",
+      "verified": true
+    }
+  ],
+  "warnings": []
+}</code></pre>
+    <p>That sample is the published README illustration, not a live coverage guarantee. README field lists also include <code>categoryName</code> (when available), <code>date</code> and <code>body</code> on <code>reviews[]</code>, <code>fetchError</code>, and <code>status</code> values <code>ok</code>, <code>partial</code>, <code>blocked</code>, or <code>error</code>. README intro prose also mentions reviewer backgrounds such as industry, role, and company size; those names are not in the published <code>reviews[]</code> field list. There is no separate published dataset/output JSON schema on the Store page.</p>
+
+    <h2>What happens if a G2 or Capterra page is blocked or the HTML changes?</h2>
+    <p>The Actor emits explicit warnings when page shapes change or access is blocked, rather than silently returning bad data. It degrades gracefully and can return partial results (metadata without reviews) with <code>status</code> <code>ok</code>, <code>partial</code>, <code>blocked</code>, or <code>error</code>. Reviews are extracted from server-rendered HTML; pages that render reviews only via client-side JavaScript may return partial results. G2 and Capterra protect against automated access — blocked requests are reported honestly. HTML parsing is fragile; the Actor emits warnings when expected patterns are missing.</p>
+
+    <h2>How is G2 &amp; Capterra Review Scraper priced?</h2>
+    <p>Billing is pay-per-event. The published Store card is <strong>from $10.00 / 1,000 results</strong>. Published events are Actor Start at <strong>$0.001</strong> (charged when the Actor starts; number of events depends on Actor memory, one event per GB, minimum one event) and result at <strong>$0.01</strong> (single result in the default dataset). You are not charged for Apify platform usage, only the fixed event price.</p>
+    <p>Total cost mainly follows how many <code>reviewPageUrls</code> you process and how deep you sample reviews. Keep batches small while validating source mix. Lower <code>reviewLimit</code> for faster exploratory runs. Use dataset delivery first to inspect <code>blocked</code> or <code>partial</code> results. Check the Store pricing card for the current per-event rates.</p>
+    <p class="price">From $10.00 per 1,000 results ($0.01 per default-dataset result; Actor Start $0.001)</p>
+    <p><a href="https://apify.com/taroyamada/g2-capterra-review-intelligence/pricing">See G2 &amp; Capterra Review Scraper pricing on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p><code>delivery</code> defaults to <code>dataset</code>. Set <code>delivery</code> to <code>webhook</code> and provide <code>webhookUrl</code> to POST results. <code>dryRun</code> true validates input and returns scaffold output without fetching live data. The Store quickstart starts with a small <code>reviewPageUrls</code> sample in dataset mode, mixes G2 and Capterra only after a small-sample schema check, then uses <code>dryRun</code> before larger monitoring runs.</p>
+    <p><a href="https://apify.com/taroyamada/g2-capterra-review-intelligence">Open G2 &amp; Capterra Review Scraper on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/tools/">Tools</a></li>
+      <li><a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a> — Shopify merchant listings, not G2 or Capterra</li>
+      <li><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> — public podcast review RSS, not B2B software review sites</li>
+      <li><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> — show search, episodes, and watchlists</li>
+      <li><a href="/google-news-scraper/">Google News Scraper</a></li>
+      <li><a href="/website-content-extractor/">Website Content Extractor</a></li>
+      <li><a href="/article-content-extractor/">Article Content Extractor</a></li>
+      <li><a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a></li>
+    </ul>
+  </main>
+</body>
+</html>
