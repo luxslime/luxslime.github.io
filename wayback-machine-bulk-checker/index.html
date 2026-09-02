@@ -93,6 +93,38 @@
       },
       {
         "@type": "Question",
+        "name": "Does Wayback Machine Bulk Checker check live HTTP status or parse sitemap.xml?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Pass known URLs in urls (maximum 500). This Actor does not crawl pages to discover links, does not check live HTTP status or redirect chains, and does not parse sitemap.xml or sitemap index files. Live HTTP status, redirect chains, timing, and broken-URL findings on a known list belong on Bulk URL Status Checker (urls, maximum 1000). Nested XML sitemap URL inventories belong on Sitemap Scraper & Analyzer (sitemapUrls). This Actor only queries the Wayback Machine available endpoint."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is a Wayback bulk lookup the same as curling archive.org?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The published README FAQ states: yes, but with bulk processing, error handling, and structured output for datasets. A single lookup can be compared to curl against archive.org. This Actor still only reads the available endpoint; it does not add CDX full history, live-page diffs, or Save Page Now."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How should I use Quickstart, Portfolio Archive Check, and 404 Recovery?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Start with the Store Quickstart to verify a few archived URLs (README: verify 3 archived URLs). Use Portfolio Archive Check for bulk verification (up to 500 URLs). Keep concurrency low. Use dryRun true before larger runs. 404 Recovery is the README content-recovery template after a broken-link crawl; it names Broken Link Checker as a Store path, not an extra landing on this site. Live HTTP status QA on a known URL list is Bulk URL Status Checker, not this Actor."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Are unsuccessful Wayback lookups billed as Wayback archive results?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The live Store event Wayback archive result (apify-default-dataset-item) is charged only for one successfully delivered Wayback Machine lookup row at $0.008. dryRun runs without saving results. Results beyond maxChargeUsd stay in output as no-charge limit_reached rows. There is no Actor Start event on the current pricing tab. Platform usage is listed as Included."
+        }
+      },
+      {
+        "@type": "Question",
         "name": "How is Wayback Machine Bulk Checker priced?",
         "acceptedAnswer": {
           "@type": "Answer",
@@ -298,8 +330,36 @@
     <h2>Is an Internet Archive API key required?</h2>
     <p>No. The published README positions the Actor as using the official Internet Archive <code>available</code> endpoint (<code>archive.org/wayback/available</code>) with no API key needed. The README compares a single lookup to <code>curl</code> against archive.org, with bulk processing, error handling, and structured dataset output as the difference.</p>
 
+    <h2>Does Wayback Machine Bulk Checker check live HTTP status or parse sitemap.xml?</h2>
+    <p>No. Pass known URLs in <code>urls</code> (maximum 500). This Actor does not crawl pages to discover links, does not check live HTTP status or redirect chains, and does not parse <code>sitemap.xml</code> or sitemap index files. Live HTTP status, redirect chains, timing, and broken-URL findings on a known list belong on <a href="/bulk-url-status-checker/">Bulk URL Status Checker</a> (<code>urls</code>, maximum 1000). Nested XML sitemap URL inventories belong on <a href="/sitemap-scraper-analyzer/">Sitemap Scraper &amp; Analyzer</a> (<code>sitemapUrls</code>). This Actor only queries the Wayback Machine <code>available</code> endpoint.</p>
+
+    <h2>Is a Wayback bulk lookup the same as curling archive.org?</h2>
+    <p>The published README FAQ states: yes, but with bulk processing, error handling, and structured output for datasets. A single lookup can be compared to <code>curl</code> against archive.org. This Actor still only reads the <code>available</code> endpoint; it does not add CDX full history, live-page diffs, or Save Page Now.</p>
+
+    <h2>How should I use Quickstart, Portfolio Archive Check, and 404 Recovery?</h2>
+    <p>Start with the Store Quickstart to verify a few archived URLs (README: verify 3 archived URLs). Use Portfolio Archive Check for bulk verification (up to 500 URLs). Keep <code>concurrency</code> low. Use <code>dryRun</code> true before larger runs. 404 Recovery is the README content-recovery template after a broken-link crawl; it names Broken Link Checker as a Store path, not an extra landing on this site. Live HTTP status QA on a known URL list is <a href="/bulk-url-status-checker/">Bulk URL Status Checker</a>, not this Actor.</p>
+
+    <h2>Are unsuccessful Wayback lookups billed as Wayback archive results?</h2>
+    <p>The live Store event Wayback archive result (<code>apify-default-dataset-item</code>) is charged only for one successfully delivered Wayback Machine lookup row at $0.008. <code>dryRun</code> runs without saving results. Results beyond <code>maxChargeUsd</code> stay in output as no-charge <code>limit_reached</code> rows. There is no Actor Start event on the current pricing tab. Platform usage is listed as Included.</p>
+
     <h2>How is Wayback Machine Bulk Checker priced?</h2>
     <p>Billing is pay per event. The published Store card is <strong>$8.00 / 1,000 wayback archive results</strong>. Live Store events list only <strong>Wayback archive result</strong> at <strong>$0.008</strong> (charged only for one successfully delivered Wayback Machine lookup row; event key <code>apify-default-dataset-item</code>). Current PPE lists only that event (no Actor Start). Platform usage is listed as Included on the pricing page. The README Cost section still quotes <code>actor-start</code> $0.01 plus <code>dataset-item</code> $0.003 ($3.01 for 1,000 items); those figures are not the live Store rates. <code>maxChargeUsd</code> is a safety cap; results beyond the cap are kept as no-charge <code>limit_reached</code> rows. No subscription is required.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Live PPE</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>apify-default-dataset-item</code> (Wayback archive result)</td>
+          <td>$0.008</td>
+          <td>Charged only for one successfully delivered Wayback Machine lookup row</td>
+        </tr>
+      </tbody>
+    </table>
     <p class="price">$8.00 per 1,000 wayback archive results ($0.008 per successfully delivered lookup row)</p>
     <p><a href="https://apify.com/taroyamada/wayback-machine-checker/pricing">See Wayback Machine Bulk Checker pricing on Apify</a></p>
 
