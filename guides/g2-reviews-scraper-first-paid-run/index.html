@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>G2 reviews scraper: cheapest first paid run</title>
+  <meta name="description" content="Cheapest useful first paid run for a G2 reviews scraper: one public G2 review-page URL, reviewLimit 25, dataset delivery. Cost math from live PPE only — Actor Start $0.001 plus $0.01 per default-dataset result.">
+  <link rel="canonical" href="https://luxslime.github.io/guides/g2-reviews-scraper-first-paid-run/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "HowTo",
+        "name": "Cheapest first paid run for a G2 reviews scraper",
+        "description": "Run taroyamada/g2-capterra-review-intelligence on one public G2 review-page URL with a modest reviewLimit, then add the documented PPE events.",
+        "url": "https://luxslime.github.io/guides/g2-reviews-scraper-first-paid-run/",
+        "step": [
+          {
+            "@type": "HowToStep",
+            "name": "Open the Store listing",
+            "text": "Open G2 Reviews Scraper & Capterra Reviews at apify.com/taroyamada/g2-capterra-review-intelligence."
+          },
+          {
+            "@type": "HowToStep",
+            "name": "Paste the smallest useful input",
+            "text": "Send one public G2 review-page URL in the published g2.com/products/{slug}/reviews format. Set reviewLimit 25, delivery dataset, and dryRun false. Do not add a Capterra URL yet."
+          },
+          {
+            "@type": "HowToStep",
+            "name": "Add the documented PPE events",
+            "text": "If the run starts and one default-dataset result row is written, documented live events are Actor Start $0.001 plus result $0.01."
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is the cheapest useful first paid run for this G2 reviews scraper?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Use one reviewPageUrls item in the published G2 format g2.com/products/{slug}/reviews, reviewLimit 25, delivery dataset, and dryRun false. reviewPageUrls is required. That is a paid run only when dryRun is false and a default-dataset result row is written. Mix a Capterra URL only after this one-URL schema check."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How much does that G2 reviews scraper first run cost?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Billing is pay-per-event. Live events already quoted on this site’s G2 pages: Actor Start $0.001 (charged when the Actor starts; number of events depends on Actor memory, one event per GB, minimum one event) and result $0.01 for a single result in the default dataset ($10.00 per 1,000 results). If the run writes 1 result row and charges one Actor Start event, the estimate is $0.001 + (1 × $0.01) = $0.011. There is no separate published per-review billing event."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why is the Store Quickstart sample more expensive?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The published Store Quickstart still shows two reviewPageUrls (one G2 Notion page and one Capterra Notion page) with dryRun false. If that run writes 2 result rows and charges one Actor Start event, the estimate is $0.001 + (2 × $0.01) = $0.021. Same PPE rates; more result events. This page does not suggest a price change."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does a dryRun count as a first paid G2 reviews scraper run?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. dryRun true validates input and returns scaffold output without fetching live data, so it does not write payable result rows. A first paid run needs dryRun false so a default-dataset result can be billed at $0.01."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why start with one G2 URL instead of mixing Capterra?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The published path is: start with 1–5 review URLs and a modest reviewLimit (25–50); mix G2 and Capterra in one run only after you validate the schema on a small sample. One G2 URL is the smallest useful paid check for a G2 reviews scraper query. Do not send unpublished fields such as products, source, slug, maxReviewsPerProduct, or emitDeltas."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+    .note { font-size: 13px; color: #666; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Guides / G2 reviews scraper first paid run</nav>
+    <h1>G2 reviews scraper: cheapest first paid run</h1>
+    <p>This page is the smallest useful paid run for a G2 reviews scraper on Apify: one public G2 product review page, a modest <code>reviewLimit</code>, then the documented pay-per-event (PPE) add. It is not a full product FAQ. For field lists and routing, use the <a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a> landing.</p>
+    <p>Live Store listing: <strong>G2 Reviews Scraper &amp; Capterra Reviews</strong> (<code>taroyamada/g2-capterra-review-intelligence</code>). This site’s landing name is G2 &amp; Capterra Review Scraper. Open the Actor: <a href="https://apify.com/taroyamada/g2-capterra-review-intelligence">https://apify.com/taroyamada/g2-capterra-review-intelligence</a>.</p>
+    <p class="price">Documented first-paid PPE if one Actor Start event and one default-dataset result charge: $0.001 + $0.01 = $0.011. The live Store card is from $10.00 / 1,000 results. This page does not suggest a price change.</p>
+
+    <h2>Smallest useful input JSON</h2>
+    <p>Required input is <code>reviewPageUrls</code>. The published G2 format is <code>g2.com/products/{slug}/reviews</code>. Schema prefill includes <code>https://www.g2.com/products/notion/reviews</code>. Use that one URL for the first paid G2 check. Set <code>reviewLimit</code> to 25 (the documented modest first-run floor; schema default is 200). Leave <code>delivery</code> on <code>dataset</code>. Set <code>dryRun</code> false.</p>
+<pre><code>{
+  "reviewPageUrls": [
+    "https://www.g2.com/products/notion/reviews"
+  ],
+  "reviewLimit": 25,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p>Do not add a Capterra URL on this first paid run. Mix G2 and Capterra only after this one-URL schema check. Do not send unpublished fields such as <code>products</code>, <code>source</code>, <code>slug</code>, <code>maxReviewsPerProduct</code>, or <code>emitDeltas</code>. There is no login, cookie, or private-review API field.</p>
+    <p><a href="https://apify.com/taroyamada/g2-capterra-review-intelligence">Run this G2 reviews scraper input on Apify</a></p>
+
+    <h2>Documented PPE cost math</h2>
+    <p>Prices below are the live events already shown on this site’s G2 pages. They are not invented rates. Published events are Actor Start at <strong>$0.001</strong> and result at <strong>$0.01</strong> per default-dataset item. The live Store card is <strong>from $10.00 / 1,000 results</strong>. Platform usage is free. You are not charged for Apify platform usage, only the fixed event price.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>This first-run input</th>
+          <th>Store Quickstart sample</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>reviewPageUrls</code></td>
+          <td>one G2 URL (<code>g2.com/products/notion/reviews</code>)</td>
+          <td>two URLs (G2 Notion + Capterra Notion)</td>
+        </tr>
+        <tr>
+          <td><code>reviewLimit</code></td>
+          <td>25</td>
+          <td>omitted; schema default 200</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td><code>dataset</code></td>
+          <td>omitted; schema default <code>dataset</code></td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>false</td>
+          <td>false</td>
+        </tr>
+        <tr>
+          <td>If one Start event and one result row per URL</td>
+          <td>$0.001 + (1 × $0.01) = <strong>$0.011</strong></td>
+          <td>$0.001 + (2 × $0.01) = <strong>$0.021</strong></td>
+        </tr>
+      </tbody>
+    </table>
+    <p>That math uses only the published PPE numbers. The live billed event title is <code>result</code> at $0.01 for a single result in the default dataset (<code>apify-default-dataset-item</code>). The published README output is a per-product object with nested <code>reviews[]</code>. There is no separate published per-review billing event. Extra Actor Start events apply if memory is above 1 GB (one event per GB). <code>dryRun</code> true is not a paid run.</p>
+    <p>Total cost mainly follows how many <code>reviewPageUrls</code> you process. Lower <code>reviewLimit</code> is documented for faster exploratory runs; it is not a different billed event. This page does not suggest a price change.</p>
+    <p class="price">From $10.00 / 1,000 results ($0.01 per result; Actor Start $0.001)</p>
+    <p><a href="https://apify.com/taroyamada/g2-capterra-review-intelligence/pricing">See G2 Reviews Scraper &amp; Capterra Reviews pricing on Apify</a></p>
+
+    <h2>What this first run returns</h2>
+    <p>A good first run gives you a per-product row with ratings and review samples, plus <code>status</code> / <code>warnings</code> when a page is thin, blocked, or structurally changed. Documented product fields include <code>source</code> (<code>g2</code>), <code>productName</code>, <code>overallRating</code>, <code>totalReviewCount</code>, <code>ratingBreakdown</code>, and nested <code>reviews[]</code> (<code>title</code>, <code>rating</code>, <code>date</code>, <code>author</code>, <code>body</code>, <code>pros</code>, <code>cons</code>, <code>verified</code>).</p>
+    <p>Reviews are extracted from server-rendered HTML on public G2 review pages. Blocked requests are reported honestly. This independent Actor is not affiliated with or endorsed by G2 or Capterra. Do not use the output to target individual reviewers.</p>
+
+    <h2>What not to add yet</h2>
+    <ul>
+      <li>Do not add a second <code>reviewPageUrls</code> item until the one-URL output is useful.</li>
+      <li>Do not mix a Capterra URL until after this G2 schema check.</li>
+      <li>Do not raise <code>reviewLimit</code> above 25 until the nested <code>reviews[]</code> shape is approved.</li>
+      <li>Do not invent <code>products</code>, <code>source</code>, <code>slug</code>, <code>maxReviewsPerProduct</code>, or <code>emitDeltas</code>. They are not in the live schema.</li>
+      <li>Do not set <code>delivery</code> to <code>webhook</code> until the payload shape is approved.</li>
+    </ul>
+
+    <h2>What is the cheapest useful first paid run for this G2 reviews scraper?</h2>
+    <p>Use one <code>reviewPageUrls</code> item in the published G2 format <code>g2.com/products/{slug}/reviews</code>, <code>reviewLimit</code> 25, <code>delivery</code> <code>dataset</code>, and <code>dryRun</code> false. <code>reviewPageUrls</code> is required. That is a paid run only when <code>dryRun</code> is false and a default-dataset result row is written. Mix a Capterra URL only after this one-URL schema check.</p>
+
+    <h2>How much does that G2 reviews scraper first run cost?</h2>
+    <p>Billing is pay-per-event. Live events already quoted on this site’s G2 pages: Actor Start at <strong>$0.001</strong> (charged when the Actor starts; number of events depends on Actor memory, one event per GB, minimum one event) and result at <strong>$0.01</strong> for a single result in the default dataset ($10.00 per 1,000 results). If the run writes 1 result row and charges one Actor Start event, the estimate is $0.001 + (1 × $0.01) = <strong>$0.011</strong>. There is no separate published per-review billing event.</p>
+
+    <h2>Why is the Store Quickstart sample more expensive?</h2>
+    <p>The published Store Quickstart still shows two <code>reviewPageUrls</code> (one G2 Notion page and one Capterra Notion page) with <code>dryRun</code> false. If that run writes 2 result rows and charges one Actor Start event, the estimate is $0.001 + (2 × $0.01) = <strong>$0.021</strong>. Same PPE rates; more result events. This page does not suggest a price change.</p>
+
+    <h2>Does a dryRun count as a first paid G2 reviews scraper run?</h2>
+    <p>No. <code>dryRun</code> true validates input and returns scaffold output without fetching live data, so it does not write payable result rows. A first paid run needs <code>dryRun</code> false so a default-dataset result can be billed at $0.01.</p>
+
+    <h2>Why start with one G2 URL instead of mixing Capterra?</h2>
+    <p>The published path is: start with 1–5 review URLs and a modest <code>reviewLimit</code> (25–50); mix G2 and Capterra in one run only after you validate the schema on a small sample. One G2 URL is the smallest useful paid check for a G2 reviews scraper query. Do not send unpublished fields such as <code>products</code>, <code>source</code>, <code>slug</code>, <code>maxReviewsPerProduct</code>, or <code>emitDeltas</code>.</p>
+
+    <h2>How to run it</h2>
+    <ol>
+      <li>Open <a href="https://apify.com/taroyamada/g2-capterra-review-intelligence">G2 Reviews Scraper &amp; Capterra Reviews</a> on the Apify Store.</li>
+      <li>Paste the JSON above: one G2 <code>reviewPageUrls</code> item, <code>reviewLimit</code> 25, <code>delivery</code> <code>dataset</code>, <code>dryRun</code> false.</li>
+      <li>Do not add fields that are not in the live schema. Do not add a Capterra URL yet.</li>
+      <li>Start the run. Review the default dataset, then raise URL count or mix Capterra only after the one-product row is useful.</li>
+    </ol>
+    <p>G2, Capterra, and the other public-review Actors on this site are grouped on the <a href="/review-intelligence/">Review Intelligence pack</a> hub.</p>
+    <p class="price">From $10.00 / 1,000 results ($0.01 per result; Actor Start $0.001)</p>
+    <p><a href="https://apify.com/taroyamada/g2-capterra-review-intelligence">Run the cheapest first paid G2 reviews scraper on Apify</a></p>
+    <p class="note">Public G2 and Capterra review pages only. No account session. Not affiliated with or endorsed by G2 or Capterra.</p>
+  </main>
+</body>
+</html>
