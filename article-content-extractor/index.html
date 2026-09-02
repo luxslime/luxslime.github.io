@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Article Content Extractor</title>
+  <meta name="description" content="Extract article bodies, bylines, publish dates, excerpts, and hero images from public news, blog, newsroom, and press URLs.">
+  <link rel="canonical" href="https://luxslime.github.io/article-content-extractor/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What pages is Article Content Extractor for?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Public news, blog, newsroom, and press URLs. Pass HTTP(S) URLs you own or are authorized to fetch. Maximum 300 URLs per run. Private, loopback, and non-HTML targets are rejected. For docs, pricing, policy, product, and help-center pages, use Website Content Extractor."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does a result row contain?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Headline, author, publish date, article body, excerpt, hero image when present, source URL, fetch timestamp, and warnings for partial or changed content. Optional inline images when includeImages is true."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I start a run?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Open the Actor on the Apify Store and supply a urls list. outputFormat defaults to markdown. includeImages defaults to true. delivery defaults to dataset; set webhook plus webhookUrl after the payload shape is useful. dryRun validates without dataset or webhook writes."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "When should I use Website Content Extractor instead?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "When the URLs are docs, pricing, policy, product, or help-center pages rather than article-shaped news, blog, or press pages. Website Content Extractor is the broader HTML cleaner; this Actor is specialized for article metadata and body text."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Article Content Extractor</nav>
+    <h1>Article Content Extractor</h1>
+    <p>Extract article bodies, bylines, publish dates, excerpts, and hero images from public news, blog, newsroom, and press URLs. Use it as a bounded source step for research, content QA, and RAG ingestion — not as a ranking tool or a full-site crawler.</p>
+    <p><a href="https://apify.com/taroyamada/article-content-extractor">Open on Apify Store</a></p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Parse news and blog URLs for headline, author, date, body, excerpt, and hero image.</li>
+      <li>Capture press-release pages as structured article rows.</li>
+      <li>Optionally request a source-linked content-audit report or batch export when at least one article is usable.</li>
+      <li>Deliver to a dataset or webhook. <code>dryRun</code> validates without dataset or webhook writes.</li>
+      <li>Route docs, pricing, policy, product, and help-center pages to <a href="/website-content-extractor/">Website Content Extractor</a>. This Actor is for article-shaped pages (max 300 URLs).</li>
+    </ul>
+
+    <h2>What pages is Article Content Extractor for?</h2>
+    <p>Public news, blog, newsroom, and press URLs. Pass HTTP(S) URLs you own or are authorized to fetch. Maximum 300 URLs per run. Private, loopback, and non-HTML targets are rejected. For docs, pricing, policy, product, and help-center pages, use <a href="/website-content-extractor/">Website Content Extractor</a>.</p>
+
+    <h2>What does a result row contain?</h2>
+    <p>Headline, author, publish date, article body, excerpt, hero image when present, source URL, fetch timestamp, and warnings for partial or changed content. Sample <code>rowType</code> is <code>article</code>. Optional inline images when <code>includeImages</code> is true.</p>
+
+    <h2>How do I start a run?</h2>
+    <p>Open the Actor on the Apify Store and supply a <code>urls</code> list. <code>outputFormat</code> defaults to markdown (text is also available; this Actor does not emit HTML). <code>includeImages</code> defaults to true. <code>delivery</code> defaults to dataset; set webhook plus <code>webhookUrl</code> after the payload shape is useful. <code>dryRun</code> validates without dataset or webhook writes.</p>
+    <p><a href="https://apify.com/taroyamada/article-content-extractor">Open on Apify Store</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/website-content-extractor/">Website Content Extractor</a></li>
+      <li><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a></li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>
