@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bulk Phone Format Validator — offline libphonenumber E.164 normalization</title>
+  <meta name="description" content="Validate user-supplied phone strings offline with libphonenumber. Return E.164, country, and number type. Max 1,000 numbers. $2.00 per 1,000 phone format validation results. Does not crawl pages or discover people.">
+  <link rel="canonical" href="https://luxslime.github.io/bulk-phone-format-validator/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is Bulk Phone Format Validator different from Contact Page Audit & Business Channel Extractor?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "This Actor is offline format validation of phone strings you already have. Required input is numbers (maximum 1000). It runs Google libphonenumber locally, with no network lookup, and returns E.164 / international / national formatting, country, and number-type signals. It does not fetch pages, inventory public business channels, or discover people or numbers. Contact Page Audit & Business Channel Extractor inventories public business contact channels from contact, about, support, policy, and company pages you supply (urls, maximum 100) and emits public_contact_channel rows (support path, phone, social URLs). Use this Actor to normalize an authorized phone-string list. Use Contact Page Audit when the job is a reviewable inventory of public business channels on pages."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What input is required?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "numbers is required: phone numbers to validate (max 1000). Schema prefill is +14155552671. Optional live schema fields are defaultCountry (string, default US; ISO country code for numbers without a country prefix), delivery (dataset or webhook, default dataset), webhookUrl (when delivery is webhook), and dryRun (boolean, default false). README examples that send phones, includeCarrier, or normalizeOnly are not live schema fields."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does a result row contain?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The published README field table lists input, valid, e164, country, countryName, carrier, lineType, and error. The published README sample uses input, isValid, type (for example FIXED_LINE), formatted.e164, formatted.international, formatted.national, country (full name), and countryCode (ISO). There is no published output JSON schema on the Store page. The sample is a README illustration, not a live coverage guarantee."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does it discover people or verify that a number is in service?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. The Store description states it returns E.164 formatting, country, and number type without discovering people or numbers. The README states format validation only: it does not verify the number is in service, does not call the number, and does not perform HLR lookups. A valid number has a correct country code, valid length, and matching numbering plan, and may still be unassigned. All validation runs locally with google-libphonenumber; phone strings are not sent to an external lookup API."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Bulk Phone Format Validator priced?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Billing is pay-per-event. The live Store card is $2.00 / 1,000 phone format validation results. The billed event is Phone format validation result at $0.002, charged only for one delivered offline format-validation row. You are not charged for Apify platform usage, only the fixed event price. The README Cost section still quotes actor-start $0.01 plus dataset-item $0.002 ($2.01 for 1,000 items); live Store billing currently lists only the $0.002 Phone format validation result event."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do dataset, webhook, and dry-run delivery work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "delivery defaults to dataset. Set delivery to webhook and provide webhookUrl to POST results. dryRun true runs without saving results (for testing). The Store Quickstart starts with Quickstart (10 Sample Numbers) to verify E.164 output and type detection, then Lead Validation Before Dialing, Bulk CRM Cleanup (set defaultCountry to your primary market), or International Normalize (defaultCountry: US fallback)."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Bulk Phone Format Validator</nav>
+    <h1>Normalize user-supplied phone strings to E.164 with offline libphonenumber</h1>
+    <p>Validate and normalize phone strings you already hold with Google’s libphonenumber engine. This Actor returns E.164, international, and national formatting plus country and number-type signals. It runs offline — no API key, no per-record enrichment network call, and no people discovery. It does not crawl contact pages; that inventory belongs on <a href="/contact-details-extractor/">Contact Page Audit &amp; Business Channel Extractor</a>.</p>
+    <p class="price">$2.00 per 1,000 phone format validation results</p>
+    <p><a href="https://apify.com/taroyamada/phone-number-validator">Open Bulk Phone Format Validator on Apify</a></p>
+
+    <h2>Offline format validation of strings you supply, not page crawling</h2>
+    <p>Use this page when the job is CRM hygiene or SMS/voice formatting: you already have phone strings from a consented export and need E.164 plus line-type classification. Use <a href="/contact-details-extractor/">Contact Page Audit &amp; Business Channel Extractor</a> when the job is a reviewable inventory of public business channels (support paths, phones, social profiles) from contact, about, or support pages.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>This Actor</th>
+          <th>Contact Page Audit &amp; Business Channel Extractor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>Normalize user-supplied phone strings to E.164 with type detection</td>
+          <td>Inventory public business contact channels for site QA and account hygiene</td>
+        </tr>
+        <tr>
+          <td>Input</td>
+          <td>Phone strings in <code>numbers</code> (max 1000)</td>
+          <td>Contact, about, support, or company URLs in <code>urls</code> (max 100)</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>The strings you pass; google-libphonenumber runs locally, no network</td>
+          <td>Public contact / about / support / policy / company pages</td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td>Format-validation row: original input, validity, E.164 / international / national, country, line type</td>
+          <td><code>public_contact_channel</code> rows: support path, phone, social URLs, source context</td>
+        </tr>
+        <tr>
+          <td>People discovery</td>
+          <td>None. Does not acquire numbers or crawl profiles</td>
+          <td>None. Person-level email candidates are suppressed</td>
+        </tr>
+        <tr>
+          <td>In-service / HLR check</td>
+          <td>No. Format validation only; a valid number may still be unassigned</td>
+          <td>Not a phone-format validator</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>The Store description states the Actor returns E.164 formatting, country, and number type without discovering people or numbers. The README states it does not acquire numbers or call a per-record enrichment API. Pass an authorized CRM or customer-supplied list — not a harvest from public pages.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>CRM managers: clean phone number columns in customer databases.</li>
+      <li>Sales operations: validate lead phone numbers before outreach and dialer uploads.</li>
+      <li>SaaS onboarding: format-check strings at signup.</li>
+      <li>SMS / voice API compliance: enforce E.164 before Twilio, Vonage, or AWS Connect calls.</li>
+      <li>Data migration: normalize mixed formats and countries across systems.</li>
+    </ul>
+    <p>Published Key Features: 250+ countries’ numbering plans; type detection (mobile, landline, VoIP, toll-free, premium); E.164, international, and national outputs; country detection from number format; offline google-libphonenumber with no API key.</p>
+
+    <h2>How is Bulk Phone Format Validator different from Contact Page Audit &amp; Business Channel Extractor?</h2>
+    <p>This Actor is offline format validation of phone strings you already have. Required input is <code>numbers</code> (maximum 1000). It runs Google libphonenumber locally, with no network lookup, and returns E.164 / international / national formatting, country, and number-type signals. It does not fetch pages, inventory public business channels, or discover people or numbers. <a href="/contact-details-extractor/">Contact Page Audit &amp; Business Channel Extractor</a> inventories public business contact channels from contact, about, support, policy, and company pages you supply (<code>urls</code>, maximum 100) and emits <code>public_contact_channel</code> rows (support path, phone, social URLs). Use this Actor to normalize an authorized phone-string list. Use Contact Page Audit when the job is a reviewable inventory of public business channels on pages.</p>
+
+    <h2>What input is required?</h2>
+    <p><code>numbers</code> is required. The live schema description is “Phone numbers to validate (max 1000).” Other live schema fields:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>numbers</code></td>
+          <td>string[]</td>
+          <td>required</td>
+          <td>Phone numbers to validate (max 1000). Schema prefill is <code>+14155552671</code>.</td>
+        </tr>
+        <tr>
+          <td><code>defaultCountry</code></td>
+          <td>string</td>
+          <td><code>US</code></td>
+          <td>ISO country code for numbers without a country prefix. Set this to your primary market for local formats.</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string</td>
+          <td><code>dataset</code></td>
+          <td><code>dataset</code> or <code>webhook</code></td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td>—</td>
+          <td>POST target when <code>delivery</code> is <code>webhook</code></td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Run without saving results (for testing)</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Live schema names are <code>numbers</code>, <code>defaultCountry</code>, <code>delivery</code>, <code>webhookUrl</code>, and <code>dryRun</code>. README examples that send <code>phones</code>, <code>includeCarrier</code>, or <code>normalizeOnly</code> are not live schema fields.</p>
+    <p>Published Store example run input:</p>
+<pre><code>{
+  "numbers": [
+    "+14155552671",
+    "+442071234567",
+    "+81312345678"
+  ],
+  "defaultCountry": "US",
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p>Published README input example (schema-valid):</p>
+<pre><code>{
+  "numbers": ["+1-555-1234567", "03-1234-5678", "020 7946 0958"],
+  "defaultCountry": "JP"
+}</code></pre>
+    <p>Start with Quickstart (10 Sample Numbers) to confirm E.164 output and type detection. Set <code>defaultCountry</code> to your primary market for numbers without a country-code prefix. Use <code>dryRun: true</code> before larger batches or webhook delivery.</p>
+    <p><a href="https://apify.com/taroyamada/phone-number-validator">Run Bulk Phone Format Validator on Apify</a></p>
+
+    <h2>What does a result row contain?</h2>
+    <p>The published README field table lists <code>input</code>, <code>valid</code>, <code>e164</code>, <code>country</code>, <code>countryName</code>, <code>carrier</code>, <code>lineType</code>, and <code>error</code>. The published README sample uses <code>input</code>, <code>isValid</code>, <code>type</code> (for example <code>FIXED_LINE</code>), <code>formatted.e164</code>, <code>formatted.international</code>, <code>formatted.national</code>, <code>country</code> (full name), and <code>countryCode</code> (ISO). There is no published output JSON schema on the Store page.</p>
+    <p>Published README sample:</p>
+<pre><code>{
+  "input": "03-1234-5678",
+  "isValid": true,
+  "type": "FIXED_LINE",
+  "formatted": {
+    "e164": "+81312345678",
+    "international": "+81 3-1234-5678",
+    "national": "03-1234-5678"
+  },
+  "country": "Japan",
+  "countryCode": "JP"
+}</code></pre>
+    <p>That sample is the published README illustration, not a live coverage guarantee. README Tips say to use <code>formatted.e164</code> as the canonical CRM / SMS / voice value, and to filter by <code>type: "mobile"</code> when the next step is SMS. Type detection is described as stronger for countries with strict mobile/landline separation (US, JP, DE) and weaker for some Asia/Africa numbering plans.</p>
+
+    <h2>Does it discover people or verify that a number is in service?</h2>
+    <p>No. The Store description states it returns E.164 formatting, country, and number type without discovering people or numbers. The README states format validation only: it does not verify the number is in service, does not call the number, and does not perform HLR lookups. A valid number has a correct country code, valid length, and matching numbering plan, and may still be unassigned. All validation runs locally with google-libphonenumber; phone strings are not sent to an external lookup API.</p>
+    <p>Use an authorized export. This Actor is not a people-finder, not a contact-page crawler, and not a reachability ping.</p>
+
+    <h2>How is Bulk Phone Format Validator priced?</h2>
+    <p>Billing is pay-per-event. The live Store card is <strong>$2.00 / 1,000 phone format validation results</strong>. The billed event is Phone format validation result at <strong>$0.002</strong>, charged only for one delivered offline format-validation row. You are not charged for Apify platform usage, only the fixed event price.</p>
+    <p>The README Cost section still quotes <code>actor-start</code> $0.01 plus <code>dataset-item</code> $0.002 ($2.01 for 1,000 items); live Store billing currently lists only the $0.002 Phone format validation result event. Check the Store pricing card for the current per-event rates.</p>
+    <p class="price">$2.00 per 1,000 phone format validation results ($0.002 per delivered offline format-validation row)</p>
+    <p><a href="https://apify.com/taroyamada/phone-number-validator/pricing">See Bulk Phone Format Validator pricing on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p><code>delivery</code> defaults to <code>dataset</code>. Set <code>delivery</code> to <code>webhook</code> and provide <code>webhookUrl</code> to POST results. <code>dryRun</code> true runs without saving results (for testing). The Store Quickstart starts with Quickstart (10 Sample Numbers) to verify E.164 output and type detection, then Lead Validation Before Dialing, Bulk CRM Cleanup (set <code>defaultCountry</code> to your primary market), or International Normalize (<code>defaultCountry: US</code> fallback).</p>
+    <p><a href="https://apify.com/taroyamada/phone-number-validator">Open Bulk Phone Format Validator on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Maximum 1000 phone strings per run. Required field is <code>numbers</code>.</li>
+      <li>Offline format validation only — not in-service verification, not an HLR lookup, and not a call.</li>
+      <li>Does not crawl pages or discover people. Pass strings you already hold.</li>
+      <li>README <code>phones</code>, <code>includeCarrier</code>, and <code>normalizeOnly</code> examples are not live schema fields.</li>
+      <li>Set <code>defaultCountry</code> for numbers without a country-code prefix.</li>
+      <li>A format-valid number may still be unassigned.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/phone-number-validator">Open Bulk Phone Format Validator on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/contact-details-extractor/">Contact Page Audit &amp; Business Channel Extractor</a> — public business channels from pages, not offline phone-string formatting</li>
+      <li><a href="/dns-propagation-checker/">DNS Propagation Checker</a> — public DNS lookups, not phone-format validation</li>
+      <li><a href="/website-content-extractor/">Website Content Extractor</a> — cleaned docs, product, pricing, policy, and help-center body text</li>
+      <li><a href="/meta-tag-opengraph-scraper/">Meta Tag &amp; OpenGraph Scraper</a></li>
+      <li><a href="/article-content-extractor/">Article Content Extractor</a></li>
+      <li><a href="/short-url-resolver-scraper/">Short URL Resolver &amp; Scraper</a></li>
+      <li><a href="/wayback-machine-bulk-checker/">Wayback Machine Bulk Checker</a></li>
+      <li><a href="/youtube-transcript-scraper/">YouTube Transcript Scraper</a></li>
+      <li><a href="/youtube-channel-analytics/">YouTube Channel Analytics Scraper</a></li>
+      <li><a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a></li>
+      <li><a href="/google-news-scraper/">Google News Scraper</a></li>
+      <li><a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a></li>
+      <li><a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a></li>
+      <li><a href="/ted-sam-grants-bid-alerts/">TED, SAM.gov &amp; Grants Bid Alerts Scraper</a></li>
+      <li><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a></li>
+      <li><a href="/packs/content-intelligence/">Content Intelligence pack</a></li>
+      <li><a href="/review-intelligence/">Review Intelligence pack</a></li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>
