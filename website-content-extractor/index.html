@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Website Content Extractor</title>
-  <meta name="description" content="Extract clean text and markdown from public docs, pricing, product, policy, and help-center pages for content QA and RAG source work.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Website Content Extractor — docs, pricing, and help-center pages</title>
+  <meta name="description" content="Extract clean text and markdown from public docs, pricing, product, policy, and help-center pages for content QA and RAG source work. From $9 per 1,000 results.">
   <link rel="canonical" href="https://luxslime.github.io/website-content-extractor/">
   <script type="application/ld+json">
   {
@@ -24,7 +24,7 @@
         "name": "What does a result row contain?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Cleaned page content as markdown, plain text, or HTML, plus title, optional metadata (description, author, language, published date when present), word count, source URL, fetch timestamp, and warnings for partial fetches."
+          "text": "Cleaned page content as markdown, plain text, or HTML, plus title, optional metadata (description, author, language, published date when present), word count, source URL, fetch timestamp, and warnings for partial fetches. Sample rowType is web_content. The published README field list is rowType, url, title, markdown, text, wordCount, metadata, sourceUrl, and fetchedAt."
         }
       },
       {
@@ -32,7 +32,7 @@
         "name": "How do I start a run?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Open the Actor on the Apify Store and supply a urls list. outputFormat defaults to markdown. includeMetadata defaults to true. delivery defaults to dataset; set webhook plus webhookUrl after the payload shape is useful. dryRun validates without dataset or webhook writes."
+          "text": "Open the Actor on the Apify Store and supply a urls list. outputFormat defaults to markdown. includeMetadata defaults to true. delivery defaults to dataset; set webhook plus webhookUrl after the payload shape is useful. dryRun validates without dataset or webhook writes. maxChargeUsd defaults to 1."
         }
       },
       {
@@ -41,6 +41,22 @@
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "When the URLs are news, blog, newsroom, or press pages and you need article body, byline, publish date, excerpt, and hero image. Website Content Extractor is the broader HTML cleaner for site pages that are not article-shaped."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Website Content Extractor priced?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Billing is pay-per-event. The published Store price is $0.001 per Actor start and $0.009 per useful content row ($9.00 per 1,000 results). Failed or no-content rows should stay out of the default dataset. maxChargeUsd defaults to 1; billable rows beyond that cap are returned as no-charge limit_reached summaries. Dry runs do not write the dataset or send webhooks."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do delivery, webhooks, dry runs, and the charge cap work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "delivery defaults to dataset. A non-dry-run always writes canonical dataset rows first; webhook delivery runs only after dataset and pay-per-event output succeed. webhookUrl is used when delivery is webhook and is skipped on dryRun. dryRun validates the setup and writes only local output. maxChargeUsd is a safety cap for billable rows on the run."
         }
       }
     ]
@@ -54,35 +70,144 @@
     h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
     p, li { font-size: 16px; line-height: 1.5; color: #444; }
     p { margin: 0 0 16px; }
-    ul { margin: 0 0 16px; padding-left: 1.2em; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
     li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
   </style>
 </head>
 <body>
   <main>
     <nav><a href="/">Home</a> / Website Content Extractor</nav>
     <h1>Website Content Extractor</h1>
-    <p>Clean public docs, pricing, product, policy, and help-center pages into markdown or text. Use it as a bounded source step for content QA, indexability checks, and RAG datasets — not as a ranking tool or a full-site crawler.</p>
-    <p><a href="https://apify.com/taroyamada/website-content-extractor">Open on Apify Store</a></p>
+    <p>Clean public docs, pricing, product, policy, and help-center pages into markdown or text. Use it as a bounded source step for content QA, indexability checks, and RAG datasets — not as a ranking tool or a full-site crawler. For news, blog, newsroom, or press URLs, use <a href="/article-content-extractor/">Article Content Extractor</a>.</p>
+    <p class="price">From $9.00 per 1,000 results</p>
+    <p><a href="https://apify.com/taroyamada/website-content-extractor">Open Website Content Extractor on Apify</a></p>
+
+    <h2>Website pages versus article pages</h2>
+    <p>Use this page when the URLs are broad site pages: documentation, product, pricing, policy, or help-center. Use <a href="/article-content-extractor/">Article Content Extractor</a> when the URLs are article-shaped and you need headline, byline, publish date, excerpt, and hero image.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Website Content Extractor</th>
+          <th>Article Content Extractor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>Clean docs, product, pricing, policy, and help-center HTML</td>
+          <td>Parse news, blog, newsroom, and press article pages</td>
+        </tr>
+        <tr>
+          <td>Max URLs</td>
+          <td>200 per run</td>
+          <td>300 per run</td>
+        </tr>
+        <tr>
+          <td>Output format</td>
+          <td><code>markdown</code> (default), <code>text</code>, or <code>html</code></td>
+          <td><code>markdown</code> (default) or <code>text</code> — no HTML emit</td>
+        </tr>
+        <tr>
+          <td>Sample row</td>
+          <td><code>web_content</code></td>
+          <td><code>article</code></td>
+        </tr>
+        <tr>
+          <td>Optional extras</td>
+          <td><code>includeMetadata</code>, <code>maxChargeUsd</code></td>
+          <td><code>includeImages</code>, <code>generateReport</code>, <code>emitExport</code></td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Neither Actor is a ranking tool, a full-site crawler, or a legal-advice product. Fetch public HTTP(S) URLs you own or are authorized to audit. Respect site policies, rate limits, and robots guidance where applicable.</p>
 
     <h2>Use cases</h2>
     <ul>
       <li>Turn documentation URLs into markdown or plain text for content QA and docs audits.</li>
-      <li>Pull product and pricing pages as a source step before Site QA or RAG reporting.</li>
-      <li>Capture title and metadata (description, author, language, published date when present) plus word count.</li>
-      <li>Deliver to a dataset or webhook. <code>dryRun</code> validates without dataset or webhook writes. <code>maxChargeUsd</code> caps billable rows for the run.</li>
-      <li>Route news, blog, and article URLs to <a href="/article-content-extractor/">Article Content Extractor</a>. This Actor is for broad site pages (max 200 URLs).</li>
+      <li>Produce source content for title, metadata, thin-content, and page-quality checks.</li>
+      <li>Provide page-level source material for indexability work (robots, sitemap, canonical, noindex, schema, crawler access).</li>
+      <li>Generate bounded inputs for website RAG readiness audits.</li>
+      <li>Pull product and pricing pages as a low-cost source step before Site QA or RAG reporting.</li>
+      <li>Support recurring change detection with stable identifiers and fetch timestamps.</li>
     </ul>
+    <p>Route news, blog, and article URLs to <a href="/article-content-extractor/">Article Content Extractor</a>. This Actor is for broad site pages (max 200 URLs).</p>
+
+    <h2>Docs and pricing extraction</h2>
+    <p>The default path delivers cleaned source rows. Start with a short <code>urls</code> list. <code>outputFormat</code> defaults to markdown. <code>includeMetadata</code> defaults to true.</p>
+<pre><code>{
+  "urls": [
+    "https://example.com/docs",
+    "https://example.com/pricing"
+  ],
+  "outputFormat": "markdown",
+  "includeMetadata": true,
+  "delivery": "dataset",
+  "maxChargeUsd": 1,
+  "dryRun": false
+}</code></pre>
+    <p>Published output fields: <code>rowType</code>, <code>url</code>, <code>title</code>, <code>markdown</code>, <code>text</code>, <code>wordCount</code>, <code>metadata</code>, <code>sourceUrl</code>, and <code>fetchedAt</code>. Sample <code>rowType</code> is <code>web_content</code>. README sample (placeholder page data):</p>
+<pre><code>{
+  "meta": {
+    "actorName": "website-content-extractor",
+    "actorTitle": "Website Content Extractor",
+    "bundle": "Site QA &amp; Content Intelligence Pack",
+    "fetchedAt": "2026-05-06T00:00:00.000Z",
+    "totalRows": 1
+  },
+  "rows": [
+    {
+      "actorName": "website-content-extractor",
+      "rowType": "web_content",
+      "url": "https://example.com/docs",
+      "title": "Example Docs",
+      "markdown": "# Example Docs\nUseful content.",
+      "wordCount": 240,
+      "sourceUrl": "https://example.com/docs",
+      "fetchedAt": "2026-05-06T00:00:00.000Z"
+    }
+  ],
+  "warnings": []
+}</code></pre>
+    <p>Rows also include warnings when a source is partial, and stable IDs when the workflow supports recurring change detection. This Actor returns bounded source rows. It does not emit a Site QA or RAG report; those are separate follow-on Actors on the Store page.</p>
+    <p><a href="https://apify.com/taroyamada/website-content-extractor">Run a docs extraction on Apify</a></p>
 
     <h2>What pages is Website Content Extractor for?</h2>
     <p>Public docs, product, pricing, policy, and help-center or knowledge-base pages. Pass HTTP(S) URLs you own or are authorized to fetch. Maximum 200 URLs per run. For news, blog, or article URLs, use <a href="/article-content-extractor/">Article Content Extractor</a>.</p>
 
     <h2>What does a result row contain?</h2>
-    <p>Cleaned page content as markdown, plain text, or HTML, plus title, optional metadata, word count, source URL, fetch timestamp, and warnings for partial fetches. Sample <code>rowType</code> is <code>web_content</code>.</p>
+    <p>Cleaned page content as markdown, plain text, or HTML, plus title, optional metadata (description, author, language, published date when present), word count, source URL, fetch timestamp, and warnings for partial fetches. Sample <code>rowType</code> is <code>web_content</code>. The published README field list is <code>rowType</code>, <code>url</code>, <code>title</code>, <code>markdown</code>, <code>text</code>, <code>wordCount</code>, <code>metadata</code>, <code>sourceUrl</code>, and <code>fetchedAt</code>.</p>
 
     <h2>How do I start a run?</h2>
-    <p>Open the Actor on the Apify Store and supply a <code>urls</code> list. <code>outputFormat</code> defaults to markdown. <code>includeMetadata</code> defaults to true. <code>delivery</code> defaults to dataset; set webhook plus <code>webhookUrl</code> after the payload shape is useful. <code>dryRun</code> validates without dataset or webhook writes.</p>
-    <p><a href="https://apify.com/taroyamada/website-content-extractor">Open on Apify Store</a></p>
+    <p>Open the Actor on the Apify Store and supply a <code>urls</code> list. <code>outputFormat</code> defaults to markdown. <code>includeMetadata</code> defaults to true. <code>delivery</code> defaults to dataset; set webhook plus <code>webhookUrl</code> after the payload shape is useful. <code>dryRun</code> validates without dataset or webhook writes. <code>maxChargeUsd</code> defaults to 1. Published input also includes <code>concurrency</code> (default 5) and <code>timeoutMs</code> (default 15000).</p>
+    <p><a href="https://apify.com/taroyamada/website-content-extractor">Start a run on Apify</a></p>
+
+    <h2>When should I use Article Content Extractor instead?</h2>
+    <p>When the URLs are news, blog, newsroom, or press pages and you need article body, byline, publish date, excerpt, and hero image. Website Content Extractor is the broader HTML cleaner for site pages that are not article-shaped.</p>
+
+    <h2>How is Website Content Extractor priced?</h2>
+    <p>Billing is pay-per-event. The published Store price is $0.001 per Actor start and $0.009 per useful content row ($9.00 per 1,000 results). Failed or no-content rows should stay out of the default dataset. <code>maxChargeUsd</code> defaults to 1; billable rows beyond that cap are returned as no-charge <code>limit_reached</code> summaries. Dry runs, validation-only runs, missing-key warnings, and unchanged recurring polls should not write payable default-dataset rows. The default dataset is the billable surface.</p>
+    <p class="price">From $9.00 per 1,000 results</p>
+    <p><a href="https://apify.com/taroyamada/website-content-extractor">See Website Content Extractor pricing on Apify</a></p>
+
+    <h2>How do delivery, webhooks, dry runs, and the charge cap work?</h2>
+    <p><code>delivery</code> defaults to <code>dataset</code>. A non-dry-run always writes canonical dataset rows first; webhook delivery runs only after dataset and pay-per-event output succeed. <code>webhookUrl</code> is used when <code>delivery</code> is <code>webhook</code> and is skipped on <code>dryRun</code>. <code>dryRun</code> validates the setup and writes only local output. <code>maxChargeUsd</code> is a safety cap for billable rows on the run.</p>
+<pre><code>{
+  "urls": [
+    "https://example.com/help"
+  ],
+  "outputFormat": "markdown",
+  "delivery": "webhook",
+  "webhookUrl": "https://example.com/webhook",
+  "dryRun": false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/website-content-extractor">Open Website Content Extractor on Apify</a></p>
 
     <h2>Related pages</h2>
     <ul>
