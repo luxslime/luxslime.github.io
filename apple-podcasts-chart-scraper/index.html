@@ -380,7 +380,7 @@
     <p>No. Published inputs are <code>countries</code>, optional <code>genreId</code>, and <code>limit</code>, plus monitor fields. <code>additionalProperties</code> is false, so unpublished <code>searchTerm</code>, <code>lookupIds</code>, <code>includeEpisodes</code>, <code>chartRequests</code>, and <code>feedType</code> fields are not accepted. Use <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> for keyword search, collection-ID watchlists, recent episodes, and <code>chartRequests</code> snapshots. Use <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> for public ratings on IDs you already have.</p>
 
     <h2>Can Apple Podcasts Chart Scraper snapshot episode rankings with feedType podcast-episodes?</h2>
-    <p>No. This Actor reads public Apple Podcasts/iTunes Top Podcasts chart JSON. The published schema has no <code>feedType</code> field. For official episode rankings, use <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> <code>chartRequests</code> with <code>feedType</code> <code>podcast-episodes</code>. That path is a rank snapshot and does not emit movement reports. See <a href="/guides/apple-podcasts-charts/">How to get Apple Podcasts chart metadata</a> and the <a href="/guides/apple-podcasts-episodes/">episode metadata export workflow</a>.</p>
+    <p>No. This Actor reads public Apple Podcasts/iTunes Top Podcasts chart JSON. The published schema has no <code>feedType</code> field. For official episode rankings, use <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> <code>chartRequests</code> with <code>feedType</code> <code>podcast-episodes</code>. That path is a rank snapshot and does not emit movement reports. See <a href="/guides/apple-podcasts-charts/">How to get Apple Podcasts chart metadata from Apple/iTunes endpoints</a> and the <a href="/guides/apple-podcasts-episodes/">episode metadata export workflow</a>.</p>
 
     <h2>What is the difference between baseline_only and emit_backfill on a Chart Scraper monitor?</h2>
     <p>Both require a stable <code>monitorKey</code> with <code>generateMovementReport</code> true. <code>baseline_only</code> is the default <code>initialRunMode</code>: the first run stores state with zero dataset rows and zero charges. <code>emit_backfill</code> emits one initial <code>podcast_chart_movement_report</code> of the current positions once. Later polls emit at most one report when ranks are new, changed, or dropped. State is isolated by <code>monitorKey</code> and is saved only after webhook and dataset delivery succeed.</p>
@@ -404,18 +404,18 @@
 
     <h2>Related pages</h2>
     <ul>
-      <li><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> — search, episodes, and watchlists</li>
+      <li><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> — iTunes search, episodes, and watchlists</li>
       <li><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> — ratings and review monitoring</li>
-      <li><a href="/guides/apple-podcasts-charts/">How to get Apple Podcasts chart metadata</a> — scraper <code>chartRequests</code> snapshots</li>
+      <li><a href="/guides/apple-podcasts-charts/">How to get Apple Podcasts chart metadata from Apple/iTunes endpoints</a> — scraper <code>chartRequests</code> snapshots</li>
       <li><a href="/use-cases/podcast-market-tracking/">Track Apple Podcasts charts over time</a></li>
-      <li><a href="/guides/apple-podcasts-countries/">Apple Podcasts charts and search by country</a></li>
+      <li><a href="/guides/apple-podcasts-countries/">Apple Podcasts charts and iTunes Search by country</a></li>
       <li><a href="/guides/apple-podcasts-webhooks/">Deliver Apple Podcasts results with webhooks</a></li>
-      <li><a href="/guides/apple-podcasts-search/">Apple Podcasts search discovery</a></li>
-      <li><a href="/guides/apple-podcasts-watchlists/">Refresh Apple Podcasts watchlists</a></li>
+      <li><a href="/guides/apple-podcasts-search/">Apple Podcasts search discovery (iTunes Search API)</a></li>
+      <li><a href="/guides/apple-podcasts-watchlists/">Refresh Apple Podcasts watchlists (iTunes Lookup API)</a></li>
       <li><a href="/guides/apple-podcasts-dataset-fields/">Apple Podcasts dataset fields</a></li>
-      <li><a href="/guides/apple-podcasts-episodes/">Export Apple Podcasts episode metadata</a></li>
+      <li><a href="/guides/apple-podcasts-episodes/">Export Apple Podcasts episode metadata via Apple/iTunes endpoints</a></li>
       <li><a href="/compare/rss-feed-vs-itunes-search/">RSS feed vs iTunes Search API</a></li>
-      <li><a href="/compare/one-time-export-vs-watchlist/">One-time export vs watchlist lookup</a></li>
+      <li><a href="/compare/one-time-export-vs-watchlist/">One-time export vs iTunes watchlist lookup</a></li>
       <li><a href="/notes/rss-vs-apple-podcasts-scraper/">RSS vs Apple Podcasts Scraper</a></li>
       <li><a href="/use-cases/podcast-outreach/">Shortlist podcasts for outreach</a></li>
       <li><a href="/faq/apple-podcasts-scraper/">Apple Podcasts Scraper FAQ</a></li>

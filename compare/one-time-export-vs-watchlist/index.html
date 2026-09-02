@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>One-time export vs watchlist lookup</title>
-  <meta name="description" content="When a one-shot Apple Podcasts dataset export is enough, and when recurring lookupIds watchlist refreshes are the better lane. From $10 per 1,000 results.">
+  <title>One-time export vs iTunes watchlist lookup</title>
+  <meta name="description" content="When a one-shot Apple Podcasts dataset export is enough, and when recurring iTunes Lookup API watchlist refreshes are the better lane. From $10 per 1,000 results.">
   <link rel="canonical" href="https://luxslime.github.io/compare/one-time-export-vs-watchlist/">
   <script type="application/ld+json">
   {
@@ -174,7 +174,7 @@
   "includeEpisodes": false,
   "delivery": "dataset"
 }</code></pre>
-    <p>Documented search fields include <code>collectionId</code>, <code>showName</code>, <code>publisher</code>, <code>country</code>, <code>sourceUrl</code>, and <code>fetchedAt</code>. Sample <code>rowType</code> is <code>podcast_search_result</code>. <code>rank</code> is null on search rows; rank belongs to chart requests. See <a href="/guides/apple-podcasts-search/">search discovery</a>, <a href="/guides/apple-podcasts-charts/">chart snapshots</a>, and <a href="/guides/apple-podcasts-dataset-fields/">dataset fields</a>.</p>
+    <p>Documented search fields include <code>collectionId</code>, <code>showName</code>, <code>publisher</code>, <code>country</code>, <code>sourceUrl</code>, and <code>fetchedAt</code>. Sample <code>rowType</code> is <code>podcast_search_result</code>. <code>rank</code> is null on search rows; rank belongs to chart requests. See <a href="/guides/apple-podcasts-search/">iTunes Search discovery</a>, <a href="/guides/apple-podcasts-charts/">chart snapshots</a>, and <a href="/guides/apple-podcasts-dataset-fields/">dataset fields</a>.</p>
 
     <h2>When a watchlist of lookupIds is the better lane</h2>
     <p>A watchlist refresh re-resolves shows you already know. Pass Apple Podcasts collection IDs as <code>lookupIds</code>. Lookup uses the official iTunes Lookup API. Recurring refreshes re-check show metadata without running a new keyword search or chart request.</p>
@@ -185,7 +185,7 @@
   "includeEpisodes": false
 }</code></pre>
     <p>Documented lookup fields include <code>collectionId</code>, <code>showName</code>, <code>publisher</code>, <code>country</code>, <code>sourceUrl</code>, and <code>fetchedAt</code>. <code>episodeTitle</code> is present when recent episodes are included. Collection IDs are stable identifiers for recurring checks.</p>
-    <p>Empty or no-change watchlist polls are described as avoiding payable default-dataset writes when nothing is saved. Use <code>dryRun</code> to validate a setup without saving results or sending webhooks. After the payload is approved, you can set <code>delivery</code> to <code>webhook</code> and provide <code>webhookUrl</code> (Slack, Discord, Zapier, or any HTTP endpoint). See <a href="/guides/apple-podcasts-watchlists/">watchlist refresh</a>.</p>
+    <p>Empty or no-change watchlist polls are described as avoiding payable default-dataset writes when nothing is saved. Use <code>dryRun</code> to validate a setup without saving results or sending webhooks. After the payload is approved, you can set <code>delivery</code> to <code>webhook</code> and provide <code>webhookUrl</code> (Slack, Discord, Zapier, or any HTTP endpoint). See <a href="/guides/apple-podcasts-watchlists/">iTunes Lookup watchlist refresh</a>.</p>
 
     <h2>What does not change between the two</h2>
     <ul>
@@ -271,16 +271,16 @@
 
     <h2>Related pages</h2>
     <ul>
-      <li><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> — search, episodes, and watchlists</li>
+      <li><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> — iTunes search, episodes, and watchlists</li>
       <li><a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> — Top Podcasts ranks and movement reports</li>
       <li><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> — ratings for known collection IDs</li>
-      <li><a href="/guides/apple-podcasts-watchlists/">Refresh Apple Podcasts watchlists</a></li>
-      <li><a href="/guides/apple-podcasts-search/">Apple Podcasts search discovery</a></li>
+      <li><a href="/guides/apple-podcasts-watchlists/">Refresh Apple Podcasts watchlists (iTunes Lookup API)</a></li>
+      <li><a href="/guides/apple-podcasts-search/">Apple Podcasts search discovery (iTunes Search API)</a></li>
       <li><a href="/guides/apple-podcasts-webhooks/">Deliver Apple Podcasts results with webhooks</a></li>
-      <li><a href="/guides/apple-podcasts-charts/">How to get Apple Podcasts chart metadata</a></li>
+      <li><a href="/guides/apple-podcasts-charts/">How to get Apple Podcasts chart metadata from Apple/iTunes endpoints</a></li>
       <li><a href="/guides/apple-podcasts-dataset-fields/">Apple Podcasts dataset fields</a></li>
-      <li><a href="/guides/apple-podcasts-episodes/">Export Apple Podcasts episode metadata</a></li>
-      <li><a href="/guides/apple-podcasts-countries/">Apple Podcasts charts and search by country</a></li>
+      <li><a href="/guides/apple-podcasts-episodes/">Export Apple Podcasts episode metadata via Apple/iTunes endpoints</a></li>
+      <li><a href="/guides/apple-podcasts-countries/">Apple Podcasts charts and iTunes Search by country</a></li>
       <li><a href="/compare/rss-feed-vs-itunes-search/">RSS feed vs iTunes Search</a></li>
       <li><a href="/use-cases/podcast-outreach/">Shortlist podcasts for outreach</a></li>
       <li><a href="/use-cases/podcast-market-tracking/">Track Apple Podcasts charts over time</a></li>

@@ -201,7 +201,7 @@
       <li>High-value review summary reports for handoff to research or commercial workflows.</li>
       <li>Scheduled delta monitoring to emit only new or changed reviews after an initial baseline run.</li>
     </ul>
-    <p>Get collection IDs first with <a href="/guides/apple-podcasts-search/">search discovery</a> or a <a href="/guides/apple-podcasts-watchlists/">watchlist refresh</a>. Storefronts differ: see <a href="/guides/apple-podcasts-countries/">charts and search by country</a>.</p>
+    <p>Get collection IDs first with <a href="/guides/apple-podcasts-search/">iTunes Search discovery</a> or a <a href="/guides/apple-podcasts-watchlists/">iTunes Lookup watchlist refresh</a>. Storefronts differ: see <a href="/guides/apple-podcasts-countries/">charts and search by country</a>.</p>
 
     <h2>Low-cost raw review check</h2>
     <p>The default path keeps raw review behavior and a small page cap. <code>mode</code> defaults to <code>snapshot</code>. <code>generateReport</code> stays false so canonical <code>rows</code> are the raw review array.</p>
@@ -422,7 +422,7 @@
     <p><a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor">Open Apple Podcasts Reviews Scraper on Apify</a></p>
 
     <h2>Does Reviews Scraper accept Apple show URLs, search terms, or episode feeds?</h2>
-    <p>No. Required input is <code>podcastIds</code> (numeric iTunes collection ID strings). <code>additionalProperties</code> is false, so unpublished fields such as <code>showUrls</code>, <code>searchTerm</code>, <code>lookupIds</code>, <code>chartRequests</code>, <code>includeEpisodes</code>, or a public RSS feed URL are not accepted. Take a collection ID from an Apple Podcasts URL (<code>id1535809341</code> becomes <code>1535809341</code>) or get IDs first with <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> search or <code>lookupIds</code>. This Actor does not search by keyword, attach episode catalogs, or parse publisher episode feeds. See <a href="/guides/apple-podcasts-search/">search discovery</a> and <a href="/guides/apple-podcasts-episodes/">episode metadata export</a> on the search actor.</p>
+    <p>No. Required input is <code>podcastIds</code> (numeric iTunes collection ID strings). <code>additionalProperties</code> is false, so unpublished fields such as <code>showUrls</code>, <code>searchTerm</code>, <code>lookupIds</code>, <code>chartRequests</code>, <code>includeEpisodes</code>, or a public RSS feed URL are not accepted. Take a collection ID from an Apple Podcasts URL (<code>id1535809341</code> becomes <code>1535809341</code>) or get IDs first with <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> search or <code>lookupIds</code>. This Actor does not search by keyword, attach episode catalogs, or parse publisher episode feeds. See <a href="/guides/apple-podcasts-search/">iTunes Search discovery</a> and <a href="/guides/apple-podcasts-episodes/">episode metadata export</a> on the search actor.</p>
 
     <h2>Can this Actor scrape Shopify App Store or G2/Capterra reviews?</h2>
     <p>No. This Actor reads Apple/iTunes Customer Reviews RSS JSON for podcast collection IDs and storefronts only. It does not accept <code>appUrls</code>, Shopify slugs, or G2/Capterra <code>reviewPageUrls</code>. <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a> reads <code>apps.shopify.com</code> listings. <a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a> reads public G2 and Capterra product review pages. Use the <a href="/review-intelligence/">Review Intelligence pack</a> to choose among those three sources.</p>
@@ -451,19 +451,19 @@
 
     <h2>Related pages</h2>
     <ul>
-      <li><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> — search, episodes, and watchlists</li>
+      <li><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> — iTunes search, episodes, and watchlists</li>
       <li><a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> — Top Podcasts ranks and movement reports</li>
-      <li><a href="/guides/apple-podcasts-watchlists/">Refresh Apple Podcasts watchlists</a> — collection IDs for <code>podcastIds</code></li>
-      <li><a href="/guides/apple-podcasts-search/">Apple Podcasts search discovery</a></li>
-      <li><a href="/guides/apple-podcasts-countries/">Apple Podcasts charts and search by country</a></li>
+      <li><a href="/guides/apple-podcasts-watchlists/">Refresh Apple Podcasts watchlists (iTunes Lookup API)</a> — collection IDs for <code>podcastIds</code></li>
+      <li><a href="/guides/apple-podcasts-search/">Apple Podcasts search discovery (iTunes Search API)</a></li>
+      <li><a href="/guides/apple-podcasts-countries/">Apple Podcasts charts and iTunes Search by country</a></li>
       <li><a href="/guides/apple-podcasts-webhooks/">Deliver Apple Podcasts results with webhooks</a></li>
       <li><a href="/guides/apple-podcasts-dataset-fields/">Apple Podcasts dataset fields</a></li>
-      <li><a href="/guides/apple-podcasts-charts/">How to get Apple Podcasts chart metadata</a></li>
-      <li><a href="/guides/apple-podcasts-episodes/">Export Apple Podcasts episode metadata</a></li>
+      <li><a href="/guides/apple-podcasts-charts/">How to get Apple Podcasts chart metadata from Apple/iTunes endpoints</a></li>
+      <li><a href="/guides/apple-podcasts-episodes/">Export Apple Podcasts episode metadata via Apple/iTunes endpoints</a></li>
       <li><a href="/use-cases/podcast-outreach/">Shortlist podcasts for outreach</a></li>
       <li><a href="/use-cases/podcast-market-tracking/">Track Apple Podcasts charts over time</a></li>
       <li><a href="/compare/rss-feed-vs-itunes-search/">RSS feed vs iTunes Search API</a></li>
-      <li><a href="/compare/one-time-export-vs-watchlist/">One-time export vs watchlist lookup</a></li>
+      <li><a href="/compare/one-time-export-vs-watchlist/">One-time export vs iTunes watchlist lookup</a></li>
       <li><a href="/notes/rss-vs-apple-podcasts-scraper/">RSS vs Apple Podcasts Scraper</a></li>
       <li><a href="/faq/apple-podcasts-scraper/">Apple Podcasts Scraper FAQ</a></li>
       <li><a href="/review-intelligence/">Review Intelligence pack</a> — podcast vs Shopify App Store vs G2/Capterra reviews</li>

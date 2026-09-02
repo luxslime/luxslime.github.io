@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Export Apple Podcasts episode metadata</title>
-  <meta name="description" content="Export recent Apple Podcasts episode metadata with includeEpisodes, or snapshot episode charts. From $10 per 1,000 results.">
+  <title>Export Apple Podcasts episode metadata via Apple/iTunes endpoints</title>
+  <meta name="description" content="Export recent Apple Podcasts episode metadata with includeEpisodes, or snapshot episode charts, via official Apple/iTunes endpoints. From $10 per 1,000 results.">
   <link rel="canonical" href="https://luxslime.github.io/guides/apple-podcasts-episodes/">
   <script type="application/ld+json">
   {
@@ -166,7 +166,7 @@
     <p>The published input does not expose a per-show episode count, a date window, or a full-catalog dump. For the complete published history of a show you already know, read that show’s public RSS feed. See <a href="/notes/rss-vs-apple-podcasts-scraper/">RSS vs Apple Podcasts Scraper</a>.</p>
 
     <h2>Recent episodes on known shows</h2>
-    <p>Resolve shows first (<a href="/guides/apple-podcasts-search/">search</a>, charts, or <a href="/guides/apple-podcasts-watchlists/">lookup IDs</a>), then set <code>includeEpisodes</code> true. At least one of <code>searchTerm</code>, <code>chartRequests</code>, or <code>lookupIds</code> is required.</p>
+    <p>Resolve shows first (<a href="/guides/apple-podcasts-search/">iTunes Search</a>, charts, or <a href="/guides/apple-podcasts-watchlists/">iTunes Lookup IDs</a>), then set <code>includeEpisodes</code> true. At least one of <code>searchTerm</code>, <code>chartRequests</code>, or <code>lookupIds</code> is required.</p>
 <pre><code>{
   "lookupIds": ["1535144780"],
   "country": "us",
@@ -229,14 +229,14 @@
 
     <h2>Related guides</h2>
     <ul>
-      <li><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> — search, episodes, and watchlists</li>
+      <li><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> — iTunes search, episodes, and watchlists</li>
       <li><a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a></li>
       <li><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a></li>
       <li><a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a></li>
-      <li><a href="/guides/apple-podcasts-charts/">How to get Apple Podcasts chart metadata</a></li>
-      <li><a href="/guides/apple-podcasts-search/">Apple Podcasts search discovery</a></li>
-      <li><a href="/guides/apple-podcasts-watchlists/">Refresh Apple Podcasts watchlists</a></li>
-      <li><a href="/guides/apple-podcasts-countries/">Apple Podcasts charts and search by country</a></li>
+      <li><a href="/guides/apple-podcasts-charts/">How to get Apple Podcasts chart metadata from Apple/iTunes endpoints</a></li>
+      <li><a href="/guides/apple-podcasts-search/">Apple Podcasts search discovery (iTunes Search API)</a></li>
+      <li><a href="/guides/apple-podcasts-watchlists/">Refresh Apple Podcasts watchlists (iTunes Lookup API)</a></li>
+      <li><a href="/guides/apple-podcasts-countries/">Apple Podcasts charts and iTunes Search by country</a></li>
       <li><a href="/guides/apple-podcasts-dataset-fields/">Apple Podcasts dataset fields</a></li>
       <li><a href="/guides/apple-podcasts-webhooks/">Deliver Apple Podcasts results with webhooks</a></li>
       <li><a href="/faq/apple-podcasts-scraper/">Apple Podcasts Scraper FAQ</a></li>
