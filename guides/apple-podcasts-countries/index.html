@@ -48,7 +48,47 @@
         "name": "How does Chart Scraper’s countries field differ?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Apple Podcasts Chart Scraper accepts countries as a list of unique ISO-3166-1 alpha-2 codes (at most 20 per run; default [\"us\"]). That Actor is Top Podcasts ranks and optional movement reports, not keyword search. Apple Podcasts Scraper search/lookup still use one default country string per run."
+          "text": "Apple Podcasts Chart Scraper accepts countries as a list of unique ISO-3166-1 alpha-2 codes (at most 20 per run; default [\"us\"]). That Actor is Top Podcasts ranks and optional movement reports, not keyword search. Apple Podcasts Scraper search/lookup still use one default country string per run. Reviews Scraper accepts at most 10 country codes for review RSS."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does lookupIds use the same country as search?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Search and lookup both use the single default country string per run (default us). Watchlist refreshes are lookupIds plus that default country. There is no country array on lookup."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I copy Reviews Scraper countries onto Apple Podcasts search?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Reviews Scraper countries is a list for Customer Reviews RSS (at most 10). Apple Podcasts Scraper searchTerm still takes one default country string. Do not treat those inputs as interchangeable."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is a multi-country chartRequests run priced?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Billing is pay-per-event. The live Store card is from $10.00 / 1,000 results. Published events are Actor Start at $0.005 and result at $0.01 per default-dataset item ($10.00 per 1,000). Each saved chart row is a result event."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do chart ranks mean the same thing in us and jp?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Rankings differ by storefront. A US chart is not a GB or JP chart. Compare rows by the country field instead of mixing ranks into one list."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Are three-letter country codes documented on this Actor?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. The published input uses ISO 3166-1 alpha-2 storefront codes (two letters). Examples in the Actor input include us, gb, and jp. This page does not document three-letter codes."
         }
       }
     ]
@@ -144,7 +184,7 @@
     <p>Watchlist refreshes work the same way: <code>lookupIds</code> plus one default <code>country</code>. After you have collection IDs from search or charts, pass them into a <a href="/guides/apple-podcasts-watchlists/">watchlist refresh</a>.</p>
 
     <h2>Can I search multiple Apple Podcasts countries in one run?</h2>
-    <p>No. Search and lookup use a single default <code>country</code> per run (default <code>us</code>). There is no country array on search. To compare markets, run once per storefront (or schedule separate runs) and keep <code>country</code> on the output rows. See <a href="/guides/apple-podcasts-search/">search discovery</a>.</p>
+    <p>No. Search and lookup use a single default <code>country</code> per run (default <code>us</code>). There is no country array on search. To compare markets, run once per storefront (or schedule separate runs) and keep <code>country</code> on the output rows.</p>
 
     <h2>How do chartRequests handle multiple storefronts?</h2>
     <p>Charts can request several storefronts in one run because <code>chartRequests</code> is an array. Add one item per storefront. Each item can set <code>country</code>, <code>feedType</code>, and <code>limit</code>. Per-item <code>country</code> overrides the default country. Compare rows by the <code>country</code> field; do not treat ranks from different storefronts as one list.</p>
@@ -152,8 +192,26 @@
     <h2>Should I compare ranks across countries?</h2>
     <p>No. A US chart is not a GB or JP chart, and the same keyword can return a different set of shows. Rankings and search results differ by storefront. This is a snapshot: Apple Podcasts Scraper does not compute rank movement between runs. <a href="/apple-podcasts-chart-scraper/">Chart Scraper</a> also treats unsupported storefronts as warnings, never as a mass drop.</p>
 
+    <h2>Which country codes are documented?</h2>
+    <p>The published input uses ISO 3166-1 alpha-2 storefront codes. Examples in the Actor input include <code>us</code>, <code>gb</code>, and <code>jp</code>. The iTunes Search API documents the country value as a two-letter storefront code. This page does not list every storefront Apple currently serves.</p>
+
     <h2>How does Chart Scraper’s countries field differ?</h2>
     <p><a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> accepts <code>countries</code> as a list of unique ISO-3166-1 alpha-2 codes (at most 20 per run; default <code>["us"]</code>). That Actor is Top Podcasts ranks and optional movement reports, not keyword search. Apple Podcasts Scraper search/lookup still use one default country string per run. <a href="/apple-podcasts-reviews-scraper/">Reviews Scraper</a> accepts at most 10 country codes for review RSS.</p>
+
+    <h2>Does lookupIds use the same country as search?</h2>
+    <p>Yes. Search and lookup both use the single default <code>country</code> string per run (default <code>us</code>). Watchlist refreshes are <code>lookupIds</code> plus that default country. There is no country array on lookup.</p>
+
+    <h2>Can I copy Reviews Scraper countries onto Apple Podcasts search?</h2>
+    <p>No. Reviews Scraper <code>countries</code> is a list for Customer Reviews RSS (at most 10). Apple Podcasts Scraper <code>searchTerm</code> still takes one default country string. Do not treat those inputs as interchangeable.</p>
+
+    <h2>How is a multi-country chartRequests run priced?</h2>
+    <p>Billing is pay-per-event. The live Store card is from $10.00 / 1,000 results. Published events are Actor Start at $0.005 and result at $0.01 per default-dataset item ($10.00 per 1,000). Each saved chart row is a result event.</p>
+
+    <h2>Do chart ranks mean the same thing in us and jp?</h2>
+    <p>No. Rankings differ by storefront. A US chart is not a GB or JP chart. Compare rows by the <code>country</code> field instead of mixing ranks into one list.</p>
+
+    <h2>Are three-letter country codes documented on this Actor?</h2>
+    <p>No. The published input uses ISO 3166-1 alpha-2 storefront codes (two letters). Examples in the Actor input include <code>us</code>, <code>gb</code>, and <code>jp</code>. This page does not document three-letter codes.</p>
 
     <h2>How to run it</h2>
     <ol>
@@ -175,8 +233,13 @@
       <li><a href="/guides/apple-podcasts-search/">Apple Podcasts search discovery</a></li>
       <li><a href="/guides/apple-podcasts-episodes/">Export Apple Podcasts episode metadata</a></li>
       <li><a href="/guides/apple-podcasts-watchlists/">Refresh Apple Podcasts watchlists</a></li>
+      <li><a href="/guides/apple-podcasts-dataset-fields/">Apple Podcasts dataset fields</a></li>
+      <li><a href="/guides/apple-podcasts-webhooks/">Deliver Apple Podcasts results with webhooks</a></li>
       <li><a href="/faq/apple-podcasts-scraper/">Apple Podcasts Scraper FAQ</a></li>
       <li><a href="/use-cases/podcast-market-tracking/">Track Apple Podcasts charts over time</a></li>
+      <li><a href="/use-cases/podcast-outreach/">Shortlist podcasts for outreach</a></li>
+      <li><a href="/compare/one-time-export-vs-watchlist/">One-time export vs watchlist lookup</a></li>
+      <li><a href="/notes/rss-vs-apple-podcasts-scraper/">RSS vs Apple Podcasts Scraper</a></li>
       <li><a href="/tools/">Tools</a></li>
     </ul>
   </main>

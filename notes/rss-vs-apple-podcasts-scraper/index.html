@@ -4,7 +4,96 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>RSS vs Apple Podcasts Scraper</title>
-  <meta name="description" content="When a public RSS feed is enough, and when Apple Podcasts search, charts, and watchlists help.">
+  <meta name="description" content="When a public RSS feed is enough, and when Apple Podcasts search, charts, and watchlists help. From $10.00 / 1,000 results.">
+  <link rel="canonical" href="https://luxslime.github.io/notes/rss-vs-apple-podcasts-scraper/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "When is a public RSS feed enough for a known show?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "If you already have a feed URL, RSS is the direct source for that show’s published catalog: episode titles, descriptions, and publish dates; audio enclosures; and publisher-declared metadata (title, author, artwork, categories). Use RSS to watch cadence and new episodes on shows you already track."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does a public RSS feed search Apple Podcasts or include chart rank?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. A feed does not search Apple’s directory, and it does not include chart rank. RSS also does not return collection IDs for other shows. Keyword discovery, official rankings, and collection-ID refresh are Apple catalog jobs, not feed jobs."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "When should I use Apple Podcasts Scraper instead of RSS?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use Apple Podcasts Scraper when you need Apple catalog search, a chart snapshot, or a watchlist refresh of known collection IDs. It reads public Apple/iTunes endpoints for discovery and catalog IDs. It is a source step, not an RSS archive replacement, and it is not affiliated with Apple."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Apple Podcasts Scraper replace a show’s RSS archive?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Optional recent episodes are a short look at what a discovered show is publishing. For a full episode history of a known feed, read RSS directly. Published scraper inputs are searchTerm, chartRequests, and lookupIds — not a public RSS URL field."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I search Apple Podcasts when I only have a topic?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use keyword search. RSS has no catalog search. Apple Podcasts Scraper sets searchTerm against the official iTunes Search API. Storefront matters: the same query can differ across us, gb, jp, and other markets."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do watchlists differ from reading RSS?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A watchlist refresh re-resolves known shows by Apple collection ID and keeps stable Apple IDs and storefront URLs. RSS watches cadence on a feed you already have. Use lookupIds when you have collection IDs; use RSS when you have a feed URL and need that show’s published catalog."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "When should I use RSS & Atom Feed Extractor instead?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "When you already have publisher feed URLs and need those feeds parsed into item URL lists. RSS & Atom Feed Extractor is not Apple directory search and does not snapshot Apple chart rank. Use Apple Podcasts Scraper for searchTerm, chartRequests, or lookupIds."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I pass a feed URL into Apple Podcasts Scraper?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Published inputs are searchTerm, chartRequests, and lookupIds. RSS is used internally when includeEpisodes is true. If you already have a public feed URL and need that show’s published catalog, read the feed directly or use RSS & Atom Feed Extractor."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Apple Podcasts Scraper priced on this split?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Billing is pay-per-event. The live Store card is from $10.00 / 1,000 results. Published events are Actor Start at $0.005 and result at $0.01 per default-dataset item ($10.00 per 1,000). Public RSS you fetch yourself is not this Actor’s priced event."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which existing pages should I read next?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "For a side-by-side of RSS versus iTunes Search, see RSS feed vs iTunes Search API. For keyword discovery, see Apple Podcasts search discovery. For episode charts versus recent titles versus RSS, see Export Apple Podcasts episode metadata. Open Apple Podcasts Scraper for the Store actor landing."
+        }
+      }
+    ]
+  }
+  </script>
   <style>
     :root {
       --text: #1a1a1a;
@@ -120,7 +209,7 @@
     <p>Use RSS to watch cadence and new episodes on shows you already track. A feed does not search Apple’s directory, and it does not include chart rank.</p>
 
     <h2>Apple catalog data helps for search, charts, and watchlists</h2>
-    <p>The <a href="https://apify.com/taroyamada/apple-podcast-scraper">Apple Podcasts Scraper</a> reads public Apple/iTunes endpoints for discovery and catalog IDs. It is a source step, not an RSS archive replacement, and it is not affiliated with Apple.</p>
+    <p>The <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> reads public Apple/iTunes endpoints for discovery and catalog IDs. It is a source step, not an RSS archive replacement, and it is not affiliated with Apple.</p>
     <ul>
       <li><strong>Search</strong> — find shows by keyword in Apple Podcasts. RSS has no catalog search.</li>
       <li><strong>Charts</strong> — snapshot official rankings by country (shows or episodes). Rank is not in a show’s feed.</li>
@@ -157,10 +246,56 @@
       </tbody>
     </table>
 
+    <h2>When is a public RSS feed enough for a known show?</h2>
+    <p>If you already have a feed URL, RSS is the direct source for that show’s published catalog: episode titles, descriptions, and publish dates; audio enclosures; and publisher-declared metadata (title, author, artwork, categories). Use RSS to watch cadence and new episodes on shows you already track.</p>
+
+    <h2>Does a public RSS feed search Apple Podcasts or include chart rank?</h2>
+    <p>No. A feed does not search Apple’s directory, and it does not include chart rank. RSS also does not return collection IDs for other shows. Keyword discovery, official rankings, and collection-ID refresh are Apple catalog jobs, not feed jobs.</p>
+
+    <h2>When should I use Apple Podcasts Scraper instead of RSS?</h2>
+    <p>Use <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> when you need Apple catalog search, a chart snapshot, or a watchlist refresh of known collection IDs. It reads public Apple/iTunes endpoints for discovery and catalog IDs. It is a source step, not an RSS archive replacement, and it is not affiliated with Apple.</p>
+
+    <h2>Does Apple Podcasts Scraper replace a show’s RSS archive?</h2>
+    <p>No. Optional recent episodes are a short look at what a discovered show is publishing. For a full episode history of a known feed, read RSS directly. Published scraper inputs are <code>searchTerm</code>, <code>chartRequests</code>, and <code>lookupIds</code> — not a public RSS URL field.</p>
+
+    <h2>How do I search Apple Podcasts when I only have a topic?</h2>
+    <p>Use keyword search. RSS has no catalog search. <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> sets <code>searchTerm</code> against the official iTunes Search API. Storefront matters: the same query can differ across <code>us</code>, <code>gb</code>, <code>jp</code>, and other markets.</p>
+
+    <h2>How do watchlists differ from reading RSS?</h2>
+    <p>A watchlist refresh re-resolves known shows by Apple collection ID and keeps stable Apple IDs and storefront URLs. RSS watches cadence on a feed you already have. Use <code>lookupIds</code> when you have collection IDs; use RSS when you have a feed URL and need that show’s published catalog.</p>
+
+    <h2>When should I use RSS &amp; Atom Feed Extractor instead?</h2>
+    <p>When you already have publisher feed URLs and need those feeds parsed into item URL lists. <a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a> is not Apple directory search and does not snapshot Apple chart rank. Use Apple Podcasts Scraper for <code>searchTerm</code>, <code>chartRequests</code>, or <code>lookupIds</code>.</p>
+
+    <h2>Can I pass a feed URL into Apple Podcasts Scraper?</h2>
+    <p>No. Published inputs are <code>searchTerm</code>, <code>chartRequests</code>, and <code>lookupIds</code>. RSS is used internally when <code>includeEpisodes</code> is true. If you already have a public feed URL and need that show’s published catalog, read the feed directly or use <a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a>.</p>
+
+    <h2>How is Apple Podcasts Scraper priced on this split?</h2>
+    <p>Billing is pay-per-event. The live Store card is from $10.00 / 1,000 results. Published events are Actor Start at $0.005 and result at $0.01 per default-dataset item ($10.00 per 1,000). Public RSS you fetch yourself is not this Actor’s priced event.</p>
+
+    <h2>Which existing pages should I read next?</h2>
+    <p>For a side-by-side of RSS versus iTunes Search, see <a href="/compare/rss-feed-vs-itunes-search/">RSS feed vs iTunes Search API</a>. For keyword discovery, see <a href="/guides/apple-podcasts-search/">Apple Podcasts search discovery</a>. For episode charts versus recent titles versus RSS, see <a href="/guides/apple-podcasts-episodes/">Export Apple Podcasts episode metadata</a>. Open <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> for the Store actor landing.</p>
+
     <div class="cta">
       <p><a class="button" href="https://apify.com/taroyamada/apple-podcast-scraper">Open Apple Podcasts Scraper</a></p>
-      <p class="price">From $10 per 1,000 results.</p>
+      <p class="price">From $10.00 / 1,000 results ($0.01 per result; Actor Start $0.005)</p>
     </div>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> — search, chart snapshots, and watchlists</li>
+      <li><a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> — Top Podcasts ranks and movement reports</li>
+      <li><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> — public ratings for known collection IDs</li>
+      <li><a href="/compare/rss-feed-vs-itunes-search/">RSS feed vs iTunes Search API</a></li>
+      <li><a href="/compare/one-time-export-vs-watchlist/">One-time export vs watchlist lookup</a></li>
+      <li><a href="/guides/apple-podcasts-search/">Apple Podcasts search discovery</a></li>
+      <li><a href="/guides/apple-podcasts-charts/">How to get Apple Podcasts chart metadata</a></li>
+      <li><a href="/guides/apple-podcasts-watchlists/">Refresh Apple Podcasts watchlists</a></li>
+      <li><a href="/guides/apple-podcasts-episodes/">Export Apple Podcasts episode metadata</a></li>
+      <li><a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a></li>
+      <li><a href="/faq/apple-podcasts-scraper/">Apple Podcasts Scraper FAQ</a></li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
 
     <p class="note">Public Apple and RSS endpoints only. No account session. Not affiliated with or endorsed by Apple.</p>
   </main>

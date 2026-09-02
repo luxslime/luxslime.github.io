@@ -50,6 +50,46 @@
           "@type": "Answer",
           "text": "Documented dataset fields include showName, collectionId, rank, sourceUrl, and fetchedAt, plus rowType, publisher, country, and episodeTitle when recent episodes are included. Review the default dataset before switching delivery to webhook."
         }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I set delivery to webhook without a source lane?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. You still need at least one of searchTerm, chartRequests, or lookupIds. Webhook delivery is not a substitute for a source lane."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Should I copy Chart Scraper’s webhook-first rule onto this Actor?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Sibling actors also expose webhook delivery; their contracts differ. This guide documents Apple Podcasts Scraper delivery only. Do not copy one Actor’s webhook rules onto another."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does the schema document webhook headers or retries?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. The schema does not document HTTP method, headers, retries, or the exact JSON body beyond the Actor’s output rows. Start with dataset delivery so you can review the payload, then switch to webhook after that shape is approved."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is webhook delivery priced versus dataset delivery?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Billing is pay-per-event. The live Store card is from $10.00 / 1,000 results. Published events are Actor Start at $0.005 and result at $0.01 per default-dataset item ($10.00 per 1,000). This page does not document a separate webhook event. The default dataset is the billable surface."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does dryRun avoid Actor Start?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Dry runs do not save results or send webhooks. Actor Start is a separate $0.005 event charged when the Actor starts. This page does not document that dryRun skips Actor Start. Use dryRun to test without dataset writes or webhooks."
+        }
       }
     ]
   }
@@ -144,10 +184,31 @@
     <p>The published input describes <code>delivery</code> as <code>dataset</code> (default, reviewable output) or <code>webhook</code> (send results to <code>webhookUrl</code> after you approve the payload shape). Start with dataset delivery so you can review the payload, then switch to webhook after that shape is approved. The schema does not document HTTP method, headers, retries, or the exact JSON body beyond the Actor’s output rows.</p>
 
     <h2>What does dryRun do?</h2>
-    <p><code>dryRun</code> defaults to false. If true, the run does not save results and does not send webhooks. Dry runs, validation-only runs, missing-key warnings, and unchanged recurring polls should not write payable default-dataset rows.</p>
+    <p><code>dryRun</code> defaults to false. If true, the run does not save results and does not send webhooks. The published description is that this is useful for testing a new watch setup or validating a webhook endpoint before going live. Dry runs, validation-only runs, missing-key warnings, and unchanged recurring polls should not write payable default-dataset rows.</p>
+
+    <h2>What endpoints work with webhookUrl?</h2>
+    <p>The published input describes <code>webhookUrl</code> as working with Slack, Discord, Zapier, or any HTTP endpoint. You still need at least one of <code>searchTerm</code>, <code>chartRequests</code>, or <code>lookupIds</code>. Webhook delivery is not a substitute for a source lane.</p>
 
     <h2>How do Chart Scraper and Reviews Scraper webhooks differ?</h2>
     <p>On <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a>, webhook sends the same payload to <code>webhookUrl</code> first, then writes those billable rows to the default dataset; a non-2xx webhook response fails the run before dataset delivery. On <a href="/apple-podcasts-reviews-scraper/">Reviews Scraper</a>, webhook sends the complete runtime envelope to <code>webhookUrl</code> and still sends only the canonical rows to the default dataset. This guide documents Apple Podcasts Scraper delivery only; see those landings for their contracts.</p>
+
+    <h2>What fields will a webhook payload contain?</h2>
+    <p>Documented dataset fields include <code>showName</code>, <code>collectionId</code>, <code>rank</code>, <code>sourceUrl</code>, and <code>fetchedAt</code>, plus <code>rowType</code>, <code>publisher</code>, <code>country</code>, and <code>episodeTitle</code> when recent episodes are included. Review the default dataset before switching <code>delivery</code> to webhook.</p>
+
+    <h2>Can I set delivery to webhook without a source lane?</h2>
+    <p>No. You still need at least one of <code>searchTerm</code>, <code>chartRequests</code>, or <code>lookupIds</code>. Webhook delivery is not a substitute for a source lane.</p>
+
+    <h2>Should I copy Chart Scraper’s webhook-first rule onto this Actor?</h2>
+    <p>No. Sibling actors also expose webhook delivery; their contracts differ. This guide documents Apple Podcasts Scraper delivery only. Do not copy one Actor’s webhook rules onto another.</p>
+
+    <h2>Does the schema document webhook headers or retries?</h2>
+    <p>No. The schema does not document HTTP method, headers, retries, or the exact JSON body beyond the Actor’s output rows. Start with dataset delivery so you can review the payload, then switch to webhook after that shape is approved.</p>
+
+    <h2>How is webhook delivery priced versus dataset delivery?</h2>
+    <p>Billing is pay-per-event. The live Store card is from $10.00 / 1,000 results. Published events are Actor Start at $0.005 and result at $0.01 per default-dataset item ($10.00 per 1,000). This page does not document a separate webhook event. The default dataset is the billable surface.</p>
+
+    <h2>Does dryRun avoid Actor Start?</h2>
+    <p>Dry runs do not save results or send webhooks. Actor Start is a separate $0.005 event charged when the Actor starts. This page does not document that <code>dryRun</code> skips Actor Start. Use <code>dryRun</code> to test without dataset writes or webhooks.</p>
 
     <h2>How to run it</h2>
     <ol>
@@ -169,8 +230,13 @@
       <li><a href="/guides/apple-podcasts-search/">Apple Podcasts search discovery</a></li>
       <li><a href="/guides/apple-podcasts-watchlists/">Refresh Apple Podcasts watchlists</a></li>
       <li><a href="/guides/apple-podcasts-charts/">How to get Apple Podcasts chart metadata</a></li>
+      <li><a href="/guides/apple-podcasts-countries/">Apple Podcasts charts and search by country</a></li>
+      <li><a href="/guides/apple-podcasts-episodes/">Export Apple Podcasts episode metadata</a></li>
       <li><a href="/faq/apple-podcasts-scraper/">Apple Podcasts Scraper FAQ</a></li>
       <li><a href="/use-cases/podcast-market-tracking/">Track Apple Podcasts charts over time</a></li>
+      <li><a href="/use-cases/podcast-outreach/">Shortlist podcasts for outreach</a></li>
+      <li><a href="/compare/one-time-export-vs-watchlist/">One-time export vs watchlist lookup</a></li>
+      <li><a href="/notes/rss-vs-apple-podcasts-scraper/">RSS vs Apple Podcasts Scraper</a></li>
       <li><a href="/tools/">Tools</a></li>
     </ul>
   </main>

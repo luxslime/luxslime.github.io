@@ -50,6 +50,46 @@
           "@type": "Answer",
           "text": "Leave delivery on dataset. After the run finishes, open the default dataset and export it (JSON or CSV from the dataset view). Switch delivery to webhook only after the payload shape is approved. Set dryRun true to test without saving results or sending webhooks."
         }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Chart Scraper attach episode catalogs?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Chart Scraper does not attach episode catalogs — that work stays on Apple Podcasts Scraper. Reviews Scraper does not return episode titles. Use includeEpisodes or feedType podcast-episodes on Apple Podcasts Scraper."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I pass an RSS feed URL to includeEpisodes?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Published inputs are searchTerm, chartRequests, and lookupIds. includeEpisodes is a boolean on those source lanes. If you already have a public feed URL, read the feed directly or use RSS & Atom Feed Extractor."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is feedType podcast-episodes a per-show episode list?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. That chart request is a ranking snapshot, not a per-show episode list. Rankings differ by storefront. For a known show’s complete published history, read that show’s public RSS feed."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is an includeEpisodes run priced?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Billing is pay-per-event. The live Store card is from $10.00 / 1,000 results. Published events are Actor Start at $0.005 and result at $0.01 per default-dataset item ($10.00 per 1,000). includeEpisodes is slower; it does not add a separate published event."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Reviews Scraper return episode titles?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Reviews Scraper reads public Customer Reviews RSS for podcastIds you already have. Episode titles on resolved shows belong on Apple Podcasts Scraper includeEpisodes."
+        }
       }
     ]
   }
@@ -152,7 +192,28 @@
     <p>To snapshot Apple’s episode rankings, use <code>chartRequests</code> with <code>feedType</code> <code>podcast-episodes</code>. That chart request is a ranking snapshot, not a per-show episode list. To attach recent episode titles to resolved shows, set <code>includeEpisodes</code> true on search, charts, or <code>lookupIds</code>.</p>
 
     <h2>When should I read public RSS instead?</h2>
-    <p>When you already have a feed URL and need that show’s published catalog (titles, descriptions, dates, enclosures). RSS does not search Apple’s directory and does not include chart rank. <a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a> parses known publisher feeds into URL lists; it is not Apple episode-chart search. See <a href="/compare/rss-feed-vs-itunes-search/">RSS feed vs iTunes Search</a>.</p>
+    <p>When you already have a feed URL and need that show’s published catalog (titles, descriptions, dates, enclosures). RSS does not search Apple’s directory and does not include chart rank. <a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a> parses known publisher feeds into URL lists; it is not Apple episode-chart search.</p>
+
+    <h2>What episode-related fields are documented?</h2>
+    <p>Documented output fields include <code>episodeTitle</code> (when recent episodes are included), <code>collectionId</code>, <code>showName</code>, <code>publisher</code>, <code>country</code>, <code>sourceUrl</code>, <code>fetchedAt</code>, <code>rowType</code>, and <code>rank</code> on chart rows. This Actor’s published input controls episode inclusion with the <code>includeEpisodes</code> boolean only.</p>
+
+    <h2>How do I export the dataset after a run?</h2>
+    <p>Leave <code>delivery</code> on <code>dataset</code>. After the run finishes, open the default dataset and export it (JSON or CSV from the dataset view). Switch <code>delivery</code> to webhook only after the payload shape is approved. Set <code>dryRun</code> true to test without saving results or sending webhooks.</p>
+
+    <h2>Does Chart Scraper attach episode catalogs?</h2>
+    <p>No. Chart Scraper does not attach episode catalogs — that work stays on Apple Podcasts Scraper. Reviews Scraper does not return episode titles. Use <code>includeEpisodes</code> or <code>feedType</code> <code>podcast-episodes</code> on Apple Podcasts Scraper.</p>
+
+    <h2>Can I pass an RSS feed URL to includeEpisodes?</h2>
+    <p>No. Published inputs are <code>searchTerm</code>, <code>chartRequests</code>, and <code>lookupIds</code>. <code>includeEpisodes</code> is a boolean on those source lanes. If you already have a public feed URL, read the feed directly or use <a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a>.</p>
+
+    <h2>Is feedType podcast-episodes a per-show episode list?</h2>
+    <p>No. That chart request is a ranking snapshot, not a per-show episode list. Rankings differ by storefront. For a known show’s complete published history, read that show’s public RSS feed.</p>
+
+    <h2>How is an includeEpisodes run priced?</h2>
+    <p>Billing is pay-per-event. The live Store card is from $10.00 / 1,000 results. Published events are Actor Start at $0.005 and result at $0.01 per default-dataset item ($10.00 per 1,000). <code>includeEpisodes</code> is slower; it does not add a separate published event.</p>
+
+    <h2>Does Reviews Scraper return episode titles?</h2>
+    <p>No. Reviews Scraper reads public Customer Reviews RSS for <code>podcastIds</code> you already have. Episode titles on resolved shows belong on Apple Podcasts Scraper <code>includeEpisodes</code>.</p>
 
     <h2>Export workflow</h2>
     <ol>
@@ -176,8 +237,13 @@
       <li><a href="/guides/apple-podcasts-search/">Apple Podcasts search discovery</a></li>
       <li><a href="/guides/apple-podcasts-watchlists/">Refresh Apple Podcasts watchlists</a></li>
       <li><a href="/guides/apple-podcasts-countries/">Apple Podcasts charts and search by country</a></li>
+      <li><a href="/guides/apple-podcasts-dataset-fields/">Apple Podcasts dataset fields</a></li>
+      <li><a href="/guides/apple-podcasts-webhooks/">Deliver Apple Podcasts results with webhooks</a></li>
       <li><a href="/faq/apple-podcasts-scraper/">Apple Podcasts Scraper FAQ</a></li>
       <li><a href="/use-cases/podcast-outreach/">Shortlist podcasts for outreach</a></li>
+      <li><a href="/use-cases/podcast-market-tracking/">Track Apple Podcasts charts over time</a></li>
+      <li><a href="/compare/rss-feed-vs-itunes-search/">RSS feed vs iTunes Search API</a></li>
+      <li><a href="/notes/rss-vs-apple-podcasts-scraper/">RSS vs Apple Podcasts Scraper</a></li>
       <li><a href="/tools/">Tools</a></li>
     </ul>
   </main>

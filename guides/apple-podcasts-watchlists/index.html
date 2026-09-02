@@ -50,6 +50,46 @@
           "@type": "Answer",
           "text": "No. lookupIds refresh known shows. For storefront Top Podcasts movement (new, changed, or dropped positions), use Apple Podcasts Chart Scraper. For joining chart snapshots yourself, use chartRequests on a schedule."
         }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I pass Apple show URLs as lookupIds?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. lookupIds are numeric Apple Podcasts collection IDs. Take an ID from an Apple Podcasts URL (id1535144780 → 1535144780) and pass that number. The published input does not document a show-URL field."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is a watchlist a substitute for public RSS?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. A watchlist re-resolves show metadata and optional recent episode titles. For a known show’s complete published catalog, read that show’s public RSS feed. Neither lookupIds nor includeEpisodes is a full RSS archive."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Should I use lookupIds to infer chart rank?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. lookupIds refresh known shows. Rank belongs to chartRequests snapshots or Apple Podcasts Chart Scraper. Do not infer presence or movement from a missing watchlist rank."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is a watchlist refresh priced?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Billing is pay-per-event. The live Store card is from $10.00 / 1,000 results. Published events are Actor Start at $0.005 and result at $0.01 per default-dataset item ($10.00 per 1,000). Empty no-change polls are described as avoiding payable default-dataset writes when nothing is saved."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "When should I switch from a one-time export to lookupIds?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "After a search or chart export has produced collection IDs you want to keep. Recurring refreshes re-check show metadata without a new keyword search or chart request. See One-time export vs watchlist lookup."
+        }
       }
     ]
   }
@@ -134,16 +174,34 @@
     <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Run a watchlist refresh on Apify</a></p>
 
     <h2>How do I get Apple Podcasts collection IDs for a watchlist?</h2>
-    <p>Use this after search or charts have produced collection IDs, or when you already store IDs from Apple Podcasts URLs (<code>id1535144780</code> → <code>1535144780</code>). Pass those values as <code>lookupIds</code>. Lookup uses the official iTunes Lookup API. The <a href="/use-cases/podcast-outreach/">outreach shortlist</a> workflow keeps IDs from a search export, then switches later runs to lookup.</p>
+    <p>Use this after search or charts have produced collection IDs, or when you already store IDs from Apple Podcasts URLs (<code>id1535144780</code> → <code>1535144780</code>). Pass those values as <code>lookupIds</code>. Lookup uses the official iTunes Lookup API.</p>
 
     <h2>Do unchanged watchlist polls write payable rows?</h2>
-    <p>Empty or no-change watchlist polls are described as avoiding payable default-dataset writes when nothing is saved. Use <code>dryRun</code> to validate a setup without saving results or sending webhooks. See <a href="/guides/apple-podcasts-webhooks/">webhooks</a> before switching <code>delivery</code>.</p>
+    <p>Empty or no-change watchlist polls are described as avoiding payable default-dataset writes when nothing is saved. Use <code>dryRun</code> to validate a setup without saving results or sending webhooks. Billing is pay-per-event: Actor start plus one result event per default-dataset item.</p>
+
+    <h2>Can I look up more than one country per run?</h2>
+    <p>Search and lookup use a single default <code>country</code> per run (default <code>us</code>). There is no country array on <code>lookupIds</code>. Charts can request several storefronts in one run because <code>chartRequests</code> is an array.</p>
 
     <h2>How is a watchlist different from Reviews Scraper?</h2>
     <p>A <code>lookupIds</code> watchlist re-resolves show metadata (name, publisher, source URL, optional recent episode titles). <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> reads public Customer Reviews RSS for <code>podcastIds</code> you already have and can emit review rows or one rating report. Pass the same collection IDs to Reviews Scraper when reputation context is required.</p>
 
     <h2>Does a watchlist compute rank movement?</h2>
-    <p>No. <code>lookupIds</code> refresh known shows. For storefront Top Podcasts movement (new, changed, or dropped positions), use <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a>. For joining chart snapshots yourself, use <a href="/guides/apple-podcasts-charts/">chartRequests</a> on a schedule.</p>
+    <p>No. <code>lookupIds</code> refresh known shows. For storefront Top Podcasts movement (new, changed, or dropped positions), use <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a>. For joining chart snapshots yourself, use <code>chartRequests</code> on a schedule.</p>
+
+    <h2>Can I pass Apple show URLs as lookupIds?</h2>
+    <p>No. <code>lookupIds</code> are numeric Apple Podcasts collection IDs. Take an ID from an Apple Podcasts URL (<code>id1535144780</code> → <code>1535144780</code>) and pass that number. The published input does not document a show-URL field.</p>
+
+    <h2>Is a watchlist a substitute for public RSS?</h2>
+    <p>No. A watchlist re-resolves show metadata and optional recent episode titles. For a known show’s complete published catalog, read that show’s public RSS feed. Neither <code>lookupIds</code> nor <code>includeEpisodes</code> is a full RSS archive.</p>
+
+    <h2>Should I use lookupIds to infer chart rank?</h2>
+    <p>No. <code>lookupIds</code> refresh known shows. Rank belongs to <code>chartRequests</code> snapshots or Apple Podcasts Chart Scraper. Do not infer presence or movement from a missing watchlist rank.</p>
+
+    <h2>How is a watchlist refresh priced?</h2>
+    <p>Billing is pay-per-event. The live Store card is from $10.00 / 1,000 results. Published events are Actor Start at $0.005 and result at $0.01 per default-dataset item ($10.00 per 1,000). Empty no-change polls are described as avoiding payable default-dataset writes when nothing is saved.</p>
+
+    <h2>When should I switch from a one-time export to lookupIds?</h2>
+    <p>After a search or chart export has produced collection IDs you want to keep. Recurring refreshes re-check show metadata without a new keyword search or chart request. See <a href="/compare/one-time-export-vs-watchlist/">One-time export vs watchlist lookup</a>.</p>
 
     <h2>How to run it</h2>
     <ol>
@@ -165,8 +223,13 @@
       <li><a href="/guides/apple-podcasts-search/">Apple Podcasts search discovery</a></li>
       <li><a href="/guides/apple-podcasts-episodes/">Export Apple Podcasts episode metadata</a></li>
       <li><a href="/guides/apple-podcasts-countries/">Apple Podcasts charts and search by country</a></li>
+      <li><a href="/guides/apple-podcasts-dataset-fields/">Apple Podcasts dataset fields</a></li>
+      <li><a href="/guides/apple-podcasts-webhooks/">Deliver Apple Podcasts results with webhooks</a></li>
       <li><a href="/faq/apple-podcasts-scraper/">Apple Podcasts Scraper FAQ</a></li>
       <li><a href="/use-cases/podcast-outreach/">Shortlist podcasts for outreach</a></li>
+      <li><a href="/use-cases/podcast-market-tracking/">Track Apple Podcasts charts over time</a></li>
+      <li><a href="/compare/one-time-export-vs-watchlist/">One-time export vs watchlist lookup</a></li>
+      <li><a href="/notes/rss-vs-apple-podcasts-scraper/">RSS vs Apple Podcasts Scraper</a></li>
       <li><a href="/tools/">Tools</a></li>
     </ul>
   </main>
