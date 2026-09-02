@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RSS &amp; Atom Feed Extractor — parse public feeds into URL lists</title>
-  <meta name="description" content="Parse public RSS and Atom XML feeds to extract new article URLs. Filter incoming feed data by keywords and generate clean URL lists for downstream web scrapers.">
+  <title>RSS &amp; Atom Feed Extractor — known-publisher feed XML to item URL lists</title>
+  <meta name="description" content="Parse public RSS and Atom XML you already have into filtered item URLs, titles, dates, and summaries. Known-publisher feed discovery, not Google News queries and not article HTML cleanup.">
   <link rel="canonical" href="https://luxslime.github.io/rss-atom-feed-extractor/">
   <script type="application/ld+json">
   {
@@ -13,66 +13,98 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "What does RSS & Atom Feed Extractor parse?",
+        "name": "What public RSS and Atom XML does this Actor parse?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Public RSS and Atom XML feeds. Pass feed URLs in feedUrls (maximum 50 per run). The Actor parses feed XML and returns feed items — titles, item URLs, publication timestamps, summaries, encoded content when available, and categories. It does not crawl website HTML and it does not extract full article bodies from those item links."
+          "text": "Public RSS and Atom XML feeds you already have. Required input is feedUrls (maximum 50 per run; schema description: Public RSS/Atom URLs to monitor). The Actor parses feed XML and returns feed items: titles, item URLs, publication timestamps, summaries, encoded content when available, and categories or tags. It does not crawl website HTML, it does not query Google News, and it does not extract full article bodies from those item links. Authenticated or HTML-only pages are not feed input."
         }
       },
       {
         "@type": "Question",
-        "name": "How is this different from Website Content Extractor and Article Content Extractor?",
+        "name": "How is known-publisher feed XML different from Google News query RSS and from article HTML cleanup?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "This Actor is a feed discovery layer: it aggregates public RSS and Atom items into structured URL lists. Article Content Extractor cleans discovered article, news, and blog HTML pages. Website Content Extractor cleans discovered docs, pricing, policy, or product pages. Send the returned links to those Actors when you need full page text."
+          "text": "This Actor is a known-publisher feed discovery layer: you already have public RSS or Atom URLs and pass them in feedUrls. Google News Scraper is query-based discovery: required input is queries (maximum 50 search terms), localized with language and country, reading Google News RSS rather than publisher feeds you supply. Article Content Extractor is HTML cleanup: it fetches article-shaped news, blog, newsroom, and press pages (maximum 300 URLs) and returns headline, byline, publish date, article body, excerpt, and hero image. Website Content Extractor cleans docs, pricing, policy, or product pages that are not article-shaped. Send this Actor's returned links to those extractors when you need full page text."
         }
       },
       {
         "@type": "Question",
-        "name": "What does a result row contain?",
+        "name": "What live input does RSS & Atom Feed Extractor require?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Each row includes source (the feed URL that produced it), title, link (the item URL for downstream extraction), pubDate, pubDateISO, description (summary text from the feed), content (encoded content when available), categories, and matchedKeywords on filtered rows."
+          "text": "The live OpenAPI input schema requires feedUrls. Optional fields are keywords (include-list; matching rows return matchedKeywords), maxItemsPerFeed (integer, default 25, minimum 1, maximum 200), deduplicate (boolean, default true; remove duplicate links across feeds), timeoutMs (integer, default 15000, minimum 1000, maximum 30000), delivery (enum dataset or webhook, default dataset), webhookUrl (string; webhook target used when delivery=webhook), and dryRun (boolean, default false; run without saving results). Schema prefill for feedUrls is https://blog.google/rss/ and https://openai.com/news/rss.xml. The published Store example run uses https://hnrss.org/frontpage with maxItemsPerFeed 10."
         }
       },
       {
         "@type": "Question",
-        "name": "How do I start a run?",
+        "name": "Which fields does a parsed RSS or Atom item include?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Open the Actor on the Apify Store and supply feedUrls. keywords is an optional include-list. maxItemsPerFeed defaults to 25 (1–200). deduplicate defaults to true. timeoutMs defaults to 15000 (1000–30000). delivery defaults to dataset; set webhook plus webhookUrl when you want webhook delivery. dryRun runs without saving results."
+          "text": "The published README output table lists source (feed URL that produced the row), title, link (item URL for downstream extraction), pubDate (original feed date), pubDateISO (ISO timestamp version of pubDate), description (summary text from the feed), content (encoded content when available), categories (categories or tags from the feed), and matchedKeywords (keywords that matched the row). That table is the published field inventory, not a live coverage guarantee for every feed. The published README sample is a filtered OpenAI news item with matchedKeywords ai and agents."
         }
       },
       {
         "@type": "Question",
-        "name": "Can I get full article text here?",
+        "name": "Does feed XML parsing return cleaned article bodies?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "No. This Actor is a feed discovery layer, not a full-content extractor. Use Article Content Extractor or Website Content Extractor on the returned links."
+          "text": "No. This Actor is a feed discovery layer, not a full-content extractor and not an HTML cleaner. It reads RSS or Atom XML. Use Article Content Extractor on returned news, blog, and press links. Use Website Content Extractor on returned docs, product, pricing, policy, or help-center links. Encoded content in the feed row, when present, is still feed XML content, not a cleaned article-body extract."
         }
       },
       {
         "@type": "Question",
-        "name": "How does keyword filtering work?",
+        "name": "How does OR-based keyword filtering attach matchedKeywords?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "keywords is an optional include-list. Matching is OR-based: any matched keyword keeps the item. Filtered rows include a matchedKeywords array so you can see which terms triggered the row."
+          "text": "keywords is an optional include-list. Matching is OR-based: any matched keyword keeps the item. Filtered rows include a matchedKeywords array so you can see which terms triggered the row. There is no exclude list in the published input schema. An empty keywords list does not apply that include filter. The README FAQ states you can see why an item matched via matchedKeywords."
         }
       },
       {
         "@type": "Question",
-        "name": "When should I use this instead of query-based news discovery?",
+        "name": "When should I pass feedUrls instead of Google News queries?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Use RSS & Atom Feed Extractor when you already know the publishers you trust and have their public feed URLs. Query-based Google News discovery is a different surface for when you do not yet have feed URLs."
+          "text": "Pass feedUrls here when you already know the publishers you trust and have their public RSS or Atom URLs. Use Google News Scraper when you do not have feed URLs yet and want broader query-based discovery. This page is not a search surface: it has no language or country localization fields. Google News Scraper localizes with language (default en) and country (default US)."
         }
       },
       {
         "@type": "Question",
-        "name": "How is RSS & Atom Feed Extractor priced?",
+        "name": "Does the live schema accept feeds, onlyNewSinceLastRun, or a snapshot key?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Billing is pay per event. The published Store price is $1.00 per 1,000 RSS or Atom items. You are charged only for one successfully parsed public feed item ($0.001 per event), not for Apify platform usage."
+          "text": "No. The live required field is feedUrls. The published OpenAPI schema does not expose a feeds alias, onlyNewSinceLastRun, or snapshotKey. README illustrations that show a feeds array or a delta-only snapshotKey run are not live input names. Send feedUrls, not feeds."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do dataset delivery, webhookUrl, and dryRun work for this feed Actor?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "delivery defaults to dataset (Where to send results: dataset or webhook). Set delivery to webhook and supply webhookUrl when you want webhook delivery. Live enum values are dataset and webhook; dataset_and_webhook is not a live enum value on this Actor. dryRun defaults to false and runs without saving results. The live schema description for dryRun is: Run without saving results."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does cross-feed deduplicate treat duplicate item links?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "deduplicate defaults to true. The live schema description is: Remove duplicate links across feeds. Keep that default when several publishers syndicate the same item URL. Set it false only when you need one row per source feed even if the link repeats."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the published Quickstart path for two publisher feeds?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Store Quickstart section says: start with Quickstart (2 publisher feeds) for a reliable first run; use Multi-Source Monitoring to watch several feeds with keyword filters; use RSS to Article Cleanup when the next step is article extraction. The published first-run buyer path is: run Quickstart (2 publisher feeds); confirm the Actor returns recent item URLs plus matchedKeywords; send article, news, and blog links to Article Content Extractor; send docs, product, or policy links to Website Content Extractor. Start with a small set of high-trust feeds."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is RSS & Atom Feed Extractor priced on the live Store?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Billing is pay per event. The live Store card is $1.00 / 1,000 rss or atom items. The current PPE event is RSS or Atom item (apify-default-dataset-item) at $0.001, charged only for one successfully parsed public feed item. There is no Actor start event on the current pricing tab. The live pricing tab lists Platform usage as Included."
         }
       }
     ]
@@ -99,17 +131,19 @@
 <body>
   <main>
     <nav><a href="/">Home</a> / RSS &amp; Atom Feed Extractor</nav>
-    <h1>RSS &amp; Atom Feed Extractor</h1>
-    <p>Aggregate public RSS and Atom XML feeds into structured JSON so you can discover fresh website URLs from blogs and newsrooms before a downstream scraper runs. This Actor is a feed discovery layer: it parses trusted feed XML, applies optional keyword filters, and returns item URLs. It is not an HTML article extractor and it does not crawl a site to find new pages.</p>
+    <h1>Parse known-publisher RSS and Atom XML into filtered item URL lists</h1>
+    <p>RSS &amp; Atom Feed Extractor aggregates public RSS and Atom XML feeds you already have into structured JSON so you can discover fresh item URLs from blogs and newsrooms before a downstream scraper runs. It parses trusted feed XML, applies optional OR-based keyword filters, deduplicates links across sources, and returns item URLs with titles, dates, and summaries. It is not an HTML article extractor, not a Google News query surface, and it does not crawl a site to find new pages.</p>
+    <p class="price">$1.00 / 1,000 RSS or Atom items ($0.001 per successfully parsed public feed item)</p>
     <p><a href="https://apify.com/taroyamada/rss-feed-aggregator">Open RSS &amp; Atom Feed Extractor on Apify</a></p>
 
-    <h2>Feed aggregation, not HTML article extract</h2>
-    <p>Use this page when you already have public RSS or Atom feed URLs and need a filtered list of new item links. Use <a href="/article-content-extractor/">Article Content Extractor</a> to clean discovered article, news, and blog pages. Use <a href="/website-content-extractor/">Website Content Extractor</a> to clean discovered docs, pricing, policy, or product pages. Those Actors fetch page HTML. This one reads feed XML.</p>
+    <h2>Feed XML you already have, not Google News queries and not article HTML</h2>
+    <p>Use this page when you already have public RSS or Atom feed URLs and need a filtered list of new item links. Use <a href="/google-news-scraper/">Google News Scraper</a> when you search Google News by keyword and do not yet have publisher feed URLs. Use <a href="/article-content-extractor/">Article Content Extractor</a> to clean discovered article, news, and blog pages. Use <a href="/website-content-extractor/">Website Content Extractor</a> to clean discovered docs, pricing, policy, or product pages. Those extractors fetch page HTML. This Actor reads feed XML.</p>
     <table>
       <thead>
         <tr>
           <th></th>
           <th>RSS &amp; Atom Feed Extractor</th>
+          <th>Google News Scraper</th>
           <th>Article Content Extractor</th>
           <th>Website Content Extractor</th>
         </tr>
@@ -118,30 +152,48 @@
         <tr>
           <td>Intent</td>
           <td>Discover fresh URLs from known publisher and blog feeds</td>
+          <td>Discover current article URLs by query</td>
           <td>Clean discovered article, news, and blog pages</td>
           <td>Clean discovered docs, pricing, policy, or product pages</td>
         </tr>
         <tr>
           <td>Input</td>
           <td>Public RSS/Atom URLs in <code>feedUrls</code> (max 50)</td>
-          <td>Article-shaped page URLs</td>
-          <td>Site page URLs that are not article-shaped</td>
+          <td>Search <code>queries</code> (max 50)</td>
+          <td>Article-shaped page URLs (max 300)</td>
+          <td>Site page URLs that are not article-shaped (max 200)</td>
         </tr>
         <tr>
           <td>What it reads</td>
           <td>Feed XML — no site crawl, no browser automation</td>
+          <td>Google News RSS for those queries</td>
           <td>Live article HTML</td>
           <td>Live page HTML</td>
         </tr>
         <tr>
+          <td>Localization</td>
+          <td>Not a search surface</td>
+          <td><code>language</code> and <code>country</code></td>
+          <td>Not a search surface</td>
+          <td>Not a search surface</td>
+        </tr>
+        <tr>
           <td>Primary output</td>
           <td>Feed items: title, link, dates, summary, encoded content when present</td>
+          <td>Headline, article URL, publisher, timestamps, snippet, originating query</td>
           <td>Article body, byline, date, excerpt, hero image</td>
           <td>Cleaned markdown or text plus page metadata</td>
         </tr>
+        <tr>
+          <td>HTML cleanup</td>
+          <td>No. Feed discovery only</td>
+          <td>No. Clean pages afterward with an extractor</td>
+          <td>Yes — bounded article extraction</td>
+          <td>Yes — broader site-page extraction</td>
+        </tr>
       </tbody>
     </table>
-    <p>This page is also not the podcast-RSS comparison. For show catalogs versus iTunes Search, see <a href="/compare/rss-feed-vs-itunes-search/">RSS feed vs iTunes Search API</a>.</p>
+    <p>This page is also not the podcast-RSS comparison. For show catalogs versus iTunes Search, see <a href="/compare/rss-feed-vs-itunes-search/">RSS feed vs iTunes Search API</a>. Feed XML here is RSS or Atom item feeds, not <code>sitemap.xml</code> URL inventories.</p>
 
     <h2>Use cases</h2>
     <ul>
@@ -150,17 +202,77 @@
       <li>Content ops: build filtered story queues from trusted sources.</li>
       <li>AI / RAG teams: maintain a fresh URL stream before deeper extraction.</li>
     </ul>
-    <p>The published README positions the Actor for daily or weekly monitoring of known publisher blogs, company update logs, and tech newsrooms. Start with a small set of high-trust feeds.</p>
+    <p>Those four bullets are the published README use cases. The README positions the Actor as a lightweight feed-to-scraper feeder for recurring monitoring of publisher blogs, company newsroom updates, and tech newsrooms. Start with a small set of high-trust feeds.</p>
 
-    <h2>What does RSS &amp; Atom Feed Extractor parse?</h2>
-    <p>Public RSS and Atom XML feeds. Pass feed URLs in <code>feedUrls</code> (maximum 50 per run). The Actor parses feed XML and returns feed items — titles, item URLs, publication timestamps, summaries, encoded content when available, and categories. It does not crawl website HTML and it does not extract full article bodies from those item links.</p>
+    <h2>What public RSS and Atom XML does this Actor parse?</h2>
+    <p>Public RSS and Atom XML feeds you already have. Required input is <code>feedUrls</code> (maximum 50 per run; schema description: Public RSS/Atom URLs to monitor). The Actor parses feed XML and returns feed items — titles, item URLs, publication timestamps, summaries, encoded content when available, and categories or tags. It does not crawl website HTML, it does not query Google News, and it does not extract full article bodies from those item links. Authenticated or HTML-only pages are not feed input.</p>
 
-    <h2>How is this different from Website Content Extractor and Article Content Extractor?</h2>
-    <p>This Actor is a feed discovery layer: it aggregates public RSS and Atom items into structured URL lists. <a href="/article-content-extractor/">Article Content Extractor</a> cleans discovered article, news, and blog HTML pages. <a href="/website-content-extractor/">Website Content Extractor</a> cleans discovered docs, pricing, policy, or product pages. Send the returned links to those Actors when you need full page text.</p>
+    <h2>How is known-publisher feed XML different from Google News query RSS and from article HTML cleanup?</h2>
+    <p>This Actor is a known-publisher feed discovery layer: you already have public RSS or Atom URLs and pass them in <code>feedUrls</code>. <a href="/google-news-scraper/">Google News Scraper</a> is query-based discovery: required input is <code>queries</code> (maximum 50 search terms), localized with <code>language</code> and <code>country</code>, reading Google News RSS rather than publisher feeds you supply. <a href="/article-content-extractor/">Article Content Extractor</a> is HTML cleanup: it fetches article-shaped news, blog, newsroom, and press pages (maximum 300 URLs) and returns headline, byline, publish date, article body, excerpt, and hero image. <a href="/website-content-extractor/">Website Content Extractor</a> cleans docs, pricing, policy, or product pages that are not article-shaped. Send this Actor's returned links to those extractors when you need full page text.</p>
 
-    <h2>How do I start a run?</h2>
-    <p>Open the Actor on the Apify Store and supply <code>feedUrls</code>. <code>keywords</code> is an optional include-list. <code>maxItemsPerFeed</code> defaults to 25 (1–200). <code>deduplicate</code> defaults to true. <code>timeoutMs</code> defaults to 15000 (1000–30000). <code>delivery</code> defaults to dataset; set webhook plus <code>webhookUrl</code> when you want webhook delivery. <code>dryRun</code> runs without saving results.</p>
-    <p>The published input form prefills two publisher feeds. Store Quickstart names a first run on those two feeds; Multi-Source Monitoring adds keyword filters across several feeds; RSS → Article Cleanup is the handoff when the next step is article extraction.</p>
+    <h2>What live input does RSS &amp; Atom Feed Extractor require?</h2>
+    <p>The live OpenAPI input schema requires <code>feedUrls</code>. Optional fields are <code>keywords</code>, <code>maxItemsPerFeed</code>, <code>deduplicate</code>, <code>timeoutMs</code>, <code>delivery</code>, <code>webhookUrl</code>, and <code>dryRun</code>.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>feedUrls</code></td>
+          <td>string[]</td>
+          <td>required</td>
+          <td>Public RSS/Atom URLs to monitor (max 50). Schema prefill is <code>https://blog.google/rss/</code> and <code>https://openai.com/news/rss.xml</code>.</td>
+        </tr>
+        <tr>
+          <td><code>keywords</code></td>
+          <td>string[]</td>
+          <td>—</td>
+          <td>Optional include-list keywords. Matching rows return a <code>matchedKeywords</code> field.</td>
+        </tr>
+        <tr>
+          <td><code>maxItemsPerFeed</code></td>
+          <td>integer</td>
+          <td>25</td>
+          <td>Maximum items to keep from each feed; 1–200. Schema title: Max Items per Feed.</td>
+        </tr>
+        <tr>
+          <td><code>deduplicate</code></td>
+          <td>boolean</td>
+          <td>true</td>
+          <td>Remove duplicate links across feeds</td>
+        </tr>
+        <tr>
+          <td><code>timeoutMs</code></td>
+          <td>integer</td>
+          <td>15000</td>
+          <td>Request timeout in milliseconds; 1000–30000</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string</td>
+          <td><code>dataset</code></td>
+          <td><code>dataset</code> or <code>webhook</code></td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td>—</td>
+          <td>Webhook target used when <code>delivery</code> is <code>webhook</code></td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Run without saving results</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published README input illustration (schema-valid names):</p>
 <pre><code>{
   "feedUrls": [
     "https://blog.google/rss/",
@@ -170,19 +282,22 @@
   "maxItemsPerFeed": 10,
   "deduplicate": true
 }</code></pre>
-    <ul>
-      <li><code>feedUrls</code> is required. Public RSS/Atom URLs to monitor (max 50).</li>
-      <li><code>keywords</code> is an optional include-list. Matching rows return <code>matchedKeywords</code>.</li>
-      <li><code>maxItemsPerFeed</code> defaults to 25 (1–200). Maximum items to keep from each feed.</li>
-      <li><code>deduplicate</code> defaults to true. Remove duplicate links across feeds.</li>
-      <li><code>timeoutMs</code> defaults to 15000 (1000–30000). Request timeout in milliseconds.</li>
-      <li><code>delivery</code> defaults to <code>dataset</code>. Set <code>webhook</code> plus <code>webhookUrl</code> for webhook delivery.</li>
-      <li><code>dryRun</code> defaults to false. Run without saving results.</li>
-    </ul>
+    <p>Published Store example run input:</p>
+<pre><code>{
+  "feedUrls": [
+    "https://hnrss.org/frontpage"
+  ],
+  "keywords": [],
+  "maxItemsPerFeed": 10,
+  "deduplicate": true,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p>The live fields are <code>feedUrls</code> and <code>maxItemsPerFeed</code>. Do not send unpublished aliases.</p>
     <p><a href="https://apify.com/taroyamada/rss-feed-aggregator">Run RSS &amp; Atom Feed Extractor on Apify</a></p>
 
-    <h2>What does a result row contain?</h2>
-    <p>Each row includes <code>source</code> (the feed URL that produced it), <code>title</code>, <code>link</code> (the item URL for downstream extraction), <code>pubDate</code>, <code>pubDateISO</code>, <code>description</code> (summary text from the feed), <code>content</code> (encoded content when available), <code>categories</code>, and <code>matchedKeywords</code> on filtered rows.</p>
+    <h2>Which fields does a parsed RSS or Atom item include?</h2>
+    <p>The published README output table lists <code>source</code> (feed URL that produced the row), <code>title</code>, <code>link</code> (item URL for downstream extraction), <code>pubDate</code> (original feed date), <code>pubDateISO</code> (ISO timestamp version of <code>pubDate</code>), <code>description</code> (summary text from the feed), <code>content</code> (encoded content when available), <code>categories</code> (categories or tags from the feed), and <code>matchedKeywords</code> (keywords that matched the row). That table is the published field inventory, not a live coverage guarantee for every feed.</p>
     <p>Published README sample:</p>
 <pre><code>{
   "source": "https://openai.com/news/rss.xml",
@@ -195,27 +310,64 @@
 }</code></pre>
     <p>That sample is the published README illustration of a filtered item, not a live coverage guarantee. After you confirm recent item URLs, send article, news, and blog links to <a href="/article-content-extractor/">Article Content Extractor</a> and docs, product, or policy links to <a href="/website-content-extractor/">Website Content Extractor</a>.</p>
 
-    <h2>Can I get full article text here?</h2>
-    <p>No. This Actor is a feed discovery layer, not a full-content extractor. Use <a href="/article-content-extractor/">Article Content Extractor</a> or <a href="/website-content-extractor/">Website Content Extractor</a> on the returned links.</p>
+    <h2>Does feed XML parsing return cleaned article bodies?</h2>
+    <p>No. This Actor is a feed discovery layer, not a full-content extractor and not an HTML cleaner. It reads RSS or Atom XML. Use <a href="/article-content-extractor/">Article Content Extractor</a> on returned news, blog, and press links. Use <a href="/website-content-extractor/">Website Content Extractor</a> on returned docs, product, pricing, policy, or help-center links. Encoded <code>content</code> in the feed row, when present, is still feed XML content, not a cleaned article-body extract.</p>
 
-    <h2>How does keyword filtering work?</h2>
-    <p><code>keywords</code> is an optional include-list. Matching is OR-based: any matched keyword keeps the item. Filtered rows include a <code>matchedKeywords</code> array so you can see which terms triggered the row.</p>
+    <h2>How does OR-based keyword filtering attach matchedKeywords?</h2>
+    <p><code>keywords</code> is an optional include-list. Matching is OR-based: any matched keyword keeps the item. Filtered rows include a <code>matchedKeywords</code> array so you can see which terms triggered the row. There is no exclude list in the published input schema. An empty <code>keywords</code> list does not apply that include filter. The README FAQ states you can see why an item matched via <code>matchedKeywords</code>.</p>
 
-    <h2>When should I use this instead of query-based news discovery?</h2>
-    <p>Use RSS &amp; Atom Feed Extractor when you already know the publishers you trust and have their public feed URLs. Query-based Google News discovery is a different surface for when you do not yet have feed URLs.</p>
+    <h2>When should I pass feedUrls instead of Google News queries?</h2>
+    <p>Pass <code>feedUrls</code> here when you already know the publishers you trust and have their public RSS or Atom URLs. Use <a href="/google-news-scraper/">Google News Scraper</a> when you do not have feed URLs yet and want broader query-based discovery. This page is not a search surface: it has no <code>language</code> or <code>country</code> localization fields. Google News Scraper localizes with <code>language</code> (default <code>en</code>) and <code>country</code> (default <code>US</code>).</p>
 
-    <h2>How is RSS &amp; Atom Feed Extractor priced?</h2>
-    <p>Billing is pay per event. The published Store price is $1.00 per 1,000 RSS or Atom items. You are charged only for one successfully parsed public feed item ($0.001 per event), not for Apify platform usage.</p>
-    <p class="price">$1.00 / 1,000 RSS or Atom items</p>
+    <h2>Does the live schema accept feeds, onlyNewSinceLastRun, or a snapshot key?</h2>
+    <p>No. The live required field is <code>feedUrls</code>. The published OpenAPI schema does not expose a <code>feeds</code> alias, <code>onlyNewSinceLastRun</code>, or <code>snapshotKey</code>. README illustrations that show a <code>feeds</code> array or a delta-only <code>snapshotKey</code> run are not live input names. Send <code>feedUrls</code>, not <code>feeds</code>.</p>
+
+    <h2>How do dataset delivery, webhookUrl, and dryRun work for this feed Actor?</h2>
+    <p><code>delivery</code> defaults to <code>dataset</code> (Where to send results: dataset or webhook). Set <code>delivery</code> to <code>webhook</code> and supply <code>webhookUrl</code> when you want webhook delivery. Live enum values are <code>dataset</code> and <code>webhook</code>; <code>dataset_and_webhook</code> is not a live enum value on this Actor. <code>dryRun</code> defaults to false and runs without saving results. The live schema description for <code>dryRun</code> is: Run without saving results.</p>
+
+    <h2>How does cross-feed deduplicate treat duplicate item links?</h2>
+    <p><code>deduplicate</code> defaults to true. The live schema description is: Remove duplicate links across feeds. Keep that default when several publishers syndicate the same item URL. Set it false only when you need one row per source feed even if the link repeats.</p>
+
+    <h2>What is the published Quickstart path for two publisher feeds?</h2>
+    <p>The Store Quickstart section says: start with <strong>Quickstart (2 publisher feeds)</strong> for a reliable first run; use <strong>Multi-Source Monitoring</strong> to watch several feeds with keyword filters; use <strong>RSS → Article Cleanup</strong> when the next step is article extraction.</p>
+    <ol>
+      <li>Run Quickstart (2 publisher feeds).</li>
+      <li>Confirm the Actor returns recent item URLs plus <code>matchedKeywords</code>.</li>
+      <li>Send article, news, and blog links to <a href="/article-content-extractor/">Article Content Extractor</a>.</li>
+      <li>Send docs, product, or policy links to <a href="/website-content-extractor/">Website Content Extractor</a>.</li>
+    </ol>
+    <p>Those four steps are the published first-run buyer path. Start with a small set of high-trust feeds.</p>
+
+    <h2>How is RSS &amp; Atom Feed Extractor priced on the live Store?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>$1.00 / 1,000 rss or atom items</strong>. Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>apify-default-dataset-item</code> (RSS or Atom item)</td>
+          <td>$0.001</td>
+          <td>Charged only for one successfully parsed public feed item</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>There is no Actor start event on the current pricing tab. The live pricing tab lists Platform usage as Included. Align billing copy to this live PPE only.</p>
+    <p class="price">$1.00 / 1,000 RSS or Atom items ($0.001 per successfully parsed public feed item)</p>
     <p><a href="https://apify.com/taroyamada/rss-feed-aggregator/pricing">See RSS &amp; Atom Feed Extractor pricing on Apify</a></p>
 
     <h2>Limits to keep in mind</h2>
     <ul>
       <li>Feeds must be public RSS or Atom XML. Authenticated or HTML-only pages are not feed input.</li>
-      <li>At most 50 feed URLs per run.</li>
-      <li><code>maxItemsPerFeed</code> is 1–200; <code>timeoutMs</code> is 1000–30000.</li>
+      <li>At most 50 feed URLs per run. <code>maxItemsPerFeed</code> is 1–200 (default 25). <code>timeoutMs</code> is 1000–30000 (default 15000).</li>
       <li>Keyword filtering is include-list and OR-based. There is no exclude list in the published input schema.</li>
-      <li>The required field is <code>feedUrls</code>. The published schema does not expose a <code>feeds</code> alias or a last-run snapshot key.</li>
+      <li>The required field is <code>feedUrls</code>. Live schema names only — not <code>feeds</code>, <code>onlyNewSinceLastRun</code>, or <code>snapshotKey</code>.</li>
+      <li>This is feed XML discovery, not Google News queries, not article HTML cleanup, and not <code>sitemap.xml</code> URL inventories.</li>
+      <li>Live PPE is one event: RSS or Atom item at $0.001. Platform usage is Included.</li>
     </ul>
     <p><a href="https://apify.com/taroyamada/rss-feed-aggregator">Open RSS &amp; Atom Feed Extractor on Apify</a></p>
 
