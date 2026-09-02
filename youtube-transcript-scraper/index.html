@@ -13,6 +13,14 @@
     "mainEntity": [
       {
         "@type": "Question",
+        "name": "How is YouTube Transcript Scraper different from YouTube Channel Analytics Scraper?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "This Actor extracts public YouTube caption tracks. Its live inputs are videoUrls, videoIds, playlistUrls, and/or channelUrls. It resolves visible video IDs, fetches public captions, selects a matching language, downloads timed transcript XML, and returns one dataset row per video with full text, timed segments, and formatted SRT, VTT, or plain text. It is HTTP-first and does not use browser automation. YouTube Channel Analytics Scraper reads public YouTube channel pages. Required input is channelUrls (channel URLs or bare @handles). It returns channel-level public metrics, recent long-form uploads from the Videos tab, and optional Shorts from the Shorts tab. Both Actors can accept channel URLs, but this Actor expands channels into transcript rows and does not return channel analytics metrics. Use this page for video transcripts. Use YouTube Channel Analytics Scraper for competitor cadence and upload mix."
+        }
+      },
+      {
+        "@type": "Question",
         "name": "How is YouTube Transcript Scraper different from Website Content Extractor?",
         "acceptedAnswer": {
           "@type": "Answer",
@@ -84,11 +92,11 @@
   <main>
     <nav><a href="/">Home</a> / YouTube Transcript Scraper</nav>
     <h1>Bulk YouTube captions to timed text, SRT, and VTT without a browser</h1>
-    <p>Extract transcripts from public YouTube videos in bulk. This Actor resolves video, playlist, and channel sources into visible video IDs, fetches public caption tracks, selects a matching language (with optional auto-generated captions and translation), and returns one dataset row per video: identifiers, title, channel, caption provenance, full text, timed segments, and formatted SRT, VTT, or plain text. It is HTTP-first and does not use browser automation. It does not fetch website HTML — for docs, pricing, or help-center pages use <a href="/website-content-extractor/">Website Content Extractor</a>.</p>
+    <p>Extract transcripts from public YouTube videos in bulk. This Actor resolves video, playlist, and channel sources into visible video IDs, fetches public caption tracks, selects a matching language (with optional auto-generated captions and translation), and returns one dataset row per video: identifiers, title, channel, caption provenance, full text, timed segments, and formatted SRT, VTT, or plain text. It is HTTP-first and does not use browser automation. Channel URLs here expand to transcript rows, not channel analytics — for subscriber counts, upload cadence, and Shorts use <a href="/youtube-channel-analytics/">YouTube Channel Analytics Scraper</a>. It does not fetch website HTML — for docs, pricing, or help-center pages use <a href="/website-content-extractor/">Website Content Extractor</a>.</p>
     <p><a href="https://apify.com/taroyamada/youtube-transcript-bulk-api">Open YouTube Transcript Scraper on Apify</a></p>
 
     <h2>YouTube captions, not website HTML</h2>
-    <p>Use this page when the job is public YouTube transcripts for AI pipelines, RAG ingestion, subtitle export, research, or a searchable video archive. Use <a href="/website-content-extractor/">Website Content Extractor</a> when the job is cleaned markdown or text from public HTTP(S) pages. Use <a href="/article-content-extractor/">Article Content Extractor</a> when the URLs are article-shaped and you need headline, byline, and body.</p>
+    <p>Use this page when the job is public YouTube transcripts for AI pipelines, RAG ingestion, subtitle export, research, or a searchable video archive. Use <a href="/youtube-channel-analytics/">YouTube Channel Analytics Scraper</a> when channel URLs mean public channel analytics (subscriber text, upload cadence, Shorts)—not video transcripts. Use <a href="/website-content-extractor/">Website Content Extractor</a> when the job is cleaned markdown or text from public HTTP(S) pages. Use <a href="/article-content-extractor/">Article Content Extractor</a> when the URLs are article-shaped and you need headline, byline, and body.</p>
     <table>
       <thead>
         <tr>
@@ -137,6 +145,9 @@
       <li>Generating decision-ready reports and audits of transcript quality and coverage</li>
     </ul>
     <p>The published README also positions the Actor for pipeline integration, transcript export, and downstream RAG or embedding workflows. It is built for AI pipelines, RAG ingestion, content repurposing, subtitle export, research, and searchable video archives.</p>
+
+    <h2>How is YouTube Transcript Scraper different from YouTube Channel Analytics Scraper?</h2>
+    <p>This Actor extracts public YouTube caption tracks. Its live inputs are <code>videoUrls</code>, <code>videoIds</code>, <code>playlistUrls</code>, and/or <code>channelUrls</code>. It resolves visible video IDs, fetches public captions, selects a matching language, downloads timed transcript XML, and returns one dataset row per video with full text, timed segments, and formatted SRT, VTT, or plain text. It is HTTP-first and does not use browser automation. <a href="/youtube-channel-analytics/">YouTube Channel Analytics Scraper</a> reads public YouTube channel pages. Required input is <code>channelUrls</code> (channel URLs or bare <code>@handles</code>). It returns channel-level public metrics, recent long-form uploads from the Videos tab, and optional Shorts from the Shorts tab. Both Actors can accept channel URLs, but this Actor expands channels into transcript rows and does not return channel analytics metrics. Use this page for video transcripts. Use YouTube Channel Analytics Scraper for competitor cadence and upload mix.</p>
 
     <h2>How is YouTube Transcript Scraper different from Website Content Extractor?</h2>
     <p>This Actor extracts public YouTube caption tracks. You pass video URLs, video IDs, playlist URLs, or channel URLs. It resolves visible video IDs, fetches public captions, selects a matching language, downloads timed transcript XML, and returns one dataset row per video with full text, timed segments, and formatted SRT, VTT, or plain text. It is HTTP-first and does not use browser automation. <a href="/website-content-extractor/">Website Content Extractor</a> fetches public docs, product, pricing, policy, and help-center page URLs and returns cleaned markdown, text, or HTML. It does not read YouTube caption tracks. Use this Actor for video transcripts. Use Website Content Extractor when you need page body content.</p>
@@ -298,6 +309,7 @@
 
     <h2>Related pages</h2>
     <ul>
+      <li><a href="/youtube-channel-analytics/">YouTube Channel Analytics Scraper</a> — public channel analytics (subscriber counts, upload cadence), not video transcripts</li>
       <li><a href="/website-content-extractor/">Website Content Extractor</a> — clean docs, pricing, policy, or product pages, not YouTube captions</li>
       <li><a href="/meta-tag-opengraph-scraper/">Meta Tag &amp; OpenGraph Scraper</a> — head metadata and Open Graph audit, not captions</li>
       <li><a href="/article-content-extractor/">Article Content Extractor</a> — clean article, news, and blog pages</li>
