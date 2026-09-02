@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Apple Podcasts Chart Scraper — ranks and movement reports</title>
-  <meta name="description" content="Snapshot public Apple Podcasts Top Podcasts charts by country. Optional monitor emits one source-linked report when ranks are new, changed, or dropped.">
+  <title>Apple Podcasts Chart Scraper — Top Podcasts ranks and source-linked movement reports</title>
+  <meta name="description" content="Snapshot public Apple Podcasts Top Podcasts charts by storefront. Optional monitor emits one source-linked report when ranks are new, changed, or dropped. From $3.00 / 1,000 apify-default-dataset-items.">
   <link rel="canonical" href="https://luxslime.github.io/apple-podcasts-chart-scraper/">
   <script type="application/ld+json">
   {
@@ -16,7 +16,7 @@
         "name": "How is Apple Podcasts Chart Scraper different from Apple Podcasts Scraper?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Chart Scraper is storefront Top Podcasts rankings only: raw chart_rank rows, or one movement report when a saved monitor sees new, changed, or dropped positions. It does not search by keyword, look up collection IDs, or attach episode catalogs. Apple Podcasts Scraper is the search, episode, and watchlist actor; its chartRequests path is a rank snapshot and does not emit movement reports."
+          "text": "Chart Scraper is storefront Top Podcasts rankings only: raw chart_rank rows, or one movement report when a saved monitor sees new, changed, or dropped positions. It does not search by keyword, look up collection IDs, or attach episode catalogs. Apple Podcasts Scraper is the search, episode, and watchlist actor; its chartRequests path is a rank snapshot and does not emit movement reports. Apple Podcasts Reviews Scraper reads public Customer Reviews RSS for collection IDs you already have."
         }
       },
       {
@@ -24,7 +24,7 @@
         "name": "What does a raw chart snapshot contain?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Each delivered raw row has rowType chart_rank. Published fields include country, rank, showId, showName, artistName, sourceUrl, fetchedAt, plus legacy aliases name, artist, and collectionId. Sample rows are source-linked to an Apple Podcasts URL. Rank movement is descriptive evidence, not a forecast, audience estimate, or advertising guarantee."
+          "text": "Each delivered raw row has rowType chart_rank. Published fields include country, rank, showId, showName, artistName, sourceUrl, fetchedAt, plus legacy aliases name, artist, and collectionId. Sample rows are source-linked to an Apple Podcasts URL. There is no separate output schema on the Store page. Rank movement is descriptive evidence, not a forecast, audience estimate, or advertising guarantee."
         }
       },
       {
@@ -32,7 +32,7 @@
         "name": "When does a movement report emit, and what does it include?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Set a stable monitorKey and generateMovementReport to true. A baseline_only first run stores state with zero rows and zero charges. Later unchanged polls emit zero rows and zero charges. A later poll that sees new, changed, or dropped positions emits at most one podcast_chart_movement_report row. That row includes monitorKey, changedCount, newCount, droppedCount, and a changes list with changeType, country, show identity, previousRank, currentRank, rankDelta, and sourceUrl. A failed source is not treated as a mass drop. emit_backfill emits one initial report of current positions."
+          "text": "Set a stable monitorKey and generateMovementReport to true. A baseline_only first run stores state with zero rows and zero charges. Later unchanged polls emit zero rows and zero charges when emitRawRows is false. A later poll that sees new, changed, or dropped positions emits at most one podcast_chart_movement_report row. That row includes monitorKey, changedCount, newCount, droppedCount, and a changes list with changeType, country, show identity, previousRank, currentRank, rankDelta, and sourceUrl. A failed source is not treated as a mass drop. emit_backfill emits one initial report of current positions."
         }
       },
       {
@@ -48,15 +48,79 @@
         "name": "How is Apple Podcasts Chart Scraper priced?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Billing is pay-per-event. The published Store price for raw rows starts at $3.00 per 1,000 apify-default-dataset-item events. Each movement report is a podcast-chart-movement-report event. The published safety estimate is $0.003 per raw row and $2.50 per movement report. maxChargeUsd defaults to 3 and fails closed before delivery when the estimate exceeds the cap. Unchanged monitor polls emit zero rows and zero charges when emitRawRows is false."
+          "text": "Billing is pay-per-event. The live Store card is from $3.00 / 1,000 apify-default-dataset-items. Published events are apify-default-dataset-item at $0.003 per delivered raw chart row and podcast-chart-movement-report at $2.50 per delivered movement report. You are not charged for Apify platform usage, only the fixed event price. The published safety estimate is $0.003 per raw row and $2.50 per movement report. maxChargeUsd defaults to 3 and fails closed before delivery when the estimate exceeds the cap. Unchanged monitor polls emit zero rows and zero charges when emitRawRows is false. Dry runs fetch and format without dataset, webhook, charge, or state delivery."
         }
       },
       {
         "@type": "Question",
-        "name": "How do delivery, webhooks, and dry runs work?",
+        "name": "How does Apple Podcasts Chart Scraper deliver dataset, webhook, and dry-run output?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "delivery defaults to dataset and writes billable rows to the Apify default dataset. webhook sends the same payload to an http or https webhookUrl first, then writes those billable rows to the default dataset. A non-2xx webhook response fails the run before dataset delivery and prevents state commit. Webhook delivery does not replace dataset delivery. dryRun fetches and formats the result without dataset, webhook, charge, or state delivery."
+          "text": "delivery defaults to dataset and writes billable rows to the Apify default dataset. webhook sends the same payload to an http or https webhookUrl first, then writes those billable rows to the default dataset. A non-2xx webhook response fails the run before dataset delivery and prevents state commit. Webhook delivery does not replace dataset delivery. The published enum is dataset or webhook. dryRun fetches and formats the result without dataset, webhook, charge, or state delivery."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Apple Podcasts Chart Scraper search by keyword, look up collection IDs, or attach episode catalogs?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Published inputs are countries, optional genreId, and limit, plus monitor fields. additionalProperties is false, so unpublished searchTerm, lookupIds, includeEpisodes, chartRequests, and feedType fields are not accepted. Use Apple Podcasts Scraper for keyword search, collection-ID watchlists, recent episodes, and chartRequests snapshots. Use Apple Podcasts Reviews Scraper for public ratings on IDs you already have."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can Apple Podcasts Chart Scraper snapshot episode rankings with feedType podcast-episodes?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. This Actor reads public Apple Podcasts/iTunes Top Podcasts chart JSON. The published schema has no feedType field. For official episode rankings, use Apple Podcasts Scraper chartRequests with feedType podcast-episodes. That path is a rank snapshot and does not emit movement reports."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the difference between baseline_only and emit_backfill on a Chart Scraper monitor?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Both require a stable monitorKey with generateMovementReport true. baseline_only is the default initialRunMode: the first run stores state with zero dataset rows and zero charges. emit_backfill emits one initial podcast_chart_movement_report of the current positions once. Later polls emit at most one report when ranks are new, changed, or dropped. State is isolated by monitorKey and is saved only after webhook and dataset delivery succeed."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does an unchanged Chart Scraper monitor poll charge for dataset rows?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No, when emitRawRows is false. Unchanged polls emit zero rows and zero charges. Leave emitRawRows false unless the monitor also needs the legacy chart_rank rows. A baseline_only first run also stores state with zero rows and zero charges. Dry runs fetch and format without dataset, webhook, charge, or state delivery. The billed events are apify-default-dataset-item at $0.003 and podcast-chart-movement-report at $2.50."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is a failed Chart Scraper storefront treated as a mass drop from the saved baseline?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Each country is fetched with a timeout and bounded retry. Unsupported storefronts produce a warning and are never interpreted as a mass drop from the saved baseline. A failed source is not treated as a mass drop. Rank movement is descriptive evidence, not a forecast, audience estimate, advertising guarantee, or provider approval."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Apple Podcasts Chart Scraper require a proxy, Apple ID, or private dashboard?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. The Actor reads public Apple Podcasts/iTunes chart JSON. It does not require account sessions, browser automation, or private podcast dashboards. No proxy is required. It is not affiliated with or endorsed by Apple."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I pass a collection ID or an RSS feed URL into Apple Podcasts Chart Scraper?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. additionalProperties is false. Published inputs do not accept lookupIds, podcastIds, searchTerm, or an RSS URL field. For collection-ID refresh use Apple Podcasts Scraper lookupIds. For a known show’s published catalog, read public RSS or use RSS & Atom Feed Extractor. For public ratings on IDs you already have, use Apple Podcasts Reviews Scraper."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Chart Scraper genreId filter search results or collect review text?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. genreId is an optional Apple-internal genre ID on Top Podcasts charts only (1321 is the published News example). Leave it empty for the overall chart. This Actor does not document genre filters on keyword search, and it does not collect review text. Apple Podcasts Scraper searchTerm has no published genre filter. Apple Podcasts Reviews Scraper reads Customer Reviews RSS for collection IDs you already have."
         }
       }
     ]
@@ -83,18 +147,20 @@
 <body>
   <main>
     <nav><a href="/">Home</a> / Apple Podcasts Chart Scraper</nav>
-    <h1>Apple Podcasts Chart Scraper</h1>
-    <p>Snapshot public Apple Podcasts Top Podcasts charts by storefront, then optionally emit one source-linked movement report when a saved monitor sees new, changed, or dropped ranks. This Actor reads public Apple Podcasts/iTunes chart JSON. It is not a keyword search, episode catalog, or collection-ID watchlist tool — that work belongs on <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a>.</p>
+    <h1>Snapshot Apple Podcasts Top Podcasts ranks and emit source-linked movement reports</h1>
+    <p>Snapshot public Apple Podcasts Top Podcasts charts by storefront, then optionally emit one source-linked movement report when a saved monitor sees new, changed, or dropped ranks. This Actor reads public Apple Podcasts/iTunes chart JSON. It is not a keyword search, episode catalog, or collection-ID watchlist tool — that work belongs on <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a>. It is not a review collector — that job belongs on <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a>.</p>
+    <p class="price">From $3.00 / 1,000 apify-default-dataset-items ($0.003 per raw row; $2.50 per movement report)</p>
     <p><a href="https://apify.com/taroyamada/apple-podcast-chart-tracker">Open Apple Podcasts Chart Scraper on Apify</a></p>
 
     <h2>Charts versus show and episode scrape</h2>
-    <p>Use this page when the job is storefront rank: who is on a Top Podcasts chart, at what position, and whether that position moved since the last poll. Use <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> when the job is finding shows by keyword, refreshing known collection IDs, or attaching recent episode titles.</p>
+    <p>Use this page when the job is storefront rank: who is on a Top Podcasts chart, at what position, and whether that position moved since the last poll. Use <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> when the job is finding shows by keyword, refreshing known collection IDs, or attaching recent episode titles. Use <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> for public ratings and review text on IDs you already have.</p>
     <table>
       <thead>
         <tr>
           <th></th>
           <th>Chart Scraper</th>
           <th>Apple Podcasts Scraper</th>
+          <th>Reviews Scraper</th>
         </tr>
       </thead>
       <tbody>
@@ -102,25 +168,35 @@
           <td>Intent</td>
           <td>Top Podcasts chart rows and optional rank movement</td>
           <td>Search, chart snapshot, watchlist lookup, optional episodes</td>
+          <td>Public review rows, optional rating report, delta monitor</td>
         </tr>
         <tr>
           <td>Chart input</td>
           <td><code>countries</code>, optional <code>genreId</code>, <code>limit</code></td>
           <td><code>chartRequests</code> with <code>country</code>, <code>feedType</code>, <code>limit</code></td>
+          <td>Not a chart tool</td>
         </tr>
         <tr>
           <td>Show / episode scrape</td>
           <td>Not in this Actor</td>
           <td><code>searchTerm</code>, <code>lookupIds</code>, <code>includeEpisodes</code></td>
+          <td>Not in this Actor</td>
         </tr>
         <tr>
-          <td>Movement</td>
+          <td>Default row</td>
+          <td><code>chart_rank</code></td>
+          <td>Search / lookup / chart snapshot rows</td>
+          <td><code>podcast_review</code></td>
+        </tr>
+        <tr>
+          <td>Movement / report</td>
           <td>One report row when a <code>monitorKey</code> sees new, changed, or dropped positions</td>
           <td>Snapshot only; no movement report fields</td>
+          <td>One <code>podcast_review_report</code> when <code>generateReport</code> is true</td>
         </tr>
       </tbody>
     </table>
-    <p>Neither Actor is affiliated with or endorsed by Apple. Rank movement is descriptive evidence, not a forecast, audience estimate, advertising guarantee, or provider approval.</p>
+    <p>None of these Actors is affiliated with or endorsed by Apple. Rank movement is descriptive evidence, not a forecast, audience estimate, advertising guarantee, or provider approval.</p>
 
     <h2>Use cases</h2>
     <ul>
@@ -141,7 +217,7 @@
   "delivery": "dataset",
   "dryRun": false
 }</code></pre>
-    <p>Published raw fields: <code>actorName</code>, <code>rowType</code>, <code>billingEventName</code>, <code>country</code>, <code>rank</code>, <code>showId</code>, <code>showName</code>, <code>artistName</code>, <code>sourceUrl</code>, <code>fetchedAt</code>, plus legacy aliases <code>name</code>, <code>artist</code>, and <code>collectionId</code>. README sample (placeholder show data):</p>
+    <p>Published raw fields: <code>actorName</code>, <code>rowType</code>, <code>billingEventName</code>, <code>country</code>, <code>rank</code>, <code>showId</code>, <code>showName</code>, <code>artistName</code>, <code>sourceUrl</code>, <code>fetchedAt</code>, plus legacy aliases <code>name</code>, <code>artist</code>, and <code>collectionId</code>. There is no separate output schema on the Store page. README sample (placeholder show data):</p>
 <pre><code>{
   "actorName": "apple-podcast-chart-tracker",
   "rowType": "chart_rank",
@@ -200,25 +276,131 @@
     <p><a href="https://apify.com/taroyamada/apple-podcast-chart-tracker">Configure a movement monitor on Apify</a></p>
 
     <h2>How is Apple Podcasts Chart Scraper different from Apple Podcasts Scraper?</h2>
-    <p>Chart Scraper is storefront Top Podcasts rankings only: raw <code>chart_rank</code> rows, or one movement report when a saved monitor sees new, changed, or dropped positions. It does not search by keyword, look up collection IDs, or attach episode catalogs. <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> is the search, episode, and watchlist actor; its <a href="/guides/apple-podcasts-charts/">chartRequests path</a> is a rank snapshot and does not emit movement reports.</p>
+    <p>Chart Scraper is storefront Top Podcasts rankings only: raw <code>chart_rank</code> rows, or one movement report when a saved monitor sees new, changed, or dropped positions. It does not search by keyword, look up collection IDs, or attach episode catalogs. <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> is the search, episode, and watchlist actor; its <a href="/guides/apple-podcasts-charts/">chartRequests path</a> is a rank snapshot and does not emit movement reports. <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> reads public Customer Reviews RSS for collection IDs you already have.</p>
 
     <h2>What does a raw chart snapshot contain?</h2>
-    <p>Each delivered raw row has <code>rowType</code> <code>chart_rank</code>. Published fields include <code>country</code>, <code>rank</code>, <code>showId</code>, <code>showName</code>, <code>artistName</code>, <code>sourceUrl</code>, <code>fetchedAt</code>, plus legacy aliases <code>name</code>, <code>artist</code>, and <code>collectionId</code>. Sample rows are source-linked to an Apple Podcasts URL. Rank movement is descriptive evidence, not a forecast, audience estimate, or advertising guarantee.</p>
+    <p>Each delivered raw row has <code>rowType</code> <code>chart_rank</code>. Published fields include <code>country</code>, <code>rank</code>, <code>showId</code>, <code>showName</code>, <code>artistName</code>, <code>sourceUrl</code>, <code>fetchedAt</code>, plus legacy aliases <code>name</code>, <code>artist</code>, and <code>collectionId</code>. Sample rows are source-linked to an Apple Podcasts URL. There is no separate output schema on the Store page. Rank movement is descriptive evidence, not a forecast, audience estimate, or advertising guarantee.</p>
 
     <h2>When does a movement report emit, and what does it include?</h2>
-    <p>Set a stable <code>monitorKey</code> and <code>generateMovementReport</code> to true. A <code>baseline_only</code> first run stores state with zero rows and zero charges. Later unchanged polls emit zero rows and zero charges. A later poll that sees new, changed, or dropped positions emits at most one <code>podcast_chart_movement_report</code> row. That row includes <code>monitorKey</code>, <code>changedCount</code>, <code>newCount</code>, <code>droppedCount</code>, and a <code>changes</code> list with <code>changeType</code>, country, show identity, <code>previousRank</code>, <code>currentRank</code>, <code>rankDelta</code>, and <code>sourceUrl</code>. A failed source is not treated as a mass drop. <code>emit_backfill</code> emits one initial report of current positions.</p>
+    <p>Set a stable <code>monitorKey</code> and <code>generateMovementReport</code> to true. A <code>baseline_only</code> first run stores state with zero rows and zero charges. Later unchanged polls emit zero rows and zero charges when <code>emitRawRows</code> is false. A later poll that sees new, changed, or dropped positions emits at most one <code>podcast_chart_movement_report</code> row. That row includes <code>monitorKey</code>, <code>changedCount</code>, <code>newCount</code>, <code>droppedCount</code>, and a <code>changes</code> list with <code>changeType</code>, country, show identity, <code>previousRank</code>, <code>currentRank</code>, <code>rankDelta</code>, and <code>sourceUrl</code>. A failed source is not treated as a mass drop. <code>emit_backfill</code> emits one initial report of current positions.</p>
 
     <h2>How many countries and ranks can I request?</h2>
-    <p><code>countries</code> accepts at most 20 unique ISO-3166-1 alpha-2 codes per run (for example <code>us</code>, <code>gb</code>, <code>jp</code>, or <code>de</code>). Default is <code>["us"]</code>. <code>limit</code> is chart depth per country, default 50, capped at 200. <code>genreId</code> is an optional Apple-internal genre ID (<code>1321</code> is the published News example); leave it empty for the overall chart. Unsupported storefronts produce a warning and are never interpreted as a mass drop from the saved baseline. Storefronts differ: see <a href="/guides/apple-podcasts-countries/">charts and search by country</a> for why a US chart is not a GB or JP chart.</p>
+    <p>The published input schema has no required array. Runtime still fetches the default storefront when <code>countries</code> is omitted. <code>additionalProperties</code> is false. Live input schema fields:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>countries</code></td>
+          <td>string[]</td>
+          <td><code>["us"]</code></td>
+          <td>ISO-3166-1 alpha-2 codes. At most 20 unique values. Schema prefill is <code>us</code>.</td>
+        </tr>
+        <tr>
+          <td><code>genreId</code></td>
+          <td>string</td>
+          <td>empty</td>
+          <td>Optional Apple-internal genre ID. Empty = overall chart. <code>1321</code> is the published News example.</td>
+        </tr>
+        <tr>
+          <td><code>limit</code></td>
+          <td>integer</td>
+          <td>50</td>
+          <td>Chart depth per country, capped at 200.</td>
+        </tr>
+        <tr>
+          <td><code>monitorKey</code></td>
+          <td>string</td>
+          <td>empty</td>
+          <td>Stable state namespace. Movement reports need this plus <code>generateMovementReport</code>.</td>
+        </tr>
+        <tr>
+          <td><code>generateMovementReport</code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Emit one report row only for new, changed, or dropped positions.</td>
+        </tr>
+        <tr>
+          <td><code>initialRunMode</code></td>
+          <td>string</td>
+          <td><code>baseline_only</code></td>
+          <td>Enum: <code>baseline_only</code> or <code>emit_backfill</code>.</td>
+        </tr>
+        <tr>
+          <td><code>emitRawRows</code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>In movement mode, also deliver legacy <code>chart_rank</code> rows. Leave false for zero-charge unchanged polls.</td>
+        </tr>
+        <tr>
+          <td><code>maxChargeUsd</code></td>
+          <td>number</td>
+          <td>3</td>
+          <td>Fail closed before delivery when the estimated charge exceeds the cap.</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string</td>
+          <td><code>dataset</code></td>
+          <td>Enum: <code>dataset</code> or <code>webhook</code>.</td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td>—</td>
+          <td>Required when <code>delivery</code> is <code>webhook</code>. Only http and https URLs are accepted.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Fetch and format without dataset, webhook, charge, or state delivery.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Do not send unpublished aliases such as <code>searchTerm</code>, <code>lookupIds</code>, <code>includeEpisodes</code>, <code>chartRequests</code>, <code>feedType</code>, <code>podcastIds</code>, or an RSS URL field. <code>countries</code> accepts at most 20 unique ISO-3166-1 alpha-2 codes per run (for example <code>us</code>, <code>gb</code>, <code>jp</code>, or <code>de</code>). Unsupported storefronts produce a warning and are never interpreted as a mass drop from the saved baseline. Storefronts differ: see <a href="/guides/apple-podcasts-countries/">charts and search by country</a> for why a US chart is not a GB or JP chart.</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-chart-tracker">Start a chart run on Apify</a></p>
 
     <h2>How is Apple Podcasts Chart Scraper priced?</h2>
-    <p>Billing is pay-per-event. The published Store price for raw rows starts at $3.00 per 1,000 <code>apify-default-dataset-item</code> events. Each movement report is a <code>podcast-chart-movement-report</code> event. The published safety estimate is $0.003 per raw row and $2.50 per movement report. <code>maxChargeUsd</code> defaults to 3 and fails closed before delivery when the estimate exceeds the cap. Unchanged monitor polls emit zero rows and zero charges when <code>emitRawRows</code> is false.</p>
-    <p class="price">From $3.00 per 1,000 raw chart rows</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-chart-tracker">See Apple Podcasts Chart Scraper pricing on Apify</a></p>
+    <p>Billing is pay-per-event. The live Store card is <strong>from $3.00 / 1,000 apify-default-dataset-items</strong>. Published events are <code>apify-default-dataset-item</code> at <strong>$0.003</strong> per delivered raw chart row and <code>podcast-chart-movement-report</code> at <strong>$2.50</strong> per delivered movement report. You are not charged for Apify platform usage, only the fixed event price. The published safety estimate is $0.003 per raw row and $2.50 per movement report. <code>maxChargeUsd</code> defaults to 3 and fails closed before delivery when the estimate exceeds the cap. Unchanged monitor polls emit zero rows and zero charges when <code>emitRawRows</code> is false. Dry runs fetch and format without dataset, webhook, charge, or state delivery.</p>
+    <p class="price">From $3.00 / 1,000 apify-default-dataset-items ($0.003 per raw row; $2.50 per movement report)</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-chart-tracker/pricing">See Apple Podcasts Chart Scraper pricing on Apify</a></p>
 
-    <h2>How do delivery, webhooks, and dry runs work?</h2>
-    <p><code>delivery</code> defaults to <code>dataset</code> and writes billable rows to the Apify default dataset. <code>webhook</code> sends the same payload to an http or https <code>webhookUrl</code> first, then writes those billable rows to the default dataset. A non-2xx webhook response fails the run before dataset delivery and prevents state commit. Webhook delivery does not replace dataset delivery. <code>dryRun</code> fetches and formats the result without dataset, webhook, charge, or state delivery.</p>
+    <h2>How does Apple Podcasts Chart Scraper deliver dataset, webhook, and dry-run output?</h2>
+    <p><code>delivery</code> defaults to <code>dataset</code> and writes billable rows to the Apify default dataset. <code>webhook</code> sends the same payload to an http or https <code>webhookUrl</code> first, then writes those billable rows to the default dataset. A non-2xx webhook response fails the run before dataset delivery and prevents state commit. Webhook delivery does not replace dataset delivery. The published enum is <code>dataset</code> or <code>webhook</code>. <code>dryRun</code> fetches and formats the result without dataset, webhook, charge, or state delivery. Sibling webhook contracts differ: see <a href="/guides/apple-podcasts-webhooks/">Deliver Apple Podcasts results with webhooks</a>.</p>
     <p><a href="https://apify.com/taroyamada/apple-podcast-chart-tracker">Open Apple Podcasts Chart Scraper on Apify</a></p>
+
+    <h2>Does Apple Podcasts Chart Scraper search by keyword, look up collection IDs, or attach episode catalogs?</h2>
+    <p>No. Published inputs are <code>countries</code>, optional <code>genreId</code>, and <code>limit</code>, plus monitor fields. <code>additionalProperties</code> is false, so unpublished <code>searchTerm</code>, <code>lookupIds</code>, <code>includeEpisodes</code>, <code>chartRequests</code>, and <code>feedType</code> fields are not accepted. Use <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> for keyword search, collection-ID watchlists, recent episodes, and <code>chartRequests</code> snapshots. Use <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> for public ratings on IDs you already have.</p>
+
+    <h2>Can Apple Podcasts Chart Scraper snapshot episode rankings with feedType podcast-episodes?</h2>
+    <p>No. This Actor reads public Apple Podcasts/iTunes Top Podcasts chart JSON. The published schema has no <code>feedType</code> field. For official episode rankings, use <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> <code>chartRequests</code> with <code>feedType</code> <code>podcast-episodes</code>. That path is a rank snapshot and does not emit movement reports. See <a href="/guides/apple-podcasts-charts/">How to get Apple Podcasts chart metadata</a> and the <a href="/guides/apple-podcasts-episodes/">episode metadata export workflow</a>.</p>
+
+    <h2>What is the difference between baseline_only and emit_backfill on a Chart Scraper monitor?</h2>
+    <p>Both require a stable <code>monitorKey</code> with <code>generateMovementReport</code> true. <code>baseline_only</code> is the default <code>initialRunMode</code>: the first run stores state with zero dataset rows and zero charges. <code>emit_backfill</code> emits one initial <code>podcast_chart_movement_report</code> of the current positions once. Later polls emit at most one report when ranks are new, changed, or dropped. State is isolated by <code>monitorKey</code> and is saved only after webhook and dataset delivery succeed.</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-chart-tracker">Configure a movement monitor on Apify</a></p>
+
+    <h2>Does an unchanged Chart Scraper monitor poll charge for dataset rows?</h2>
+    <p>No, when <code>emitRawRows</code> is false. Unchanged polls emit zero rows and zero charges. Leave <code>emitRawRows</code> false unless the monitor also needs the legacy <code>chart_rank</code> rows. A <code>baseline_only</code> first run also stores state with zero rows and zero charges. Dry runs fetch and format without dataset, webhook, charge, or state delivery. The billed events are <code>apify-default-dataset-item</code> at $0.003 and <code>podcast-chart-movement-report</code> at $2.50.</p>
+
+    <h2>Is a failed Chart Scraper storefront treated as a mass drop from the saved baseline?</h2>
+    <p>No. Each country is fetched with a timeout and bounded retry. Unsupported storefronts produce a warning and are never interpreted as a mass drop from the saved baseline. A failed source is not treated as a mass drop. Rank movement is descriptive evidence, not a forecast, audience estimate, advertising guarantee, or provider approval.</p>
+
+    <h2>Does Apple Podcasts Chart Scraper require a proxy, Apple ID, or private dashboard?</h2>
+    <p>No. The Actor reads public Apple Podcasts/iTunes chart JSON. It does not require account sessions, browser automation, or private podcast dashboards. No proxy is required. It is not affiliated with or endorsed by Apple.</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-chart-tracker">Run a chart snapshot on Apify</a></p>
+
+    <h2>Can I pass a collection ID or an RSS feed URL into Apple Podcasts Chart Scraper?</h2>
+    <p>No. <code>additionalProperties</code> is false. Published inputs do not accept <code>lookupIds</code>, <code>podcastIds</code>, <code>searchTerm</code>, or an RSS URL field. For collection-ID refresh use <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> <code>lookupIds</code>. For a known show’s published catalog, read public RSS or use <a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a>. For public ratings on IDs you already have, use <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a>. See <a href="/notes/rss-vs-apple-podcasts-scraper/">RSS vs Apple Podcasts Scraper</a>.</p>
+
+    <h2>Does Chart Scraper genreId filter search results or collect review text?</h2>
+    <p>No. <code>genreId</code> is an optional Apple-internal genre ID on Top Podcasts charts only (<code>1321</code> is the published News example). Leave it empty for the overall chart. This Actor does not document genre filters on keyword search, and it does not collect review text. <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> <code>searchTerm</code> has no published genre filter. <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> reads Customer Reviews RSS for collection IDs you already have.</p>
 
     <h2>Related pages</h2>
     <ul>
@@ -227,6 +409,7 @@
       <li><a href="/guides/apple-podcasts-charts/">How to get Apple Podcasts chart metadata</a> — scraper <code>chartRequests</code> snapshots</li>
       <li><a href="/use-cases/podcast-market-tracking/">Track Apple Podcasts charts over time</a></li>
       <li><a href="/guides/apple-podcasts-countries/">Apple Podcasts charts and search by country</a></li>
+      <li><a href="/guides/apple-podcasts-webhooks/">Deliver Apple Podcasts results with webhooks</a></li>
       <li><a href="/use-cases/podcast-outreach/">Shortlist podcasts for outreach</a></li>
       <li><a href="/faq/apple-podcasts-scraper/">Apple Podcasts Scraper FAQ</a></li>
       <li><a href="/tools/">Tools</a></li>
