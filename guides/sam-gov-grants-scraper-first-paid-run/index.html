@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SAM.gov scraper &amp; grants scraper: cheapest first paid run</title>
+  <meta name="description" content="Cheapest first paid run for a SAM.gov scraper or grants scraper on SAM.gov, TED &amp; Grants Bid Alerts Scraper. One source, maxItemsPerSource 1, dryRun false. Documented PPE only: $0.008 per delivered opportunity or alert row; no live start charge.">
+  <link rel="canonical" href="https://luxslime.github.io/guides/sam-gov-grants-scraper-first-paid-run/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "HowTo",
+        "name": "Cheapest first paid run for a SAM.gov scraper or grants scraper",
+        "description": "Run taroyamada/procurement-intel-actor on one Grants.gov or SAM.gov source with maxItemsPerSource 1 and dryRun false, then add the documented PPE events.",
+        "url": "https://luxslime.github.io/guides/sam-gov-grants-scraper-first-paid-run/",
+        "step": [
+          {
+            "@type": "HowToStep",
+            "name": "Open the Store listing",
+            "text": "Open SAM.gov, TED & Grants Bid Alerts Scraper at apify.com/taroyamada/procurement-intel-actor."
+          },
+          {
+            "@type": "HowToStep",
+            "name": "Paste the smallest useful input",
+            "text": "For a grants scraper, set jurisdictions grants, one keyword, maxItemsPerSource 1, delivery dataset, and dryRun false. For a SAM.gov scraper, use the same bound with jurisdictions us and a SAM.gov API key."
+          },
+          {
+            "@type": "HowToStep",
+            "name": "Add the documented PPE events",
+            "text": "Live billed event is Procurement opportunity or alert row at $0.008. There is no live start charge. If one row is delivered, documented PPE is $0.008. An empty queue is $0."
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is the cheapest first paid run for a SAM.gov scraper or grants scraper?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Use SAM.gov, TED & Grants Bid Alerts Scraper (taroyamada/procurement-intel-actor). The smallest useful paid input is one source, maxItemsPerSource 1, delivery dataset, and dryRun false. A grants scraper run uses jurisdictions grants and needs no required key. A SAM.gov scraper run uses jurisdictions us plus samApiKey; without that key the actor warns and skips the US lane instead of failing the whole run."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What does that first paid SAM.gov or grants scraper run cost on documented PPE?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Billing is pay-per-event. The live Store card is $8.00 / 1,000 procurement opportunity or alert rows. The current billed event is Procurement opportunity or alert row (apify-default-dataset-item) at $0.008 for one delivered source-linked procurement opportunity or stateful alert row. There is no live start charge. Platform usage is included. If this run writes one opportunity row, documented PPE is $0.008. An empty result emits zero rows and zero charges."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why is maxItemsPerSource 1 instead of the Store Quickstart 40?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The published Store Quickstart is TED-only with maxItemsPerSource 40. If all 40 fetched items are delivered, 40 × $0.008 = $0.32. maxItemsPerSource is the upper bound fetched per source request; 1 is the smallest useful cap on that integer field. Same PPE rate; fewer row events. This page does not suggest a price change."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does a SAM.gov scraper first paid run need an API key?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. samApiKey is required for the US lane. If us is present without a SAM.gov key, the actor warns and skips that source instead of failing the whole run, which can emit zero rows and zero charges. Grants.gov is additive; grantsApiKey is optional. This Actor calls official notice APIs; it does not scrape a SAM.gov or Grants.gov HTML UI."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does a dryRun count as a first paid SAM.gov or grants scraper run?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. dryRun skips dataset writes and webhook delivery side effects while validating inputs. A first paid run needs dryRun false so a delivered opportunity or alert row can be billed at $0.008."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why leave generateReport and emitExport off on the first paid run?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The live Store PPE tab currently bills only the opportunity or alert row event (apify-default-dataset-item at $0.008). generateReport and emitExport default to false. Leave them false so the first paid run is that row event only. The published README also names other report and export event titles; check the live pricing tab before treating those names as current billed events."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Guides / SAM.gov scraper &amp; grants scraper first paid run</nav>
+    <h1>SAM.gov scraper &amp; grants scraper: cheapest first paid run</h1>
+    <p>This page is the smallest useful paid run for people searching <strong>sam.gov scraper</strong> or <strong>grants scraper</strong>. It is not a full product FAQ. For field lists, TED-only Quickstart, and routing, use the <a href="/ted-sam-grants-bid-alerts/">TED, SAM.gov &amp; Grants Bid Alerts Scraper</a> landing.</p>
+    <p>Live Store SEO name: <strong>SAM.gov, TED &amp; Grants Bid Alerts Scraper</strong> (<code>taroyamada/procurement-intel-actor</code>). Actor URL: <a href="https://apify.com/taroyamada/procurement-intel-actor">https://apify.com/taroyamada/procurement-intel-actor</a>. It searches official TED, SAM.gov, and Grants.gov / Simpler.Grants.gov notice APIs. It is not a SAM.gov or Grants.gov HTML scraper.</p>
+    <p class="price">Documented first-paid PPE if one opportunity or alert row is delivered: $0.008. No live start charge. Store card $8.00 / 1,000 rows. This page does not suggest a price change.</p>
+
+    <h2>Smallest useful input JSON</h2>
+    <p>One source, <code>maxItemsPerSource</code> 1, <code>delivery</code> dataset, and <code>dryRun</code> false. <code>maxItemsPerSource</code> is the upper bound fetched per source request (schema default 40). Leave <code>generateReport</code> and <code>emitExport</code> at their defaults (false). A grants scraper run needs no required key:</p>
+<pre><code>{
+  "jurisdictions": "grants",
+  "keywords": "cybersecurity",
+  "maxItemsPerSource": 1,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p>A SAM.gov scraper run uses the same bound. <code>samApiKey</code> is required for the US lane. Replace the placeholder with the key from SAM.gov Account Details:</p>
+<pre><code>{
+  "jurisdictions": "us",
+  "keywords": "cybersecurity",
+  "maxItemsPerSource": 1,
+  "samApiKey": "YOUR_SAM_GOV_API_KEY",
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p><code>keywords</code> is a documented theme sent to TED titles, SAM.gov titles, and Grants.gov queries; <code>cybersecurity</code> is one term from the schema default <code>cloud,cybersecurity,IT services</code>. If <code>us</code> is present without a SAM.gov key, the actor warns and skips that source instead of failing the whole run. <code>grantsApiKey</code> is optional. Do not send unpublished field names; live schema <code>additionalProperties</code> is false.</p>
+    <p><a href="https://apify.com/taroyamada/procurement-intel-actor">Run this SAM.gov or grants scraper input on Apify</a></p>
+
+    <h2>Documented PPE cost math</h2>
+    <p>Prices below are the live events already shown on this site’s TED, SAM.gov &amp; Grants Bid Alerts pages. They are not invented rates. The live Store card is <strong>$8.00 / 1,000 procurement opportunity or alert rows</strong>.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Documented price</th>
+          <th>This run</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Actor Start</td>
+          <td>None on the live PPE tab</td>
+          <td><strong>$0</strong> — there is no live start charge.</td>
+        </tr>
+        <tr>
+          <td>Procurement opportunity or alert row (<code>apify-default-dataset-item</code>)</td>
+          <td>$0.008 ($8.00 / 1,000) for one delivered source-linked procurement opportunity or stateful alert row</td>
+          <td>One source × <code>maxItemsPerSource</code> 1 → one opportunity row if a notice matches: <strong>$0.008</strong>. An empty queue emits zero rows and zero charges.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>If this run writes one opportunity row:</p>
+<pre><code>$0.000  Actor Start (none on live PPE)
+$0.008  procurement opportunity or alert row × 1
+--------
+$0.008  documented PPE total for this input</code></pre>
+    <p>The published Store Quickstart is TED-only with <code>maxItemsPerSource</code> 40. Same PPE rate; more row events if all 40 items are delivered:</p>
+<pre><code>40 × $0.008 = $0.32</code></pre>
+    <p>Platform usage is included. You are not charged for Apify platform usage, only the fixed event price. Actual billed events equal delivered opportunity or alert rows, which can be fewer than <code>maxItemsPerSource</code> if the source returns fewer notices. Published starter samples still return <code>alerts: []</code> on a first queue. Webhook delivery is not needed for this first paid run; dataset delivery is the billable surface. <code>dryRun</code> true is not a paid run.</p>
+    <p class="price">$8.00 / 1,000 procurement opportunity or alert rows ($0.008 per delivered row). No live start charge.</p>
+    <p><a href="https://apify.com/taroyamada/procurement-intel-actor/pricing">See SAM.gov, TED &amp; Grants Bid Alerts Scraper pricing on Apify</a></p>
+
+    <h2>What is the cheapest first paid run for a SAM.gov scraper or grants scraper?</h2>
+    <p>Use <a href="/ted-sam-grants-bid-alerts/">SAM.gov, TED &amp; Grants Bid Alerts Scraper</a> (<code>taroyamada/procurement-intel-actor</code>). The smallest useful paid input is one source, <code>maxItemsPerSource</code> 1, <code>delivery</code> dataset, and <code>dryRun</code> false. A grants scraper run uses <code>jurisdictions</code> <code>grants</code> and needs no required key. A SAM.gov scraper run uses <code>jurisdictions</code> <code>us</code> plus <code>samApiKey</code>; without that key the actor warns and skips the US lane instead of failing the whole run.</p>
+
+    <h2>What does that first paid SAM.gov or grants scraper run cost on documented PPE?</h2>
+    <p>Billing is pay-per-event. The live Store card is <strong>$8.00 / 1,000 procurement opportunity or alert rows</strong>. The current billed event is Procurement opportunity or alert row (<code>apify-default-dataset-item</code>) at <strong>$0.008</strong> for one delivered source-linked procurement opportunity or stateful alert row. There is no live start charge. Platform usage is included. If this run writes one opportunity row, documented PPE is <strong>$0.008</strong>. An empty result emits zero rows and zero charges.</p>
+
+    <h2>Why is maxItemsPerSource 1 instead of the Store Quickstart 40?</h2>
+    <p>The published Store Quickstart is TED-only with <code>maxItemsPerSource</code> 40. If all 40 fetched items are delivered, 40 × $0.008 = <strong>$0.32</strong>. <code>maxItemsPerSource</code> is the upper bound fetched per source request; 1 is the smallest useful cap on that integer field. Same PPE rate; fewer row events. This page does not suggest a price change.</p>
+
+    <h2>Does a SAM.gov scraper first paid run need an API key?</h2>
+    <p>Yes. <code>samApiKey</code> is required for the US lane. If <code>us</code> is present without a SAM.gov key, the actor warns and skips that source instead of failing the whole run, which can emit zero rows and zero charges. Grants.gov is additive; <code>grantsApiKey</code> is optional. This Actor calls official notice APIs at <code>https://api.sam.gov/opportunities/v2/search</code> and <code>https://api.simpler.grants.gov/v1/opportunities/search</code>; it does not scrape a SAM.gov or Grants.gov HTML UI.</p>
+
+    <h2>Does a dryRun count as a first paid SAM.gov or grants scraper run?</h2>
+    <p>No. <code>dryRun</code> skips dataset writes and webhook delivery side effects while validating inputs. A first paid run needs <code>dryRun</code> false so a delivered opportunity or alert row can be billed at $0.008.</p>
+
+    <h2>Why leave generateReport and emitExport off on the first paid run?</h2>
+    <p>The live Store PPE tab currently bills only the opportunity or alert row event (<code>apify-default-dataset-item</code> at $0.008). <code>generateReport</code> and <code>emitExport</code> default to false. Leave them false so the first paid run is that row event only. The published README also names other report and export event titles; check the live pricing tab before treating those names as current billed events.</p>
+
+    <h2>How to run it</h2>
+    <ol>
+      <li>Open <a href="https://apify.com/taroyamada/procurement-intel-actor">SAM.gov, TED &amp; Grants Bid Alerts Scraper</a> on the Apify Store.</li>
+      <li>Paste the grants JSON above for a grants scraper, or the SAM.gov JSON if you have a SAM.gov API key.</li>
+      <li>Keep <code>maxItemsPerSource</code> 1, <code>delivery</code> dataset, and <code>dryRun</code> false. Do not set <code>generateReport</code> or <code>emitExport</code>.</li>
+      <li>Start the run. Confirm the default dataset has a source-linked opportunity row before raising <code>maxItemsPerSource</code> or adding TED / award-watch flags.</li>
+    </ol>
+    <p>Product listings for this Actor are grouped on the <a href="/tools/">Tools</a> hub.</p>
+    <p><a href="https://apify.com/taroyamada/procurement-intel-actor">Open the SAM.gov scraper &amp; grants scraper on Apify</a></p>
+  </main>
+</body>
+</html>
