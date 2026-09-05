@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Article extractor for news and blog RAG — headline, byline, and body</title>
+  <meta name="description" content="Article extractor for news and blog RAG: fetch public article URLs you already have and return headline, byline, date, and body. Live Store price $0.008 per useful article row.">
+  <link rel="canonical" href="https://luxslime.github.io/use-cases/news-blog-rag/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Can this article extractor feed a news and blog RAG corpus?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, as a bounded source step. Article Content Extractor fetches public news, blog, newsroom, and press URLs you already have and returns structured article rows: headline, author, publishedAt, articleText, excerpt, heroImage, and sourceUrl. outputFormat defaults to markdown, which the live input schema recommends for first-run proof and LLM ingestion. It is not a search surface, a full-site crawler, or a buyer-facing RAG report Actor. You supply the URL list (maximum 300). Failed or no-content rows stay out of the default dataset."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why not send Google News or RSS output straight into RAG?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Those Actors are discovery layers. Google News Scraper returns headlines and article URLs from queries, without full article text. RSS & Atom Feed Extractor parses known-publisher feed XML and does not crawl page HTML. For RAG you still need the article body. Discover URLs first, then send news, blog, and press links here. Docs, pricing, policy, and product pages belong on Website Content Extractor."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the cheapest first paid article extractor input for RAG?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The published Store Quickstart is one urls item, includeImages false, delivery dataset, and dryRun false. Leave generateReport and emitExport off. Live PPE is $0.008 per useful article row plus Actor Start $0.00005. That is a paid run only when dryRun is false and a useful article row is written."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Use cases / News and blog RAG</nav>
+    <h1>Article extractor for news and blog RAG</h1>
+    <p>Use this page when the job is ingesting public news and blog article bodies into RAG. <a href="/article-content-extractor/">Article Content Extractor</a> is the existing Store Actor for that cleanup step. It is not a new Actor, not Google News search, and not a full-site crawler. Pass article-shaped HTTP(S) URLs you own or are authorized to fetch.</p>
+    <p class="price">Live Store price: <strong>$0.008 per useful article row</strong> (<code>apify-default-dataset-item</code>). Actor Start $0.00005. Leave the $2.50 audit report and $5.00 batch export off unless you need those value events.</p>
+    <p><a href="https://apify.com/taroyamada/article-content-extractor">Open Article Content Extractor on Apify</a></p>
+
+    <h2>What RAG gets from each article row</h2>
+    <p>The published README field list is <code>rowType</code>, <code>url</code>, <code>headline</code>, <code>author</code>, <code>publishedAt</code>, <code>articleText</code>, <code>excerpt</code>, <code>heroImage</code>, and <code>sourceUrl</code>. Sample <code>rowType</code> is <code>article</code>. Markdown is the default <code>outputFormat</code> and the live schema recommends it for first-run proof and LLM ingestion. Raw article rows remain source context for research, content QA, and RAG ingestion — they are not a Site QA or RAG report.</p>
+    <p>Discover URLs first with <a href="/google-news-scraper/">Google News Scraper</a> or <a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a>, then send news, blog, newsroom, and press links here. Route docs, pricing, policy, and product pages to <a href="/website-content-extractor/">Website Content Extractor</a>. The four existing Actors sit on the <a href="/packs/content-intelligence/">Content Intelligence pack</a> hub.</p>
+
+    <h2>Tiny first-paid input</h2>
+    <p>The published Store Quickstart is one public article URL, <code>includeImages</code> false, <code>delivery</code> dataset, and <code>dryRun</code> false. <code>urls</code> is required (maximum 300). Omit <code>generateReport</code> and <code>emitExport</code>.</p>
+<pre><code>{
+  "urls": [
+    "https://example.com/news/example"
+  ],
+  "includeImages": false,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p>Replace the placeholder with one public news or blog URL. If extraction succeeds, live PPE is Actor Start <strong>$0.00005</strong> plus one useful article row at <strong>$0.008</strong>. Failed or no-content rows stay out of the default dataset. For the PPE table, see <a href="/guides/article-extractor-first-paid-run/">Cheapest first paid run for Article Extractor</a>.</p>
+    <p><a href="https://apify.com/taroyamada/article-content-extractor">Run this article extractor input on Apify</a></p>
+
+    <h2>Can this article extractor feed a news and blog RAG corpus?</h2>
+    <p>Yes, as a bounded source step. It fetches public news, blog, newsroom, and press URLs you already have and returns structured article rows: headline, author, <code>publishedAt</code>, <code>articleText</code>, excerpt, <code>heroImage</code>, and <code>sourceUrl</code>. <code>outputFormat</code> defaults to markdown. It is not a search surface, a full-site crawler, or a buyer-facing RAG report Actor. You supply the URL list (maximum 300).</p>
+
+    <h2>Why not send Google News or RSS output straight into RAG?</h2>
+    <p>Those Actors are discovery layers. <a href="/google-news-scraper/">Google News Scraper</a> returns headlines and article URLs from <code>queries</code>, without full article text. <a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a> parses known-publisher feed XML and does not crawl page HTML. For RAG you still need the article body. Discover URLs first, then send news, blog, and press links here.</p>
+
+    <h2>What is the cheapest first paid article extractor input for RAG?</h2>
+    <p>The published Store Quickstart is one <code>urls</code> item, <code>includeImages</code> false, <code>delivery</code> dataset, and <code>dryRun</code> false. Leave <code>generateReport</code> and <code>emitExport</code> off. Live PPE is <strong>$0.008 per useful article row</strong> plus Actor Start $0.00005.</p>
+    <p><a href="https://apify.com/taroyamada/article-content-extractor">Open Article Content Extractor on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/article-content-extractor/">Article Content Extractor</a> — product landing and field list</li>
+      <li><a href="/guides/article-extractor-first-paid-run/">Cheapest first paid run for Article Extractor</a></li>
+      <li><a href="/packs/content-intelligence/">Content Intelligence pack</a> — RSS, Google News, article, and website extractors</li>
+      <li><a href="/google-news-scraper/">Google News Scraper</a> — query-based URL discovery before RAG cleanup</li>
+      <li><a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a> — known-publisher feed URLs</li>
+      <li><a href="/website-content-extractor/">Website Content Extractor</a> — docs, pricing, policy, and product HTML</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>
