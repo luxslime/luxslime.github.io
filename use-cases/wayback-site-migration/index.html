@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Wayback snapshots for site migration — closest archive date lookup</title>
   <meta name="description" content="Look up Internet Archive snapshots closest to a migration date for URLs you already have. Live Store price $0.008 per successfully delivered Wayback lookup row. Read-only availability — not a CDX dump and not a tool that saves new snapshots.">
-  <link rel="canonical" href="https://luxslime.github.io/use-cases/wayback-site-migration/">
+  <link rel="canonical" href="https://apify.momiji-space.com/use-cases/wayback-site-migration/">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -32,7 +32,7 @@
         "name": "Does a migration lookup return archived HTML for every URL?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "No. The Actor returns structured availability rows and, when present, a closest snapshot URL and timestamp. It does not fetch cached HTML. Snapshots exist only where the Archive crawled the page. A URL may be unavailable because it was never archived, blocked by robots.txt, or removed by a removal request."
+          "text": "No. The Actor returns structured availability rows using the README output table names url, archived, closestSnapshotUrl, and closestSnapshotDate. It does not fetch cached HTML. Snapshots exist only where the Archive crawled the page. A URL may be unavailable because it was never archived, blocked by robots.txt, or removed by a removal request."
         }
       }
     ]
@@ -61,7 +61,7 @@
     <p><a href="https://apify.com/taroyamada/wayback-machine-checker">Open Wayback Machine Bulk Checker on Apify</a></p>
 
     <h2>What a closest-snapshot row reports</h2>
-    <p>The live schema description for <code>closest</code> is: Find snapshot closest to this date (<code>YYYYMMDD</code> format). Leave empty for latest. The published README output table lists <code>url</code>, <code>archived</code>, <code>closestSnapshotUrl</code>, <code>closestSnapshotDate</code> (<code>YYYYMMDDhhmmss</code>), <code>totalSnapshots</code>, <code>firstSnapshotDate</code>, and <code>lastSnapshotDate</code>. The README example uses <code>available</code> and <code>closestSnapshot</code> (<code>url</code> and <code>timestamp</code>). Field names differ between that table and the example. There is no published <code>output_schema.json</code>.</p>
+    <p>The live schema description for <code>closest</code> is: Find snapshot closest to this date (<code>YYYYMMDD</code> format). Leave empty for latest. This page uses one README output-table set: <code>url</code>, <code>archived</code>, <code>closestSnapshotUrl</code>, and <code>closestSnapshotDate</code> (<code>YYYYMMDDhhmmss</code>). The same table also lists <code>totalSnapshots</code>, <code>firstSnapshotDate</code>, and <code>lastSnapshotDate</code>; treat those and original HTTP status as README-claimed columns. There is no published <code>output_schema.json</code>. The product landing documents the README sample, which uses different names.</p>
     <p>The published README positions the Actor for mapping legacy site structures, auditing historical page versions during website migrations or domain changes, and auditing domain history before acquisitions. For broken-URL recovery without a target date, see <a href="/use-cases/wayback-404-recovery/">Wayback 404 recovery</a>. Discover URL inventories from nested XML with <a href="/sitemap-scraper-analyzer/">Sitemap Scraper &amp; Analyzer</a>, then look up those URLs here.</p>
 
     <h2>Tiny first-paid input</h2>
@@ -86,7 +86,7 @@
     <p><code>urls</code> is required. <code>closest</code> is <code>YYYYMMDD</code> (for example <code>20200101</code>), not <code>YYYY-MM-DD</code>. <code>concurrency</code> defaults to 3 (maximum 5). <code>maxChargeUsd</code> defaults to 1. Live PPE is <strong>$0.008 per successfully delivered lookup row</strong>. Do not send README aliases such as <code>checkAvailability</code>, <code>includeCdx</code>, <code>maxSnapshotsPerUrl</code>, or <code>compareToLatestLive</code>. See <a href="https://apify.com/taroyamada/wayback-machine-checker/pricing">Wayback Machine Bulk Checker pricing</a>.</p>
 
     <h2>Does a migration lookup return archived HTML for every URL?</h2>
-    <p>No. The Actor returns structured availability rows and, when present, a closest snapshot URL and timestamp. It does not fetch cached HTML. Snapshots exist only where the Archive crawled the page. A URL may be unavailable because it was never archived, blocked by robots.txt, or removed by a removal request. Use <a href="/website-content-extractor/">Website Content Extractor</a> for live docs and product pages, and <a href="/article-content-extractor/">Article Content Extractor</a> for live news and blog pages.</p>
+    <p>No. The Actor returns structured availability rows using the README output table names <code>url</code>, <code>archived</code>, <code>closestSnapshotUrl</code>, and <code>closestSnapshotDate</code>. It does not fetch cached HTML. Snapshots exist only where the Archive crawled the page. A URL may be unavailable because it was never archived, blocked by robots.txt, or removed by a removal request. Use <a href="/website-content-extractor/">Website Content Extractor</a> for live docs and product pages, and <a href="/article-content-extractor/">Article Content Extractor</a> for live news and blog pages.</p>
     <p><a href="https://apify.com/taroyamada/wayback-machine-checker">Open Wayback Machine Bulk Checker on Apify</a></p>
 
     <h2>Related pages</h2>
