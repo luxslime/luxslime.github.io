@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Wayback Machine 404 recovery — archive snapshots for broken URLs</title>
   <meta name="description" content="Look up Internet Archive snapshots for broken or deleted URLs you already have. Live Store price $0.008 per successfully delivered Wayback lookup row. Read-only availability — not live HTTP status and not a tool that saves new snapshots.">
-  <link rel="canonical" href="https://luxslime.github.io/use-cases/wayback-404-recovery/">
+  <link rel="canonical" href="https://apify.momiji-space.com/use-cases/wayback-404-recovery/">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -16,7 +16,7 @@
         "name": "Can Wayback Machine Bulk Checker recover content from broken URLs?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "It can report whether the Internet Archive cached those URLs and, when present, return the closest snapshot URL and timestamp. Required input is urls (maximum 500). Leave closest empty for the latest snapshot. The Actor does not fetch cached HTML, does not extract article bodies, and cannot create new snapshots. Coverage is not guaranteed per URL."
+          "text": "It can report whether the Internet Archive cached those URLs and, when present, return closestSnapshotUrl and closestSnapshotDate. Those are the published README output table names (with url and archived). Required input is urls (maximum 500). Leave closest empty for the latest snapshot. The Actor does not fetch cached HTML, does not extract article bodies, and cannot create new snapshots. Coverage is not guaranteed per URL."
         }
       },
       {
@@ -61,7 +61,7 @@
     <p><a href="https://apify.com/taroyamada/wayback-machine-checker">Open Wayback Machine Bulk Checker on Apify</a></p>
 
     <h2>What a 404-recovery row reports</h2>
-    <p>The published README output table lists <code>url</code>, <code>archived</code>, <code>closestSnapshotUrl</code>, <code>closestSnapshotDate</code>, <code>totalSnapshots</code>, <code>firstSnapshotDate</code>, and <code>lastSnapshotDate</code>. The README example uses <code>available</code>, <code>closestSnapshot</code> (<code>url</code> and <code>timestamp</code>), and <code>archivedVersions</code>. Field names differ between that table and the example. Treat snapshot counts, first/last capture dates, and original HTTP status as README-claimed columns, not as a published <code>output_schema.json</code>. Availability is not guaranteed per URL.</p>
+    <p>This page uses one README output-table set: <code>url</code>, <code>archived</code>, <code>closestSnapshotUrl</code>, and <code>closestSnapshotDate</code>. The same table also lists <code>totalSnapshots</code>, <code>firstSnapshotDate</code>, and <code>lastSnapshotDate</code>; treat those and original HTTP status as README-claimed columns, not as a published <code>output_schema.json</code>. Availability is not guaranteed per URL. The product landing documents the README sample, which uses different names.</p>
     <p>The published README use cases include SEO recovery of deleted pages and cross-referencing dead URLs with historical cache data. For mapping a pre-migration date, see <a href="/use-cases/wayback-site-migration/">Wayback site migration snapshots</a>.</p>
 
     <h2>Tiny first-paid input</h2>
@@ -79,7 +79,7 @@
     <p><a href="https://apify.com/taroyamada/wayback-machine-checker">Run this Wayback 404 lookup on Apify</a></p>
 
     <h2>Can Wayback Machine Bulk Checker recover content from broken URLs?</h2>
-    <p>It can report whether the Internet Archive cached those URLs and, when present, return the closest snapshot URL and timestamp. Required input is <code>urls</code> (maximum 500). Leave <code>closest</code> empty for the latest snapshot. The Actor does not fetch cached HTML, does not extract article bodies, and cannot create new snapshots. Coverage is not guaranteed per URL. Snapshots exist back to 1996 only where the Archive crawled the page. A URL may be unavailable because it was never archived, blocked by robots.txt, or removed by a removal request.</p>
+    <p>It can report whether the Internet Archive cached those URLs and, when present, return <code>closestSnapshotUrl</code> and <code>closestSnapshotDate</code>. Those are the published README output table names (with <code>url</code> and <code>archived</code>). Required input is <code>urls</code> (maximum 500). Leave <code>closest</code> empty for the latest snapshot. The Actor does not fetch cached HTML, does not extract article bodies, and cannot create new snapshots. Coverage is not guaranteed per URL. Snapshots exist back to 1996 only where the Archive crawled the page. A URL may be unavailable because it was never archived, blocked by robots.txt, or removed by a removal request.</p>
 
     <h2>What is the cheapest first paid input for 404 archive lookup?</h2>
     <p>The published Store Quickstart verifies a few archived URLs. Live schema names are <code>urls</code> (required), optional <code>closest</code> in <code>YYYYMMDD</code> form, <code>concurrency</code> (default 3), <code>maxChargeUsd</code> (default 1), <code>delivery</code> <code>dataset</code>, and <code>dryRun</code> false. Live PPE is <strong>$0.008 per successfully delivered Wayback Machine lookup row</strong>. There is no Actor start event on the current Store pricing tab. See <a href="https://apify.com/taroyamada/wayback-machine-checker/pricing">Wayback Machine Bulk Checker pricing</a>.</p>
