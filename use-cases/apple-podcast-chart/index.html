@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Apple Podcasts chart scraper — country rank, rank delta, and movement reports</title>
+  <meta name="description" content="Apple Podcasts chart scraper for public Top Podcasts ranks by country: raw chart_rank rows or one source-linked movement report. CSV/JSON. Pricing: see Store.">
+  <link rel="canonical" href="https://luxslime.github.io/use-cases/apple-podcast-chart/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Does this Apple Podcasts chart scraper compute rank movement?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, when you set a stable monitorKey and generateMovementReport true. Raw mode emits chart_rank snapshot rows. Monitor mode can emit one podcast_chart_movement_report of new, changed, or dropped positions (previousRank, currentRank, rankDelta, sourceUrl). A baseline_only first run stores state with zero rows. Unchanged later polls emit zero rows when emitRawRows is false. Rank movement is descriptive evidence, not a forecast or audience estimate."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "When should I use Apple Podcasts Scraper instead of this chart scraper?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use Apple Podcasts Scraper when you need keyword search, collection-ID watchlists, recent episodes, or chartRequests snapshots that you join yourself. Use this Chart Scraper when the job is storefront Top Podcasts ranks or one source-linked movement report. Chart Scraper does not search by keyword, look up collection IDs, or attach episode catalogs. For joining snapshot exports yourself, see Track Apple Podcasts charts over time."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Apple Podcasts chart rank equal downloads or listener count?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Chart rows are public catalog metadata: country, rank, show identity, sourceUrl, and fetchedAt. Download counts and listener numbers are not in the published output. This Actor reads public Apple Podcasts / iTunes chart JSON. It is not affiliated with or endorsed by Apple."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Use cases / Apple Podcasts chart scraper</nav>
+    <h1>Apple Podcasts chart scraper for country rank and movement</h1>
+    <p>Use this page when the job is scraping public Apple Podcasts / iTunes Top Podcasts charts. <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> is the existing Store Actor for that source. It is not a new Actor, not keyword search, and not a reviews tool. Pass ISO country codes; optional <code>genreId</code> narrows to a category chart.</p>
+    <p class="price">Live Store price: <strong>see Store</strong> (pay-per-event). This page does not quote per-event dollar amounts. Check the current card before a paid run.</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-chart-tracker">Open Apple Podcasts Chart Scraper on Apify</a></p>
+
+    <h2>What chart rows and movement reports contain</h2>
+    <p>Raw rows have <code>rowType</code> <code>chart_rank</code>. Published fields include <code>country</code>, <code>rank</code>, <code>showId</code>, <code>showName</code>, <code>artistName</code>, <code>sourceUrl</code>, and <code>fetchedAt</code>, plus aliases <code>name</code>, <code>artist</code>, and <code>collectionId</code>. A movement report has <code>rowType</code> <code>podcast_chart_movement_report</code>: <code>monitorKey</code>, <code>changedCount</code>, <code>newCount</code>, <code>droppedCount</code>, and <code>changes[]</code> with <code>changeType</code>, ranks, <code>rankDelta</code>, and <code>sourceUrl</code>. Export is CSV/JSON. Max 20 countries per run; chart depth capped at 200.</p>
+    <p>If you will store each snapshot and join on <code>collectionId</code> yourself, use <a href="/use-cases/podcast-market-tracking/">Track Apple Podcasts charts over time</a> with Apple Podcasts Scraper <code>chartRequests</code>. For public ratings on IDs you already have, use the <a href="/use-cases/apple-podcast-reviews/">Apple Podcasts reviews scraper</a> use case.</p>
+
+    <h2>Tiny first-paid input</h2>
+    <p>The smallest useful chart snapshot is one storefront, a modest <code>limit</code>, <code>delivery</code> dataset, and <code>dryRun</code> false. Leave <code>generateMovementReport</code> off until you have a stable <code>monitorKey</code>. Default country is <code>us</code>.</p>
+<pre><code>{
+  "countries": ["us"],
+  "limit": 25,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p>Raise <code>limit</code> or add countries only after the first snapshot is useful. For current pay-per-event rates, see the <a href="https://apify.com/taroyamada/apple-podcast-chart-tracker/pricing">Store pricing card</a>. Endpoint notes for the sibling snapshot Actor are on <a href="/guides/apple-podcasts-charts/">How to get Apple Podcasts chart metadata from Apple/iTunes endpoints</a>.</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-chart-tracker">Run this Apple Podcasts chart scraper input on Apify</a></p>
+
+    <h2>Does this Apple Podcasts chart scraper compute rank movement?</h2>
+    <p>Yes, when you set a stable <code>monitorKey</code> and <code>generateMovementReport</code> true. A <code>baseline_only</code> first run stores state with zero rows. Later polls emit at most one movement report when ranks are new, changed, or dropped. Unchanged polls emit zero rows when <code>emitRawRows</code> is false. A failed storefront is not treated as a mass drop. Rank movement is descriptive evidence, not a forecast, audience estimate, or advertising guarantee.</p>
+
+    <h2>When should I use Apple Podcasts Scraper instead of this chart scraper?</h2>
+    <p>Use <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> for keyword search, collection-ID watchlists, recent episodes, and <code>chartRequests</code> snapshots that you join yourself — including episode charts with <code>feedType</code> <code>podcast-episodes</code>. This Chart Scraper has no <code>searchTerm</code>, <code>lookupIds</code>, or <code>feedType</code> field. Use <a href="/use-cases/podcast-outreach/">Shortlist podcasts for outreach</a> when the job starts from a topic search.</p>
+
+    <h2>Does Apple Podcasts chart rank equal downloads or listener count?</h2>
+    <p>No. Chart rows are public catalog metadata. Download counts and listener numbers are not in the published output. The Actor reads public Apple Podcasts / iTunes chart JSON. No proxy, Apple ID, or private dashboard is required. It is not affiliated with or endorsed by Apple.</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-chart-tracker">Open Apple Podcasts Chart Scraper on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> — product landing and field list</li>
+      <li><a href="/use-cases/podcast-market-tracking/">Track Apple Podcasts charts over time</a> — join <code>chartRequests</code> snapshots yourself</li>
+      <li><a href="/guides/apple-podcasts-charts/">How to get Apple Podcasts chart metadata from Apple/iTunes endpoints</a></li>
+      <li><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> — search, watchlists, and episode catalogs</li>
+      <li><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> — public ratings, not rank</li>
+      <li><a href="/use-cases/apple-podcast-reviews/">Apple Podcasts reviews scraper</a></li>
+      <li><a href="/use-cases/podcast-outreach/">Shortlist podcasts for outreach</a></li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>
