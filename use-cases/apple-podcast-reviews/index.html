@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Apple Podcasts reviews scraper — rating, review text, and storefront</title>
+  <meta name="description" content="Apple Podcasts reviews scraper for official iTunes Customer Reviews RSS: rating, review text, storefront, and source URL. Snapshot, delta monitor, or one summary report. Pricing: see Store.">
+  <link rel="canonical" href="https://luxslime.github.io/use-cases/apple-podcast-reviews/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Can I scrape Apple Podcasts reviews without a collection ID?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Apple Podcasts Reviews Scraper requires podcastIds: numeric iTunes collection ID strings. Take an ID from an Apple Podcasts URL (id1535809341 becomes 1535809341) or get IDs first with Apple Podcasts Scraper search or lookupIds. It does not accept show URLs, searchTerm, or episode feeds. At most 25 unique IDs, 10 countries, and 10 pages per show/country pair; over-limit input fails instead of being silently truncated."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the difference between review rows and a podcast review report?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Default snapshot delivery is podcast_review rows: reviewerName, rating, title, content, storefront, sourceUrl, and fetchedAt. Set generateReport true to deliver exactly one podcast_review_report (counts, average, five-point distribution, latest date, and up to ten low-rating samples with source URLs). Raw reviews then stay in the runtime reviews array and are not written to the default dataset. mode=monitor can emit only new or changed reviews after a baseline_only first run."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does this Apple Podcasts reviews scraper also scrape G2 or Shopify reviews?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. This Actor reads official iTunes Customer Reviews RSS JSON for podcast collection IDs and storefronts only. G2 and Capterra product review pages belong on G2 & Capterra Review Scraper. Shopify App Store merchant listings belong on Shopify App Store Review Scraper. Use the Review Intelligence pack to choose among those three sources."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Use cases / Apple Podcasts reviews scraper</nav>
+    <h1>Apple Podcasts reviews scraper for known collection IDs</h1>
+    <p>Use this page when the job is scraping public Apple Podcasts / iTunes customer reviews. <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> is the existing Store Actor for that source. It is not a new Actor, not keyword search, and not a chart-rank tool. Pass collection IDs you already have; it reads official Customer Reviews RSS JSON.</p>
+    <p class="price">Live Store price: <strong>see Store</strong> (pay-per-event). This page does not quote per-event dollar amounts. Check the current card before a paid run.</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor">Open Apple Podcasts Reviews Scraper on Apify</a></p>
+
+    <h2>What each review row contains</h2>
+    <p>Raw rows have <code>rowType</code> <code>podcast_review</code>. Published fields include <code>podcastId</code>, <code>country</code>, <code>page</code>, <code>reviewerName</code>, <code>rating</code>, <code>title</code>, <code>content</code>, <code>version</code>, <code>voteCount</code>, <code>updated</code>, <code>reviewId</code>, <code>sourceUrl</code> (the official iTunes Customer Reviews RSS URL), and <code>fetchedAt</code>. Export is CSV/JSON. No login, cookie, API key, or CAPTCHA bypass.</p>
+    <p>Get collection IDs first with <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> search or a watchlist refresh, or from an Apple Podcasts URL. Rank context belongs on the <a href="/use-cases/apple-podcast-chart/">Apple Podcasts chart scraper</a> use case. The three public-review sources sit on the <a href="/review-intelligence/">Review Intelligence pack</a> hub.</p>
+
+    <h2>Tiny first-paid input</h2>
+    <p>The smallest useful reviews check is one <code>podcastIds</code> item, one country, <code>maxPagesPerPair</code> 1, <code>generateReport</code> false, <code>delivery</code> dataset, and <code>dryRun</code> false. <code>podcastIds</code> is required. Leave <code>mode</code> on <code>snapshot</code> until you have a stable <code>monitorKey</code>.</p>
+<pre><code>{
+  "podcastIds": ["1535809341"],
+  "countries": ["us"],
+  "maxPagesPerPair": 1,
+  "generateReport": false,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p>Replace the sample ID with a collection ID you already have. For current pay-per-event rates, see the <a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor/pricing">Store pricing card</a>.</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor">Run this Apple Podcasts reviews scraper input on Apify</a></p>
+
+    <h2>Can I scrape Apple Podcasts reviews without a collection ID?</h2>
+    <p>No. Required input is <code>podcastIds</code> (numeric iTunes collection ID strings). The schema sets <code>additionalProperties</code> to false, so unpublished <code>showUrls</code>, <code>searchTerm</code>, <code>lookupIds</code>, and episode-feed fields are not accepted. At most 25 unique IDs, 10 unique ISO-3166-1 alpha-2 country codes, and 10 review pages per show/country pair (50 reviews each; iTunes cap). Over-limit input fails instead of being silently truncated.</p>
+
+    <h2>What is the difference between review rows and a podcast review report?</h2>
+    <p>Default delivery is raw <code>podcast_review</code> rows. Set <code>generateReport</code> true for exactly one <code>podcast_review_report</code>: per-show/country counts, average, five-point distribution, latest date, and up to ten 1–2★ samples with source URLs. Set <code>mode</code> to <code>monitor</code> with a stable <code>monitorKey</code> to emit only new or changed reviews after a <code>baseline_only</code> first run. Leave <code>emitUnchanged</code> false so an unchanged poll stays zero rows.</p>
+
+    <h2>Does this Apple Podcasts reviews scraper also scrape G2 or Shopify reviews?</h2>
+    <p>No. This Actor reads Apple/iTunes Customer Reviews RSS JSON only. G2 and Capterra pages belong on <a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a> or the <a href="/use-cases/g2-reviews-scraper/">G2 reviews scraper</a> use case. Shopify App Store listings belong on <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a>. Review text is public source material for reputation and market research. Do not use the output to target individual reviewers. The Actor does not infer private reviewer identity. It is not affiliated with or endorsed by Apple.</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor">Open Apple Podcasts Reviews Scraper on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> — product landing and field list</li>
+      <li><a href="/review-intelligence/">Review Intelligence pack</a> — podcast vs Shopify App Store vs G2/Capterra reviews</li>
+      <li><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> — search and watchlists for collection IDs</li>
+      <li><a href="/use-cases/podcast-outreach/">Shortlist podcasts for outreach</a> — get IDs before attaching reviews</li>
+      <li><a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> — ranks, not review text</li>
+      <li><a href="/use-cases/apple-podcast-chart/">Apple Podcasts chart scraper</a></li>
+      <li><a href="/use-cases/g2-reviews-scraper/">G2 reviews scraper</a> — B2B software review pages</li>
+      <li><a href="/guides/apple-podcasts-watchlists/">Refresh Apple Podcasts watchlists (iTunes Lookup API)</a></li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

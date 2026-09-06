@@ -94,9 +94,9 @@
     <h1>Review Intelligence pack: Apple Podcasts, Shopify App Store, and G2/Capterra reviews</h1>
     <p>Pick the public-review Actor that matches the catalog you already have. This pack is a hub, not a fourth scraper: it links the three review landings on this site and keeps their intents separate. Apple/iTunes podcast reviews, Shopify App Store merchant listings, and G2/Capterra B2B software review pages are different sources, different inputs, and different deliverables.</p>
     <ul>
-      <li><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> — public Apple/iTunes Customer Reviews RSS for known collection IDs</li>
+      <li><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> — public Apple/iTunes Customer Reviews RSS for known collection IDs. Query intent: <a href="/use-cases/apple-podcast-reviews/">Apple Podcasts reviews scraper</a>.</li>
       <li><a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a> — public <code>apps.shopify.com/{slug}</code> listings, ratings, pricing hints, and merchant themes</li>
-      <li><a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a> — public G2 and Capterra product review pages, normalized ratings, pros, and cons</li>
+      <li><a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a> — public G2 and Capterra product review pages, normalized ratings, pros, and cons. Query intent: <a href="/use-cases/g2-reviews-scraper/">G2 reviews scraper</a>.</li>
     </ul>
     <p>
       <a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor">Open Apple Podcasts Reviews Scraper on Apify</a>
@@ -167,7 +167,7 @@
     </ol>
 
     <h2>Apple/iTunes podcast reviews</h2>
-    <p><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> reads the official Apple/iTunes Customer Reviews RSS JSON for collection IDs and storefronts you pass. It is not a keyword search, episode catalog, or Top Podcasts rank tool. At most 25 unique iTunes collection IDs, 10 unique ISO-3166-1 alpha-2 country codes, and 10 review pages per show/country pair are accepted. Over-limit input fails instead of being silently truncated.</p>
+    <p><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> reads the official Apple/iTunes Customer Reviews RSS JSON for collection IDs and storefronts you pass. It is not a keyword search, episode catalog, or Top Podcasts rank tool. At most 25 unique iTunes collection IDs, 10 unique ISO-3166-1 alpha-2 country codes, and 10 review pages per show/country pair are accepted. Over-limit input fails instead of being silently truncated. For the reviews-scraper query intent, see <a href="/use-cases/apple-podcast-reviews/">Apple Podcasts reviews scraper</a>.</p>
 <pre><code>{
   "podcastIds": ["1535809341"],
   "countries": ["us"],
@@ -193,7 +193,7 @@
     <p><a href="https://apify.com/taroyamada/shopify-app-store-review-intelligence">Run Shopify App Store Review Scraper on Apify</a></p>
 
     <h2>G2 and Capterra B2B software reviews</h2>
-    <p><a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a> reads public G2 and Capterra product review pages. Required input is <code>reviewPageUrls</code> in the published formats <code>g2.com/products/{slug}/reviews</code> and <code>capterra.com/p/{id}/{slug}/reviews/</code>. It auto-detects source and normalizes product metadata, ratings, and review rows with pros and cons. Optional published fields are <code>reviewLimit</code> (default 200), <code>delivery</code>, <code>webhookUrl</code>, and <code>dryRun</code>. The published input schema does not include <code>products</code>, <code>source</code>, <code>slug</code>, <code>maxReviewsPerProduct</code>, or <code>emitDeltas</code>.</p>
+    <p><a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a> reads public G2 and Capterra product review pages. Required input is <code>reviewPageUrls</code> in the published formats <code>g2.com/products/{slug}/reviews</code> and <code>capterra.com/p/{id}/{slug}/reviews/</code>. It auto-detects source and normalizes product metadata, ratings, and review rows with pros and cons. Optional published fields are <code>reviewLimit</code> (default 200), <code>delivery</code>, <code>webhookUrl</code>, and <code>dryRun</code>. The published input schema does not include <code>products</code>, <code>source</code>, <code>slug</code>, <code>maxReviewsPerProduct</code>, or <code>emitDeltas</code>. For the G2 reviews scraper query intent, see <a href="/use-cases/g2-reviews-scraper/">G2 reviews scraper</a>.</p>
 <pre><code>{
   "reviewPageUrls": [
     "https://www.g2.com/products/notion/reviews",
@@ -245,8 +245,10 @@
     <h2>Related pages</h2>
     <ul>
       <li><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> — public podcast review RSS</li>
+      <li><a href="/use-cases/apple-podcast-reviews/">Apple Podcasts reviews scraper</a> — query-intent page for known collection IDs</li>
       <li><a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a> — Shopify App Store merchant listings</li>
       <li><a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a> — G2 and Capterra B2B software review pages</li>
+      <li><a href="/use-cases/g2-reviews-scraper/">G2 reviews scraper</a> — query-intent page for public G2 and Capterra URLs</li>
       <li><a href="/guides/g2-reviews-scraper-first-paid-run/">G2 reviews scraper: cheapest first paid run</a></li>
       <li><a href="/tools/">Tools</a></li>
       <li><a href="/">Home</a></li>
