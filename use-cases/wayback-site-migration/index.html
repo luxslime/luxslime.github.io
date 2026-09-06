@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wayback snapshots for site migration — closest archive date lookup</title>
+  <meta name="description" content="Look up Internet Archive snapshots closest to a migration date for URLs you already have. Live Store price $0.008 per successfully delivered Wayback lookup row. Read-only availability — not a CDX dump and not a tool that saves new snapshots.">
+  <link rel="canonical" href="https://luxslime.github.io/use-cases/wayback-site-migration/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Can Wayback Machine Bulk Checker map URLs from a site migration?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, as a closest-snapshot lookup on URLs you already have (maximum 500). Set closest in YYYYMMDD form to find the snapshot nearest that date; leave it empty for the latest. The published README positions this for mapping legacy site structures and auditing historical page versions during migrations or domain changes. It does not crawl the old site, parse sitemap.xml, or dump CDX full history."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What live input finds the snapshot closest to a migration date?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "urls is required. closest is YYYYMMDD (for example 20200101), not YYYY-MM-DD. concurrency defaults to 3 (maximum 5). maxChargeUsd defaults to 1. Live PPE is $0.008 per successfully delivered lookup row. Do not send README aliases such as checkAvailability, includeCdx, maxSnapshotsPerUrl, or compareToLatestLive."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does a migration lookup return archived HTML for every URL?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. The Actor returns structured availability rows and, when present, a closest snapshot URL and timestamp. It does not fetch cached HTML. Snapshots exist only where the Archive crawled the page. A URL may be unavailable because it was never archived, blocked by robots.txt, or removed by a removal request."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Use cases / Wayback site migration</nav>
+    <h1>Look up Wayback snapshots closest to a site migration date</h1>
+    <p>Use this page when you already have legacy URLs and need the Internet Archive snapshot nearest a cutover date. <a href="/wayback-machine-bulk-checker/">Wayback Machine Bulk Checker</a> is the existing Store Actor. It is not a new Actor, not a sitemap crawler, and not a CDX full-history dump. Pass known URLs; set <code>closest</code> in <code>YYYYMMDD</code> form.</p>
+    <p class="price">Live Store price: <strong>$0.008 per successfully delivered Wayback Machine lookup row</strong> ($8.00 / 1,000 wayback archive results). There is no Actor start event on the current Store pricing tab. Platform usage is listed as Included. Do not use older README Cost lines that listed <code>actor-start</code> $0.01 and <code>dataset-item</code> $0.003.</p>
+    <p><a href="https://apify.com/taroyamada/wayback-machine-checker">Open Wayback Machine Bulk Checker on Apify</a></p>
+
+    <h2>What a closest-snapshot row reports</h2>
+    <p>The live schema description for <code>closest</code> is: Find snapshot closest to this date (<code>YYYYMMDD</code> format). Leave empty for latest. The published README output table lists <code>url</code>, <code>archived</code>, <code>closestSnapshotUrl</code>, <code>closestSnapshotDate</code> (<code>YYYYMMDDhhmmss</code>), <code>totalSnapshots</code>, <code>firstSnapshotDate</code>, and <code>lastSnapshotDate</code>. The README example uses <code>available</code> and <code>closestSnapshot</code> (<code>url</code> and <code>timestamp</code>). Field names differ between that table and the example. There is no published <code>output_schema.json</code>.</p>
+    <p>The published README positions the Actor for mapping legacy site structures, auditing historical page versions during website migrations or domain changes, and auditing domain history before acquisitions. For broken-URL recovery without a target date, see <a href="/use-cases/wayback-404-recovery/">Wayback 404 recovery</a>. Discover URL inventories from nested XML with <a href="/sitemap-scraper-analyzer/">Sitemap Scraper &amp; Analyzer</a>, then look up those URLs here.</p>
+
+    <h2>Tiny first-paid input</h2>
+    <p>Start with the Store Quickstart, then add <code>closest</code>. Schema-valid <code>closest</code> is <code>YYYYMMDD</code> (for example <code>20200101</code>), not <code>YYYY-MM-DD</code>. Keep <code>concurrency</code> low. Use <code>dryRun: true</code> before larger portfolio runs. Store <strong>Portfolio Archive Check</strong> covers bulk verification up to 500 URLs.</p>
+<pre><code>{
+  "urls": [
+    "https://example.com/old-article"
+  ],
+  "closest": "20200101",
+  "concurrency": 3,
+  "maxChargeUsd": 1,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p>No Internet Archive API key is required. The Actor uses <code>archive.org/wayback/available</code>. It cannot Save Page Now. Do not send <code>checkAvailability</code>, <code>includeCdx</code>, <code>maxSnapshotsPerUrl</code>, or <code>compareToLatestLive</code> — those names are not in the live schema, and <code>additionalProperties</code> is false.</p>
+    <p><a href="https://apify.com/taroyamada/wayback-machine-checker">Run this closest-snapshot input on Apify</a></p>
+
+    <h2>Can Wayback Machine Bulk Checker map URLs from a site migration?</h2>
+    <p>Yes, as a closest-snapshot lookup on URLs you already have (maximum 500). Set <code>closest</code> in <code>YYYYMMDD</code> form to find the snapshot nearest that date; leave it empty for the latest. The published README positions this for mapping legacy site structures and auditing historical page versions during migrations or domain changes. It does not crawl the old site, parse <code>sitemap.xml</code>, or dump CDX full history.</p>
+
+    <h2>What live input finds the snapshot closest to a migration date?</h2>
+    <p><code>urls</code> is required. <code>closest</code> is <code>YYYYMMDD</code> (for example <code>20200101</code>), not <code>YYYY-MM-DD</code>. <code>concurrency</code> defaults to 3 (maximum 5). <code>maxChargeUsd</code> defaults to 1. Live PPE is <strong>$0.008 per successfully delivered lookup row</strong>. Do not send README aliases such as <code>checkAvailability</code>, <code>includeCdx</code>, <code>maxSnapshotsPerUrl</code>, or <code>compareToLatestLive</code>. See <a href="https://apify.com/taroyamada/wayback-machine-checker/pricing">Wayback Machine Bulk Checker pricing</a>.</p>
+
+    <h2>Does a migration lookup return archived HTML for every URL?</h2>
+    <p>No. The Actor returns structured availability rows and, when present, a closest snapshot URL and timestamp. It does not fetch cached HTML. Snapshots exist only where the Archive crawled the page. A URL may be unavailable because it was never archived, blocked by robots.txt, or removed by a removal request. Use <a href="/website-content-extractor/">Website Content Extractor</a> for live docs and product pages, and <a href="/article-content-extractor/">Article Content Extractor</a> for live news and blog pages.</p>
+    <p><a href="https://apify.com/taroyamada/wayback-machine-checker">Open Wayback Machine Bulk Checker on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/wayback-machine-bulk-checker/">Wayback Machine Bulk Checker</a> — product landing and field list</li>
+      <li><a href="/use-cases/wayback-404-recovery/">Wayback 404 recovery</a></li>
+      <li><a href="/sitemap-scraper-analyzer/">Sitemap Scraper &amp; Analyzer</a> — discover URLs from nested XML sitemaps</li>
+      <li><a href="/bulk-url-status-checker/">Bulk URL Status Checker</a> — live HTTP status on a known list</li>
+      <li><a href="/website-content-extractor/">Website Content Extractor</a></li>
+      <li><a href="/article-content-extractor/">Article Content Extractor</a></li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

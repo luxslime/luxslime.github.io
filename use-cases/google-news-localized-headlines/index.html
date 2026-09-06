@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Localized Google News headlines — language and country RSS queries</title>
+  <meta name="description" content="Tune Google News RSS by language and country for localized headlines and article URLs. Live Store price $0.003 per successfully parsed RSS article row. Discovery only — not a paid news API and not article HTML cleanup.">
+  <link rel="canonical" href="https://luxslime.github.io/use-cases/google-news-localized-headlines/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do language and country localize Google News RSS results?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The live schema defaults language to en and country to US. Schema descriptions give examples en, ja, de for language and US, JP, GB for country. Together they tune Google News RSS for a region. RSS & Atom Feed Extractor has no language or country fields because it reads feed URLs you already have."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What live input localizes a first paid Google News run?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Required field is queries (maximum 50). Set language and country to the region you want. maxItems is 1–100 per query (default 25). deduplicate defaults to true. Live PPE is $0.003 per successfully parsed public RSS article row. Do not send unpublished aliases such as maxItemsPerQuery."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does localization return translated article bodies?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Localization tunes which Google News RSS results you get. Each row is still headline, article URL, publisher, timestamps, snippet, and originating query. There is no published full-article text field and no translation step. Send article URLs to Article Content Extractor afterward."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Use cases / Localized Google News headlines</nav>
+    <h1>Localized Google News headlines by language and country</h1>
+    <p>Use this page when the job is regional Google News RSS, not a global dump and not a publisher feed you already have. <a href="/google-news-scraper/">Google News Scraper</a> is the existing Store Actor. It is not a new Actor, not a paid news API, and not an HTML cleaner. Set <code>language</code> and <code>country</code> on the same <code>queries</code> run.</p>
+    <p class="price">Live Store price: <strong>$0.003 per successfully parsed public RSS article row</strong> ($3.00 / 1,000 Google News RSS articles). There is no Actor start event on the current Store pricing tab. Platform usage is listed as Included.</p>
+    <p><a href="https://apify.com/taroyamada/google-news-scraper">Open Google News Scraper on Apify</a></p>
+
+    <h2>What localization changes</h2>
+    <p><code>language</code> defaults to <code>en</code> (schema examples: <code>en</code>, <code>ja</code>, <code>de</code>). <code>country</code> defaults to <code>US</code> (schema examples: <code>US</code>, <code>JP</code>, <code>GB</code>). Together they tune Google News RSS for a region. Output fields stay <code>title</code>, <code>link</code>, <code>source</code>, <code>pubDate</code>, <code>pubDateISO</code>, <code>description</code>, and <code>query</code>. The published README positions this for global topic monitoring. It does not translate bodies and it does not score sentiment.</p>
+    <p>For company or brand queries without a regional change, see <a href="/use-cases/google-news-brand-monitoring/">Google News brand monitoring</a>. For known-publisher XML you already have, see <a href="/use-cases/rss-newsroom-monitoring/">newsroom RSS monitoring</a>.</p>
+
+    <h2>Tiny first-paid input</h2>
+    <p>Keep the first run small. The live field for per-query volume is <code>maxItems</code>, not <code>maxItemsPerQuery</code>. The published README localized JP illustration uses <code>language</code> <code>ja</code>, <code>country</code> <code>JP</code>, and query <code>人工知能</code>. The English GB example below uses live schema names only.</p>
+<pre><code>{
+  "queries": ["artificial intelligence"],
+  "language": "en",
+  "country": "GB",
+  "maxItems": 10,
+  "deduplicate": true,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p>Start with <strong>Quickstart (company news)</strong> on the Store, then change <code>language</code> and <code>country</code>. Confirm the dataset shows real article URLs for that region, then send news, blog, and press links to <a href="/article-content-extractor/">Article Content Extractor</a>.</p>
+    <p><a href="https://apify.com/taroyamada/google-news-scraper">Run this localized Google News input on Apify</a></p>
+
+    <h2>How do language and country localize Google News RSS results?</h2>
+    <p>The live schema defaults <code>language</code> to <code>en</code> and <code>country</code> to <code>US</code>. Schema descriptions give examples <code>en</code>, <code>ja</code>, <code>de</code> for language and <code>US</code>, <code>JP</code>, <code>GB</code> for country. Together they tune Google News RSS for a region. <a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a> has no <code>language</code> or <code>country</code> fields because it reads feed URLs you already have.</p>
+
+    <h2>What live input localizes a first paid Google News run?</h2>
+    <p>Required field is <code>queries</code> (maximum 50). Set <code>language</code> and <code>country</code> to the region you want. <code>maxItems</code> is 1–100 per query (default 25). <code>deduplicate</code> defaults to true. Live PPE is <strong>$0.003 per successfully parsed public RSS article row</strong>. Do not send unpublished aliases such as <code>maxItemsPerQuery</code>. See <a href="https://apify.com/taroyamada/google-news-scraper/pricing">Google News Scraper pricing</a>.</p>
+
+    <h2>Does localization return translated article bodies?</h2>
+    <p>No. Localization tunes which Google News RSS results you get. Each row is still headline, article URL, publisher, timestamps, snippet, and originating query. There is no published full-article text field and no translation step. Send article URLs to <a href="/article-content-extractor/">Article Content Extractor</a> afterward. For RAG ingestion of those bodies, see <a href="/use-cases/news-blog-rag/">article extractor for news and blog RAG</a>.</p>
+    <p><a href="https://apify.com/taroyamada/google-news-scraper">Open Google News Scraper on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/google-news-scraper/">Google News Scraper</a> — product landing and field list</li>
+      <li><a href="/use-cases/google-news-brand-monitoring/">Google News brand monitoring</a></li>
+      <li><a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a></li>
+      <li><a href="/article-content-extractor/">Article Content Extractor</a></li>
+      <li><a href="/use-cases/news-blog-rag/">Article extractor for news and blog RAG</a></li>
+      <li><a href="/packs/content-intelligence/">Content Intelligence pack</a></li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>
