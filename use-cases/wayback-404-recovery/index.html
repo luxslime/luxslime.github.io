@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wayback Machine 404 recovery — archive snapshots for broken URLs</title>
+  <meta name="description" content="Look up Internet Archive snapshots for broken or deleted URLs you already have. Live Store price $0.008 per successfully delivered Wayback lookup row. Read-only availability — not live HTTP status and not a tool that saves new snapshots.">
+  <link rel="canonical" href="https://luxslime.github.io/use-cases/wayback-404-recovery/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Can Wayback Machine Bulk Checker recover content from broken URLs?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "It can report whether the Internet Archive cached those URLs and, when present, return the closest snapshot URL and timestamp. Required input is urls (maximum 500). Leave closest empty for the latest snapshot. The Actor does not fetch cached HTML, does not extract article bodies, and cannot create new snapshots. Coverage is not guaranteed per URL."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the cheapest first paid input for 404 archive lookup?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The published Store Quickstart verifies a few archived URLs. Live schema names are urls (required), optional closest in YYYYMMDD form, concurrency (default 3), maxChargeUsd (default 1), delivery dataset, and dryRun false. Live PPE is $0.008 per successfully delivered Wayback Machine lookup row. There is no Actor start event on the current Store pricing tab."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is this the same as live HTTP status checking?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Bulk URL Status Checker checks live HTTP status, redirects, and timing on a known list. This Actor queries archive.org/wayback/available. The README 404 Recovery template is for after a broken-link crawl: you already have dead URLs, then you look up archive availability. This Actor cannot Save Page Now."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Use cases / Wayback 404 recovery</nav>
+    <h1>Find Wayback snapshots for broken URLs</h1>
+    <p>Use this page when you already have dead, 404, or deleted URLs and need to know whether the Internet Archive cached them. <a href="/wayback-machine-bulk-checker/">Wayback Machine Bulk Checker</a> is the existing Store Actor for that read-only lookup. It is not a new Actor, not live HTTP status QA, and not a tool that saves new snapshots.</p>
+    <p class="price">Live Store price: <strong>$0.008 per successfully delivered Wayback Machine lookup row</strong> ($8.00 / 1,000 wayback archive results). There is no Actor start event on the current Store pricing tab. Platform usage is listed as Included. Do not use older README Cost lines that listed <code>actor-start</code> $0.01 and <code>dataset-item</code> $0.003.</p>
+    <p><a href="https://apify.com/taroyamada/wayback-machine-checker">Open Wayback Machine Bulk Checker on Apify</a></p>
+
+    <h2>What a 404-recovery row reports</h2>
+    <p>The published README output table lists <code>url</code>, <code>archived</code>, <code>closestSnapshotUrl</code>, <code>closestSnapshotDate</code>, <code>totalSnapshots</code>, <code>firstSnapshotDate</code>, and <code>lastSnapshotDate</code>. The README example uses <code>available</code>, <code>closestSnapshot</code> (<code>url</code> and <code>timestamp</code>), and <code>archivedVersions</code>. Field names differ between that table and the example. Treat snapshot counts, first/last capture dates, and original HTTP status as README-claimed columns, not as a published <code>output_schema.json</code>. Availability is not guaranteed per URL.</p>
+    <p>The published README use cases include SEO recovery of deleted pages and cross-referencing dead URLs with historical cache data. For mapping a pre-migration date, see <a href="/use-cases/wayback-site-migration/">Wayback site migration snapshots</a>.</p>
+
+    <h2>Tiny first-paid input</h2>
+    <p>The published Store Quickstart verifies a few archived URLs. Live required field is <code>urls</code> (maximum 500). Leave <code>closest</code> empty for the latest snapshot. Keep <code>concurrency</code> low (schema default 3, maximum 5). <code>maxChargeUsd</code> defaults to 1; results beyond the cap are kept as no-charge <code>limit_reached</code> rows. Do not send README aliases such as <code>checkAvailability</code>, <code>includeCdx</code>, <code>maxSnapshotsPerUrl</code>, or <code>compareToLatestLive</code>.</p>
+<pre><code>{
+  "urls": [
+    "https://example.com/old-page"
+  ],
+  "concurrency": 3,
+  "maxChargeUsd": 1,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p>Store templates named in the README are <strong>Quickstart (verify 3 archived URLs)</strong>, <strong>Portfolio Archive Check</strong> (bulk verification, up to 500 URLs), and <strong>404 Recovery</strong> after a broken-link crawl. Find live broken URLs with <a href="/bulk-url-status-checker/">Bulk URL Status Checker</a>, then look up archive availability here. This Actor cannot Save Page Now.</p>
+    <p><a href="https://apify.com/taroyamada/wayback-machine-checker">Run this Wayback 404 lookup on Apify</a></p>
+
+    <h2>Can Wayback Machine Bulk Checker recover content from broken URLs?</h2>
+    <p>It can report whether the Internet Archive cached those URLs and, when present, return the closest snapshot URL and timestamp. Required input is <code>urls</code> (maximum 500). Leave <code>closest</code> empty for the latest snapshot. The Actor does not fetch cached HTML, does not extract article bodies, and cannot create new snapshots. Coverage is not guaranteed per URL. Snapshots exist back to 1996 only where the Archive crawled the page. A URL may be unavailable because it was never archived, blocked by robots.txt, or removed by a removal request.</p>
+
+    <h2>What is the cheapest first paid input for 404 archive lookup?</h2>
+    <p>The published Store Quickstart verifies a few archived URLs. Live schema names are <code>urls</code> (required), optional <code>closest</code> in <code>YYYYMMDD</code> form, <code>concurrency</code> (default 3), <code>maxChargeUsd</code> (default 1), <code>delivery</code> <code>dataset</code>, and <code>dryRun</code> false. Live PPE is <strong>$0.008 per successfully delivered Wayback Machine lookup row</strong>. There is no Actor start event on the current Store pricing tab. See <a href="https://apify.com/taroyamada/wayback-machine-checker/pricing">Wayback Machine Bulk Checker pricing</a>.</p>
+
+    <h2>Is this the same as live HTTP status checking?</h2>
+    <p>No. <a href="/bulk-url-status-checker/">Bulk URL Status Checker</a> checks live HTTP status, redirects, and timing on a known list. This Actor queries <code>archive.org/wayback/available</code>. The README <strong>404 Recovery</strong> template is for after a broken-link crawl: you already have dead URLs, then you look up archive availability. This Actor cannot Save Page Now. To save new pages, the README points to archive.org’s <code>/save/</code> endpoint.</p>
+    <p><a href="https://apify.com/taroyamada/wayback-machine-checker">Open Wayback Machine Bulk Checker on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/wayback-machine-bulk-checker/">Wayback Machine Bulk Checker</a> — product landing and field list</li>
+      <li><a href="/use-cases/wayback-site-migration/">Wayback site migration snapshots</a></li>
+      <li><a href="/bulk-url-status-checker/">Bulk URL Status Checker</a> — live HTTP status, not archive lookup</li>
+      <li><a href="/sitemap-scraper-analyzer/">Sitemap Scraper &amp; Analyzer</a> — sitemap.xml inventories, not Wayback</li>
+      <li><a href="/website-content-extractor/">Website Content Extractor</a> — live page HTML</li>
+      <li><a href="/article-content-extractor/">Article Content Extractor</a> — live article HTML</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>
