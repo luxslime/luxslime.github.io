@@ -149,8 +149,10 @@
     <nav><a href="/">Home</a> / Article Content Extractor</nav>
     <h1>Extract headline, byline, and article body from news, blog, and press URLs</h1>
     <p>Article Content Extractor fetches public news, blog, newsroom, and press pages you already have and returns structured article rows: headline, byline, publish date, body, excerpt, and hero image. It is a bounded HTML cleanup step for research, content QA, and RAG ingestion — not a ranking tool, a full-site crawler, or a Google News search. For docs, pricing, policy, product, and help-center pages, use <a href="/website-content-extractor/">Website Content Extractor</a>. For query-based headline discovery, use <a href="/google-news-scraper/">Google News Scraper</a>.</p>
-    <p class="price">From $2,500.00 / 1,000 article content audit reports ($2.50 per report). Useful article row $0.008 ($8.00 / 1,000). Batch export $5.00. Actor Start $0.00005.</p>
-    <p><a href="https://apify.com/taroyamada/article-content-extractor">Open Article Content Extractor on Apify</a></p>
+    <p class="price">From $2,500.00 / 1,000 article content audit reports ($2.50 per report). Useful article row $0.008 ($8.00 / 1,000). Batch export $5.00. Actor Start $0.00005. Cheapest first paid path leaves both value events off.</p>
+    <p><a href="https://apify.com/taroyamada/article-content-extractor">Open Article Content Extractor on Apify</a>
+      ·
+      <a href="/guides/article-extractor-first-paid-run/">Cheapest first paid run</a></p>
 
     <h2>Articles versus site pages versus news discovery</h2>
     <p>Use this page when the URLs are article-shaped: news, blog, newsroom, or press. Use <a href="/website-content-extractor/">Website Content Extractor</a> when the URLs are broader site pages that are not article-shaped. Use <a href="/google-news-scraper/">Google News Scraper</a> when you still need article URLs from search queries.</p>
@@ -226,6 +228,7 @@
   "delivery": "dataset",
   "dryRun": false
 }</code></pre>
+    <p>That is the cheapest first paid extractor input. Leave <code>generateReport</code> and <code>emitExport</code> off. If one Actor Start event and one useful article row charge, documented PPE is $0.00005 + $0.008 = $0.00805. For the event table, see <a href="/guides/article-extractor-first-paid-run/">Cheapest first paid run for Article Extractor</a>.</p>
     <p>Published output fields: <code>rowType</code>, <code>url</code>, <code>headline</code>, <code>author</code>, <code>publishedAt</code>, <code>articleText</code>, <code>excerpt</code>, <code>heroImage</code>, and <code>sourceUrl</code>. Sample <code>rowType</code> is <code>article</code>. README sample (placeholder article data, not a live coverage guarantee):</p>
 <pre><code>{
   "meta": {
@@ -251,7 +254,9 @@
   "warnings": []
 }</code></pre>
     <p>Rows also include fetch timestamps, warnings for partial or changed content, and stable IDs when the workflow supports recurring change detection. Optional inline images when <code>includeImages</code> is true; <code>heroImage</code> can still be returned separately when available. There is no separate output schema on the Store page.</p>
-    <p><a href="https://apify.com/taroyamada/article-content-extractor">Run an article extraction on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/article-content-extractor">Run an article extraction on Apify</a>
+      ·
+      <a href="/guides/article-extractor-first-paid-run/">Cheapest first paid run</a></p>
 
     <h2>Content audit report and batch export</h2>
     <p>Set <code>generateReport</code> to true to emit one <code>article-content-audit-report</code> row when at least one article is usable. Set <code>emitExport</code> to true to emit one <code>article-batch-export</code> row when at least one article is usable. Raw article rows remain source context. Do not add report-only fields meant for separate Site QA or RAG Store Actors to this extractor input.</p>
