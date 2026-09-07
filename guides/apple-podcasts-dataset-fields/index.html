@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Apple Podcasts dataset fields</title>
-  <meta name="description" content="Key Apple Podcasts Scraper output fields from official Apple/iTunes endpoints: showName, collectionId, rank, sourceUrl, and fetchedAt. From $10 per 1,000 results.">
+  <meta name="description" content="Key Apple Podcasts Scraper output fields from official Apple/iTunes endpoints: showName, collectionId, rank, sourceUrl, and fetchedAt. From $2.50 per 1,000 results.">
   <link rel="canonical" href="https://apify.momiji-space.com/guides/apple-podcasts-dataset-fields/">
   <script type="application/ld+json">
   {
@@ -88,7 +88,7 @@
         "name": "How is a dataset export priced?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Billing is pay-per-event. The live Store card is from $10.00 / 1,000 results. Published events are Actor Start at $0.005 and result at $0.01 per default-dataset item ($10.00 per 1,000). The default dataset is the billable surface."
+          "text": "Billing is pay-per-event. The live Store card is from $2.50 / 1,000 results. Published events are Actor Start at $0.005 and result at $0.0025 per default-dataset item ($2.50 per 1,000). The default dataset is the billable surface."
         }
       }
     ]
@@ -117,7 +117,7 @@
     <nav><a href="/">Home</a> / Guides / Apple Podcasts dataset fields</nav>
     <h1>Apple Podcasts dataset fields</h1>
     <p><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> writes source-linked show, chart, and episode rows. Official Apple/iTunes endpoints. No proxy is required. The default dataset is the billable surface. This page lists the fields published in the Actor README. There is no separate output schema on the Store page.</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Open Apple Podcasts Scraper on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Open Apple Podcasts Scraper on Apify</a></p>
 
     <h2>Scraper fields versus Chart and Reviews rows</h2>
     <p>Use this guide for Apple Podcasts Scraper output. <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> and <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> publish different <code>rowType</code> values and field lists. Do not join them as one schema.</p>
@@ -204,7 +204,7 @@
   "warnings": []
 }</code></pre>
     <p>Start with <code>delivery</code> set to <code>dataset</code> so you can review these fields. Switch to <a href="/guides/apple-podcasts-webhooks/">webhook delivery</a> only after the payload shape is approved. <code>dryRun</code> true runs without saving results or sending webhooks.</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Inspect dataset fields on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Inspect dataset fields on Apify</a></p>
 
     <h2>What Apple Podcasts Scraper fields are documented?</h2>
     <p>The README output-field list is <code>rowType</code>, <code>collectionId</code>, <code>showName</code>, <code>publisher</code>, <code>country</code>, <code>rank</code>, <code>episodeTitle</code>, <code>sourceUrl</code>, and <code>fetchedAt</code>. There is no separate output schema on the Store page. Sample <code>rowType</code> for search is <code>podcast_search_result</code>.</p>
@@ -234,7 +234,7 @@
     <p><code>rowType</code> is the row kind for downstream filters. Sample <code>rowType</code> for search is <code>podcast_search_result</code>. Chart Scraper and Reviews Scraper publish different <code>rowType</code> values (<code>chart_rank</code> and <code>podcast_review</code>). Do not mix those field lists with Apple Podcasts Scraper’s README list.</p>
 
     <h2>How is a dataset export priced?</h2>
-    <p>Billing is pay-per-event. The live Store card is from $10.00 / 1,000 results. Published events are Actor Start at $0.005 and result at $0.01 per default-dataset item ($10.00 per 1,000). The default dataset is the billable surface.</p>
+    <p>Billing is pay-per-event. The live Store card is from $2.50 / 1,000 results. Published events are Actor Start at $0.005 and result at $0.0025 per default-dataset item ($2.50 per 1,000). The default dataset is the billable surface.</p>
 
     <h2>How to run it</h2>
     <ol>
@@ -243,13 +243,14 @@
       <li>Keep the first run small. Leave <code>includeEpisodes</code> false unless you need <code>episodeTitle</code>.</li>
       <li>Leave <code>delivery</code> on <code>dataset</code>. After the run finishes, open the default dataset and export it (JSON or CSV from the dataset view).</li>
     </ol>
-    <p>Billing is pay-per-event: Actor start plus one result event per default-dataset item. The published Store price is $0.005 per Actor start and $10.00 per 1,000 dataset results ($0.01 per row).</p>
-    <p class="price">From $10 per 1,000 results</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Open Apple Podcasts Scraper on Apify</a></p>
+    <p>Billing is pay-per-event: Actor start plus one result event per default-dataset item. The published Store price is $0.005 per Actor start and $2.50 per 1,000 dataset results ($0.0025 per row).</p>
+    <p class="price">From $2.50 per 1,000 results</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Open Apple Podcasts Scraper on Apify</a></p>
 
     <h2>Related guides</h2>
     <ul>
       <li><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> — iTunes search, episodes, and watchlists</li>
+      <li><a href="/guides/itunes-podcast-scraper-first-run/">iTunes podcast scraper: cheapest Apple Podcasts first paid run</a></li>
       <li><a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a></li>
       <li><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a></li>
       <li><a href="/guides/apple-podcasts-webhooks/">Deliver Apple Podcasts results with webhooks</a></li>

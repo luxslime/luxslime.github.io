@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>One-time export vs iTunes watchlist lookup</title>
-  <meta name="description" content="When a one-shot Apple Podcasts dataset export is enough, and when recurring iTunes Lookup API watchlist refreshes are the better lane. From $10 per 1,000 results.">
+  <meta name="description" content="When a one-shot Apple Podcasts dataset export is enough, and when recurring iTunes Lookup API watchlist refreshes are the better lane. From $2.50 per 1,000 results.">
   <link rel="canonical" href="https://apify.momiji-space.com/compare/one-time-export-vs-watchlist/">
   <script type="application/ld+json">
   {
@@ -64,7 +64,7 @@
         "name": "How is a one-time export priced versus a watchlist poll?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Billing is pay-per-event for both lanes. The live Store card is from $10.00 / 1,000 results. Published events are Actor Start at $0.005 and result at $0.01 per default-dataset item ($10.00 per 1,000). Empty or no-change watchlist polls are described as avoiding payable default-dataset writes when nothing is saved."
+          "text": "Billing is pay-per-event for both lanes. The live Store card is from $2.50 / 1,000 results. Published events are Actor Start at $0.005 and result at $0.0025 per default-dataset item ($2.50 per 1,000). Empty or no-change watchlist polls are described as avoiding payable default-dataset writes when nothing is saved."
         }
       },
       {
@@ -118,7 +118,7 @@
     <nav><a href="/">Home</a> / Compare / One-time export vs watchlist</nav>
     <h1>One-time export vs watchlist lookup</h1>
     <p>A one-shot run discovers or snapshots public Apple Podcasts metadata and you export the default dataset. A watchlist run re-resolves shows you already know by collection ID. <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> supports both: <code>searchTerm</code> or <code>chartRequests</code> for the first pass, then <code>lookupIds</code> through the official iTunes Lookup API for recurring checks. Official Apple/iTunes endpoints. No proxy is required. It is not affiliated with or endorsed by Apple.</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Open Apple Podcasts Scraper on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Open Apple Podcasts Scraper on Apify</a></p>
 
     <h2>One-shot export versus recurring lookup versus rank movement</h2>
     <p>Use this page when the job is choosing a run shape on Apple Podcasts Scraper. Use <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> when the job is storefront Top Podcasts movement, not a collection-ID refresh. Use <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> when you already have IDs and need public ratings.</p>
@@ -168,9 +168,9 @@
     </ul>
     <p>At least one of <code>searchTerm</code>, <code>chartRequests</code>, or <code>lookupIds</code> is required. Start with <code>delivery</code> set to <code>dataset</code>. After the run finishes, open the default dataset and export it (JSON or CSV from the dataset view). Keep the first run small, then raise <code>limit</code> after the output is useful. Leave <code>includeEpisodes</code> false unless recent episode titles materially help; that path is slower.</p>
 <pre><code>{
-  "searchTerm": "founder podcast",
+  "searchTerm": "technology",
   "country": "us",
-  "limit": 10,
+  "limit": 3,
   "includeEpisodes": false,
   "delivery": "dataset"
 }</code></pre>
@@ -226,7 +226,7 @@
       </tbody>
     </table>
     <p>A common sequence is search or charts first, keep the <code>collectionId</code> values you care about, then switch later runs to <code>lookupIds</code>. That is how the <a href="/use-cases/podcast-outreach/">outreach shortlist</a> workflow is described. For chart time series you join yourself, keep each snapshot; see <a href="/use-cases/podcast-market-tracking/">chart tracking over time</a>.</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Run a search or watchlist refresh on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Run a search or watchlist refresh on Apify</a></p>
 
     <h2>When is a one-time Apple Podcasts export enough?</h2>
     <p>Use a single run when you do not yet have Apple collection IDs, or when a snapshot is the deliverable: keyword discovery with <code>searchTerm</code>, a chart snapshot with <code>chartRequests</code> (<code>feedType</code> <code>podcasts</code> or <code>podcast-episodes</code>), or a shortlist you will review once. Keep the first run small and leave <code>includeEpisodes</code> false unless recent episode titles help.</p>
@@ -247,7 +247,7 @@
     <p>Yes. A common sequence is search or charts first, keep the <code>collectionId</code> values you care about, then switch later runs to <code>lookupIds</code>. That is how the outreach shortlist workflow is described.</p>
 
     <h2>How is a one-time export priced versus a watchlist poll?</h2>
-    <p>Billing is pay-per-event for both lanes. The live Store card is from $10.00 / 1,000 results. Published events are Actor Start at $0.005 and result at $0.01 per default-dataset item ($10.00 per 1,000). Empty or no-change watchlist polls are described as avoiding payable default-dataset writes when nothing is saved.</p>
+    <p>Billing is pay-per-event for both lanes. The live Store card is from $2.50 / 1,000 results. Published events are Actor Start at $0.005 and result at $0.0025 per default-dataset item ($2.50 per 1,000). Empty or no-change watchlist polls are described as avoiding payable default-dataset writes when nothing is saved.</p>
 
     <h2>Should I use a watchlist to compute rank movement?</h2>
     <p>No. Apple Podcasts Scraper does not compute rank movement. <code>lookupIds</code> refresh show metadata. For a source-linked movement report when a saved monitor sees new, changed, or dropped Top Podcasts positions, use <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a>.</p>
@@ -265,13 +265,14 @@
       <li>Keep <code>collectionId</code> values you want to monitor. On later runs, pass those IDs as <code>lookupIds</code>.</li>
       <li>For a new watch, set <code>dryRun</code> true first. Then run live. Switch <code>delivery</code> to <code>webhook</code> only after the payload shape is approved.</li>
     </ol>
-    <p>The published Store price is $0.005 per Actor start and $10.00 per 1,000 dataset results ($0.01 per row).</p>
-    <p class="price">From $10 per 1,000 results</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Open Apple Podcasts Scraper on Apify</a></p>
+    <p>The published Store price is $0.005 per Actor start and $2.50 per 1,000 dataset results ($0.0025 per row).</p>
+    <p class="price">From $2.50 per 1,000 results</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Open Apple Podcasts Scraper on Apify</a></p>
 
     <h2>Related pages</h2>
     <ul>
       <li><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> — iTunes search, episodes, and watchlists</li>
+      <li><a href="/guides/itunes-podcast-scraper-first-run/">iTunes podcast scraper: cheapest Apple Podcasts first paid run</a></li>
       <li><a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> — Top Podcasts ranks and movement reports</li>
       <li><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> — ratings for known collection IDs</li>
       <li><a href="/guides/apple-podcasts-watchlists/">Refresh Apple Podcasts watchlists (iTunes Lookup API)</a></li>

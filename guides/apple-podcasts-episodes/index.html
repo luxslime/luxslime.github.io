@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Export Apple Podcasts episode metadata via Apple/iTunes endpoints</title>
-  <meta name="description" content="Export recent Apple Podcasts episode metadata with includeEpisodes, or snapshot episode charts, via official Apple/iTunes endpoints. From $10 per 1,000 results.">
+  <meta name="description" content="Export recent Apple Podcasts episode metadata with includeEpisodes, or snapshot episode charts, via official Apple/iTunes endpoints. From $2.50 per 1,000 results.">
   <link rel="canonical" href="https://apify.momiji-space.com/guides/apple-podcasts-episodes/">
   <script type="application/ld+json">
   {
@@ -80,7 +80,7 @@
         "name": "How is an includeEpisodes run priced?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Billing is pay-per-event. The live Store card is from $10.00 / 1,000 results. Published events are Actor Start at $0.005 and result at $0.01 per default-dataset item ($10.00 per 1,000). includeEpisodes is slower; it does not add a separate published event."
+          "text": "Billing is pay-per-event. The live Store card is from $2.50 / 1,000 results. Published events are Actor Start at $0.005 and result at $0.0025 per default-dataset item ($2.50 per 1,000). includeEpisodes is slower; it does not add a separate published event."
         }
       },
       {
@@ -117,7 +117,7 @@
     <nav><a href="/">Home</a> / Guides / Apple Podcasts episodes</nav>
     <h1>Export Apple Podcasts episode metadata</h1>
     <p><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> can attach recent episode context to resolved shows, or snapshot official episode charts. It uses official Apple/iTunes endpoints. No proxy is required. Episode inclusion is a published boolean: <code>includeEpisodes</code>. Leave it off unless episode-level context is required; that path is slower.</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Open Apple Podcasts Scraper on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Open Apple Podcasts Scraper on Apify</a></p>
 
     <h2>Recent episodes versus episode charts versus RSS</h2>
     <p>Use this guide when the job is recent episode titles on resolved shows, or an episode-rank snapshot. Use a public RSS feed (or <a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a> for many feeds) when you need a known show’s published catalog. Chart Scraper does not attach episode catalogs — that work stays on Apple Podcasts Scraper. Reviews Scraper does not return episode titles.</p>
@@ -173,7 +173,7 @@
   "includeEpisodes": true
 }</code></pre>
     <p>Use this when a short look at what a resolved show is publishing is enough. It is not a substitute for archiving a feed.</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Run an episode-inclusive lookup on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Run an episode-inclusive lookup on Apify</a></p>
 
     <h2>Episode chart snapshot</h2>
     <p>To snapshot Apple’s episode rankings, use <code>chartRequests</code> with <code>feedType</code> set to <code>podcast-episodes</code>. Supported <code>feedType</code> values are <code>podcasts</code> and <code>podcast-episodes</code>. Per-item <code>country</code> overrides the default storefront.</p>
@@ -210,7 +210,7 @@
     <p>No. That chart request is a ranking snapshot, not a per-show episode list. Rankings differ by storefront. For a known show’s complete published history, read that show’s public RSS feed.</p>
 
     <h2>How is an includeEpisodes run priced?</h2>
-    <p>Billing is pay-per-event. The live Store card is from $10.00 / 1,000 results. Published events are Actor Start at $0.005 and result at $0.01 per default-dataset item ($10.00 per 1,000). <code>includeEpisodes</code> is slower; it does not add a separate published event.</p>
+    <p>Billing is pay-per-event. The live Store card is from $2.50 / 1,000 results. Published events are Actor Start at $0.005 and result at $0.0025 per default-dataset item ($2.50 per 1,000). <code>includeEpisodes</code> is slower; it does not add a separate published event.</p>
 
     <h2>Does Reviews Scraper return episode titles?</h2>
     <p>No. Reviews Scraper reads public Customer Reviews RSS for <code>podcastIds</code> you already have. Episode titles on resolved shows belong on Apple Podcasts Scraper <code>includeEpisodes</code>.</p>
@@ -223,13 +223,14 @@
       <li>Leave <code>delivery</code> on <code>dataset</code>. After the run finishes, open the default dataset and export it (JSON or CSV from the dataset view).</li>
       <li>Switch <code>delivery</code> to <code>webhook</code> only after the payload shape is approved. Set <code>dryRun</code> true to test without saving results or sending webhooks.</li>
     </ol>
-    <p>Billing is pay-per-event: Actor start plus one result event per default-dataset item. The published Store price is $0.005 per Actor start and $10.00 per 1,000 dataset results ($0.01 per row).</p>
-    <p class="price">From $10 per 1,000 results</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Open Apple Podcasts Scraper on Apify</a></p>
+    <p>Billing is pay-per-event: Actor start plus one result event per default-dataset item. The published Store price is $0.005 per Actor start and $2.50 per 1,000 dataset results ($0.0025 per row).</p>
+    <p class="price">From $2.50 per 1,000 results</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Open Apple Podcasts Scraper on Apify</a></p>
 
     <h2>Related guides</h2>
     <ul>
       <li><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> — iTunes search, episodes, and watchlists</li>
+      <li><a href="/guides/itunes-podcast-scraper-first-run/">iTunes podcast scraper: cheapest Apple Podcasts first paid run</a></li>
       <li><a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a></li>
       <li><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a></li>
       <li><a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a></li>
