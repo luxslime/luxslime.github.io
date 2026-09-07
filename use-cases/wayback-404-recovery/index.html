@@ -24,7 +24,7 @@
         "name": "What is the cheapest first paid input for 404 archive lookup?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "The published Store Quickstart verifies a few archived URLs. Live schema names are urls (required), optional closest in YYYYMMDD form, concurrency (default 3), maxChargeUsd (default 1), delivery dataset, and dryRun false. Live PPE is $0.008 per successfully delivered Wayback Machine lookup row. There is no Actor start event on the current Store pricing tab."
+          "text": "The cheapest first paid path is one urls item. If one lookup row is delivered, live PPE is $0.008. There is no Actor start event. The published Store Quickstart verifies 3 archived URLs (3 × $0.008 = $0.024 if all three are delivered). Live schema names are urls (required), optional closest in YYYYMMDD form, concurrency (default 3), maxChargeUsd (default 1), delivery dataset, and dryRun false."
         }
       },
       {
@@ -57,8 +57,11 @@
     <nav><a href="/">Home</a> / Use cases / Wayback 404 recovery</nav>
     <h1>Find Wayback snapshots for broken URLs</h1>
     <p>Use this page when you already have dead, 404, or deleted URLs and need to know whether the Internet Archive cached them. <a href="/wayback-machine-bulk-checker/">Wayback Machine Bulk Checker</a> is the existing Store Actor for that read-only lookup. It is not a new Actor, not live HTTP status QA, and not a tool that saves new snapshots.</p>
-    <p class="price">Live Store price: <strong>$0.008 per successfully delivered Wayback Machine lookup row</strong> ($8.00 / 1,000 wayback archive results). There is no Actor start event on the current Store pricing tab. Platform usage is listed as Included. Do not use older README Cost lines that listed <code>actor-start</code> $0.01 and <code>dataset-item</code> $0.003.</p>
-    <p><a href="https://apify.com/taroyamada/wayback-machine-checker">Open Wayback Machine Bulk Checker on Apify</a></p>
+    <p class="price">Live Store price: <strong>$0.008 per successfully delivered Wayback Machine lookup row</strong> ($8.00 / 1,000 wayback archive results). Cheapest first paid path: 1 URL = $0.008 if one lookup row is delivered. There is no Actor start event on the current Store pricing tab. Platform usage is listed as Included. Do not use older README Cost lines that listed <code>actor-start</code> $0.01 and <code>dataset-item</code> $0.003.</p>
+    <p><a href="https://apify.com/taroyamada/wayback-machine-checker/input">Try the cheapest first paid Wayback lookup on Apify Input</a></p>
+    <p><a href="https://apify.com/taroyamada/wayback-machine-checker">Open taroyamada/wayback-machine-checker on the Apify Store</a>
+      ·
+      <a href="/wayback-machine-bulk-checker/">Wayback Machine Bulk Checker landing</a></p>
 
     <h2>What a 404-recovery row reports</h2>
     <p>This page uses one README output-table set: <code>url</code>, <code>archived</code>, <code>closestSnapshotUrl</code>, and <code>closestSnapshotDate</code>. The same table also lists <code>totalSnapshots</code>, <code>firstSnapshotDate</code>, and <code>lastSnapshotDate</code>; treat those and original HTTP status as README-claimed columns, not as a published <code>output_schema.json</code>. Availability is not guaranteed per URL. The product landing documents the README sample, which uses different names.</p>
@@ -75,18 +78,19 @@
   "delivery": "dataset",
   "dryRun": false
 }</code></pre>
-    <p>Store templates named in the README are <strong>Quickstart (verify 3 archived URLs)</strong>, <strong>Portfolio Archive Check</strong> (bulk verification, up to 500 URLs), and <strong>404 Recovery</strong> after a broken-link crawl. Find live broken URLs with <a href="/bulk-url-status-checker/">Bulk URL Status Checker</a>, then look up archive availability here. This Actor cannot Save Page Now.</p>
-    <p><a href="https://apify.com/taroyamada/wayback-machine-checker">Run this Wayback 404 lookup on Apify</a></p>
+    <p>Store templates named in the README are <strong>Quickstart (verify 3 archived URLs)</strong>, <strong>Portfolio Archive Check</strong> (bulk verification, up to 500 URLs), and <strong>404 Recovery</strong> after a broken-link crawl. If one lookup row is delivered, documented PPE is <strong>$0.008</strong>. If the 3-URL Quickstart delivers three rows, 3 × $0.008 = <strong>$0.024</strong> at the same rate. Find live broken URLs with <a href="/bulk-url-status-checker/">Bulk URL Status Checker</a>, then look up archive availability here. This Actor cannot Save Page Now.</p>
+    <p><a href="https://apify.com/taroyamada/wayback-machine-checker/input">Run this Wayback 404 lookup on Apify</a></p>
 
     <h2>Can Wayback Machine Bulk Checker recover content from broken URLs?</h2>
     <p>It can report whether the Internet Archive cached those URLs and, when present, return <code>closestSnapshotUrl</code> and <code>closestSnapshotDate</code>. Those are the published README output table names (with <code>url</code> and <code>archived</code>). Required input is <code>urls</code> (maximum 500). Leave <code>closest</code> empty for the latest snapshot. The Actor does not fetch cached HTML, does not extract article bodies, and cannot create new snapshots. Coverage is not guaranteed per URL. Snapshots exist back to 1996 only where the Archive crawled the page. A URL may be unavailable because it was never archived, blocked by robots.txt, or removed by a removal request.</p>
 
     <h2>What is the cheapest first paid input for 404 archive lookup?</h2>
-    <p>The published Store Quickstart verifies a few archived URLs. Live schema names are <code>urls</code> (required), optional <code>closest</code> in <code>YYYYMMDD</code> form, <code>concurrency</code> (default 3), <code>maxChargeUsd</code> (default 1), <code>delivery</code> <code>dataset</code>, and <code>dryRun</code> false. Live PPE is <strong>$0.008 per successfully delivered Wayback Machine lookup row</strong>. There is no Actor start event on the current Store pricing tab. See <a href="https://apify.com/taroyamada/wayback-machine-checker/pricing">Wayback Machine Bulk Checker pricing</a>.</p>
+    <p>The cheapest first paid path is one <code>urls</code> item. If one lookup row is delivered, live PPE is <strong>$0.008</strong>. There is no Actor start event. The published Store Quickstart verifies 3 archived URLs (3 × $0.008 = $0.024 if all three are delivered). Live schema names are <code>urls</code> (required), optional <code>closest</code> in <code>YYYYMMDD</code> form, <code>concurrency</code> (default 3), <code>maxChargeUsd</code> (default 1), <code>delivery</code> <code>dataset</code>, and <code>dryRun</code> false. See <a href="https://apify.com/taroyamada/wayback-machine-checker/pricing">Wayback Machine Bulk Checker pricing</a>.</p>
+    <p><a href="https://apify.com/taroyamada/wayback-machine-checker/input">Open Wayback Machine Bulk Checker Input on Apify</a></p>
 
     <h2>Is this the same as live HTTP status checking?</h2>
     <p>No. <a href="/bulk-url-status-checker/">Bulk URL Status Checker</a> checks live HTTP status, redirects, and timing on a known list. This Actor queries <code>archive.org/wayback/available</code>. The README <strong>404 Recovery</strong> template is for after a broken-link crawl: you already have dead URLs, then you look up archive availability. This Actor cannot Save Page Now. To save new pages, the README points to archive.org’s <code>/save/</code> endpoint.</p>
-    <p><a href="https://apify.com/taroyamada/wayback-machine-checker">Open Wayback Machine Bulk Checker on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/wayback-machine-checker/input">Open Wayback Machine Bulk Checker Input on Apify</a></p>
 
     <h2>Related pages</h2>
     <ul>

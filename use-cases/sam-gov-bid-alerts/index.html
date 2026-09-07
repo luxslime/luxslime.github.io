@@ -57,8 +57,11 @@
     <nav><a href="/">Home</a> / Use cases / SAM.gov bid alerts</nav>
     <h1>SAM.gov and TED bid-alert queue</h1>
     <p>Use this page when the job is a source-linked public-sector bid queue. <a href="/ted-sam-grants-bid-alerts/">TED, SAM.gov &amp; Grants Bid Alerts Scraper</a> is the existing Store Actor for that queue. It is not a new Actor, not a scrape of SAM.gov or TED HTML UIs, and not Google News RSS. Start TED-only with no external key, then add <code>us</code> once a SAM.gov API key is available.</p>
-    <p class="price">Live Store price: <strong>$8.00 / 1,000 procurement opportunity or alert rows</strong> ($0.008 per delivered row). No live start charge.</p>
-    <p><a href="https://apify.com/taroyamada/procurement-intel-actor">Open TED, SAM.gov &amp; Grants Bid Alerts Scraper on Apify</a></p>
+    <p class="price">Live Store price: <strong>$8.00 / 1,000 procurement opportunity or alert rows</strong> ($0.008 per delivered row). Cheapest first paid cap: 1 source × maxItemsPerSource 1 = $0.008 if one row is delivered. No live start charge.</p>
+    <p><a href="https://apify.com/taroyamada/procurement-intel-actor/input">Try the cheapest first paid SAM.gov / TED / grants run on Apify Input</a></p>
+    <p><a href="https://apify.com/taroyamada/procurement-intel-actor">Open taroyamada/procurement-intel-actor on the Apify Store</a>
+      ·
+      <a href="/guides/sam-gov-grants-scraper-first-paid-run/">Cheapest first paid run</a></p>
 
     <h2>What the bid-alert queue returns</h2>
     <p>A normal run returns four published surfaces: <code>meta.executiveSummary</code> (queue size, top buyers, review urgency, source mix, and <code>overallStatus</code> <code>stable</code>, <code>watch</code>, or <code>action_needed</code>), <code>notices[]</code> (normalized rows with <code>source</code>, <code>noticeId</code>, <code>title</code>, <code>buyer</code>, <code>deadlineAt</code>, <code>estimatedValue</code>, <code>signalTags</code>, <code>lanePriority</code>, and <code>recommendedAction</code>), <code>alerts[]</code> (deadline, status, closing-soon, award-watch, or rebid when enabled), and <code>warnings[]</code> / <code>errors[]</code> when a source is missing, throttled, or degraded. A partial source response is never presented as complete coverage.</p>
@@ -78,7 +81,7 @@
 }</code></pre>
     <p>If one opportunity row is delivered, live PPE is <strong>$0.008</strong>. There is no live start charge. An empty result emits zero rows and zero charges. If all 40 fetched items are delivered, 40 × $0.008 = $0.32 at the same published rate. For a smaller first paid cap, see <a href="/guides/sam-gov-grants-scraper-first-paid-run/">cheapest first paid run for a SAM.gov scraper or grants scraper</a>.</p>
     <p>Add <code>jurisdictions</code> <code>us</code> and <code>samApiKey</code> when the TED queue is useful. If <code>us</code> is present without a SAM.gov key, the Actor warns and skips that source instead of failing the whole run. Grants.gov is additive. Do not send unpublished aliases such as <code>sources</code>, <code>query</code>, or <code>maxResults</code>.</p>
-    <p><a href="https://apify.com/taroyamada/procurement-intel-actor">Run this TED bid-alert input on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/procurement-intel-actor/input">Run this TED bid-alert input on Apify</a></p>
 
     <h2>Can this Actor queue SAM.gov and TED bid alerts?</h2>
     <p>Yes, as a bounded procurement queue. It searches official notice APIs — TED by default, SAM.gov when a <code>samApiKey</code> is present, and Grants.gov as an additive lane — and returns a summary-first queue. It is not a scrape of SAM.gov or TED HTML UIs, not Google News RSS, and not PubMed. Start TED-only, then add <code>us</code> once a SAM.gov API key is available.</p>
@@ -87,8 +90,8 @@
     <p><a href="/google-news-scraper/">Google News Scraper</a> returns headlines and article URLs from queries; it does not read TED, SAM.gov, or Grants.gov notice APIs. <a href="/pubmed-literature-watch/">PubMed Literature Watch</a> queries NCBI E-utilities for citation metadata; it is not a bid queue. For public-sector tenders and opportunities, use this procurement Actor.</p>
 
     <h2>What is the TED-only first paid bid-alert input?</h2>
-    <p>The published Store Quickstart is TED-only: <code>jurisdictions</code> <code>eu</code>, starter keywords and CPV codes, <code>daysAhead</code> 21, <code>maxItemsPerSource</code> 40, <code>minValue</code> 100000, and <code>delivery</code> dataset. Leave <code>generateReport</code> and <code>emitExport</code> off. Live PPE is <strong>$0.008 per delivered opportunity or alert row</strong>. There is no live start charge.</p>
-    <p><a href="https://apify.com/taroyamada/procurement-intel-actor">Open TED, SAM.gov &amp; Grants Bid Alerts Scraper on Apify</a></p>
+    <p>The published Store Quickstart is TED-only: <code>jurisdictions</code> <code>eu</code>, starter keywords and CPV codes, <code>daysAhead</code> 21, <code>maxItemsPerSource</code> 40, <code>minValue</code> 100000, and <code>delivery</code> dataset. Leave <code>generateReport</code> and <code>emitExport</code> off. Live PPE is <strong>$0.008 per delivered opportunity or alert row</strong>. There is no live start charge. For the smallest useful cap, see <a href="/guides/sam-gov-grants-scraper-first-paid-run/">cheapest first paid run for a SAM.gov scraper or grants scraper</a>.</p>
+    <p><a href="https://apify.com/taroyamada/procurement-intel-actor/input">Open TED, SAM.gov &amp; Grants Bid Alerts Scraper Input on Apify</a></p>
 
     <h2>Related pages</h2>
     <ul>

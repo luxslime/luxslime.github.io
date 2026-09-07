@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Google News Scraper — query Google News RSS for localized headlines and article URLs</title>
-  <meta name="description" content="Query Google News RSS by keyword for localized headlines, publishers, timestamps, and article URLs. Live PPE: $3.00 / 1,000 google news rss articles. Discovery only — not publisher feed XML and not article HTML cleanup.">
+  <meta name="description" content="Query Google News RSS by keyword for localized headlines and article URLs. Try Input: 1 query × maxItems 1 = $0.003 if one article row is parsed. $3.00 / 1,000 Google News RSS articles. No Actor start event.">
   <link rel="canonical" href="https://apify.momiji-space.com/google-news-scraper/">
   <script type="application/ld+json">
   {
@@ -112,7 +112,7 @@
         "name": "Are unsuccessful Google News RSS fetches billed as Google News RSS articles?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "The live Store event Google News RSS article (apify-default-dataset-item) is charged only for one successfully parsed public RSS article row at $0.003. dryRun runs without saving results. There is no Actor start event on the current pricing tab. Platform usage is listed as Included."
+          "text": "The live Store event Google News RSS article (apify-default-dataset-item) is charged only for one successfully parsed public RSS article row at $0.003. dryRun runs without saving results. There is no Actor start event on the current pricing tab. Platform usage is listed as Included. The cheapest first paid cap is one queries item with maxItems 1: $0.003 if one article row is parsed. The Store Quickstart is company news."
         }
       },
       {
@@ -157,8 +157,11 @@
     <nav><a href="/">Home</a> / Google News Scraper</nav>
     <h1>Query Google News RSS for localized headlines and article URLs</h1>
     <p>Google News Scraper discovers fresh article URLs by querying Google News RSS. It returns localized headlines, publisher names, timestamps, and short snippets, then deduplicates overlapping links across queries so you can feed URLs into a downstream extraction step. It is a query-driven discovery surface, not known-publisher feed XML parsing, not an HTML cleaner, and not a full-article scraper.</p>
-    <p class="price">$3.00 / 1,000 Google News RSS articles ($0.003 per successfully parsed public RSS article row)</p>
-    <p><a href="https://apify.com/taroyamada/google-news-scraper">Open Google News Scraper on Apify</a></p>
+    <p class="price">Try Input: 1 query × maxItems 1 = $0.003 if one article row is parsed. Store Quickstart is company news. $3.00 / 1,000 articles. No Actor start event.</p>
+    <p><a href="https://apify.com/taroyamada/google-news-scraper/input">Try the cheapest first paid Google News run on Apify Input</a></p>
+    <p><a href="https://apify.com/taroyamada/google-news-scraper">Open taroyamada/google-news-scraper on the Apify Store</a>
+      ·
+      <a href="/use-cases/google-news-brand-monitoring/">Brand monitoring first paid path</a></p>
 
     <h2>Query-based Google News discovery, not publisher feeds or HTML cleanup</h2>
     <p>Use this page when you search Google News by keyword and need article URLs you do not already have. Use <a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a> when you already know the publishers you trust and have their public feed URLs. Use <a href="/article-content-extractor/">Article Content Extractor</a> after discovery, when you need cleaned article bodies — this Actor does not clean HTML. Use <a href="/website-content-extractor/">Website Content Extractor</a> when a discovered URL is a docs, product, or policy page rather than an article.</p>
@@ -317,7 +320,18 @@
   "dryRun": false
 }</code></pre>
     <p>The live fields are <code>queries</code>, <code>maxItems</code>, and <code>deduplicate</code>. Do not send unpublished aliases.</p>
-    <p><a href="https://apify.com/taroyamada/google-news-scraper">Run Google News Scraper on Apify</a></p>
+    <p>Cheapest first paid input: one query, <code>maxItems</code> 1 (schema range 1–100). Schema prefill is two queries. The published Store example run uses <code>maxItems</code> 10. The Store Quickstart is company news.</p>
+<pre><code>{
+  "queries": ["OpenAI"],
+  "language": "en",
+  "country": "US",
+  "maxItems": 1,
+  "deduplicate": true,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p>If one public RSS article row is parsed, documented PPE is <strong>$0.003</strong>. There is no Actor start event. Unsuccessful fetches are not billed as Google News RSS articles. Then raise <code>maxItems</code> or add a second query after the article URL is useful. For brand monitoring, see <a href="/use-cases/google-news-brand-monitoring/">Google News brand monitoring</a>.</p>
+    <p><a href="https://apify.com/taroyamada/google-news-scraper/input">Run this 1-query input on Apify</a></p>
 
     <h2>Which fields does a Google News RSS article row include?</h2>
     <p>The published README output table lists <code>title</code> (article headline), <code>link</code> (direct article URL for downstream cleanup), <code>source</code> (publisher name), <code>pubDate</code> (original RSS publish date), <code>pubDateISO</code> (ISO timestamp version of <code>pubDate</code>), <code>description</code> (short Google News snippet), and <code>query</code> (the search query that surfaced the row). There is no published full-article text field. That table is the published field inventory, not a live coverage guarantee for every query.</p>
@@ -388,8 +402,8 @@
         </tr>
       </tbody>
     </table>
-    <p>There is no Actor start event on the current pricing tab. The live pricing tab lists Platform usage as Included. Align billing copy to this live PPE only; do not use older README Cost lines that listed <code>actor-start</code>.</p>
-    <p class="price">$3.00 / 1,000 Google News RSS articles ($0.003 per successfully parsed public RSS article row)</p>
+    <p>There is no Actor start event on the current pricing tab. The live pricing tab lists Platform usage as Included. Align billing copy to this live PPE only; do not use older README Cost lines that listed <code>actor-start</code>. The cheapest first paid cap is one query × <code>maxItems</code> 1 = <strong>$0.003</strong> if one article row is parsed. The Store Quickstart is company news at the same rate.</p>
+    <p class="price">Try Input: 1 query × maxItems 1 = $0.003 if one article row is parsed. $3.00 / 1,000 articles. No Actor start event.</p>
     <p><a href="https://apify.com/taroyamada/google-news-scraper/pricing">See Google News Scraper pricing on Apify</a></p>
 
     <h2>Limits to keep in mind</h2>
@@ -401,12 +415,12 @@
       <li>This is query-based Google News RSS, not known-publisher feed XML, not article HTML cleanup, and not <code>sitemap.xml</code> URL inventories.</li>
       <li>Live PPE is one event: Google News RSS article at $0.003. Platform usage is Included.</li>
     </ul>
-    <p><a href="https://apify.com/taroyamada/google-news-scraper">Open Google News Scraper on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/google-news-scraper/input">Try Input: 1 query × maxItems 1 on Apify</a></p>
 
     <h2>Related pages</h2>
     <ul>
       <li><a href="/packs/content-intelligence/">Content Intelligence pack</a> — choose RSS, Google News, article, or website extraction</li>
-      <li><a href="/use-cases/google-news-brand-monitoring/">Google News brand monitoring</a> — company and theme queries</li>
+      <li><a href="/use-cases/google-news-brand-monitoring/">Google News brand monitoring</a> — cheapest first paid path: 1 query × maxItems 1 = $0.003</li>
       <li><a href="/use-cases/google-news-localized-headlines/">Localized Google News headlines</a> — language and country</li>
       <li><a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a> — known-publisher RSS/Atom feeds, not Google News queries</li>
       <li><a href="/use-cases/rss-newsroom-monitoring/">Newsroom RSS monitoring</a></li>

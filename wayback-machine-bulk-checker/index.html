@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Wayback Machine Bulk Checker — Internet Archive closest-snapshot availability</title>
-  <meta name="description" content="Query the Wayback Machine available endpoint for up to 500 known URLs. Return cache availability and the closest snapshot URL and timestamp. Read-only archive lookup — not live HTTP status and not sitemap XML discovery. $8.00 per 1,000 wayback archive results.">
+  <meta name="description" content="Query the Wayback Machine available endpoint for up to 500 known URLs. Try Input: 1 URL = $0.008 if one lookup row is delivered. Store Quickstart is 3 URLs. $8.00 / 1,000 wayback archive results. No Actor Start.">
   <link rel="canonical" href="https://apify.momiji-space.com/wayback-machine-bulk-checker/">
   <script type="application/ld+json">
   {
@@ -96,7 +96,7 @@
         "name": "How is Wayback Machine Bulk Checker priced?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Billing is pay per event. The published Store card is $8.00 / 1,000 wayback archive results. Live Store events list only Wayback archive result at $0.008 (charged only for one successfully delivered Wayback Machine lookup row; event key apify-default-dataset-item). Current PPE lists only that event (no Actor Start). Platform usage is listed as Included on the pricing page. The README Cost section still quotes actor-start $0.01 plus dataset-item $0.003 ($3.01 for 1,000 items); those figures are not the live Store rates. maxChargeUsd is a safety cap; results beyond the cap are kept as no-charge limit_reached rows. No subscription is required."
+          "text": "Billing is pay per event. The published Store card is $8.00 / 1,000 wayback archive results. Live Store events list only Wayback archive result at $0.008 (charged only for one successfully delivered Wayback Machine lookup row; event key apify-default-dataset-item). Current PPE lists only that event (no Actor Start). The cheapest first paid path is one urls item: $0.008 if one lookup row is delivered. The Store Quickstart verifies 3 archived URLs (3 × $0.008 = $0.024 if all three are delivered). Platform usage is listed as Included on the pricing page. The README Cost section still quotes actor-start $0.01 plus dataset-item $0.003 ($3.01 for 1,000 items); those figures are not the live Store rates."
         }
       }
     ]
@@ -125,8 +125,11 @@
     <nav><a href="/">Home</a> / Wayback Machine Bulk Checker</nav>
     <h1>Look up Internet Archive snapshot availability and closest cache URLs for up to 500 known URLs</h1>
     <p>Wayback Machine Bulk Checker queries the Internet Archive Wayback Machine <code>available</code> endpoint for URL lists you already have (maximum 500 per run). It reports whether a URL was archived and, when present, the closest snapshot URL and timestamp. It is a read-only archive lookup — not live HTTP status QA, not nested sitemap XML discovery, and not a tool that saves new snapshots.</p>
-    <p class="price">$8.00 per 1,000 wayback archive results</p>
-    <p><a href="https://apify.com/taroyamada/wayback-machine-checker">Open Wayback Machine Bulk Checker on Apify</a></p>
+    <p class="price">Try Input: 1 URL = $0.008 if one lookup row is delivered. Store Quickstart 3 URLs can be $0.024. $8.00 / 1,000 results. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/wayback-machine-checker/input">Try the cheapest first paid Wayback lookup on Apify Input</a></p>
+    <p><a href="https://apify.com/taroyamada/wayback-machine-checker">Open taroyamada/wayback-machine-checker on the Apify Store</a>
+      ·
+      <a href="/use-cases/wayback-404-recovery/">404 recovery first paid path</a></p>
 
     <h2>Archive availability lookups, not live HTTP status and not sitemap XML</h2>
     <p>Use this page when you already have URLs and need to know whether the Internet Archive cached them. Use <a href="/bulk-url-status-checker/">Bulk URL Status Checker</a> when you need live HTTP status, redirect chains, and timing on a known list. Use <a href="/sitemap-scraper-analyzer/">Sitemap Scraper &amp; Analyzer</a> when the job is to parse nested <code>sitemap.xml</code> files and invent URL lists. Use <a href="/website-content-extractor/">Website Content Extractor</a> to clean live docs, pricing, policy, or product pages. Use <a href="/article-content-extractor/">Article Content Extractor</a> to clean live news, blog, or press pages.</p>
@@ -261,7 +264,14 @@
   "closest": "20200101"
 }</code></pre>
     <p>Start with the Store Quickstart to verify a few archived URLs. Use Portfolio Archive Check for bulk verification (up to 500 URLs). Keep <code>concurrency</code> low. Use <code>dryRun: true</code> before larger runs.</p>
-    <p><a href="https://apify.com/taroyamada/wayback-machine-checker">Run a Wayback lookup on Apify</a></p>
+    <p>Cheapest first paid input: one URL (README single-URL availability example). The Store Quickstart verifies 3 archived URLs.</p>
+<pre><code>{
+  "urls": ["https://example.com"],
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p>If one lookup row is delivered, documented PPE is <strong>$0.008</strong>. There is no Actor Start. If the 3-URL Quickstart delivers three rows, 3 × $0.008 = <strong>$0.024</strong> at the same rate. Then raise the list after the snapshot URL is useful. For 404 recovery, see <a href="/use-cases/wayback-404-recovery/">Find Wayback snapshots for broken URLs</a>.</p>
+    <p><a href="https://apify.com/taroyamada/wayback-machine-checker/input">Run this 1-URL input on Apify</a></p>
 
     <h2>Which README Wayback input examples are not live schema fields?</h2>
     <p>The README Input table lists <code>closest</code> as <code>YYYY-MM-DD</code> and includes <code>checkAvailability</code> (boolean, default true). README examples labeled Bulk archived snapshot history and Domain change-detection digest send <code>includeCdx</code>, <code>maxSnapshotsPerUrl</code>, and <code>compareToLatestLive</code>. Those names are not in the live input schema. <code>additionalProperties</code> is false, so do not send them. Use <code>closest</code> in <code>YYYYMMDD</code> form (for example <code>20200101</code>), not <code>YYYY-MM-DD</code>. Schema-valid published inputs use <code>urls</code> plus optional <code>closest</code>, <code>concurrency</code>, <code>maxChargeUsd</code>, <code>delivery</code>, <code>webhookUrl</code>, and <code>dryRun</code>. The README single-URL availability example (<code>urls</code> only) matches the schema.</p>
@@ -299,8 +309,8 @@
     <p>No. The published README positions the Actor as using the official Internet Archive <code>available</code> endpoint (<code>archive.org/wayback/available</code>) with no API key needed. The README compares a single lookup to <code>curl</code> against archive.org, with bulk processing, error handling, and structured dataset output as the difference.</p>
 
     <h2>How is Wayback Machine Bulk Checker priced?</h2>
-    <p>Billing is pay per event. The published Store card is <strong>$8.00 / 1,000 wayback archive results</strong>. Live Store events list only <strong>Wayback archive result</strong> at <strong>$0.008</strong> (charged only for one successfully delivered Wayback Machine lookup row; event key <code>apify-default-dataset-item</code>). Current PPE lists only that event (no Actor Start). Platform usage is listed as Included on the pricing page. The README Cost section still quotes <code>actor-start</code> $0.01 plus <code>dataset-item</code> $0.003 ($3.01 for 1,000 items); those figures are not the live Store rates. <code>maxChargeUsd</code> is a safety cap; results beyond the cap are kept as no-charge <code>limit_reached</code> rows. No subscription is required.</p>
-    <p class="price">$8.00 per 1,000 wayback archive results ($0.008 per successfully delivered lookup row)</p>
+    <p>Billing is pay per event. The published Store card is <strong>$8.00 / 1,000 wayback archive results</strong>. Live Store events list only <strong>Wayback archive result</strong> at <strong>$0.008</strong> (charged only for one successfully delivered Wayback Machine lookup row; event key <code>apify-default-dataset-item</code>). Current PPE lists only that event (no Actor Start). The cheapest first paid path is one <code>urls</code> item: <strong>$0.008</strong> if one lookup row is delivered. The Store Quickstart verifies 3 archived URLs (3 × $0.008 = $0.024 if all three are delivered). Platform usage is listed as Included on the pricing page. The README Cost section still quotes <code>actor-start</code> $0.01 plus <code>dataset-item</code> $0.003 ($3.01 for 1,000 items); those figures are not the live Store rates. <code>maxChargeUsd</code> is a safety cap; results beyond the cap are kept as no-charge <code>limit_reached</code> rows. No subscription is required.</p>
+    <p class="price">Try Input: 1 URL = $0.008 if one lookup row is delivered. $8.00 / 1,000 results. No Actor Start.</p>
     <p><a href="https://apify.com/taroyamada/wayback-machine-checker/pricing">See Wayback Machine Bulk Checker pricing on Apify</a></p>
 
     <h2>Limits to keep in mind</h2>
@@ -312,11 +322,11 @@
       <li>A URL may be unavailable because it was never archived, blocked by robots.txt, or removed by a removal request.</li>
       <li>Not live HTTP status QA, not sitemap XML discovery, not live HTML extraction, and not a CDX full-history dump.</li>
     </ul>
-    <p><a href="https://apify.com/taroyamada/wayback-machine-checker">Open Wayback Machine Bulk Checker on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/wayback-machine-checker/input">Try Input: 1 URL on Apify</a></p>
 
     <h2>Related pages</h2>
     <ul>
-      <li><a href="/use-cases/wayback-404-recovery/">Wayback 404 recovery</a> — archive snapshots for broken URLs</li>
+      <li><a href="/use-cases/wayback-404-recovery/">Wayback 404 recovery</a> — cheapest first paid path: 1 URL = $0.008</li>
       <li><a href="/use-cases/wayback-site-migration/">Wayback site migration snapshots</a> — closest date lookup</li>
       <li><a href="/bulk-url-status-checker/">Bulk URL Status Checker</a> — live HTTP status on a known URL list, not archive availability</li>
       <li><a href="/sitemap-scraper-analyzer/">Sitemap Scraper &amp; Analyzer</a> — nested XML sitemap URL inventories, not Wayback lookups</li>

@@ -93,10 +93,10 @@
     <h1>Content Intelligence pack</h1>
     <p>This hub groups four existing Actors that discover URLs or clean page HTML. It is not a new Actor and it has no Store listing of its own. Pick the landing that matches the job: known-publisher feeds, Google News queries, article-shaped pages, or broader site pages.</p>
     <ul>
-      <li><a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a> — parse public RSS/Atom XML you already have into item URL lists</li>
-      <li><a href="/google-news-scraper/">Google News Scraper</a> — query Google News RSS for headlines and article URLs</li>
+      <li><a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a> — parse public RSS/Atom XML you already have into item URL lists. First paid path: 1 feed × <code>maxItemsPerFeed</code> 1 = $0.001 if one item is parsed.</li>
+      <li><a href="/google-news-scraper/">Google News Scraper</a> — query Google News RSS for headlines and article URLs. First paid path: 1 query × <code>maxItems</code> 1 = $0.003 if one article row is parsed.</li>
       <li><a href="/article-content-extractor/">Article Content Extractor</a> — extract article bodies from news, blog, newsroom, and press URLs. For RAG ingestion of those bodies, see <a href="/use-cases/news-blog-rag/">article extractor for news and blog RAG</a>. First paid run: <a href="/guides/article-extractor-first-paid-run/">cheapest first paid Article Extractor run</a>.</li>
-      <li><a href="/website-content-extractor/">Website Content Extractor</a> — clean docs, pricing, product, policy, and help-center pages. For RAG ingestion of those bodies, see <a href="/use-cases/docs-rag-markdown/">website content extractor for docs and help-center RAG</a>.</li>
+      <li><a href="/website-content-extractor/">Website Content Extractor</a> — clean docs, pricing, product, policy, and help-center pages. For RAG ingestion of those bodies, see <a href="/use-cases/docs-rag-markdown/">website content extractor for docs and help-center RAG</a>. First paid path: 1 docs URL ≈ $0.010.</li>
     </ul>
 
     <h2>Discovery versus HTML cleanup</h2>
@@ -197,10 +197,10 @@
     <p>Each Actor bills on its own published Store pay-per-event prices. RSS &amp; Atom Feed Extractor: $1.00 per 1,000 RSS or Atom items ($0.001 per successfully parsed public feed item). Google News Scraper: $3.00 per 1,000 Google News RSS articles ($0.003 per successfully parsed public RSS article row). Article Content Extractor: $0.008 per useful article row, $2.50 per <code>article-content-audit-report</code>, and $5.00 per <code>article-batch-export</code>. Website Content Extractor: $0.001 per Actor start and $0.009 per useful content row ($9.00 per 1,000 results). This hub is not billed.</p>
     <p class="price">Open the matching Store listing from the landing you chose. There is no pack SKU.</p>
     <ul>
-      <li><a href="https://apify.com/taroyamada/rss-feed-aggregator">Open RSS &amp; Atom Feed Extractor on Apify</a></li>
-      <li><a href="https://apify.com/taroyamada/google-news-scraper">Open Google News Scraper on Apify</a></li>
+      <li><a href="https://apify.com/taroyamada/rss-feed-aggregator/input">Open RSS &amp; Atom Feed Extractor Input on Apify</a> — 1 feed × maxItemsPerFeed 1</li>
+      <li><a href="https://apify.com/taroyamada/google-news-scraper/input">Open Google News Scraper Input on Apify</a> — 1 query × maxItems 1</li>
       <li><a href="https://apify.com/taroyamada/article-content-extractor">Open Article Content Extractor on Apify</a> — <a href="/guides/article-extractor-first-paid-run/">cheapest first paid run</a></li>
-      <li><a href="https://apify.com/taroyamada/website-content-extractor">Open Website Content Extractor on Apify</a></li>
+      <li><a href="https://apify.com/taroyamada/website-content-extractor/input">Open Website Content Extractor Input on Apify</a> — 1 docs URL ≈ $0.010</li>
     </ul>
 
     <h2>Is this pack a separate Apify Actor?</h2>
@@ -213,11 +213,11 @@
       <li><a href="/article-content-extractor/">Article Content Extractor</a> — news, blog, and press HTML</li>
       <li><a href="/use-cases/news-blog-rag/">Article extractor for news and blog RAG</a> — ingest article bodies after discovery</li>
       <li><a href="/guides/article-extractor-first-paid-run/">Cheapest first paid run for Article Extractor</a></li>
-      <li><a href="/use-cases/rss-newsroom-monitoring/">Newsroom RSS monitoring</a> — known-publisher feed XML you already have</li>
-      <li><a href="/use-cases/google-news-brand-monitoring/">Google News brand monitoring</a> — query-based mention discovery</li>
+      <li><a href="/use-cases/rss-newsroom-monitoring/">Newsroom RSS monitoring</a> — cheapest first paid path: 1 feed × maxItemsPerFeed 1</li>
+      <li><a href="/use-cases/google-news-brand-monitoring/">Google News brand monitoring</a> — cheapest first paid path: 1 query × maxItems 1</li>
       <li><a href="/use-cases/google-news-localized-headlines/">Localized Google News headlines</a> — language and country RSS tuning</li>
       <li><a href="/website-content-extractor/">Website Content Extractor</a> — docs, pricing, policy, and product HTML</li>
-      <li><a href="/use-cases/docs-rag-markdown/">Website content extractor for docs and help-center RAG</a> — ingest docs and help-center bodies</li>
+      <li><a href="/use-cases/docs-rag-markdown/">Website content extractor for docs and help-center RAG</a> — cheapest first paid path: 1 docs URL ≈ $0.010</li>
       <li><a href="/hhs-healthcare-data-breach-scraper/">HHS Healthcare Data Breach Change Scraper</a> — HHS OCR disclosure changes, not this pack</li>
       <li><a href="/compare/rss-feed-vs-itunes-search/">RSS feed vs iTunes Search API</a> — podcast catalog RSS, not this pack</li>
       <li><a href="/tools/">Tools</a></li>
