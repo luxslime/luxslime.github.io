@@ -24,7 +24,7 @@
         "name": "What is the cheapest first paid input for Google News brand monitoring?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "The published Store Quickstart is company news. Live schema names are queries (required), language (default en), country (default US), maxItems (default 25, maximum 100 per query), deduplicate (default true), delivery dataset, and dryRun false. Live PPE is $0.003 per successfully parsed public RSS article row. There is no Actor start event on the current Store pricing tab."
+          "text": "The cheapest first paid cap is one queries item with maxItems 1 (schema range 1–100). If one public RSS article row is parsed, live PPE is $0.003. There is no Actor start event. The published Store Quickstart is company news. Schema prefill is OpenAI and Google AI. The published Store example run uses queries artificial intelligence with maxItems 10."
         }
       },
       {
@@ -57,36 +57,40 @@
     <nav><a href="/">Home</a> / Use cases / Google News brand monitoring</nav>
     <h1>Google News brand monitoring from search queries</h1>
     <p>Use this page when you do not have publisher feed URLs yet and want recent headlines for companies or themes. <a href="/google-news-scraper/">Google News Scraper</a> is the existing Store Actor for that query-based discovery step. It is not a new Actor, not known-publisher feed XML, and not an article-body extractor. Pass search terms in <code>queries</code>.</p>
-    <p class="price">Live Store price: <strong>$0.003 per successfully parsed public RSS article row</strong> ($3.00 / 1,000 Google News RSS articles). There is no Actor start event on the current Store pricing tab. Platform usage is listed as Included.</p>
-    <p><a href="https://apify.com/taroyamada/google-news-scraper">Open Google News Scraper on Apify</a></p>
+    <p class="price">Live Store price: <strong>$0.003 per successfully parsed public RSS article row</strong> ($3.00 / 1,000 Google News RSS articles). Cheapest first paid cap: 1 query × maxItems 1 = $0.003 if one article row is parsed. There is no Actor start event on the current Store pricing tab. Platform usage is listed as Included.</p>
+    <p><a href="https://apify.com/taroyamada/google-news-scraper/input">Try the cheapest first paid Google News run on Apify Input</a></p>
+    <p><a href="https://apify.com/taroyamada/google-news-scraper">Open taroyamada/google-news-scraper on the Apify Store</a>
+      ·
+      <a href="/google-news-scraper/">Google News Scraper landing</a></p>
 
     <h2>What a brand-mention row contains</h2>
     <p>The published README field list is <code>title</code> (headline), <code>link</code> (direct article URL), <code>source</code> (publisher name), <code>pubDate</code>, <code>pubDateISO</code>, <code>description</code> (short Google News snippet), and <code>query</code> (the search term that surfaced the row). There is no published full-article text field. <code>deduplicate</code> defaults to true and removes duplicate article URLs across queries.</p>
     <p>The published README use cases include PR media mentions, competitive-intelligence newsroom watchlists, content-ops story discovery, and a steady article-URL feed for downstream extraction. The Actor does not score sentiment. Localized topic monitoring uses <code>language</code> and <code>country</code>; see <a href="/use-cases/google-news-localized-headlines/">localized Google News headlines</a>.</p>
 
     <h2>Tiny first-paid input</h2>
-    <p>The published Store Quickstart is company news. Schema prefill is <code>OpenAI</code> and <code>Google AI</code>. The published Store example run uses <code>queries</code> <code>artificial intelligence</code> with <code>maxItems</code> 10. Live names are <code>queries</code>, <code>maxItems</code>, and <code>deduplicate</code>. Do not send README aliases such as <code>maxItemsPerQuery</code> or <code>dedupeAcrossQueries</code>.</p>
+    <p>The cheapest first paid cap is one query with <code>maxItems</code> 1. The published Store Quickstart is company news. Schema prefill is <code>OpenAI</code> and <code>Google AI</code>. The published Store example run uses <code>queries</code> <code>artificial intelligence</code> with <code>maxItems</code> 10. Live names are <code>queries</code>, <code>maxItems</code>, and <code>deduplicate</code>. Do not send README aliases such as <code>maxItemsPerQuery</code> or <code>dedupeAcrossQueries</code>.</p>
 <pre><code>{
-  "queries": ["OpenAI", "Google AI"],
+  "queries": ["OpenAI"],
   "language": "en",
   "country": "US",
-  "maxItems": 10,
+  "maxItems": 1,
   "deduplicate": true,
   "delivery": "dataset",
   "dryRun": false
 }</code></pre>
-    <p>Start with broad terms for the first-run proof; prefer several narrower queries over one overloaded boolean query when relevance matters. Confirm the dataset shows real article URLs, not generic homepages. Store templates named in the README are <strong>Quickstart (company news)</strong>, <strong>Brand Monitoring</strong> to track multiple companies or themes, and <strong>Google News → Article Cleanup</strong> when the next step is article extraction.</p>
-    <p><a href="https://apify.com/taroyamada/google-news-scraper">Run this Google News brand input on Apify</a></p>
+    <p>If one public RSS article row is parsed, documented PPE is <strong>$0.003</strong>. There is no Actor start event. Start with broad terms for the first-run proof; prefer several narrower queries over one overloaded boolean query when relevance matters. Confirm the dataset shows real article URLs, not generic homepages. Store templates named in the README are <strong>Quickstart (company news)</strong>, <strong>Brand Monitoring</strong> to track multiple companies or themes, and <strong>Google News → Article Cleanup</strong> when the next step is article extraction.</p>
+    <p><a href="https://apify.com/taroyamada/google-news-scraper/input">Run this Google News brand input on Apify</a></p>
 
     <h2>Can Google News Scraper track brand and company mentions from search queries?</h2>
     <p>Yes, as a discovery step. Required input is <code>queries</code> (maximum 50 search terms). The Actor reads Google News RSS, not the Google News HTML interface, and returns <code>title</code>, <code>link</code>, <code>source</code>, <code>pubDate</code>, <code>pubDateISO</code>, <code>description</code>, and <code>query</code>. It does not return full article bodies, score sentiment, or crawl news sites. The published Store <strong>Brand Monitoring</strong> template is for tracking multiple companies or themes. Recurring monitoring is scheduling this Actor, then sending news, blog, and press links to <a href="/article-content-extractor/">Article Content Extractor</a>.</p>
 
     <h2>What is the cheapest first paid input for Google News brand monitoring?</h2>
-    <p>The published Store Quickstart is company news. Live schema names are <code>queries</code> (required), <code>language</code> (default <code>en</code>), <code>country</code> (default <code>US</code>), <code>maxItems</code> (default 25, maximum 100 per query), <code>deduplicate</code> (default true), <code>delivery</code> <code>dataset</code>, and <code>dryRun</code> false. Live PPE is <strong>$0.003 per successfully parsed public RSS article row</strong>. There is no Actor start event on the current Store pricing tab. See <a href="https://apify.com/taroyamada/google-news-scraper/pricing">Google News Scraper pricing</a>.</p>
+    <p>The cheapest first paid cap is one <code>queries</code> item with <code>maxItems</code> 1. If one public RSS article row is parsed, live PPE is <strong>$0.003</strong>. There is no Actor start event. The published Store Quickstart is company news. Live schema names are <code>queries</code> (required), <code>language</code> (default <code>en</code>), <code>country</code> (default <code>US</code>), <code>maxItems</code> (default 25, maximum 100 per query), <code>deduplicate</code> (default true), <code>delivery</code> <code>dataset</code>, and <code>dryRun</code> false. See <a href="https://apify.com/taroyamada/google-news-scraper/pricing">Google News Scraper pricing</a>.</p>
+    <p><a href="https://apify.com/taroyamada/google-news-scraper/input">Open Google News Scraper Input on Apify</a></p>
 
     <h2>Why not send Google News rows straight into RAG or a sentiment model?</h2>
     <p>Each row is metadata plus a direct article URL. There is no published full-article text field. Discover URLs first, confirm they are real article pages rather than generic homepages, then send news, blog, and press links to <a href="/article-content-extractor/">Article Content Extractor</a>. Docs, product, or policy pages belong on <a href="/website-content-extractor/">Website Content Extractor</a>. For ingesting article bodies into RAG, see <a href="/use-cases/news-blog-rag/">article extractor for news and blog RAG</a>.</p>
-    <p><a href="https://apify.com/taroyamada/google-news-scraper">Open Google News Scraper on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/google-news-scraper/input">Open Google News Scraper Input on Apify</a></p>
 
     <h2>Related pages</h2>
     <ul>

@@ -57,8 +57,11 @@
     <nav><a href="/">Home</a> / Use cases / Docs and help-center RAG</nav>
     <h1>Website content extractor for docs and help-center RAG</h1>
     <p>Use this page when the job is ingesting public docs, pricing, policy, and help-center page bodies into RAG. <a href="/website-content-extractor/">Website Content Extractor</a> is the existing Store Actor for that cleanup step. It is not a new Actor, not a full-site crawler, and not a buyer-facing Site QA or RAG report. Pass HTTP(S) URLs you own or are authorized to fetch.</p>
-    <p class="price">Live Store price: <strong>from $9.00 / 1,000 results</strong> (<code>result</code> at $0.009 per useful content row). Actor Start $0.001. Leave report-only fields off this extractor.</p>
-    <p><a href="https://apify.com/taroyamada/website-content-extractor">Open Website Content Extractor on Apify</a></p>
+    <p class="price">Live Store price: <strong>from $9.00 / 1,000 results</strong> (<code>result</code> at $0.009 per useful content row). Actor Start $0.001. Cheapest first paid path: 1 docs URL ≈ $0.010. Leave report-only fields off this extractor.</p>
+    <p><a href="https://apify.com/taroyamada/website-content-extractor/input">Try the cheapest first paid Website Content Extractor run on Apify Input</a></p>
+    <p><a href="https://apify.com/taroyamada/website-content-extractor">Open taroyamada/website-content-extractor on the Apify Store</a>
+      ·
+      <a href="/website-content-extractor/">Website Content Extractor landing</a></p>
 
     <h2>What RAG gets from each web_content row</h2>
     <p>The published README field list is <code>rowType</code>, <code>url</code>, <code>title</code>, <code>markdown</code>, <code>text</code>, <code>wordCount</code>, <code>metadata</code>, <code>sourceUrl</code>, and <code>fetchedAt</code>. Sample <code>rowType</code> is <code>web_content</code>. Markdown is the default <code>outputFormat</code> and the live schema recommends it for first-run proof and downstream reuse. Raw content rows remain source context for content QA and RAG ingestion — they are not a Site QA or RAG report.</p>
@@ -74,8 +77,8 @@
   "delivery": "dataset",
   "dryRun": false
 }</code></pre>
-    <p>Replace the placeholder with one public docs or help-center URL you are authorized to fetch. If extraction succeeds, live PPE is Actor Start <strong>$0.001</strong> plus one useful content row at <strong>$0.009</strong>. Failed or no-content rows stay out of the default dataset. The live Store card is from $9.00 / 1,000 results.</p>
-    <p><a href="https://apify.com/taroyamada/website-content-extractor">Run this website extractor input on Apify</a></p>
+    <p>Replace the placeholder with one public docs or help-center URL you are authorized to fetch. If extraction succeeds, live PPE is Actor Start <strong>$0.001</strong> plus one useful content row at <strong>$0.009</strong> = <strong>$0.010</strong>. Failed or no-content rows stay out of the default dataset. The live Store card is from $9.00 / 1,000 results.</p>
+    <p><a href="https://apify.com/taroyamada/website-content-extractor/input">Run this website extractor input on Apify</a></p>
 
     <h2>Can this website extractor feed a docs and help-center RAG corpus?</h2>
     <p>Yes, as a bounded source step. It fetches public docs, pricing, product, policy, and help-center URLs you already have and returns structured <code>web_content</code> rows: title, markdown or text, <code>wordCount</code>, metadata, <code>sourceUrl</code>, and <code>fetchedAt</code>. <code>outputFormat</code> defaults to markdown. It is not a search surface, a full-site crawler, or a buyer-facing Site QA or RAG report Actor. You supply the URL list (maximum 200).</p>
@@ -84,8 +87,8 @@
     <p>Those URLs are article-shaped. <a href="/article-content-extractor/">Article Content Extractor</a> is for news, blog, newsroom, and press pages when you need headline, byline, publish date, article body, excerpt, and hero image (maximum 300). This Actor is for broader site pages that are not article-shaped (maximum 200). For news and blog RAG, see <a href="/use-cases/news-blog-rag/">article extractor for news and blog RAG</a>.</p>
 
     <h2>What is the cheapest first paid website extractor input for RAG?</h2>
-    <p>The published Store Quickstart is one <code>urls</code> item, <code>outputFormat</code> markdown, <code>delivery</code> dataset, and <code>dryRun</code> false. Leave <code>generateReport</code> and <code>emitExport</code> off. Live PPE is <strong>$0.009 per useful content row</strong> plus Actor Start $0.001.</p>
-    <p><a href="https://apify.com/taroyamada/website-content-extractor">Open Website Content Extractor on Apify</a></p>
+    <p>The published Store Quickstart is one <code>urls</code> item, <code>outputFormat</code> markdown, <code>delivery</code> dataset, and <code>dryRun</code> false. Leave <code>generateReport</code> and <code>emitExport</code> off. Live PPE is <strong>$0.009 per useful content row</strong> plus Actor Start $0.001. If those two events charge, documented PPE is <strong>$0.010</strong>.</p>
+    <p><a href="https://apify.com/taroyamada/website-content-extractor/input">Open Website Content Extractor Input on Apify</a></p>
 
     <h2>Related pages</h2>
     <ul>

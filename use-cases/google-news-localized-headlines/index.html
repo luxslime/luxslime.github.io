@@ -24,7 +24,7 @@
         "name": "What live input localizes a first paid Google News run?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Required field is queries (maximum 50). Set language and country to the region you want. maxItems is 1–100 per query (default 25). deduplicate defaults to true. Live PPE is $0.003 per successfully parsed public RSS article row. Do not send unpublished aliases such as maxItemsPerQuery."
+          "text": "Required field is queries (maximum 50). Set language and country to the region you want. The cheapest first paid cap is maxItems 1 (schema range 1–100; default 25). If one public RSS article row is parsed, live PPE is $0.003. There is no Actor start event. Do not send unpublished aliases such as maxItemsPerQuery."
         }
       },
       {
@@ -57,36 +57,40 @@
     <nav><a href="/">Home</a> / Use cases / Localized Google News headlines</nav>
     <h1>Localized Google News headlines by language and country</h1>
     <p>Use this page when the job is regional Google News RSS, not a global dump and not a publisher feed you already have. <a href="/google-news-scraper/">Google News Scraper</a> is the existing Store Actor. It is not a new Actor, not a paid news API, and not an HTML cleaner. Set <code>language</code> and <code>country</code> on the same <code>queries</code> run.</p>
-    <p class="price">Live Store price: <strong>$0.003 per successfully parsed public RSS article row</strong> ($3.00 / 1,000 Google News RSS articles). There is no Actor start event on the current Store pricing tab. Platform usage is listed as Included.</p>
-    <p><a href="https://apify.com/taroyamada/google-news-scraper">Open Google News Scraper on Apify</a></p>
+    <p class="price">Live Store price: <strong>$0.003 per successfully parsed public RSS article row</strong> ($3.00 / 1,000 Google News RSS articles). Cheapest first paid cap: 1 query × maxItems 1 = $0.003 if one article row is parsed. There is no Actor start event on the current Store pricing tab. Platform usage is listed as Included.</p>
+    <p><a href="https://apify.com/taroyamada/google-news-scraper/input">Try the cheapest first paid Google News run on Apify Input</a></p>
+    <p><a href="https://apify.com/taroyamada/google-news-scraper">Open taroyamada/google-news-scraper on the Apify Store</a>
+      ·
+      <a href="/google-news-scraper/">Google News Scraper landing</a></p>
 
     <h2>What localization changes</h2>
     <p><code>language</code> defaults to <code>en</code> (schema examples: <code>en</code>, <code>ja</code>, <code>de</code>). <code>country</code> defaults to <code>US</code> (schema examples: <code>US</code>, <code>JP</code>, <code>GB</code>). Together they tune Google News RSS for a region. Output fields stay <code>title</code>, <code>link</code>, <code>source</code>, <code>pubDate</code>, <code>pubDateISO</code>, <code>description</code>, and <code>query</code>. The published README positions this for global topic monitoring. It does not translate bodies and it does not score sentiment.</p>
     <p>For company or brand queries without a regional change, see <a href="/use-cases/google-news-brand-monitoring/">Google News brand monitoring</a>. For known-publisher XML you already have, see <a href="/use-cases/rss-newsroom-monitoring/">newsroom RSS monitoring</a>.</p>
 
     <h2>Tiny first-paid input</h2>
-    <p>Keep the first run small. The live field for per-query volume is <code>maxItems</code>, not <code>maxItemsPerQuery</code>. The published README localized JP illustration uses <code>language</code> <code>ja</code>, <code>country</code> <code>JP</code>, and query <code>人工知能</code>. The English GB example below uses live schema names only.</p>
+    <p>Keep the first run small. The live field for per-query volume is <code>maxItems</code>, not <code>maxItemsPerQuery</code>. The cheapest first paid cap is <code>maxItems</code> 1. The published README localized JP illustration uses <code>language</code> <code>ja</code>, <code>country</code> <code>JP</code>, and query <code>人工知能</code>. The English GB example below uses live schema names only.</p>
 <pre><code>{
   "queries": ["artificial intelligence"],
   "language": "en",
   "country": "GB",
-  "maxItems": 10,
+  "maxItems": 1,
   "deduplicate": true,
   "delivery": "dataset",
   "dryRun": false
 }</code></pre>
-    <p>Start with <strong>Quickstart (company news)</strong> on the Store, then change <code>language</code> and <code>country</code>. Confirm the dataset shows real article URLs for that region, then send news, blog, and press links to <a href="/article-content-extractor/">Article Content Extractor</a>.</p>
-    <p><a href="https://apify.com/taroyamada/google-news-scraper">Run this localized Google News input on Apify</a></p>
+    <p>If one public RSS article row is parsed, documented PPE is <strong>$0.003</strong>. There is no Actor start event. Start with <strong>Quickstart (company news)</strong> on the Store, then change <code>language</code> and <code>country</code>. Confirm the dataset shows real article URLs for that region, then send news, blog, and press links to <a href="/article-content-extractor/">Article Content Extractor</a>.</p>
+    <p><a href="https://apify.com/taroyamada/google-news-scraper/input">Run this localized Google News input on Apify</a></p>
 
     <h2>How do language and country localize Google News RSS results?</h2>
     <p>The live schema defaults <code>language</code> to <code>en</code> and <code>country</code> to <code>US</code>. Schema descriptions give examples <code>en</code>, <code>ja</code>, <code>de</code> for language and <code>US</code>, <code>JP</code>, <code>GB</code> for country. Together they tune Google News RSS for a region. <a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a> has no <code>language</code> or <code>country</code> fields because it reads feed URLs you already have.</p>
 
     <h2>What live input localizes a first paid Google News run?</h2>
-    <p>Required field is <code>queries</code> (maximum 50). Set <code>language</code> and <code>country</code> to the region you want. <code>maxItems</code> is 1–100 per query (default 25). <code>deduplicate</code> defaults to true. Live PPE is <strong>$0.003 per successfully parsed public RSS article row</strong>. Do not send unpublished aliases such as <code>maxItemsPerQuery</code>. See <a href="https://apify.com/taroyamada/google-news-scraper/pricing">Google News Scraper pricing</a>.</p>
+    <p>Required field is <code>queries</code> (maximum 50). Set <code>language</code> and <code>country</code> to the region you want. The cheapest first paid cap is <code>maxItems</code> 1 (schema range 1–100; default 25). If one public RSS article row is parsed, live PPE is <strong>$0.003</strong>. Do not send unpublished aliases such as <code>maxItemsPerQuery</code>. See <a href="https://apify.com/taroyamada/google-news-scraper/pricing">Google News Scraper pricing</a>.</p>
+    <p><a href="https://apify.com/taroyamada/google-news-scraper/input">Open Google News Scraper Input on Apify</a></p>
 
     <h2>Does localization return translated article bodies?</h2>
     <p>No. Localization tunes which Google News RSS results you get. Each row is still headline, article URL, publisher, timestamps, snippet, and originating query. There is no published full-article text field and no translation step. Send article URLs to <a href="/article-content-extractor/">Article Content Extractor</a> afterward. For RAG ingestion of those bodies, see <a href="/use-cases/news-blog-rag/">article extractor for news and blog RAG</a>.</p>
-    <p><a href="https://apify.com/taroyamada/google-news-scraper">Open Google News Scraper on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/google-news-scraper/input">Open Google News Scraper Input on Apify</a></p>
 
     <h2>Related pages</h2>
     <ul>

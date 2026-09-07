@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>RSS &amp; Atom Feed Extractor — known-publisher feed XML to item URL lists</title>
-  <meta name="description" content="Parse public RSS and Atom XML you already have into filtered item URLs, titles, dates, and summaries. Known-publisher feed discovery, not Google News queries and not article HTML cleanup.">
+  <meta name="description" content="Parse public RSS and Atom XML you already have into filtered item URLs. Try Input: 1 feed × maxItemsPerFeed 1 = $0.001 if one item is parsed. $1.00 / 1,000 RSS or Atom items. No Actor start event.">
   <link rel="canonical" href="https://apify.momiji-space.com/rss-atom-feed-extractor/">
   <script type="application/ld+json">
   {
@@ -120,7 +120,7 @@
         "name": "Are unsuccessful feed fetches billed as RSS or Atom items?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "The live Store event RSS or Atom item (apify-default-dataset-item) is charged only for one successfully parsed public feed item at $0.001. dryRun runs without saving results. There is no Actor start event on the current pricing tab. Platform usage is listed as Included."
+          "text": "The live Store event RSS or Atom item (apify-default-dataset-item) is charged only for one successfully parsed public feed item at $0.001. dryRun runs without saving results. There is no Actor start event on the current pricing tab. Platform usage is listed as Included. The cheapest first paid cap is one feedUrls item with maxItemsPerFeed 1: $0.001 if one item is parsed. The Store Quickstart is two publisher feeds."
         }
       },
       {
@@ -157,8 +157,11 @@
     <nav><a href="/">Home</a> / RSS &amp; Atom Feed Extractor</nav>
     <h1>Parse known-publisher RSS and Atom XML into filtered item URL lists</h1>
     <p>RSS &amp; Atom Feed Extractor aggregates public RSS and Atom XML feeds you already have into structured JSON so you can discover fresh item URLs from blogs and newsrooms before a downstream scraper runs. It parses trusted feed XML, applies optional OR-based keyword filters, deduplicates links across sources, and returns item URLs with titles, dates, and summaries. It is not an HTML article extractor, not a Google News query surface, and it does not crawl a site to find new pages.</p>
-    <p class="price">$1.00 / 1,000 RSS or Atom items ($0.001 per successfully parsed public feed item)</p>
-    <p><a href="https://apify.com/taroyamada/rss-feed-aggregator">Open RSS &amp; Atom Feed Extractor on Apify</a></p>
+    <p class="price">Try Input: 1 feed × maxItemsPerFeed 1 = $0.001 if one item is parsed. Store Quickstart is 2 publisher feeds. $1.00 / 1,000 items. No Actor start event.</p>
+    <p><a href="https://apify.com/taroyamada/rss-feed-aggregator/input">Try the cheapest first paid RSS / Atom run on Apify Input</a></p>
+    <p><a href="https://apify.com/taroyamada/rss-feed-aggregator">Open taroyamada/rss-feed-aggregator on the Apify Store</a>
+      ·
+      <a href="/use-cases/rss-newsroom-monitoring/">Newsroom RSS first paid path</a></p>
 
     <h2>Feed XML you already have, not Google News queries and not article HTML</h2>
     <p>Use this page when you already have public RSS or Atom feed URLs and need a filtered list of new item links. Use <a href="/google-news-scraper/">Google News Scraper</a> when you search Google News by keyword and do not yet have publisher feed URLs. Use <a href="/article-content-extractor/">Article Content Extractor</a> to clean discovered article, news, and blog pages. Use <a href="/website-content-extractor/">Website Content Extractor</a> to clean discovered docs, pricing, policy, or product pages. Those extractors fetch page HTML. This Actor reads feed XML.</p>
@@ -318,7 +321,18 @@
   "dryRun": false
 }</code></pre>
     <p>The live fields are <code>feedUrls</code> and <code>maxItemsPerFeed</code>. Do not send unpublished aliases.</p>
-    <p><a href="https://apify.com/taroyamada/rss-feed-aggregator">Run RSS &amp; Atom Feed Extractor on Apify</a></p>
+    <p>Cheapest first paid input: one feed URL, <code>maxItemsPerFeed</code> 1 (schema minimum 1–200). The Store Quickstart is two publisher feeds. The Store example run uses <code>maxItemsPerFeed</code> 10.</p>
+<pre><code>{
+  "feedUrls": [
+    "https://blog.google/rss/"
+  ],
+  "maxItemsPerFeed": 1,
+  "deduplicate": true,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p>If one public feed item is parsed, documented PPE is <strong>$0.001</strong>. There is no Actor start event. Unsuccessful fetches are not billed as RSS or Atom items. Then raise <code>maxItemsPerFeed</code> or add the second prefill feed after the item URL is useful. For newsroom monitoring, see <a href="/use-cases/rss-newsroom-monitoring/">Monitor publisher and newsroom RSS feeds</a>.</p>
+    <p><a href="https://apify.com/taroyamada/rss-feed-aggregator/input">Run this 1-feed input on Apify</a></p>
 
     <h2>Which fields does a parsed RSS or Atom item include?</h2>
     <p>The published README output table lists <code>source</code> (feed URL that produced the row), <code>title</code>, <code>link</code> (item URL for downstream extraction), <code>pubDate</code> (original feed date), <code>pubDateISO</code> (ISO timestamp version of <code>pubDate</code>), <code>description</code> (summary text from the feed), <code>content</code> (encoded content when available), <code>categories</code> (categories or tags from the feed), and <code>matchedKeywords</code> (keywords that matched the row). That table is the published field inventory, not a live coverage guarantee for every feed.</p>
@@ -369,7 +383,7 @@
     <p>No. It reads public RSS or Atom feed XML from the URLs in <code>feedUrls</code>. It does not crawl a website to find pages, it does not use browser automation, and it does not parse <code>sitemap.xml</code> URL inventories. Podcast catalog RSS versus iTunes Search is a different comparison: <a href="/compare/rss-feed-vs-itunes-search/">RSS feed vs iTunes Search API</a>, not this Actor.</p>
 
     <h2>Are unsuccessful feed fetches billed as RSS or Atom items?</h2>
-    <p>The live Store event RSS or Atom item (<code>apify-default-dataset-item</code>) is charged only for one successfully parsed public feed item at $0.001. <code>dryRun</code> runs without saving results. There is no Actor start event on the current pricing tab. Platform usage is listed as Included.</p>
+    <p>The live Store event RSS or Atom item (<code>apify-default-dataset-item</code>) is charged only for one successfully parsed public feed item at $0.001. <code>dryRun</code> runs without saving results. There is no Actor start event on the current pricing tab. Platform usage is listed as Included. The cheapest first paid cap is one <code>feedUrls</code> item with <code>maxItemsPerFeed</code> 1: <strong>$0.001</strong> if one item is parsed.</p>
 
     <h2>How is RSS &amp; Atom Feed Extractor priced on the live Store?</h2>
     <p>Billing is pay per event. The live Store card is <strong>$1.00 / 1,000 rss or atom items</strong>. Current PPE:</p>
@@ -389,8 +403,8 @@
         </tr>
       </tbody>
     </table>
-    <p>There is no Actor start event on the current pricing tab. The live pricing tab lists Platform usage as Included. Align billing copy to this live PPE only.</p>
-    <p class="price">$1.00 / 1,000 RSS or Atom items ($0.001 per successfully parsed public feed item)</p>
+    <p>There is no Actor start event on the current pricing tab. The live pricing tab lists Platform usage as Included. Align billing copy to this live PPE only. The cheapest first paid cap is one feed × <code>maxItemsPerFeed</code> 1 = <strong>$0.001</strong> if one item is parsed. The Store Quickstart is two publisher feeds at the same rate.</p>
+    <p class="price">Try Input: 1 feed × maxItemsPerFeed 1 = $0.001 if one item is parsed. $1.00 / 1,000 items. No Actor start event.</p>
     <p><a href="https://apify.com/taroyamada/rss-feed-aggregator/pricing">See RSS &amp; Atom Feed Extractor pricing on Apify</a></p>
 
     <h2>Limits to keep in mind</h2>
@@ -402,12 +416,12 @@
       <li>This is feed XML discovery, not Google News queries, not article HTML cleanup, and not <code>sitemap.xml</code> URL inventories.</li>
       <li>Live PPE is one event: RSS or Atom item at $0.001. Platform usage is Included.</li>
     </ul>
-    <p><a href="https://apify.com/taroyamada/rss-feed-aggregator">Open RSS &amp; Atom Feed Extractor on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/rss-feed-aggregator/input">Try Input: 1 feed × maxItemsPerFeed 1 on Apify</a></p>
 
     <h2>Related pages</h2>
     <ul>
       <li><a href="/packs/content-intelligence/">Content Intelligence pack</a> — choose RSS, Google News, article, or website extraction</li>
-      <li><a href="/use-cases/rss-newsroom-monitoring/">Newsroom RSS monitoring</a> — publisher and company newsroom feeds</li>
+      <li><a href="/use-cases/rss-newsroom-monitoring/">Newsroom RSS monitoring</a> — cheapest first paid path: 1 feed × maxItemsPerFeed 1 = $0.001</li>
       <li><a href="/google-news-scraper/">Google News Scraper</a> — query-based Google News RSS, not known-publisher feeds</li>
       <li><a href="/use-cases/google-news-brand-monitoring/">Google News brand monitoring</a></li>
       <li><a href="/article-content-extractor/">Article Content Extractor</a> — clean discovered article, news, and blog pages</li>

@@ -19,7 +19,7 @@
           {
             "@type": "HowToStep",
             "name": "Open the Store listing",
-            "text": "Open SAM.gov, TED & Grants Bid Alerts Scraper at apify.com/taroyamada/procurement-intel-actor."
+            "text": "Open SAM.gov, TED & Grants Bid Alerts Scraper Input at apify.com/taroyamada/procurement-intel-actor/input."
           },
           {
             "@type": "HowToStep",
@@ -134,7 +134,7 @@
   "dryRun": false
 }</code></pre>
     <p><code>keywords</code> is a documented theme sent to TED titles, SAM.gov titles, and Grants.gov queries; <code>cybersecurity</code> is one term from the schema default <code>cloud,cybersecurity,IT services</code>. If <code>us</code> is present without a SAM.gov key, the actor warns and skips that source instead of failing the whole run. <code>grantsApiKey</code> is optional. Do not send unpublished field names; live schema <code>additionalProperties</code> is false.</p>
-    <p><a href="https://apify.com/taroyamada/procurement-intel-actor">Run this SAM.gov or grants scraper input on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/procurement-intel-actor/input">Run this SAM.gov or grants scraper input on Apify</a></p>
 
     <h2>Documented PPE cost math</h2>
     <p>Prices below are the live events already shown on this site’s TED, SAM.gov &amp; Grants Bid Alerts pages. They are not invented rates. The live Store card is <strong>$8.00 / 1,000 procurement opportunity or alert rows</strong>.</p>
@@ -190,13 +190,13 @@ $0.008  documented PPE total for this input</code></pre>
 
     <h2>How to run it</h2>
     <ol>
-      <li>Open <a href="https://apify.com/taroyamada/procurement-intel-actor">SAM.gov, TED &amp; Grants Bid Alerts Scraper</a> on the Apify Store.</li>
+      <li>Open <a href="https://apify.com/taroyamada/procurement-intel-actor/input">SAM.gov, TED &amp; Grants Bid Alerts Scraper Input</a> on the Apify Store.</li>
       <li>Paste the grants JSON above for a grants scraper, or the SAM.gov JSON if you have a SAM.gov API key.</li>
       <li>Keep <code>maxItemsPerSource</code> 1, <code>delivery</code> dataset, and <code>dryRun</code> false. Do not set <code>generateReport</code> or <code>emitExport</code>.</li>
       <li>Start the run. Confirm the default dataset has a source-linked opportunity row before raising <code>maxItemsPerSource</code> or adding TED / award-watch flags.</li>
     </ol>
     <p>For the TED-first bid-alert queue and SAM.gov expansion, see <a href="/use-cases/sam-gov-bid-alerts/">SAM.gov and TED bid-alert queue</a>. Product listings for this Actor are grouped on the <a href="/tools/">Tools</a> hub.</p>
-    <p><a href="https://apify.com/taroyamada/procurement-intel-actor">Open the SAM.gov scraper &amp; grants scraper on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/procurement-intel-actor/input">Open the SAM.gov scraper &amp; grants scraper Input on Apify</a></p>
   </main>
 </body>
 </html>

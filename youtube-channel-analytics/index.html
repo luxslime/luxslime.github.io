@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>YouTube Channel Analytics Scraper — public subscribers, uploads, and Shorts</title>
-  <meta name="description" content="Scrape public YouTube channel metadata, subscriber text, lifetime views, recent uploads, and optional Shorts. No YouTube Data API key. Not a caption or transcript extractor.">
+  <meta name="description" content="Scrape public YouTube channel metadata, subscriber text, lifetime views, recent uploads, and optional Shorts. No YouTube Data API key. Try Input: 1 channel ≈ $0.009 if one result (incl. Start $0.001). From $8.00 / 1,000 results.">
   <link rel="canonical" href="https://apify.momiji-space.com/youtube-channel-analytics/">
   <script type="application/ld+json">
   {
@@ -56,7 +56,7 @@
         "name": "How is YouTube Channel Analytics Scraper priced?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Billing is pay per event. The published Store card is from $8.00 per 1,000 results. Published events are Actor Start at $0.001 (charged when the Actor starts; number of events depends on Actor memory, one event per GB, minimum one event) and result at $0.008 (single result in the default dataset). You are not charged for Apify platform usage, only the fixed event price. Total cost mainly follows how many channelUrls you analyze and how many recent items you resolve. maxChargeUsd defaults to 1; billable rows beyond the cap are returned as no-charge limit_reached summaries."
+          "text": "Billing is pay per event. The published Store card is from $8.00 per 1,000 results. Published events are Actor Start at $0.001 (charged when the Actor starts; number of events depends on Actor memory, one event per GB, minimum one event) and result at $0.008 (single result in the default dataset). The cheapest first paid path is one channelUrls item. Keep videoLimit at 1 (schema minimum) and includeShorts false when you only need long-form. If that run charges one Actor Start event and writes one default-dataset result, those two events add to $0.001 + $0.008 = $0.009. Extra result events apply if more default-dataset items are written. You are not charged for Apify platform usage, only the fixed event price."
         }
       }
     ]
@@ -85,7 +85,11 @@
     <nav><a href="/">Home</a> / YouTube Channel Analytics Scraper</nav>
     <h1>Track public YouTube subscriber counts, recent uploads, and Shorts without an API key</h1>
     <p>Collect structured public YouTube channel metadata for competitor tracking and content research: subscriber text when public, lifetime view totals when exposed, channel descriptions, recent long-form uploads, and optional Shorts. This Actor crawls public channel surfaces. It is not a caption or transcript extractor — video captions belong on <a href="/youtube-transcript-scraper/">YouTube Transcript Scraper</a>.</p>
-    <p><a href="https://apify.com/taroyamada/youtube-channel-analytics">Open YouTube Channel Analytics Scraper on Apify</a></p>
+    <p class="price">Try Input: 1 channel ≈ $0.009 if one result (incl. Start $0.001). From $8.00/1k. No YouTube Data API key.</p>
+    <p><a href="https://apify.com/taroyamada/youtube-channel-analytics/input">Try the cheapest first paid YouTube channel analytics run on Apify Input</a></p>
+    <p><a href="https://apify.com/taroyamada/youtube-channel-analytics">Open taroyamada/youtube-channel-analytics on the Apify Store</a>
+      ·
+      <a href="/youtube-transcript-scraper/">Captions belong on YouTube Transcript Scraper</a></p>
 
     <h2>Channel metrics and uploads, not captions</h2>
     <p>Use this page when the job is public channel health: publishing cadence, upload mix, Shorts usage, and outbound about-page links. Use <a href="/youtube-transcript-scraper/">YouTube Transcript Scraper</a> when the job is public YouTube caption tracks as timed text, SRT, VTT, or plain text (HTTP-first, no browser).</p>
@@ -215,6 +219,18 @@
       </tbody>
     </table>
     <p>The schema sets <code>additionalProperties</code> to false. Use <code>channelUrls</code>, <code>videoLimit</code>, and <code>includeShorts</code>. README examples that use <code>channels</code>, <code>includeUploadCadence</code>, or <code>includeRecentVideos</code> are not live input fields.</p>
+    <p>Cheapest first paid input: one <code>channelUrls</code> item. Schema prefill is two channels; keep the first paid run at one. Keep <code>videoLimit</code> at 1 (schema minimum) and <code>includeShorts</code> false when you only need long-form. Set <code>dryRun</code> false so a result can bill.</p>
+<pre><code>{
+  "channelUrls": [
+    "https://www.youtube.com/@Google"
+  ],
+  "videoLimit": 1,
+  "includeShorts": false,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p>If that run charges one Actor Start event and writes one default-dataset result, documented PPE is $0.001 + $0.008 = <strong>$0.009</strong>. Extra result events apply if more default-dataset items are written. Total cost mainly follows how many <code>channelUrls</code> you analyze and how many recent items you resolve. Then raise <code>videoLimit</code> or add the second prefill handle after the channel row is useful.</p>
+    <p><a href="https://apify.com/taroyamada/youtube-channel-analytics/input">Run this 1-channel input on Apify</a></p>
     <p>Published Store Quickstart:</p>
 <pre><code>{
   "channelUrls": [
@@ -295,9 +311,9 @@
     <p>No. Because the Actor uses public pages only, it cannot provide private YouTube Studio analytics such as watch time, revenue, CTR, impressions, audience demographics, traffic sources, or hidden subscriber counts. Subscriber and view figures exist when YouTube exposes them. Posting cadence is a hint inferred from recent public labels, not official Studio analytics.</p>
 
     <h2>How is YouTube Channel Analytics Scraper priced?</h2>
-    <p>Billing is pay per event. The published Store card is <strong>from $8.00 / 1,000 results</strong>. Published events are Actor Start at <strong>$0.001</strong> (charged when the Actor starts; number of events depends on Actor memory, one event per GB, minimum one event) and result at <strong>$0.008</strong> (single result in the default dataset). You are not charged for Apify platform usage, only the fixed event price.</p>
-    <p>Total cost mainly follows how many <code>channelUrls</code> you analyze and how many recent items you resolve. Start with a short <code>channelUrls</code> list. Keep <code>videoLimit</code> low while testing. Disable <code>includeShorts</code> when you only need long-form uploads. Use <code>dryRun: true</code> before larger batches or webhook delivery. <code>maxChargeUsd</code> defaults to 1; billable rows beyond the cap are returned as no-charge <code>limit_reached</code> summaries. Check the Store pricing card for the current per-event rates.</p>
-    <p class="price">From $8.00 per 1,000 results ($0.008 per default-dataset result; Actor Start $0.001)</p>
+    <p>Billing is pay per event. The published Store card is <strong>from $8.00 / 1,000 results</strong>. Published events are Actor Start at <strong>$0.001</strong> (charged when the Actor starts; number of events depends on Actor memory, one event per GB, minimum one event) and result at <strong>$0.008</strong> (single result in the default dataset). If the cheapest first paid run charges one Actor Start event and writes one default-dataset result, those two events add to <strong>$0.009</strong>. You are not charged for Apify platform usage, only the fixed event price.</p>
+    <p>Total cost mainly follows how many <code>channelUrls</code> you analyze and how many recent items you resolve. Start with one <code>channelUrls</code> item. Keep <code>videoLimit</code> at 1 while testing. Disable <code>includeShorts</code> when you only need long-form uploads. Use <code>dryRun: true</code> before larger batches or webhook delivery. <code>maxChargeUsd</code> defaults to 1; billable rows beyond the cap are returned as no-charge <code>limit_reached</code> summaries. Check the Store pricing card for the current per-event rates.</p>
+    <p class="price">Try Input: 1 channel ≈ $0.009 if one result (incl. Start $0.001). From $8.00/1k.</p>
     <p><a href="https://apify.com/taroyamada/youtube-channel-analytics/pricing">See YouTube Channel Analytics Scraper pricing on Apify</a></p>
 
     <h2>Limits to keep in mind</h2>
@@ -309,12 +325,12 @@
       <li>YouTube may return missing, challenge, or block pages (<code>missing</code> / <code>blocked</code>).</li>
       <li>This Actor does not extract captions or transcripts.</li>
     </ul>
-    <p><a href="https://apify.com/taroyamada/youtube-channel-analytics">Open YouTube Channel Analytics Scraper on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/youtube-channel-analytics/input">Try Input: 1 channel on Apify</a></p>
 
     <h2>Related pages</h2>
     <ul>
       <li><a href="/tools/">Tools</a></li>
-      <li><a href="/youtube-transcript-scraper/">YouTube Transcript Scraper</a> — public captions (timed text, SRT, VTT), not channel metrics</li>
+      <li><a href="/youtube-transcript-scraper/">YouTube Transcript Scraper</a> — public captions (timed text, SRT, VTT), not channel metrics. First paid path: 1 video URL ≈ $0.00255</li>
       <li><a href="/wayback-machine-bulk-checker/">Wayback Machine Bulk Checker</a></li>
       <li><a href="/meta-tag-opengraph-scraper/">Meta Tag &amp; OpenGraph Scraper</a></li>
       <li><a href="/short-url-resolver-scraper/">Short URL Resolver &amp; Scraper</a></li>

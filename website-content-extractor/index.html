@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Website Content Extractor — clean docs, pricing, and help-center markdown</title>
-  <meta name="description" content="Clean public docs, pricing, product, policy, and help-center HTML into markdown or text for content QA and RAG source work. Live PPE from $9.00 / 1,000 results.">
+  <meta name="description" content="Clean public docs, pricing, product, policy, and help-center HTML into markdown or text. Try Input: 1 docs URL ≈ $0.010 total (incl. Start $0.001). From $9.00 / 1,000 results.">
   <link rel="canonical" href="https://apify.momiji-space.com/website-content-extractor/">
   <script type="application/ld+json">
   {
@@ -48,7 +48,7 @@
         "name": "How is Website Content Extractor priced on pay-per-event?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Billing is pay-per-event. The live Store card is from $9.00 / 1,000 results. Live events are Actor Start at $0.001 (charged when the Actor starts; number of events depends on Actor memory, one event per GB, minimum one event) and result at $0.009 (single result in the default dataset). Platform usage is listed as Included on the live pricing page. The README pricing section matches those event amounts: $0.001 actor start and $0.009 per useful content row. Failed or no-content rows should stay out of the default dataset. The default dataset is the billable surface."
+          "text": "Billing is pay-per-event. The live Store card is from $9.00 / 1,000 results. Live events are Actor Start at $0.001 (charged when the Actor starts; number of events depends on Actor memory, one event per GB, minimum one event) and result at $0.009 (single result in the default dataset). If the cheapest first paid run charges one Actor Start event and writes one useful content row, those two events add to $0.001 + $0.009 = $0.010. Platform usage is listed as Included on the live pricing page. Failed or no-content rows should stay out of the default dataset."
         }
       },
       {
@@ -56,7 +56,7 @@
         "name": "How does Website Content Extractor deliver dataset, webhook, and dry-run output?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "delivery defaults to dataset. A non-dry-run always writes canonical dataset rows first; webhook delivery runs only after dataset and pay-per-event output succeed. webhookUrl is used when delivery is webhook and is skipped on dryRun. dryRun validates the setup and writes only local output: dataset writes and webhook delivery are disabled. Store Quickstart starts with a short urls list, outputFormat markdown, delivery dataset, and dryRun false."
+          "text": "delivery defaults to dataset. A non-dry-run always writes canonical dataset rows first; webhook delivery runs only after dataset and pay-per-event output succeed. webhookUrl is used when delivery is webhook and is skipped on dryRun. dryRun validates the setup and writes only local output: dataset writes and webhook delivery are disabled. The cheapest first paid path is one urls item, outputFormat markdown, delivery dataset, and dryRun false. Schema prefill is three docs.apify.com URLs."
         }
       },
       {
@@ -149,8 +149,11 @@
     <nav><a href="/">Home</a> / Website Content Extractor</nav>
     <h1>Clean docs, pricing, product, and help-center pages into markdown</h1>
     <p>Website Content Extractor fetches public docs, pricing, product, policy, and help-center URLs and returns cleaned markdown, text, or HTML. Use it as a bounded source step for content QA, indexability checks, and RAG datasets — not as a ranking tool or a full-site crawler. For news, blog, newsroom, or press URLs, use <a href="/article-content-extractor/">Article Content Extractor</a>. For head Open Graph, robots, and JSON-LD issue audits, use <a href="/meta-tag-opengraph-scraper/">Meta Tag &amp; OpenGraph Scraper</a>.</p>
-    <p class="price">From $9.00 / 1,000 results ($0.009 per result; Actor Start $0.001)</p>
-    <p><a href="https://apify.com/taroyamada/website-content-extractor">Open Website Content Extractor on Apify</a></p>
+    <p class="price">Try Input: 1 docs URL ≈ $0.010 total (incl. Start $0.001). From $9.00/1k. Cheapest first paid path is one urls item with reports off.</p>
+    <p><a href="https://apify.com/taroyamada/website-content-extractor/input">Try the cheapest first paid Website Content Extractor run on Apify Input</a></p>
+    <p><a href="https://apify.com/taroyamada/website-content-extractor">Open taroyamada/website-content-extractor on the Apify Store</a>
+      ·
+      <a href="/use-cases/docs-rag-markdown/">Docs and help-center RAG first paid path</a></p>
 
     <h2>Site pages versus articles and metadata audits</h2>
     <p>Use this page when the URLs are broad site pages: documentation, product, pricing, policy, or help-center. Use <a href="/article-content-extractor/">Article Content Extractor</a> when the URLs are article-shaped and you need headline, byline, publish date, excerpt, and hero image. Use <a href="/meta-tag-opengraph-scraper/">Meta Tag &amp; OpenGraph Scraper</a> when the job is title, canonical, robots, Open Graph, Twitter Card, hreflang, and JSON-LD issue flags in the HTML head.</p>
@@ -320,16 +323,17 @@
       </tbody>
     </table>
     <p>Do not send unpublished report-only aliases such as <code>generateReport</code>, <code>emitExport</code>, <code>authorizedUseConfirmed</code>, or <code>emitUnchanged</code> on this extractor. Those belong on a linked Site QA or RAG report Actor.</p>
-    <p>Published Store Quickstart (schema defaults):</p>
+    <p>Cheapest first paid input (one public docs URL). Schema prefill is three <code>docs.apify.com</code> URLs; keep the first paid run at one <code>urls</code> item. Leave <code>generateReport</code> and <code>emitExport</code> off — those are not live fields on this extractor.</p>
 <pre><code>{
   "urls": [
-    "https://example.com/docs"
+    "https://docs.apify.com/platform/actors"
   ],
   "outputFormat": "markdown",
   "delivery": "dataset",
   "dryRun": false
 }</code></pre>
-    <p><a href="https://apify.com/taroyamada/website-content-extractor">Start a run on Apify</a></p>
+    <p>If that run charges one Actor Start event and writes one useful content row, documented PPE is $0.001 + $0.009 = <strong>$0.010</strong>. Failed or no-content rows stay out of the default dataset. Then raise the URL list after the markdown row is useful. For RAG ingestion of those bodies, see <a href="/use-cases/docs-rag-markdown/">website content extractor for docs and help-center RAG</a>.</p>
+    <p><a href="https://apify.com/taroyamada/website-content-extractor/input">Run this 1-URL input on Apify</a></p>
 
     <h2>Which fields appear on a web_content extraction row?</h2>
     <p>The published README field list is <code>rowType</code>, <code>url</code>, <code>title</code>, <code>markdown</code>, <code>text</code>, <code>wordCount</code>, <code>metadata</code>, <code>sourceUrl</code>, and <code>fetchedAt</code>. Sample <code>rowType</code> is <code>web_content</code>. <code>includeMetadata</code> defaults to true and adds page metadata such as description, author, language, and published date when present. Rows also include warnings when a source is partial, and stable IDs when the workflow supports recurring change detection. The published sample is a README illustration, not a live coverage guarantee. There is no published Open Graph issue list, article byline, or Site QA report field on this Actor.</p>
@@ -338,8 +342,8 @@
     <p>The live schema description is: flagship cleaner for broad HTML pages such as docs, pricing, policy, help-center, and product pages. Pass HTTP(S) URLs you own or are authorized to fetch. Maximum 200 URLs per run. For article, news, or blog URLs, route to <a href="/article-content-extractor/">Article Content Extractor</a>.</p>
 
     <h2>How is Website Content Extractor priced on pay-per-event?</h2>
-    <p>Billing is pay-per-event. The live Store card is <strong>from $9.00 / 1,000 results</strong>. Live events are Actor Start at <strong>$0.001</strong> (charged when the Actor starts; number of events depends on Actor memory, one event per GB, minimum one event) and result at <strong>$0.009</strong> (single result in the default dataset). Platform usage is listed as Included on the live pricing page. The README pricing section matches those event amounts: $0.001 actor start and $0.009 per useful content row. Failed or no-content rows should stay out of the default dataset. The default dataset is the billable surface.</p>
-    <p class="price">From $9.00 / 1,000 results ($0.009 per result; Actor Start $0.001)</p>
+    <p>Billing is pay-per-event. The live Store card is <strong>from $9.00 / 1,000 results</strong>. Live events are Actor Start at <strong>$0.001</strong> (charged when the Actor starts; number of events depends on Actor memory, one event per GB, minimum one event) and result at <strong>$0.009</strong> (single result in the default dataset). If the cheapest first paid run charges one Actor Start event and writes one useful content row, those two events add to <strong>$0.010</strong>. Platform usage is listed as Included on the live pricing page. The README pricing section matches those event amounts: $0.001 actor start and $0.009 per useful content row. Failed or no-content rows should stay out of the default dataset. The default dataset is the billable surface.</p>
+    <p class="price">Try Input: 1 docs URL ≈ $0.010 total (incl. Start $0.001). From $9.00/1k.</p>
     <p><a href="https://apify.com/taroyamada/website-content-extractor/pricing">See Website Content Extractor pricing on Apify</a></p>
 
     <h2>How does Website Content Extractor deliver dataset, webhook, and dry-run output?</h2>
@@ -353,7 +357,7 @@
   "webhookUrl": "https://example.com/webhook",
   "dryRun": false
 }</code></pre>
-    <p><a href="https://apify.com/taroyamada/website-content-extractor">Open Website Content Extractor on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/website-content-extractor/input">Start a run on Apify Input</a></p>
 
     <h2>Does Website Content Extractor emit a Site QA or RAG report?</h2>
     <p>No. This Actor returns bounded source rows. The README positions it as the low-cost extraction step, then you pass the same URLs to a linked Site QA or RAG report Actor in a separate run. Do not treat raw markdown as the buyer-facing deliverable. Linked report actors have separate report and export events; do not infer those charges from a raw content row.</p>
@@ -378,12 +382,12 @@
 
     <h2>What compliance guardrails apply to pages fetched by Website Content Extractor?</h2>
     <p>Fetch public pages supplied by the user. Pass HTTP(S) URLs you own or are authorized to audit. Respect site policies, rate limits, and robots guidance where applicable. Use output for content operations, QA, and RAG workflows. Do not use provider emblems or wording that implies approval by an upstream data provider. This Actor is not a ranking tool, a full-site crawler, or a legal-advice product.</p>
-    <p><a href="https://apify.com/taroyamada/website-content-extractor">Open Website Content Extractor on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/website-content-extractor/input">Try Input: 1 docs URL on Apify</a></p>
 
     <h2>Related pages</h2>
     <ul>
       <li><a href="/packs/content-intelligence/">Content Intelligence pack</a> — choose RSS, Google News, article, or website extraction</li>
-      <li><a href="/use-cases/docs-rag-markdown/">Website content extractor for docs and help-center RAG</a></li>
+      <li><a href="/use-cases/docs-rag-markdown/">Website content extractor for docs and help-center RAG</a> — cheapest first paid path: 1 docs URL ≈ $0.010</li>
       <li><a href="/article-content-extractor/">Article Content Extractor</a></li>
       <li><a href="/wayback-machine-bulk-checker/">Wayback Machine Bulk Checker</a> — Internet Archive availability, not live HTML</li>
       <li><a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a></li>
