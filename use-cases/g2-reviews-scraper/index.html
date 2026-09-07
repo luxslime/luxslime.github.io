@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>G2 reviews scraper — public G2 and Capterra ratings, pros, and cons</title>
-  <meta name="description" content="G2 reviews scraper for public G2 and Capterra review-page URLs: product ratings, rating breakdowns, and nested reviews with pros and cons. CSV/JSON. Pricing: see Store.">
+  <meta name="description" content="G2 reviews scraper for public G2 and Capterra review-page URLs: product ratings, rating breakdowns, and nested reviews with pros and cons. CSV/JSON. Live PPE: from $3.00 / 1,000 results ($0.003 per result).">
   <link rel="canonical" href="https://apify.momiji-space.com/use-cases/g2-reviews-scraper/">
   <script type="application/ld+json">
   {
@@ -16,7 +16,7 @@
         "name": "Can a G2 reviews scraper also pull Capterra reviews in the same run?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes, after a small-sample schema check. G2 & Capterra Review Scraper takes reviewPageUrls in the published formats g2.com/products/{slug}/reviews and capterra.com/p/{id}/{slug}/reviews/. It auto-detects source and normalizes both into one product-row schema. Start with one G2 URL, then mix Capterra only after that row is useful. It is not a Shopify App Store listing tool and not an Apple Podcasts review RSS tool."
+          "text": "Yes, after a one-URL schema check. G2 & Capterra Review Scraper takes reviewPageUrls in the published formats g2.com/products/{slug}/reviews and capterra.com/p/{id}/{slug}/reviews/. It auto-detects source and normalizes both into one product-row schema. Start with one G2 URL and reviewLimit 1, then mix Capterra only after that row is useful. It is not a Shopify App Store listing tool and not an Apple Podcasts review RSS tool."
         }
       },
       {
@@ -32,7 +32,7 @@
         "name": "What is a first G2 reviews scraper input that stays on the live schema?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Pass one public G2 review-page URL in reviewPageUrls, reviewLimit 25, delivery dataset, and dryRun false. reviewPageUrls is required. Do not send unpublished README aliases such as products, source, slug, maxReviewsPerProduct, or emitDeltas. Live pay-per-event rates are on the Store pricing card — this page does not quote dollar amounts."
+          "text": "Pass one public G2 review-page URL in reviewPageUrls, reviewLimit 1, delivery dataset, and dryRun false. reviewPageUrls is required. Do not send unpublished README aliases such as products, source, slug, maxReviewsPerProduct, or emitDeltas. Live pay-per-event rates are Actor Start $0.001 and result $0.003 (from $3.00 / 1,000 results). The Store Quickstart first-paid line is 1 URL / reviewLimit 1 ≈ $0.01 at current PPE."
         }
       }
     ]
@@ -57,34 +57,36 @@
     <nav><a href="/">Home</a> / Use cases / G2 reviews scraper</nav>
     <h1>G2 reviews scraper for public G2 and Capterra pages</h1>
     <p>Use this page when the job is scraping public G2 (and Capterra) product reviews into one normalized dataset. <a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a> is the existing Store Actor for that source. It is not a new Actor, not a Shopify App Store listing scraper, and not an Apple Podcasts review RSS tool. Pass public review-page URLs you are authorized to fetch.</p>
-    <p class="price">Live Store price: <strong>see Store</strong> (pay-per-event). This page does not quote per-event dollar amounts. Check the current card before a paid run.</p>
-    <p><a href="https://apify.com/taroyamada/g2-capterra-review-intelligence">Open G2 &amp; Capterra Review Scraper on Apify</a></p>
+    <p class="price">Live Store card: <strong>from $3.00 / 1,000 results</strong> ($0.003 per default-dataset result; Actor Start $0.001). Cheapest first paid path: one G2 URL, <code>reviewLimit</code> 1.</p>
+    <p><a href="https://apify.com/taroyamada/g2-capterra-review-intelligence">Open G2 &amp; Capterra Review Scraper on Apify</a>
+      ·
+      <a href="/guides/g2-reviews-scraper-first-paid-run/">Cheapest first paid run</a></p>
 
     <h2>What a G2 reviews scraper row contains</h2>
     <p>The published README field list is <code>source</code>, <code>sourceUrl</code>, <code>status</code>, <code>productName</code>, <code>vendorName</code>, <code>categoryName</code>, <code>overallRating</code>, <code>totalReviewCount</code>, <code>ratingBreakdown</code>, and nested <code>reviews[]</code> (<code>title</code>, <code>rating</code>, <code>date</code>, <code>author</code>, <code>body</code>, <code>pros</code>, <code>cons</code>, <code>verified</code>), plus <code>fetchError</code> and <code>warnings</code> when a page is thin, blocked, or structurally changed. <code>status</code> is <code>ok</code>, <code>partial</code>, <code>blocked</code>, or <code>error</code>. Export is CSV/JSON from the default dataset. No API key.</p>
     <p>Choose among the three public-review sources on the <a href="/review-intelligence/">Review Intelligence pack</a> hub. Shopify merchant listings belong on <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a>. Apple/iTunes podcast reviews belong on <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> or the <a href="/use-cases/apple-podcast-reviews/">Apple Podcasts reviews scraper</a> use case.</p>
 
     <h2>Tiny first-paid input</h2>
-    <p>The smallest useful G2 reviews scraper check is one public G2 URL, a modest <code>reviewLimit</code>, <code>delivery</code> dataset, and <code>dryRun</code> false. <code>reviewPageUrls</code> is required. Mix a Capterra URL only after this one-URL schema check. Omit unpublished README aliases such as <code>products</code>, <code>source</code>, <code>slug</code>, <code>maxReviewsPerProduct</code>, and <code>emitDeltas</code>.</p>
+    <p>The smallest useful G2 reviews scraper check is one public G2 URL, <code>reviewLimit</code> 1, <code>delivery</code> dataset, and <code>dryRun</code> false. <code>reviewPageUrls</code> is required. Mix a Capterra URL only after this one-URL schema check. Omit unpublished README aliases such as <code>products</code>, <code>source</code>, <code>slug</code>, <code>maxReviewsPerProduct</code>, and <code>emitDeltas</code>.</p>
 <pre><code>{
   "reviewPageUrls": [
     "https://www.g2.com/products/notion/reviews"
   ],
-  "reviewLimit": 25,
+  "reviewLimit": 1,
   "delivery": "dataset",
   "dryRun": false
 }</code></pre>
-    <p>Replace the sample with one public G2 review page you are authorized to fetch. For the cheapest first paid path, see <a href="/guides/g2-reviews-scraper-first-paid-run/">G2 reviews scraper: cheapest first paid run</a>. For current pay-per-event rates, see the <a href="https://apify.com/taroyamada/g2-capterra-review-intelligence/pricing">Store pricing card</a>.</p>
+    <p>Replace the sample with one public G2 review page you are authorized to fetch. If one Actor Start event and one result row charge, documented PPE is $0.001 + $0.003 = $0.004. The Store Quickstart line is ≈ $0.01. For the PPE table, see <a href="/guides/g2-reviews-scraper-first-paid-run/">G2 reviews scraper: cheapest first paid run</a>. For current rates, see the <a href="https://apify.com/taroyamada/g2-capterra-review-intelligence/pricing">Store pricing card</a>.</p>
     <p><a href="https://apify.com/taroyamada/g2-capterra-review-intelligence">Run this G2 reviews scraper input on Apify</a></p>
 
     <h2>Can a G2 reviews scraper also pull Capterra reviews in the same run?</h2>
-    <p>Yes, after a small-sample schema check. The Actor accepts both G2 (<code>g2.com/products/{slug}/reviews</code>) and Capterra (<code>capterra.com/p/{id}/{slug}/reviews/</code>) URLs in <code>reviewPageUrls</code>. It auto-detects source and routes each URL to the matching parser. Start with 1–5 URLs and a modest <code>reviewLimit</code> (25–50). Mix G2 and Capterra in one run only after you validate the schema on a small sample.</p>
+    <p>Yes, after a one-URL schema check. The Actor accepts both G2 (<code>g2.com/products/{slug}/reviews</code>) and Capterra (<code>capterra.com/p/{id}/{slug}/reviews/</code>) URLs in <code>reviewPageUrls</code>. It auto-detects source and routes each URL to the matching parser. Start with one G2 URL and <code>reviewLimit</code> 1. Mix G2 and Capterra in one run only after you validate the schema on that sample.</p>
 
     <h2>What does this G2 reviews scraper return besides a star rating?</h2>
     <p>Each product row can include source, product metadata, overall rating, rating distribution, and nested review rows with headline, body, <code>pros</code>, <code>cons</code>, and <code>verified</code>. Reviews are extracted from server-rendered HTML. Pages that render reviews only via client-side JavaScript may return partial results. Blocked requests are reported honestly. This independent Actor is not affiliated with or endorsed by G2 or Capterra. Do not use the output to target individual reviewers.</p>
 
     <h2>What is a first G2 reviews scraper input that stays on the live schema?</h2>
-    <p>Pass one public G2 review-page URL in <code>reviewPageUrls</code>, <code>reviewLimit</code> 25, <code>delivery</code> dataset, and <code>dryRun</code> false. Do not send unpublished README aliases. Live pay-per-event rates are on the Store pricing card — this page does not quote dollar amounts.</p>
+    <p>Pass one public G2 review-page URL in <code>reviewPageUrls</code>, <code>reviewLimit</code> 1, <code>delivery</code> dataset, and <code>dryRun</code> false. Do not send unpublished README aliases. Live pay-per-event rates are Actor Start <strong>$0.001</strong> and result <strong>$0.003</strong> (from $3.00 / 1,000 results).</p>
     <p><a href="https://apify.com/taroyamada/g2-capterra-review-intelligence">Open G2 &amp; Capterra Review Scraper on Apify</a></p>
 
     <h2>Related pages</h2>

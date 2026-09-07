@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>G2 &amp; Capterra Review Scraper — public G2 and Capterra review-page URLs to ratings, pros, and cons</title>
-  <meta name="description" content="Parse public G2 (g2.com/products/{slug}/reviews) and Capterra (capterra.com/p/{id}/{slug}/reviews/) pages into product ratings, rating breakdowns, and review rows with pros and cons. Live PPE: from $10.00 / 1,000 results. Not Shopify App Store listings. Not Apple Podcasts RSS.">
+  <meta name="description" content="Parse public G2 (g2.com/products/{slug}/reviews) and Capterra (capterra.com/p/{id}/{slug}/reviews/) pages into product ratings, rating breakdowns, and review rows with pros and cons. Live PPE: from $3.00 / 1,000 results ($0.003 per result). Not Shopify App Store listings. Not Apple Podcasts RSS.">
   <link rel="canonical" href="https://apify.momiji-space.com/g2-capterra-review-scraper/">
   <script type="application/ld+json">
   {
@@ -24,7 +24,7 @@
         "name": "Which reviewPageUrls formats does the published G2/Capterra schema accept?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "reviewPageUrls is required: one or more G2 or Capterra review page URLs. Published formats are g2.com/products/{slug}/reviews and capterra.com/p/{id}/{slug}/reviews/. Schema prefill is https://www.g2.com/products/notion/reviews and https://www.capterra.com/p/147384/Notion/reviews/. Optional published fields are reviewLimit (integer, default 200; README documents 1–5000 reviews per product; the live schema does not publish a min/max constraint), delivery (dataset or webhook, default dataset), webhookUrl (when delivery is webhook), and dryRun (boolean, default false). additionalProperties is false. The published input schema does not include products, source, slug, maxReviewsPerProduct, emitDeltas, appUrls, podcastIds, or countries."
+          "text": "reviewPageUrls is required: one or more G2 or Capterra review page URLs. Published formats are g2.com/products/{slug}/reviews and capterra.com/p/{id}/{slug}/reviews/. Live schema prefill is https://www.g2.com/products/notion/reviews. Optional published fields are reviewLimit (integer, default 1, prefill 1, minimum 1, maximum 5000; keep 1 for the cheapest first success), delivery (dataset or webhook, default dataset), webhookUrl (when delivery is webhook), and dryRun (boolean, default false). additionalProperties is false. The published input schema does not include products, source, slug, maxReviewsPerProduct, emitDeltas, appUrls, podcastIds, or countries."
         }
       },
       {
@@ -72,7 +72,7 @@
         "name": "Can one run mix G2 and Capterra reviewPageUrls after a small-sample schema check?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes. Dual-source support accepts both G2 (g2.com/products/*/reviews) and Capterra (capterra.com/p/*/reviews/) URLs in reviewPageUrls. The Actor classifies each URL and routes it to the matching parser. The Store Quickstart starts with a small mixed Notion sample, then says: start with 1–5 review URLs and a modest reviewLimit (25–50); mix G2 and Capterra in one run only after you validate the schema on a small sample; use dryRun true for validation-only checks before larger monitoring runs."
+          "text": "Yes. Dual-source support accepts both G2 (g2.com/products/*/reviews) and Capterra (capterra.com/p/*/reviews/) URLs in reviewPageUrls. The Actor classifies each URL and routes it to the matching parser. The live Store Quickstart is one G2 URL with reviewLimit 1. Mix G2 and Capterra in one run only after you validate the schema on that one-URL sample; use dryRun true for validation-only checks before larger monitoring runs."
         }
       },
       {
@@ -80,7 +80,7 @@
         "name": "How is a billed result different from one nested reviews[] item?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "The live billed event title is result at $0.01 for a single result in the default dataset (apify-default-dataset-item). The published README output is a per-product object with nested reviews[]. There is no separate published per-review billing event. README cost control says total cost mainly follows how many reviewPageUrls you process and how deep you sample reviews. Lower reviewLimit for faster exploratory runs."
+          "text": "The live billed event title is result at $0.003 for a single result in the default dataset (apify-default-dataset-item). The published README output is a per-product object with nested reviews[]. There is no separate published per-review billing event. README cost control says total cost mainly follows how many reviewPageUrls you process and how deep you sample reviews. Keep reviewLimit at 1 for the cheapest first success, then raise it."
         }
       },
       {
@@ -88,7 +88,7 @@
         "name": "How is G2 & Capterra Review Scraper priced on the live Store PPE tab?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Billing is pay-per-event. The live Store card is from $10.00 / 1,000 results. Published events are Actor Start at $0.001 (charged when the Actor starts; number of events depends on Actor memory, one event per GB, minimum one event) and result at $0.01 (single result in the default dataset). Platform usage is free. You are not charged for Apify platform usage, only the fixed event price. Check the Store pricing card for the current per-event rates."
+          "text": "Billing is pay-per-event. The live Store card is from $3.00 / 1,000 results. Published events are Actor Start at $0.001 (charged when the Actor starts; number of events depends on Actor memory, one event per GB, minimum one event) and result at $0.003 (single result in the default dataset). Platform usage is free. You are not charged for Apify platform usage, only the fixed event price. The Store Quickstart first-paid line is 1 URL / reviewLimit 1 ≈ $0.01 at current PPE. Check the Store pricing card for the current per-event rates."
         }
       },
       {
@@ -96,7 +96,7 @@
         "name": "How do dataset, webhook, and dryRun bill G2 and Capterra review-page results?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "delivery defaults to dataset. Set delivery to webhook and provide webhookUrl to POST results. dryRun true validates input and returns scaffold output without fetching live data. The published enum is dataset or webhook. The Store quickstart starts with a small reviewPageUrls sample in dataset mode, mixes G2 and Capterra only after a small-sample schema check, then uses dryRun before larger monitoring runs."
+          "text": "delivery defaults to dataset. Set delivery to webhook and provide webhookUrl to POST results. dryRun true validates input and returns scaffold output without fetching live data. The published enum is dataset or webhook. The live Store Quickstart starts with one G2 reviewPageUrls item, reviewLimit 1, and dataset delivery, mixes Capterra only after a one-URL schema check, then uses dryRun before larger monitoring runs."
         }
       },
       {
@@ -149,8 +149,10 @@
     <nav><a href="/">Home</a> / G2 &amp; Capterra Review Scraper</nav>
     <h1>Parse public G2 and Capterra review-page HTML into one product-rating row with pros and cons</h1>
     <p>G2 &amp; Capterra Review Scraper (Store id <code>taroyamada/g2-capterra-review-intelligence</code>) reads public G2 and Capterra product review pages you supply. The live Store description is: scrape B2B software reviews, pros and cons, ratings, and reviewer metadata from G2 and Capterra pages for SaaS competitor research. Required input is <code>reviewPageUrls</code>. The Actor auto-detects G2 versus Capterra and routes each URL to the matching parser. It is not a Shopify App Store listing tool and not an Apple Podcasts review RSS tool — those jobs belong on <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a> and <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a>.</p>
-    <p class="price">from $10.00 / 1,000 results ($0.01 per default-dataset result titled result; Actor Start $0.001)</p>
-    <p><a href="https://apify.com/taroyamada/g2-capterra-review-intelligence">Open G2 &amp; Capterra Review Scraper on Apify</a></p>
+    <p class="price">from $3.00 / 1,000 results ($0.003 per default-dataset result titled result; Actor Start $0.001)</p>
+    <p><a href="https://apify.com/taroyamada/g2-capterra-review-intelligence">Open G2 &amp; Capterra Review Scraper on Apify</a>
+      ·
+      <a href="/guides/g2-reviews-scraper-first-paid-run/">Cheapest first paid run</a></p>
 
     <h2>G2 and Capterra software reviews, not Shopify apps or podcasts</h2>
     <p>Use this page when the job is B2B software reputation on G2 or Capterra: category benchmarks, competitor proof points, and a single schema across both sites. Use <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a> when the source is a merchant listing at <code>apps.shopify.com/{slug}</code>. Use <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> when the source is Apple/iTunes Customer Reviews RSS for podcast collection IDs.</p>
@@ -190,7 +192,7 @@
         </tr>
         <tr>
           <td>Published price</td>
-          <td>from $10.00 / 1,000 results ($0.01 per result; Actor Start $0.001)</td>
+          <td>from $3.00 / 1,000 results ($0.003 per result; Actor Start $0.001)</td>
           <td>$30.00 per 1,000 Shopify app review and pricing reports ($0.03 per app-level report)</td>
           <td>from $3.00 / 1,000 <code>apify-default-dataset-items</code>; $1.50 per review report</td>
         </tr>
@@ -242,8 +244,8 @@
         <tr>
           <td><code>reviewLimit</code></td>
           <td>integer</td>
-          <td>200</td>
-          <td>Max reviews per product page. README documents 1–5000; the published schema does not publish a min/max constraint</td>
+          <td>1</td>
+          <td>Max reviews per product page. Live schema: default 1, prefill 1, minimum 1, maximum 5000. Keep 1 for the cheapest first success.</td>
         </tr>
         <tr>
           <td><code>delivery</code></td>
@@ -266,25 +268,26 @@
       </tbody>
     </table>
     <p>The schema sets <code>additionalProperties</code> to false. Use <code>reviewPageUrls</code>, not unpublished aliases. The published input schema does not include <code>products</code>, <code>source</code>, <code>slug</code>, <code>maxReviewsPerProduct</code>, <code>emitDeltas</code>, <code>appUrls</code>, <code>podcastIds</code>, or <code>countries</code>.</p>
-    <p>Published Store quickstart (matches the schema):</p>
+    <p>Live Store Quickstart (cheapest first paid run):</p>
 <pre><code>{
   "reviewPageUrls": [
-    "https://www.g2.com/products/notion/reviews",
-    "https://www.capterra.com/p/147384/Notion/reviews/"
+    "https://www.g2.com/products/notion/reviews"
   ],
-  "dryRun": false
-}</code></pre>
-    <p>Published input-object example:</p>
-<pre><code>{
-  "reviewPageUrls": [
-    "https://www.g2.com/products/notion/reviews",
-    "https://www.capterra.com/p/147384/Notion/reviews/"
-  ],
-  "reviewLimit": 200,
+  "reviewLimit": 1,
   "delivery": "dataset",
   "dryRun": false
 }</code></pre>
-    <p>Start with 1–5 review URLs and a modest <code>reviewLimit</code> (25–50). Mix G2 and Capterra in one run only after you validate the schema on a small sample. Use <code>dryRun: true</code> for validation-only checks before larger monitoring runs.</p>
+    <p>After that one-URL row is useful, you can mix Capterra:</p>
+<pre><code>{
+  "reviewPageUrls": [
+    "https://www.g2.com/products/notion/reviews",
+    "https://www.capterra.com/p/147384/Notion/reviews/"
+  ],
+  "reviewLimit": 1,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p>The live Store Quickstart is one G2 URL with <code>reviewLimit</code> 1. Mix G2 and Capterra in one run only after you validate the schema on that sample. Use <code>dryRun: true</code> for validation-only checks before larger monitoring runs. For documented PPE math, see <a href="/guides/g2-reviews-scraper-first-paid-run/">G2 reviews scraper: cheapest first paid run</a>.</p>
     <p><a href="https://apify.com/taroyamada/g2-capterra-review-intelligence">Run a G2 or Capterra review-page sample on Apify</a></p>
 
     <h2>Why do Store README input examples use products, source, slug, maxReviewsPerProduct, and emitDeltas?</h2>
@@ -326,19 +329,19 @@
     <p>The Actor emits explicit warnings when page shapes change or access is blocked, rather than silently returning bad data. It degrades gracefully and can return partial results (metadata without reviews) with <code>status</code> <code>ok</code>, <code>partial</code>, <code>blocked</code>, or <code>error</code>. Reviews are extracted from server-rendered HTML; pages that render reviews only via client-side JavaScript may return partial results. G2 and Capterra protect against automated access — blocked requests are reported honestly. HTML parsing is fragile; the Actor emits warnings when expected patterns are missing.</p>
 
     <h2>Can one run mix G2 and Capterra reviewPageUrls after a small-sample schema check?</h2>
-    <p>Yes. Dual-source support accepts both G2 (<code>g2.com/products/*/reviews</code>) and Capterra (<code>capterra.com/p/*/reviews/</code>) URLs in <code>reviewPageUrls</code>. The Actor classifies each URL and routes it to the matching parser. The Store Quickstart starts with a small mixed Notion sample, then says: start with 1–5 review URLs and a modest <code>reviewLimit</code> (25–50); mix G2 and Capterra in one run only after you validate the schema on a small sample; use <code>dryRun: true</code> for validation-only checks before larger monitoring runs.</p>
+    <p>Yes. Dual-source support accepts both G2 (<code>g2.com/products/*/reviews</code>) and Capterra (<code>capterra.com/p/*/reviews/</code>) URLs in <code>reviewPageUrls</code>. The Actor classifies each URL and routes it to the matching parser. The live Store Quickstart is one G2 URL with <code>reviewLimit</code> 1. Mix G2 and Capterra in one run only after you validate the schema on that one-URL sample; use <code>dryRun: true</code> for validation-only checks before larger monitoring runs.</p>
 
     <h2>How is a billed result different from one nested reviews[] item?</h2>
-    <p>The live billed event title is <code>result</code> at <strong>$0.01</strong> for a single result in the default dataset (<code>apify-default-dataset-item</code>). The published README output is a per-product object with nested <code>reviews[]</code>. There is no separate published per-review billing event. README cost control says total cost mainly follows how many <code>reviewPageUrls</code> you process and how deep you sample reviews. Lower <code>reviewLimit</code> for faster exploratory runs.</p>
+    <p>The live billed event title is <code>result</code> at <strong>$0.003</strong> for a single result in the default dataset (<code>apify-default-dataset-item</code>). The published README output is a per-product object with nested <code>reviews[]</code>. There is no separate published per-review billing event. README cost control says total cost mainly follows how many <code>reviewPageUrls</code> you process and how deep you sample reviews. Keep <code>reviewLimit</code> at 1 for the cheapest first success, then raise it.</p>
 
     <h2>How is G2 &amp; Capterra Review Scraper priced on the live Store PPE tab?</h2>
-    <p>Billing is pay-per-event. The live Store card is <strong>from $10.00 / 1,000 results</strong>. Published events are Actor Start at <strong>$0.001</strong> (charged when the Actor starts; number of events depends on Actor memory, one event per GB, minimum one event) and result at <strong>$0.01</strong> (single result in the default dataset). Platform usage is free. You are not charged for Apify platform usage, only the fixed event price.</p>
+    <p>Billing is pay-per-event. The live Store card is <strong>from $3.00 / 1,000 results</strong>. Published events are Actor Start at <strong>$0.001</strong> (charged when the Actor starts; number of events depends on Actor memory, one event per GB, minimum one event) and result at <strong>$0.003</strong> (single result in the default dataset). Platform usage is free. You are not charged for Apify platform usage, only the fixed event price. The Store Quickstart first-paid line is 1 URL / <code>reviewLimit</code> 1 ≈ $0.01 at current PPE. If one Start event and one result row charge, those two events add to $0.004.</p>
     <p>Total cost mainly follows how many <code>reviewPageUrls</code> you process and how deep you sample reviews. Keep batches small while validating source mix. Lower <code>reviewLimit</code> for faster exploratory runs. Use dataset delivery first to inspect <code>blocked</code> or <code>partial</code> results. Check the Store pricing card for the current per-event rates.</p>
-    <p class="price">from $10.00 / 1,000 results ($0.01 per default-dataset result titled result; Actor Start $0.001)</p>
+    <p class="price">from $3.00 / 1,000 results ($0.003 per default-dataset result titled result; Actor Start $0.001)</p>
     <p><a href="https://apify.com/taroyamada/g2-capterra-review-intelligence/pricing">See G2 &amp; Capterra Review Scraper pricing on Apify</a></p>
 
     <h2>How do dataset, webhook, and dryRun bill G2 and Capterra review-page results?</h2>
-    <p><code>delivery</code> defaults to <code>dataset</code>. Set <code>delivery</code> to <code>webhook</code> and provide <code>webhookUrl</code> to POST results. <code>dryRun</code> true validates input and returns scaffold output without fetching live data. The published enum is <code>dataset</code> or <code>webhook</code>. The Store quickstart starts with a small <code>reviewPageUrls</code> sample in dataset mode, mixes G2 and Capterra only after a small-sample schema check, then uses <code>dryRun</code> before larger monitoring runs.</p>
+    <p><code>delivery</code> defaults to <code>dataset</code>. Set <code>delivery</code> to <code>webhook</code> and provide <code>webhookUrl</code> to POST results. <code>dryRun</code> true validates input and returns scaffold output without fetching live data. The published enum is <code>dataset</code> or <code>webhook</code>. The live Store Quickstart starts with one G2 <code>reviewPageUrls</code> item, <code>reviewLimit</code> 1, and dataset delivery, mixes Capterra only after a one-URL schema check, then uses <code>dryRun</code> before larger monitoring runs.</p>
     <p><a href="https://apify.com/taroyamada/g2-capterra-review-intelligence">Open G2 &amp; Capterra Review Scraper on Apify</a></p>
 
     <h2>Does G2 &amp; Capterra Review Scraper accept Shopify slugs, podcastIds, or Apple show URLs?</h2>
@@ -353,11 +356,13 @@
     <h2>How to start a run</h2>
     <ol>
       <li>Open this page, then the Actor on the Apify Store.</li>
-      <li>Pass 1–5 public <code>reviewPageUrls</code> in the published G2 or Capterra review-page formats. Keep <code>reviewLimit</code> modest (25–50) on the first run.</li>
-      <li>Leave <code>delivery</code> on <code>dataset</code>. Mix G2 and Capterra in one run only after the small-sample schema check.</li>
+      <li>Pass one public G2 <code>reviewPageUrls</code> item in the published review-page format. Keep <code>reviewLimit</code> at 1 on the first paid run.</li>
+      <li>Leave <code>delivery</code> on <code>dataset</code>. Mix G2 and Capterra in one run only after the one-URL schema check.</li>
       <li>Use <code>dryRun: true</code> to validate input without fetching live data before a larger monitoring run. Switch to <code>webhook</code> only after the payload shape is useful.</li>
     </ol>
-    <p><a href="https://apify.com/taroyamada/g2-capterra-review-intelligence">Open G2 &amp; Capterra Review Scraper on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/g2-capterra-review-intelligence">Open G2 &amp; Capterra Review Scraper on Apify</a>
+      ·
+      <a href="/guides/g2-reviews-scraper-first-paid-run/">Cheapest first paid run</a></p>
 
     <h2>Related pages</h2>
     <ul>

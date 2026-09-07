@@ -58,7 +58,9 @@
     <h1>Article extractor for news and blog RAG</h1>
     <p>Use this page when the job is ingesting public news and blog article bodies into RAG. <a href="/article-content-extractor/">Article Content Extractor</a> is the existing Store Actor for that cleanup step. It is not a new Actor, not Google News search, and not a full-site crawler. Pass article-shaped HTTP(S) URLs you own or are authorized to fetch.</p>
     <p class="price">Live Store price: <strong>$0.008 per useful article row</strong> (<code>apify-default-dataset-item</code>). Actor Start $0.00005. Leave the $2.50 audit report and $5.00 batch export off unless you need those value events.</p>
-    <p><a href="https://apify.com/taroyamada/article-content-extractor">Open Article Content Extractor on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/article-content-extractor">Open Article Content Extractor on Apify</a>
+      ·
+      <a href="/guides/article-extractor-first-paid-run/">Cheapest first paid run</a></p>
 
     <h2>What RAG gets from each article row</h2>
     <p>The published README field list is <code>rowType</code>, <code>url</code>, <code>headline</code>, <code>author</code>, <code>publishedAt</code>, <code>articleText</code>, <code>excerpt</code>, <code>heroImage</code>, and <code>sourceUrl</code>. Sample <code>rowType</code> is <code>article</code>. Markdown is the default <code>outputFormat</code> and the live schema recommends it for first-run proof and LLM ingestion. Raw article rows remain source context for research, content QA, and RAG ingestion — they are not a Site QA or RAG report.</p>

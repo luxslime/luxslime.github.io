@@ -48,7 +48,7 @@
         "name": "How is each Actor priced?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "All three Actors use pay-per-event billing published on their Store pages. Apple Podcasts Reviews Scraper is $0.003 per delivered apify-default-dataset-item (raw review row) and $1.50 per delivered podcast-review-report. Shopify App Store Review Scraper is $30.00 per 1,000 Shopify app review and pricing reports ($0.03 per delivered app-level report). G2 & Capterra Review Scraper is from $10.00 per 1,000 results ($0.01 per default-dataset result; Actor Start $0.001). Check the live Store pricing cards for current rates. This hub does not invent user counts or ratings."
+          "text": "All three Actors use pay-per-event billing published on their Store pages. Apple Podcasts Reviews Scraper is $0.003 per delivered apify-default-dataset-item (raw review row) and $1.50 per delivered podcast-review-report. Shopify App Store Review Scraper is $30.00 per 1,000 Shopify app review and pricing reports ($0.03 per delivered app-level report). G2 & Capterra Review Scraper is from $3.00 per 1,000 results ($0.003 per default-dataset result; Actor Start $0.001). Check the live Store pricing cards for current rates. This hub does not invent user counts or ratings."
         }
       },
       {
@@ -94,9 +94,9 @@
     <h1>Review Intelligence pack: Apple Podcasts, Shopify App Store, and G2/Capterra reviews</h1>
     <p>Pick the public-review Actor that matches the catalog you already have. This pack is a hub, not a fourth scraper: it links the three review landings on this site and keeps their intents separate. Apple/iTunes podcast reviews, Shopify App Store merchant listings, and G2/Capterra B2B software review pages are different sources, different inputs, and different deliverables.</p>
     <ul>
-      <li><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> — public Apple/iTunes Customer Reviews RSS for known collection IDs. Query intent: <a href="/use-cases/apple-podcast-reviews/">Apple Podcasts reviews scraper</a>.</li>
+      <li><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> — public Apple/iTunes Customer Reviews RSS for known collection IDs. Query intent: <a href="/use-cases/apple-podcast-reviews/">Apple Podcasts reviews scraper</a>. First paid path: one show, one page, report off.</li>
       <li><a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a> — public <code>apps.shopify.com/{slug}</code> listings, ratings, pricing hints, and merchant themes</li>
-      <li><a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a> — public G2 and Capterra product review pages, normalized ratings, pros, and cons. Query intent: <a href="/use-cases/g2-reviews-scraper/">G2 reviews scraper</a>.</li>
+      <li><a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a> — public G2 and Capterra product review pages, normalized ratings, pros, and cons. Query intent: <a href="/use-cases/g2-reviews-scraper/">G2 reviews scraper</a>. First paid run: <a href="/guides/g2-reviews-scraper-first-paid-run/">cheapest first paid G2 run</a>.</li>
     </ul>
     <p>
       <a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor">Open Apple Podcasts Reviews Scraper on Apify</a>
@@ -152,7 +152,7 @@
           <td>Published price</td>
           <td>$0.003 per raw review row; $1.50 per review report</td>
           <td>$30.00 per 1,000 Shopify app review and pricing reports ($0.03 per app-level report)</td>
-          <td>From $10.00 per 1,000 results ($0.01 per result; Actor Start $0.001)</td>
+          <td>From $3.00 per 1,000 results ($0.003 per result; Actor Start $0.001)</td>
         </tr>
       </tbody>
     </table>
@@ -193,7 +193,7 @@
     <p><a href="https://apify.com/taroyamada/shopify-app-store-review-intelligence">Run Shopify App Store Review Scraper on Apify</a></p>
 
     <h2>G2 and Capterra B2B software reviews</h2>
-    <p><a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a> reads public G2 and Capterra product review pages. Required input is <code>reviewPageUrls</code> in the published formats <code>g2.com/products/{slug}/reviews</code> and <code>capterra.com/p/{id}/{slug}/reviews/</code>. It auto-detects source and normalizes product metadata, ratings, and review rows with pros and cons. Optional published fields are <code>reviewLimit</code> (default 200), <code>delivery</code>, <code>webhookUrl</code>, and <code>dryRun</code>. The published input schema does not include <code>products</code>, <code>source</code>, <code>slug</code>, <code>maxReviewsPerProduct</code>, or <code>emitDeltas</code>. For the G2 reviews scraper query intent, see <a href="/use-cases/g2-reviews-scraper/">G2 reviews scraper</a>.</p>
+    <p><a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a> reads public G2 and Capterra product review pages. Required input is <code>reviewPageUrls</code> in the published formats <code>g2.com/products/{slug}/reviews</code> and <code>capterra.com/p/{id}/{slug}/reviews/</code>. It auto-detects source and normalizes product metadata, ratings, and review rows with pros and cons. Optional published fields are <code>reviewLimit</code> (default 1, minimum 1, maximum 5000), <code>delivery</code>, <code>webhookUrl</code>, and <code>dryRun</code>. The published input schema does not include <code>products</code>, <code>source</code>, <code>slug</code>, <code>maxReviewsPerProduct</code>, or <code>emitDeltas</code>. For the G2 reviews scraper query intent, see <a href="/use-cases/g2-reviews-scraper/">G2 reviews scraper</a>. For the cheapest first paid path, see <a href="/guides/g2-reviews-scraper-first-paid-run/">G2 reviews scraper: cheapest first paid run</a>.</p>
 <pre><code>{
   "reviewPageUrls": [
     "https://www.g2.com/products/notion/reviews",
@@ -219,8 +219,8 @@
     <p>Apple Podcasts Reviews Scraper delivers <code>podcast_review</code> rows (rating, title, content, storefront, <code>sourceUrl</code>) or one <code>podcast_review_report</code> when <code>generateReport</code> is true, and can emit only new or changed reviews in <code>monitor</code> mode. Shopify App Store Review Scraper delivers one app-level report per listing: listing metadata, rating summary, pricing hints, Shopify listing AI review summary, sampled merchant reviews, and keyword theme rollups. G2 &amp; Capterra Review Scraper delivers a per-product row with <code>source</code> (<code>g2</code> or <code>capterra</code>), <code>productName</code>, <code>overallRating</code>, <code>totalReviewCount</code>, <code>ratingBreakdown</code>, <code>reviews[]</code> (title, rating, date, author, body, pros, cons, verified), and <code>status</code>.</p>
 
     <h2>How is each Actor priced?</h2>
-    <p>All three Actors use pay-per-event billing published on their Store pages. Apple Podcasts Reviews Scraper is <strong>$0.003</strong> per delivered <code>apify-default-dataset-item</code> (raw review row) and <strong>$1.50</strong> per delivered <code>podcast-review-report</code>. Shopify App Store Review Scraper is <strong>$30.00</strong> per 1,000 Shopify app review and pricing reports (<strong>$0.03</strong> per delivered app-level report). G2 &amp; Capterra Review Scraper is <strong>from $10.00</strong> per 1,000 results (<strong>$0.01</strong> per default-dataset result; Actor Start <strong>$0.001</strong>). Check the live Store pricing cards for current rates. This hub does not invent user counts or ratings.</p>
-    <p class="price">Apple Podcasts reviews: from $0.003 per raw review row; $1.50 per review report. Shopify App Store: $30.00 per 1,000 app review and pricing reports. G2 &amp; Capterra: from $10.00 per 1,000 results.</p>
+    <p>All three Actors use pay-per-event billing published on their Store pages. Apple Podcasts Reviews Scraper is <strong>$0.003</strong> per delivered <code>apify-default-dataset-item</code> (raw review row) and <strong>$1.50</strong> per delivered <code>podcast-review-report</code>. Shopify App Store Review Scraper is <strong>$30.00</strong> per 1,000 Shopify app review and pricing reports (<strong>$0.03</strong> per delivered app-level report). G2 &amp; Capterra Review Scraper is <strong>from $3.00</strong> per 1,000 results (<strong>$0.003</strong> per default-dataset result; Actor Start <strong>$0.001</strong>). Check the live Store pricing cards for current rates. This hub does not invent user counts or ratings.</p>
+    <p class="price">Apple Podcasts reviews: from $0.003 per raw review row; $1.50 per review report. Shopify App Store: $30.00 per 1,000 app review and pricing reports. G2 &amp; Capterra: from $3.00 per 1,000 results.</p>
     <p>
       <a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor">See Apple Podcasts Reviews Scraper on Apify</a>
       ·
@@ -233,7 +233,7 @@
     <p>Yes. This site publishes a <a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a> landing. Use that Actor for public G2 (<code>g2.com/products/{slug}/reviews</code>) and Capterra (<code>capterra.com/p/{id}/{slug}/reviews/</code>) review pages. It is not a Shopify App Store listing tool and not an Apple Podcasts review RSS tool.</p>
 
     <h2>How do I start a run?</h2>
-    <p>Match the source, open the landing, then use that page’s Store CTA. For Apple/iTunes podcast reviews, pass <code>podcastIds</code> and <code>countries</code> on <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a>. For Shopify App Store merchant listings, pass <code>appUrls</code> on <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a>. For G2 or Capterra product reviews, pass <code>reviewPageUrls</code> on <a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a>. Keep the first run small. All three Actors support dataset delivery by default, optional webhook delivery, and <code>dryRun</code>.</p>
+    <p>Match the source, open the landing, then use that page’s Store CTA. For Apple/iTunes podcast reviews, pass <code>podcastIds</code> and <code>countries</code> on <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> (first paid: one ID, <code>maxPagesPerPair</code> 1, <code>generateReport</code> false). For Shopify App Store merchant listings, pass <code>appUrls</code> on <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a>. For G2 or Capterra product reviews, pass <code>reviewPageUrls</code> on <a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a> (first paid: one G2 URL, <code>reviewLimit</code> 1 — see <a href="/guides/g2-reviews-scraper-first-paid-run/">cheapest first paid run</a>). Keep the first run small. All three Actors support dataset delivery by default, optional webhook delivery, and <code>dryRun</code>.</p>
     <p>
       <a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor">Open Apple Podcasts Reviews Scraper on Apify</a>
       ·
