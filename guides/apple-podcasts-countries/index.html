@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Apple Podcasts charts and iTunes Search by country</title>
-  <meta name="description" content="Run Apple Podcasts charts for multiple storefronts and iTunes Search one country at a time. ISO codes such as us, gb, jp. From $10 per 1,000 results.">
+  <meta name="description" content="Run Apple Podcasts charts for multiple storefronts and iTunes Search one country at a time. ISO codes such as us, gb, jp. From $2.50 per 1,000 results.">
   <link rel="canonical" href="https://apify.momiji-space.com/guides/apple-podcasts-countries/">
   <script type="application/ld+json">
   {
@@ -72,7 +72,7 @@
         "name": "How is a multi-country chartRequests run priced?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Billing is pay-per-event. The live Store card is from $10.00 / 1,000 results. Published events are Actor Start at $0.005 and result at $0.01 per default-dataset item ($10.00 per 1,000). Each saved chart row is a result event."
+          "text": "Billing is pay-per-event. The live Store card is from $2.50 / 1,000 results. Published events are Actor Start at $0.005 and result at $0.0025 per default-dataset item ($2.50 per 1,000). Each saved chart row is a result event."
         }
       },
       {
@@ -117,7 +117,7 @@
     <nav><a href="/">Home</a> / Guides / Apple Podcasts countries</nav>
     <h1>Apple Podcasts charts and search by country</h1>
     <p>Apple Podcasts rankings and search results are storefront-specific. A US chart is not a GB or JP chart, and the same keyword can return a different set of shows. <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> passes ISO country codes through official Apple/iTunes endpoints. No proxy is required. <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> also takes storefront codes, as a <code>countries</code> list for Top Podcasts ranks.</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Open Apple Podcasts Scraper on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Open Apple Podcasts Scraper on Apify</a></p>
 
     <h2>One default country versus a chart array</h2>
     <p>Use this guide when the job is picking storefronts on Apple Podcasts Scraper. Reviews Scraper also takes a <code>countries</code> list (at most 10) for review RSS — that is ratings, not search. Chart Scraper’s <code>countries</code> list is Top Podcasts ranks, not keyword search.</p>
@@ -171,14 +171,14 @@
   "includeEpisodes": false
 }</code></pre>
     <p>Each chart row can include <code>rank</code>, <code>country</code>, show identifiers, and <code>sourceUrl</code>. Compare rows by <code>country</code>; do not treat ranks from different storefronts as one list. This is a snapshot: the Actor does not compute rank movement between runs. For joining snapshots over time, see <a href="/use-cases/podcast-market-tracking/">chart tracking over time</a>.</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Run a multi-country chart request on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Run a multi-country chart request on Apify</a></p>
 
     <h2>Search one storefront at a time</h2>
     <p>Keyword discovery uses <code>searchTerm</code> plus the default <code>country</code>. There is no country array on search. To compare markets, run once per storefront (or schedule separate runs) and keep <code>country</code> on the output rows.</p>
 <pre><code>{
-  "searchTerm": "founder podcast",
+  "searchTerm": "technology",
   "country": "jp",
-  "limit": 10,
+  "limit": 3,
   "includeEpisodes": false
 }</code></pre>
     <p>Watchlist refreshes work the same way: <code>lookupIds</code> plus one default <code>country</code>. After you have collection IDs from search or charts, pass them into a <a href="/guides/apple-podcasts-watchlists/">iTunes Lookup watchlist refresh</a>.</p>
@@ -205,7 +205,7 @@
     <p>No. Reviews Scraper <code>countries</code> is a list for Customer Reviews RSS (at most 10). Apple Podcasts Scraper <code>searchTerm</code> still takes one default country string. Do not treat those inputs as interchangeable.</p>
 
     <h2>How is a multi-country chartRequests run priced?</h2>
-    <p>Billing is pay-per-event. The live Store card is from $10.00 / 1,000 results. Published events are Actor Start at $0.005 and result at $0.01 per default-dataset item ($10.00 per 1,000). Each saved chart row is a result event.</p>
+    <p>Billing is pay-per-event. The live Store card is from $2.50 / 1,000 results. Published events are Actor Start at $0.005 and result at $0.0025 per default-dataset item ($2.50 per 1,000). Each saved chart row is a result event.</p>
 
     <h2>Do chart ranks mean the same thing in us and jp?</h2>
     <p>No. Rankings differ by storefront. A US chart is not a GB or JP chart. Compare rows by the <code>country</code> field instead of mixing ranks into one list.</p>
@@ -220,13 +220,14 @@
       <li>Leave <code>includeEpisodes</code> false unless recent episode context is required. See the <a href="/guides/apple-podcasts-episodes/">episode metadata export workflow</a>.</li>
       <li>Deliver to the default dataset. Switch <code>delivery</code> to <code>webhook</code> only after the payload shape is approved. Set <code>dryRun</code> true to test without saving results or sending webhooks.</li>
     </ol>
-    <p>Billing is pay-per-event: Actor start plus one result event per default-dataset item. The published Store price is $0.005 per Actor start and $10.00 per 1,000 dataset results ($0.01 per row).</p>
-    <p class="price">From $10 per 1,000 results</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Open Apple Podcasts Scraper on Apify</a></p>
+    <p>Billing is pay-per-event: Actor start plus one result event per default-dataset item. The published Store price is $0.005 per Actor start and $2.50 per 1,000 dataset results ($0.0025 per row).</p>
+    <p class="price">From $2.50 per 1,000 results</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Open Apple Podcasts Scraper on Apify</a></p>
 
     <h2>Related guides</h2>
     <ul>
       <li><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> — iTunes search, episodes, and watchlists</li>
+      <li><a href="/guides/itunes-podcast-scraper-first-run/">iTunes podcast scraper: cheapest Apple Podcasts first paid run</a></li>
       <li><a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a></li>
       <li><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a></li>
       <li><a href="/guides/apple-podcasts-charts/">How to get Apple Podcasts chart metadata from Apple/iTunes endpoints</a></li>

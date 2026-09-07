@@ -141,6 +141,7 @@
     th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
     th { background: #f3f3f3; font-weight: 600; color: #202223; }
     tr:last-child td { border-bottom: 0; }
+    img.sample { max-width: 100%; height: auto; display: block; margin: 0 0 16px; border: 1px solid #d9dde5; background: #fff; }
     .price { color: #202223; }
   </style>
 </head>
@@ -150,7 +151,9 @@
     <h1>Snapshot Apple Podcasts Top Podcasts ranks and emit source-linked movement reports</h1>
     <p>Snapshot public Apple Podcasts Top Podcasts charts by storefront, then optionally emit one source-linked movement report when a saved monitor sees new, changed, or dropped ranks. This Actor reads public Apple Podcasts/iTunes chart JSON. It is not a keyword search, episode catalog, or collection-ID watchlist tool — that work belongs on <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a>. It is not a review collector — that job belongs on <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a>.</p>
     <p class="price">From $3.00 / 1,000 apify-default-dataset-items ($0.003 per raw row; $2.50 per movement report)</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-chart-tracker">Open Apple Podcasts Chart Scraper on Apify</a></p>
+    <p>Cheapest useful first paid snapshot: <code>countries: ["us"]</code>, <code>limit</code> 3, movement report off. If 3 raw rows write, 3 × $0.003 = $0.009. Keep the $2.50 movement report off until a saved monitor needs it. For keyword search, episodes, or watchlists, start on <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> instead.</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-chart-tracker/input">Try this cheapest chart snapshot on Apify Input</a></p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-chart-tracker">Open taroyamada/apple-podcast-chart-tracker on the Apify Store</a></p>
 
     <h2>Charts versus show and episode scrape</h2>
     <p>Use this page when the job is storefront rank: who is on a Top Podcasts chart, at what position, and whether that position moved since the last poll. Use <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> when the job is finding shows by keyword, refreshing known collection IDs, or attaching recent episode titles. Use <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> for public ratings and review text on IDs you already have.</p>
@@ -210,13 +213,14 @@
     <p>For keyword discovery and collection-ID refresh, go to <a href="/use-cases/podcast-outreach/">Shortlist podcasts for outreach</a>. For joining scraper chart snapshots yourself, see <a href="/use-cases/podcast-market-tracking/">Track Apple Podcasts charts over time</a>.</p>
 
     <h2>Raw chart snapshot</h2>
-    <p>The default path delivers source-linked <code>chart_rank</code> rows. Start with one country and a small <code>limit</code>.</p>
+    <p>The default path delivers source-linked <code>chart_rank</code> rows. Start with one country and <code>limit</code> 3. Leave <code>generateMovementReport</code> off on the first paid run.</p>
 <pre><code>{
   "countries": ["us"],
-  "limit": 25,
+  "limit": 3,
   "delivery": "dataset",
   "dryRun": false
 }</code></pre>
+    <p><img class="sample" src="/assets/apple-podcast-chart-input.json.svg" width="720" height="204" alt="Apple Podcasts Chart Scraper Input JSON: countries us, limit 3, delivery dataset, dryRun false"></p>
     <p>Published raw fields: <code>actorName</code>, <code>rowType</code>, <code>billingEventName</code>, <code>country</code>, <code>rank</code>, <code>showId</code>, <code>showName</code>, <code>artistName</code>, <code>sourceUrl</code>, <code>fetchedAt</code>, plus legacy aliases <code>name</code>, <code>artist</code>, and <code>collectionId</code>. There is no separate output schema on the Store page. README sample (placeholder show data):</p>
 <pre><code>{
   "actorName": "apple-podcast-chart-tracker",
@@ -234,7 +238,7 @@
   "artist": "Example Network"
 }</code></pre>
     <p><code>countries</code> accepts at most 20 unique two-letter codes. Each country is fetched with a timeout and bounded retry. <code>limit</code> is capped at 200. <code>genreId</code> is optional (empty = overall chart; <code>1321</code> is the published News example).</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-chart-tracker">Run a chart snapshot on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-chart-tracker/input">Run this us + limit 3 chart snapshot on Apify Input</a></p>
 
     <h2>Movement monitor</h2>
     <p>For recurring rank movement, set a stable <code>monitorKey</code> and <code>generateMovementReport</code> to true. The first <code>baseline_only</code> run stores state without dataset rows or charges.</p>
@@ -406,6 +410,7 @@
     <ul>
       <li><a href="/use-cases/apple-podcast-chart/">Apple Podcasts chart scraper</a> — query-intent page for country rank and movement</li>
       <li><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> — iTunes search, episodes, and watchlists</li>
+      <li><a href="/guides/itunes-podcast-scraper-first-run/">iTunes podcast scraper: cheapest Apple Podcasts first paid run</a></li>
       <li><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> — ratings and review monitoring</li>
       <li><a href="/use-cases/apple-podcast-reviews/">Apple Podcasts reviews scraper</a></li>
       <li><a href="/guides/apple-podcasts-charts/">How to get Apple Podcasts chart metadata from Apple/iTunes endpoints</a> — scraper <code>chartRequests</code> snapshots</li>

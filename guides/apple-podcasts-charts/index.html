@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>How to get Apple Podcasts chart metadata from Apple/iTunes endpoints</title>
-  <meta name="description" content="Pull Apple Podcasts chart rankings by country from official Apple/iTunes endpoints. Snapshot show and episode ranks. From $10 per 1,000 results.">
+  <meta name="description" content="Pull Apple Podcasts chart rankings by country from official Apple/iTunes endpoints. Snapshot show and episode ranks. From $2.50 per 1,000 results.">
   <link rel="canonical" href="https://apify.momiji-space.com/guides/apple-podcasts-charts/">
   <script type="application/ld+json">
   {
@@ -80,7 +80,7 @@
         "name": "How is a chartRequests run priced?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Billing is pay-per-event. The live Store card is from $10.00 / 1,000 results. Published events are Actor Start at $0.005 and result at $0.01 per default-dataset item ($10.00 per 1,000)."
+          "text": "Billing is pay-per-event. The live Store card is from $2.50 / 1,000 results. Published events are Actor Start at $0.005 and result at $0.0025 per default-dataset item ($2.50 per 1,000)."
         }
       },
       {
@@ -117,7 +117,7 @@
     <nav><a href="/">Home</a> / Guides / Apple Podcasts charts</nav>
     <h1>How to get Apple Podcasts chart metadata</h1>
     <p>Apple publishes country-specific rankings for podcast shows and podcast episodes. <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> reads those rankings through official Apple/iTunes endpoints. No proxy is required. This is a chart snapshot: each row can include a <code>rank</code>, show identifiers, and a source URL. It does not compute rank movement between runs. For Top Podcasts movement reports, use <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a>.</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Open Apple Podcasts Scraper on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Open Apple Podcasts Scraper on Apify</a></p>
 
     <h2>chartRequests snapshot versus Chart Scraper</h2>
     <p>Use this guide when the job is a <code>chartRequests</code> snapshot on Apple Podcasts Scraper (optionally next to search or watchlists). Use Chart Scraper when the job is storefront Top Podcasts ranks and optional movement. Use <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> for public ratings, not ranks.</p>
@@ -174,7 +174,7 @@
   "includeEpisodes": false
 }</code></pre>
     <p>Keep the first run small, then raise <code>limit</code> after the output is useful. Rankings differ by storefront: a US chart is not a GB or JP chart. See <a href="/guides/apple-podcasts-countries/">charts and search by country</a>.</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Run a chart request on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Run a chart request on Apify</a></p>
 
     <h2>How is chartRequests different from Apple Podcasts Chart Scraper?</h2>
     <p>Apple Podcasts Scraper <code>chartRequests</code> is a rank snapshot on the search, episode, and watchlist actor. It does not emit movement reports. <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> is storefront Top Podcasts rankings only: raw <code>chart_rank</code> rows, or one movement report when a saved monitor sees new, changed, or dropped positions. Chart Scraper does not search by keyword, look up collection IDs, or attach episode catalogs.</p>
@@ -201,7 +201,7 @@
     <p>No. <code>rank</code> is the position on that chart request. <code>includeEpisodes</code> attaches recent episode context and slows the run. Leave it false unless episode context is required.</p>
 
     <h2>How is a chartRequests run priced?</h2>
-    <p>Billing is pay-per-event. The live Store card is from $10.00 / 1,000 results. Published events are Actor Start at $0.005 and result at $0.01 per default-dataset item ($10.00 per 1,000).</p>
+    <p>Billing is pay-per-event. The live Store card is from $2.50 / 1,000 results. Published events are Actor Start at $0.005 and result at $0.0025 per default-dataset item ($2.50 per 1,000).</p>
 
     <h2>When should I use Reviews Scraper instead of a chart snapshot?</h2>
     <p>Use <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> for public ratings and review text on collection IDs you already have. A <code>chartRequests</code> snapshot is ranks, not review rows. Get collection IDs from the chart or search first, then pass them as <code>podcastIds</code>.</p>
@@ -213,13 +213,14 @@
       <li>Leave <code>includeEpisodes</code> false unless you need recent episodes.</li>
       <li>Deliver to the default dataset. Switch <code>delivery</code> to <code>webhook</code> only after the payload shape is approved. Set <code>dryRun</code> true to test without saving results or sending webhooks.</li>
     </ol>
-    <p>Billing is pay-per-event: Actor start plus one result event per default-dataset item. The published Store price is $0.005 per Actor start and $10.00 per 1,000 dataset results ($0.01 per row).</p>
-    <p class="price">From $10 per 1,000 results</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Open Apple Podcasts Scraper on Apify</a></p>
+    <p>Billing is pay-per-event: Actor start plus one result event per default-dataset item. The published Store price is $0.005 per Actor start and $2.50 per 1,000 dataset results ($0.0025 per row).</p>
+    <p class="price">From $2.50 per 1,000 results</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Open Apple Podcasts Scraper on Apify</a></p>
 
     <h2>Related guides</h2>
     <ul>
       <li><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> — iTunes search, episodes, and watchlists</li>
+      <li><a href="/guides/itunes-podcast-scraper-first-run/">iTunes podcast scraper: cheapest Apple Podcasts first paid run</a></li>
       <li><a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> — dedicated ranks and movement reports</li>
       <li><a href="/use-cases/apple-podcast-chart/">Apple Podcasts chart scraper</a></li>
       <li><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> — ratings and review monitoring</li>

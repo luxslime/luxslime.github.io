@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Apple Podcasts / iTunes Scraper — keyword search, chart snapshots, episodes, and watchlists</title>
-  <meta name="description" content="Search Apple Podcasts with the iTunes Search API, snapshot chart rankings, list recent episodes, and refresh collection-ID watchlists via the iTunes Lookup API. Official Apple/iTunes endpoints. No proxy required. From $10.00 / 1,000 results.">
+  <meta name="description" content="Search Apple Podcasts / iTunes: keyword search, chart snapshots, episodes, and watchlists. Official Apple/iTunes endpoints. Try Input: search + limit 3 ≈ $0.0125 total (incl. Start $0.005). From $2.50 / 1,000 results.">
   <link rel="canonical" href="https://apify.momiji-space.com/apple-podcasts-scraper/">
   <script type="application/ld+json">
   {
@@ -24,7 +24,7 @@
         "name": "What input is required to start a run?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "The published input schema has no required array. Runtime and schema description still require at least one of searchTerm, chartRequests, or lookupIds. searchTerm uses the iTunes Search API. chartRequests snapshot Apple rankings (feedType podcasts or podcast-episodes). lookupIds resolve known collection IDs through the iTunes Lookup API. country defaults to us. limit is 1–200 (default 50). Keep the first run small, then raise limit after the output is useful."
+          "text": "The published input schema has no required array. Runtime and schema description still require at least one of searchTerm, chartRequests, or lookupIds. searchTerm uses the iTunes Search API. chartRequests snapshot Apple rankings (feedType podcasts or podcast-episodes). lookupIds resolve known collection IDs through the iTunes Lookup API. country defaults to us. limit is 1–200 (default 50, Store prefill 3). The cheapest useful first paid run is searchTerm plus limit 3 with includeEpisodes false."
         }
       },
       {
@@ -56,7 +56,7 @@
         "name": "How is Apple Podcasts Scraper priced?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Billing is pay-per-event. The live Store card is from $10.00 / 1,000 results. Published events are Actor Start at $0.005 (charged when the Actor starts; number of events charged depends on Actor memory, one event per GB, minimum one event) and result at $0.01 (single result in the default dataset). You are not charged for Apify platform usage, only the fixed event price. Empty no-change watchlist polls are described as avoiding payable default-dataset writes when nothing is saved. Dry runs do not save results or send webhooks. The default dataset is the billable surface."
+          "text": "Billing is pay-per-event. The live Store card is from $2.50 / 1,000 results. Published events are Actor Start at $0.005 (charged when the Actor starts; number of events charged depends on Actor memory, one event per GB, minimum one event) and result at $0.0025 (single result in the default dataset). You are not charged for Apify platform usage, only the fixed event price. The cheapest useful first paid run is searchTerm plus limit 3 with includeEpisodes false: if that run writes 3 result rows and charges one Actor Start event, the estimate is $0.005 + (3 × $0.0025) = $0.0125. Empty no-change watchlist polls are described as avoiding payable default-dataset writes when nothing is saved. Dry runs do not save results or send webhooks. The default dataset is the billable surface."
         }
       },
       {
@@ -104,7 +104,7 @@
         "name": "What happens on an empty or no-change watchlist poll?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Empty no-change watchlist polls are described as avoiding payable default-dataset writes when nothing is saved. Result events are charged per default-dataset item ($0.01 each; $10.00 per 1,000). Actor Start is a separate $0.005 event charged when the Actor starts (one event per GB, minimum one event). Dry runs do not save results or send webhooks."
+          "text": "Empty no-change watchlist polls are described as avoiding payable default-dataset writes when nothing is saved. Result events are charged per default-dataset item ($0.0025 each; $2.50 per 1,000). Actor Start is a separate $0.005 event charged when the Actor starts (one event per GB, minimum one event). Dry runs do not save results or send webhooks."
         }
       },
       {
@@ -141,6 +141,7 @@
     th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
     th { background: #f3f3f3; font-weight: 600; color: #202223; }
     tr:last-child td { border-bottom: 0; }
+    img.sample { max-width: 100%; height: auto; display: block; margin: 0 0 16px; border: 1px solid #d9dde5; background: #fff; }
     .price { color: #202223; }
   </style>
 </head>
@@ -150,8 +151,9 @@
     <h1>Search Apple Podcasts, snapshot official charts, and refresh collection-ID watchlists</h1>
     <p>The Actor title is Apple Podcasts Scraper: Search, Charts, Episodes &amp; Watchlists. The live Store SEO name is Apple Podcasts / iTunes Scraper: Search, Charts, Episodes. Search uses the official iTunes Search API; collection-ID lookup uses the official iTunes Lookup API.</p>
     <p>Find public Apple Podcasts shows by keyword, snapshot a <code>chartRequests</code> ranking, attach recent episode titles, and refresh known collection IDs. This Actor uses official Apple/iTunes endpoints. No proxy is required. It is not a storefront movement monitor or a review collector — those jobs belong on <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> and <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a>.</p>
-    <p class="price">From $10.00 / 1,000 results ($0.01 per result; Actor Start $0.005)</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Open Apple Podcasts Scraper on Apify</a></p>
+    <p class="price">Try Input: search + limit 3 ≈ $0.0125 total (incl. Start $0.005). From $2.50/1k. No API key. CSV/JSON.</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Try the cheapest first paid Apple Podcasts / iTunes search on Apify Input</a></p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Open taroyamada/apple-podcast-scraper on the Apify Store</a></p>
 
     <h2>Search versus charts and reviews</h2>
     <p>Use this page when the job is finding shows by keyword, snapshotting a <code>chartRequests</code> ranking, refreshing known collection IDs, or attaching recent episode titles. Use <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> for Top Podcasts ranks and optional movement reports. Use <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> for public ratings and review text on IDs you already have.</p>
@@ -205,13 +207,14 @@
     <p>For keyword discovery and collection-ID refresh, go to <a href="/use-cases/podcast-outreach/">Shortlist podcasts for outreach</a>. For joining scraper chart snapshots yourself, see <a href="/use-cases/podcast-market-tracking/">Track Apple Podcasts charts over time</a>. For a source-linked movement report, use <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a>.</p>
 
     <h2>Search quickstart</h2>
-    <p>Keyword search is the lowest-friction first run. Set <code>searchTerm</code>. At least one of <code>searchTerm</code>, <code>chartRequests</code>, or <code>lookupIds</code> is required. <code>country</code> is the ISO storefront for the search (default <code>us</code>). <code>limit</code> is the maximum number of podcasts returned (1–200; default 50). Keep the first run small.</p>
+    <p>Keyword search is the lowest-friction first paid run. Set <code>searchTerm</code>. At least one of <code>searchTerm</code>, <code>chartRequests</code>, or <code>lookupIds</code> is required. <code>country</code> is the ISO storefront for the search (default <code>us</code>). <code>limit</code> is the maximum number of podcasts returned (1–200; schema default 50, Store prefill 3). Keep the first run at <code>limit</code> 3. Leave <code>chartRequests</code> empty and <code>includeEpisodes</code> false until search output is useful. Full cheapest-run math: <a href="/guides/itunes-podcast-scraper-first-run/">iTunes podcast scraper: cheapest Apple Podcasts first paid run</a>.</p>
 <pre><code>{
-  "searchTerm": "founder podcast",
+  "searchTerm": "technology",
   "country": "us",
-  "limit": 10,
+  "limit": 3,
   "includeEpisodes": false
 }</code></pre>
+    <p><img class="sample" src="/assets/apple-podcasts-input.json.svg" width="720" height="88" alt="Apple Podcasts / iTunes Scraper Input JSON: searchTerm technology, country us, limit 3, includeEpisodes false"></p>
     <p>Sample <code>rowType</code> is <code>podcast_search_result</code>. Published fields include <code>collectionId</code>, <code>showName</code>, <code>publisher</code>, <code>country</code>, <code>sourceUrl</code>, and <code>fetchedAt</code>. <code>rank</code> is null on search rows. README discovery-row example (placeholder show data):</p>
 <pre><code>{
   "meta": {
@@ -237,7 +240,8 @@
   "warnings": []
 }</code></pre>
     <p>This Actor does not document genre filters, review text, contact emails, or pagination beyond <code>limit</code>. After a search run, pass collection IDs into a <a href="/guides/apple-podcasts-watchlists/">iTunes Lookup watchlist refresh</a>. See <a href="/guides/apple-podcasts-search/">Apple Podcasts search discovery (iTunes Search API)</a>.</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Run a search on Apify</a></p>
+    <p>If that first run writes 3 result rows and charges one Actor Start event, the estimate is $0.005 + (3 × $0.0025) = $0.0125. Then add <code>chartRequests</code> for Apple Podcasts / iTunes charts, or set <code>includeEpisodes</code> true for recent episode titles.</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Run this search + limit 3 input on Apify</a></p>
 
     <h2>Chart snapshot</h2>
     <p>Use <code>chartRequests</code> for official Apple rankings. Each item can set <code>country</code>, <code>feedType</code>, and <code>limit</code>. Supported <code>feedType</code> values are <code>podcasts</code> and <code>podcast-episodes</code>. If an item omits <code>limit</code>, the top-level <code>limit</code> applies. Per-item <code>country</code> overrides the default storefront.</p>
@@ -331,8 +335,8 @@
         </tr>
       </tbody>
     </table>
-    <p>Do not send unpublished aliases such as an RSS feed URL field, <code>genreId</code>, <code>maxEpisodesPerShow</code>, or <code>webhook</code> as a <code>delivery</code> value. Keep the first run small, then raise <code>limit</code> after the output is useful.</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Start a run on Apify</a></p>
+    <p>Do not send unpublished aliases such as an RSS feed URL field, <code>genreId</code>, <code>maxEpisodesPerShow</code>, or <code>webhook</code> as a <code>delivery</code> value. Keep the first run at <code>limit</code> 3, then raise <code>limit</code> after the output is useful.</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Start a run on Apify Input</a></p>
 
     <h2>What does a result row contain?</h2>
     <p>Output is source-linked dataset rows. The published README field list is <code>rowType</code>, <code>collectionId</code>, <code>showName</code>, <code>publisher</code>, <code>country</code>, <code>rank</code>, <code>episodeTitle</code>, <code>sourceUrl</code>, and <code>fetchedAt</code>. Sample search <code>rowType</code> is <code>podcast_search_result</code>. <code>rank</code> is null on search rows. Rows also include warnings when a source is partial, and stable IDs when the workflow supports recurring checks. There is no separate output schema on the Store page. See <a href="/guides/apple-podcasts-dataset-fields/">Apple Podcasts dataset fields</a>.</p>
@@ -346,8 +350,8 @@
     <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Run a country-specific request on Apify</a></p>
 
     <h2>How is Apple Podcasts Scraper priced?</h2>
-    <p>Billing is pay-per-event. The live Store card is <strong>from $10.00 / 1,000 results</strong>. Published events are Actor Start at <strong>$0.005</strong> (charged when the Actor starts; number of events charged depends on Actor memory, one event per GB, minimum one event) and result at <strong>$0.01</strong> (single result in the default dataset). You are not charged for Apify platform usage, only the fixed event price. Empty no-change watchlist polls are described as avoiding payable default-dataset writes when nothing is saved. Dry runs do not save results or send webhooks. The default dataset is the billable surface.</p>
-    <p class="price">From $10.00 / 1,000 results ($0.01 per result; Actor Start $0.005)</p>
+    <p>Billing is pay-per-event. The live Store card is <strong>from $2.50 / 1,000 results</strong>. Published events are Actor Start at <strong>$0.005</strong> (charged when the Actor starts; number of events charged depends on Actor memory, one event per GB, minimum one event) and result at <strong>$0.0025</strong> (single result in the default dataset). You are not charged for Apify platform usage, only the fixed event price. The cheapest useful first paid run is search + <code>limit</code> 3 with <code>includeEpisodes</code> false: if 3 result rows and one Actor Start event charge, the estimate is $0.005 + (3 × $0.0025) = $0.0125. Empty no-change watchlist polls are described as avoiding payable default-dataset writes when nothing is saved. Dry runs do not save results or send webhooks. The default dataset is the billable surface.</p>
+    <p class="price">Try Input: search + limit 3 ≈ $0.0125 total (incl. Start $0.005). From $2.50/1k.</p>
     <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/pricing">See Apple Podcasts Scraper pricing on Apify</a></p>
 
     <h2>How does Apple Podcasts Scraper deliver dataset, webhook, and dry-run output?</h2>
@@ -369,7 +373,7 @@
     <p>No. <code>includeEpisodes</code> fetches recent episode context for each resolved podcast and is slower. The published input does not expose a per-show episode count, a date window, or a full-catalog dump. For official episode rankings, use <code>chartRequests</code> with <code>feedType</code> <code>podcast-episodes</code>. For a known show’s complete published history, read public RSS. See the <a href="/guides/apple-podcasts-episodes/">episode metadata export workflow</a>.</p>
 
     <h2>What happens on an empty or no-change watchlist poll?</h2>
-    <p>Empty no-change watchlist polls are described as avoiding payable default-dataset writes when nothing is saved. Result events are charged per default-dataset item ($0.01 each; $10.00 per 1,000). Actor Start is a separate $0.005 event charged when the Actor starts (one event per GB, minimum one event). Dry runs do not save results or send webhooks. See <a href="/guides/apple-podcasts-watchlists/">iTunes Lookup watchlist refresh</a>.</p>
+    <p>Empty no-change watchlist polls are described as avoiding payable default-dataset writes when nothing is saved. Result events are charged per default-dataset item ($0.0025 each; $2.50 per 1,000). Actor Start is a separate $0.005 event charged when the Actor starts (one event per GB, minimum one event). Dry runs do not save results or send webhooks. See <a href="/guides/apple-podcasts-watchlists/">iTunes Lookup watchlist refresh</a>.</p>
 
     <h2>Can I filter Apple Podcasts search results by genre?</h2>
     <p>No. This Actor does not document genre filters on <code>searchTerm</code>. <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> accepts an optional <code>genreId</code> for Top Podcasts charts. This Actor’s search and lookup paths use <code>country</code> plus <code>searchTerm</code> or <code>lookupIds</code> only. Pagination beyond <code>limit</code> is not documented.</p>
@@ -379,15 +383,16 @@
 
     <h2>How to start a run</h2>
     <ol>
-      <li>Open this page, then the Actor on the Apify Store.</li>
-      <li>Provide at least one of <code>searchTerm</code>, <code>chartRequests</code>, or <code>lookupIds</code>. Keep the first run small.</li>
-      <li>Leave <code>includeEpisodes</code> false unless recent episode titles are required.</li>
-      <li>Leave <code>delivery</code> on <code>dataset</code>. Switch to <code>webhook</code> only after the payload shape is approved. Use <code>dryRun</code> to test without saving results or sending webhooks.</li>
+      <li>Open <a href="https://apify.com/taroyamada/apple-podcast-scraper/input">taroyamada/apple-podcast-scraper Input</a> on the Apify Store.</li>
+      <li>Paste the search JSON above: <code>searchTerm</code> <code>technology</code>, <code>country</code> <code>us</code>, <code>limit</code> 3, <code>includeEpisodes</code> false.</li>
+      <li>Leave <code>chartRequests</code> empty on the first paid run. Leave <code>delivery</code> on <code>dataset</code>.</li>
+      <li>Start the run. Review the default dataset (JSON or CSV). Then raise <code>limit</code>, add charts, episodes, or a watchlist.</li>
     </ol>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Open Apple Podcasts Scraper on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Try Input: search + limit 3 on Apify</a></p>
 
     <h2>Related pages</h2>
     <ul>
+      <li><a href="/guides/itunes-podcast-scraper-first-run/">iTunes podcast scraper: cheapest Apple Podcasts first paid run</a> — search + limit 3 ≈ $0.0125</li>
       <li><a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> — Top Podcasts ranks and movement reports</li>
       <li><a href="/use-cases/apple-podcast-chart/">Apple Podcasts chart scraper</a></li>
       <li><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> — public ratings and review monitoring</li>

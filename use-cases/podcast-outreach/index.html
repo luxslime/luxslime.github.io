@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Shortlist podcasts for outreach</title>
-  <meta name="description" content="Build an outreach shortlist with the iTunes Search API, then refresh known collection IDs via the iTunes Lookup API. From $10 per 1,000 results.">
+  <meta name="description" content="Build an outreach shortlist with the iTunes Search API, then refresh known collection IDs via the iTunes Lookup API. From $2.50 per 1,000 results.">
   <link rel="canonical" href="https://apify.momiji-space.com/use-cases/podcast-outreach/">
   <script type="application/ld+json">
   {
@@ -48,7 +48,7 @@
         "name": "How is Apple Podcasts Scraper priced for this workflow?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Billing is pay-per-event: Actor start plus one result event per default-dataset item. The published Store price is $0.005 per Actor start and $10.00 per 1,000 dataset results ($0.01 per row). Empty no-change watchlist polls are described as avoiding payable default-dataset writes when nothing is saved."
+          "text": "Billing is pay-per-event: Actor start plus one result event per default-dataset item. The published Store price is $0.005 per Actor start and $2.50 per 1,000 dataset results ($0.0025 per row). Empty no-change watchlist polls are described as avoiding payable default-dataset writes when nothing is saved."
         }
       },
       {
@@ -117,7 +117,8 @@
     <nav><a href="/">Home</a> / Use cases / Podcast outreach</nav>
     <h1>Shortlist podcasts for outreach</h1>
     <p>The published <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> use cases include creating shortlists for media buying or outreach from topic, country, and public show metadata. Search finds candidate shows via the official iTunes Search API. A watchlist refresh re-resolves the collection IDs you keep through the iTunes Lookup API. Official Apple/iTunes endpoints. No proxy is required.</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Open Apple Podcasts Scraper on Apify</a></p>
+    <p class="price">Try Input: search + limit 3 ≈ $0.0125 total (incl. Start $0.005). From $2.50/1k.</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Try the cheapest first paid Apple Podcasts / iTunes search on Apify Input</a></p>
 
     <h2>Search, then watchlist, then optional reviews</h2>
     <p>Use this page when the job is a reusable list of public shows. Use <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> when the job is storefront rank movement. Use <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> after you have collection IDs and need public ratings.</p>
@@ -155,11 +156,11 @@
     <p>This Actor does not score “fit,” rank outreach priority, or invent audience size. Rank is not a download count or advertising guarantee.</p>
 
     <h2>Search for candidate shows</h2>
-    <p>Keyword search is the lowest-friction way to find public shows in Apple Podcasts. Set <code>searchTerm</code>. At least one of <code>searchTerm</code>, <code>chartRequests</code>, or <code>lookupIds</code> is required. <code>country</code> is the ISO storefront for the search (default <code>us</code>). <code>limit</code> is the maximum number of podcasts returned (1–200; default 50). Keep the first run small.</p>
+    <p>Keyword search is the lowest-friction way to find public shows in Apple Podcasts. Set <code>searchTerm</code>. At least one of <code>searchTerm</code>, <code>chartRequests</code>, or <code>lookupIds</code> is required. <code>country</code> is the ISO storefront for the search (default <code>us</code>). <code>limit</code> is the maximum number of podcasts returned (1–200; schema default 50, Store prefill 3). Start with <code>limit</code> 3. See <a href="/guides/itunes-podcast-scraper-first-run/">the cheapest Apple Podcasts first paid run</a>.</p>
 <pre><code>{
-  "searchTerm": "founder podcast",
+  "searchTerm": "technology",
   "country": "us",
-  "limit": 10,
+  "limit": 3,
   "includeEpisodes": false
 }</code></pre>
     <p>Search rows are source-linked dataset items. Sample <code>rowType</code> is <code>podcast_search_result</code>. Documented fields include <code>collectionId</code>, <code>showName</code>, <code>publisher</code>, <code>country</code>, <code>sourceUrl</code>, and <code>fetchedAt</code>. <code>rank</code> is null on search rows; rank belongs to <a href="/guides/apple-podcasts-charts/">chart requests</a>. This Actor does not document genre filters, review text, contact emails, or pagination beyond <code>limit</code>.</p>
@@ -178,7 +179,7 @@
 }</code></pre>
     <p>Documented lookup fields include <code>collectionId</code>, <code>showName</code>, <code>publisher</code>, <code>country</code>, <code>sourceUrl</code>, and <code>fetchedAt</code>. Set <code>includeEpisodes</code> true only when recent episode titles help the shortlist; that path is slower. Empty or no-change watchlist polls are described as avoiding payable default-dataset writes when nothing is saved.</p>
     <p>For the complete published history of a show you already know, read that show’s public RSS feed. See <a href="/notes/rss-vs-apple-podcasts-scraper/">RSS vs Apple Podcasts Scraper</a> and <a href="/guides/apple-podcasts-watchlists/">Refresh Apple Podcasts watchlists (iTunes Lookup API)</a>.</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Run search and watchlist refreshes on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Run search and watchlist refreshes on Apify Input</a></p>
 
     <h2>How do I shortlist podcasts for outreach with Apple Podcasts Scraper?</h2>
     <p>Run a small <code>searchTerm</code> query against the official iTunes Search API for the topic and country you care about. Review the default dataset and keep <code>collectionId</code> values for the shows you want. On later runs, pass those IDs as <code>lookupIds</code> through the iTunes Lookup API. Leave <code>includeEpisodes</code> false until the show list is useful. The Actor does not score fit, rank outreach priority, or invent audience size.</p>
@@ -193,7 +194,7 @@
     <p>After you have collection IDs. <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> reads public Customer Reviews RSS for <code>podcastIds</code> you already have. Apple Podcasts Scraper does not return review text. Get IDs first with search or a watchlist refresh, then pass them to Reviews Scraper if reputation context is required.</p>
 
     <h2>How is Apple Podcasts Scraper priced for this workflow?</h2>
-    <p>Billing is pay-per-event: Actor start plus one result event per default-dataset item. The published Store price is $0.005 per Actor start and $10.00 per 1,000 dataset results ($0.01 per row). Empty no-change watchlist polls are described as avoiding payable default-dataset writes when nothing is saved.</p>
+    <p>Billing is pay-per-event: Actor start plus one result event per default-dataset item. The published Store price is $0.005 per Actor start and $2.50 per 1,000 dataset results ($0.0025 per row). Empty no-change watchlist polls are described as avoiding payable default-dataset writes when nothing is saved.</p>
 
     <h2>Should I repeat searchTerm instead of switching to lookupIds?</h2>
     <p>After you keep <code>collectionId</code> values, later runs should pass those IDs as <code>lookupIds</code>. Recurring refreshes re-check show metadata without a new keyword search. See <a href="/compare/one-time-export-vs-watchlist/">One-time export vs iTunes watchlist lookup</a>.</p>
@@ -217,13 +218,14 @@
       <li>Review the default dataset. Keep <code>collectionId</code> values for the shows you want on the shortlist.</li>
       <li>On later runs, pass those IDs as <code>lookupIds</code>. Use <code>delivery: "dataset"</code> until the payload is approved, then <code>webhook</code> plus <code>webhookUrl</code> if you want HTTP delivery (Slack, Discord, Zapier, or any HTTP endpoint). Use <code>dryRun</code> to test without dataset writes or webhooks.</li>
     </ol>
-    <p>Billing is pay-per-event: Actor start plus one result event per default-dataset item. The published Store price is $0.005 per Actor start and $10.00 per 1,000 dataset results ($0.01 per row).</p>
-    <p class="price">From $10 per 1,000 results</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Open Apple Podcasts Scraper on Apify</a></p>
+    <p>Billing is pay-per-event: Actor start plus one result event per default-dataset item. The published Store price is $0.005 per Actor start and $2.50 per 1,000 dataset results ($0.0025 per row).</p>
+    <p class="price">From $2.50 per 1,000 results</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Open Apple Podcasts Scraper Input on Apify</a></p>
 
     <h2>Related pages</h2>
     <ul>
       <li><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper landing</a></li>
+      <li><a href="/guides/itunes-podcast-scraper-first-run/">iTunes podcast scraper: cheapest Apple Podcasts first paid run</a></li>
       <li><a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a></li>
       <li><a href="/use-cases/apple-podcast-chart/">Apple Podcasts chart scraper</a></li>
       <li><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a></li>

@@ -58,22 +58,22 @@
     <h1>Apple Podcasts chart scraper for country rank and movement</h1>
     <p>Use this page when the job is scraping public Apple Podcasts / iTunes Top Podcasts charts. <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> is the existing Store Actor for that source. It is not a new Actor, not keyword search, and not a reviews tool. Pass ISO country codes; optional <code>genreId</code> narrows to a category chart.</p>
     <p class="price">Live Store price: <strong>see Store</strong> (pay-per-event). This page does not quote per-event dollar amounts. Check the current card before a paid run.</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-chart-tracker">Open Apple Podcasts Chart Scraper on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-chart-tracker/input">Try the cheapest first-paid chart snapshot on Apify Input</a></p>
 
     <h2>What chart rows and movement reports contain</h2>
     <p>Raw rows have <code>rowType</code> <code>chart_rank</code>. Published fields include <code>country</code>, <code>rank</code>, <code>showId</code>, <code>showName</code>, <code>artistName</code>, <code>sourceUrl</code>, and <code>fetchedAt</code>, plus aliases <code>name</code>, <code>artist</code>, and <code>collectionId</code>. A movement report has <code>rowType</code> <code>podcast_chart_movement_report</code>: <code>monitorKey</code>, <code>changedCount</code>, <code>newCount</code>, <code>droppedCount</code>, and <code>changes[]</code> with <code>changeType</code>, ranks, <code>rankDelta</code>, and <code>sourceUrl</code>. Export is CSV/JSON. Max 20 countries per run; chart depth capped at 200.</p>
     <p>If you will store each snapshot and join on <code>collectionId</code> yourself, use <a href="/use-cases/podcast-market-tracking/">Track Apple Podcasts charts over time</a> with Apple Podcasts Scraper <code>chartRequests</code>. For public ratings on IDs you already have, use the <a href="/use-cases/apple-podcast-reviews/">Apple Podcasts reviews scraper</a> use case.</p>
 
     <h2>Tiny first-paid input</h2>
-    <p>The smallest useful chart snapshot is one storefront, a modest <code>limit</code>, <code>delivery</code> dataset, and <code>dryRun</code> false. Leave <code>generateMovementReport</code> off until you have a stable <code>monitorKey</code>. Default country is <code>us</code>.</p>
+    <p>The smallest useful chart snapshot is one storefront, <code>limit</code> 3, <code>delivery</code> dataset, and <code>dryRun</code> false. Leave <code>generateMovementReport</code> off until you have a stable <code>monitorKey</code>. Default country is <code>us</code>.</p>
 <pre><code>{
   "countries": ["us"],
-  "limit": 25,
+  "limit": 3,
   "delivery": "dataset",
   "dryRun": false
 }</code></pre>
     <p>Raise <code>limit</code> or add countries only after the first snapshot is useful. For current pay-per-event rates, see the <a href="https://apify.com/taroyamada/apple-podcast-chart-tracker/pricing">Store pricing card</a>. Endpoint notes for the sibling snapshot Actor are on <a href="/guides/apple-podcasts-charts/">How to get Apple Podcasts chart metadata from Apple/iTunes endpoints</a>.</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-chart-tracker">Run this Apple Podcasts chart scraper input on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-chart-tracker/input">Run this Apple Podcasts chart scraper input on Apify</a></p>
 
     <h2>Does this Apple Podcasts chart scraper compute rank movement?</h2>
     <p>Yes, when you set a stable <code>monitorKey</code> and <code>generateMovementReport</code> true. A <code>baseline_only</code> first run stores state with zero rows. Later polls emit at most one movement report when ranks are new, changed, or dropped. Unchanged polls emit zero rows when <code>emitRawRows</code> is false. A failed storefront is not treated as a mass drop. Rank movement is descriptive evidence, not a forecast, audience estimate, or advertising guarantee.</p>

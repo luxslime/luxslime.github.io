@@ -141,6 +141,7 @@
     th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
     th { background: #f3f3f3; font-weight: 600; color: #202223; }
     tr:last-child td { border-bottom: 0; }
+    img.sample { max-width: 100%; height: auto; display: block; margin: 0 0 16px; border: 1px solid #d9dde5; background: #fff; }
     .price { color: #202223; }
   </style>
 </head>
@@ -150,7 +151,9 @@
     <h1>Collect public Apple Podcasts ratings and review text for known collection IDs</h1>
     <p>Fetch the official Apple/iTunes Customer Reviews RSS JSON for the collection IDs and storefronts you pass, then deliver source-linked <code>podcast_review</code> rows or one <code>podcast_review_report</code>. This Actor is a reputation collector for IDs you already have. It is not a keyword search, episode catalog, or Top Podcasts rank tool — those jobs belong on <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> and <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a>.</p>
     <p class="price">From $3.00 / 1,000 <code>apify-default-dataset-items</code> ($0.003 per raw review row; $1.50 per <code>podcast-review-report</code>)</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor">Open Apple Podcasts Reviews Scraper on Apify</a></p>
+    <p>Cheapest useful first paid check: 1 show × 1 page, <code>generateReport</code> false. Raw rows bill at $0.003 each (a full page is about 50 reviews; ceiling about $0.15). Keep the $1.50 report off. Get collection IDs first from <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> search.</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor/input">Try this cheapest review check on Apify Input</a></p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor">Open taroyamada/apple-podcast-reviews-monitor on the Apify Store</a></p>
 
     <h2>Reviews versus search and charts</h2>
     <p>Use this page when the job is reputation: public ratings and review text for known shows, a bounded snapshot, a summary report, or a scheduled delta of new or changed reviews. Use <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> to find collection IDs by keyword or refresh a watchlist. Use <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> for storefront Top Podcasts ranks and movement. Shopify App Store and G2/Capterra review pages belong on the <a href="/review-intelligence/">Review Intelligence pack</a>, not here.</p>
@@ -214,6 +217,7 @@
   "delivery": "dataset",
   "dryRun": false
 }</code></pre>
+    <p><img class="sample" src="/assets/apple-podcast-reviews-input.json.svg" width="720" height="252" alt="Apple Podcasts Reviews Scraper Input JSON: one podcastId, country us, maxPagesPerPair 1, generateReport off"></p>
     <p>Published raw fields: <code>podcastId</code>, <code>country</code>, <code>page</code>, <code>reviewerName</code>, <code>rating</code>, <code>title</code>, <code>content</code>, <code>version</code>, <code>voteCount</code>, <code>updated</code>, and <code>reviewId</code>, plus <code>actorName</code>, <code>rowType</code>, <code>sourceUrl</code>, <code>fetchedAt</code>, and <code>billingEventName</code>. README sample (placeholder review data):</p>
 <pre><code>{
   "actorName": "apple-podcast-reviews-monitor",
@@ -234,7 +238,7 @@
   "fetchedAt": "2026-08-01T00:00:00.000Z"
 }</code></pre>
     <p><code>sourceUrl</code> is the official iTunes Customer Reviews RSS URL used for the row. Up to 25 unique podcast IDs, 10 unique country codes, and 10 pages per pair are accepted. Over-limit input fails instead of being silently truncated. A failed pair is reported in <code>meta.warnings</code>; successful pairs remain available.</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor">Run a raw review check on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor/input">Run this 1×1-page review check on Apify Input</a></p>
 
     <h2>High-value review report</h2>
     <p>Set <code>generateReport</code> to true when you need one aggregate <code>podcast_review_report</code> row. Raw reviews remain in the runtime <code>reviews</code> array and are not sent to the dataset. <code>reportMode</code> is <code>summary</code>.</p>
@@ -453,6 +457,7 @@
     <ul>
       <li><a href="/use-cases/apple-podcast-reviews/">Apple Podcasts reviews scraper</a> — query-intent page for known collection IDs</li>
       <li><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> — iTunes search, episodes, and watchlists</li>
+      <li><a href="/guides/itunes-podcast-scraper-first-run/">iTunes podcast scraper: cheapest Apple Podcasts first paid run</a></li>
       <li><a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> — Top Podcasts ranks and movement reports</li>
       <li><a href="/use-cases/apple-podcast-chart/">Apple Podcasts chart scraper</a></li>
       <li><a href="/guides/apple-podcasts-watchlists/">Refresh Apple Podcasts watchlists (iTunes Lookup API)</a> — collection IDs for <code>podcastIds</code></li>

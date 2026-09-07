@@ -58,7 +58,7 @@
     <h1>Apple Podcasts reviews scraper for known collection IDs</h1>
     <p>Use this page when the job is scraping public Apple Podcasts / iTunes customer reviews. <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> is the existing Store Actor for that source. It is not a new Actor, not keyword search, and not a chart-rank tool. Pass collection IDs you already have; it reads official Customer Reviews RSS JSON.</p>
     <p class="price">Live Store price: <strong>see Store</strong> (pay-per-event). This page does not quote per-event dollar amounts. Check the current card before a paid run.</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor">Open Apple Podcasts Reviews Scraper on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor/input">Try the cheapest first-paid review check on Apify Input</a></p>
 
     <h2>What each review row contains</h2>
     <p>Raw rows have <code>rowType</code> <code>podcast_review</code>. Published fields include <code>podcastId</code>, <code>country</code>, <code>page</code>, <code>reviewerName</code>, <code>rating</code>, <code>title</code>, <code>content</code>, <code>version</code>, <code>voteCount</code>, <code>updated</code>, <code>reviewId</code>, <code>sourceUrl</code> (the official iTunes Customer Reviews RSS URL), and <code>fetchedAt</code>. Export is CSV/JSON. No login, cookie, API key, or CAPTCHA bypass.</p>
@@ -74,8 +74,8 @@
   "delivery": "dataset",
   "dryRun": false
 }</code></pre>
-    <p>Replace the sample ID with a collection ID you already have. For current pay-per-event rates, see the <a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor/pricing">Store pricing card</a>.</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor">Run this Apple Podcasts reviews scraper input on Apify</a></p>
+    <p>Replace the sample ID with a collection ID you already have. Get IDs first from <a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Apple Podcasts / iTunes search Input</a>. For current pay-per-event rates, see the <a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor/pricing">Store pricing card</a>.</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor/input">Run this Apple Podcasts reviews scraper input on Apify</a></p>
 
     <h2>Can I scrape Apple Podcasts reviews without a collection ID?</h2>
     <p>No. Required input is <code>podcastIds</code> (numeric iTunes collection ID strings). The schema sets <code>additionalProperties</code> to false, so unpublished <code>showUrls</code>, <code>searchTerm</code>, <code>lookupIds</code>, and episode-feed fields are not accepted. At most 25 unique IDs, 10 unique ISO-3166-1 alpha-2 country codes, and 10 review pages per show/country pair (50 reviews each; iTunes cap). Over-limit input fails instead of being silently truncated.</p>

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>RSS feed vs iTunes Search API</title>
-  <meta name="description" content="When a public RSS feed is enough, and when Apple Podcasts keyword search via the iTunes Search API is the right source. From $10 per 1,000 results.">
+  <meta name="description" content="When a public RSS feed is enough, and when Apple Podcasts keyword search via the iTunes Search API is the right source. From $2.50 per 1,000 results.">
   <link rel="canonical" href="https://apify.momiji-space.com/compare/rss-feed-vs-itunes-search/">
   <script type="application/ld+json">
   {
@@ -56,7 +56,7 @@
         "name": "How is Apple Podcasts Scraper priced?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Billing is pay-per-event: Actor start plus one result event per default-dataset item. The published Store price is $0.005 per Actor start and $10.00 per 1,000 dataset results ($0.01 per row)."
+          "text": "Billing is pay-per-event: Actor start plus one result event per default-dataset item. The published Store price is $0.005 per Actor start and $2.50 per 1,000 dataset results ($0.0025 per row)."
         }
       },
       {
@@ -118,7 +118,7 @@
     <nav><a href="/">Home</a> / Compare / RSS feed vs iTunes Search</nav>
     <h1>RSS feed vs iTunes Search API</h1>
     <p>A public RSS feed and the iTunes Search API answer different questions. RSS is the show’s own catalog once you already have a feed URL. Search is Apple directory discovery when you have a topic, not a feed. <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> uses the official iTunes Search API for that discovery lane. Official Apple/iTunes endpoints. No proxy is required. It is not affiliated with or endorsed by Apple.</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Open Apple Podcasts Scraper on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Open Apple Podcasts Scraper on Apify</a></p>
 
     <h2>RSS, iTunes Search, feed extractors, and Google News</h2>
     <p>Use this page when the job is choosing a source: a known feed versus Apple keyword search. Use <a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a> when you already have publisher feed URLs and need item lists. Use <a href="/google-news-scraper/">Google News Scraper</a> when the job is query-based news headlines, not podcast catalog search.</p>
@@ -174,11 +174,11 @@
     <p>Use RSS to watch cadence and new episodes on shows you already track. A feed does not search Apple’s directory. It does not return Apple collection IDs for other shows. It does not include chart rank. The Actor’s published input does not expose a full-catalog dump; for a known show’s complete history, read that show’s public RSS feed. When you have many publisher feeds to turn into URL lists, see <a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a>.</p>
 
     <h2>When the iTunes Search API is the right source</h2>
-    <p>Keyword search is the lowest-friction way to find public shows in Apple Podcasts. Set <code>searchTerm</code>. At least one of <code>searchTerm</code>, <code>chartRequests</code>, or <code>lookupIds</code> is required. <code>country</code> is the ISO storefront for the search (default <code>us</code>). <code>limit</code> is the maximum number of podcasts returned (1–200; default 50). Keep the first run small.</p>
+    <p>Keyword search is the lowest-friction way to find public shows in Apple Podcasts. Set <code>searchTerm</code>. At least one of <code>searchTerm</code>, <code>chartRequests</code>, or <code>lookupIds</code> is required. <code>country</code> is the ISO storefront for the search (default <code>us</code>). <code>limit</code> is the maximum number of podcasts returned (1–200; schema default 50, Store prefill 3). Start with <code>limit</code> 3. See <a href="/guides/itunes-podcast-scraper-first-run/">the cheapest Apple Podcasts first paid run</a>.</p>
 <pre><code>{
-  "searchTerm": "founder podcast",
+  "searchTerm": "technology",
   "country": "us",
-  "limit": 10,
+  "limit": 3,
   "includeEpisodes": false
 }</code></pre>
     <p>Search results are source-linked dataset items. Sample <code>rowType</code> is <code>podcast_search_result</code>. Documented fields include <code>collectionId</code>, <code>showName</code>, <code>publisher</code>, <code>country</code>, <code>sourceUrl</code>, and <code>fetchedAt</code>. <code>rank</code> is null on search rows; rank belongs to chart requests. This Actor does not document genre filters, review text, or pagination beyond <code>limit</code>.</p>
@@ -220,7 +220,7 @@
       </tbody>
     </table>
     <p>This is a source choice, not a ranking of tools. RSS remains the right read for a known feed. Search is the right read when the catalog, not the feed, is the question. A broader split that also covers charts and watchlists is in <a href="/notes/rss-vs-apple-podcasts-scraper/">RSS vs Apple Podcasts Scraper</a>.</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Run an iTunes Search query on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Run an iTunes Search query on Apify</a></p>
 
     <h2>When is a public RSS feed enough?</h2>
     <p>If you already have a public feed URL, RSS is the direct source for that show’s published catalog: episode titles, descriptions, publish dates, audio enclosures, and publisher-declared metadata. A feed does not search Apple’s directory, return collection IDs for other shows, or include chart rank.</p>
@@ -246,9 +246,9 @@
     </ol>
 
     <h2>How is Apple Podcasts Scraper priced?</h2>
-    <p>Billing is pay-per-event: Actor start plus one result event per default-dataset item. The published Store price is $0.005 per Actor start and $10.00 per 1,000 dataset results ($0.01 per row).</p>
-    <p class="price">From $10 per 1,000 results</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Open Apple Podcasts Scraper on Apify</a></p>
+    <p>Billing is pay-per-event: Actor start plus one result event per default-dataset item. The published Store price is $0.005 per Actor start and $2.50 per 1,000 dataset results ($0.0025 per row).</p>
+    <p class="price">From $2.50 per 1,000 results</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Open Apple Podcasts Scraper on Apify</a></p>
 
     <h2>Can RSS tell me who is ranking on Apple Podcasts?</h2>
     <p>No. A feed does not include chart rank. Rank belongs to <code>chartRequests</code> snapshots or Apple Podcasts Chart Scraper. RSS is the catalog of a show you already know.</p>
@@ -265,6 +265,7 @@
     <h2>Related pages</h2>
     <ul>
       <li><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> — iTunes search, episodes, and watchlists</li>
+      <li><a href="/guides/itunes-podcast-scraper-first-run/">iTunes podcast scraper: cheapest Apple Podcasts first paid run</a></li>
       <li><a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> — Top Podcasts ranks and movement reports</li>
       <li><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> — ratings and review monitoring</li>
       <li><a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a> — known-publisher RSS/Atom feeds</li>
