@@ -99,11 +99,11 @@
       <li><a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a> — public G2 and Capterra product review pages, normalized ratings, pros, and cons. Query intent: <a href="/use-cases/g2-reviews-scraper/">G2 reviews scraper</a>. First paid run: <a href="/guides/g2-reviews-scraper-first-paid-run/">cheapest first paid G2 run</a>.</li>
     </ul>
     <p>
-      <a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor">Open Apple Podcasts Reviews Scraper on Apify</a>
+      <a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor/input">Try Apple Podcasts reviews scraper Input on Apify</a>
+      ·
+      <a href="https://apify.com/taroyamada/g2-capterra-review-intelligence/input">Try G2 reviews scraper Input on Apify</a>
       ·
       <a href="https://apify.com/taroyamada/shopify-app-store-review-intelligence">Open Shopify App Store Review Scraper on Apify</a>
-      ·
-      <a href="https://apify.com/taroyamada/g2-capterra-review-intelligence">Open G2 &amp; Capterra Review Scraper on Apify</a>
     </p>
 
     <h2>Three review sources, three Actors</h2>
@@ -162,7 +162,7 @@
     <ol>
       <li>Match the source: Apple/iTunes podcast reviews, Shopify App Store merchant listings, or G2/Capterra B2B software review pages.</li>
       <li>Open the landing for that source — <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a>, <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a>, or <a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a>.</li>
-      <li>Open that page’s Store CTA. Confirmed Store URLs: <a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor">Apple Podcasts Reviews Scraper</a>, <a href="https://apify.com/taroyamada/shopify-app-store-review-intelligence">Shopify App Store Review Scraper</a>, and <a href="https://apify.com/taroyamada/g2-capterra-review-intelligence">G2 &amp; Capterra Review Scraper</a>.</li>
+      <li>Open that page’s Try/Input CTA. Confirmed Input URLs: <a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor/input">Apple Podcasts reviews scraper Input</a> and <a href="https://apify.com/taroyamada/g2-capterra-review-intelligence/input">G2 reviews scraper Input</a>. Shopify App Store listing: <a href="https://apify.com/taroyamada/shopify-app-store-review-intelligence">Shopify App Store Review Scraper</a>.</li>
       <li>Pass only the published input for that Actor. Keep the first run small. Use <code>dryRun</code> before a recurring watch or webhook.</li>
     </ol>
 
@@ -178,7 +178,7 @@
   "dryRun": false
 }</code></pre>
     <p>Published raw fields include <code>podcastId</code>, <code>country</code>, <code>page</code>, <code>reviewerName</code>, <code>rating</code>, <code>title</code>, <code>content</code>, <code>version</code>, <code>voteCount</code>, <code>updated</code>, and <code>reviewId</code>, plus <code>sourceUrl</code> (the official iTunes Customer Reviews RSS URL). Set <code>generateReport</code> to true for one <code>podcast_review_report</code>. Set <code>mode</code> to <code>monitor</code> with a stable <code>monitorKey</code> to emit only new or changed reviews after a <code>baseline_only</code> first run.</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor">Run Apple Podcasts Reviews Scraper on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor/input">Run Apple Podcasts reviews scraper Input on Apify</a></p>
 
     <h2>Shopify App Store merchant listings</h2>
     <p><a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a> fetches <code>apps.shopify.com/{slug}</code> listing and paginated review pages. <code>appUrls</code> is required (full listing URLs or bare slugs). Optional published fields are <code>reviewLimit</code> (default 100, minimum 1, maximum 500), <code>timeoutMs</code>, <code>delivery</code>, <code>webhookUrl</code>, and <code>dryRun</code>. The published input schema does not include <code>appSlugs</code>, <code>maxReviewsPerApp</code>, <code>sinceDays</code>, or <code>sortBy</code>.</p>
@@ -204,7 +204,7 @@
   "dryRun": false
 }</code></pre>
     <p>A good first run gives you a per-product row with ratings and review samples, plus <code>status</code> / <code>warnings</code> when a page is thin, blocked, or structurally changed. <code>dryRun</code> true validates input and returns scaffold output without fetching live data.</p>
-    <p><a href="https://apify.com/taroyamada/g2-capterra-review-intelligence">Run G2 &amp; Capterra Review Scraper on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/g2-capterra-review-intelligence/input">Run G2 reviews scraper Input on Apify</a></p>
 
     <h2>What is the Review Intelligence pack?</h2>
     <p>This hub is a chooser for the three public-review landings already on this site: <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a>, <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a>, and <a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a>. They read different sources, take different inputs, and emit different row shapes. Use this page to pick the matching landing; then open that Actor on the Apify Store from the confirmed Store URL on that landing.</p>
@@ -233,13 +233,13 @@
     <p>Yes. This site publishes a <a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a> landing. Use that Actor for public G2 (<code>g2.com/products/{slug}/reviews</code>) and Capterra (<code>capterra.com/p/{id}/{slug}/reviews/</code>) review pages. It is not a Shopify App Store listing tool and not an Apple Podcasts review RSS tool.</p>
 
     <h2>How do I start a run?</h2>
-    <p>Match the source, open the landing, then use that page’s Store CTA. For Apple/iTunes podcast reviews, pass <code>podcastIds</code> and <code>countries</code> on <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> (first paid: one ID, <code>maxPagesPerPair</code> 1, <code>generateReport</code> false). For Shopify App Store merchant listings, pass <code>appUrls</code> on <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a>. For G2 or Capterra product reviews, pass <code>reviewPageUrls</code> on <a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a> (first paid: one G2 URL, <code>reviewLimit</code> 1 — see <a href="/guides/g2-reviews-scraper-first-paid-run/">cheapest first paid run</a>). Keep the first run small. All three Actors support dataset delivery by default, optional webhook delivery, and <code>dryRun</code>.</p>
+    <p>Match the source, open the landing, then use that page’s Try/Input CTA. For Apple/iTunes podcast reviews, pass <code>podcastIds</code> and <code>countries</code> on <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> (first paid: one ID, <code>maxPagesPerPair</code> 1, <code>generateReport</code> false). For Shopify App Store merchant listings, pass <code>appUrls</code> on <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a>. For G2 or Capterra product reviews, pass <code>reviewPageUrls</code> on <a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a> (first paid: one G2 URL, <code>reviewLimit</code> 1 — see <a href="/guides/g2-reviews-scraper-first-paid-run/">cheapest first paid run</a>). Keep the first run small. All three Actors support dataset delivery by default, optional webhook delivery, and <code>dryRun</code>.</p>
     <p>
-      <a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor">Open Apple Podcasts Reviews Scraper on Apify</a>
+      <a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor/input">Try Apple Podcasts reviews scraper Input on Apify</a>
+      ·
+      <a href="https://apify.com/taroyamada/g2-capterra-review-intelligence/input">Try G2 reviews scraper Input on Apify</a>
       ·
       <a href="https://apify.com/taroyamada/shopify-app-store-review-intelligence">Open Shopify App Store Review Scraper on Apify</a>
-      ·
-      <a href="https://apify.com/taroyamada/g2-capterra-review-intelligence">Open G2 &amp; Capterra Review Scraper on Apify</a>
     </p>
 
     <h2>Related pages</h2>

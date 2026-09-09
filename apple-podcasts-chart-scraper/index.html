@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Apple Podcasts Chart Scraper — Top Podcasts ranks and source-linked movement reports</title>
-  <meta name="description" content="Snapshot public Apple Podcasts Top Podcasts charts by storefront. Optional monitor emits one source-linked report when ranks are new, changed, or dropped. From $3.00 / 1,000 apify-default-dataset-items.">
+  <title>Apple Podcasts Chart Scraper — Top Podcasts ranks, rank delta, and movement reports</title>
+  <meta name="description" content="Apple Podcasts chart scraper for public Top Podcasts ranks by country. Try Input: us + limit 3 ≈ $0.009 (movement report off). From $3.00 / 1,000 apify-default-dataset-items; $2.50 per movement report.">
   <link rel="canonical" href="https://apify.momiji-space.com/apple-podcasts-chart-scraper/">
   <script type="application/ld+json">
   {
@@ -148,7 +148,7 @@
 <body>
   <main>
     <nav><a href="/">Home</a> / Apple Podcasts Chart Scraper</nav>
-    <h1>Snapshot Apple Podcasts Top Podcasts ranks and emit source-linked movement reports</h1>
+    <h1>Apple Podcasts chart scraper for Top Podcasts ranks and source-linked movement reports</h1>
     <p>Snapshot public Apple Podcasts Top Podcasts charts by storefront, then optionally emit one source-linked movement report when a saved monitor sees new, changed, or dropped ranks. This Actor reads public Apple Podcasts/iTunes chart JSON. It is not a keyword search, episode catalog, or collection-ID watchlist tool — that work belongs on <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a>. It is not a review collector — that job belongs on <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a>.</p>
     <p class="price">From $3.00 / 1,000 apify-default-dataset-items ($0.003 per raw row; $2.50 per movement report)</p>
     <p>Cheapest useful first paid snapshot: <code>countries: ["us"]</code>, <code>limit</code> 3, movement report off. If 3 raw rows write, 3 × $0.003 = $0.009. Keep the $2.50 movement report off until a saved monitor needs it. For keyword search, episodes, or watchlists, start on <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> instead.</p>

@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Track Apple Podcasts charts over time</title>
-  <meta name="description" content="Snapshot Apple Podcasts chart ranks on a schedule through official Apple/iTunes endpoints. Compare collectionId, rank, and fetchedAt across runs. From $2.50 per 1,000 results.">
+  <title>Apple Podcasts scraper — chart snapshots over time from official iTunes endpoints</title>
+  <meta name="description" content="Apple Podcasts scraper chart snapshots on a schedule through official Apple/iTunes endpoints. Compare collectionId, rank, and fetchedAt across runs. For movement reports, use Apple Podcasts Chart Scraper. From $2.50 per 1,000 results.">
   <link rel="canonical" href="https://apify.momiji-space.com/use-cases/podcast-market-tracking/">
   <script type="application/ld+json">
   {
@@ -115,7 +115,7 @@
 <body>
   <main>
     <nav><a href="/">Home</a> / Use cases / Podcast market tracking</nav>
-    <h1>Track Apple Podcasts charts over time</h1>
+    <h1>Apple Podcasts scraper: chart snapshots over time</h1>
     <p>Apple publishes country-specific rankings for podcast shows and podcast episodes. <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> reads those rankings through official Apple/iTunes endpoints. No proxy is required. Each run is a chart snapshot: rows can include a <code>rank</code>, show identifiers, a source URL, and <code>fetchedAt</code>. The Actor does not compute rank movement between runs, and it does not draw charts. A time series is the sequence of snapshots you keep. For a source-linked movement report (new, changed, or dropped positions on a saved monitor), use <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a>.</p>
     <p>If you still need a keyword shortlist first, start with <a href="/guides/itunes-podcast-scraper-first-run/">search + limit 3 ≈ $0.0125</a> on <code>taroyamada/apple-podcast-scraper</code>.</p>
     <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Open Apple Podcasts / iTunes Scraper Input on Apify</a></p>
@@ -176,7 +176,7 @@
   "includeEpisodes": false
 }</code></pre>
     <p>Keep the first run small, then raise <code>limit</code> after the output is useful. Rankings differ by storefront: a US chart is not a GB or JP chart. See <a href="/guides/apple-podcasts-charts/">How to get Apple Podcasts chart metadata from Apple/iTunes endpoints</a>.</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Run a chart snapshot on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Run this Apple Podcasts scraper chart snapshot on Apify Input</a></p>
 
     <h2>Turning snapshots into a time series</h2>
     <p>Run the same <code>chartRequests</code> on a schedule (an Apify schedule, or any job that starts the Actor). Keep each default-dataset export. Join later runs on <code>collectionId</code> and <code>country</code>, and order by <code>fetchedAt</code>. Plot <code>rank</code> against <code>fetchedAt</code> in your own sheet or warehouse if you need a chart.</p>
@@ -215,14 +215,14 @@
 
     <h2>How to run it</h2>
     <ol>
-      <li>Open <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a>, then the Actor on the Apify Store.</li>
+      <li>Open <a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Apple Podcasts Scraper Input</a> on Apify.</li>
       <li>Paste a <code>chartRequests</code> array. Start with one country and <code>feedType: "podcasts"</code>.</li>
       <li>Leave <code>includeEpisodes</code> false unless you need recent episodes.</li>
       <li>Deliver to the default dataset. Export the rows (JSON or CSV from the dataset view) and store them with the run’s <code>fetchedAt</code> values. Switch <code>delivery</code> to <code>webhook</code> only after the payload shape is approved. Set <code>dryRun</code> true to test without saving results or sending webhooks.</li>
     </ol>
     <p>Billing is pay-per-event: Actor start plus one result event per default-dataset item. The published Store price is $0.005 per Actor start and $2.50 per 1,000 dataset results ($0.0025 per row).</p>
     <p class="price">From $2.50 per 1,000 results</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Open Apple Podcasts Scraper on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Open Apple Podcasts Scraper Input on Apify</a></p>
 
     <h2>Related pages</h2>
     <ul>
