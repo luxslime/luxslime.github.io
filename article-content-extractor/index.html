@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Article Content Extractor — extract headline, byline, and body from news, blog, and press URLs</title>
-  <meta name="description" content="Extract article bodies, bylines, publish dates, excerpts, and hero images from public news, blog, newsroom, and press URLs. Live PPE: $0.008 per useful article row; $2.50 per audit report.">
+  <title>Article Content Extractor — headline, byline, and body from news, blog, and press URLs</title>
+  <meta name="description" content="Article content extractor for public news, blog, newsroom, and press URLs: headline, byline, date, body, excerpt, and hero image. Try Input: 1 URL, report/export off. Live PPE: $0.008 per useful article row; Actor Start $0.00005.">
   <link rel="canonical" href="https://apify.momiji-space.com/article-content-extractor/">
   <script type="application/ld+json">
   {
@@ -147,10 +147,11 @@
 <body>
   <main>
     <nav><a href="/">Home</a> / Article Content Extractor</nav>
-    <h1>Extract headline, byline, and article body from news, blog, and press URLs</h1>
+    <h1>Article content extractor for headline, byline, and body from news, blog, and press URLs</h1>
     <p>Article Content Extractor fetches public news, blog, newsroom, and press pages you already have and returns structured article rows: headline, byline, publish date, body, excerpt, and hero image. It is a bounded HTML cleanup step for research, content QA, and RAG ingestion — not a ranking tool, a full-site crawler, or a Google News search. For docs, pricing, policy, product, and help-center pages, use <a href="/website-content-extractor/">Website Content Extractor</a>. For query-based headline discovery, use <a href="/google-news-scraper/">Google News Scraper</a>.</p>
     <p class="price">From $2,500.00 / 1,000 article content audit reports ($2.50 per report). Useful article row $0.008 ($8.00 / 1,000). Batch export $5.00. Actor Start $0.00005. Cheapest first paid path leaves both value events off.</p>
-    <p><a href="https://apify.com/taroyamada/article-content-extractor">Open Article Content Extractor on Apify</a>
+    <p><a href="https://apify.com/taroyamada/article-content-extractor/input">Try the cheapest first paid article content extractor run on Apify Input</a></p>
+    <p><a href="https://apify.com/taroyamada/article-content-extractor">Open taroyamada/article-content-extractor on the Apify Store</a>
       ·
       <a href="/guides/article-extractor-first-paid-run/">Cheapest first paid run</a></p>
 
@@ -228,7 +229,7 @@
   "delivery": "dataset",
   "dryRun": false
 }</code></pre>
-    <p>That is the cheapest first paid extractor input. Leave <code>generateReport</code> and <code>emitExport</code> off. If one Actor Start event and one useful article row charge, documented PPE is $0.00005 + $0.008 = $0.00805. For the event table, see <a href="/guides/article-extractor-first-paid-run/">Cheapest first paid run for Article Extractor</a>.</p>
+    <p>That is the cheapest first paid extractor input. Leave <code>generateReport</code> and <code>emitExport</code> off. If one Actor Start event and one useful article row charge, documented PPE is $0.00005 + $0.008 = $0.00805. For the event table, see <a href="/guides/article-extractor-first-paid-run/">Article content extractor: cheapest first paid run</a>.</p>
     <p>Published output fields: <code>rowType</code>, <code>url</code>, <code>headline</code>, <code>author</code>, <code>publishedAt</code>, <code>articleText</code>, <code>excerpt</code>, <code>heroImage</code>, and <code>sourceUrl</code>. Sample <code>rowType</code> is <code>article</code>. README sample (placeholder article data, not a live coverage guarantee):</p>
 <pre><code>{
   "meta": {
@@ -254,7 +255,7 @@
   "warnings": []
 }</code></pre>
     <p>Rows also include fetch timestamps, warnings for partial or changed content, and stable IDs when the workflow supports recurring change detection. Optional inline images when <code>includeImages</code> is true; <code>heroImage</code> can still be returned separately when available. There is no separate output schema on the Store page.</p>
-    <p><a href="https://apify.com/taroyamada/article-content-extractor">Run an article extraction on Apify</a>
+    <p><a href="https://apify.com/taroyamada/article-content-extractor/input">Run this article content extractor input on Apify</a>
       ·
       <a href="/guides/article-extractor-first-paid-run/">Cheapest first paid run</a></p>
 
@@ -270,7 +271,7 @@
   "dryRun": false
 }</code></pre>
     <p>Live PPE for those value events is $2.50 per content audit report and $5.00 per batch export. Request limits are bounded at 300 URLs, 3 redirects, and 5 MiB per HTML response by default. <code>maxRedirects</code> and <code>maxResponseBytes</code> can be lowered; the runtime never permits more than 10 redirects or 10 MiB.</p>
-    <p><a href="https://apify.com/taroyamada/article-content-extractor">Generate an article report on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/article-content-extractor/input">Configure an article report on Apify Input</a></p>
 
     <h2>How is Article Content Extractor different from Website Content Extractor?</h2>
     <p>This Actor parses public news, blog, newsroom, and press pages into article rows: headline, author, <code>publishedAt</code>, <code>articleText</code>, excerpt, and <code>heroImage</code>. Maximum 300 URLs per run. <code>outputFormat</code> is markdown (default) or text — it does not emit HTML. <a href="/website-content-extractor/">Website Content Extractor</a> cleans docs, product, pricing, policy, and help-center pages that are not article-shaped (maximum 200 URLs) and can emit markdown, text, or HTML. Route broad site pages there.</p>
@@ -371,7 +372,7 @@
       </tbody>
     </table>
     <p>Do not send unpublished aliases such as <code>includeMetadata</code>, <code>maxChargeUsd</code>, <code>html</code> as <code>outputFormat</code>, Google News <code>queries</code>, RSS <code>feedUrls</code>, <code>authorizedUseConfirmed</code>, or <code>emitUnchanged</code>. Those belong on other Actors.</p>
-    <p><a href="https://apify.com/taroyamada/article-content-extractor">Start a run on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/article-content-extractor/input">Start a run on Apify Input</a></p>
 
     <h2>When do article-content-audit-report and article-batch-export emit?</h2>
     <p>Set <code>generateReport</code> to true to emit one <code>article-content-audit-report</code> row when at least one article is usable ($2.50). Set <code>emitExport</code> to true to emit one <code>article-batch-export</code> row when at least one article is usable ($5.00). These are this Actor’s published value events. Raw article rows remain source context. The default path leaves both flags false.</p>
@@ -414,11 +415,11 @@
     <h2>Related pages</h2>
     <ul>
       <li><a href="/packs/content-intelligence/">Content Intelligence pack</a> — choose RSS, Google News, article, or website extraction</li>
-      <li><a href="/use-cases/news-blog-rag/">Article extractor for news and blog RAG</a></li>
+      <li><a href="/use-cases/news-blog-rag/">Article content extractor for news and blog RAG</a></li>
       <li><a href="/use-cases/rss-newsroom-monitoring/">Newsroom RSS monitoring</a> — discover feed item URLs before cleanup</li>
       <li><a href="/use-cases/google-news-brand-monitoring/">Google News brand monitoring</a> — discover query URLs before cleanup</li>
       <li><a href="/use-cases/docs-rag-markdown/">Website content extractor for docs and help-center RAG</a></li>
-      <li><a href="/guides/article-extractor-first-paid-run/">Cheapest first paid run for Article Extractor</a></li>
+      <li><a href="/guides/article-extractor-first-paid-run/">Article content extractor: cheapest first paid run</a></li>
       <li><a href="/website-content-extractor/">Website Content Extractor</a></li>
       <li><a href="/wayback-machine-bulk-checker/">Wayback Machine Bulk Checker</a> — Internet Archive availability, not live HTML</li>
       <li><a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a></li>

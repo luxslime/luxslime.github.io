@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Cheapest first paid run for Article Extractor — one news or blog URL</title>
-  <meta name="description" content="Cheapest first paid run for the Article Extractor actor: one public news, blog, or press URL. Documented PPE math only — Actor Start $0.00005 plus $0.008 per useful article row. Leave the $2.50 audit report and $5.00 batch export off.">
+  <title>Article content extractor: cheapest first paid run — one news or blog URL</title>
+  <meta name="description" content="Article content extractor cheapest first paid run: one public news, blog, or press URL. Documented PPE math only — Actor Start $0.00005 plus $0.008 per useful article row. Leave the $2.50 audit report and $5.00 batch export off.">
   <link rel="canonical" href="https://apify.momiji-space.com/guides/article-extractor-first-paid-run/">
   <script type="application/ld+json">
   {
@@ -12,14 +12,14 @@
     "@graph": [
       {
         "@type": "HowTo",
-        "name": "Cheapest first paid run for Article Extractor",
+        "name": "Article content extractor: cheapest first paid run",
         "description": "Run taroyamada/article-content-extractor on one public article URL with Store Quickstart flags, then add the documented PPE events.",
         "url": "https://apify.momiji-space.com/guides/article-extractor-first-paid-run/",
         "step": [
           {
             "@type": "HowToStep",
-            "name": "Open the Store listing",
-            "text": "Open Article Content Extractor & Reader Scraper at apify.com/taroyamada/article-content-extractor."
+            "name": "Open Apify Input",
+            "text": "Open Article Content Extractor Input at apify.com/taroyamada/article-content-extractor/input."
           },
           {
             "@type": "HowToStep",
@@ -94,9 +94,9 @@
 <body>
   <main>
     <nav><a href="/">Home</a> / Guides / Article extractor first paid run</nav>
-    <h1>Cheapest first paid run for an article extractor</h1>
-    <p>This page is the smallest useful paid run for the Article Extractor actor on Apify: one public news, blog, newsroom, or press URL, then the documented pay-per-event (PPE) add. It is not a full product FAQ. For field lists and routing, use the <a href="/article-content-extractor/">Article Content Extractor</a> landing.</p>
-    <p>Live Store listing: <strong>Article Content Extractor &amp; Reader Scraper</strong> (<code>taroyamada/article-content-extractor</code>). This site’s landing name is Article Content Extractor. Open the Actor: <a href="https://apify.com/taroyamada/article-content-extractor">https://apify.com/taroyamada/article-content-extractor</a>.</p>
+    <h1>Article content extractor: cheapest first paid run</h1>
+    <p>This page is the smallest useful paid run for the Article Content Extractor actor on Apify: one public news, blog, newsroom, or press URL, then the documented pay-per-event (PPE) add. It is not a full product FAQ. For field lists and routing, use the <a href="/article-content-extractor/">Article Content Extractor</a> landing.</p>
+    <p>Live Store listing: <strong>Article Content Extractor &amp; Reader Scraper</strong> (<code>taroyamada/article-content-extractor</code>). This site’s landing name is Article Content Extractor. Try Input: <a href="https://apify.com/taroyamada/article-content-extractor/input">https://apify.com/taroyamada/article-content-extractor/input</a>.</p>
     <p class="price">Documented first-paid PPE if one Actor Start event and one useful article row charge: $0.00005 + $0.008 = $0.00805. Leave the $2.50 audit report and $5.00 batch export off.</p>
 
     <h2>Smallest useful input JSON</h2>
@@ -110,7 +110,7 @@
   "dryRun": false
 }</code></pre>
     <p>Replace the placeholder URL with a public HTTP(S) article-shaped page you own or are authorized to fetch. Schema prefill on the Store is three <code>blog.google</code> article URLs; one URL is enough for a first paid proof. Do not send Website fields such as <code>includeMetadata</code> or <code>maxChargeUsd</code>, Google News <code>queries</code>, or RSS <code>feedUrls</code>.</p>
-    <p><a href="https://apify.com/taroyamada/article-content-extractor">Run this article extractor input on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/article-content-extractor/input">Run this article content extractor input on Apify</a></p>
 
     <h2>Documented PPE cost math</h2>
     <p>Prices below are the live events already shown on this site’s Article Content Extractor pages. They are not invented rates. The live Store card is <strong>from $2,500.00 / 1,000 article content audit reports</strong> because the primary event is <code>article-content-audit-report</code> at <strong>$2.50</strong>. The cheapest first paid run does not request that event.</p>
@@ -168,13 +168,13 @@ $0.00805  documented PPE total for this input</code></pre>
 
     <h2>How to run it</h2>
     <ol>
-      <li>Open <a href="https://apify.com/taroyamada/article-content-extractor">Article Content Extractor &amp; Reader Scraper</a> on the Apify Store.</li>
+      <li>Open <a href="https://apify.com/taroyamada/article-content-extractor/input">Article Content Extractor Input</a> on Apify.</li>
       <li>Paste the Quickstart JSON above. Swap in one public article URL you are authorized to fetch.</li>
       <li>Keep <code>includeImages</code> false, <code>delivery</code> dataset, and <code>dryRun</code> false. Do not set <code>generateReport</code> or <code>emitExport</code>.</li>
       <li>Start the run. Confirm the default dataset has one <code>article</code> row before raising URL count or turning on value events.</li>
     </ol>
     <p>Discovery before extraction belongs on RSS or Google News, then this Actor. For news and blog RAG ingestion, see <a href="/use-cases/news-blog-rag/">article extractor for news and blog RAG</a>. For docs and help-center RAG, see <a href="/use-cases/docs-rag-markdown/">website content extractor for docs and help-center RAG</a>. The four extractors in that pipeline are grouped on the <a href="/packs/content-intelligence/">Content Intelligence pack</a> hub.</p>
-    <p><a href="https://apify.com/taroyamada/article-content-extractor">Open Article Extractor on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/article-content-extractor/input">Try this article content extractor input on Apify</a></p>
   </main>
 </body>
 </html>

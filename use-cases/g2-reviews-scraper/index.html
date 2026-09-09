@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>G2 reviews scraper — public G2 and Capterra ratings, pros, and cons</title>
-  <meta name="description" content="G2 reviews scraper for public G2 and Capterra review-page URLs: product ratings, rating breakdowns, and nested reviews with pros and cons. CSV/JSON. Live PPE: from $3.00 / 1,000 results ($0.003 per result).">
+  <meta name="description" content="G2 reviews scraper for public G2 and Capterra review-page URLs: product ratings, rating breakdowns, and nested reviews with pros and cons. Try Input: 1 G2 URL / reviewLimit 1 ≈ $0.01. Live PPE: from $3.00 / 1,000 results ($0.003 per result).">
   <link rel="canonical" href="https://apify.momiji-space.com/use-cases/g2-reviews-scraper/">
   <script type="application/ld+json">
   {
@@ -58,7 +58,8 @@
     <h1>G2 reviews scraper for public G2 and Capterra pages</h1>
     <p>Use this page when the job is scraping public G2 (and Capterra) product reviews into one normalized dataset. <a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a> is the existing Store Actor for that source. It is not a new Actor, not a Shopify App Store listing scraper, and not an Apple Podcasts review RSS tool. Pass public review-page URLs you are authorized to fetch.</p>
     <p class="price">Live Store card: <strong>from $3.00 / 1,000 results</strong> ($0.003 per default-dataset result; Actor Start $0.001). Cheapest first paid path: one G2 URL, <code>reviewLimit</code> 1.</p>
-    <p><a href="https://apify.com/taroyamada/g2-capterra-review-intelligence">Open G2 &amp; Capterra Review Scraper on Apify</a>
+    <p><a href="https://apify.com/taroyamada/g2-capterra-review-intelligence/input">Try the cheapest first paid G2 reviews scraper run on Apify Input</a></p>
+    <p><a href="https://apify.com/taroyamada/g2-capterra-review-intelligence">Open taroyamada/g2-capterra-review-intelligence on the Apify Store</a>
       ·
       <a href="/guides/g2-reviews-scraper-first-paid-run/">Cheapest first paid run</a></p>
 
@@ -77,7 +78,7 @@
   "dryRun": false
 }</code></pre>
     <p>Replace the sample with one public G2 review page you are authorized to fetch. If one Actor Start event and one result row charge, documented PPE is $0.001 + $0.003 = $0.004. The Store Quickstart line is ≈ $0.01. For the PPE table, see <a href="/guides/g2-reviews-scraper-first-paid-run/">G2 reviews scraper: cheapest first paid run</a>. For current rates, see the <a href="https://apify.com/taroyamada/g2-capterra-review-intelligence/pricing">Store pricing card</a>.</p>
-    <p><a href="https://apify.com/taroyamada/g2-capterra-review-intelligence">Run this G2 reviews scraper input on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/g2-capterra-review-intelligence/input">Run this G2 reviews scraper input on Apify</a></p>
 
     <h2>Can a G2 reviews scraper also pull Capterra reviews in the same run?</h2>
     <p>Yes, after a one-URL schema check. The Actor accepts both G2 (<code>g2.com/products/{slug}/reviews</code>) and Capterra (<code>capterra.com/p/{id}/{slug}/reviews/</code>) URLs in <code>reviewPageUrls</code>. It auto-detects source and routes each URL to the matching parser. Start with one G2 URL and <code>reviewLimit</code> 1. Mix G2 and Capterra in one run only after you validate the schema on that sample.</p>
@@ -87,7 +88,7 @@
 
     <h2>What is a first G2 reviews scraper input that stays on the live schema?</h2>
     <p>Pass one public G2 review-page URL in <code>reviewPageUrls</code>, <code>reviewLimit</code> 1, <code>delivery</code> dataset, and <code>dryRun</code> false. Do not send unpublished README aliases. Live pay-per-event rates are Actor Start <strong>$0.001</strong> and result <strong>$0.003</strong> (from $3.00 / 1,000 results).</p>
-    <p><a href="https://apify.com/taroyamada/g2-capterra-review-intelligence">Open G2 &amp; Capterra Review Scraper on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/g2-capterra-review-intelligence/input">Open G2 reviews scraper Input on Apify</a></p>
 
     <h2>Related pages</h2>
     <ul>

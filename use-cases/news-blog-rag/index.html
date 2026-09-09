@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Article extractor for news and blog RAG — headline, byline, and body</title>
-  <meta name="description" content="Article extractor for news and blog RAG: fetch public article URLs you already have and return headline, byline, date, and body. Live Store price $0.008 per useful article row.">
+  <title>Article content extractor for news and blog RAG — headline, byline, and body</title>
+  <meta name="description" content="Article content extractor for news and blog RAG: fetch public article URLs you already have and return headline, byline, date, and body. Try Input: 1 URL, report/export off. Live Store price $0.008 per useful article row.">
   <link rel="canonical" href="https://apify.momiji-space.com/use-cases/news-blog-rag/">
   <script type="application/ld+json">
   {
@@ -55,10 +55,11 @@
 <body>
   <main>
     <nav><a href="/">Home</a> / Use cases / News and blog RAG</nav>
-    <h1>Article extractor for news and blog RAG</h1>
+    <h1>Article content extractor for news and blog RAG</h1>
     <p>Use this page when the job is ingesting public news and blog article bodies into RAG. <a href="/article-content-extractor/">Article Content Extractor</a> is the existing Store Actor for that cleanup step. It is not a new Actor, not Google News search, and not a full-site crawler. Pass article-shaped HTTP(S) URLs you own or are authorized to fetch.</p>
     <p class="price">Live Store price: <strong>$0.008 per useful article row</strong> (<code>apify-default-dataset-item</code>). Actor Start $0.00005. Leave the $2.50 audit report and $5.00 batch export off unless you need those value events.</p>
-    <p><a href="https://apify.com/taroyamada/article-content-extractor">Open Article Content Extractor on Apify</a>
+    <p><a href="https://apify.com/taroyamada/article-content-extractor/input">Try the cheapest first paid article content extractor run on Apify Input</a></p>
+    <p><a href="https://apify.com/taroyamada/article-content-extractor">Open taroyamada/article-content-extractor on the Apify Store</a>
       ·
       <a href="/guides/article-extractor-first-paid-run/">Cheapest first paid run</a></p>
 
@@ -76,8 +77,8 @@
   "delivery": "dataset",
   "dryRun": false
 }</code></pre>
-    <p>Replace the placeholder with one public news or blog URL. If extraction succeeds, live PPE is Actor Start <strong>$0.00005</strong> plus one useful article row at <strong>$0.008</strong>. Failed or no-content rows stay out of the default dataset. For the PPE table, see <a href="/guides/article-extractor-first-paid-run/">Cheapest first paid run for Article Extractor</a>.</p>
-    <p><a href="https://apify.com/taroyamada/article-content-extractor">Run this article extractor input on Apify</a></p>
+    <p>Replace the placeholder with one public news or blog URL. If extraction succeeds, live PPE is Actor Start <strong>$0.00005</strong> plus one useful article row at <strong>$0.008</strong>. Failed or no-content rows stay out of the default dataset. For the PPE table, see <a href="/guides/article-extractor-first-paid-run/">Article content extractor: cheapest first paid run</a>.</p>
+    <p><a href="https://apify.com/taroyamada/article-content-extractor/input">Run this article content extractor input on Apify</a></p>
 
     <h2>Can this article extractor feed a news and blog RAG corpus?</h2>
     <p>Yes, as a bounded source step. It fetches public news, blog, newsroom, and press URLs you already have and returns structured article rows: headline, author, <code>publishedAt</code>, <code>articleText</code>, excerpt, <code>heroImage</code>, and <code>sourceUrl</code>. <code>outputFormat</code> defaults to markdown. It is not a search surface, a full-site crawler, or a buyer-facing RAG report Actor. You supply the URL list (maximum 300).</p>
@@ -87,12 +88,12 @@
 
     <h2>What is the cheapest first paid article extractor input for RAG?</h2>
     <p>The published Store Quickstart is one <code>urls</code> item, <code>includeImages</code> false, <code>delivery</code> dataset, and <code>dryRun</code> false. Leave <code>generateReport</code> and <code>emitExport</code> off. Live PPE is <strong>$0.008 per useful article row</strong> plus Actor Start $0.00005.</p>
-    <p><a href="https://apify.com/taroyamada/article-content-extractor">Open Article Content Extractor on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/article-content-extractor/input">Open Article Content Extractor Input on Apify</a></p>
 
     <h2>Related pages</h2>
     <ul>
       <li><a href="/article-content-extractor/">Article Content Extractor</a> — product landing and field list</li>
-      <li><a href="/guides/article-extractor-first-paid-run/">Cheapest first paid run for Article Extractor</a></li>
+      <li><a href="/guides/article-extractor-first-paid-run/">Article content extractor: cheapest first paid run</a></li>
       <li><a href="/packs/content-intelligence/">Content Intelligence pack</a> — RSS, Google News, article, and website extractors</li>
       <li><a href="/google-news-scraper/">Google News Scraper</a> — query-based URL discovery before RAG cleanup</li>
       <li><a href="/use-cases/google-news-brand-monitoring/">Google News brand monitoring</a></li>
