@@ -3,8 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Google Maps Lead Enrichment Scraper — enrich existing local-business leads</title>
-  <meta name="description" content="Enrich existing Google Maps exports or local-business lead rows with websites, emails, phones, contact pages, social links, website signals, and HTTP health. Does not scrape Google Maps.">
+  <title>Google Maps Lead Enrichment Apify — enrich existing leads (not a Maps reviews scraper)</title>
+  <meta name="description" content="Google Maps Lead Enrichment Apify appends website, email, phone, social, and health fields to existing local-business lead rows. Store: taroyamada/google-maps-lead-enrichment. Does not scrape Google Maps. For Maps place ratings and HTML snippets use Google Maps Reviews Scraper Apify.">
+  <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://apify.momiji-space.com/google-maps-lead-enrichment/">
   <script type="application/ld+json">
   {
@@ -58,6 +59,14 @@
           "@type": "Answer",
           "text": "delivery defaults to dataset (write enriched leads only to the dataset). Set delivery to dataset_and_webhook and provide webhookUrl (HTTPS) to also send the final rows after the run. dryRun true validates input and produces preview rows without fetching websites, pushing dataset rows, charging PPE events, or sending webhooks. Live schema delivery values are dataset and dataset_and_webhook; webhook alone is not a live enum value."
         }
+      },
+      {
+        "@type": "Question",
+        "name": "Is Google Maps Lead Enrichment a Google Maps reviews scraper?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. This Actor does not scrape Google Maps and does not return Maps review text. For public Maps place ratings and HTML-embedded review snippets, use Google Maps Reviews Scraper Apify (taroyamada/google-maps-review-intelligence) at /google-maps-reviews-scraper/."
+        }
       }
     ]
   }
@@ -83,13 +92,13 @@
 <body>
   <main>
     <nav><a href="/">Home</a> / Google Maps Lead Enrichment Scraper</nav>
-    <h1>Enrich existing local-business lead rows with public website, contact, social, and health fields</h1>
-    <p>Google Maps Lead Enrichment Scraper appends public website, contact, social, health, and business-signal fields to Google Maps exports, place lists, or local business lead rows you already have. It does <strong>not</strong> scrape Google Maps itself. Contact-page channel inventory and HTTP status QA on a known URL list belong on <a href="/contact-details-extractor/">Contact Page Audit &amp; Business Channel Extractor</a> and <a href="/bulk-url-status-checker/">Bulk URL Status Checker</a>.</p>
+    <h1>Google Maps Lead Enrichment Apify — enrich existing leads (not a Maps reviews scraper)</h1>
+    <p>Google Maps Lead Enrichment Scraper appends public website, contact, social, health, and business-signal fields to Google Maps exports, place lists, or local business lead rows you already have. It does <strong>not</strong> scrape Google Maps itself. For public Maps place ratings and HTML-embedded review snippets, use <a href="/google-maps-reviews-scraper/">Google Maps Reviews Scraper Apify</a>. Contact-page channel inventory and HTTP status QA on a known URL list belong on <a href="/contact-details-extractor/">Contact Page Audit &amp; Business Channel Extractor</a> and <a href="/bulk-url-status-checker/">Bulk URL Status Checker</a>.</p>
     <p class="price">$25.00 per 1,000 lead_profile_enriched events; $10.00 per 1,000 lead_partial events</p>
     <p><a href="https://apify.com/taroyamada/google-maps-lead-enrichment">Open Google Maps Lead Enrichment Scraper on Apify</a></p>
 
     <h2>Lead-row enrichment, not Google Maps search and not a contact-page audit</h2>
-    <p>Use this page when the job is enriching existing Maps/local-business lead rows with website, emails, phones, contact pages, social links, lightweight website signals, and optional HTTP health. Use <a href="/contact-details-extractor/">Contact Page Audit &amp; Business Channel Extractor</a> when the job is a public business-channel inventory from contact, about, or support pages. Use <a href="/bulk-url-status-checker/">Bulk URL Status Checker</a> when the job is HTTP status, redirect chains, and timing on a known URL list.</p>
+    <p>Use this page when the job is enriching existing Maps/local-business lead rows with website, emails, phones, contact pages, social links, lightweight website signals, and optional HTTP health. Use <a href="/google-maps-reviews-scraper/">Google Maps Reviews Scraper Apify</a> when the job is public Maps place ratings and HTML-embedded review snippets. Use <a href="/contact-details-extractor/">Contact Page Audit &amp; Business Channel Extractor</a> when the job is a public business-channel inventory from contact, about, or support pages. Use <a href="/bulk-url-status-checker/">Bulk URL Status Checker</a> when the job is HTTP status, redirect chains, and timing on a known URL list.</p>
     <table>
       <thead>
         <tr>
@@ -264,8 +273,17 @@
     </ul>
     <p><a href="https://apify.com/taroyamada/google-maps-lead-enrichment">Open Google Maps Lead Enrichment Scraper on Apify</a></p>
 
+    <h2>Related actors</h2>
+    <ul>
+      <li><a href="/google-maps-reviews-scraper/">Google Maps Reviews Scraper Apify</a> — Maps place ratings and HTML snippets</li>
+      <li><a href="/contact-details-extractor/">Contact Page Audit &amp; Business Channel Extractor</a> — contact-page inventory</li>
+      <li><a href="/bulk-url-status-checker/">Bulk URL Status Checker</a> — HTTP status of known URLs</li>
+      <li><a href="/trustpilot-reviews-scraper/">Trustpilot Reviews Scraper Apify</a> — Trustpilot company pages</li>
+    </ul>
+
     <h2>Related pages</h2>
     <ul>
+      <li><a href="/google-maps-reviews-scraper/">Google Maps Reviews Scraper Apify</a> — Maps place HTML, not lead-row enrichment</li>
       <li><a href="/contact-details-extractor/">Contact Page Audit &amp; Business Channel Extractor</a> — contact/support page channel inventory, not lead-row Maps enrichment</li>
       <li><a href="/bulk-url-status-checker/">Bulk URL Status Checker</a> — HTTP status of known URLs, not lead-row enrichment</li>
       <li><a href="/website-content-extractor/">Website Content Extractor</a> — cleaned page body, not lead-row contact/social enrichment</li>

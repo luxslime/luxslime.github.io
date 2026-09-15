@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Trustpilot Reviews Scraper Apify — ratings, review text, and company replies</title>
+  <meta name="description" content="Trustpilot Reviews Scraper Apify reads public Trustpilot company review pages into ratings, review samples, and company-reply signals. Store: taroyamada/trustpilot-enterprise-review-aggregator. Live PPE: $0.01 per result; Actor Start $0.001. Not G2, not Shopify App Store, not Google Maps reviews.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/trustpilot-reviews-scraper/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "name": "Trustpilot Reviews Scraper Apify",
+        "url": "https://apify.momiji-space.com/trustpilot-reviews-scraper/",
+        "description": "English landing for taroyamada/trustpilot-enterprise-review-aggregator. Public Trustpilot company review URLs to ratings, samples, and reply signals."
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is Trustpilot Reviews Scraper Apify?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Trustpilot Reviews Scraper Apify is the taroyamada Store actor trustpilot-enterprise-review-aggregator. It collects normalized Trustpilot company metadata, rating distribution, reply signals, and recent review samples from public company review URLs or company domains you supply. It is not a G2/Capterra scraper, not a Shopify App Store listing tool, and not a Google Maps reviews scraper."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I use Trustpilot Reviews Scraper Apify?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Open the Store listing, pass companyUrls (required) such as https://www.trustpilot.com/review/www.shopify.com, keep reviewLimit modest on the first paid run (schema default 50; the live schema prefill is two company URLs), leave delivery on dataset, and dryRun false. additionalProperties is false."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Where is the Trustpilot Reviews Scraper Apify Store page?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The live listing is https://apify.com/taroyamada/trustpilot-enterprise-review-aggregator. This page is the English landing on apify.momiji-space.com."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How is Trustpilot Reviews Scraper different from G2, Shopify App Store, Apple Podcasts, and Google Maps reviews?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Required input is companyUrls: Trustpilot company review URLs or company domains. G2 & Capterra Review Scraper takes reviewPageUrls on g2.com and capterra.com. Shopify App Store Review Scraper takes appUrls on apps.shopify.com. Apple Podcasts Reviews Scraper takes podcastIds and countries for iTunes Customer Reviews RSS. Google Maps Review Scraper takes placeUrls for Maps place pages. This Actor does not accept those sibling fields."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Which live input fields does Trustpilot Reviews Scraper accept?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The published input schema requires companyUrls. Optional fields are reviewLimit (integer, default 50; maximum recent review samples per company), delivery (dataset or webhook, default dataset), webhookUrl (when delivery is webhook), and dryRun (boolean, default false). additionalProperties is false. Schema prefill is https://www.trustpilot.com/review/www.shopify.com and https://www.trustpilot.com/review/www.zendesk.com."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What does a Trustpilot company row include?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The published README summary lists company metadata, star ratings and rating distributions, recent review text samples with timestamps and reviewer contact signals, language distribution, verification and reply indicators, company reply timestamps, collection-health signals, and structured warnings for blocked, missing, partial, or invalid sources. Outputs are normalized per company. There is no separate published dataset/output JSON schema on the Store page. That summary is not a live coverage guarantee for every profile."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How is Trustpilot Reviews Scraper priced?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Billing is pay-per-event. Published events are Actor Start at $0.001 (charged when the Actor starts; one event per GB, minimum one event) and result at $0.01 (single result in the default dataset). Check the Store pricing card for the current per-event rates."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do dataset, webhook, and dryRun work?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "delivery defaults to dataset. Set delivery to webhook and provide webhookUrl to POST the full normalized payload. dryRun true runs collection without pushing company rows to the dataset. The published enum is dataset or webhook."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does Trustpilot Reviews Scraper Apify accept a login, cookie, or private Trustpilot API field?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. The published input schema is companyUrls, reviewLimit, delivery, webhookUrl, and dryRun. There is no login, cookie, API key, or private-endpoint field. This independent Actor is not affiliated with or endorsed by Trustpilot. Do not use the output to target individual reviewers."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I send G2 reviewPageUrls or Google Maps placeUrls into Trustpilot Reviews Scraper Apify?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Required input is companyUrls. additionalProperties is false. G2 and Capterra pages belong on G2 Reviews Scraper Apify. Google Maps place pages belong on Google Maps Review Scraper Apify. Shopify listings belong on Shopify App Store Review Scraper Apify."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Trustpilot Reviews Scraper</nav>
+    <h1>Trustpilot Reviews Scraper Apify — ratings, review text, and company replies</h1>
+    <p>Trustpilot Reviews Scraper Apify (Store id <code>taroyamada/trustpilot-enterprise-review-aggregator</code>) reads public Trustpilot company review pages or company domains you supply. Required input is <code>companyUrls</code>. The live Store description is: scrape Trustpilot reviews: ratings, full text, company replies. It is not a G2/Capterra tool, not a Shopify App Store listing tool, and not a Google Maps reviews tool — those jobs belong on <a href="/g2-capterra-review-scraper/">G2 Reviews Scraper Apify</a>, <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper Apify</a>, and <a href="/google-maps-reviews-scraper/">Google Maps Review Scraper Apify</a>.</p>
+    <p class="price">$0.01 per default-dataset result titled result; Actor Start $0.001. Check the live Store pricing card.</p>
+    <p><a href="https://apify.com/taroyamada/trustpilot-enterprise-review-aggregator">Open Trustpilot Reviews Scraper on Apify</a>
+      ·
+      <a href="https://apify.com/taroyamada/trustpilot-enterprise-review-aggregator/input">Open Input</a></p>
+
+    <h2>What is Trustpilot Reviews Scraper Apify?</h2>
+    <p>Trustpilot Reviews Scraper Apify is the taroyamada Store actor <code>trustpilot-enterprise-review-aggregator</code>. It collects normalized Trustpilot company metadata, rating distribution, reply signals, and recent review samples from public company review URLs. This English landing is <a href="https://apify.momiji-space.com/trustpilot-reviews-scraper/">https://apify.momiji-space.com/trustpilot-reviews-scraper/</a>.</p>
+
+    <h2>How do I use Trustpilot Reviews Scraper Apify?</h2>
+    <p>Pass one or more <code>companyUrls</code>. Schema prefill is two public Trustpilot review URLs. Keep <code>reviewLimit</code> modest while you validate a row. Leave <code>delivery</code> on <code>dataset</code> and <code>dryRun</code> false for a paid first run.</p>
+<pre><code>{
+  "companyUrls": [
+    "https://www.trustpilot.com/review/www.shopify.com"
+  ],
+  "reviewLimit": 50,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+
+    <h2>Where is the Trustpilot Reviews Scraper Apify Store page?</h2>
+    <p>The live listing is <a href="https://apify.com/taroyamada/trustpilot-enterprise-review-aggregator">https://apify.com/taroyamada/trustpilot-enterprise-review-aggregator</a>.</p>
+
+    <h2>Trustpilot company pages, not G2, Shopify, podcasts, or Maps</h2>
+    <p>Use this page when the source is a public Trustpilot company profile. Use <a href="/g2-capterra-review-scraper/">G2 Reviews Scraper Apify</a> for G2 and Capterra product review pages. Use <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper Apify</a> for <code>apps.shopify.com/{slug}</code>. Use <a href="/google-maps-reviews-scraper/">Google Maps Review Scraper Apify</a> for Maps place URLs. Use <a href="/google-maps-lead-enrichment/">Google Maps Lead Enrichment</a> when you already have lead rows and need website/contact enrichment — that Actor does not scrape Google Maps.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>This Actor</th>
+          <th>G2 Reviews Scraper Apify</th>
+          <th>Google Maps Review Scraper Apify</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Source</td>
+          <td>Public Trustpilot company review pages or domains</td>
+          <td>Public G2 and Capterra review-page HTML</td>
+          <td>Public Google Maps place HTML</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td><code>companyUrls</code></td>
+          <td><code>reviewPageUrls</code></td>
+          <td><code>placeUrls</code></td>
+        </tr>
+        <tr>
+          <td>Published price</td>
+          <td>$0.01 per result; Actor Start $0.001</td>
+          <td>From $3.00 / 1,000 results ($0.003 per result; Actor Start $0.001)</td>
+          <td>$0.008 per result; Actor Start $0.001</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Which live input fields does Trustpilot Reviews Scraper accept?</h2>
+    <p><code>companyUrls</code> is required. Optional published fields are <code>reviewLimit</code> (default 50), <code>delivery</code> (<code>dataset</code> or <code>webhook</code>), <code>webhookUrl</code>, and <code>dryRun</code>. <code>additionalProperties</code> is false.</p>
+
+    <h2>What does a Trustpilot company row include?</h2>
+    <p>The published README summary lists company metadata, star ratings and rating distributions, recent review text samples with timestamps, language distribution, verification and reply indicators, company reply timestamps, collection-health signals, and warnings for blocked, missing, partial, or invalid sources. Outputs are normalized per company. There is no separate published dataset/output JSON schema on the Store page.</p>
+
+    <h2>How is Trustpilot Reviews Scraper priced?</h2>
+    <p>Billing is pay-per-event. Published events are Actor Start at <strong>$0.001</strong> and result at <strong>$0.01</strong> (single result in the default dataset). Check the Store pricing card for current rates.</p>
+    <p><a href="https://apify.com/taroyamada/trustpilot-enterprise-review-aggregator/pricing">See Trustpilot Reviews Scraper pricing on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dryRun work?</h2>
+    <p><code>delivery</code> defaults to <code>dataset</code>. Set <code>delivery</code> to <code>webhook</code> and provide <code>webhookUrl</code> to POST the full normalized payload. <code>dryRun</code> true runs collection without pushing company rows to the dataset.</p>
+
+    <h2>Does Trustpilot Reviews Scraper Apify accept a login or private API field?</h2>
+    <p>No. The published input schema is <code>companyUrls</code>, <code>reviewLimit</code>, <code>delivery</code>, <code>webhookUrl</code>, and <code>dryRun</code>. This independent Actor is not affiliated with or endorsed by Trustpilot. Do not use the output to target individual reviewers.</p>
+
+    <h2>Related actors</h2>
+    <ul>
+      <li><a href="/g2-capterra-review-scraper/">G2 Reviews Scraper Apify</a> — G2 and Capterra B2B software review pages</li>
+      <li><a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper Apify</a> — apps.shopify.com listings</li>
+      <li><a href="/google-maps-reviews-scraper/">Google Maps Review Scraper Apify</a> — Maps place ratings and HTML snippets</li>
+      <li><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> — iTunes Customer Reviews RSS</li>
+      <li><a href="/review-intelligence/">Review Intelligence pack</a> — choose the matching review source</li>
+    </ul>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/review-intelligence/">Review Intelligence pack</a></li>
+      <li><a href="/g2-capterra-review-scraper/">G2 Reviews Scraper Apify</a></li>
+      <li><a href="/use-cases/g2-reviews-scraper/">G2 reviews scraper</a></li>
+      <li><a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper Apify</a></li>
+      <li><a href="/google-maps-reviews-scraper/">Google Maps Review Scraper Apify</a></li>
+      <li><a href="/google-maps-lead-enrichment/">Google Maps Lead Enrichment Scraper</a> — existing lead rows, not Maps HTML</li>
+      <li><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a></li>
+      <li><a href="/tools/">Tools</a></li>
+      <li><a href="/">Home</a></li>
+    </ul>
+  </main>
+</body>
+</html>
