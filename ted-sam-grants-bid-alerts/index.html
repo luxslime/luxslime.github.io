@@ -16,7 +16,7 @@
         "name": "How is TED, SAM.gov & Grants Bid Alerts different from Google News Scraper and PubMed Literature Watch?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "This Actor is a public-sector procurement queue. It searches official TED, SAM.gov, and Grants.gov / Simpler.Grants.gov notice APIs and returns normalized TED tenders, SAM.gov opportunities, Grants.gov notices, deadline/status alerts, and optional award-watch or rebid signals. Google News Scraper is query-based Google News RSS discovery of headlines and article URLs; it does not read procurement notice APIs and it does not clean HTML. PubMed Literature Watch queries NCBI E-utilities for citation metadata, literature-update reports, and new-PMID alerts; it is not a bid queue. This page is TED/SAM.gov/Grants.gov bid alerts, not news RSS and not PubMed."
+          "text": "This Actor is a public-sector procurement queue. It searches official TED, SAM.gov, and Grants.gov / Simpler.Grants.gov notice APIs and returns normalized TED tenders, SAM.gov opportunities, Grants.gov notices, deadline/status alerts, and optional award-watch or rebid signals. Google News Scraper is query-based Google News RSS discovery of headlines and article URLs; it does not read procurement notice APIs and it does not clean HTML. PubMed Literature Watch queries NCBI E-utilities for citation metadata, literature-update reports, and new-PMID alerts; it is not a bid queue. This page is TED/SAM.gov/Grants.gov bid alerts, not news RSS and not PubMed. Page-URL HTML cleanup belongs on Article Content Extractor or Website Content Extractor: https://apify.momiji-space.com/compare/article-vs-website-content-extractor/"
         }
       },
       {
@@ -149,16 +149,18 @@
     <nav><a href="/">Home</a> / TED, SAM.gov &amp; Grants Bid Alerts Scraper</nav>
     <h1>SAM.gov Scraper on Apify — TED, Grants.gov, and source-linked bid alerts</h1>
     <p>SAM.gov Scraper Apify (Store actor <a href="https://apify.com/taroyamada/procurement-intel-actor"><code>taroyamada/procurement-intel-actor</code></a>) is the TED SAM.gov scraper for Grants.gov notices as well. The Actor title is TED, SAM.gov &amp; Grants Bid Alerts Scraper. It searches official TED, SAM.gov, and Grants.gov / Simpler.Grants.gov notice APIs.</p>
-    <p>Start with a TED-only quickstart, then turn TED tenders, SAM.gov opportunities, and Grants.gov notices into source-linked bid queues, report bundles, export files, deadlines, award watch, and rebid watch signals. This Actor is a public-sector bid-alert queue — not Google News RSS, not PubMed citation watch, and not a website or article HTML extractor.</p>
+    <p>Start with a TED-only quickstart, then turn TED tenders, SAM.gov opportunities, and Grants.gov notices into source-linked bid queues, report bundles, export files, deadlines, award watch, and rebid watch signals. This Actor is a public-sector bid-alert queue — not Google News RSS, not PubMed citation watch, and not a website or article HTML extractor. If the job is cleaning page URLs for RAG, see <a href="/compare/article-vs-website-content-extractor/">Article Content Extractor vs Website Content Extractor for RAG</a>. B2B software review pages belong on <a href="/compare/g2-capterra-dual-source-vs-single-source/">G2 + Capterra dual-source vs single-source</a>, not this bid queue.</p>
     <p>Source availability and rate limits are reported in <code>warnings[]</code> and <code>errors[]</code>. A partial source response is never presented as complete coverage.</p>
     <p class="price">Try Input: 1 source × maxItemsPerSource 1 = $0.008 if one row is delivered. Store Quickstart TED-only 40 can be $0.32. No live start charge. $8.00 / 1,000 rows.</p>
     <p><a href="https://apify.com/taroyamada/procurement-intel-actor/input">Try the cheapest first paid SAM.gov / TED / grants run on Apify Input</a></p>
     <p><a href="https://apify.com/taroyamada/procurement-intel-actor">Open taroyamada/procurement-intel-actor on the Apify Store</a>
       ·
-      <a href="/guides/sam-gov-grants-scraper-first-paid-run/">Cheapest first paid run</a></p>
+      <a href="/guides/sam-gov-grants-scraper-first-paid-run/">Cheapest first paid run</a>
+      ·
+      <a href="/compare/article-vs-website-content-extractor/">Not HTML cleanup? Article vs Website for RAG</a></p>
 
     <h2>Public-sector bid alerts, not Google News RSS and not PubMed literature</h2>
-    <p>Use this page when the job is monitoring official TED, SAM.gov, and Grants.gov / Simpler.Grants.gov notice feeds into one reviewable queue. Use <a href="/google-news-scraper/">Google News Scraper</a> when the job is query-based Google News RSS headlines and article URLs. Use <a href="/pubmed-literature-watch/">PubMed Literature Watch &amp; Research Report</a> when the job is NCBI E-utilities citation metadata. Use <a href="/article-content-extractor/">Article Content Extractor</a> or <a href="/website-content-extractor/">Website Content Extractor</a> when the input is a list of page URLs to clean.</p>
+    <p>Use this page when the job is monitoring official TED, SAM.gov, and Grants.gov / Simpler.Grants.gov notice feeds into one reviewable queue. Use <a href="/google-news-scraper/">Google News Scraper</a> when the job is query-based Google News RSS headlines and article URLs. Use <a href="/pubmed-literature-watch/">PubMed Literature Watch &amp; Research Report</a> when the job is NCBI E-utilities citation metadata. Use <a href="/article-content-extractor/">Article Content Extractor</a> or <a href="/website-content-extractor/">Website Content Extractor</a> when the input is a list of page URLs to clean — <a href="/compare/article-vs-website-content-extractor/">Article vs Website Content Extractor for RAG</a>. G2 or Capterra review pages are a different source: <a href="/compare/g2-capterra-dual-source-vs-single-source/">G2 + Capterra dual-source vs single-source</a>.</p>
     <table>
       <thead>
         <tr>
@@ -212,7 +214,7 @@
     </ul>
 
     <h2>How is TED, SAM.gov &amp; Grants Bid Alerts different from Google News Scraper and PubMed Literature Watch?</h2>
-    <p>This Actor is a public-sector procurement queue. It searches official TED, SAM.gov, and Grants.gov / Simpler.Grants.gov notice APIs and returns normalized TED tenders, SAM.gov opportunities, Grants.gov notices, deadline/status alerts, and optional award-watch or rebid signals. <a href="/google-news-scraper/">Google News Scraper</a> is query-based Google News RSS discovery of headlines and article URLs; it does not read procurement notice APIs and it does not clean HTML. <a href="/pubmed-literature-watch/">PubMed Literature Watch &amp; Research Report</a> queries NCBI E-utilities for citation metadata, literature-update reports, and new-PMID alerts; it is not a bid queue. This page is TED/SAM.gov/Grants.gov bid alerts, not news RSS and not PubMed.</p>
+    <p>This Actor is a public-sector procurement queue. It searches official TED, SAM.gov, and Grants.gov / Simpler.Grants.gov notice APIs and returns normalized TED tenders, SAM.gov opportunities, Grants.gov notices, deadline/status alerts, and optional award-watch or rebid signals. <a href="/google-news-scraper/">Google News Scraper</a> is query-based Google News RSS discovery of headlines and article URLs; it does not read procurement notice APIs and it does not clean HTML. <a href="/pubmed-literature-watch/">PubMed Literature Watch &amp; Research Report</a> queries NCBI E-utilities for citation metadata, literature-update reports, and new-PMID alerts; it is not a bid queue. This page is TED/SAM.gov/Grants.gov bid alerts, not news RSS and not PubMed. Page-URL HTML cleanup: <a href="/compare/article-vs-website-content-extractor/">Article vs Website Content Extractor for RAG</a>.</p>
 
     <h2>What is the TED-only first run for a bid-alert queue?</h2>
     <p>Start TED-only. The published Store quickstart needs no external key:</p>
@@ -493,6 +495,8 @@
     <ul>
       <li><a href="/use-cases/sam-gov-bid-alerts/">SAM.gov and TED bid-alert queue</a></li>
       <li><a href="/guides/sam-gov-grants-scraper-first-paid-run/">SAM.gov scraper &amp; grants scraper: cheapest first paid run</a> — 1 source × maxItemsPerSource 1 = $0.008</li>
+      <li><a href="/compare/article-vs-website-content-extractor/">Article vs Website Content Extractor for RAG</a> — page HTML cleanup, not TED/SAM.gov/Grants.gov bids</li>
+      <li><a href="/compare/g2-capterra-dual-source-vs-single-source/">G2 + Capterra dual-source vs single-source</a> — B2B review pages, not procurement notices</li>
       <li><a href="/google-news-scraper/">Google News Scraper</a> — Google News RSS headlines and article URLs, not TED/SAM.gov/Grants.gov bids</li>
       <li><a href="/pubmed-literature-watch/">PubMed Literature Watch &amp; Research Report</a> — NCBI E-utilities citation watch, not procurement queues</li>
       <li><a href="/hhs-healthcare-data-breach-scraper/">HHS Healthcare Data Breach Change Scraper</a> — HHS OCR healthcare breach disclosures, not TED/SAM.gov/Grants.gov bids</li>

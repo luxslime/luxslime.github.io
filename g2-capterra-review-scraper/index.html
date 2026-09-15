@@ -72,7 +72,7 @@
         "name": "Can one run mix G2 and Capterra reviewPageUrls after a small-sample schema check?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes. Dual-source support accepts both G2 (g2.com/products/*/reviews) and Capterra (capterra.com/p/*/reviews/) URLs in reviewPageUrls. The Actor classifies each URL and routes it to the matching parser. The live Store Quickstart is one G2 URL with reviewLimit 1. Mix G2 and Capterra in one run only after you validate the schema on that one-URL sample; use dryRun true for validation-only checks before larger monitoring runs."
+          "text": "Yes. Dual-source support accepts both G2 (g2.com/products/*/reviews) and Capterra (capterra.com/p/*/reviews/) URLs in reviewPageUrls. The Actor classifies each URL and routes it to the matching parser. The live Store Quickstart is one G2 URL with reviewLimit 1. Mix G2 and Capterra in one run only after you validate the schema on that one-URL sample; use dryRun true for validation-only checks before larger monitoring runs. Side-by-side: https://apify.momiji-space.com/compare/g2-capterra-dual-source-vs-single-source/"
         }
       },
       {
@@ -148,14 +148,16 @@
   <main>
     <nav><a href="/">Home</a> / G2 &amp; Capterra Review Scraper</nav>
     <h1>G2 Reviews Scraper on Apify — G2 &amp; Capterra review pages to ratings, pros, and cons</h1>
-    <p>G2 Reviews Scraper Apify is the G2 Capterra reviews scraper (Store id <a href="https://apify.com/taroyamada/g2-capterra-review-intelligence"><code>taroyamada/g2-capterra-review-intelligence</code></a>). It reads public G2 and Capterra product review pages you supply. The live Store description is: scrape B2B software reviews, pros and cons, ratings, and reviewer metadata from G2 and Capterra pages for SaaS competitor research. Required input is <code>reviewPageUrls</code>. The Actor auto-detects G2 versus Capterra and routes each URL to the matching parser. It is not a Shopify App Store listing tool and not an Apple Podcasts review RSS tool — those jobs belong on <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a> and <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a>.</p>
+    <p>G2 Reviews Scraper Apify is the G2 Capterra reviews scraper (Store id <a href="https://apify.com/taroyamada/g2-capterra-review-intelligence"><code>taroyamada/g2-capterra-review-intelligence</code></a>). It reads public G2 and Capterra product review pages you supply. The live Store description is: scrape B2B software reviews, pros and cons, ratings, and reviewer metadata from G2 and Capterra pages for SaaS competitor research. Required input is <code>reviewPageUrls</code>. The Actor auto-detects G2 versus Capterra and routes each URL to the matching parser. For one catalog versus mixed G2 and Capterra URLs in the same run, see <a href="/compare/g2-capterra-dual-source-vs-single-source/">G2 + Capterra dual-source vs single-source review scrape</a>. It is not a Shopify App Store listing tool and not an Apple Podcasts review RSS tool — those jobs belong on <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a> and <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a>.</p>
     <p class="price">from $3.00 / 1,000 results ($0.003 per default-dataset result titled result; Actor Start $0.001)</p>
     <p><a href="https://apify.com/taroyamada/g2-capterra-review-intelligence">Open G2 &amp; Capterra Review Scraper on Apify</a>
       ·
-      <a href="/guides/g2-reviews-scraper-first-paid-run/">Cheapest first paid run</a></p>
+      <a href="/guides/g2-reviews-scraper-first-paid-run/">Cheapest first paid run</a>
+      ·
+      <a href="/compare/g2-capterra-dual-source-vs-single-source/">Compare dual-source vs single-source</a></p>
 
     <h2>G2 and Capterra software reviews, not Shopify apps or podcasts</h2>
-    <p>Use this page when the job is B2B software reputation on G2 or Capterra: category benchmarks, competitor proof points, and a single schema across both sites. Use <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a> when the source is a merchant listing at <code>apps.shopify.com/{slug}</code>. Use <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> when the source is Apple/iTunes Customer Reviews RSS for podcast collection IDs.</p>
+    <p>Use this page when the job is B2B software reputation on G2 or Capterra: category benchmarks, competitor proof points, and a single schema across both sites. Dual-source versus one catalog: <a href="/compare/g2-capterra-dual-source-vs-single-source/">G2 + Capterra dual-source vs single-source review scrape</a>. Use <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a> when the source is a merchant listing at <code>apps.shopify.com/{slug}</code>. Use <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> when the source is Apple/iTunes Customer Reviews RSS for podcast collection IDs.</p>
     <table>
       <thead>
         <tr>
@@ -330,7 +332,7 @@
     <p>The Actor emits explicit warnings when page shapes change or access is blocked, rather than silently returning bad data. It degrades gracefully and can return partial results (metadata without reviews) with <code>status</code> <code>ok</code>, <code>partial</code>, <code>blocked</code>, or <code>error</code>. Reviews are extracted from server-rendered HTML; pages that render reviews only via client-side JavaScript may return partial results. G2 and Capterra protect against automated access — blocked requests are reported honestly. HTML parsing is fragile; the Actor emits warnings when expected patterns are missing.</p>
 
     <h2>Can one run mix G2 and Capterra reviewPageUrls after a small-sample schema check?</h2>
-    <p>Yes. Dual-source support accepts both G2 (<code>g2.com/products/*/reviews</code>) and Capterra (<code>capterra.com/p/*/reviews/</code>) URLs in <code>reviewPageUrls</code>. The Actor classifies each URL and routes it to the matching parser. The live Store Quickstart is one G2 URL with <code>reviewLimit</code> 1. Mix G2 and Capterra in one run only after you validate the schema on that one-URL sample; use <code>dryRun: true</code> for validation-only checks before larger monitoring runs.</p>
+    <p>Yes. Dual-source support accepts both G2 (<code>g2.com/products/*/reviews</code>) and Capterra (<code>capterra.com/p/*/reviews/</code>) URLs in <code>reviewPageUrls</code>. The Actor classifies each URL and routes it to the matching parser. The live Store Quickstart is one G2 URL with <code>reviewLimit</code> 1. Mix G2 and Capterra in one run only after you validate the schema on that one-URL sample; use <code>dryRun: true</code> for validation-only checks before larger monitoring runs. Side-by-side: <a href="/compare/g2-capterra-dual-source-vs-single-source/">G2 + Capterra dual-source vs single-source review scrape</a>.</p>
 
     <h2>How is a billed result different from one nested reviews[] item?</h2>
     <p>The live billed event title is <code>result</code> at <strong>$0.003</strong> for a single result in the default dataset (<code>apify-default-dataset-item</code>). The published README output is a per-product object with nested <code>reviews[]</code>. There is no separate published per-review billing event. README cost control says total cost mainly follows how many <code>reviewPageUrls</code> you process and how deep you sample reviews. Keep <code>reviewLimit</code> at 1 for the cheapest first success, then raise it.</p>
@@ -367,8 +369,8 @@
 
     <h2>Related pages</h2>
     <ul>
+      <li><a href="/compare/g2-capterra-dual-source-vs-single-source/">G2 + Capterra dual-source vs single-source review scrape</a> — one catalog versus mixed URLs in one run</li>
       <li><a href="/use-cases/g2-reviews-scraper/">G2 reviews scraper</a> — query-intent page for public G2 and Capterra URLs</li>
-      <li><a href="/compare/g2-capterra-dual-source-vs-single-source/">G2 + Capterra dual-source vs single-source</a></li>
       <li><a href="/guides/g2-reviews-scraper-first-paid-run/">G2 reviews scraper: cheapest first paid run</a></li>
       <li><a href="/review-intelligence/">Review Intelligence pack</a> — podcast vs Shopify App Store vs G2/Capterra reviews</li>
       <li><a href="/tools/">Tools</a></li>

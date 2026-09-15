@@ -16,7 +16,7 @@
         "name": "How is Article Content Extractor different from Website Content Extractor?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "This Actor parses public news, blog, newsroom, and press pages into article rows: headline, author, publishedAt, articleText, excerpt, and heroImage. Maximum 300 URLs per run. outputFormat is markdown (default) or text — it does not emit HTML. Website Content Extractor cleans docs, product, pricing, policy, and help-center pages that are not article-shaped (maximum 200 URLs) and can emit markdown, text, or HTML. Route broad site pages to Website Content Extractor."
+          "text": "This Actor parses public news, blog, newsroom, and press pages into article rows: headline, author, publishedAt, articleText, excerpt, and heroImage. Maximum 300 URLs per run. outputFormat is markdown (default) or text — it does not emit HTML. Website Content Extractor cleans docs, product, pricing, policy, and help-center pages that are not article-shaped (maximum 200 URLs) and can emit markdown, text, or HTML. Route broad site pages to Website Content Extractor. Side-by-side for RAG: https://apify.momiji-space.com/compare/article-vs-website-content-extractor/"
         }
       },
       {
@@ -148,21 +148,23 @@
   <main>
     <nav><a href="/">Home</a> / Article Content Extractor</nav>
     <h1>Article Content Extractor Apify — headline, byline, and body from news, blog, and press URLs</h1>
-    <p><a href="https://apify.com/taroyamada/article-content-extractor">Article Content Extractor Apify</a> fetches public news, blog, newsroom, and press pages you already have and returns structured article rows: headline, byline, publish date, body, excerpt, and hero image. It is a bounded HTML cleanup step for research, content QA, and RAG ingestion — not a ranking tool, a full-site crawler, or a Google News search. For docs, pricing, policy, product, and help-center pages, use <a href="/website-content-extractor/">Website Content Extractor</a>. For query-based headline discovery, use <a href="/google-news-scraper/">Google News Scraper</a>.</p>
+    <p><a href="https://apify.com/taroyamada/article-content-extractor">Article Content Extractor Apify</a> fetches public news, blog, newsroom, and press pages you already have and returns structured article rows: headline, byline, publish date, body, excerpt, and hero image. It is a bounded HTML cleanup step for research, content QA, and RAG ingestion — not a ranking tool, a full-site crawler, or a Google News search. For docs, pricing, policy, product, and help-center pages, use <a href="/website-content-extractor/">Website Content Extractor</a>. For the RAG split, see <a href="/compare/article-vs-website-content-extractor/">Article Content Extractor vs Website Content Extractor for RAG</a>. For query-based headline discovery, use <a href="/google-news-scraper/">Google News Scraper</a>.</p>
     <p class="price">From $2,500.00 / 1,000 article content audit reports ($2.50 per report). Useful article row $0.008 ($8.00 / 1,000). Batch export $5.00. Actor Start $0.00005. Cheapest first paid path leaves both value events off.</p>
     <p><a href="https://apify.com/taroyamada/article-content-extractor">Open Article Content Extractor on Apify</a>
       ·
-      <a href="/guides/article-extractor-first-paid-run/">Cheapest first paid run</a></p>
+      <a href="/guides/article-extractor-first-paid-run/">Cheapest first paid run</a>
+      ·
+      <a href="/compare/article-vs-website-content-extractor/">Compare with Website Content Extractor</a></p>
 
     <h2>Articles versus site pages versus news discovery</h2>
-    <p>Use this page when the URLs are article-shaped: news, blog, newsroom, or press. Use <a href="/website-content-extractor/">Website Content Extractor</a> when the URLs are broader site pages that are not article-shaped. Use <a href="/google-news-scraper/">Google News Scraper</a> when you still need article URLs from search queries.</p>
+    <p>Use this page when the URLs are article-shaped: news, blog, newsroom, or press. Use <a href="/website-content-extractor/">Website Content Extractor</a> when the URLs are broader site pages that are not article-shaped. Side-by-side: <a href="/compare/article-vs-website-content-extractor/">Article Content Extractor vs Website Content Extractor for RAG</a>. Use <a href="/google-news-scraper/">Google News Scraper</a> when you still need article URLs from search queries.</p>
     <table>
       <thead>
         <tr>
           <th></th>
-          <th>Article Content Extractor</th>
-          <th>Website Content Extractor</th>
-          <th>Google News Scraper</th>
+          <th><a href="/article-content-extractor/">Article Content Extractor</a></th>
+          <th><a href="/website-content-extractor/">Website Content Extractor</a></th>
+          <th><a href="/google-news-scraper/">Google News Scraper</a></th>
         </tr>
       </thead>
       <tbody>
@@ -274,7 +276,7 @@
     <p><a href="https://apify.com/taroyamada/article-content-extractor">Generate an article report on Apify</a></p>
 
     <h2>How is Article Content Extractor different from Website Content Extractor?</h2>
-    <p>This Actor parses public news, blog, newsroom, and press pages into article rows: headline, author, <code>publishedAt</code>, <code>articleText</code>, excerpt, and <code>heroImage</code>. Maximum 300 URLs per run. <code>outputFormat</code> is markdown (default) or text — it does not emit HTML. <a href="/website-content-extractor/">Website Content Extractor</a> cleans docs, product, pricing, policy, and help-center pages that are not article-shaped (maximum 200 URLs) and can emit markdown, text, or HTML. Route broad site pages there.</p>
+    <p>This Actor parses public news, blog, newsroom, and press pages into article rows: headline, author, <code>publishedAt</code>, <code>articleText</code>, excerpt, and <code>heroImage</code>. Maximum 300 URLs per run. <code>outputFormat</code> is markdown (default) or text — it does not emit HTML. <a href="/website-content-extractor/">Website Content Extractor</a> cleans docs, product, pricing, policy, and help-center pages that are not article-shaped (maximum 200 URLs) and can emit markdown, text, or HTML. Route broad site pages there. Side-by-side: <a href="/compare/article-vs-website-content-extractor/">Article Content Extractor vs Website Content Extractor for RAG</a>.</p>
 
     <h2>How is Article Content Extractor different from Google News Scraper and RSS discovery?</h2>
     <p>This Actor is HTML cleanup for article-shaped URLs you already have. It is not a search surface. <a href="/google-news-scraper/">Google News Scraper</a> is query-based Google News RSS discovery (<code>queries</code>, maximum 50) and returns headlines and article URLs without full article text. <a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a> parses known-publisher feed XML (<code>feedUrls</code>, maximum 50) and does not crawl page HTML. Discover URLs first, then send news, blog, and press links here.</p>
@@ -414,6 +416,7 @@
 
     <h2>Related pages</h2>
     <ul>
+      <li><a href="/compare/article-vs-website-content-extractor/">Article Content Extractor vs Website Content Extractor for RAG</a> — article-shaped URLs versus docs and site pages</li>
       <li><a href="/packs/content-intelligence/">Content Intelligence pack</a> — choose RSS, Google News, article, or website extraction</li>
       <li><a href="/use-cases/news-blog-rag/">Article extractor for news and blog RAG</a></li>
       <li><a href="/use-cases/rss-newsroom-monitoring/">Newsroom RSS monitoring</a> — discover feed item URLs before cleanup</li>
@@ -421,7 +424,6 @@
       <li><a href="/use-cases/docs-rag-markdown/">Website content extractor for docs and help-center RAG</a></li>
       <li><a href="/guides/article-extractor-first-paid-run/">Cheapest first paid run for Article Extractor</a></li>
       <li><a href="/website-content-extractor/">Website Content Extractor</a></li>
-      <li><a href="/compare/article-vs-website-content-extractor/">Article vs Website Content Extractor for RAG</a></li>
       <li><a href="/wayback-machine-bulk-checker/">Wayback Machine Bulk Checker</a> — Internet Archive availability, not live HTML</li>
       <li><a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a></li>
       <li><a href="/google-news-scraper/">Google News Scraper</a> — query-based discovery before article cleanup</li>
