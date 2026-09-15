@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SEC 13D &amp; 13G Beneficial Ownership Change Report — Official Schedule 13D and 13G filings for issuers you watch</title>
+  <meta name="description" content="taroyamada/sec-13d-13g-beneficial-ownership-change-report. from $6.00 / 1,000 SEC Schedule 13D or 13G filing row ($0.006 per delivered sec-13d-13g-filing-…">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/sec-13d-13g-beneficial-ownership-change-report/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is SEC 13D & 13G Beneficial Ownership Change Report different from SEC EDGAR Scraper and SEC Insider Transaction Scraper?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "SEC 13D & 13G Beneficial Ownership Change Report (taroyamada/sec-13d-13g-beneficial-ownership-change-report): Track issuer watchlists using official SEC EDGAR Schedule 13D, 13D/A, 13G, and 13G/A filings. Receive source-linked beneficial ownership change alerts, reports, and optional exports. Not Form 4 insider trades. Not 13F institutional tables. Not a general 8-K monitor. Live schema requires watchlists and userAgent. SEC EDGAR Scraper is for 8-K and S-1 filing alerts (input tickers / CIKs; EDGAR; Filing rows). Not Schedule 13D/13G. SEC Insider Transaction Scraper is for Form 4 insider trades (input tickers / CIKs; EDGAR Form 4; Transaction rows). Not 13D/13G beneficial ownership. SEC 13F Institutional Holdings Change Report is for 13F holdings tables (input watchlists + userAgent; EDGAR 13F; Holdings-change alerts). Not 13D/13G schedules."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: watchlists, userAgent. Live schema fields: watchlists, lookbackFilings, monitorKey, userAgent, initialRunMode, generateReport, emitRawRows, emitExport, emitUnchanged, maxRequests, requestIntervalMs, maxChargeUsd, dryRun. Track issuer watchlists using official SEC EDGAR Schedule 13D, 13D/A, 13G, and 13G/A filings. Receive source-linked beneficial ownership change alerts, reports, and optional exports. exampleRunInput keys: watchlists, userAgent, maxRequests, maxChargeUsd, dryRun. additionalProperties is false on the live schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: watchlists, userAgent, maxRequests, maxChargeUsd, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is SEC 13D & 13G Beneficial Ownership Change Report priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $6.00 / 1,000 SEC Schedule 13D or 13G filing row ($0.006 per delivered sec-13d-13g-filing-row); $0.35 per SEC beneficial ownership change alert; $15.00 per SEC beneficial ownership change report; $10.00 per SEC beneficial ownership evidence export. No Actor Start. SEC Schedule 13D or 13G filing row (sec-13d-13g-filing-row) $0.006: Charged only when a sec schedule 13d or 13g filing row row is delivered. SEC beneficial ownership change alert (sec-beneficial-ownership-change-alert) $0.35: Charged only when a sec beneficial ownership change alert row is delivered. SEC beneficial ownership change report (sec-ownership-change-report) $15.00: Charged only when a sec beneficial ownership change report row is delivered. SEC beneficial ownership evidence export (sec-ownership-export) $10.00: Charged only when a sec beneficial ownership evidence export row is delivered. Platform usage is listed as included on the Store pricing tab."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / SEC 13D &amp; 13G Beneficial Ownership Change Report</nav>
+    <h1>Official Schedule 13D and 13G filings for issuers you watch</h1>
+    <p>Track issuer watchlists using official SEC EDGAR Schedule 13D, 13D/A, 13G, and 13G/A filings. Receive source-linked beneficial ownership change alerts, reports, and optional exports.</p>
+    <p>Not Form 4 insider trades. Not 13F institutional tables. Not a general 8-K monitor. Live schema requires watchlists and userAgent.</p>
+    <p class="price">from $6.00 / 1,000 SEC Schedule 13D or 13G filing row ($0.006 per delivered sec-13d-13g-filing-row); $0.35 per SEC beneficial ownership change alert; $15.00 per SEC beneficial ownership change report; $10.00 per SEC beneficial ownership evidence export. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/sec-13d-13g-beneficial-ownership-change-report">Open SEC 13D &amp; 13G Beneficial Ownership Change Report on Apify</a></p>
+
+    <h2>SEC 13D &amp; 13G Beneficial Ownership Change Report, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/sec-edgar-filings-monitor/">SEC EDGAR Scraper</a> for 8-K and S-1 filing alerts; Use <a href="/sec-insider-transaction-intelligence/">SEC Insider Transaction Scraper</a> for Form 4 insider trades; Use <a href="/sec-13f-institutional-holdings-change-report/">SEC 13F Institutional Holdings Change Report</a> for 13F holdings tables.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>SEC EDGAR Scraper</th><th>SEC Insider Transaction Scraper</th><th>SEC 13F Institutional Holdings Change Report</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td><td>13D/13G beneficial-ownership change alerts</td><td>8-K and S-1 filing alerts</td><td>Form 4 insider trades</td><td>13F holdings tables</td>
+        </tr>
+        <tr>
+          <td>Primary input</td><td>watchlists</td><td>tickers / CIKs</td><td>tickers / CIKs</td><td>watchlists + userAgent</td>
+        </tr>
+        <tr>
+          <td>What it reads</td><td>Official SEC EDGAR 13D/13G filings</td><td>EDGAR</td><td>EDGAR Form 4</td><td>EDGAR 13F</td>
+        </tr>
+        <tr>
+          <td>Primary output</td><td>Filing-row, ownership-change, report, and export events</td><td>Filing rows</td><td>Transaction rows</td><td>Holdings-change alerts</td>
+        </tr>
+        <tr>
+          <td>Not this job</td><td>Not Form 4 insider trades. Not 13F institutional tables. Not a general 8-K monitor. Live schema requires watchlists and userAgent.</td><td>Not Schedule 13D/13G.</td><td>Not 13D/13G beneficial ownership.</td><td>Not 13D/13G schedules.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/sec-13d-13g-beneficial-ownership-change-report</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>One issuer CIK with generateReport off first</li>
+      <li>Set a descriptive userAgent as required</li>
+      <li>Use initialRunMode baseline_only to seed state</li>
+    </ul>
+
+    <h2>How is SEC 13D &amp; 13G Beneficial Ownership Change Report different from SEC EDGAR Scraper and SEC Insider Transaction Scraper?</h2>
+    <p>SEC 13D &amp; 13G Beneficial Ownership Change Report (taroyamada/sec-13d-13g-beneficial-ownership-change-report): Track issuer watchlists using official SEC EDGAR Schedule 13D, 13D/A, 13G, and 13G/A filings. Receive source-linked beneficial ownership change alerts, reports, and optional exports. Not Form 4 insider trades. Not 13F institutional tables. Not a general 8-K monitor. Live schema requires watchlists and userAgent. SEC EDGAR Scraper is for 8-K and S-1 filing alerts (input tickers / CIKs; EDGAR; Filing rows). Not Schedule 13D/13G. SEC Insider Transaction Scraper is for Form 4 insider trades (input tickers / CIKs; EDGAR Form 4; Transaction rows). Not 13D/13G beneficial ownership. SEC 13F Institutional Holdings Change Report is for 13F holdings tables (input watchlists + userAgent; EDGAR 13F; Holdings-change alerts). Not 13D/13G schedules.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: watchlists, userAgent. Published exampleRunInput is shown below.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>watchlists</code></td>
+          <td>any[]</td>
+          <td><code>[{&quot;id&quot;: &quot;sample-issuers&quot;, &quot;issuers&quot;: [{&quot;cik&quot;: &quot;0000320193&quot;, &quot;label&quot;: &quot;Sample issuer&quot;}], &quot;issuerKeywords&quot;: [], &quot;cusips&quot;: [], &quot;minOwnershipPercent&quot;: 0, &quot;maxFilingsPerIssuer&quot;: 3, &quot;maxAlertsPerIssuer&quot;: 25}]</code></td>
+          <td>Issuer watchlists. Each watchlist contains one or more issuer CIKs or official tickers plus optional filing filters. Required.</td>
+        </tr>
+        <tr>
+          <td><code>lookbackFilings</code></td>
+          <td>integer</td>
+          <td><code>3</code></td>
+          <td>Filings to inspect per issuer. Bounded number of recent Schedule 13D/13G filings inspected for each issuer. Amendments are retained as distinct filings. minimum=1 maximum=6</td>
+        </tr>
+        <tr>
+          <td><code>monitorKey</code></td>
+          <td>string</td>
+          <td><code>&quot;sec-13d-13g-beneficial-ownership-watch&quot;</code></td>
+          <td>Monitor key. Stable state namespace for a recurring beneficial ownership watch.</td>
+        </tr>
+        <tr>
+          <td><code>userAgent</code></td>
+          <td>string</td>
+          <td><code>&quot;taroyamada-sec-13d-13g-beneficial-ownership-change-report/1.0 https://apify.com/taroyamada/sec-13d-13g-beneficial-ownership-change-report&quot;</code></td>
+          <td>SEC User-Agent. Required descriptive value, for example your-company-ownership-watch/1.0 ops@yourcompany.com. Replace the example contact with your own application contact before production use. Required.</td>
+        </tr>
+        <tr>
+          <td><code>initialRunMode</code></td>
+          <td>string enum</td>
+          <td><code>&quot;baseline_only&quot;</code></td>
+          <td>Initial run mode. baseline_only stores current observations with zero rows; emit_backfill emits selected current observations as a first paid report. enum: baseline_only, emit_backfill</td>
+        </tr>
+        <tr>
+          <td><code>generateReport</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Generate ownership change report. Emit one report-first descriptive ownership change report when selected observations change.</td>
+        </tr>
+        <tr>
+          <td><code>emitRawRows</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit filing observation rows. Optional low-priced source-linked observation rows for changed or backfilled reporting persons.</td>
+        </tr>
+        <tr>
+          <td><code>emitExport</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Generate evidence export. Emit a compact JSON export of ownership observations, changes, and official SEC filing links.</td>
+        </tr>
+        <tr>
+          <td><code>emitUnchanged</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit unchanged observations. Accepted for compatibility, but unchanged observations remain free and emit zero rows and zero charges.</td>
+        </tr>
+        <tr>
+          <td><code>maxRequests</code></td>
+          <td>integer</td>
+          <td><code>30</code></td>
+          <td>Maximum SEC requests. Hard per-run request bound including ticker lookup, submissions JSON, and filing documents. minimum=1 maximum=150</td>
+        </tr>
+        <tr>
+          <td><code>requestIntervalMs</code></td>
+          <td>integer</td>
+          <td><code>1100</code></td>
+          <td>Request interval milliseconds. Minimum delay between official SEC requests. Keep a conservative interval and respect SEC access guidance. minimum=100 maximum=5000</td>
+        </tr>
+        <tr>
+          <td><code>maxChargeUsd</code></td>
+          <td>number</td>
+          <td><code>50</code></td>
+          <td>Maximum charge USD. Fail closed before delivery if planned PPE charges exceed this cap. minimum=0.006 maximum=250</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run. Return deterministic representative rows for all event types without SEC requests, state writes, or charges.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  &quot;watchlists&quot;: [
+    {
+      &quot;id&quot;: &quot;sample-issuers&quot;,
+      &quot;issuers&quot;: [
+        {
+          &quot;cik&quot;: &quot;0000320193&quot;,
+          &quot;label&quot;: &quot;Sample issuer&quot;
+        }
+      ],
+      &quot;issuerKeywords&quot;: [],
+      &quot;cusips&quot;: [],
+      &quot;minOwnershipPercent&quot;: 0,
+      &quot;maxFilingsPerIssuer&quot;: 3,
+      &quot;maxAlertsPerIssuer&quot;: 25
+    }
+  ],
+  &quot;userAgent&quot;: &quot;taroyamada-sec-13d-13g-beneficial-ownership-change-report/1.0 https://apify.com/taroyamada/sec-13d-13g-beneficial-ownership-change-report&quot;,
+  &quot;maxRequests&quot;: 3,
+  &quot;maxChargeUsd&quot;: 3,
+  &quot;dryRun&quot;: false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/sec-13d-13g-beneficial-ownership-change-report">Run SEC 13D &amp; 13G Beneficial Ownership Change Report on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is SEC 13D &amp; 13G Beneficial Ownership Change Report priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $6.00 / 1,000 SEC Schedule 13D or 13G filing row ($0.006 per delivered sec-13d-13g-filing-row); $0.35 per SEC beneficial ownership change alert; $15.00 per SEC beneficial ownership change report; $10.00 per SEC beneficial ownership evidence export. No Actor Start.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>sec-13d-13g-filing-row</code> (SEC Schedule 13D or 13G filing row)</td>
+          <td>$0.006</td>
+          <td>Charged only when a sec schedule 13d or 13g filing row row is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>sec-beneficial-ownership-change-alert</code> (SEC beneficial ownership change alert)</td>
+          <td>$0.35</td>
+          <td>Charged only when a sec beneficial ownership change alert row is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>sec-ownership-change-report</code> (SEC beneficial ownership change report)</td>
+          <td>$15.00</td>
+          <td>Charged only when a sec beneficial ownership change report row is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>sec-ownership-export</code> (SEC beneficial ownership evidence export)</td>
+          <td>$10.00</td>
+          <td>Charged only when a sec beneficial ownership evidence export row is delivered.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="price">from $6.00 / 1,000 SEC Schedule 13D or 13G filing row ($0.006 per delivered sec-13d-13g-filing-row); $0.35 per SEC beneficial ownership change alert; $15.00 per SEC beneficial ownership change report; $10.00 per SEC beneficial ownership evidence export. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/sec-13d-13g-beneficial-ownership-change-report/pricing">See SEC 13D &amp; 13G Beneficial Ownership Change Report pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>watchlists and userAgent required</li>
+      <li>Public EDGAR only</li>
+      <li>Report and export are opt-in</li>
+      <li>Not Form 4 or 13F</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/sec-13d-13g-beneficial-ownership-change-report">Open SEC 13D &amp; 13G Beneficial Ownership Change Report on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/sec-edgar-filings-monitor/">SEC EDGAR Scraper</a> — Not Schedule 13D/13G.</li>
+      <li><a href="/sec-insider-transaction-intelligence/">SEC Insider Transaction Scraper</a> — Not 13D/13G beneficial ownership.</li>
+      <li><a href="/sec-13f-institutional-holdings-change-report/">SEC 13F Institutional Holdings Change Report</a> — Not 13D/13G schedules.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

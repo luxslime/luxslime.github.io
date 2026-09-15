@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BIS Export Control List Change Report — Official BIS Entity, Denied Persons, and Unverified lists</title>
+  <meta name="description" content="taroyamada/bis-export-control-list-change-report. from $8.00 / 1,000 BIS restricted party row ($0.008 per delivered bis-restricted-party-row); $0.50 per B…">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/bis-export-control-list-change-report/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is BIS Export Control List Change Report different from HTS Tariff & Trade Scraper and Sanctions Change Tracker?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "BIS Export Control List Change Report (taroyamada/bis-export-control-list-change-report): Monitor official BIS Entity List, Denied Persons List, and Unverified List downloads for source-linked descriptive matches and list changes. Not HTS tariff rates. Not OFAC SDN. Not UN Comtrade flows. You supply name/country watchlists against BIS public list files. HTS Tariff & Trade Scraper is for HTS tariff changes (input codes; Public HTS; Tariff-change rows). Not BIS Entity/DPL lists. Sanctions Change Tracker is for OFAC list additions/removals (input names; OFAC public lists; Sanctions-change rows). Not BIS Entity/DPL/UVL. UN Comtrade Trade Flow Change Report is for UN Comtrade preview queries (input watches; UN Comtrade; Trade-flow change rows). Not BIS restricted-party lists."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: watchlists. Live schema fields: watchlists, monitorKey, initialRunMode, generateReport, emitRawRows, emitExport, emitUnchanged, maxRowsPerList, maxChargeUsd, dryRun. Monitor official BIS Entity List, Denied Persons List, and Unverified List downloads for source-linked descriptive matches and list changes. exampleRunInput keys: watchlists, maxRowsPerList, maxChargeUsd, dryRun. additionalProperties is false on the live schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: watchlists, maxRowsPerList, maxChargeUsd, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is BIS Export Control List Change Report priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $8.00 / 1,000 BIS restricted party row ($0.008 per delivered bis-restricted-party-row); $0.50 per BIS list change alert; $18.00 per BIS export control delta report; $10.00 per BIS change export. No Actor Start. BIS restricted party row (bis-restricted-party-row) $0.008: Charged only when a bis restricted party row is delivered. BIS list change alert (bis-list-change-alert) $0.50: Charged only when a bis list change alert is delivered. BIS export control delta report (bis-export-control-delta-report) $18.00: Charged only when a bis export control delta report is delivered. BIS change export (bis-change-export) $10.00: Charged only when a bis change export is delivered. Platform usage is listed as included on the Store pricing tab."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / BIS Export Control List Change Report</nav>
+    <h1>Official BIS Entity, Denied Persons, and Unverified lists</h1>
+    <p>Monitor official BIS Entity List, Denied Persons List, and Unverified List downloads for source-linked descriptive matches and list changes.</p>
+    <p>Not HTS tariff rates. Not OFAC SDN. Not UN Comtrade flows. You supply name/country watchlists against BIS public list files.</p>
+    <p class="price">from $8.00 / 1,000 BIS restricted party row ($0.008 per delivered bis-restricted-party-row); $0.50 per BIS list change alert; $18.00 per BIS export control delta report; $10.00 per BIS change export. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/bis-export-control-list-change-report">Open BIS Export Control List Change Report on Apify</a></p>
+
+    <h2>BIS Export Control List Change Report, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/tariff-trade-change-digest/">HTS Tariff &amp; Trade Scraper</a> for HTS tariff changes; Use <a href="/sanctions-change-digest/">Sanctions Change Tracker</a> for OFAC list additions/removals; Use <a href="/un-comtrade-trade-flow-change-report/">UN Comtrade Trade Flow Change Report</a> for UN Comtrade preview queries.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>HTS Tariff &amp; Trade Scraper</th><th>Sanctions Change Tracker</th><th>UN Comtrade Trade Flow Change Report</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td><td>BIS restricted-party list matches and deltas</td><td>HTS tariff changes</td><td>OFAC list additions/removals</td><td>UN Comtrade preview queries</td>
+        </tr>
+        <tr>
+          <td>Primary input</td><td>watchlists</td><td>codes</td><td>names</td><td>watches</td>
+        </tr>
+        <tr>
+          <td>What it reads</td><td>Official BIS public list downloads</td><td>Public HTS</td><td>OFAC public lists</td><td>UN Comtrade</td>
+        </tr>
+        <tr>
+          <td>Primary output</td><td>Party-row, list-change, report, and export events</td><td>Tariff-change rows</td><td>Sanctions-change rows</td><td>Trade-flow change rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td><td>Not HTS tariff rates. Not OFAC SDN. Not UN Comtrade flows. You supply name/country watchlists against BIS public list files.</td><td>Not BIS Entity/DPL lists.</td><td>Not BIS Entity/DPL/UVL.</td><td>Not BIS restricted-party lists.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/bis-export-control-list-change-report</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>One Denied Persons name watch with generateReport off first</li>
+      <li>Use initialRunMode baseline_only to seed state</li>
+      <li>Keep maxRowsPerList bounded</li>
+    </ul>
+
+    <h2>How is BIS Export Control List Change Report different from HTS Tariff &amp; Trade Scraper and Sanctions Change Tracker?</h2>
+    <p>BIS Export Control List Change Report (taroyamada/bis-export-control-list-change-report): Monitor official BIS Entity List, Denied Persons List, and Unverified List downloads for source-linked descriptive matches and list changes. Not HTS tariff rates. Not OFAC SDN. Not UN Comtrade flows. You supply name/country watchlists against BIS public list files. HTS Tariff &amp; Trade Scraper is for HTS tariff changes (input codes; Public HTS; Tariff-change rows). Not BIS Entity/DPL lists. Sanctions Change Tracker is for OFAC list additions/removals (input names; OFAC public lists; Sanctions-change rows). Not BIS Entity/DPL/UVL. UN Comtrade Trade Flow Change Report is for UN Comtrade preview queries (input watches; UN Comtrade; Trade-flow change rows). Not BIS restricted-party lists.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: watchlists. Published exampleRunInput is shown below.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>watchlists</code></td>
+          <td>any[]</td>
+          <td><code>[]</code></td>
+          <td>BIS watchlists. Each watch is a descriptive filter. Leave names and countries empty to observe all records in the selected list types. Required.</td>
+        </tr>
+        <tr>
+          <td><code>monitorKey</code></td>
+          <td>string</td>
+          <td><code>&quot;bis-export-control-watch&quot;</code></td>
+          <td>Monitor key. Stable isolated state namespace for this recurring watch.</td>
+        </tr>
+        <tr>
+          <td><code>initialRunMode</code></td>
+          <td>string enum</td>
+          <td><code>&quot;baseline_only&quot;</code></td>
+          <td>Initial run mode. baseline_only stores the first observation with zero rows. emit_backfill delivers current matching records. enum: baseline_only, emit_backfill</td>
+        </tr>
+        <tr>
+          <td><code>generateReport</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Generate delta report. Generate one source-linked aggregate report when selected list changes exist.</td>
+        </tr>
+        <tr>
+          <td><code>emitRawRows</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit normalized list rows. Add one low-priced descriptive row for each selected list delta.</td>
+        </tr>
+        <tr>
+          <td><code>emitExport</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Generate change export. Generate one compact JSON export for the selected deltas.</td>
+        </tr>
+        <tr>
+          <td><code>emitUnchanged</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit unchanged records. Accepted for compatibility. Unchanged runs always remain zero rows and zero charge.</td>
+        </tr>
+        <tr>
+          <td><code>maxRowsPerList</code></td>
+          <td>integer</td>
+          <td><code>10000</code></td>
+          <td>Maximum rows per list. Fail closed instead of silently truncating an official source download. minimum=2 maximum=50000</td>
+        </tr>
+        <tr>
+          <td><code>maxChargeUsd</code></td>
+          <td>number</td>
+          <td><code>50</code></td>
+          <td>Maximum charge USD. Fail closed before the first push when the planned PPE charge exceeds this cap. minimum=0.008 maximum=500</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run. Return deterministic representative rows without requesting BIS, saving state, or charging events.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  &quot;watchlists&quot;: [
+    {
+      &quot;id&quot;: &quot;dpl-example-name&quot;,
+      &quot;listTypes&quot;: [
+        &quot;denied_persons&quot;
+      ],
+      &quot;names&quot;: [
+        &quot;SEMICONDUCTOR SYSTEMS INTL&quot;
+      ],
+      &quot;countries&quot;: []
+    },
+    {
+      &quot;id&quot;: &quot;entity-country-watch&quot;,
+      &quot;listTypes&quot;: [
+        &quot;entity&quot;
+      ],
+      &quot;names&quot;: [],
+      &quot;countries&quot;: [
+        &quot;CN&quot;,
+        &quot;TW&quot;
+      ]
+    }
+  ],
+  &quot;maxRowsPerList&quot;: 3,
+  &quot;maxChargeUsd&quot;: 3,
+  &quot;dryRun&quot;: false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/bis-export-control-list-change-report">Run BIS Export Control List Change Report on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is BIS Export Control List Change Report priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $8.00 / 1,000 BIS restricted party row ($0.008 per delivered bis-restricted-party-row); $0.50 per BIS list change alert; $18.00 per BIS export control delta report; $10.00 per BIS change export. No Actor Start.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>bis-restricted-party-row</code> (BIS restricted party row)</td>
+          <td>$0.008</td>
+          <td>Charged only when a bis restricted party row is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>bis-list-change-alert</code> (BIS list change alert)</td>
+          <td>$0.50</td>
+          <td>Charged only when a bis list change alert is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>bis-export-control-delta-report</code> (BIS export control delta report)</td>
+          <td>$18.00</td>
+          <td>Charged only when a bis export control delta report is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>bis-change-export</code> (BIS change export)</td>
+          <td>$10.00</td>
+          <td>Charged only when a bis change export is delivered.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="price">from $8.00 / 1,000 BIS restricted party row ($0.008 per delivered bis-restricted-party-row); $0.50 per BIS list change alert; $18.00 per BIS export control delta report; $10.00 per BIS change export. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/bis-export-control-list-change-report/pricing">See BIS Export Control List Change Report pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>watchlists required</li>
+      <li>Public BIS lists only</li>
+      <li>Report and export are opt-in</li>
+      <li>Not OFAC or EU sanctions</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/bis-export-control-list-change-report">Open BIS Export Control List Change Report on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/tariff-trade-change-digest/">HTS Tariff &amp; Trade Scraper</a> — Not BIS Entity/DPL lists.</li>
+      <li><a href="/sanctions-change-digest/">Sanctions Change Tracker</a> — Not BIS Entity/DPL/UVL.</li>
+      <li><a href="/un-comtrade-trade-flow-change-report/">UN Comtrade Trade Flow Change Report</a> — Not BIS restricted-party lists.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

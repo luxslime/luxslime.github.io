@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Website Change Monitor — Public page diffs on targets you already watch</title>
+  <meta name="description" content="taroyamada/url-change-watch-scraper. from $80.00 / 1,000 URL change detected ($0.08 per delivered url-change-detected); $0.02 per URL snapshot; $5.00 per…">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/url-change-watch-scraper/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is Website Change Monitor different from SaaS Pricing Competitor Monitor and Docs & Changelog Drift Scraper?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Website Change Monitor (taroyamada/url-change-watch-scraper): Watch public page content you are allowed to fetch and emit source-linked change rows when the page diff crosses your settings. Not a SaaS pricing-page specialist (use SaaS Pricing Competitor Monitor). Not a docs/changelog drift Actor. Not a full-site crawler. You supply targets (name + url); live required array is empty. SaaS Pricing Competitor Monitor is for Competitor pricing HTML (input urls; Public pricing pages; Price-change rows). Not a generic page-diff watch. Docs & Changelog Drift Scraper is for Docs/changelog drift (input urls; Public docs HTML; Drift rows). Not an arbitrary URL diff watch. SaaS Pricing Tracker is for SaaS page change alerts (input urls; Public HTML; Page-change rows). Not a generic URL watch with page diffs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: none (see live fields). Live schema fields: targets, maxTargets, emitSnapshots, generateDigest, stripDates, stripVolatileNumbers, maxDiffSegments, emitUnchanged, dryRun, initialRunMode, snapshotKey, maxChargeUsd. Watch public page content you are allowed to fetch and emit source-linked change rows when the page diff crosses your settings. exampleRunInput keys: targets, maxTargets, emitSnapshots, generateDigest, stripDates, stripVolatileNumbers, maxDiffSegments, emitUnchanged. additionalProperties is false on the live schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: targets, maxTargets, emitSnapshots, generateDigest, stripDates, stripVolatileNumbers, maxDiffSegments, emitUnchanged. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Published README Output Example / Sample Output JSON. Illustration: {   \"rowType\": \"url_change\",   \"billingEventName\": \"url-change-detected\",   \"targetName\": \"Competitor pricing\",   \"sourceUrl\": \"https://example.com/pricing\",   \"changeKind\": \"content_hash_diff\",   \"addedSegments\": [     \"The Pro plan now includes priority support.\"   ],   \"removedSegments\": [     \"The Pro plan includes standard support.\"   ],   \"addedSegmentCount\": 1,   \"removedSegmentCount\": 1,   \"changeRatio\": 0.25,   \"contentHash\": \"bcf38e4a58839f6c7686c3f1\",   \"previousContentHash\": \"dba4a91988d5ed0d5f3dbd31\",   \"checkedAt\": \"2026-07-27T01:00:00.000Z\" }  Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is Website Change Monitor priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $80.00 / 1,000 URL change detected ($0.08 per delivered url-change-detected); $0.02 per URL snapshot; $5.00 per Change digest report. No Actor Start. URL change detected (url-change-detected) $0.08: Charged for each source-linked public page change row. URL snapshot (url-snapshot) $0.02: Charged for each optional successful page snapshot row. Change digest report (change-digest-report) $5.00: Charged for each run-level digest when changes were detected. Platform usage is listed as included on the Store pricing tab."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Website Change Monitor</nav>
+    <h1>Public page diffs on targets you already watch</h1>
+    <p>Watch public page content you are allowed to fetch and emit source-linked change rows when the page diff crosses your settings.</p>
+    <p>Not a SaaS pricing-page specialist (use SaaS Pricing Competitor Monitor). Not a docs/changelog drift Actor. Not a full-site crawler. You supply targets (name + url); live required array is empty.</p>
+    <p class="price">from $80.00 / 1,000 URL change detected ($0.08 per delivered url-change-detected); $0.02 per URL snapshot; $5.00 per Change digest report. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/url-change-watch-scraper">Open Website Change Monitor on Apify</a></p>
+
+    <h2>Website Change Monitor, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/saas-pricing-page-change-monitor/">SaaS Pricing Competitor Monitor</a> for Competitor pricing HTML; Use <a href="/docs-changelog-drift-monitor/">Docs &amp; Changelog Drift Scraper</a> for Docs/changelog drift; Use <a href="/saas-change-monitor-actor/">SaaS Pricing Tracker</a> for SaaS page change alerts.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>SaaS Pricing Competitor Monitor</th><th>Docs &amp; Changelog Drift Scraper</th><th>SaaS Pricing Tracker</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td><td>Page-diff alerts on a URL watchlist</td><td>Competitor pricing HTML</td><td>Docs/changelog drift</td><td>SaaS page change alerts</td>
+        </tr>
+        <tr>
+          <td>Primary input</td><td>targets</td><td>urls</td><td>urls</td><td>urls</td>
+        </tr>
+        <tr>
+          <td>What it reads</td><td>User-supplied public page HTML</td><td>Public pricing pages</td><td>Public docs HTML</td><td>Public HTML</td>
+        </tr>
+        <tr>
+          <td>Primary output</td><td>url-change-detected, optional url-snapshot, and change-digest-report events</td><td>Price-change rows</td><td>Drift rows</td><td>Page-change rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td><td>Not a SaaS pricing-page specialist (use SaaS Pricing Competitor Monitor). Not a docs/changelog drift Actor. Not a full-site crawler. You supply targets (name + url); live required array is empty.</td><td>Not a generic page-diff watch.</td><td>Not an arbitrary URL diff watch.</td><td>Not a generic URL watch with page diffs.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/url-change-watch-scraper</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>One target with emitSnapshots false and generateDigest false on a first live run</li>
+      <li>Keep maxTargets at 1 until the selector is stable</li>
+      <li>Respect robots.txt and source terms</li>
+    </ul>
+
+    <h2>How is Website Change Monitor different from SaaS Pricing Competitor Monitor and Docs &amp; Changelog Drift Scraper?</h2>
+    <p>Website Change Monitor (taroyamada/url-change-watch-scraper): Watch public page content you are allowed to fetch and emit source-linked change rows when the page diff crosses your settings. Not a SaaS pricing-page specialist (use SaaS Pricing Competitor Monitor). Not a docs/changelog drift Actor. Not a full-site crawler. You supply targets (name + url); live required array is empty. SaaS Pricing Competitor Monitor is for Competitor pricing HTML (input urls; Public pricing pages; Price-change rows). Not a generic page-diff watch. Docs &amp; Changelog Drift Scraper is for Docs/changelog drift (input urls; Public docs HTML; Drift rows). Not an arbitrary URL diff watch. SaaS Pricing Tracker is for SaaS page change alerts (input urls; Public HTML; Page-change rows). Not a generic URL watch with page diffs.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: none (see live fields). Published exampleRunInput is shown below.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>targets</code></td>
+          <td>any[]</td>
+          <td><code>[{&quot;name&quot;: &quot;Example page&quot;, &quot;url&quot;: &quot;https://example.com/&quot;, &quot;cssSelector&quot;: &quot;&quot;, &quot;ignoreSelectors&quot;: []}]</code></td>
+          <td>Watch targets. Public pages to monitor. Optional cssSelector narrows the hashed region; ignoreSelectors remove noisy nodes (as text patterns).</td>
+        </tr>
+        <tr>
+          <td><code>maxTargets</code></td>
+          <td>integer</td>
+          <td><code>25</code></td>
+          <td>Max targets. Maximum targets to check in one run. minimum=1 maximum=100</td>
+        </tr>
+        <tr>
+          <td><code>emitSnapshots</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit snapshot rows. Emit a url-snapshot row whenever a page is successfully fetched (in addition to change rows).</td>
+        </tr>
+        <tr>
+          <td><code>generateDigest</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Generate digest report. When any change is detected, emit one change-digest-report summarizing the run.</td>
+        </tr>
+        <tr>
+          <td><code>stripDates</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Strip date-like tokens. Remove ISO-like dates and common timestamps before hashing to reduce false positives.</td>
+        </tr>
+        <tr>
+          <td><code>stripVolatileNumbers</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Strip volatile counters. Normalize long digit runs (view counts, etc.) before hashing.</td>
+        </tr>
+        <tr>
+          <td><code>maxDiffSegments</code></td>
+          <td>integer</td>
+          <td><code>20</code></td>
+          <td>Maximum added/removed segments. Maximum number of added and removed text segments included in each change row. minimum=1 maximum=100</td>
+        </tr>
+        <tr>
+          <td><code>emitUnchanged</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit unchanged rows. When false (default), repeated unchanged runs emit zero rows and zero charges.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run. Emit local sample rows without fetching or charging.</td>
+        </tr>
+        <tr>
+          <td><code>initialRunMode</code></td>
+          <td>string enum</td>
+          <td><code>&quot;baseline_only&quot;</code></td>
+          <td>Initial run mode. emit_backfill allows first-run change rows when no baseline exists; baseline_only records hashes with zero output rows. enum: emit_backfill, baseline_only</td>
+        </tr>
+        <tr>
+          <td><code>snapshotKey</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Snapshot key. Optional state namespace for canary and recurring schedules.</td>
+        </tr>
+        <tr>
+          <td><code>maxChargeUsd</code></td>
+          <td>number</td>
+          <td><code>10</code></td>
+          <td>Maximum event charge per run. Fail before delivery when configured output events would exceed this buyer-approved cap. minimum=0.01 maximum=1000</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  &quot;targets&quot;: [
+    {
+      &quot;name&quot;: &quot;Example page&quot;,
+      &quot;url&quot;: &quot;https://example.com/&quot;,
+      &quot;cssSelector&quot;: &quot;&quot;,
+      &quot;ignoreSelectors&quot;: []
+    }
+  ],
+  &quot;maxTargets&quot;: 3,
+  &quot;emitSnapshots&quot;: false,
+  &quot;generateDigest&quot;: true,
+  &quot;stripDates&quot;: true,
+  &quot;stripVolatileNumbers&quot;: false,
+  &quot;maxDiffSegments&quot;: 3,
+  &quot;emitUnchanged&quot;: false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/url-change-watch-scraper">Run Website Change Monitor on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON. Illustration:
+{
+  &quot;rowType&quot;: &quot;url_change&quot;,
+  &quot;billingEventName&quot;: &quot;url-change-detected&quot;,
+  &quot;targetName&quot;: &quot;Competitor pricing&quot;,
+  &quot;sourceUrl&quot;: &quot;https://example.com/pricing&quot;,
+  &quot;changeKind&quot;: &quot;content_hash_diff&quot;,
+  &quot;addedSegments&quot;: [
+    &quot;The Pro plan now includes priority support.&quot;
+  ],
+  &quot;removedSegments&quot;: [
+    &quot;The Pro plan includes standard support.&quot;
+  ],
+  &quot;addedSegmentCount&quot;: 1,
+  &quot;removedSegmentCount&quot;: 1,
+  &quot;changeRatio&quot;: 0.25,
+  &quot;contentHash&quot;: &quot;bcf38e4a58839f6c7686c3f1&quot;,
+  &quot;previousContentHash&quot;: &quot;dba4a91988d5ed0d5f3dbd31&quot;,
+  &quot;checkedAt&quot;: &quot;2026-07-27T01:00:00.000Z&quot;
+}
+ Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is Website Change Monitor priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $80.00 / 1,000 URL change detected ($0.08 per delivered url-change-detected); $0.02 per URL snapshot; $5.00 per Change digest report. No Actor Start.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>url-change-detected</code> (URL change detected)</td>
+          <td>$0.08</td>
+          <td>Charged for each source-linked public page change row.</td>
+        </tr>
+        <tr>
+          <td><code>url-snapshot</code> (URL snapshot)</td>
+          <td>$0.02</td>
+          <td>Charged for each optional successful page snapshot row.</td>
+        </tr>
+        <tr>
+          <td><code>change-digest-report</code> (Change digest report)</td>
+          <td>$5.00</td>
+          <td>Charged for each run-level digest when changes were detected.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="price">from $80.00 / 1,000 URL change detected ($0.08 per delivered url-change-detected); $0.02 per URL snapshot; $5.00 per Change digest report. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/url-change-watch-scraper/pricing">See Website Change Monitor pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Live required array is empty; supply targets</li>
+      <li>Public pages only</li>
+      <li>generateDigest is a separate billed event</li>
+      <li>Unchanged polls write zero rows when emitUnchanged is false</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/url-change-watch-scraper">Open Website Change Monitor on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/saas-pricing-page-change-monitor/">SaaS Pricing Competitor Monitor</a> — Not a generic page-diff watch.</li>
+      <li><a href="/docs-changelog-drift-monitor/">Docs &amp; Changelog Drift Scraper</a> — Not an arbitrary URL diff watch.</li>
+      <li><a href="/saas-change-monitor-actor/">SaaS Pricing Tracker</a> — Not a generic URL watch with page diffs.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

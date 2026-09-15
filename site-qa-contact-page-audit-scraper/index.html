@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Site QA Contact Page Audit — Public contact pages audited without collecting outreach PII</title>
+  <meta name="description" content="taroyamada/site-qa-contact-page-audit-scraper. from $10.00 / 1,000 Site page extracted ($0.01 per delivered site-page-extracted); $0.08 per Site QA issue…">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/site-qa-contact-page-audit-scraper/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is Site QA Contact Page Audit different from Contact Page Audit & Business Channel Extractor and CSV Local Business List Scoring Report?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Site QA Contact Page Audit (taroyamada/site-qa-contact-page-audit-scraper): Audit public site contact pages for QA completeness without collecting personal outreach data. Not a contact-detail harvester for emails and phones (use Contact Page Audit & Business Channel Extractor). Not CSV scoring of a local-business list. Not a broken-link crawler. You supply the URLs. Contact Page Audit & Business Channel Extractor is for Channel/contact fields on known pages (input urls; Public contact pages; Channel rows). Not a contact-page QA completeness report pack. CSV Local Business List Scoring Report is for Score a CSV you already hold (input csvUrl / csvData; User-supplied CSV; Scoring report). Not a live contact-page HTML audit. Broken Link Checker is for Crawl start URLs for 404s (input start URLs; Linked HTTP statuses; Broken-link rows). Not contact-page completeness QA."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: urls. Live schema fields: urls, maxPages, maxLinksPerPage, emitPageRows, generateReport, emitExport, emitUnchanged, dryRun. Audit public site contact pages for QA completeness without collecting personal outreach data. exampleRunInput keys: urls, maxPages, maxLinksPerPage, dryRun. additionalProperties is not set to false on this schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: urls, maxPages, maxLinksPerPage, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is Site QA Contact Page Audit priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $10.00 / 1,000 Site page extracted ($0.01 per delivered site-page-extracted); $0.08 per Site QA issue detected; $5.00 per Site QA report generated; $7.00 per Site export generated. No Actor Start. Site page extracted (site-page-extracted) $0.01: Charged for each optional raw public page snapshot row. Site QA issue detected (site-qa-issue-detected) $0.08: Charged for each source-linked contact page QA issue row. Site QA report generated (site-qa-report-generated) $5.00: Charged for each contact page audit report row. Site export generated (site-export-generated) $7.00: Charged for each generated contact page QA export row. Platform usage is listed as included on the Store pricing tab."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Site QA Contact Page Audit</nav>
+    <h1>Public contact pages audited without collecting outreach PII</h1>
+    <p>Audit public site contact pages for QA completeness without collecting personal outreach data.</p>
+    <p>Not a contact-detail harvester for emails and phones (use Contact Page Audit &amp; Business Channel Extractor). Not CSV scoring of a local-business list. Not a broken-link crawler. You supply the URLs.</p>
+    <p class="price">from $10.00 / 1,000 Site page extracted ($0.01 per delivered site-page-extracted); $0.08 per Site QA issue detected; $5.00 per Site QA report generated; $7.00 per Site export generated. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/site-qa-contact-page-audit-scraper">Open Site QA Contact Page Audit on Apify</a></p>
+
+    <h2>Site QA Contact Page Audit, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/contact-details-extractor/">Contact Page Audit &amp; Business Channel Extractor</a> for Channel/contact fields on known pages; Use <a href="/csv-local-business-list-scoring-report/">CSV Local Business List Scoring Report</a> for Score a CSV you already hold; Use <a href="/broken-link-checker/">Broken Link Checker</a> for Crawl start URLs for 404s.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>Contact Page Audit &amp; Business Channel Extractor</th><th>CSV Local Business List Scoring Report</th><th>Broken Link Checker</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td><td>Contact-page completeness issues, report, and export</td><td>Channel/contact fields on known pages</td><td>Score a CSV you already hold</td><td>Crawl start URLs for 404s</td>
+        </tr>
+        <tr>
+          <td>Primary input</td><td>urls</td><td>urls</td><td>csvUrl / csvData</td><td>start URLs</td>
+        </tr>
+        <tr>
+          <td>What it reads</td><td>User-supplied public contact pages</td><td>Public contact pages</td><td>User-supplied CSV</td><td>Linked HTTP statuses</td>
+        </tr>
+        <tr>
+          <td>Primary output</td><td>Issue, report, and export events</td><td>Channel rows</td><td>Scoring report</td><td>Broken-link rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td><td>Not a contact-detail harvester for emails and phones (use Contact Page Audit &amp; Business Channel Extractor). Not CSV scoring of a local-business list. Not a broken-link crawler. You supply the URLs.</td><td>Not a contact-page QA completeness report pack.</td><td>Not a live contact-page HTML audit.</td><td>Not contact-page completeness QA.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/site-qa-contact-page-audit-scraper</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Point urls at public /contact pages you are allowed to audit</li>
+      <li>Keep emitPageRows off unless you need raw snapshots</li>
+      <li>authorized completeness only — no outreach PII collection</li>
+    </ul>
+
+    <h2>How is Site QA Contact Page Audit different from Contact Page Audit &amp; Business Channel Extractor and CSV Local Business List Scoring Report?</h2>
+    <p>Site QA Contact Page Audit (taroyamada/site-qa-contact-page-audit-scraper): Audit public site contact pages for QA completeness without collecting personal outreach data. Not a contact-detail harvester for emails and phones (use Contact Page Audit &amp; Business Channel Extractor). Not CSV scoring of a local-business list. Not a broken-link crawler. You supply the URLs. Contact Page Audit &amp; Business Channel Extractor is for Channel/contact fields on known pages (input urls; Public contact pages; Channel rows). Not a contact-page QA completeness report pack. CSV Local Business List Scoring Report is for Score a CSV you already hold (input csvUrl / csvData; User-supplied CSV; Scoring report). Not a live contact-page HTML audit. Broken Link Checker is for Crawl start URLs for 404s (input start URLs; Linked HTTP statuses; Broken-link rows). Not contact-page completeness QA.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: urls. Published exampleRunInput is shown below.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>urls</code></td>
+          <td>any[]</td>
+          <td><code>[&quot;https://example.com/contact?siteQaCanary=contact-v2&quot;]</code></td>
+          <td>Public page URLs. Public URLs that you are allowed to audit. Required.</td>
+        </tr>
+        <tr>
+          <td><code>maxPages</code></td>
+          <td>integer</td>
+          <td><code>10</code></td>
+          <td>Max pages. Maximum number of input pages to check. minimum=1 maximum=100</td>
+        </tr>
+        <tr>
+          <td><code>maxLinksPerPage</code></td>
+          <td>integer</td>
+          <td><code>25</code></td>
+          <td>Max links per page. Maximum links to check per page for URL health workflows. minimum=1 maximum=250</td>
+        </tr>
+        <tr>
+          <td><code>emitPageRows</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit raw page rows. Emit optional raw page snapshot rows in addition to value-event issue/report rows.</td>
+        </tr>
+        <tr>
+          <td><code>generateReport</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Generate report row. Generate a site-level report row.</td>
+        </tr>
+        <tr>
+          <td><code>emitExport</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Generate export row. Generate an export row for handoff workflows.</td>
+        </tr>
+        <tr>
+          <td><code>emitUnchanged</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit unchanged rows. When false, repeated unchanged runs emit zero rows and zero charges.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run. Emit local sample rows without charging.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  &quot;urls&quot;: [
+    &quot;https://example.com/contact?siteQaCanary=contact-v2&quot;
+  ],
+  &quot;maxPages&quot;: 1,
+  &quot;maxLinksPerPage&quot;: 1,
+  &quot;dryRun&quot;: false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/site-qa-contact-page-audit-scraper">Run Site QA Contact Page Audit on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is Site QA Contact Page Audit priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $10.00 / 1,000 Site page extracted ($0.01 per delivered site-page-extracted); $0.08 per Site QA issue detected; $5.00 per Site QA report generated; $7.00 per Site export generated. No Actor Start.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>site-page-extracted</code> (Site page extracted)</td>
+          <td>$0.01</td>
+          <td>Charged for each optional raw public page snapshot row.</td>
+        </tr>
+        <tr>
+          <td><code>site-qa-issue-detected</code> (Site QA issue detected)</td>
+          <td>$0.08</td>
+          <td>Charged for each source-linked contact page QA issue row.</td>
+        </tr>
+        <tr>
+          <td><code>site-qa-report-generated</code> (Site QA report generated)</td>
+          <td>$5.00</td>
+          <td>Charged for each contact page audit report row.</td>
+        </tr>
+        <tr>
+          <td><code>site-export-generated</code> (Site export generated)</td>
+          <td>$7.00</td>
+          <td>Charged for each generated contact page QA export row.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="price">from $10.00 / 1,000 Site page extracted ($0.01 per delivered site-page-extracted); $0.08 per Site QA issue detected; $5.00 per Site QA report generated; $7.00 per Site export generated. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/site-qa-contact-page-audit-scraper/pricing">See Site QA Contact Page Audit pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>You supply urls</li>
+      <li>urls required</li>
+      <li>Does not collect personal outreach data</li>
+      <li>Not a lead-enrichment scrape</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/site-qa-contact-page-audit-scraper">Open Site QA Contact Page Audit on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/contact-details-extractor/">Contact Page Audit &amp; Business Channel Extractor</a> — Not a contact-page QA completeness report pack.</li>
+      <li><a href="/csv-local-business-list-scoring-report/">CSV Local Business List Scoring Report</a> — Not a live contact-page HTML audit.</li>
+      <li><a href="/broken-link-checker/">Broken Link Checker</a> — Not contact-page completeness QA.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

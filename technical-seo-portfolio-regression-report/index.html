@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Technical SEO &amp; AI Crawler Audit — robots, noindex, sitemap, canonical, and AI crawler access changes</title>
+  <meta name="description" content="taroyamada/technical-seo-portfolio-regression-report. from $12.00 / 1,000 SEO page audited ($0.01 per delivered seo-page-audited); $0.08 per SEO regressio…">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/technical-seo-portfolio-regression-report/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is Technical SEO & AI Crawler Audit different from Site QA Indexability AI Crawler Report and robots.txt Parser & AI Crawler Block Checker?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Technical SEO & AI Crawler Audit (taroyamada/technical-seo-portfolio-regression-report): Audit public pages you are authorized to test for robots, noindex, sitemap, canonical, and AI crawler access changes. Deliver source-linked regressions, portfolio reports, and optional exports. Not an llms.txt + indexability report pack (use Site QA Indexability AI Crawler Report). Not a robots.txt parser-only check. Not a sitemap enumerator. You supply the URLs and must confirm authorized use for live runs. Site QA Indexability AI Crawler Report is for robots.txt and llms.txt signals (input urls; robots.txt / llms.txt; Policy-check and indexability events). Not a technical SEO regression pack covering canonical/noindex. robots.txt Parser & AI Crawler Block Checker is for GPTBot/ClaudeBot disallow audits (input origin URLs; robots.txt; Disallow rows). Not a canonical/noindex/sitemap regression report. Sitemap Scraper & Analyzer is for Nested XML sitemap URLs (input sitemap URLs; sitemap.xml; Sitemap URL rows). Not robots/canonical/noindex regressions."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: urls. Live schema fields: urls, aiCrawlerUserAgents, maxPages, checkRobotsTxt, checkLlmsTxt, authorizedUseConfirmed, emitPageRows, generateReport, emitExport, emitUnchanged, dryRun, initialRunMode, snapshotKey, watchlists, monitorKey, emitRawRows, maxChargeUsd. Audit public pages you are authorized to test for robots, noindex, sitemap, canonical, and AI crawler access changes. Deliver source-linked regressions, portfolio reports, and optional exports. exampleRunInput keys: urls, maxPages, dryRun, maxChargeUsd. additionalProperties is false on the live schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: urls, maxPages, dryRun, maxChargeUsd. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Published README Output Example / Sample Output JSON. Illustration: {   \"actorName\": \"technical-seo-portfolio-regression-report\",   \"rowType\": \"indexability_issue\",   \"billingEventName\": \"seo-regression-detected\",   \"issueType\": \"ai_crawler_disallowed_by_robots\",   \"severity\": \"high\",   \"sourceUrl\": \"https://example.com/?siteQaCanary=indexability-ai-crawler-v1\" }  Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is Technical SEO & AI Crawler Audit priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $12.00 / 1,000 SEO page audited ($0.01 per delivered seo-page-audited); $0.08 per SEO regression detected; $3.00 per SEO portfolio report; $2.00 per SEO agency export. No Actor Start. SEO page audited (seo-page-audited) $0.01: Charged only when a seo page audited row is delivered. SEO regression detected (seo-regression-detected) $0.08: Charged only when a seo regression detected row is delivered. SEO portfolio report (seo-portfolio-report) $3.00: Charged only when a seo portfolio report row is delivered. SEO agency export (seo-agency-export) $2.00: Charged only when a seo agency export row is delivered. Platform usage is listed as included on the Store pricing tab."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Technical SEO &amp; AI Crawler Audit</nav>
+    <h1>robots, noindex, sitemap, canonical, and AI crawler access changes</h1>
+    <p>Audit public pages you are authorized to test for robots, noindex, sitemap, canonical, and AI crawler access changes. Deliver source-linked regressions, portfolio reports, and optional exports.</p>
+    <p>Not an llms.txt + indexability report pack (use Site QA Indexability AI Crawler Report). Not a robots.txt parser-only check. Not a sitemap enumerator. You supply the URLs and must confirm authorized use for live runs.</p>
+    <p class="price">from $12.00 / 1,000 SEO page audited ($0.01 per delivered seo-page-audited); $0.08 per SEO regression detected; $3.00 per SEO portfolio report; $2.00 per SEO agency export. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/technical-seo-portfolio-regression-report">Open Technical SEO &amp; AI Crawler Audit on Apify</a></p>
+
+    <h2>Technical SEO &amp; AI Crawler Audit, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/site-qa-indexability-ai-crawler-report-scraper/">Site QA Indexability AI Crawler Report</a> for robots.txt and llms.txt signals; Use <a href="/robotstxt-ai-crawler-block-checker/">robots.txt Parser &amp; AI Crawler Block Checker</a> for GPTBot/ClaudeBot disallow audits; Use <a href="/sitemap-scraper-analyzer/">Sitemap Scraper &amp; Analyzer</a> for Nested XML sitemap URLs.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>Site QA Indexability AI Crawler Report</th><th>robots.txt Parser &amp; AI Crawler Block Checker</th><th>Sitemap Scraper &amp; Analyzer</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td><td>Technical SEO / AI crawler regression on supplied URLs</td><td>robots.txt and llms.txt signals</td><td>GPTBot/ClaudeBot disallow audits</td><td>Nested XML sitemap URLs</td>
+        </tr>
+        <tr>
+          <td>Primary input</td><td>urls</td><td>urls</td><td>origin URLs</td><td>sitemap URLs</td>
+        </tr>
+        <tr>
+          <td>What it reads</td><td>User-supplied public pages, robots.txt, optional llms.txt</td><td>robots.txt / llms.txt</td><td>robots.txt</td><td>sitemap.xml</td>
+        </tr>
+        <tr>
+          <td>Primary output</td><td>Page-audited, regression, report, and export events</td><td>Policy-check and indexability events</td><td>Disallow rows</td><td>Sitemap URL rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td><td>Not an llms.txt + indexability report pack (use Site QA Indexability AI Crawler Report). Not a robots.txt parser-only check. Not a sitemap enumerator. You supply the URLs and must confirm authorized use for live runs.</td><td>Not a technical SEO regression pack covering canonical/noindex.</td><td>Not a canonical/noindex/sitemap regression report.</td><td>Not robots/canonical/noindex regressions.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/technical-seo-portfolio-regression-report</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>A few authorized URLs with dryRun true first</li>
+      <li>authorizedUseConfirmed required for non-dry live audits</li>
+      <li>Keep generateReport/emitExport off until the URL list is stable</li>
+    </ul>
+
+    <h2>How is Technical SEO &amp; AI Crawler Audit different from Site QA Indexability AI Crawler Report and robots.txt Parser &amp; AI Crawler Block Checker?</h2>
+    <p>Technical SEO &amp; AI Crawler Audit (taroyamada/technical-seo-portfolio-regression-report): Audit public pages you are authorized to test for robots, noindex, sitemap, canonical, and AI crawler access changes. Deliver source-linked regressions, portfolio reports, and optional exports. Not an llms.txt + indexability report pack (use Site QA Indexability AI Crawler Report). Not a robots.txt parser-only check. Not a sitemap enumerator. You supply the URLs and must confirm authorized use for live runs. Site QA Indexability AI Crawler Report is for robots.txt and llms.txt signals (input urls; robots.txt / llms.txt; Policy-check and indexability events). Not a technical SEO regression pack covering canonical/noindex. robots.txt Parser &amp; AI Crawler Block Checker is for GPTBot/ClaudeBot disallow audits (input origin URLs; robots.txt; Disallow rows). Not a canonical/noindex/sitemap regression report. Sitemap Scraper &amp; Analyzer is for Nested XML sitemap URLs (input sitemap URLs; sitemap.xml; Sitemap URL rows). Not robots/canonical/noindex regressions.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: urls. Published exampleRunInput is shown below.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>urls</code></td>
+          <td>any[]</td>
+          <td><code>[&quot;https://example.com/&quot;]</code></td>
+          <td>Public page URLs. Public URLs that you are allowed to audit. Required.</td>
+        </tr>
+        <tr>
+          <td><code>aiCrawlerUserAgents</code></td>
+          <td>any[]</td>
+          <td><code>[&quot;GPTBot&quot;, &quot;ClaudeBot&quot;]</code></td>
+          <td>AI crawler user agents. Crawler user-agent names to inspect in robots.txt.</td>
+        </tr>
+        <tr>
+          <td><code>maxPages</code></td>
+          <td>integer</td>
+          <td><code>3</code></td>
+          <td>Max pages. Maximum number of input pages to check. minimum=1 maximum=100</td>
+        </tr>
+        <tr>
+          <td><code>checkRobotsTxt</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Check robots.txt. Fetch and inspect robots.txt at each site origin.</td>
+        </tr>
+        <tr>
+          <td><code>checkLlmsTxt</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Check llms.txt. Fetch and inspect llms.txt at each site origin.</td>
+        </tr>
+        <tr>
+          <td><code>authorizedUseConfirmed</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Authorized use confirmed. Required for non-dry runs. Confirms each URL is owned by you, your client, or otherwise authorized for this audit.</td>
+        </tr>
+        <tr>
+          <td><code>emitPageRows</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit page snapshot rows. Emit optional public page indexability snapshot rows.</td>
+        </tr>
+        <tr>
+          <td><code>generateReport</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Generate report. Generate a site-level SEO portfolio report row.</td>
+        </tr>
+        <tr>
+          <td><code>emitExport</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Generate export row. Generate an export row for handoff workflows.</td>
+        </tr>
+        <tr>
+          <td><code>emitUnchanged</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit unchanged. When false, repeated unchanged runs emit zero rows and zero charges.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Dry run. Emit local sample rows without charging.</td>
+        </tr>
+        <tr>
+          <td><code>initialRunMode</code></td>
+          <td>string enum</td>
+          <td><code>&quot;baseline_only&quot;</code></td>
+          <td>Initial run mode. Initial run mode for this run. enum: baseline_only, emit_backfill</td>
+        </tr>
+        <tr>
+          <td><code>snapshotKey</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Snapshot key. Optional state namespace for canary and recurring no-change proof runs.</td>
+        </tr>
+        <tr>
+          <td><code>watchlists</code></td>
+          <td>any[]</td>
+          <td><code>[]</code></td>
+          <td>Portfolio watchlists. Named portfolio watch definitions.</td>
+        </tr>
+        <tr>
+          <td><code>monitorKey</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Monitor key. Monitor key for this run.</td>
+        </tr>
+        <tr>
+          <td><code>emitRawRows</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit raw rows. Emit optional public page indexability snapshot rows.</td>
+        </tr>
+        <tr>
+          <td><code>maxChargeUsd</code></td>
+          <td>number</td>
+          <td><code>0</code></td>
+          <td>Maximum charge (USD). Maximum charge (USD) for this run. minimum=0</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  &quot;urls&quot;: [
+    &quot;https://example.com/&quot;
+  ],
+  &quot;maxPages&quot;: 3,
+  &quot;dryRun&quot;: true,
+  &quot;maxChargeUsd&quot;: 0
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/technical-seo-portfolio-regression-report">Run Technical SEO &amp; AI Crawler Audit on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON. Illustration:
+{
+  &quot;actorName&quot;: &quot;technical-seo-portfolio-regression-report&quot;,
+  &quot;rowType&quot;: &quot;indexability_issue&quot;,
+  &quot;billingEventName&quot;: &quot;seo-regression-detected&quot;,
+  &quot;issueType&quot;: &quot;ai_crawler_disallowed_by_robots&quot;,
+  &quot;severity&quot;: &quot;high&quot;,
+  &quot;sourceUrl&quot;: &quot;https://example.com/?siteQaCanary=indexability-ai-crawler-v1&quot;
+}
+ Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is Technical SEO &amp; AI Crawler Audit priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $12.00 / 1,000 SEO page audited ($0.01 per delivered seo-page-audited); $0.08 per SEO regression detected; $3.00 per SEO portfolio report; $2.00 per SEO agency export. No Actor Start.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>seo-page-audited</code> (SEO page audited)</td>
+          <td>$0.01</td>
+          <td>Charged only when a seo page audited row is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>seo-regression-detected</code> (SEO regression detected)</td>
+          <td>$0.08</td>
+          <td>Charged only when a seo regression detected row is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>seo-portfolio-report</code> (SEO portfolio report)</td>
+          <td>$3.00</td>
+          <td>Charged only when a seo portfolio report row is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>seo-agency-export</code> (SEO agency export)</td>
+          <td>$2.00</td>
+          <td>Charged only when a seo agency export row is delivered.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="price">from $12.00 / 1,000 SEO page audited ($0.01 per delivered seo-page-audited); $0.08 per SEO regression detected; $3.00 per SEO portfolio report; $2.00 per SEO agency export. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/technical-seo-portfolio-regression-report/pricing">See Technical SEO &amp; AI Crawler Audit pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>urls required</li>
+      <li>authorizedUseConfirmed for live audits</li>
+      <li>Schema default dryRun is true</li>
+      <li>Not a site-wide crawler beyond maxPages</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/technical-seo-portfolio-regression-report">Open Technical SEO &amp; AI Crawler Audit on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/site-qa-indexability-ai-crawler-report-scraper/">Site QA Indexability AI Crawler Report</a> — Not a technical SEO regression pack covering canonical/noindex.</li>
+      <li><a href="/robotstxt-ai-crawler-block-checker/">robots.txt Parser &amp; AI Crawler Block Checker</a> — Not a canonical/noindex/sitemap regression report.</li>
+      <li><a href="/sitemap-scraper-analyzer/">Sitemap Scraper &amp; Analyzer</a> — Not robots/canonical/noindex regressions.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Medicare Coverage Change Impact Report — Public CMS national coverage, NCD, and NCA records you watch</title>
+  <meta name="description" content="taroyamada/medicare-coverage-change-impact-report. from $5.00 / 1,000 CMS coverage row ($0.005 per delivered cms-coverage-row); $0.20 per CMS coverage cha…">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/medicare-coverage-change-impact-report/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is Medicare Coverage Change Impact Report different from CMS Provider Ownership & Quality Change Report and HHS Healthcare Data Breach Change Scraper?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Medicare Coverage Change Impact Report (taroyamada/medicare-coverage-change-impact-report): Track public CMS national coverage reports and NCD/NCA records, then receive source-linked change alerts, descriptive impact reports, and JSON exports. Not CMS nursing-home ownership/quality snapshots. Not an HHS breach list. Not a general Federal Register digest. You supply coverage watches. CMS Provider Ownership & Quality Change Report is for Nursing-home ownership/quality (input watches; CMS facility snapshots; Ownership/quality alerts). Not NCD/NCA coverage records. HHS Healthcare Data Breach Change Scraper is for HHS breach submissions (input terms; HHS breach portal; Breach-change rows). Not Medicare coverage NCDs. Regulatory Alerts Scraper is for Regulatory alert pages (input urls / terms; Public regulatory pages; Alert rows). Not CMS NCD/NCA coverage."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: watches. Live schema fields: watches, monitorKey, initialRunMode, generateReport, emitRawRows, emitExport, emitUnchanged, maxRecordsPerWatch, maxChargeUsd, dryRun. Track public CMS national coverage reports and NCD/NCA records, then receive source-linked change alerts, descriptive impact reports, and JSON exports. exampleRunInput keys: watches, maxRecordsPerWatch, maxChargeUsd, dryRun. additionalProperties is false on the live schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: watches, maxRecordsPerWatch, maxChargeUsd, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is Medicare Coverage Change Impact Report priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $5.00 / 1,000 CMS coverage row ($0.005 per delivered cms-coverage-row); $0.20 per CMS coverage change alert; $10.00 per CMS coverage impact report; $6.00 per CMS coverage export. No Actor Start. CMS coverage row (cms-coverage-row) $0.005: Charged only when a cms coverage row row is delivered. CMS coverage change alert (cms-coverage-change-alert) $0.20: Charged only when a cms coverage change alert row is delivered. CMS coverage impact report (cms-coverage-impact-report) $10.00: Charged only when a cms coverage impact report row is delivered. CMS coverage export (cms-coverage-export) $6.00: Charged only when a cms coverage export row is delivered. Platform usage is listed as included on the Store pricing tab."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Medicare Coverage Change Impact Report</nav>
+    <h1>Public CMS national coverage, NCD, and NCA records you watch</h1>
+    <p>Track public CMS national coverage reports and NCD/NCA records, then receive source-linked change alerts, descriptive impact reports, and JSON exports.</p>
+    <p>Not CMS nursing-home ownership/quality snapshots. Not an HHS breach list. Not a general Federal Register digest. You supply coverage watches.</p>
+    <p class="price">from $5.00 / 1,000 CMS coverage row ($0.005 per delivered cms-coverage-row); $0.20 per CMS coverage change alert; $10.00 per CMS coverage impact report; $6.00 per CMS coverage export. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/medicare-coverage-change-impact-report">Open Medicare Coverage Change Impact Report on Apify</a></p>
+
+    <h2>Medicare Coverage Change Impact Report, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/cms-provider-ownership-quality-change-report/">CMS Provider Ownership &amp; Quality Change Report</a> for Nursing-home ownership/quality; Use <a href="/hhs-healthcare-data-breach-scraper/">HHS Healthcare Data Breach Change Scraper</a> for HHS breach submissions; Use <a href="/regulatory-change-monitor/">Regulatory Alerts Scraper</a> for Regulatory alert pages.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>CMS Provider Ownership &amp; Quality Change Report</th><th>HHS Healthcare Data Breach Change Scraper</th><th>Regulatory Alerts Scraper</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td><td>CMS coverage record change alerts and impact reports</td><td>Nursing-home ownership/quality</td><td>HHS breach submissions</td><td>Regulatory alert pages</td>
+        </tr>
+        <tr>
+          <td>Primary input</td><td>watches</td><td>watches</td><td>terms</td><td>urls / terms</td>
+        </tr>
+        <tr>
+          <td>What it reads</td><td>Public CMS coverage / NCD / NCA pages and datasets</td><td>CMS facility snapshots</td><td>HHS breach portal</td><td>Public regulatory pages</td>
+        </tr>
+        <tr>
+          <td>Primary output</td><td>Coverage-row, change-alert, report, and export events</td><td>Ownership/quality alerts</td><td>Breach-change rows</td><td>Alert rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td><td>Not CMS nursing-home ownership/quality snapshots. Not an HHS breach list. Not a general Federal Register digest. You supply coverage watches.</td><td>Not NCD/NCA coverage records.</td><td>Not Medicare coverage NCDs.</td><td>Not CMS NCD/NCA coverage.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/medicare-coverage-change-impact-report</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>One keyword/source watch with generateReport off first</li>
+      <li>Use initialRunMode baseline_only to seed state</li>
+      <li>Turn report/export on after the watch is stable</li>
+    </ul>
+
+    <h2>How is Medicare Coverage Change Impact Report different from CMS Provider Ownership &amp; Quality Change Report and HHS Healthcare Data Breach Change Scraper?</h2>
+    <p>Medicare Coverage Change Impact Report (taroyamada/medicare-coverage-change-impact-report): Track public CMS national coverage reports and NCD/NCA records, then receive source-linked change alerts, descriptive impact reports, and JSON exports. Not CMS nursing-home ownership/quality snapshots. Not an HHS breach list. Not a general Federal Register digest. You supply coverage watches. CMS Provider Ownership &amp; Quality Change Report is for Nursing-home ownership/quality (input watches; CMS facility snapshots; Ownership/quality alerts). Not NCD/NCA coverage records. HHS Healthcare Data Breach Change Scraper is for HHS breach submissions (input terms; HHS breach portal; Breach-change rows). Not Medicare coverage NCDs. Regulatory Alerts Scraper is for Regulatory alert pages (input urls / terms; Public regulatory pages; Alert rows). Not CMS NCD/NCA coverage.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: watches. Published exampleRunInput is shown below.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>watches</code></td>
+          <td>any[]</td>
+          <td><code>[]</code></td>
+          <td>National coverage watches. Bounded saved searches across public national CMS coverage sources. No local coverage article or LCD endpoints are included. Required.</td>
+        </tr>
+        <tr>
+          <td><code>monitorKey</code></td>
+          <td>string</td>
+          <td><code>&quot;medicare-national-coverage-watch&quot;</code></td>
+          <td>Monitor key. Stable isolated state namespace for a recurring public CMS coverage watch.</td>
+        </tr>
+        <tr>
+          <td><code>initialRunMode</code></td>
+          <td>string enum</td>
+          <td><code>&quot;baseline_only&quot;</code></td>
+          <td>Initial run mode. baseline_only stores the first observation with zero rows; emit_backfill emits current matches for an explicit first report. enum: baseline_only, emit_backfill</td>
+        </tr>
+        <tr>
+          <td><code>generateReport</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Generate coverage impact report. Generate one descriptive report when new or changed public coverage observations are emitted.</td>
+        </tr>
+        <tr>
+          <td><code>emitRawRows</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit coverage rows. Emit optional low-priced normalized public coverage rows for each new or changed observation.</td>
+        </tr>
+        <tr>
+          <td><code>emitExport</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Generate coverage export. Generate a compact JSON export when new or changed observations are emitted.</td>
+        </tr>
+        <tr>
+          <td><code>emitUnchanged</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit unchanged observations. Accepted for compatibility, but unchanged observations always remain zero rows and zero charge.</td>
+        </tr>
+        <tr>
+          <td><code>maxRecordsPerWatch</code></td>
+          <td>integer</td>
+          <td><code>100</code></td>
+          <td>Maximum records per watch. Maximum public records retained per watch/source after filtering. minimum=1 maximum=500</td>
+        </tr>
+        <tr>
+          <td><code>maxChargeUsd</code></td>
+          <td>number</td>
+          <td><code>25</code></td>
+          <td>Maximum charge USD. Fail closed before pushing any row if planned PPE charges exceed this cap. minimum=0.005 maximum=250</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run. Return representative rows for all four configured event types without calling CMS, saving state, or charging PPE events.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  &quot;watches&quot;: [
+    {
+      &quot;id&quot;: &quot;national-coverage-updates&quot;,
+      &quot;sources&quot;: [
+        &quot;whats_new_national&quot;,
+        &quot;ncd&quot;,
+        &quot;nca_cal&quot;
+      ],
+      &quot;keywords&quot;: [
+        &quot;coverage&quot;
+      ],
+      &quot;effectiveDateFrom&quot;: &quot;2026-01-01&quot;,
+      &quot;effectiveDateTo&quot;: &quot;2026-12-31&quot;
+    }
+  ],
+  &quot;maxRecordsPerWatch&quot;: 3,
+  &quot;maxChargeUsd&quot;: 3,
+  &quot;dryRun&quot;: false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/medicare-coverage-change-impact-report">Run Medicare Coverage Change Impact Report on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is Medicare Coverage Change Impact Report priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $5.00 / 1,000 CMS coverage row ($0.005 per delivered cms-coverage-row); $0.20 per CMS coverage change alert; $10.00 per CMS coverage impact report; $6.00 per CMS coverage export. No Actor Start.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>cms-coverage-row</code> (CMS coverage row)</td>
+          <td>$0.005</td>
+          <td>Charged only when a cms coverage row row is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>cms-coverage-change-alert</code> (CMS coverage change alert)</td>
+          <td>$0.20</td>
+          <td>Charged only when a cms coverage change alert row is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>cms-coverage-impact-report</code> (CMS coverage impact report)</td>
+          <td>$10.00</td>
+          <td>Charged only when a cms coverage impact report row is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>cms-coverage-export</code> (CMS coverage export)</td>
+          <td>$6.00</td>
+          <td>Charged only when a cms coverage export row is delivered.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="price">from $5.00 / 1,000 CMS coverage row ($0.005 per delivered cms-coverage-row); $0.20 per CMS coverage change alert; $10.00 per CMS coverage impact report; $6.00 per CMS coverage export. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/medicare-coverage-change-impact-report/pricing">See Medicare Coverage Change Impact Report pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>watches required</li>
+      <li>Public CMS coverage sources only</li>
+      <li>Report and export are opt-in</li>
+      <li>Not provider ownership/quality</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/medicare-coverage-change-impact-report">Open Medicare Coverage Change Impact Report on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/cms-provider-ownership-quality-change-report/">CMS Provider Ownership &amp; Quality Change Report</a> — Not NCD/NCA coverage records.</li>
+      <li><a href="/hhs-healthcare-data-breach-scraper/">HHS Healthcare Data Breach Change Scraper</a> — Not Medicare coverage NCDs.</li>
+      <li><a href="/regulatory-change-monitor/">Regulatory Alerts Scraper</a> — Not CMS NCD/NCA coverage.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI API Pricing &amp; Model Lifecycle Report — Official OpenAI, Anthropic, and Gemini public pricing pages</title>
+  <meta name="description" content="taroyamada/ai-api-pricing-model-lifecycle-report. from $10.00 / 1,000 AI model price row ($0.01 per delivered ai-model-price-row); $0.25 per AI model life…">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/ai-api-pricing-model-lifecycle-report/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is AI API Pricing & Model Lifecycle Report different from SaaS Pricing Competitor Monitor and B2B Pricing Scraper?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "AI API Pricing & Model Lifecycle Report (taroyamada/ai-api-pricing-model-lifecycle-report): Compare and watch official public pricing, model, deprecation, and release-note pages for OpenAI, Anthropic, and Gemini without API keys or model calls. Not a SaaS marketing-page price scrape (use SaaS Pricing Competitor Monitor). Not AWS/Azure cloud SKU prices. It does not accept API keys or send prompts. SaaS Pricing Competitor Monitor is for Competitor marketing price pages (input urls; Public pricing HTML; Price-change rows). Not official AI API model-card prices. B2B Pricing Scraper is for B2B public price pages (input urls; Public HTML; Price rows). Not OpenAI/Anthropic/Gemini model lifecycle. AWS Cloud Pricing Cost Impact Report is for AWS public offer files (input scopes; AWS price list; SKU change / cost-impact rows). Not LLM API token prices."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: none (see live fields). Live schema fields: providers, models, filters, usageProfiles, mode, initialRunMode, generateReport, emitUnchanged, emitRawRows, maxChargeUsd, dryRun, snapshotKey. Compare and watch official public pricing, model, deprecation, and release-note pages for OpenAI, Anthropic, and Gemini without API keys or model calls. exampleRunInput keys: providers, usageProfiles, mode, initialRunMode, generateReport, emitUnchanged, emitRawRows, maxChargeUsd. additionalProperties is false on the live schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: providers, usageProfiles, mode, initialRunMode, generateReport, emitUnchanged, emitRawRows, maxChargeUsd. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is AI API Pricing & Model Lifecycle Report priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $10.00 / 1,000 AI model price row ($0.01 per delivered ai-model-price-row); $0.25 per AI model lifecycle alert; $3.00 per AI API cost comparison report; $5.00 per AI model migration report; $2.00 per AI pricing export. No Actor Start. AI model price row (ai-model-price-row) $0.01: Charged only when a ai model price row row is delivered. AI model lifecycle alert (ai-model-lifecycle-alert) $0.25: Charged only when a ai model lifecycle alert row is delivered. AI API cost comparison report (ai-api-cost-comparison-report) $3.00: Charged only when a ai api cost comparison report row is delivered. AI model migration report (ai-model-migration-report) $5.00: Charged only when a ai model migration report row is delivered. AI pricing export (ai-pricing-export) $2.00: Charged only when a ai pricing export row is delivered. Platform usage is listed as included on the Store pricing tab."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / AI API Pricing &amp; Model Lifecycle Report</nav>
+    <h1>Official OpenAI, Anthropic, and Gemini public pricing pages</h1>
+    <p>Compare and watch official public pricing, model, deprecation, and release-note pages for OpenAI, Anthropic, and Gemini without API keys or model calls.</p>
+    <p>Not a SaaS marketing-page price scrape (use SaaS Pricing Competitor Monitor). Not AWS/Azure cloud SKU prices. It does not accept API keys or send prompts.</p>
+    <p class="price">from $10.00 / 1,000 AI model price row ($0.01 per delivered ai-model-price-row); $0.25 per AI model lifecycle alert; $3.00 per AI API cost comparison report; $5.00 per AI model migration report; $2.00 per AI pricing export. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/ai-api-pricing-model-lifecycle-report">Open AI API Pricing &amp; Model Lifecycle Report on Apify</a></p>
+
+    <h2>AI API Pricing &amp; Model Lifecycle Report, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/saas-pricing-page-change-monitor/">SaaS Pricing Competitor Monitor</a> for Competitor marketing price pages; Use <a href="/competitive-pricing-monitor/">B2B Pricing Scraper</a> for B2B public price pages; Use <a href="/aws-cloud-pricing-cost-impact-report/">AWS Cloud Pricing Cost Impact Report</a> for AWS public offer files.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>SaaS Pricing Competitor Monitor</th><th>B2B Pricing Scraper</th><th>AWS Cloud Pricing Cost Impact Report</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td><td>Public AI API price and lifecycle observations</td><td>Competitor marketing price pages</td><td>B2B public price pages</td><td>AWS public offer files</td>
+        </tr>
+        <tr>
+          <td>Primary input</td><td>providers</td><td>urls</td><td>urls</td><td>scopes</td>
+        </tr>
+        <tr>
+          <td>What it reads</td><td>Official public provider pricing/docs pages</td><td>Public pricing HTML</td><td>Public HTML</td><td>AWS price list</td>
+        </tr>
+        <tr>
+          <td>Primary output</td><td>Price-row, lifecycle-alert, report, and export events</td><td>Price-change rows</td><td>Price rows</td><td>SKU change / cost-impact rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td><td>Not a SaaS marketing-page price scrape (use SaaS Pricing Competitor Monitor). Not AWS/Azure cloud SKU prices. It does not accept API keys or send prompts.</td><td>Not official AI API model-card prices.</td><td>Not OpenAI/Anthropic/Gemini model lifecycle.</td><td>Not LLM API token prices.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/ai-api-pricing-model-lifecycle-report</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>providers openai with generateReport false and maxChargeUsd 0 first</li>
+      <li>mode compare with a small usageProfiles entry</li>
+      <li>No API keys — public pages only</li>
+    </ul>
+
+    <h2>How is AI API Pricing &amp; Model Lifecycle Report different from SaaS Pricing Competitor Monitor and B2B Pricing Scraper?</h2>
+    <p>AI API Pricing &amp; Model Lifecycle Report (taroyamada/ai-api-pricing-model-lifecycle-report): Compare and watch official public pricing, model, deprecation, and release-note pages for OpenAI, Anthropic, and Gemini without API keys or model calls. Not a SaaS marketing-page price scrape (use SaaS Pricing Competitor Monitor). Not AWS/Azure cloud SKU prices. It does not accept API keys or send prompts. SaaS Pricing Competitor Monitor is for Competitor marketing price pages (input urls; Public pricing HTML; Price-change rows). Not official AI API model-card prices. B2B Pricing Scraper is for B2B public price pages (input urls; Public HTML; Price rows). Not OpenAI/Anthropic/Gemini model lifecycle. AWS Cloud Pricing Cost Impact Report is for AWS public offer files (input scopes; AWS price list; SKU change / cost-impact rows). Not LLM API token prices.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: none (see live fields). Published exampleRunInput is shown below.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>providers</code></td>
+          <td>string[]</td>
+          <td><code>[&quot;openai&quot;, &quot;anthropic&quot;, &quot;gemini&quot;]</code></td>
+          <td>Providers. v1 provider adapters. Only OpenAI, Anthropic, and Gemini are supported.</td>
+        </tr>
+        <tr>
+          <td><code>models</code></td>
+          <td>string[]</td>
+          <td><code>[]</code></td>
+          <td>Models. Optional exact model IDs, provider:model selectors, or glob selectors. Empty means all models found in the selected providers.</td>
+        </tr>
+        <tr>
+          <td><code>filters</code></td>
+          <td>object</td>
+          <td><code>{}</code></td>
+          <td>Model filters. Optional status, modality, and context-window filters.</td>
+        </tr>
+        <tr>
+          <td><code>usageProfiles</code></td>
+          <td>any[]</td>
+          <td><code>[{&quot;name&quot;: &quot;standard-month&quot;, &quot;inputUnits&quot;: 1000000, &quot;outputUnits&quot;: 250000, &quot;cacheUnits&quot;: 0}]</code></td>
+          <td>Monthly usage profiles. Monthly input, output, and cache token units used for source-linked cost comparisons. Values are token counts, not API calls.</td>
+        </tr>
+        <tr>
+          <td><code>mode</code></td>
+          <td>string enum</td>
+          <td><code>&quot;compare&quot;</code></td>
+          <td>Mode. Compare current official prices or watch for source-backed changes. enum: compare, watch</td>
+        </tr>
+        <tr>
+          <td><code>initialRunMode</code></td>
+          <td>string enum</td>
+          <td><code>&quot;baseline_only&quot;</code></td>
+          <td>Initial run mode. baseline_only stores a complete source baseline with zero rows; emit_current emits current rows/reports on an empty baseline. enum: baseline_only, emit_current</td>
+        </tr>
+        <tr>
+          <td><code>generateReport</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Generate comparison report. Emit an aggregate cost-comparison report when eligible current or changed source data exists.</td>
+        </tr>
+        <tr>
+          <td><code>emitUnchanged</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit unchanged. When false, identical watch snapshots emit zero rows and zero charges.</td>
+        </tr>
+        <tr>
+          <td><code>emitRawRows</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit raw model rows. Emit one normalized ai_model_price_row per eligible model and an ai_pricing_export handoff row.</td>
+        </tr>
+        <tr>
+          <td><code>maxChargeUsd</code></td>
+          <td>number</td>
+          <td><code>0</code></td>
+          <td>Maximum charge USD. Optional all-or-nothing PPE budget. Zero means no actor-side budget cap. minimum=0 maximum=100000</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run. Emit local fixture-derived sample rows without live fetches, model calls, or PPE charges.</td>
+        </tr>
+        <tr>
+          <td><code>snapshotKey</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>State namespace. Optional stable state namespace for separate watch baselines.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  &quot;providers&quot;: [
+    &quot;openai&quot;,
+    &quot;anthropic&quot;
+  ],
+  &quot;usageProfiles&quot;: [
+    {
+      &quot;name&quot;: &quot;standard-month&quot;,
+      &quot;inputUnits&quot;: 1000000,
+      &quot;outputUnits&quot;: 250000,
+      &quot;cacheUnits&quot;: 0
+    }
+  ],
+  &quot;mode&quot;: &quot;compare&quot;,
+  &quot;initialRunMode&quot;: &quot;baseline_only&quot;,
+  &quot;generateReport&quot;: false,
+  &quot;emitUnchanged&quot;: false,
+  &quot;emitRawRows&quot;: false,
+  &quot;maxChargeUsd&quot;: 0
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/ai-api-pricing-model-lifecycle-report">Run AI API Pricing &amp; Model Lifecycle Report on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is AI API Pricing &amp; Model Lifecycle Report priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $10.00 / 1,000 AI model price row ($0.01 per delivered ai-model-price-row); $0.25 per AI model lifecycle alert; $3.00 per AI API cost comparison report; $5.00 per AI model migration report; $2.00 per AI pricing export. No Actor Start.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>ai-model-price-row</code> (AI model price row)</td>
+          <td>$0.01</td>
+          <td>Charged only when a ai model price row row is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>ai-model-lifecycle-alert</code> (AI model lifecycle alert)</td>
+          <td>$0.25</td>
+          <td>Charged only when a ai model lifecycle alert row is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>ai-api-cost-comparison-report</code> (AI API cost comparison report)</td>
+          <td>$3.00</td>
+          <td>Charged only when a ai api cost comparison report row is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>ai-model-migration-report</code> (AI model migration report)</td>
+          <td>$5.00</td>
+          <td>Charged only when a ai model migration report row is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>ai-pricing-export</code> (AI pricing export)</td>
+          <td>$2.00</td>
+          <td>Charged only when a ai pricing export row is delivered.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="price">from $10.00 / 1,000 AI model price row ($0.01 per delivered ai-model-price-row); $0.25 per AI model lifecycle alert; $3.00 per AI API cost comparison report; $5.00 per AI model migration report; $2.00 per AI pricing export. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/ai-api-pricing-model-lifecycle-report/pricing">See AI API Pricing &amp; Model Lifecycle Report pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Live required array is empty; supply providers</li>
+      <li>No user API keys</li>
+      <li>Report events are opt-in</li>
+      <li>Not cloud IaaS SKU prices</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/ai-api-pricing-model-lifecycle-report">Open AI API Pricing &amp; Model Lifecycle Report on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/saas-pricing-page-change-monitor/">SaaS Pricing Competitor Monitor</a> — Not official AI API model-card prices.</li>
+      <li><a href="/competitive-pricing-monitor/">B2B Pricing Scraper</a> — Not OpenAI/Anthropic/Gemini model lifecycle.</li>
+      <li><a href="/aws-cloud-pricing-cost-impact-report/">AWS Cloud Pricing Cost Impact Report</a> — Not LLM API token prices.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

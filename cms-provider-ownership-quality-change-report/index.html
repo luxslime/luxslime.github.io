@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CMS Provider Ownership &amp; Quality Change Report — Public CMS nursing-home facility snapshots you watch</title>
+  <meta name="description" content="taroyamada/cms-provider-ownership-quality-change-report. from $5.00 / 1,000 CMS provider row ($0.005 per delivered cms-provider-row); $0.25 per CMS provid…">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/cms-provider-ownership-quality-change-report/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is CMS Provider Ownership & Quality Change Report different from Medicare Coverage Change Impact Report and HHS Healthcare Data Breach Change Scraper?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "CMS Provider Ownership & Quality Change Report (taroyamada/cms-provider-ownership-quality-change-report): Monitor public CMS nursing-home facility snapshots for ownership and quality/rating changes, then receive source-linked alerts, portfolio reports, and optional exports. Not Medicare NCD/NCA coverage. Not HHS breach submissions. Not NIH RePORTER awards. You supply state/facility watches. Medicare Coverage Change Impact Report is for CMS NCD/NCA coverage (input watches; CMS coverage records; Coverage-change alerts). Not nursing-home ownership/quality. HHS Healthcare Data Breach Change Scraper is for HHS breach submissions (input terms; HHS breach portal; Breach-change rows). Not CMS facility ratings. NIH RePORTER Funding Landscape Report is for NIH award landscape (input org / terms; NIH RePORTER; Award report). Not CMS provider quality."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: watches. Live schema fields: watches, monitorKey, initialRunMode, includeOwnership, includeQuality, generateReport, emitRawRows, emitExport, emitUnchanged, maxRecordsPerWatch, maxOwnershipRowsPerWatch, maxChargeUsd, dryRun. Monitor public CMS nursing-home facility snapshots for ownership and quality/rating changes, then receive source-linked alerts, portfolio reports, and optional exports. exampleRunInput keys: watches, maxRecordsPerWatch, maxOwnershipRowsPerWatch, maxChargeUsd, dryRun. additionalProperties is false on the live schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: watches, maxRecordsPerWatch, maxOwnershipRowsPerWatch, maxChargeUsd, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is CMS Provider Ownership & Quality Change Report priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $5.00 / 1,000 CMS provider row ($0.005 per delivered cms-provider-row); $0.25 per CMS provider change alert; $10.00 per CMS provider ownership and quality report; $6.00 per CMS provider export. No Actor Start. CMS provider row (cms-provider-row) $0.005: Charged only when a cms provider row row is delivered. CMS provider change alert (cms-provider-change-alert) $0.25: Charged only when a cms provider change alert row is delivered. CMS provider ownership and quality report (cms-provider-ownership-quality-report) $10.00: Charged only when a cms provider ownership and quality report row is delivered. CMS provider export (cms-provider-export) $6.00: Charged only when a cms provider export row is delivered. Platform usage is listed as included on the Store pricing tab."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / CMS Provider Ownership &amp; Quality Change Report</nav>
+    <h1>Public CMS nursing-home facility snapshots you watch</h1>
+    <p>Monitor public CMS nursing-home facility snapshots for ownership and quality/rating changes, then receive source-linked alerts, portfolio reports, and optional exports.</p>
+    <p>Not Medicare NCD/NCA coverage. Not HHS breach submissions. Not NIH RePORTER awards. You supply state/facility watches.</p>
+    <p class="price">from $5.00 / 1,000 CMS provider row ($0.005 per delivered cms-provider-row); $0.25 per CMS provider change alert; $10.00 per CMS provider ownership and quality report; $6.00 per CMS provider export. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/cms-provider-ownership-quality-change-report">Open CMS Provider Ownership &amp; Quality Change Report on Apify</a></p>
+
+    <h2>CMS Provider Ownership &amp; Quality Change Report, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/medicare-coverage-change-impact-report/">Medicare Coverage Change Impact Report</a> for CMS NCD/NCA coverage; Use <a href="/hhs-healthcare-data-breach-scraper/">HHS Healthcare Data Breach Change Scraper</a> for HHS breach submissions; Use <a href="/nih-research-funding-landscape-report/">NIH RePORTER Funding Landscape Report</a> for NIH award landscape.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>Medicare Coverage Change Impact Report</th><th>HHS Healthcare Data Breach Change Scraper</th><th>NIH RePORTER Funding Landscape Report</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td><td>CMS facility ownership and quality snapshot changes</td><td>CMS NCD/NCA coverage</td><td>HHS breach submissions</td><td>NIH award landscape</td>
+        </tr>
+        <tr>
+          <td>Primary input</td><td>watches</td><td>watches</td><td>terms</td><td>org / terms</td>
+        </tr>
+        <tr>
+          <td>What it reads</td><td>Public CMS nursing-home facility datasets</td><td>CMS coverage records</td><td>HHS breach portal</td><td>NIH RePORTER</td>
+        </tr>
+        <tr>
+          <td>Primary output</td><td>Provider-row, change-alert, report, and export events</td><td>Coverage-change alerts</td><td>Breach-change rows</td><td>Award report</td>
+        </tr>
+        <tr>
+          <td>Not this job</td><td>Not Medicare NCD/NCA coverage. Not HHS breach submissions. Not NIH RePORTER awards. You supply state/facility watches.</td><td>Not nursing-home ownership/quality.</td><td>Not CMS facility ratings.</td><td>Not CMS provider quality.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/cms-provider-ownership-quality-change-report</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>One state watch with generateReport off first</li>
+      <li>Toggle includeOwnership / includeQuality from live defaults</li>
+      <li>Use initialRunMode baseline_only to seed state</li>
+    </ul>
+
+    <h2>How is CMS Provider Ownership &amp; Quality Change Report different from Medicare Coverage Change Impact Report and HHS Healthcare Data Breach Change Scraper?</h2>
+    <p>CMS Provider Ownership &amp; Quality Change Report (taroyamada/cms-provider-ownership-quality-change-report): Monitor public CMS nursing-home facility snapshots for ownership and quality/rating changes, then receive source-linked alerts, portfolio reports, and optional exports. Not Medicare NCD/NCA coverage. Not HHS breach submissions. Not NIH RePORTER awards. You supply state/facility watches. Medicare Coverage Change Impact Report is for CMS NCD/NCA coverage (input watches; CMS coverage records; Coverage-change alerts). Not nursing-home ownership/quality. HHS Healthcare Data Breach Change Scraper is for HHS breach submissions (input terms; HHS breach portal; Breach-change rows). Not CMS facility ratings. NIH RePORTER Funding Landscape Report is for NIH award landscape (input org / terms; NIH RePORTER; Award report). Not CMS provider quality.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: watches. Published exampleRunInput is shown below.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>watches</code></td>
+          <td>any[]</td>
+          <td><code>[]</code></td>
+          <td>Provider portfolio watches. Bounded recurring watches over the official CMS Provider Information and Ownership datasets. Required.</td>
+        </tr>
+        <tr>
+          <td><code>monitorKey</code></td>
+          <td>string</td>
+          <td><code>&quot;cms-provider-ownership-quality-watch&quot;</code></td>
+          <td>Monitor key. Stable isolated state namespace for a recurring portfolio watch.</td>
+        </tr>
+        <tr>
+          <td><code>initialRunMode</code></td>
+          <td>string enum</td>
+          <td><code>&quot;baseline_only&quot;</code></td>
+          <td>Initial run mode. baseline_only stores the first snapshot for free; emit_backfill emits current matches for an explicit first report. enum: baseline_only, emit_backfill</td>
+        </tr>
+        <tr>
+          <td><code>includeOwnership</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Include ownership signals. Include aggregate ownership type/role/percentage/date signals without owner names or personal fields.</td>
+        </tr>
+        <tr>
+          <td><code>includeQuality</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Include quality and rating fields. Include public CMS rating and facility quality fields in the normalized record.</td>
+        </tr>
+        <tr>
+          <td><code>generateReport</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Generate portfolio report. Generate one descriptive ownership and quality report when a new or changed facility snapshot is found.</td>
+        </tr>
+        <tr>
+          <td><code>emitRawRows</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit optional provider rows. Emit low-priced normalized facility rows in addition to the change alert.</td>
+        </tr>
+        <tr>
+          <td><code>emitExport</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Generate JSON export. Generate a compact source-linked export for downstream research workflows.</td>
+        </tr>
+        <tr>
+          <td><code>emitUnchanged</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit unchanged snapshots. Accepted for compatibility, but unchanged snapshots always remain zero rows and zero charge.</td>
+        </tr>
+        <tr>
+          <td><code>maxRecordsPerWatch</code></td>
+          <td>integer</td>
+          <td><code>100</code></td>
+          <td>Maximum facilities per watch. Maximum matching provider facilities retained per watch. minimum=1 maximum=500</td>
+        </tr>
+        <tr>
+          <td><code>maxOwnershipRowsPerWatch</code></td>
+          <td>integer</td>
+          <td><code>1500</code></td>
+          <td>Maximum ownership rows. Maximum ownership records requested per bounded facility chunk. minimum=1 maximum=1500</td>
+        </tr>
+        <tr>
+          <td><code>maxChargeUsd</code></td>
+          <td>number</td>
+          <td><code>25</code></td>
+          <td>Maximum charge USD. Fail closed before delivery if planned PPE charges exceed this cap. minimum=0.005 maximum=250</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run. Return representative rows for all configured event types without CMS requests, state writes, or charges.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  &quot;watches&quot;: [
+    {
+      &quot;id&quot;: &quot;al-quality-portfolio&quot;,
+      &quot;states&quot;: [
+        &quot;AL&quot;
+      ],
+      &quot;minOverallRating&quot;: 1,
+      &quot;maxOverallRating&quot;: 5
+    }
+  ],
+  &quot;maxRecordsPerWatch&quot;: 3,
+  &quot;maxOwnershipRowsPerWatch&quot;: 3,
+  &quot;maxChargeUsd&quot;: 3,
+  &quot;dryRun&quot;: false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/cms-provider-ownership-quality-change-report">Run CMS Provider Ownership &amp; Quality Change Report on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is CMS Provider Ownership &amp; Quality Change Report priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $5.00 / 1,000 CMS provider row ($0.005 per delivered cms-provider-row); $0.25 per CMS provider change alert; $10.00 per CMS provider ownership and quality report; $6.00 per CMS provider export. No Actor Start.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>cms-provider-row</code> (CMS provider row)</td>
+          <td>$0.005</td>
+          <td>Charged only when a cms provider row row is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>cms-provider-change-alert</code> (CMS provider change alert)</td>
+          <td>$0.25</td>
+          <td>Charged only when a cms provider change alert row is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>cms-provider-ownership-quality-report</code> (CMS provider ownership and quality report)</td>
+          <td>$10.00</td>
+          <td>Charged only when a cms provider ownership and quality report row is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>cms-provider-export</code> (CMS provider export)</td>
+          <td>$6.00</td>
+          <td>Charged only when a cms provider export row is delivered.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="price">from $5.00 / 1,000 CMS provider row ($0.005 per delivered cms-provider-row); $0.25 per CMS provider change alert; $10.00 per CMS provider ownership and quality report; $6.00 per CMS provider export. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/cms-provider-ownership-quality-change-report/pricing">See CMS Provider Ownership &amp; Quality Change Report pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>watches required</li>
+      <li>Public CMS facility snapshots only</li>
+      <li>Report and export are opt-in</li>
+      <li>Not NCD coverage text</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/cms-provider-ownership-quality-change-report">Open CMS Provider Ownership &amp; Quality Change Report on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/medicare-coverage-change-impact-report/">Medicare Coverage Change Impact Report</a> — Not nursing-home ownership/quality.</li>
+      <li><a href="/hhs-healthcare-data-breach-scraper/">HHS Healthcare Data Breach Change Scraper</a> — Not CMS facility ratings.</li>
+      <li><a href="/nih-research-funding-landscape-report/">NIH RePORTER Funding Landscape Report</a> — Not CMS provider quality.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

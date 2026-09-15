@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Clinical Trial &amp; FDA Signal Alerts — ClinicalTrials.gov and openFDA watches you configure</title>
+  <meta name="description" content="taroyamada/clinical-trials-fda-watch-monitor. from $100.00 / 1,000 New trial alert ($0.10 per delivered new-trial-alert); $0.006 per Raw record row; $0.08…">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/clinical-trials-fda-watch-monitor/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is Clinical Trial & FDA Signal Alerts different from ClinicalTrials.gov Sponsor Pipeline Scraper and FDA Warning Letters Scraper?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Clinical Trial & FDA Signal Alerts (taroyamada/clinical-trials-fda-watch-monitor): Watch drugs, sponsors, and conditions across ClinicalTrials.gov and openFDA: new-trial alerts, trial status changes, and FDA drug recall signals as source-linked rows. Not a sponsor-pipeline snapshot of ClinicalTrials.gov studies (use ClinicalTrials.gov Sponsor Pipeline Scraper). Not an FDA warning-letter digest. Not a PubMed evidence-gap report. You supply watches. ClinicalTrials.gov Sponsor Pipeline Scraper is for Sponsor/condition study inventory (input sponsors / conditions; ClinicalTrials.gov; Study rows). Not FDA recall/enforcement signal alerts. FDA Warning Letters Scraper is for FDA warning-letter pages (input search terms; FDA warning letters; Letter rows). Not ClinicalTrials.gov status watches. PubMed & Clinical Trials Evidence Gap Report is for PubMed vs trials evidence gap (input query terms; PubMed + ClinicalTrials.gov; Evidence-gap report). Not openFDA recall signal alerts."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: watches. Live schema fields: dryRun, watches, sources, monitorKey, initialRunMode, generateReport, emitExport, emitRawRows, maxRecordsPerWatch, maxChargeUsd. Watch drugs, sponsors, and conditions across ClinicalTrials.gov and openFDA: new-trial alerts, trial status changes, and FDA drug recall signals as source-linked rows. exampleRunInput keys: watches, dryRun, maxRecordsPerWatch, maxChargeUsd. additionalProperties is not set to false on this schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: watches, dryRun, maxRecordsPerWatch, maxChargeUsd. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is Clinical Trial & FDA Signal Alerts priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $100.00 / 1,000 New trial alert ($0.10 per delivered new-trial-alert); $0.006 per Raw record row; $0.08 per Trial status change alert; $0.10 per FDA signal alert; $5.00 per Pipeline watch report; $7.00 per Watch export generated. No Actor Start. Raw record row (raw-record-row) $0.006: Charged for an optional raw public clinical trial or FDA enforcement record row. New trial alert (new-trial-alert) $0.10: Charged for a source-linked new clinical trial matched to a watch. Trial status change alert (trial-status-change-alert) $0.08: Charged for a changed overall status or primary completion date on a previously tracked trial. FDA signal alert (fda-signal-alert) $0.10: Charged for a source-linked FDA drug enforcement or recall signal matched to a watch. Pipeline watch report (pipeline-watch-report) $5.00: Charged for a generated source-linked clinical trial and FDA signal watch report. Opt-in, off by default. Watch export generated (watch-export-generated) $7.00: Charged for a generated export bundle row for matching alerts. Opt-in, off by default. Platform usage is listed as included on the Store pricing tab."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Clinical Trial &amp; FDA Signal Alerts</nav>
+    <h1>ClinicalTrials.gov and openFDA watches you configure</h1>
+    <p>Watch drugs, sponsors, and conditions across ClinicalTrials.gov and openFDA: new-trial alerts, trial status changes, and FDA drug recall signals as source-linked rows.</p>
+    <p>Not a sponsor-pipeline snapshot of ClinicalTrials.gov studies (use ClinicalTrials.gov Sponsor Pipeline Scraper). Not an FDA warning-letter digest. Not a PubMed evidence-gap report. You supply watches.</p>
+    <p class="price">from $100.00 / 1,000 New trial alert ($0.10 per delivered new-trial-alert); $0.006 per Raw record row; $0.08 per Trial status change alert; $0.10 per FDA signal alert; $5.00 per Pipeline watch report; $7.00 per Watch export generated. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/clinical-trials-fda-watch-monitor">Open Clinical Trial &amp; FDA Signal Alerts on Apify</a></p>
+
+    <h2>Clinical Trial &amp; FDA Signal Alerts, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/clinical-trials-pipeline-monitor/">ClinicalTrials.gov Sponsor Pipeline Scraper</a> for Sponsor/condition study inventory; Use <a href="/fda-warning-letter-digest/">FDA Warning Letters Scraper</a> for FDA warning-letter pages; Use <a href="/biomedical-trial-literature-evidence-report/">PubMed &amp; Clinical Trials Evidence Gap Report</a> for PubMed vs trials evidence gap.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>ClinicalTrials.gov Sponsor Pipeline Scraper</th><th>FDA Warning Letters Scraper</th><th>PubMed &amp; Clinical Trials Evidence Gap Report</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td><td>New-trial, status-change, and FDA signal alerts</td><td>Sponsor/condition study inventory</td><td>FDA warning-letter pages</td><td>PubMed vs trials evidence gap</td>
+        </tr>
+        <tr>
+          <td>Primary input</td><td>watches</td><td>sponsors / conditions</td><td>search terms</td><td>query terms</td>
+        </tr>
+        <tr>
+          <td>What it reads</td><td>ClinicalTrials.gov and openFDA public records matching watches</td><td>ClinicalTrials.gov</td><td>FDA warning letters</td><td>PubMed + ClinicalTrials.gov</td>
+        </tr>
+        <tr>
+          <td>Primary output</td><td>Alert, report, and export events</td><td>Study rows</td><td>Letter rows</td><td>Evidence-gap report</td>
+        </tr>
+        <tr>
+          <td>Not this job</td><td>Not a sponsor-pipeline snapshot of ClinicalTrials.gov studies (use ClinicalTrials.gov Sponsor Pipeline Scraper). Not an FDA warning-letter digest. Not a PubMed evidence-gap report. You supply watches.</td><td>Not FDA recall/enforcement signal alerts.</td><td>Not ClinicalTrials.gov status watches.</td><td>Not openFDA recall signal alerts.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/clinical-trials-fda-watch-monitor</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>One watch with a few drug/condition terms and generateReport off at first</li>
+      <li>Use initialRunMode baseline_only to seed state without output rows</li>
+      <li>Turn generateReport/emitExport on after the watch is stable</li>
+    </ul>
+
+    <h2>How is Clinical Trial &amp; FDA Signal Alerts different from ClinicalTrials.gov Sponsor Pipeline Scraper and FDA Warning Letters Scraper?</h2>
+    <p>Clinical Trial &amp; FDA Signal Alerts (taroyamada/clinical-trials-fda-watch-monitor): Watch drugs, sponsors, and conditions across ClinicalTrials.gov and openFDA: new-trial alerts, trial status changes, and FDA drug recall signals as source-linked rows. Not a sponsor-pipeline snapshot of ClinicalTrials.gov studies (use ClinicalTrials.gov Sponsor Pipeline Scraper). Not an FDA warning-letter digest. Not a PubMed evidence-gap report. You supply watches. ClinicalTrials.gov Sponsor Pipeline Scraper is for Sponsor/condition study inventory (input sponsors / conditions; ClinicalTrials.gov; Study rows). Not FDA recall/enforcement signal alerts. FDA Warning Letters Scraper is for FDA warning-letter pages (input search terms; FDA warning letters; Letter rows). Not ClinicalTrials.gov status watches. PubMed &amp; Clinical Trials Evidence Gap Report is for PubMed vs trials evidence gap (input query terms; PubMed + ClinicalTrials.gov; Evidence-gap report). Not openFDA recall signal alerts.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: watches. Published exampleRunInput is shown below.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run. Return sample value-event rows without fetching live sources.</td>
+        </tr>
+        <tr>
+          <td><code>watches</code></td>
+          <td>any[]</td>
+          <td><code>[{&quot;id&quot;: &quot;glp1-obesity-watch&quot;, &quot;drugs&quot;: [&quot;semaglutide&quot;, &quot;tirzepatide&quot;], &quot;conditions&quot;: [&quot;obesity&quot;], &quot;sponsors&quot;: [&quot;Novo Nordisk&quot;, &quot;Eli Lilly&quot;]}]</code></td>
+          <td>Watches. Drug, condition, sponsor, and keyword watches. Each watch needs at least one of drugs, conditions, sponsors, or keywords. Optional phases/statuses filters apply to ClinicalTrials.gov only; note a statuses filter can hide status-change alerts for trials that leave the filtered set. Required.</td>
+        </tr>
+        <tr>
+          <td><code>sources</code></td>
+          <td>string[]</td>
+          <td><code>[&quot;trials&quot;, &quot;fda&quot;]</code></td>
+          <td>Sources. Public sources to query. No API keys required.</td>
+        </tr>
+        <tr>
+          <td><code>monitorKey</code></td>
+          <td>string</td>
+          <td><code>&quot;my-clinical-trials-fda-watch&quot;</code></td>
+          <td>Monitor key. Stable key for stateful no-change monitoring.</td>
+        </tr>
+        <tr>
+          <td><code>initialRunMode</code></td>
+          <td>string enum</td>
+          <td><code>&quot;baseline_only&quot;</code></td>
+          <td>Initial run mode. baseline_only saves state and emits no billable rows. emit_backfill emits current matches for charged proof or first reports. enum: baseline_only, emit_backfill</td>
+        </tr>
+        <tr>
+          <td><code>generateReport</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Generate watch report ($5). Opt-in: generate a source-linked pipeline watch report row when alerts are found.</td>
+        </tr>
+        <tr>
+          <td><code>emitExport</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Generate export row ($7). Opt-in: generate an export bundle row when alerts are found.</td>
+        </tr>
+        <tr>
+          <td><code>emitRawRows</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit raw record rows. Optional low-priced raw rows. Main value is alert rows.</td>
+        </tr>
+        <tr>
+          <td><code>maxRecordsPerWatch</code></td>
+          <td>integer</td>
+          <td><code>50</code></td>
+          <td>Max records per watch. Maximum source records to normalize per watch and source before dedupe and alert generation. minimum=1 maximum=100</td>
+        </tr>
+        <tr>
+          <td><code>maxChargeUsd</code></td>
+          <td>number</td>
+          <td><code>25</code></td>
+          <td>Max charge USD. Fail closed before delivery if the estimated PPE charge would exceed this amount. minimum=0.1 maximum=250</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  &quot;watches&quot;: [
+    {
+      &quot;id&quot;: &quot;glp1-obesity-watch&quot;,
+      &quot;drugs&quot;: [
+        &quot;semaglutide&quot;,
+        &quot;tirzepatide&quot;
+      ],
+      &quot;conditions&quot;: [
+        &quot;obesity&quot;
+      ],
+      &quot;sponsors&quot;: [
+        &quot;Novo Nordisk&quot;,
+        &quot;Eli Lilly&quot;
+      ]
+    }
+  ],
+  &quot;dryRun&quot;: false,
+  &quot;maxRecordsPerWatch&quot;: 3,
+  &quot;maxChargeUsd&quot;: 3
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/clinical-trials-fda-watch-monitor">Run Clinical Trial &amp; FDA Signal Alerts on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is Clinical Trial &amp; FDA Signal Alerts priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $100.00 / 1,000 New trial alert ($0.10 per delivered new-trial-alert); $0.006 per Raw record row; $0.08 per Trial status change alert; $0.10 per FDA signal alert; $5.00 per Pipeline watch report; $7.00 per Watch export generated. No Actor Start.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>raw-record-row</code> (Raw record row)</td>
+          <td>$0.006</td>
+          <td>Charged for an optional raw public clinical trial or FDA enforcement record row.</td>
+        </tr>
+        <tr>
+          <td><code>new-trial-alert</code> (New trial alert)</td>
+          <td>$0.10</td>
+          <td>Charged for a source-linked new clinical trial matched to a watch.</td>
+        </tr>
+        <tr>
+          <td><code>trial-status-change-alert</code> (Trial status change alert)</td>
+          <td>$0.08</td>
+          <td>Charged for a changed overall status or primary completion date on a previously tracked trial.</td>
+        </tr>
+        <tr>
+          <td><code>fda-signal-alert</code> (FDA signal alert)</td>
+          <td>$0.10</td>
+          <td>Charged for a source-linked FDA drug enforcement or recall signal matched to a watch.</td>
+        </tr>
+        <tr>
+          <td><code>pipeline-watch-report</code> (Pipeline watch report)</td>
+          <td>$5.00</td>
+          <td>Charged for a generated source-linked clinical trial and FDA signal watch report. Opt-in, off by default.</td>
+        </tr>
+        <tr>
+          <td><code>watch-export-generated</code> (Watch export generated)</td>
+          <td>$7.00</td>
+          <td>Charged for a generated export bundle row for matching alerts. Opt-in, off by default.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="price">from $100.00 / 1,000 New trial alert ($0.10 per delivered new-trial-alert); $0.006 per Raw record row; $0.08 per Trial status change alert; $0.10 per FDA signal alert; $5.00 per Pipeline watch report; $7.00 per Watch export generated. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/clinical-trials-fda-watch-monitor/pricing">See Clinical Trial &amp; FDA Signal Alerts pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>watches required</li>
+      <li>Public ClinicalTrials.gov / openFDA only</li>
+      <li>Report and export are opt-in billed events</li>
+      <li>Not private EudraCT or sponsor portals</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/clinical-trials-fda-watch-monitor">Open Clinical Trial &amp; FDA Signal Alerts on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/clinical-trials-pipeline-monitor/">ClinicalTrials.gov Sponsor Pipeline Scraper</a> — Not FDA recall/enforcement signal alerts.</li>
+      <li><a href="/fda-warning-letter-digest/">FDA Warning Letters Scraper</a> — Not ClinicalTrials.gov status watches.</li>
+      <li><a href="/biomedical-trial-literature-evidence-report/">PubMed &amp; Clinical Trials Evidence Gap Report</a> — Not openFDA recall signal alerts.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

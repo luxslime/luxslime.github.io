@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SEC XBRL Peer Financial Change Report — Selected public-company XBRL facts on a ticker/CIK watchlist</title>
+  <meta name="description" content="taroyamada/sec-xbrl-peer-financial-change-report. from $6.00 / 1,000 SEC XBRL financial fact row ($0.006 per delivered sec-financial-fact-row); $0.25 per…">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/sec-xbrl-peer-financial-change-report/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is SEC XBRL Peer Financial Change Report different from SEC EDGAR Scraper and SEC 13F Institutional Holdings Change Report?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "SEC XBRL Peer Financial Change Report (taroyamada/sec-xbrl-peer-financial-change-report): Compare selected public-company XBRL facts across a bounded ticker or CIK watchlist. Receive source-linked metric change alerts, descriptive reports, and optional exports. Not a general EDGAR filing monitor. Not 13F holdings. Not FDIC bank call reports. Live schema requires watchlists and userAgent. SEC EDGAR Scraper is for 8-K and S-1 filing alerts (input tickers / CIKs; EDGAR; Filing rows). Not XBRL company facts. SEC 13F Institutional Holdings Change Report is for 13F holdings tables (input watchlists + userAgent; EDGAR 13F; Holdings-change alerts). Not us-gaap XBRL tags. FDIC & NCUA Peer Financial Trend Report is for Bank/CU call-report peers (input watches; FDIC / NCUA; Peer trend report). Not SEC XBRL."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: watchlists, userAgent. Live schema fields: watchlists, monitorKey, userAgent, initialRunMode, generateReport, emitRawRows, emitExport, emitUnchanged, maxRequests, requestIntervalMs, maxChargeUsd, dryRun. Compare selected public-company XBRL facts across a bounded ticker or CIK watchlist. Receive source-linked metric change alerts, descriptive reports, and optional exports. exampleRunInput keys: watchlists, userAgent, maxRequests, maxChargeUsd, dryRun. additionalProperties is false on the live schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: watchlists, userAgent, maxRequests, maxChargeUsd, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is SEC XBRL Peer Financial Change Report priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $6.00 / 1,000 SEC XBRL financial fact row ($0.006 per delivered sec-financial-fact-row); $0.25 per SEC financial metric change alert; $12.00 per SEC peer variance report; $8.00 per SEC financial evidence export. No Actor Start. SEC XBRL financial fact row (sec-financial-fact-row) $0.006: Charged only when a sec xbrl financial fact row row is delivered. SEC financial metric change alert (sec-financial-metric-change-alert) $0.25: Charged only when a sec financial metric change alert row is delivered. SEC peer variance report (sec-peer-variance-report) $12.00: Charged only when a sec peer variance report row is delivered. SEC financial evidence export (sec-financial-export) $8.00: Charged only when a sec financial evidence export row is delivered. Platform usage is listed as included on the Store pricing tab."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / SEC XBRL Peer Financial Change Report</nav>
+    <h1>Selected public-company XBRL facts on a ticker/CIK watchlist</h1>
+    <p>Compare selected public-company XBRL facts across a bounded ticker or CIK watchlist. Receive source-linked metric change alerts, descriptive reports, and optional exports.</p>
+    <p>Not a general EDGAR filing monitor. Not 13F holdings. Not FDIC bank call reports. Live schema requires watchlists and userAgent.</p>
+    <p class="price">from $6.00 / 1,000 SEC XBRL financial fact row ($0.006 per delivered sec-financial-fact-row); $0.25 per SEC financial metric change alert; $12.00 per SEC peer variance report; $8.00 per SEC financial evidence export. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/sec-xbrl-peer-financial-change-report">Open SEC XBRL Peer Financial Change Report on Apify</a></p>
+
+    <h2>SEC XBRL Peer Financial Change Report, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/sec-edgar-filings-monitor/">SEC EDGAR Scraper</a> for 8-K and S-1 filing alerts; Use <a href="/sec-13f-institutional-holdings-change-report/">SEC 13F Institutional Holdings Change Report</a> for 13F holdings tables; Use <a href="/fdic-ncua-peer-financial-trend-report/">FDIC &amp; NCUA Peer Financial Trend Report</a> for Bank/CU call-report peers.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>SEC EDGAR Scraper</th><th>SEC 13F Institutional Holdings Change Report</th><th>FDIC &amp; NCUA Peer Financial Trend Report</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td><td>XBRL metric-change alerts across named peers</td><td>8-K and S-1 filing alerts</td><td>13F holdings tables</td><td>Bank/CU call-report peers</td>
+        </tr>
+        <tr>
+          <td>Primary input</td><td>watchlists</td><td>tickers / CIKs</td><td>watchlists + userAgent</td><td>watches</td>
+        </tr>
+        <tr>
+          <td>What it reads</td><td>SEC companyfacts XBRL</td><td>EDGAR</td><td>EDGAR 13F</td><td>FDIC / NCUA</td>
+        </tr>
+        <tr>
+          <td>Primary output</td><td>Fact-row, metric-change, report, and export events</td><td>Filing rows</td><td>Holdings-change alerts</td><td>Peer trend report</td>
+        </tr>
+        <tr>
+          <td>Not this job</td><td>Not a general EDGAR filing monitor. Not 13F holdings. Not FDIC bank call reports. Live schema requires watchlists and userAgent.</td><td>Not XBRL company facts.</td><td>Not us-gaap XBRL tags.</td><td>Not SEC XBRL.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/sec-xbrl-peer-financial-change-report</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Two tickers and one us-gaap tag with generateReport off first</li>
+      <li>Set a descriptive userAgent as required</li>
+      <li>Use initialRunMode baseline_only to seed state</li>
+    </ul>
+
+    <h2>How is SEC XBRL Peer Financial Change Report different from SEC EDGAR Scraper and SEC 13F Institutional Holdings Change Report?</h2>
+    <p>SEC XBRL Peer Financial Change Report (taroyamada/sec-xbrl-peer-financial-change-report): Compare selected public-company XBRL facts across a bounded ticker or CIK watchlist. Receive source-linked metric change alerts, descriptive reports, and optional exports. Not a general EDGAR filing monitor. Not 13F holdings. Not FDIC bank call reports. Live schema requires watchlists and userAgent. SEC EDGAR Scraper is for 8-K and S-1 filing alerts (input tickers / CIKs; EDGAR; Filing rows). Not XBRL company facts. SEC 13F Institutional Holdings Change Report is for 13F holdings tables (input watchlists + userAgent; EDGAR 13F; Holdings-change alerts). Not us-gaap XBRL tags. FDIC &amp; NCUA Peer Financial Trend Report is for Bank/CU call-report peers (input watches; FDIC / NCUA; Peer trend report). Not SEC XBRL.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: watchlists, userAgent. Published exampleRunInput is shown below.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>watchlists</code></td>
+          <td>any[]</td>
+          <td><code>[{&quot;id&quot;: &quot;software-peers&quot;, &quot;peers&quot;: [{&quot;ticker&quot;: &quot;MSFT&quot;}, {&quot;ticker&quot;: &quot;AAPL&quot;}], &quot;metrics&quot;: [{&quot;taxonomy&quot;: &quot;us-gaap&quot;, &quot;tag&quot;: &quot;Revenues&quot;, &quot;unit&quot;: &quot;USD&quot;, &quot;label&quot;: &quot;Revenue&quot;, &quot;sourceMode&quot;: &quot;companyfacts&quot;}], &quot;forms&quot;: [&quot;10-K&quot;, &quot;10-Q&quot;], &quot;period&quot;: &quot;latest&quot;, &quot;varianceThresholdPercent&quot;: 20}]</code></td>
+          <td>Peer watchlists. Each watchlist combines selected peers and XBRL metrics. Use CIKs for deterministic identity or tickers resolved through the official SEC ticker index. Required.</td>
+        </tr>
+        <tr>
+          <td><code>monitorKey</code></td>
+          <td>string</td>
+          <td><code>&quot;sec-xbrl-peer-watch&quot;</code></td>
+          <td>Monitor key. Stable state namespace for a recurring peer portfolio.</td>
+        </tr>
+        <tr>
+          <td><code>userAgent</code></td>
+          <td>string</td>
+          <td><code>&quot;taroyamada-sec-xbrl-peer-financial-change-report/1.0 ops@example.com&quot;</code></td>
+          <td>SEC User-Agent. Required descriptive value, for example your-company-xbrl-watch/1.0 ops@yourcompany.com. Replace the example contact with your own application contact before production use. Required.</td>
+        </tr>
+        <tr>
+          <td><code>initialRunMode</code></td>
+          <td>string enum</td>
+          <td><code>&quot;baseline_only&quot;</code></td>
+          <td>Initial run mode. baseline_only stores the first observations with zero rows; emit_backfill emits current observations as a first paid report. enum: baseline_only, emit_backfill</td>
+        </tr>
+        <tr>
+          <td><code>generateReport</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Generate peer variance report. Emit one report-first descriptive peer variance row when selected observations change.</td>
+        </tr>
+        <tr>
+          <td><code>emitRawRows</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit raw fact rows. Optional low-priced compact XBRL fact rows for changed observations.</td>
+        </tr>
+        <tr>
+          <td><code>emitExport</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Generate evidence export. Emit a compact JSON export of current observations and selected changes.</td>
+        </tr>
+        <tr>
+          <td><code>emitUnchanged</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit unchanged observations. Accepted for compatibility, but unchanged observations remain free and emit zero rows and zero charges.</td>
+        </tr>
+        <tr>
+          <td><code>maxRequests</code></td>
+          <td>integer</td>
+          <td><code>40</code></td>
+          <td>Maximum SEC requests. Hard request bound including ticker index, companyfacts, and frames calls. minimum=1 maximum=200</td>
+        </tr>
+        <tr>
+          <td><code>requestIntervalMs</code></td>
+          <td>integer</td>
+          <td><code>1100</code></td>
+          <td>Request interval milliseconds. Minimum delay between official SEC requests. Keep a conservative interval and respect current SEC guidance. minimum=100 maximum=5000</td>
+        </tr>
+        <tr>
+          <td><code>maxChargeUsd</code></td>
+          <td>number</td>
+          <td><code>25</code></td>
+          <td>Maximum charge USD. Fail closed before delivery if planned PPE charges exceed this cap. minimum=0.005 maximum=250</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run. Return deterministic representative rows for all event types without SEC requests, state writes, or charges.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  &quot;watchlists&quot;: [
+    {
+      &quot;id&quot;: &quot;software-peers&quot;,
+      &quot;peers&quot;: [
+        {
+          &quot;ticker&quot;: &quot;MSFT&quot;
+        },
+        {
+          &quot;ticker&quot;: &quot;AAPL&quot;
+        }
+      ],
+      &quot;metrics&quot;: [
+        {
+          &quot;taxonomy&quot;: &quot;us-gaap&quot;,
+          &quot;tag&quot;: &quot;Revenues&quot;,
+          &quot;unit&quot;: &quot;USD&quot;,
+          &quot;label&quot;: &quot;Revenue&quot;,
+          &quot;sourceMode&quot;: &quot;companyfacts&quot;
+        }
+      ],
+      &quot;forms&quot;: [
+        &quot;10-K&quot;,
+        &quot;10-Q&quot;
+      ],
+      &quot;period&quot;: &quot;latest&quot;,
+      &quot;varianceThresholdPercent&quot;: 20
+    }
+  ],
+  &quot;userAgent&quot;: &quot;taroyamada-sec-xbrl-peer-financial-change-report/1.0 ops@example.com&quot;,
+  &quot;maxRequests&quot;: 3,
+  &quot;maxChargeUsd&quot;: 3,
+  &quot;dryRun&quot;: false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/sec-xbrl-peer-financial-change-report">Run SEC XBRL Peer Financial Change Report on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is SEC XBRL Peer Financial Change Report priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $6.00 / 1,000 SEC XBRL financial fact row ($0.006 per delivered sec-financial-fact-row); $0.25 per SEC financial metric change alert; $12.00 per SEC peer variance report; $8.00 per SEC financial evidence export. No Actor Start.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>sec-financial-fact-row</code> (SEC XBRL financial fact row)</td>
+          <td>$0.006</td>
+          <td>Charged only when a sec xbrl financial fact row row is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>sec-financial-metric-change-alert</code> (SEC financial metric change alert)</td>
+          <td>$0.25</td>
+          <td>Charged only when a sec financial metric change alert row is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>sec-peer-variance-report</code> (SEC peer variance report)</td>
+          <td>$12.00</td>
+          <td>Charged only when a sec peer variance report row is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>sec-financial-export</code> (SEC financial evidence export)</td>
+          <td>$8.00</td>
+          <td>Charged only when a sec financial evidence export row is delivered.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="price">from $6.00 / 1,000 SEC XBRL financial fact row ($0.006 per delivered sec-financial-fact-row); $0.25 per SEC financial metric change alert; $12.00 per SEC peer variance report; $8.00 per SEC financial evidence export. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/sec-xbrl-peer-financial-change-report/pricing">See SEC XBRL Peer Financial Change Report pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>watchlists and userAgent required</li>
+      <li>Public SEC XBRL only</li>
+      <li>Report and export are opt-in</li>
+      <li>Not 10-K full-text</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/sec-xbrl-peer-financial-change-report">Open SEC XBRL Peer Financial Change Report on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/sec-edgar-filings-monitor/">SEC EDGAR Scraper</a> — Not XBRL company facts.</li>
+      <li><a href="/sec-13f-institutional-holdings-change-report/">SEC 13F Institutional Holdings Change Report</a> — Not us-gaap XBRL tags.</li>
+      <li><a href="/fdic-ncua-peer-financial-trend-report/">FDIC &amp; NCUA Peer Financial Trend Report</a> — Not SEC XBRL.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AWS Cloud Pricing Cost Impact Report — Official AWS public USD offer files for Lambda, S3, and RDS</title>
+  <meta name="description" content="taroyamada/aws-cloud-pricing-cost-impact-report. from $2.00 / 1,000 AWS price row ($0.002 per delivered aws-price-row); $0.10 per AWS SKU price change; $3…">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/aws-cloud-pricing-cost-impact-report/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is AWS Cloud Pricing Cost Impact Report different from Azure Retail Price Cost Impact Report and Multi-Cloud Pricing Cost Impact Report?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "AWS Cloud Pricing Cost Impact Report (taroyamada/aws-cloud-pricing-cost-impact-report): Read official AWS public USD offer files for Lambda, S3, and RDS and emit stable price changes and cost-impact report rows. Not Azure Retail Prices (use Azure Retail Price Cost Impact Report). Not a multi-cloud scenario compare. Not a SaaS marketing-page scrape. No AWS account key. Azure Retail Price Cost Impact Report is for Azure Retail Prices public API (input scopes; Azure Retail Prices; Price-change / cost-impact rows). Not AWS offer files. Multi-Cloud Pricing Cost Impact Report is for Normalized AWS vs Azure scenarios (input scenarios; AWS + Azure public prices; Cross-cloud comparison report). Not an AWS-only SKU watch. SaaS Pricing Tracker is for Competitor SaaS page changes (input urls; Public HTML; Page-change rows). Not AWS list prices."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: scopes. Live schema fields: scopes, mode, initialRunMode, generateReport, emitUnchanged, emitRawRows, maxChargeUsd, dryRun. Read official AWS public USD offer files for Lambda, S3, and RDS and emit stable price changes and cost-impact report rows. exampleRunInput keys: scopes, maxChargeUsd, dryRun. additionalProperties is false on the live schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: scopes, maxChargeUsd, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is AWS Cloud Pricing Cost Impact Report priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $2.00 / 1,000 AWS price row ($0.002 per delivered aws-price-row); $0.10 per AWS SKU price change; $3.00 per AWS cost impact report; $2.00 per AWS price export. No Actor Start. AWS price row (aws-price-row) $0.002: Charged only when a aws price row row is delivered. AWS SKU price change (aws-sku-price-change) $0.10: Charged only when a aws sku price change row is delivered. AWS cost impact report (aws-cost-impact-report) $3.00: Charged only when a aws cost impact report row is delivered. AWS price export (aws-price-export) $2.00: Charged only when a aws price export row is delivered. Platform usage is listed as included on the Store pricing tab."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / AWS Cloud Pricing Cost Impact Report</nav>
+    <h1>Official AWS public USD offer files for Lambda, S3, and RDS</h1>
+    <p>Read official AWS public USD offer files for Lambda, S3, and RDS and emit stable price changes and cost-impact report rows.</p>
+    <p>Not Azure Retail Prices (use Azure Retail Price Cost Impact Report). Not a multi-cloud scenario compare. Not a SaaS marketing-page scrape. No AWS account key.</p>
+    <p class="price">from $2.00 / 1,000 AWS price row ($0.002 per delivered aws-price-row); $0.10 per AWS SKU price change; $3.00 per AWS cost impact report; $2.00 per AWS price export. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/aws-cloud-pricing-cost-impact-report">Open AWS Cloud Pricing Cost Impact Report on Apify</a></p>
+
+    <h2>AWS Cloud Pricing Cost Impact Report, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/azure-retail-price-cost-impact-report/">Azure Retail Price Cost Impact Report</a> for Azure Retail Prices public API; Use <a href="/multi-cloud-pricing-cost-impact-report/">Multi-Cloud Pricing Cost Impact Report</a> for Normalized AWS vs Azure scenarios; Use <a href="/saas-change-monitor-actor/">SaaS Pricing Tracker</a> for Competitor SaaS page changes.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>Azure Retail Price Cost Impact Report</th><th>Multi-Cloud Pricing Cost Impact Report</th><th>SaaS Pricing Tracker</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td><td>AWS public SKU price changes and cost-impact reports</td><td>Azure Retail Prices public API</td><td>Normalized AWS vs Azure scenarios</td><td>Competitor SaaS page changes</td>
+        </tr>
+        <tr>
+          <td>Primary input</td><td>scopes</td><td>scopes</td><td>scenarios</td><td>urls</td>
+        </tr>
+        <tr>
+          <td>What it reads</td><td>AWS public price-list files</td><td>Azure Retail Prices</td><td>AWS + Azure public prices</td><td>Public HTML</td>
+        </tr>
+        <tr>
+          <td>Primary output</td><td>Price-row, SKU-change, report, and export events</td><td>Price-change / cost-impact rows</td><td>Cross-cloud comparison report</td><td>Page-change rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td><td>Not Azure Retail Prices (use Azure Retail Price Cost Impact Report). Not a multi-cloud scenario compare. Not a SaaS marketing-page scrape. No AWS account key.</td><td>Not AWS offer files.</td><td>Not an AWS-only SKU watch.</td><td>Not AWS list prices.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/aws-cloud-pricing-cost-impact-report</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>One Lambda us-east-1 scope with generateReport off first</li>
+      <li>Keep emitRawRows false unless you need SKU rows</li>
+      <li>No AWS credentials</li>
+    </ul>
+
+    <h2>How is AWS Cloud Pricing Cost Impact Report different from Azure Retail Price Cost Impact Report and Multi-Cloud Pricing Cost Impact Report?</h2>
+    <p>AWS Cloud Pricing Cost Impact Report (taroyamada/aws-cloud-pricing-cost-impact-report): Read official AWS public USD offer files for Lambda, S3, and RDS and emit stable price changes and cost-impact report rows. Not Azure Retail Prices (use Azure Retail Price Cost Impact Report). Not a multi-cloud scenario compare. Not a SaaS marketing-page scrape. No AWS account key. Azure Retail Price Cost Impact Report is for Azure Retail Prices public API (input scopes; Azure Retail Prices; Price-change / cost-impact rows). Not AWS offer files. Multi-Cloud Pricing Cost Impact Report is for Normalized AWS vs Azure scenarios (input scenarios; AWS + Azure public prices; Cross-cloud comparison report). Not an AWS-only SKU watch. SaaS Pricing Tracker is for Competitor SaaS page changes (input urls; Public HTML; Page-change rows). Not AWS list prices.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: scopes. Published exampleRunInput is shown below.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>scopes</code></td>
+          <td>any[]</td>
+          <td><code>[{&quot;serviceCode&quot;: &quot;AWSLambda&quot;, &quot;region&quot;: &quot;us-east-1&quot;, &quot;usage&quot;: {&quot;Requests&quot;: 1000000, &quot;GB-Seconds&quot;: 100000}}]</code></td>
+          <td>Pricing scopes. Each scope selects one supported AWS service and one required AWS region. Scope order is normalized for durable state. Required.</td>
+        </tr>
+        <tr>
+          <td><code>mode</code></td>
+          <td>string enum</td>
+          <td><code>&quot;report&quot;</code></td>
+          <td>Run mode. report creates a current cost-impact report; watch emits stable SKU/term changes. enum: report, watch</td>
+        </tr>
+        <tr>
+          <td><code>initialRunMode</code></td>
+          <td>string enum</td>
+          <td><code>&quot;baseline_only&quot;</code></td>
+          <td>Initial run mode. baseline_only stores the first successful snapshot with zero rows; emit_current permits current rows/report output on a new scope fingerprint. enum: baseline_only, emit_current</td>
+        </tr>
+        <tr>
+          <td><code>generateReport</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Generate cost-impact report. Emit one aws_cost_impact_report row when the selected mode has a report-worthy observation.</td>
+        </tr>
+        <tr>
+          <td><code>emitUnchanged</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit unchanged rows. When false, repeated identical rows and reports are suppressed. The default watch no-change run emits zero rows and zero charges.</td>
+        </tr>
+        <tr>
+          <td><code>emitRawRows</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit raw price rows. Emit canonical aws_price_row rows and an aws_price_export handoff row. Use filters and maxChargeUsd for broad services.</td>
+        </tr>
+        <tr>
+          <td><code>maxChargeUsd</code></td>
+          <td>number</td>
+          <td><code>25</code></td>
+          <td>Maximum run charge. Hard PAY_PER_EVENT cap. A run exceeding it fails before delivery and state commit. minimum=0 maximum=100000</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run. Return deterministic sample rows without network access, delivery, charges, or state writes.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  &quot;scopes&quot;: [
+    {
+      &quot;serviceCode&quot;: &quot;AWSLambda&quot;,
+      &quot;region&quot;: &quot;us-east-1&quot;,
+      &quot;usage&quot;: {
+        &quot;Requests&quot;: 1000000,
+        &quot;GB-Seconds&quot;: 100000
+      }
+    }
+  ],
+  &quot;maxChargeUsd&quot;: 3,
+  &quot;dryRun&quot;: false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/aws-cloud-pricing-cost-impact-report">Run AWS Cloud Pricing Cost Impact Report on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is AWS Cloud Pricing Cost Impact Report priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $2.00 / 1,000 AWS price row ($0.002 per delivered aws-price-row); $0.10 per AWS SKU price change; $3.00 per AWS cost impact report; $2.00 per AWS price export. No Actor Start.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>aws-price-row</code> (AWS price row)</td>
+          <td>$0.002</td>
+          <td>Charged only when a aws price row row is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>aws-sku-price-change</code> (AWS SKU price change)</td>
+          <td>$0.10</td>
+          <td>Charged only when a aws sku price change row is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>aws-cost-impact-report</code> (AWS cost impact report)</td>
+          <td>$3.00</td>
+          <td>Charged only when a aws cost impact report row is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>aws-price-export</code> (AWS price export)</td>
+          <td>$2.00</td>
+          <td>Charged only when a aws price export row is delivered.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="price">from $2.00 / 1,000 AWS price row ($0.002 per delivered aws-price-row); $0.10 per AWS SKU price change; $3.00 per AWS cost impact report; $2.00 per AWS price export. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/aws-cloud-pricing-cost-impact-report/pricing">See AWS Cloud Pricing Cost Impact Report pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>scopes required</li>
+      <li>Public AWS price list only</li>
+      <li>Report and export are opt-in</li>
+      <li>Not Azure or GCP prices</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/aws-cloud-pricing-cost-impact-report">Open AWS Cloud Pricing Cost Impact Report on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/azure-retail-price-cost-impact-report/">Azure Retail Price Cost Impact Report</a> — Not AWS offer files.</li>
+      <li><a href="/multi-cloud-pricing-cost-impact-report/">Multi-Cloud Pricing Cost Impact Report</a> — Not an AWS-only SKU watch.</li>
+      <li><a href="/saas-change-monitor-actor/">SaaS Pricing Tracker</a> — Not AWS list prices.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

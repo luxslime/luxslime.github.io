@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PyPI &amp; npm Dependency Risk Report — npm and PyPI upgrade alerts on packages you name</title>
+  <meta name="description" content="taroyamada/package-portfolio-upgrade-risk-report. from $10.00 / 1,000 Package risk row ($0.01 per delivered package-risk-row); $0.25 per Package upgrade r…">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/package-portfolio-upgrade-risk-report/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is PyPI & npm Dependency Risk Report different from OSS Vulnerability Monitor and npm License & Deprecation Checker?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "PyPI & npm Dependency Risk Report (taroyamada/package-portfolio-upgrade-risk-report): PyPI and npm dependency risk report with upgrade alerts. Paste a package list and start. Reads official npm registry, PyPI JSON, and OSV; GitHub is optional enrichment. Not an OSV/GitHub security watch without a pinned package list (use OSS Vulnerability Monitor). Not an npm license-only check. Not a PyPI advisory-only scraper. You supply package names, ecosystems, and versions. OSS Vulnerability Monitor is for OSV & GitHub security advisories (input packages / repos; OSV / GitHub; Advisory rows). Not a pinned npm/PyPI upgrade-risk report. npm License & Deprecation Checker is for npm license/deprecation (input package names; npm registry; License rows). Not PyPI or OSV upgrade risk. PyPI Vulnerability Scraper is for PyPI advisory watch (input package names; PyPI; Advisory rows). Not npm registry upgrade risk."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: none (see live fields). Live schema fields: watchlists, monitorKey, initialRunMode, packages, includeGitHub, githubToken, baselineOnly, generateReport, emitRawRows, emitUnchanged, emitExport, dryRun, maxChargeUsd, requestTimeoutSeconds, rateLimitMs, maxRetries, backoffBaseMs, maxBackoffMs, delivery, webhookUrl. PyPI and npm dependency risk report with upgrade alerts. Paste a package list and start. Reads official npm registry, PyPI JSON, and OSV; GitHub is optional enrichment. exampleRunInput keys: monitorKey, initialRunMode, packages, includeGitHub, baselineOnly, generateReport, emitRawRows, emitUnchanged. additionalProperties is not set to false on this schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: monitorKey, initialRunMode, packages, includeGitHub, baselineOnly, generateReport, emitRawRows, emitUnchanged. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Published README Output Example / Sample Output JSON. Illustration: [   {     \"rowType\": \"package_portfolio_risk_report\",     \"billingEventName\": \"package-portfolio-risk-report\",     \"reportFirst\": true,     \"changedPackageCount\": 1,     \"advisoryCount\": 1   },   {     \"rowType\": \"package_risk\",     \"billingEventName\": \"package-risk-row\",     \"packageName\": \"lodash\",     \"ecosystem\": \"npm\",     \"currentVersion\": \"4.17.20\",     \"latestVersion\": \"4.17.21\",     \"riskLevel\": \"high\",     \"vulnerabilityCount\": 1   },   {     \"rowType\": \"package_upgrade_risk_alert\",     \"billingEventName\": \"package-upgrade-risk-alert\",     \"alertReason\": \"known_vulnerability\"   } ]  Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is PyPI & npm Dependency Risk Report priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $10.00 / 1,000 Package risk row ($0.01 per delivered package-risk-row); $0.25 per Package upgrade risk alert; $9.00 per Package portfolio risk report; $5.00 per Package risk export. No Actor Start. Package risk row (package-risk-row) $0.01: Charged only when a package risk row row is delivered. Package upgrade risk alert (package-upgrade-risk-alert) $0.25: Charged only when a package upgrade risk alert row is delivered. Package portfolio risk report (package-portfolio-risk-report) $9.00: Charged only when a package portfolio risk report row is delivered. Package risk export (package-risk-export) $5.00: Charged only when a package risk export row is delivered. Platform usage is listed as included on the Store pricing tab."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / PyPI &amp; npm Dependency Risk Report</nav>
+    <h1>npm and PyPI upgrade alerts on packages you name</h1>
+    <p>PyPI and npm dependency risk report with upgrade alerts. Paste a package list and start. Reads official npm registry, PyPI JSON, and OSV; GitHub is optional enrichment.</p>
+    <p>Not an OSV/GitHub security watch without a pinned package list (use OSS Vulnerability Monitor). Not an npm license-only check. Not a PyPI advisory-only scraper. You supply package names, ecosystems, and versions.</p>
+    <p class="price">from $10.00 / 1,000 Package risk row ($0.01 per delivered package-risk-row); $0.25 per Package upgrade risk alert; $9.00 per Package portfolio risk report; $5.00 per Package risk export. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/package-portfolio-upgrade-risk-report">Open PyPI &amp; npm Dependency Risk Report on Apify</a></p>
+
+    <h2>PyPI &amp; npm Dependency Risk Report, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/oss-vulnerability-monitor/">OSS Vulnerability Monitor</a> for OSV &amp; GitHub security advisories; Use <a href="/npm-package-intelligence/">npm License &amp; Deprecation Checker</a> for npm license/deprecation; Use <a href="/pypi-package-intelligence/">PyPI Vulnerability Scraper</a> for PyPI advisory watch.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>OSS Vulnerability Monitor</th><th>npm License &amp; Deprecation Checker</th><th>PyPI Vulnerability Scraper</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td><td>Pinned npm/PyPI package upgrade and advisory risk</td><td>OSV &amp; GitHub security advisories</td><td>npm license/deprecation</td><td>PyPI advisory watch</td>
+        </tr>
+        <tr>
+          <td>Primary input</td><td>watchlists</td><td>packages / repos</td><td>package names</td><td>package names</td>
+        </tr>
+        <tr>
+          <td>What it reads</td><td>Official npm registry, PyPI JSON, OSV; optional GitHub</td><td>OSV / GitHub</td><td>npm registry</td><td>PyPI</td>
+        </tr>
+        <tr>
+          <td>Primary output</td><td>Risk, alert, report, and export events</td><td>Advisory rows</td><td>License rows</td><td>Advisory rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td><td>Not an OSV/GitHub security watch without a pinned package list (use OSS Vulnerability Monitor). Not an npm license-only check. Not a PyPI advisory-only scraper. You supply package names, ecosystems, and versions.</td><td>Not a pinned npm/PyPI upgrade-risk report.</td><td>Not PyPI or OSV upgrade risk.</td><td>Not npm registry upgrade risk.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/package-portfolio-upgrade-risk-report</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>One pinned npm package with initialRunMode baseline_only</li>
+      <li>Leave githubToken empty unless you want repo enrichment</li>
+      <li>Turn generateReport on after the baseline</li>
+    </ul>
+
+    <h2>How is PyPI &amp; npm Dependency Risk Report different from OSS Vulnerability Monitor and npm License &amp; Deprecation Checker?</h2>
+    <p>PyPI &amp; npm Dependency Risk Report (taroyamada/package-portfolio-upgrade-risk-report): PyPI and npm dependency risk report with upgrade alerts. Paste a package list and start. Reads official npm registry, PyPI JSON, and OSV; GitHub is optional enrichment. Not an OSV/GitHub security watch without a pinned package list (use OSS Vulnerability Monitor). Not an npm license-only check. Not a PyPI advisory-only scraper. You supply package names, ecosystems, and versions. OSS Vulnerability Monitor is for OSV &amp; GitHub security advisories (input packages / repos; OSV / GitHub; Advisory rows). Not a pinned npm/PyPI upgrade-risk report. npm License &amp; Deprecation Checker is for npm license/deprecation (input package names; npm registry; License rows). Not PyPI or OSV upgrade risk. PyPI Vulnerability Scraper is for PyPI advisory watch (input package names; PyPI; Advisory rows). Not npm registry upgrade risk.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: none (see live fields). Published exampleRunInput is shown below.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>watchlists</code></td>
+          <td>any[]</td>
+          <td><code>[]</code></td>
+          <td>Portfolio watchlists. Optional named package portfolios. Each item may contain a name and packages array; top-level packages remains supported.</td>
+        </tr>
+        <tr>
+          <td><code>monitorKey</code></td>
+          <td>string</td>
+          <td><code>&quot;starter-package-upgrade-risk&quot;</code></td>
+          <td>Monitor key. Stable key that isolates the saved comparison baseline.</td>
+        </tr>
+        <tr>
+          <td><code>initialRunMode</code></td>
+          <td>string enum</td>
+          <td><code>&quot;emit_backfill&quot;</code></td>
+          <td>Initial run mode. baseline_only saves the first snapshot with zero rows and zero charge; emit_backfill emits a report on the first run. enum: baseline_only, emit_backfill</td>
+        </tr>
+        <tr>
+          <td><code>packages</code></td>
+          <td>any[]</td>
+          <td><code>[{&quot;name&quot;: &quot;lodash&quot;, &quot;ecosystem&quot;: &quot;npm&quot;, &quot;version&quot;: &quot;4.17.20&quot;}]</code></td>
+          <td>Package portfolio. Public package names and installed versions to assess.</td>
+        </tr>
+        <tr>
+          <td><code>includeGitHub</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Include GitHub enrichment. Optional. GitHub is skipped when no token is supplied; npm/PyPI/OSV analysis remains complete.</td>
+        </tr>
+        <tr>
+          <td><code>githubToken</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>GitHub token. Optional token for public GitHub repository metadata. Never included in output.</td>
+        </tr>
+        <tr>
+          <td><code>baselineOnly</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Baseline only. Save the current official-source snapshot and emit zero rows and zero charges.</td>
+        </tr>
+        <tr>
+          <td><code>generateReport</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Generate portfolio report. Generate one report row before package rows when changes are found.</td>
+        </tr>
+        <tr>
+          <td><code>emitRawRows</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Emit package risk rows. Emit per-package rows in addition to alerts and the portfolio report.</td>
+        </tr>
+        <tr>
+          <td><code>emitUnchanged</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit unchanged rows. Reserved for compatibility. Unchanged monitoring runs always produce zero rows and zero charge.</td>
+        </tr>
+        <tr>
+          <td><code>emitExport</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Generate export row. Generate one dataset JSON handoff row when changes are found.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Dry run. Return a report-first sample without network calls, state writes, or charges.</td>
+        </tr>
+        <tr>
+          <td><code>maxChargeUsd</code></td>
+          <td>number</td>
+          <td><code>0</code></td>
+          <td>Maximum charge USD. The complete planned event total must fit this cap before any event is pushed. minimum=0 maximum=5000</td>
+        </tr>
+        <tr>
+          <td><code>requestTimeoutSeconds</code></td>
+          <td>integer</td>
+          <td><code>30</code></td>
+          <td>Request timeout seconds. Request timeout seconds for this run. minimum=2 maximum=120</td>
+        </tr>
+        <tr>
+          <td><code>rateLimitMs</code></td>
+          <td>integer</td>
+          <td><code>250</code></td>
+          <td>Minimum request interval ms. Minimum request interval ms for this run. minimum=0 maximum=10000</td>
+        </tr>
+        <tr>
+          <td><code>maxRetries</code></td>
+          <td>integer</td>
+          <td><code>2</code></td>
+          <td>Maximum retries. Maximum retries for this run. minimum=0 maximum=4</td>
+        </tr>
+        <tr>
+          <td><code>backoffBaseMs</code></td>
+          <td>integer</td>
+          <td><code>250</code></td>
+          <td>Backoff base ms. Backoff base ms for this run. minimum=0 maximum=5000</td>
+        </tr>
+        <tr>
+          <td><code>maxBackoffMs</code></td>
+          <td>integer</td>
+          <td><code>4000</code></td>
+          <td>Maximum backoff ms. Maximum backoff ms for this run. minimum=0 maximum=15000</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string enum</td>
+          <td><code>&quot;dataset&quot;</code></td>
+          <td>Delivery mode. Delivery mode for this run. enum: dataset, webhook</td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Webhook URL. Optional HTTPS handoff after dataset event delivery.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  &quot;monitorKey&quot;: &quot;starter-package-upgrade-risk&quot;,
+  &quot;initialRunMode&quot;: &quot;baseline_only&quot;,
+  &quot;packages&quot;: [
+    {
+      &quot;name&quot;: &quot;lodash&quot;,
+      &quot;ecosystem&quot;: &quot;npm&quot;,
+      &quot;version&quot;: &quot;4.17.20&quot;
+    }
+  ],
+  &quot;includeGitHub&quot;: false,
+  &quot;baselineOnly&quot;: false,
+  &quot;generateReport&quot;: false,
+  &quot;emitRawRows&quot;: false,
+  &quot;emitUnchanged&quot;: false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/package-portfolio-upgrade-risk-report">Run PyPI &amp; npm Dependency Risk Report on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON. Illustration:
+[
+  {
+    &quot;rowType&quot;: &quot;package_portfolio_risk_report&quot;,
+    &quot;billingEventName&quot;: &quot;package-portfolio-risk-report&quot;,
+    &quot;reportFirst&quot;: true,
+    &quot;changedPackageCount&quot;: 1,
+    &quot;advisoryCount&quot;: 1
+  },
+  {
+    &quot;rowType&quot;: &quot;package_risk&quot;,
+    &quot;billingEventName&quot;: &quot;package-risk-row&quot;,
+    &quot;packageName&quot;: &quot;lodash&quot;,
+    &quot;ecosystem&quot;: &quot;npm&quot;,
+    &quot;currentVersion&quot;: &quot;4.17.20&quot;,
+    &quot;latestVersion&quot;: &quot;4.17.21&quot;,
+    &quot;riskLevel&quot;: &quot;high&quot;,
+    &quot;vulnerabilityCount&quot;: 1
+  },
+  {
+    &quot;rowType&quot;: &quot;package_upgrade_risk_alert&quot;,
+    &quot;billingEventName&quot;: &quot;package-upgrade-risk-alert&quot;,
+    &quot;alertReason&quot;: &quot;known_vulnerability&quot;
+  }
+]
+ Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is PyPI &amp; npm Dependency Risk Report priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $10.00 / 1,000 Package risk row ($0.01 per delivered package-risk-row); $0.25 per Package upgrade risk alert; $9.00 per Package portfolio risk report; $5.00 per Package risk export. No Actor Start.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>package-risk-row</code> (Package risk row)</td>
+          <td>$0.01</td>
+          <td>Charged only when a package risk row row is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>package-upgrade-risk-alert</code> (Package upgrade risk alert)</td>
+          <td>$0.25</td>
+          <td>Charged only when a package upgrade risk alert row is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>package-portfolio-risk-report</code> (Package portfolio risk report)</td>
+          <td>$9.00</td>
+          <td>Charged only when a package portfolio risk report row is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>package-risk-export</code> (Package risk export)</td>
+          <td>$5.00</td>
+          <td>Charged only when a package risk export row is delivered.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="price">from $10.00 / 1,000 Package risk row ($0.01 per delivered package-risk-row); $0.25 per Package upgrade risk alert; $9.00 per Package portfolio risk report; $5.00 per Package risk export. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/package-portfolio-upgrade-risk-report/pricing">See PyPI &amp; npm Dependency Risk Report pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>No required array; supply packages</li>
+      <li>Public registries only</li>
+      <li>GitHub token optional</li>
+      <li>Not a lockfile parser</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/package-portfolio-upgrade-risk-report">Open PyPI &amp; npm Dependency Risk Report on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/oss-vulnerability-monitor/">OSS Vulnerability Monitor</a> — Not a pinned npm/PyPI upgrade-risk report.</li>
+      <li><a href="/npm-package-intelligence/">npm License &amp; Deprecation Checker</a> — Not PyPI or OSV upgrade risk.</li>
+      <li><a href="/pypi-package-intelligence/">PyPI Vulnerability Scraper</a> — Not npm registry upgrade risk.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

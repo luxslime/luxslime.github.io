@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FDIC &amp; NCUA Peer Financial Trend Report — Bounded FDIC or NCUA peer watches across quarters you name</title>
+  <meta name="description" content="taroyamada/fdic-ncua-peer-financial-trend-report. from $10.00 / 1,000 Institution financial row ($0.01 per delivered institution-financial-row); $0.50 per…">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/fdic-ncua-peer-financial-trend-report/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is FDIC & NCUA Peer Financial Trend Report different from US Treasury Data Scraper and SEC EDGAR Scraper?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "FDIC & NCUA Peer Financial Trend Report (taroyamada/fdic-ncua-peer-financial-trend-report): Compare bounded same-source bank or credit-union peer watches across explicit quarterly metrics and periods. Receive source-linked changes, peer percentiles, reports, and exports. Not US Treasury Fiscal Data. Not SEC EDGAR 8-K. Not XBRL public-company facts. You supply FDIC certs or NCUA charter numbers. US Treasury Data Scraper is for Treasury Fiscal Data (input datasets; Treasury API; Series rows). Not FDIC/NCUA call reports. SEC EDGAR Scraper is for 8-K and S-1 filing alerts (input tickers / CIKs; EDGAR; Filing rows). Not bank call-report peers. SEC XBRL Peer Financial Change Report is for Public-company XBRL facts (input watchlists + userAgent; SEC company facts; Metric-change alerts). Not FDIC/NCUA institutions."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: watches. Live schema fields: watches, monitorKey, initialRunMode, generateReport, emitRawRows, emitExport, includeInstitutionDirectory, emitUnchanged, maxChargeUsd, maxRequests, requestIntervalMs, dryRun. Compare bounded same-source bank or credit-union peer watches across explicit quarterly metrics and periods. Receive source-linked changes, peer percentiles, reports, and exports. exampleRunInput keys: watches, maxChargeUsd, maxRequests, dryRun. additionalProperties is false on the live schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: watches, maxChargeUsd, maxRequests, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is FDIC & NCUA Peer Financial Trend Report priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $10.00 / 1,000 Institution financial row ($0.01 per delivered institution-financial-row); $0.50 per Institution peer change alert; $18.00 per Financial peer trend report; $10.00 per Financial peer export. No Actor Start. Institution financial row (institution-financial-row) $0.01: Charged only when a institution financial row is delivered. Institution peer change alert (institution-peer-change-alert) $0.50: Charged only when a institution peer change alert is delivered. Financial peer trend report (financial-peer-trend-report) $18.00: Charged only when a financial peer trend report is delivered. Financial peer export (financial-peer-export) $10.00: Charged only when a financial peer export is delivered. Platform usage is listed as included on the Store pricing tab."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / FDIC &amp; NCUA Peer Financial Trend Report</nav>
+    <h1>Bounded FDIC or NCUA peer watches across quarters you name</h1>
+    <p>Compare bounded same-source bank or credit-union peer watches across explicit quarterly metrics and periods. Receive source-linked changes, peer percentiles, reports, and exports.</p>
+    <p>Not US Treasury Fiscal Data. Not SEC EDGAR 8-K. Not XBRL public-company facts. You supply FDIC certs or NCUA charter numbers.</p>
+    <p class="price">from $10.00 / 1,000 Institution financial row ($0.01 per delivered institution-financial-row); $0.50 per Institution peer change alert; $18.00 per Financial peer trend report; $10.00 per Financial peer export. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/fdic-ncua-peer-financial-trend-report">Open FDIC &amp; NCUA Peer Financial Trend Report on Apify</a></p>
+
+    <h2>FDIC &amp; NCUA Peer Financial Trend Report, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/treasury-fiscal-data-digest/">US Treasury Data Scraper</a> for Treasury Fiscal Data; Use <a href="/sec-edgar-filings-monitor/">SEC EDGAR Scraper</a> for 8-K and S-1 filing alerts; Use <a href="/sec-xbrl-peer-financial-change-report/">SEC XBRL Peer Financial Change Report</a> for Public-company XBRL facts.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>US Treasury Data Scraper</th><th>SEC EDGAR Scraper</th><th>SEC XBRL Peer Financial Change Report</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td><td>FDIC/NCUA peer metric changes and trend reports</td><td>Treasury Fiscal Data</td><td>8-K and S-1 filing alerts</td><td>Public-company XBRL facts</td>
+        </tr>
+        <tr>
+          <td>Primary input</td><td>watches</td><td>datasets</td><td>tickers / CIKs</td><td>watchlists + userAgent</td>
+        </tr>
+        <tr>
+          <td>What it reads</td><td>Official FDIC BankFind or NCUA quarterly files</td><td>Treasury API</td><td>EDGAR</td><td>SEC company facts</td>
+        </tr>
+        <tr>
+          <td>Primary output</td><td>Institution-row, peer-change, report, and export events</td><td>Series rows</td><td>Filing rows</td><td>Metric-change alerts</td>
+        </tr>
+        <tr>
+          <td>Not this job</td><td>Not US Treasury Fiscal Data. Not SEC EDGAR 8-K. Not XBRL public-company facts. You supply FDIC certs or NCUA charter numbers.</td><td>Not FDIC/NCUA call reports.</td><td>Not bank call-report peers.</td><td>Not FDIC/NCUA institutions.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/fdic-ncua-peer-financial-trend-report</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Two FDIC certs with a few metrics and generateReport off first</li>
+      <li>Do not mix FDIC and NCUA in one watch (same-source)</li>
+      <li>Use initialRunMode baseline_only to seed state</li>
+    </ul>
+
+    <h2>How is FDIC &amp; NCUA Peer Financial Trend Report different from US Treasury Data Scraper and SEC EDGAR Scraper?</h2>
+    <p>FDIC &amp; NCUA Peer Financial Trend Report (taroyamada/fdic-ncua-peer-financial-trend-report): Compare bounded same-source bank or credit-union peer watches across explicit quarterly metrics and periods. Receive source-linked changes, peer percentiles, reports, and exports. Not US Treasury Fiscal Data. Not SEC EDGAR 8-K. Not XBRL public-company facts. You supply FDIC certs or NCUA charter numbers. US Treasury Data Scraper is for Treasury Fiscal Data (input datasets; Treasury API; Series rows). Not FDIC/NCUA call reports. SEC EDGAR Scraper is for 8-K and S-1 filing alerts (input tickers / CIKs; EDGAR; Filing rows). Not bank call-report peers. SEC XBRL Peer Financial Change Report is for Public-company XBRL facts (input watchlists + userAgent; SEC company facts; Metric-change alerts). Not FDIC/NCUA institutions.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: watches. Published exampleRunInput is shown below.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>watches</code></td>
+          <td>any[]</td>
+          <td><code>[]</code></td>
+          <td>Institution peer watches. Each watch is a bounded peer group from one source. Use at least two FDIC certificate numbers or NCUA charter numbers so peer percentiles are meaningful. Required.</td>
+        </tr>
+        <tr>
+          <td><code>monitorKey</code></td>
+          <td>string</td>
+          <td><code>&quot;fdic-ncua-peer-financial-trend-watch&quot;</code></td>
+          <td>Monitor key. Stable isolated state namespace for recurring checks. Use a new key for a separate portfolio.</td>
+        </tr>
+        <tr>
+          <td><code>initialRunMode</code></td>
+          <td>string enum</td>
+          <td><code>&quot;baseline_only&quot;</code></td>
+          <td>Initial run mode. baseline_only saves the first snapshot with zero rows; emit_backfill emits the current bounded observations for a deliberate paid backfill. enum: baseline_only, emit_backfill</td>
+        </tr>
+        <tr>
+          <td><code>generateReport</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Generate trend report. Emit one descriptive peer trend report when selected observations are new or changed.</td>
+        </tr>
+        <tr>
+          <td><code>emitRawRows</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit financial rows. Add one low-priced descriptive institution metric row per selected observation. Off by default.</td>
+        </tr>
+        <tr>
+          <td><code>emitExport</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Generate evidence export. Emit one compact JSON evidence export when selected observations are new or changed.</td>
+        </tr>
+        <tr>
+          <td><code>includeInstitutionDirectory</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Include institution labels. For FDIC, fetch the bounded institutions endpoint. NCUA labels come from FOICU.txt in the selected official ZIP.</td>
+        </tr>
+        <tr>
+          <td><code>emitUnchanged</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit unchanged observations. Accepted for compatibility. Unchanged checks always remain zero rows and zero charge.</td>
+        </tr>
+        <tr>
+          <td><code>maxChargeUsd</code></td>
+          <td>number</td>
+          <td><code>50</code></td>
+          <td>Maximum charge USD. Fail closed before any push if the planned event total exceeds this cap. minimum=0.01 maximum=500</td>
+        </tr>
+        <tr>
+          <td><code>maxRequests</code></td>
+          <td>integer</td>
+          <td><code>20</code></td>
+          <td>Maximum source requests. Hard upper bound for this run, including directory and financial requests. minimum=1 maximum=50</td>
+        </tr>
+        <tr>
+          <td><code>requestIntervalMs</code></td>
+          <td>integer</td>
+          <td><code>250</code></td>
+          <td>Request interval milliseconds. Minimum interval between official source requests. Keep at least 100ms. minimum=100 maximum=10000</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run. Return deterministic representative rows without contacting FDIC or NCUA, reading or saving state, or charging events.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  &quot;watches&quot;: [
+    {
+      &quot;id&quot;: &quot;sample-peer-group&quot;,
+      &quot;source&quot;: &quot;fdic&quot;,
+      &quot;institutions&quot;: [
+        {
+          &quot;cert&quot;: &quot;14&quot;,
+          &quot;label&quot;: &quot;Example institution A&quot;
+        },
+        {
+          &quot;cert&quot;: &quot;35&quot;,
+          &quot;label&quot;: &quot;Example institution B&quot;
+        }
+      ],
+      &quot;metrics&quot;: [
+        &quot;totalAssets&quot;,
+        &quot;totalDeposits&quot;,
+        &quot;netIncome&quot;
+      ],
+      &quot;periods&quot;: [
+        &quot;2024-12-31&quot;,
+        &quot;2025-12-31&quot;
+      ]
+    }
+  ],
+  &quot;maxChargeUsd&quot;: 3,
+  &quot;maxRequests&quot;: 3,
+  &quot;dryRun&quot;: false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/fdic-ncua-peer-financial-trend-report">Run FDIC &amp; NCUA Peer Financial Trend Report on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is FDIC &amp; NCUA Peer Financial Trend Report priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $10.00 / 1,000 Institution financial row ($0.01 per delivered institution-financial-row); $0.50 per Institution peer change alert; $18.00 per Financial peer trend report; $10.00 per Financial peer export. No Actor Start.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>institution-financial-row</code> (Institution financial row)</td>
+          <td>$0.01</td>
+          <td>Charged only when a institution financial row is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>institution-peer-change-alert</code> (Institution peer change alert)</td>
+          <td>$0.50</td>
+          <td>Charged only when a institution peer change alert is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>financial-peer-trend-report</code> (Financial peer trend report)</td>
+          <td>$18.00</td>
+          <td>Charged only when a financial peer trend report is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>financial-peer-export</code> (Financial peer export)</td>
+          <td>$10.00</td>
+          <td>Charged only when a financial peer export is delivered.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="price">from $10.00 / 1,000 Institution financial row ($0.01 per delivered institution-financial-row); $0.50 per Institution peer change alert; $18.00 per Financial peer trend report; $10.00 per Financial peer export. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/fdic-ncua-peer-financial-trend-report/pricing">See FDIC &amp; NCUA Peer Financial Trend Report pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>watches required</li>
+      <li>Same-source peers only</li>
+      <li>Report and export are opt-in</li>
+      <li>Not SEC filer financials</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/fdic-ncua-peer-financial-trend-report">Open FDIC &amp; NCUA Peer Financial Trend Report on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/treasury-fiscal-data-digest/">US Treasury Data Scraper</a> — Not FDIC/NCUA call reports.</li>
+      <li><a href="/sec-edgar-filings-monitor/">SEC EDGAR Scraper</a> — Not bank call-report peers.</li>
+      <li><a href="/sec-xbrl-peer-financial-change-report/">SEC XBRL Peer Financial Change Report</a> — Not FDIC/NCUA institutions.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

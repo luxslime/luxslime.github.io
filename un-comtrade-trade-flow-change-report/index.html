@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>UN Comtrade Trade Flow Change Report — Bounded official UN Comtrade preview queries you set</title>
+  <meta name="description" content="taroyamada/un-comtrade-trade-flow-change-report. from $6.00 / 1,000 Trade flow row ($0.006 per delivered trade-flow-row); $0.20 per Trade flow change aler…">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/un-comtrade-trade-flow-change-report/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is UN Comtrade Trade Flow Change Report different from HTS Tariff & Trade Scraper and BIS Export Control List Change Report?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "UN Comtrade Trade Flow Change Report (taroyamada/un-comtrade-trade-flow-change-report): Monitor bounded official UN Comtrade preview queries for new, changed, or removed trade-flow records and generate source-linked trend reports and optional exports. Not HTS tariff-rate changes (use HTS Tariff & Trade Scraper). Not BIS restricted-party lists. Not OFAC sanctions additions. You supply reporter/partner/HS watches. HTS Tariff & Trade Scraper is for HTS tariff changes (input codes; Public HTS; Tariff-change rows). Not UN Comtrade flow tables. BIS Export Control List Change Report is for BIS Entity/DPL/UVL lists (input watchlists; BIS public lists; List-change alerts). Not Comtrade trade flows. Sanctions Change Tracker is for OFAC list additions/removals (input names; OFAC public lists; Sanctions-change rows). Not UN Comtrade flows."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: watches. Live schema fields: watches, monitorKey, initialRunMode, generateReport, emitRawRows, emitExport, emitUnchanged, maxChargeUsd, requestTimeoutSeconds, maxRetries, dryRun. Monitor bounded official UN Comtrade preview queries for new, changed, or removed trade-flow records and generate source-linked trend reports and optional exports. exampleRunInput keys: watches, maxChargeUsd, maxRetries, dryRun. additionalProperties is false on the live schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: watches, maxChargeUsd, maxRetries, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Published README Output Example / Sample Output JSON. Illustration: {   \"rowType\": \"trade_trend_report\",   \"billingEventName\": \"trade-trend-report\",   \"report\": {     \"reportType\": \"bounded_trade_flow_change_report\",     \"queryCount\": 1,     \"changedRecordCount\": 2,     \"newRecordCount\": 1,     \"updatedRecordCount\": 1,     \"removedRecordCount\": 0,     \"byFlow\": [       {         \"key\": \"X\",         \"count\": 2       }     ],     \"coverageNote\": \"Official preview response only; one product and one period per request, max 500 records, not comprehensive trade data.\"   } }  Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is UN Comtrade Trade Flow Change Report priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $6.00 / 1,000 Trade flow row ($0.006 per delivered trade-flow-row); $0.20 per Trade flow change alert; $12.00 per Trade trend report; $8.00 per Trade export. No Actor Start. Trade flow row (trade-flow-row) $0.006: Charged only when a trade flow row is delivered. Trade flow change alert (trade-flow-change-alert) $0.20: Charged only when a trade flow change alert is delivered. Trade trend report (trade-trend-report) $12.00: Charged only when a trade trend report is delivered. Trade export (trade-export-generated) $8.00: Charged only when a trade export is delivered. Platform usage is listed as included on the Store pricing tab."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / UN Comtrade Trade Flow Change Report</nav>
+    <h1>Bounded official UN Comtrade preview queries you set</h1>
+    <p>Monitor bounded official UN Comtrade preview queries for new, changed, or removed trade-flow records and generate source-linked trend reports and optional exports.</p>
+    <p>Not HTS tariff-rate changes (use HTS Tariff &amp; Trade Scraper). Not BIS restricted-party lists. Not OFAC sanctions additions. You supply reporter/partner/HS watches.</p>
+    <p class="price">from $6.00 / 1,000 Trade flow row ($0.006 per delivered trade-flow-row); $0.20 per Trade flow change alert; $12.00 per Trade trend report; $8.00 per Trade export. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/un-comtrade-trade-flow-change-report">Open UN Comtrade Trade Flow Change Report on Apify</a></p>
+
+    <h2>UN Comtrade Trade Flow Change Report, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/tariff-trade-change-digest/">HTS Tariff &amp; Trade Scraper</a> for HTS tariff changes; Use <a href="/bis-export-control-list-change-report/">BIS Export Control List Change Report</a> for BIS Entity/DPL/UVL lists; Use <a href="/sanctions-change-digest/">Sanctions Change Tracker</a> for OFAC list additions/removals.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>HTS Tariff &amp; Trade Scraper</th><th>BIS Export Control List Change Report</th><th>Sanctions Change Tracker</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td><td>UN Comtrade flow changes for configured watches</td><td>HTS tariff changes</td><td>BIS Entity/DPL/UVL lists</td><td>OFAC list additions/removals</td>
+        </tr>
+        <tr>
+          <td>Primary input</td><td>watches</td><td>codes</td><td>watchlists</td><td>names</td>
+        </tr>
+        <tr>
+          <td>What it reads</td><td>Official UN Comtrade public preview API</td><td>Public HTS</td><td>BIS public lists</td><td>OFAC public lists</td>
+        </tr>
+        <tr>
+          <td>Primary output</td><td>Flow-row, change-alert, report, and export events</td><td>Tariff-change rows</td><td>List-change alerts</td><td>Sanctions-change rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td><td>Not HTS tariff-rate changes (use HTS Tariff &amp; Trade Scraper). Not BIS restricted-party lists. Not OFAC sanctions additions. You supply reporter/partner/HS watches.</td><td>Not UN Comtrade flow tables.</td><td>Not Comtrade trade flows.</td><td>Not UN Comtrade flows.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/un-comtrade-trade-flow-change-report</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>One reporter/HS watch with generateReport off first</li>
+      <li>Use initialRunMode baseline_only to seed state</li>
+      <li>Keep periods bounded</li>
+    </ul>
+
+    <h2>How is UN Comtrade Trade Flow Change Report different from HTS Tariff &amp; Trade Scraper and BIS Export Control List Change Report?</h2>
+    <p>UN Comtrade Trade Flow Change Report (taroyamada/un-comtrade-trade-flow-change-report): Monitor bounded official UN Comtrade preview queries for new, changed, or removed trade-flow records and generate source-linked trend reports and optional exports. Not HTS tariff-rate changes (use HTS Tariff &amp; Trade Scraper). Not BIS restricted-party lists. Not OFAC sanctions additions. You supply reporter/partner/HS watches. HTS Tariff &amp; Trade Scraper is for HTS tariff changes (input codes; Public HTS; Tariff-change rows). Not UN Comtrade flow tables. BIS Export Control List Change Report is for BIS Entity/DPL/UVL lists (input watchlists; BIS public lists; List-change alerts). Not Comtrade trade flows. Sanctions Change Tracker is for OFAC list additions/removals (input names; OFAC public lists; Sanctions-change rows). Not UN Comtrade flows.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: watches. Published exampleRunInput is shown below.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>watches</code></td>
+          <td>any[]</td>
+          <td><code>[]</code></td>
+          <td>Trade-flow watches. Each watch creates at most one official preview API request. Duplicate query dimensions are fetched once and matched to all watch IDs. Required.</td>
+        </tr>
+        <tr>
+          <td><code>monitorKey</code></td>
+          <td>string</td>
+          <td><code>&quot;un-comtrade-trade-flow-watch&quot;</code></td>
+          <td>Monitor key. Stable isolated state namespace for this recurring watch portfolio.</td>
+        </tr>
+        <tr>
+          <td><code>initialRunMode</code></td>
+          <td>string enum</td>
+          <td><code>&quot;baseline_only&quot;</code></td>
+          <td>Initial run mode. baseline_only stores the first bounded snapshot with zero rows. emit_backfill emits the current changes for an explicit paid run. enum: baseline_only, emit_backfill</td>
+        </tr>
+        <tr>
+          <td><code>generateReport</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Generate trend report. Emit one report-first aggregate row when changes are observed.</td>
+        </tr>
+        <tr>
+          <td><code>emitRawRows</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit trade-flow rows. Emit one low-priced normalized row per changed current record. Report and alerts remain the primary output.</td>
+        </tr>
+        <tr>
+          <td><code>emitExport</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Generate export. Emit a compact source-linked JSON export when changes are observed.</td>
+        </tr>
+        <tr>
+          <td><code>emitUnchanged</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit unchanged records. Accepted for compatibility only. Unchanged runs always emit zero rows and zero charges.</td>
+        </tr>
+        <tr>
+          <td><code>maxChargeUsd</code></td>
+          <td>number</td>
+          <td><code>35</code></td>
+          <td>Maximum charge USD. The complete planned PPE charge is estimated before the first dataset push. The run fails closed if this cap would be exceeded. minimum=0.006 maximum=500</td>
+        </tr>
+        <tr>
+          <td><code>requestTimeoutSeconds</code></td>
+          <td>integer</td>
+          <td><code>30</code></td>
+          <td>Request timeout seconds. Timeout for each official preview request. minimum=5 maximum=120</td>
+        </tr>
+        <tr>
+          <td><code>maxRetries</code></td>
+          <td>integer</td>
+          <td><code>3</code></td>
+          <td>Maximum retries. Bounded retries for 429 and transient 5xx responses only. minimum=0 maximum=4</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run. Return deterministic representative report, alert, row, and export records without API calls, state writes, or charges.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  &quot;watches&quot;: [
+    {
+      &quot;id&quot;: &quot;japan-world-hs84-2023&quot;,
+      &quot;reporterCode&quot;: &quot;392&quot;,
+      &quot;partnerCode&quot;: &quot;0&quot;,
+      &quot;hsCode&quot;: &quot;84&quot;,
+      &quot;flowCode&quot;: &quot;X&quot;,
+      &quot;frequency&quot;: &quot;A&quot;,
+      &quot;period&quot;: &quot;2023&quot;
+    }
+  ],
+  &quot;maxChargeUsd&quot;: 3,
+  &quot;maxRetries&quot;: 3,
+  &quot;dryRun&quot;: false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/un-comtrade-trade-flow-change-report">Run UN Comtrade Trade Flow Change Report on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON. Illustration:
+{
+  &quot;rowType&quot;: &quot;trade_trend_report&quot;,
+  &quot;billingEventName&quot;: &quot;trade-trend-report&quot;,
+  &quot;report&quot;: {
+    &quot;reportType&quot;: &quot;bounded_trade_flow_change_report&quot;,
+    &quot;queryCount&quot;: 1,
+    &quot;changedRecordCount&quot;: 2,
+    &quot;newRecordCount&quot;: 1,
+    &quot;updatedRecordCount&quot;: 1,
+    &quot;removedRecordCount&quot;: 0,
+    &quot;byFlow&quot;: [
+      {
+        &quot;key&quot;: &quot;X&quot;,
+        &quot;count&quot;: 2
+      }
+    ],
+    &quot;coverageNote&quot;: &quot;Official preview response only; one product and one period per request, max 500 records, not comprehensive trade data.&quot;
+  }
+}
+ Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is UN Comtrade Trade Flow Change Report priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $6.00 / 1,000 Trade flow row ($0.006 per delivered trade-flow-row); $0.20 per Trade flow change alert; $12.00 per Trade trend report; $8.00 per Trade export. No Actor Start.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>trade-flow-row</code> (Trade flow row)</td>
+          <td>$0.006</td>
+          <td>Charged only when a trade flow row is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>trade-flow-change-alert</code> (Trade flow change alert)</td>
+          <td>$0.20</td>
+          <td>Charged only when a trade flow change alert is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>trade-trend-report</code> (Trade trend report)</td>
+          <td>$12.00</td>
+          <td>Charged only when a trade trend report is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>trade-export-generated</code> (Trade export)</td>
+          <td>$8.00</td>
+          <td>Charged only when a trade export is delivered.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="price">from $6.00 / 1,000 Trade flow row ($0.006 per delivered trade-flow-row); $0.20 per Trade flow change alert; $12.00 per Trade trend report; $8.00 per Trade export. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/un-comtrade-trade-flow-change-report/pricing">See UN Comtrade Trade Flow Change Report pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>watches required</li>
+      <li>Public Comtrade preview only</li>
+      <li>Report and export are opt-in</li>
+      <li>Not a bulk full-history dump</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/un-comtrade-trade-flow-change-report">Open UN Comtrade Trade Flow Change Report on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/tariff-trade-change-digest/">HTS Tariff &amp; Trade Scraper</a> — Not UN Comtrade flow tables.</li>
+      <li><a href="/bis-export-control-list-change-report/">BIS Export Control List Change Report</a> — Not Comtrade trade flows.</li>
+      <li><a href="/sanctions-change-digest/">Sanctions Change Tracker</a> — Not UN Comtrade flows.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

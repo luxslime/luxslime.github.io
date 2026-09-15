@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DailyMed Label Change Watch Report — Official DailyMed SPL metadata and version history you watch</title>
+  <meta name="description" content="taroyamada/dailymed-label-change-watch-report. from $5.00 / 1,000 DailyMed label row ($0.005 per delivered dailymed-label-row); $0.20 per DailyMed label c…">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/dailymed-label-change-watch-report/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is DailyMed Label Change Watch Report different from FDA Warning Letters Scraper and FDA Orange Book Patent & Exclusivity Change Report?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "DailyMed Label Change Watch Report (taroyamada/dailymed-label-change-watch-report): Monitor official DailyMed SPL metadata and version history for selected drugs, labelers, NDCs, applications, or Set IDs. Receive source-linked label-change alerts, impact reports, and optional exports. Not FDA warning letters. Not Orange Book patents. Not FDA shortage records. You supply DailyMed watches. FDA Warning Letters Scraper is for FDA warning-letter pages (input search terms; FDA warning letters; Letter rows). Not DailyMed SPL versions. FDA Orange Book Patent & Exclusivity Change Report is for Orange Book patents/exclusivity (input watches; FDA Orange Book; Patent/exclusivity alerts). Not DailyMed labels. FDA Drug Shortage Supply Change Report is for FDA shortage records (input watches; FDA shortages; Shortage-change alerts). Not DailyMed label versions."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: watches. Live schema fields: watches, monitorKey, initialRunMode, nameType, includeHistory, generateReport, emitRawRows, emitExport, emitUnchanged, maxRecordsPerWatch, maxHistoryEntries, maxChargeUsd, dryRun. Monitor official DailyMed SPL metadata and version history for selected drugs, labelers, NDCs, applications, or Set IDs. Receive source-linked label-change alerts, impact reports, and optional exports. exampleRunInput keys: watches, maxRecordsPerWatch, maxHistoryEntries, maxChargeUsd, dryRun. additionalProperties is false on the live schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: watches, maxRecordsPerWatch, maxHistoryEntries, maxChargeUsd, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is DailyMed Label Change Watch Report priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $5.00 / 1,000 DailyMed label row ($0.005 per delivered dailymed-label-row); $0.20 per DailyMed label change alert; $10.00 per DailyMed label impact report; $6.00 per DailyMed label export. No Actor Start. DailyMed label row (dailymed-label-row) $0.005: Charged only when a dailymed label row row is delivered. DailyMed label change alert (dailymed-label-change-alert) $0.20: Charged only when a dailymed label change alert row is delivered. DailyMed label impact report (dailymed-label-impact-report) $10.00: Charged only when a dailymed label impact report row is delivered. DailyMed label export (dailymed-label-export) $6.00: Charged only when a dailymed label export row is delivered. Platform usage is listed as included on the Store pricing tab."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / DailyMed Label Change Watch Report</nav>
+    <h1>Official DailyMed SPL metadata and version history you watch</h1>
+    <p>Monitor official DailyMed SPL metadata and version history for selected drugs, labelers, NDCs, applications, or Set IDs. Receive source-linked label-change alerts, impact reports, and optional exports.</p>
+    <p>Not FDA warning letters. Not Orange Book patents. Not FDA shortage records. You supply DailyMed watches.</p>
+    <p class="price">from $5.00 / 1,000 DailyMed label row ($0.005 per delivered dailymed-label-row); $0.20 per DailyMed label change alert; $10.00 per DailyMed label impact report; $6.00 per DailyMed label export. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/dailymed-label-change-watch-report">Open DailyMed Label Change Watch Report on Apify</a></p>
+
+    <h2>DailyMed Label Change Watch Report, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/fda-warning-letter-digest/">FDA Warning Letters Scraper</a> for FDA warning-letter pages; Use <a href="/fda-orange-book-patent-exclusivity-change-report/">FDA Orange Book Patent &amp; Exclusivity Change Report</a> for Orange Book patents/exclusivity; Use <a href="/fda-drug-shortage-supply-change-report/">FDA Drug Shortage Supply Change Report</a> for FDA shortage records.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>FDA Warning Letters Scraper</th><th>FDA Orange Book Patent &amp; Exclusivity Change Report</th><th>FDA Drug Shortage Supply Change Report</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td><td>DailyMed label version/metadata change alerts</td><td>FDA warning-letter pages</td><td>Orange Book patents/exclusivity</td><td>FDA shortage records</td>
+        </tr>
+        <tr>
+          <td>Primary input</td><td>watches</td><td>search terms</td><td>watches</td><td>watches</td>
+        </tr>
+        <tr>
+          <td>What it reads</td><td>Official DailyMed public API</td><td>FDA warning letters</td><td>FDA Orange Book</td><td>FDA shortages</td>
+        </tr>
+        <tr>
+          <td>Primary output</td><td>Label-row, change-alert, report, and export events</td><td>Letter rows</td><td>Patent/exclusivity alerts</td><td>Shortage-change alerts</td>
+        </tr>
+        <tr>
+          <td>Not this job</td><td>Not FDA warning letters. Not Orange Book patents. Not FDA shortage records. You supply DailyMed watches.</td><td>Not DailyMed SPL versions.</td><td>Not DailyMed labels.</td><td>Not DailyMed label versions.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/dailymed-label-change-watch-report</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>One drug name watch with generateReport off first</li>
+      <li>Keep includeHistory bounded via maxHistoryEntries</li>
+      <li>Use initialRunMode baseline_only to seed state</li>
+    </ul>
+
+    <h2>How is DailyMed Label Change Watch Report different from FDA Warning Letters Scraper and FDA Orange Book Patent &amp; Exclusivity Change Report?</h2>
+    <p>DailyMed Label Change Watch Report (taroyamada/dailymed-label-change-watch-report): Monitor official DailyMed SPL metadata and version history for selected drugs, labelers, NDCs, applications, or Set IDs. Receive source-linked label-change alerts, impact reports, and optional exports. Not FDA warning letters. Not Orange Book patents. Not FDA shortage records. You supply DailyMed watches. FDA Warning Letters Scraper is for FDA warning-letter pages (input search terms; FDA warning letters; Letter rows). Not DailyMed SPL versions. FDA Orange Book Patent &amp; Exclusivity Change Report is for Orange Book patents/exclusivity (input watches; FDA Orange Book; Patent/exclusivity alerts). Not DailyMed labels. FDA Drug Shortage Supply Change Report is for FDA shortage records (input watches; FDA shortages; Shortage-change alerts). Not DailyMed label versions.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: watches. Published exampleRunInput is shown below.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>watches</code></td>
+          <td>any[]</td>
+          <td><code>[]</code></td>
+          <td>DailyMed watches. Bounded recurring watches. Use a stable id and at least one filter per watch. Required.</td>
+        </tr>
+        <tr>
+          <td><code>monitorKey</code></td>
+          <td>string</td>
+          <td><code>&quot;dailymed-label-watch&quot;</code></td>
+          <td>Monitor key. Stable isolated state namespace for a recurring DailyMed portfolio.</td>
+        </tr>
+        <tr>
+          <td><code>initialRunMode</code></td>
+          <td>string enum</td>
+          <td><code>&quot;baseline_only&quot;</code></td>
+          <td>Initial run mode. baseline_only stores the first observation with zero rows; emit_backfill emits current matches for an explicit first report. enum: baseline_only, emit_backfill</td>
+        </tr>
+        <tr>
+          <td><code>nameType</code></td>
+          <td>string enum</td>
+          <td><code>&quot;both&quot;</code></td>
+          <td>Drug name type. How DailyMed interprets drugNames. enum: both, generic, brand</td>
+        </tr>
+        <tr>
+          <td><code>includeHistory</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Fetch version history. Fetch bounded DailyMed /history metadata for source-linked version evidence. Full label content is never fetched.</td>
+        </tr>
+        <tr>
+          <td><code>generateReport</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Generate impact report. Generate one report-first aggregate when new or changed observations are emitted.</td>
+        </tr>
+        <tr>
+          <td><code>emitRawRows</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit metadata rows. Emit the low-priced compact metadata row for each new or changed record.</td>
+        </tr>
+        <tr>
+          <td><code>emitExport</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Generate export. Generate a compact JSON export of metadata/version evidence without full labels.</td>
+        </tr>
+        <tr>
+          <td><code>emitUnchanged</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit unchanged observations. Accepted for compatibility, but unchanged observations remain zero rows and zero charge.</td>
+        </tr>
+        <tr>
+          <td><code>maxRecordsPerWatch</code></td>
+          <td>integer</td>
+          <td><code>25</code></td>
+          <td>Maximum labels per watch. Maximum DailyMed list records retained per bounded query. DailyMed pagesize maximum is 100. minimum=1 maximum=100</td>
+        </tr>
+        <tr>
+          <td><code>maxHistoryEntries</code></td>
+          <td>integer</td>
+          <td><code>10</code></td>
+          <td>Maximum history entries. Maximum version-history entries retained per label. minimum=1 maximum=100</td>
+        </tr>
+        <tr>
+          <td><code>maxChargeUsd</code></td>
+          <td>number</td>
+          <td><code>25</code></td>
+          <td>Maximum charge USD. Fail closed before delivery if planned PPE charges exceed this cap. minimum=0.005 maximum=250</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run. Return representative rows for every configured event without DailyMed requests, state save, or PPE charges.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  &quot;watches&quot;: [
+    {
+      &quot;id&quot;: &quot;acetaminophen-labels&quot;,
+      &quot;drugNames&quot;: [
+        &quot;acetaminophen&quot;
+      ],
+      &quot;publishedDateFrom&quot;: &quot;2024-01-01&quot;,
+      &quot;publishedDateComparison&quot;: &quot;gte&quot;
+    },
+    {
+      &quot;id&quot;: &quot;example-setid&quot;,
+      &quot;setIds&quot;: [
+        &quot;1efe378e-fee1-4ae9-8ea5-0fe2265fe2d8&quot;
+      ]
+    }
+  ],
+  &quot;maxRecordsPerWatch&quot;: 3,
+  &quot;maxHistoryEntries&quot;: 3,
+  &quot;maxChargeUsd&quot;: 3,
+  &quot;dryRun&quot;: false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/dailymed-label-change-watch-report">Run DailyMed Label Change Watch Report on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is DailyMed Label Change Watch Report priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $5.00 / 1,000 DailyMed label row ($0.005 per delivered dailymed-label-row); $0.20 per DailyMed label change alert; $10.00 per DailyMed label impact report; $6.00 per DailyMed label export. No Actor Start.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>dailymed-label-row</code> (DailyMed label row)</td>
+          <td>$0.005</td>
+          <td>Charged only when a dailymed label row row is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>dailymed-label-change-alert</code> (DailyMed label change alert)</td>
+          <td>$0.20</td>
+          <td>Charged only when a dailymed label change alert row is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>dailymed-label-impact-report</code> (DailyMed label impact report)</td>
+          <td>$10.00</td>
+          <td>Charged only when a dailymed label impact report row is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>dailymed-label-export</code> (DailyMed label export)</td>
+          <td>$6.00</td>
+          <td>Charged only when a dailymed label export row is delivered.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="price">from $5.00 / 1,000 DailyMed label row ($0.005 per delivered dailymed-label-row); $0.20 per DailyMed label change alert; $10.00 per DailyMed label impact report; $6.00 per DailyMed label export. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/dailymed-label-change-watch-report/pricing">See DailyMed Label Change Watch Report pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>watches required</li>
+      <li>Public DailyMed only</li>
+      <li>Report and export are opt-in</li>
+      <li>Not full SPL narrative dumps unless emitted</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/dailymed-label-change-watch-report">Open DailyMed Label Change Watch Report on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/fda-warning-letter-digest/">FDA Warning Letters Scraper</a> — Not DailyMed SPL versions.</li>
+      <li><a href="/fda-orange-book-patent-exclusivity-change-report/">FDA Orange Book Patent &amp; Exclusivity Change Report</a> — Not DailyMed labels.</li>
+      <li><a href="/fda-drug-shortage-supply-change-report/">FDA Drug Shortage Supply Change Report</a> — Not DailyMed label versions.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>
