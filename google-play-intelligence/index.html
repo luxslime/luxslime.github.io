@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Google Play App Scraper — ratings, installs, ASO</title>
+  <meta name="description" content="taroyamada/google-play-intelligence. From $3.00 / 1,000 results + $0.00005 start. Not App Store or Chrome Web Store.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/google-play-intelligence/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is Google Play App Scraper different from Chrome Web Store Extension Intelligence and Website Content Extractor?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Google Play App Scraper — Ratings, Installs & ASO (taroyamada/google-play-intelligence): This Actor reads public Google Play listing HTML/storefront data for package IDs or Play URLs and returns metadata, install ranges, pricing flags, and optional embedded review snippets. Review samples are limited to cards in the initial HTML. Not Apple App Store, Chrome Web Store, or a full Play review-pagination crawler. Not ranking/ASO keyword volume. Chrome Web Store Extension Intelligence is for Chrome extensions (input extensionUrls / searchTerms; Chrome Web Store; extension rows). Not Google Play packages. Website Content Extractor is for Generic page markdown (input urls; HTML body; markdown). Not Play storefront fields."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What input is required?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Live required fields: appUrls. Live schema fields: appUrls, country, language, reviewLimit, timeoutMs, delivery, webhookUrl, dryRun. exampleRunInput uses com.spotify.music plus a Duolingo Play URL, reviewLimit 5. Schema default reviewLimit 20; set 0 to skip samples. country/language default us/en. additionalProperties is not documented on this page beyond the live Store schema."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the best first run?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use the published Store example run input below. exampleRunInput uses com.spotify.music plus a Duolingo Play URL, reviewLimit 5. Schema default reviewLimit 20; set 0 to skip samples. country/language default us/en. Keep the first live run small. Use dryRun when you only need to validate input."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does a result contain?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do dataset, webhook, and dry-run delivery work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Google Play App Scraper priced?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Billing is pay per event. Live Store card: from $3.00 / 1,000 results ($0.003 per Result) plus Actor Start $0.00005. Cheapest one-app paid path ≈ $0.00305 if one start + one result. Actor Start (apify-actor-start) $0.00005: Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event). Result (apify-default-dataset-item) $0.003: Charged automatically for each item saved to the default dataset. Do not use the README Cost block as live pricing. README does not quote this Actor’s live PPE. It advertises follow-on listing-gap $9/$29. Live card: Actor Start $0.00005 + Result $0.003 (apify-actor-start, apify-default-dataset-item). Platform usage is listed as included on the Store pricing tab."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Google Play App Scraper</nav>
+    <h1>Google Play app metadata, install ranges, and public review samples</h1>
+    <p>This Actor reads public Google Play listing HTML/storefront data for package IDs or Play URLs and returns metadata, install ranges, pricing flags, and optional embedded review snippets. Review samples are limited to cards in the initial HTML.</p>
+    <p>Not Apple App Store, Chrome Web Store, or a full Play review-pagination crawler. Not ranking/ASO keyword volume.</p>
+    <p class="price">from $3.00 / 1,000 results ($0.003 per Result) plus Actor Start $0.00005. Cheapest one-app paid path ≈ $0.00305 if one start + one result.</p>
+    <p><a href="https://apify.com/taroyamada/google-play-intelligence">Open Google Play App Scraper on Apify</a></p>
+
+    <h2>Google Play App Scraper, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/chrome-web-store-extension-intelligence/">Chrome Web Store Extension Intelligence</a> for Chrome extensions; Use <a href="/website-content-extractor/">Website Content Extractor</a> for Generic page markdown.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>This Actor</th>
+          <th>Chrome Web Store Extension Intelligence</th>
+          <th>Website Content Extractor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>Google Play App Scraper</td>
+          <td>Chrome extensions</td>
+          <td>Generic page markdown</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td><code>appUrls</code></td>
+          <td>extensionUrls / searchTerms</td>
+          <td>urls</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>Public sources listed on the Store page</td>
+          <td>Chrome Web Store</td>
+          <td>HTML body</td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td>Dataset rows billed per live PPE</td>
+          <td>extension rows</td>
+          <td>markdown</td>
+        </tr>
+        <tr>
+          <td>Not this job</td>
+          <td>Not Apple App Store, Chrome Web Store, or a full Play review-pagination crawler. Not ranking/ASO keyword volume.</td>
+          <td>Not Google Play packages</td>
+          <td>Not Play storefront fields</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/google-play-intelligence</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Android competitor metadata</li>
+      <li>Install-range and rating watches</li>
+      <li>Limited public review snippets</li>
+    </ul>
+
+    <h2>How is Google Play App Scraper different from Chrome Web Store Extension Intelligence and Website Content Extractor?</h2>
+    <p>Google Play App Scraper — Ratings, Installs &amp; ASO (taroyamada/google-play-intelligence): This Actor reads public Google Play listing HTML/storefront data for package IDs or Play URLs and returns metadata, install ranges, pricing flags, and optional embedded review snippets. Review samples are limited to cards in the initial HTML. Not Apple App Store, Chrome Web Store, or a full Play review-pagination crawler. Not ranking/ASO keyword volume. Chrome Web Store Extension Intelligence is for Chrome extensions (input extensionUrls / searchTerms; Chrome Web Store; extension rows). Not Google Play packages. Website Content Extractor is for Generic page markdown (input urls; HTML body; markdown). Not Play storefront fields.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: <code>appUrls</code>. exampleRunInput uses com.spotify.music plus a Duolingo Play URL, reviewLimit 5. Schema default reviewLimit 20; set 0 to skip samples. country/language default us/en.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>appUrls</code></td>
+          <td>array required</td>
+          <td><code>empty</code></td>
+          <td>App URLs or package IDs. Google Play app URLs or Android package identifiers to inspect.</td>
+        </tr>
+        <tr>
+          <td><code>country</code></td>
+          <td>string</td>
+          <td><code>us</code></td>
+          <td>Storefront country. Two-letter Google Play storefront code used for listing requests.. minLength=2</td>
+        </tr>
+        <tr>
+          <td><code>language</code></td>
+          <td>string</td>
+          <td><code>en</code></td>
+          <td>Language. Language code used for listing requests.. minLength=2</td>
+        </tr>
+        <tr>
+          <td><code>reviewLimit</code></td>
+          <td>integer</td>
+          <td><code>20</code></td>
+          <td>Embedded review sample limit. Maximum embedded public review samples to keep per app. Set to 0 to skip review samples.</td>
+        </tr>
+        <tr>
+          <td><code>timeoutMs</code></td>
+          <td>integer</td>
+          <td><code>20000</code></td>
+          <td>Request timeout (ms). HTTP timeout per Google Play listing request.</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string</td>
+          <td><code>dataset</code></td>
+          <td>Delivery. Where to send results: dataset or webhook.</td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Webhook URL. Webhook URL to POST results to when delivery=webhook.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run. Run extraction without pushing rows to the dataset.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  "appUrls": [
+    "com.spotify.music",
+    "https://play.google.com/store/apps/details?id=com.duolingo"
+  ],
+  "country": "us",
+  "language": "en",
+  "reviewLimit": 5,
+  "timeoutMs": 20000,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/google-play-intelligence">Run Google Play App Scraper on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON.</p>
+<pre><code>{
+  "meta": {
+    "implementationStatus": "partial",
+    "totalSources": 2,
+    "uniquePackages": 2,
+    "totals": {
+      "apps": 2,
+      "ok": 1,
+      "partial": 0,
+      "missing": 1,
+      "blocked": 0,
+      "invalid": 0,
+      "errors": 0,
+      "warnings": 3,
+      "totalReviewSamples": 5
+    }
+  },
+  "apps": [
+    {
+      "packageId": "com.spotify.music",
+      "status": "ok",
+      "app": {
+        "title": "Spotify: Music and Podcasts",
+        "developer": "Spotify AB",
+        "rating": 4.3,
+        "ratingCount": 35383844,
+        "installsText": "1,000,000,000+",
+        "contentRating": "Teen"
+      },
+      "reviewIntelligence": {
+        "availability": "sampled_public_html",
+        "sampleCount": 5,
+        "fullReviewCoverageAvailable": false
+      }
+    }
+  ]
+}</code></pre>
+    <p>There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is Google Play App Scraper priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $3.00 / 1,000 results ($0.003 per Result) plus Actor Start $0.00005. Cheapest one-app paid path ≈ $0.00305 if one start + one result.</strong>. Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>apify-actor-start</code> (Actor Start)</td>
+          <td>$0.00005</td>
+          <td>Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).</td>
+        </tr>
+        <tr>
+          <td><code>apify-default-dataset-item</code> (Result)</td>
+          <td>$0.003</td>
+          <td>Charged automatically for each item saved to the default dataset.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>The published README Cost block is stale versus the live Store pricing tab. README does not quote this Actor’s live PPE. It advertises follow-on listing-gap $9/$29. Live card: Actor Start $0.00005 + Result $0.003 (apify-actor-start, apify-default-dataset-item). This page quotes live PPE only.</p>
+    <p class="price">from $3.00 / 1,000 results ($0.003 per Result) plus Actor Start $0.00005. Cheapest one-app paid path ≈ $0.00305 if one start + one result.</p>
+    <p><a href="https://apify.com/taroyamada/google-play-intelligence/pricing">See Google Play App Scraper pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Embedded HTML review cards only; no deep pagination</li>
+      <li>reviewLimit 0–100</li>
+      <li>Public Play pages only</li>
+      <li>Not iOS App Store</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/google-play-intelligence">Open Google Play App Scraper on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/chrome-web-store-extension-intelligence/">Chrome Web Store Extension Intelligence</a> — Browser extensions, not Play packages.</li>
+      <li><a href="/website-content-extractor/">Website Content Extractor</a> — Page markdown, not Play metadata.</li>
+      <li><a href="/apple-app-store-intelligence/">Apple App Store Scraper</a> — iOS listings, not Google Play</li>
+      <li><a href="/mobile-app-listing-gap-report/">App Store &amp; Google Play Listing Gap Report</a> — Scored competitor listing gaps</li>
+      <li><a href="/app-review-cross-platform-intelligence/">iOS &amp; Android App Review Scraper</a> — Combined review summaries</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Security Headers Checker — OWASP HSTS CSP bulk audit</title>
+  <meta name="description" content="taroyamada/security-headers-checker. From $7.00 / 1,000 results + $0.001 start. Not a pentest or exploit scanner.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/security-headers-checker/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is Security Headers Checker different from SSL/TLS Certificate Scraper and DMARC & Email Security Checker?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Security Headers Checker — OWASP HSTS CSP Bulk Audit (taroyamada/security-headers-checker): This Actor requests the URLs you supply, reads HTTP response headers, and scores them against OWASP-oriented directives such as HSTS and CSP. Maximum 200 URLs per run. Not a penetration test, fuzzer, or authenticated scan. Passive header inspection only; only scan sites you are authorized to check. SSL/TLS Certificate Scraper is for TLS cert expiry and fingerprints (input domains (max 200); TLS handshake, not HTTP headers; cert rows). Not OWASP header grades. DMARC & Email Security Checker is for DMARC/SPF/DKIM DNS (input domains; DNS TXT; email-auth rows). Not HTTP security headers. Bulk URL Status Checker is for HTTP status on a known list (input urls (max 1000); HTTP status/redirects; status rows). Not header-policy scoring."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What input is required?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Live required fields: urls. Live schema fields: urls, followRedirects, delivery, webhookUrl, snapshotKey, concurrency, dryRun. exampleRunInput audits google.com, github.com, cloudflare.com with concurrency 3. Schema prefill uses example.com as the third URL and concurrency default 5. Max 200 URLs. additionalProperties is not documented on this page beyond the live Store schema."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the best first run?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use the published Store example run input below. exampleRunInput audits google.com, github.com, cloudflare.com with concurrency 3. Schema prefill uses example.com as the third URL and concurrency default 5. Max 200 URLs. Keep the first live run small. Use dryRun when you only need to validate input."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does a result contain?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do dataset, webhook, and dry-run delivery work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Security Headers Checker priced?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Billing is pay per event. Live Store card: from $7.00 / 1,000 results ($0.007 per result) plus Actor Start $0.001. Actor Start (apify-actor-start) $0.001: Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event). result (apify-default-dataset-item) $0.007: Single result in the default dataset. Do not use the README Cost block as live pricing. README Cost quotes actor-start $0.01 + dataset-item $0.003. Live: Actor Start $0.001 + result $0.007. Platform usage is listed as included on the Store pricing tab."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Security Headers Checker</nav>
+    <h1>Bulk OWASP security-header audits for HSTS, CSP, and grades</h1>
+    <p>This Actor requests the URLs you supply, reads HTTP response headers, and scores them against OWASP-oriented directives such as HSTS and CSP. Maximum 200 URLs per run.</p>
+    <p>Not a penetration test, fuzzer, or authenticated scan. Passive header inspection only; only scan sites you are authorized to check.</p>
+    <p class="price">from $7.00 / 1,000 results ($0.007 per result) plus Actor Start $0.001.</p>
+    <p><a href="https://apify.com/taroyamada/security-headers-checker">Open Security Headers Checker on Apify</a></p>
+
+    <h2>Security Headers Checker, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/ssl-tls-certificate-scraper/">SSL/TLS Certificate Scraper</a> for TLS cert expiry and fingerprints; Use <a href="/dmarc-email-security-checker/">DMARC &amp; Email Security Checker</a> for DMARC/SPF/DKIM DNS; Use <a href="/bulk-url-status-checker/">Bulk URL Status Checker</a> for HTTP status on a known list.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>This Actor</th>
+          <th>SSL/TLS Certificate Scraper</th>
+          <th>DMARC &amp; Email Security Checker</th>
+          <th>Bulk URL Status Checker</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>Security Headers Checker</td>
+          <td>TLS cert expiry and fingerprints</td>
+          <td>DMARC/SPF/DKIM DNS</td>
+          <td>HTTP status on a known list</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td><code>urls</code></td>
+          <td>domains (max 200)</td>
+          <td>domains</td>
+          <td>urls (max 1000)</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>Public sources listed on the Store page</td>
+          <td>TLS handshake, not HTTP headers</td>
+          <td>DNS TXT</td>
+          <td>HTTP status/redirects</td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td>Dataset rows billed per live PPE</td>
+          <td>cert rows</td>
+          <td>email-auth rows</td>
+          <td>status rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td>
+          <td>Not a penetration test, fuzzer, or authenticated scan. Passive header inspection only; only scan sites you are authorized to check.</td>
+          <td>Not OWASP header grades</td>
+          <td>Not HTTP security headers</td>
+          <td>Not header-policy scoring</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/security-headers-checker</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Bulk header compliance grades</li>
+      <li>Missing HSTS/CSP detection</li>
+      <li>Recurring snapshot comparison via snapshotKey</li>
+    </ul>
+
+    <h2>How is Security Headers Checker different from SSL/TLS Certificate Scraper and DMARC &amp; Email Security Checker?</h2>
+    <p>Security Headers Checker — OWASP HSTS CSP Bulk Audit (taroyamada/security-headers-checker): This Actor requests the URLs you supply, reads HTTP response headers, and scores them against OWASP-oriented directives such as HSTS and CSP. Maximum 200 URLs per run. Not a penetration test, fuzzer, or authenticated scan. Passive header inspection only; only scan sites you are authorized to check. SSL/TLS Certificate Scraper is for TLS cert expiry and fingerprints (input domains (max 200); TLS handshake, not HTTP headers; cert rows). Not OWASP header grades. DMARC &amp; Email Security Checker is for DMARC/SPF/DKIM DNS (input domains; DNS TXT; email-auth rows). Not HTTP security headers. Bulk URL Status Checker is for HTTP status on a known list (input urls (max 1000); HTTP status/redirects; status rows). Not header-policy scoring.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: <code>urls</code>. exampleRunInput audits google.com, github.com, cloudflare.com with concurrency 3. Schema prefill uses example.com as the third URL and concurrency default 5. Max 200 URLs.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>urls</code></td>
+          <td>array required</td>
+          <td><code>empty</code></td>
+          <td>URLs to Check. List of URLs to audit security headers for. Maximum 200 per run.</td>
+        </tr>
+        <tr>
+          <td><code>followRedirects</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Follow Redirects. Follow HTTP redirects and check the final URL's headers.</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string</td>
+          <td><code>dataset</code></td>
+          <td>Delivery Mode. How to deliver results. 'dataset' saves to Apify Dataset (recommended), 'webhook' sends to a URL.</td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Webhook URL. Webhook URL to send results to (only used when delivery is 'webhook'). Works with Slack, Discord, or any HTTP endpoint.</td>
+        </tr>
+        <tr>
+          <td><code>snapshotKey</code></td>
+          <td>string</td>
+          <td><code>security-headers-snapshots</code></td>
+          <td>Snapshot Key. Key name for storing snapshots (used for change detection between runs).</td>
+        </tr>
+        <tr>
+          <td><code>concurrency</code></td>
+          <td>integer</td>
+          <td><code>5</code></td>
+          <td>Concurrency. Maximum number of parallel requests. Higher = faster but may trigger rate limits.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry Run. If true, runs without saving results or sending webhooks. Useful for testing.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  "urls": [
+    "https://google.com",
+    "https://github.com",
+    "https://cloudflare.com"
+  ],
+  "followRedirects": true,
+  "concurrency": 3,
+  "delivery": "dataset",
+  "snapshotKey": "security-headers-snapshots",
+  "dryRun": false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/security-headers-checker">Run Security Headers Checker on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON.</p>
+<pre><code>{
+  "url": "https://github.com",
+  "score": {
+    "total": 75,
+    "grade": "B",
+    "details": [
+      {
+        "header": "strict-transport-security",
+        "status": "pass",
+        "points": 20
+      },
+      {
+        "header": "content-security-policy",
+        "status": "missing",
+        "points": 0,
+        "note": "Missing. Add a Content-Security-Policy header"
+      }
+    ]
+  },
+  "statusCode": 200,
+  "headers": {
+    "strict-transport-security": "max-age=31536000; includeSubdomains; preload",
+    "x-frame-options": "deny",
+    "x-content-type-options": "nosniff"
+  }
+}</code></pre>
+    <p>There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is Security Headers Checker priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $7.00 / 1,000 results ($0.007 per result) plus Actor Start $0.001.</strong>. Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>apify-actor-start</code> (Actor Start)</td>
+          <td>$0.001</td>
+          <td>Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).</td>
+        </tr>
+        <tr>
+          <td><code>apify-default-dataset-item</code> (result)</td>
+          <td>$0.007</td>
+          <td>Single result in the default dataset.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>The published README Cost block is stale versus the live Store pricing tab. README Cost quotes actor-start $0.01 + dataset-item $0.003. Live: Actor Start $0.001 + result $0.007. This page quotes live PPE only.</p>
+    <p class="price">from $7.00 / 1,000 results ($0.007 per result) plus Actor Start $0.001.</p>
+    <p><a href="https://apify.com/taroyamada/security-headers-checker/pricing">See Security Headers Checker pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Max 200 URLs</li>
+      <li>concurrency 1–10</li>
+      <li>No exploitation or auth bypass</li>
+      <li>Authorization required for third-party sites</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/security-headers-checker">Open Security Headers Checker on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/ssl-tls-certificate-scraper/">SSL/TLS Certificate Scraper</a> — Certificate expiry, not CSP/HSTS grades.</li>
+      <li><a href="/dmarc-email-security-checker/">DMARC &amp; Email Security Checker</a> — Email DNS posture, not HTTP headers.</li>
+      <li><a href="/bulk-url-status-checker/">Bulk URL Status Checker</a> — Status codes on a URL list, not OWASP header audits.</li>
+      <li><a href="/domain-trust-monitor/">Domain Trust Reputation Scraper</a> — SSL + DMARC + headers executive summary</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

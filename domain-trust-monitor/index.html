@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Domain Trust Reputation Scraper — SSL DMARC headers</title>
+  <meta name="description" content="taroyamada/domain-trust-monitor. From $10.00 / 1,000 result rows. Not a pentest; TLS+DNS+headers, not RDAP only.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/domain-trust-monitor/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is Domain Trust Reputation Scraper different from SSL/TLS Certificate Scraper and DMARC & Email Security Checker?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Domain Trust Reputation Scraper (taroyamada/domain-trust-monitor): This Actor audits hostnames you supply for TLS expiry, DMARC/SPF (and optional DKIM selectors), redirect-aware security headers, and a remediation summary. Optional Google Web Risk is off by default and needs reputationApiKey. Not a penetration test, RDAP registry dump, or HTTP broken-link crawl. Core checks use public TLS/DNS/headers; Web Risk is an add-on. SSL/TLS Certificate Scraper is for TLS certs only (input domains max 200; TLS handshake; cert rows). Not bundled DMARC+headers executive summary. DMARC & Email Security Checker is for Email-auth DNS only (input domains; DNS TXT; DMARC/SPF/DKIM rows). Not TLS expiry + header bundle. RDAP Domain Monitor is for RDAP registration/expiry (input domains; RDAP; registration rows). Not TLS/header scoring."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What input is required?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Live required fields: domains. Live schema fields: domains, port, expiryWarningDays, followRedirects, checkDkim, dkimSelectors, delivery, webhookUrl, snapshotKey, concurrency, enableReputationLookup, reputationApiKey, reputationThreatTypes, emitUnchanged, dryRun. exampleRunInput uses example.com + github.com, checkDkim true, snapshotKey domain-security-audit-quickstart, concurrency 2. Schema prefill adds cloudflare.com; snapshotKey default is domain-trust-monitor-snapshots; concurrency default 3. Keep emitUnchanged false on schedules. additionalProperties is not documented on this page beyond the live Store schema."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the best first run?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use the published Store example run input below. exampleRunInput uses example.com + github.com, checkDkim true, snapshotKey domain-security-audit-quickstart, concurrency 2. Schema prefill adds cloudflare.com; snapshotKey default is domain-trust-monitor-snapshots; concurrency default 3. Keep emitUnchanged false on schedules. Keep the first live run small. Use dryRun when you only need to validate input."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does a result contain?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do dataset, webhook, and dry-run delivery work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. emitUnchanged controls whether unchanged watches write rows. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Domain Trust Reputation Scraper priced?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Billing is pay per event. Live Store card: from $10.00 / 1,000 delivered monitoring result rows ($0.01 per new or changed row). No Actor Start. Unchanged runs with emitUnchanged false are free (0 rows / 0 charge). Max 200 domains. Delivered monitoring result row (apify-default-dataset-item) $0.01: Charged only when a new or changed monitoring result row is delivered. Unchanged runs are free. Platform usage is listed as included on the Store pricing tab."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Domain Trust Reputation Scraper</nav>
+    <h1>Domain portfolio SSL, DMARC, and security-header remediation audits</h1>
+    <p>This Actor audits hostnames you supply for TLS expiry, DMARC/SPF (and optional DKIM selectors), redirect-aware security headers, and a remediation summary. Optional Google Web Risk is off by default and needs reputationApiKey.</p>
+    <p>Not a penetration test, RDAP registry dump, or HTTP broken-link crawl. Core checks use public TLS/DNS/headers; Web Risk is an add-on.</p>
+    <p class="price">from $10.00 / 1,000 delivered monitoring result rows ($0.01 per new or changed row). No Actor Start. Unchanged runs with emitUnchanged false are free (0 rows / 0 charge). Max 200 domains.</p>
+    <p><a href="https://apify.com/taroyamada/domain-trust-monitor">Open Domain Trust Reputation Scraper on Apify</a></p>
+
+    <h2>Domain Trust Reputation Scraper, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/ssl-tls-certificate-scraper/">SSL/TLS Certificate Scraper</a> for TLS certs only; Use <a href="/dmarc-email-security-checker/">DMARC &amp; Email Security Checker</a> for Email-auth DNS only; Use <a href="/rdap-domain-monitor/">RDAP Domain Monitor</a> for RDAP registration/expiry.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>This Actor</th>
+          <th>SSL/TLS Certificate Scraper</th>
+          <th>DMARC &amp; Email Security Checker</th>
+          <th>RDAP Domain Monitor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>Domain Trust Reputation Scraper</td>
+          <td>TLS certs only</td>
+          <td>Email-auth DNS only</td>
+          <td>RDAP registration/expiry</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td><code>domains</code></td>
+          <td>domains max 200</td>
+          <td>domains</td>
+          <td>domains</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>Public sources listed on the Store page</td>
+          <td>TLS handshake</td>
+          <td>DNS TXT</td>
+          <td>RDAP</td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td>Dataset rows billed per live PPE</td>
+          <td>cert rows</td>
+          <td>DMARC/SPF/DKIM rows</td>
+          <td>registration rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td>
+          <td>Not a penetration test, RDAP registry dump, or HTTP broken-link crawl. Core checks use public TLS/DNS/headers; Web Risk is an add-on.</td>
+          <td>Not bundled DMARC+headers executive summary</td>
+          <td>Not TLS expiry + header bundle</td>
+          <td>Not TLS/header scoring</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/domain-trust-monitor</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>SSL expiry watchlists</li>
+      <li>DMARC/SPF/DKIM posture across a portfolio</li>
+      <li>Remediation-queue webhooks</li>
+      <li>Optional Web Risk overlay</li>
+    </ul>
+
+    <h2>How is Domain Trust Reputation Scraper different from SSL/TLS Certificate Scraper and DMARC &amp; Email Security Checker?</h2>
+    <p>Domain Trust Reputation Scraper (taroyamada/domain-trust-monitor): This Actor audits hostnames you supply for TLS expiry, DMARC/SPF (and optional DKIM selectors), redirect-aware security headers, and a remediation summary. Optional Google Web Risk is off by default and needs reputationApiKey. Not a penetration test, RDAP registry dump, or HTTP broken-link crawl. Core checks use public TLS/DNS/headers; Web Risk is an add-on. SSL/TLS Certificate Scraper is for TLS certs only (input domains max 200; TLS handshake; cert rows). Not bundled DMARC+headers executive summary. DMARC &amp; Email Security Checker is for Email-auth DNS only (input domains; DNS TXT; DMARC/SPF/DKIM rows). Not TLS expiry + header bundle. RDAP Domain Monitor is for RDAP registration/expiry (input domains; RDAP; registration rows). Not TLS/header scoring.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: <code>domains</code>. exampleRunInput uses example.com + github.com, checkDkim true, snapshotKey domain-security-audit-quickstart, concurrency 2. Schema prefill adds cloudflare.com; snapshotKey default is domain-trust-monitor-snapshots; concurrency default 3. Keep emitUnchanged false on schedules.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>domains</code></td>
+          <td>array required</td>
+          <td><code>empty</code></td>
+          <td>Free / starter: Domains / URLs to audit. Free / starter quickstart: begin with 2-3 domains for a fast first success. Paid expansion: grow into larger recurring portfolios (for example 5-25+ domains) while keeping the …</td>
+        </tr>
+        <tr>
+          <td><code>port</code></td>
+          <td>integer</td>
+          <td><code>443</code></td>
+          <td>HTTPS / TLS port. Port used for SSL/TLS expiry and trust checks across the portfolio.</td>
+        </tr>
+        <tr>
+          <td><code>expiryWarningDays</code></td>
+          <td>integer</td>
+          <td><code>30</code></td>
+          <td>SSL + domain expiry warning window (days). Flag certificates or domains that expire within this many days.</td>
+        </tr>
+        <tr>
+          <td><code>followRedirects</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Follow redirects before header audit. Follow redirects before scoring the final site's security headers.</td>
+        </tr>
+        <tr>
+          <td><code>checkDkim</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Check DKIM selectors. Probe common selectors so the first run catches missing DKIM alongside SPF and DMARC.</td>
+        </tr>
+        <tr>
+          <td><code>dkimSelectors</code></td>
+          <td>array</td>
+          <td><code>empty</code></td>
+          <td>Custom DKIM selectors. Optional DKIM selectors to check instead of the built-in defaults.. maxItems=20</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string</td>
+          <td><code>dataset</code></td>
+          <td>Delivery mode (free / starter dataset vs paid webhook). Free / starter path: dataset keeps the first run low-friction and still writes the full summary to OUTPUT. Paid expansion path: webhook sends the same summary + …</td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Webhook URL. Advanced delivery only: required when delivery is webhook. The payload includes the executive summary, flattened remediation list, and per-domain results.</td>
+        </tr>
+        <tr>
+          <td><code>snapshotKey</code></td>
+          <td>string</td>
+          <td><code>domain-trust-monitor-snapshots</code></td>
+          <td>Snapshot key for recurring audits. Keep this stable when you move from the free / starter quickstart to richer recurring audits so SSL, DMARC, header, and ownership changes stay comparable run to run.</td>
+        </tr>
+        <tr>
+          <td><code>concurrency</code></td>
+          <td>integer</td>
+          <td><code>3</code></td>
+          <td>Parallel domain checks. Free / starter default 3 is usually enough for 2-3 domains. Increase it for paid expansion portfolios when you want broader coverage in one run.</td>
+        </tr>
+        <tr>
+          <td><code>enableReputationLookup</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Paid expansion: Add Google Web Risk. Paid expansion add-on: layer Google Web Risk on top of the core bundled audit when you want a richer threat signal or stronger client-ready narrative.</td>
+        </tr>
+        <tr>
+          <td><code>reputationApiKey</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Paid expansion: Google Web Risk API key. Required only for the paid Google Web Risk overlay.</td>
+        </tr>
+        <tr>
+          <td><code>reputationThreatTypes</code></td>
+          <td>array</td>
+          <td><code>empty</code></td>
+          <td>Paid expansion: Web Risk threat types. Threat types to query when the paid Web Risk overlay is enabled.. maxItems=3</td>
+        </tr>
+        <tr>
+          <td><code>emitUnchanged</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit unchanged rows. Write stable rows to the default dataset. Keep this off for recurring monitoring so unchanged runs produce zero dataset rows and zero result charges.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run. Preview the audit without saving snapshots, dataset rows, or sending webhooks. Useful for validation, but leave it off for the free / starter baseline or paid recurring runs you want to keep.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  "domains": [
+    "example.com",
+    "github.com"
+  ],
+  "port": 443,
+  "expiryWarningDays": 30,
+  "followRedirects": true,
+  "checkDkim": true,
+  "delivery": "dataset",
+  "snapshotKey": "domain-security-audit-quickstart",
+  "concurrency": 2,
+  "dryRun": false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/domain-trust-monitor">Run Domain Trust Reputation Scraper on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. emitUnchanged controls whether unchanged watches write rows. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON.</p>
+<pre><code>{
+  "meta": {
+    "executiveSummary": {
+      "overallStatus": "attention_needed",
+      "brief": "1 of 2 domains needs action. Highest-risk issue: 5 alert(s): DMARC record is missing.",
+      "recommendedCadence": "daily",
+      "topDomains": [
+        {
+          "domain": "example.com",
+          "severity": "high",
+          "trustScore": 41,
+          "brief": "5 alert(s): DMARC record is missing."
+        }
+      ]
+    },
+    "runProfile": {
+      "tier": "starter",
+      "label": "Starter first-success path"
+    },
+    "usageAdvisories": {
+      "summary": "1 usage/recovery advisory signal active for this run.",
+      "signals": [
+        {
+          "id": "starter_portfolio_boundary",
+          "limit": "3 domains in the starter quickstart"
+        }
+      ]
+    },
+    "upgradeSuggestions": [
+      {
+        "type": "schedule",
+        "templateId": "portfolio_watch",
+        "cadence": "daily",
+        "title": "Promote this baseline to a recurring portfolio watch"
+      }
+    ],
+    "nextWorkflow": {
+      "type": "same_actor_template",
+      "id": "action_needed_webhook",
+      "title": "Next best step: Webhook Remediation Queue"
+    }
+  },
+  "alerts": [
+    {
+      "domain": "example.com",
+      "severity": "high",
+      "component": "dns",
+      "type": "dmarc_missing_or_weak",
+      "message": "DMARC record is missing."
+    },
+    {
+      "domain": "example.com",
+      "severity": "high",
+      "component": "rdap",
+      "type": "domain_expiring_soon",
+      "message": "Domain expires in 28 days"
+    }
+  ],
+  "results": [
+    {
+      "domain": "example.com",
+      "severity": "high",
+      "recommendedActions": [
+        "Publish an enforced DMARC policy (quarantine or reject) with aggregate reporting.",
+        "Renew the domain registration before the expiry window closes.",
+        "Add the missing critical security headers (HSTS, CSP, X-Content-Type-Options, X-Frame-Options)."
+      ]
+    }
+  ]
+}</code></pre>
+    <p>There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is Domain Trust Reputation Scraper priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $10.00 / 1,000 delivered monitoring result rows ($0.01 per new or changed row). No Actor Start. Unchanged runs with emitUnchanged false are free (0 rows / 0 charge). Max 200 domains.</strong>. Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>apify-default-dataset-item</code> (Delivered monitoring result row)</td>
+          <td>$0.01</td>
+          <td>Charged only when a new or changed monitoring result row is delivered. Unchanged runs are free.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="price">from $10.00 / 1,000 delivered monitoring result rows ($0.01 per new or changed row). No Actor Start. Unchanged runs with emitUnchanged false are free (0 rows / 0 charge). Max 200 domains.</p>
+    <p><a href="https://apify.com/taroyamada/domain-trust-monitor/pricing">See Domain Trust Reputation Scraper pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Max 200 domains</li>
+      <li>port 1–65535 default 443</li>
+      <li>Web Risk needs a Google Cloud API key, not Safe Browsing non-commercial keys</li>
+      <li>Passive only</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/domain-trust-monitor">Open Domain Trust Reputation Scraper on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/ssl-tls-certificate-scraper/">SSL/TLS Certificate Scraper</a> — Certificate-only; this Actor adds DMARC/headers remediation.</li>
+      <li><a href="/dmarc-email-security-checker/">DMARC &amp; Email Security Checker</a> — Email DNS only.</li>
+      <li><a href="/rdap-domain-monitor/">RDAP Domain Monitor</a> — Registry/RDAP data, not TLS handshakes.</li>
+      <li><a href="/security-headers-checker/">Security Headers Checker</a> — OWASP HTTP header grades only</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

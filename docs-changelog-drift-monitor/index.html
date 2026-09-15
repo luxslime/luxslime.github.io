@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Docs &amp; Changelog Drift Scraper — API doc audit</title>
+  <meta name="description" content="taroyamada/docs-changelog-drift-monitor. From $9.00 / 1,000 result rows. Not private registries or GitHub private repos.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/docs-changelog-drift-monitor/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is Docs & Changelog Drift Scraper different from Website Content Extractor and Article Content Extractor?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Docs & Changelog Drift Scraper (taroyamada/docs-changelog-drift-monitor): This Actor snapshots public release notes, changelogs, migration guides, and docs pages you list on targets[], then emits summary-first rows when those surfaces change. Live key is targets[] — README examples that send urls/emitChangedOnly are not schema fields. Not a private npm/PyPI registry client, not CI, and not authenticated docs. Public HTTP only. Website Content Extractor is for One-shot docs markdown (input urls; HTML; markdown). Not recurring changelog diffs. Article Content Extractor is for Article body extract (input article urls; article HTML; clean article). Not product changelog watches. Status Page Incident Digest Monitor is for Incidents (input status pages; status sites; incident rows). Not docs/changelog drift."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What input is required?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Live required fields: targets. Live schema fields: targets, requestTimeoutSeconds, userAgent, maxChars, delivery, datasetMode, webhookUrl, notifyOnNoChange, snapshotKey, diffMode, summaryMaxLines, concurrency, batchDelayMs, nowIso, dryRun. exampleRunInput watches Next.js release atom + caching docs and Crawlee changelog/upgrade guide. datasetMode default changes_only. email delivery is a placeholder enum. additionalProperties is not documented on this page beyond the live Store schema."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the best first run?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use the published Store example run input below. exampleRunInput watches Next.js release atom + caching docs and Crawlee changelog/upgrade guide. datasetMode default changes_only. email delivery is a placeholder enum. Keep the first live run small. Use dryRun when you only need to validate input."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does a result contain?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "README output fence is truncated or invalid JSON on Store. Illustration head: { \"meta\": { \"generatedAt\": \"2026-04-04T14:33:02.189Z\", \"now\": \"2026-04-04T14:33:02.182Z\", \"input\": { \"targetCount\": 2, \"surfaceCount\": 6, \"delivery\": \"dataset\", \"datasetMode\": \"changes_only\", \"diffMode\": \"line_summary\", \"summaryMaxLines\": 12, \"concurrency\": 2, \"batchDelayMs\": 0, \"dryRun\": false }, \"snapshot\": { \"key\": \"docs-changelog-drift-monitor-local\", \"loadedFrom\": \"local\", \"savedTo\": \"local\" }, \"warnings\": [ \"s… Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do dataset, webhook, and dry-run delivery work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. datasetMode can limit emits to changes_only versus all. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Docs & Changelog Drift Scraper priced?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Billing is pay per event. Live Store card: from $9.00 / 1,000 delivered monitoring result rows ($0.009 per new or changed row). No Actor Start. Unchanged runs are free. Delivered monitoring result row (apify-default-dataset-item) $0.009: Charged only when a new or changed monitoring result row is delivered. Unchanged runs are free. Do not use the README Cost block as live pricing. README Cost quotes actor-start $0.01 + dataset-item $0.003. Live: Delivered monitoring result row $0.009, no start. README Input Examples use urls; live schema requires targets. Platform usage is listed as included on the Store pricing tab."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Docs &amp; Changelog Drift Scraper</nav>
+    <h1>Public docs, changelog, and migration-guide drift for RAG feeds</h1>
+    <p>This Actor snapshots public release notes, changelogs, migration guides, and docs pages you list on targets[], then emits summary-first rows when those surfaces change. Live key is targets[] — README examples that send urls/emitChangedOnly are not schema fields.</p>
+    <p>Not a private npm/PyPI registry client, not CI, and not authenticated docs. Public HTTP only.</p>
+    <p class="price">from $9.00 / 1,000 delivered monitoring result rows ($0.009 per new or changed row). No Actor Start. Unchanged runs are free.</p>
+    <p><a href="https://apify.com/taroyamada/docs-changelog-drift-monitor">Open Docs &amp; Changelog Drift Scraper on Apify</a></p>
+
+    <h2>Docs &amp; Changelog Drift Scraper, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/website-content-extractor/">Website Content Extractor</a> for One-shot docs markdown; Use <a href="/article-content-extractor/">Article Content Extractor</a> for Article body extract; Use <a href="/status-page-incident-digest-monitor/">Status Page Incident Digest Monitor</a> for Incidents.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>This Actor</th>
+          <th>Website Content Extractor</th>
+          <th>Article Content Extractor</th>
+          <th>Status Page Incident Digest Monitor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>Docs & Changelog Drift Scraper</td>
+          <td>One-shot docs markdown</td>
+          <td>Article body extract</td>
+          <td>Incidents</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td><code>targets</code></td>
+          <td>urls</td>
+          <td>article urls</td>
+          <td>status pages</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>Public sources listed on the Store page</td>
+          <td>HTML</td>
+          <td>article HTML</td>
+          <td>status sites</td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td>Dataset rows billed per live PPE</td>
+          <td>markdown</td>
+          <td>clean article</td>
+          <td>incident rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td>
+          <td>Not a private npm/PyPI registry client, not CI, and not authenticated docs. Public HTTP only.</td>
+          <td>Not recurring changelog diffs</td>
+          <td>Not product changelog watches</td>
+          <td>Not docs/changelog drift</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/docs-changelog-drift-monitor</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>RAG/docs freshness watches</li>
+      <li>API deprecation diffs</li>
+      <li>Migration-guide change alerts</li>
+    </ul>
+
+    <h2>How is Docs &amp; Changelog Drift Scraper different from Website Content Extractor and Article Content Extractor?</h2>
+    <p>Docs &amp; Changelog Drift Scraper (taroyamada/docs-changelog-drift-monitor): This Actor snapshots public release notes, changelogs, migration guides, and docs pages you list on targets[], then emits summary-first rows when those surfaces change. Live key is targets[] — README examples that send urls/emitChangedOnly are not schema fields. Not a private npm/PyPI registry client, not CI, and not authenticated docs. Public HTTP only. Website Content Extractor is for One-shot docs markdown (input urls; HTML; markdown). Not recurring changelog diffs. Article Content Extractor is for Article body extract (input article urls; article HTML; clean article). Not product changelog watches. Status Page Incident Digest Monitor is for Incidents (input status pages; status sites; incident rows). Not docs/changelog drift.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: <code>targets</code>. exampleRunInput watches Next.js release atom + caching docs and Crawlee changelog/upgrade guide. datasetMode default changes_only. email delivery is a placeholder enum.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>targets</code></td>
+          <td>array required</td>
+          <td><code>empty</code></td>
+          <td>Targets (one summary row each). List of products or repos to monitor. Each item supports id, name, repo, criticality, owner, tags, releaseNotesUrl, changelogUrl, migrationGuideUrl, docsPages[], and optional per-surfac…</td>
+        </tr>
+        <tr>
+          <td><code>requestTimeoutSeconds</code></td>
+          <td>integer</td>
+          <td><code>30</code></td>
+          <td>Request timeout (seconds). Maximum time to wait for one public source request before the actor marks the surface as failed for this run.</td>
+        </tr>
+        <tr>
+          <td><code>userAgent</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Custom User-Agent. Optional custom User-Agent string for public HTTP requests. Leave empty to use the actor default identifier.</td>
+        </tr>
+        <tr>
+          <td><code>maxChars</code></td>
+          <td>integer</td>
+          <td><code>35000</code></td>
+          <td>Global max chars per surface. Upper bound for extracted text per monitored surface before hashing and diff generation.</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string</td>
+          <td><code>dataset</code></td>
+          <td>Delivery mode. Choose whether summary-first target rows should be written to the dataset, posted to a webhook payload, or reserved for a future email delivery path.</td>
+        </tr>
+        <tr>
+          <td><code>datasetMode</code></td>
+          <td>string</td>
+          <td><code>changes_only</code></td>
+          <td>Dataset mode. Controls which target rows are persisted: only action-needed rows, only changed rows, or every monitored target.</td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Webhook URL. Webhook destination for summary payload delivery when delivery is set to webhook.</td>
+        </tr>
+        <tr>
+          <td><code>notifyOnNoChange</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Notify even if no change. If true, webhook delivery still fires even when no target crosses the change threshold in this run.</td>
+        </tr>
+        <tr>
+          <td><code>snapshotKey</code></td>
+          <td>string</td>
+          <td><code>docs-changelog-drift-monitor-snapshots</code></td>
+          <td>Snapshot key. Stable key used to load and save previous surface snapshots between recurring runs.</td>
+        </tr>
+        <tr>
+          <td><code>diffMode</code></td>
+          <td>string</td>
+          <td><code>line_summary</code></td>
+          <td>Diff mode. Use line summaries for concise change evidence or hash-only mode when you only need changed versus unchanged detection.</td>
+        </tr>
+        <tr>
+          <td><code>summaryMaxLines</code></td>
+          <td>integer</td>
+          <td><code>12</code></td>
+          <td>Max diff lines per surface. Maximum number of added and removed lines to keep in each surface-level change summary.</td>
+        </tr>
+        <tr>
+          <td><code>concurrency</code></td>
+          <td>integer</td>
+          <td><code>2</code></td>
+          <td>Concurrency. How many public surfaces the actor may fetch in parallel during one run.</td>
+        </tr>
+        <tr>
+          <td><code>batchDelayMs</code></td>
+          <td>integer</td>
+          <td><code>250</code></td>
+          <td>Inter-batch delay (ms). Delay between fetch batches to soften load on public docs sources and reduce timeout pressure.</td>
+        </tr>
+        <tr>
+          <td><code>nowIso</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Override current time (ISO). Optional ISO timestamp override for deterministic fixture tests, backfills, or proof snapshots.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run. If true, the actor skips snapshot writes and remote delivery while still producing the local summary output.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  "targets": [
+    {
+      "id": "nextjs",
+      "name": "Next.js",
+      "repo": "vercel/next.js",
+      "criticality": "high",
+      "owner": "Frontend Platform",
+      "tags": [
+        "framework",
+        "docs"
+      ],
+      "releaseNotesUrl": "https://github.com/vercel/next.js/releases.atom",
+      "migrationGuideUrl": "https://nextjs.org/docs/app/guides/upgrading/version-16",
+      "docsPages": [
+        {
+          "id": "nextjs-caching",
+          "name": "Caching Guide",
+          "url": "https://nextjs.org/docs/app/guides/caching"
+        }
+      ]
+    },
+    {
+      "id": "crawlee",
+      "name": "Crawlee",
+      "repo": "apify/crawlee",
+      "criticality": "standard",
+      "owner": "Automation",
+      "tags": [
+        "crawler",
+        "sdk"
+      ],
+      "changelogUrl": "https://raw.githubusercontent.com/apify/crawlee/master/CHANGELOG.md",
+      "docsPages": [
+        {
+          "id": "crawlee-upgrade",
+          "name": "Upgrade Guide",
+          "url": "https://crawlee.dev/js/docs/upgrading/upgrading-to-v3"
+        }
+      ]
+    }
+  ],
+  "delivery": "dataset",
+  "datasetMode": "changes_only",
+  "notifyOnNoChange": false,
+  "snapshotKey": "docs-changelog-drift-quickstart",
+  "diffMode": "line_summary",
+  "summaryMaxLines": 12,
+  "concurrency": 2,
+  "batchDelayMs": 250,
+  "dryRun": false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/docs-changelog-drift-monitor">Run Docs &amp; Changelog Drift Scraper on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. datasetMode can limit emits to changes_only versus all. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>The published README output sample on the Store page is truncated or not valid standalone JSON. Treat README field lists as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is Docs &amp; Changelog Drift Scraper priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $9.00 / 1,000 delivered monitoring result rows ($0.009 per new or changed row). No Actor Start. Unchanged runs are free.</strong>. Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>apify-default-dataset-item</code> (Delivered monitoring result row)</td>
+          <td>$0.009</td>
+          <td>Charged only when a new or changed monitoring result row is delivered. Unchanged runs are free.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>The published README Cost block is stale versus the live Store pricing tab. README Cost quotes actor-start $0.01 + dataset-item $0.003. Live: Delivered monitoring result row $0.009, no start. README Input Examples use urls; live schema requires targets. This page quotes live PPE only.</p>
+    <p class="price">from $9.00 / 1,000 delivered monitoring result rows ($0.009 per new or changed row). No Actor Start. Unchanged runs are free.</p>
+    <p><a href="https://apify.com/taroyamada/docs-changelog-drift-monitor/pricing">See Docs &amp; Changelog Drift Scraper pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Public docs only</li>
+      <li>Not private registries</li>
+      <li>concurrency 1–10</li>
+      <li>README urls examples are stale</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/docs-changelog-drift-monitor">Open Docs &amp; Changelog Drift Scraper on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/website-content-extractor/">Website Content Extractor</a> — Extract docs once; this Actor diffs them on a schedule.</li>
+      <li><a href="/article-content-extractor/">Article Content Extractor</a> — News/article bodies, not product changelogs.</li>
+      <li><a href="/status-page-incident-digest-monitor/">Status Page Incident Digest Monitor</a> — Incidents, not docs drift.</li>
+      <li><a href="/github-release-monitor/">GitHub Release &amp; Tag Scraper</a> — GitHub releases/tags, not docs pages</li>
+      <li><a href="/saas-change-monitor-actor/">SaaS Pricing Tracker</a> — Pricing/terms copy, not API docs</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

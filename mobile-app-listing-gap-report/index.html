@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>App Store &amp; Google Play Listing Gap Report — ASO checklist</title>
+  <meta name="description" content="taroyamada/mobile-app-listing-gap-report. From $9 listing checklist. Not keyword rankings or search volume.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/mobile-app-listing-gap-report/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is App Store & Google Play Listing Gap Report different from Chrome Web Store Extension Intelligence and Website Content Extractor?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "App Store & Google Play Listing Gap Report (taroyamada/mobile-app-listing-gap-report): This Actor scores public App Store and Google Play listing metadata for one target app against competitor listings and returns a capped, source-linked improvement report. Seed keywords are checked only as presence in listing text — it does not scrape rankings, autocomplete, or search volume. Not an ASO rank tracker, keyword-volume tool, review scraper, or paid-acquisition optimizer. Watch-tier listing_change_watch_summary is proof-gated and not selectable at public launch. Chrome Web Store Extension Intelligence is for Chrome Web Store listing/search metadata (input extensionUrls / searchTerms; chromewebstore.google.com HTML; extension metadata rows). Not App Store or Play listing gap reports. Website Content Extractor is for Docs/pricing/help pages to markdown (input urls; page HTML body; markdown/text). Not store-listing ASO scoring."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What input is required?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Live required fields: targetApp. Live schema fields: targetApp, competitorApps, country, language, seedKeywords, reportTier, maxChargeUsd, demoMode, dryRun, maxReports, sourceDatasetId, webhookUrl. exampleRunInput sets dryRun true and reportTier entry with maxChargeUsd 9. Schema default dryRun is false. Watch templates are not public. Keep maxChargeUsd aligned with the selected tier. additionalProperties is not documented on this page beyond the live Store schema."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the best first run?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use the published Store example run input below. exampleRunInput sets dryRun true and reportTier entry with maxChargeUsd 9. Schema default dryRun is false. Watch templates are not public. Keep maxChargeUsd aligned with the selected tier. Keep the first live run small. Use dryRun when you only need to validate input."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does a result contain?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No fenced output JSON. README field list: status, chargedEvent, chargedUsd, reason, listingScore, metadataCoverageScore, keywordCoverage, competitorGaps, actionList, rewriteSuggestions, sourceUrls, confidence, errors, recoveryHint. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do dataset, webhook, and dry-run delivery work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is App Store & Google Play Listing Gap Report priced?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Billing is pay per event. Live Store card: from $9.00 per listing_snapshot_checklist (primary); $29.00 per competitor_listing_gap_report; Actor Start $0.001; $49 listing_change_watch_summary is live but hidden until paid proof. 1,000 checklists would be $9,000 — this is a per-report Actor, not a per-row /1,000 crawler. Actor Start (apify-actor-start) $0.001: Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event). Listing snapshot checklist (listing_snapshot_checklist) $9.00: Charged once for a public app listing checklist with metadata coverage, warnings, and prioritized actions. Competitor listing gap report (competitor_listing_gap_report) $29.00: Charged once for a target-app plus competitor listing gap report with rewrite/action suggestions. Listing change watch summary (listing_change_watch_summary) $49.00: Hidden until paid proof; runtime defaults to no-charge high_tier_hold without owner-controlled proof inputs. Do not use the README Cost block as live pricing. README $9 / $29 matches live listing_snapshot_checklist and competitor_listing_gap_report. Public README table omits live $49 listing_change_watch_summary (hidden until paid proof). Actor Start live $0.001 is also omitted from that table. Platform usage is listed as included on the Store pricing tab."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / App Store &amp; Google Play Listing Gap Report</nav>
+    <h1>App Store and Google Play listing gap reports from public metadata</h1>
+    <p>This Actor scores public App Store and Google Play listing metadata for one target app against competitor listings and returns a capped, source-linked improvement report. Seed keywords are checked only as presence in listing text — it does not scrape rankings, autocomplete, or search volume.</p>
+    <p>Not an ASO rank tracker, keyword-volume tool, review scraper, or paid-acquisition optimizer. Watch-tier listing_change_watch_summary is proof-gated and not selectable at public launch.</p>
+    <p class="price">from $9.00 per listing_snapshot_checklist (primary); $29.00 per competitor_listing_gap_report; Actor Start $0.001; $49 listing_change_watch_summary is live but hidden until paid proof. 1,000 checklists would be $9,000 — this is a per-report Actor, not a per-row /1,000 crawler.</p>
+    <p><a href="https://apify.com/taroyamada/mobile-app-listing-gap-report">Open App Store &amp; Google Play Listing Gap Report on Apify</a></p>
+
+    <h2>App Store &amp; Google Play Listing Gap Report, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/chrome-web-store-extension-intelligence/">Chrome Web Store Extension Intelligence</a> for Chrome Web Store listing/search metadata; Use <a href="/website-content-extractor/">Website Content Extractor</a> for Docs/pricing/help pages to markdown.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>This Actor</th>
+          <th>Chrome Web Store Extension Intelligence</th>
+          <th>Website Content Extractor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>App Store & Google Play Listing Gap Report</td>
+          <td>Chrome Web Store listing/search metadata</td>
+          <td>Docs/pricing/help pages to markdown</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td><code>targetApp</code></td>
+          <td>extensionUrls / searchTerms</td>
+          <td>urls</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>Public sources listed on the Store page</td>
+          <td>chromewebstore.google.com HTML</td>
+          <td>page HTML body</td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td>Dataset rows billed per live PPE</td>
+          <td>extension metadata rows</td>
+          <td>markdown/text</td>
+        </tr>
+        <tr>
+          <td>Not this job</td>
+          <td>Not an ASO rank tracker, keyword-volume tool, review scraper, or paid-acquisition optimizer. Watch-tier listing_change_watch_summary is proof-gated and not selectable at public launch.</td>
+          <td>Not App Store or Play listing gap reports</td>
+          <td>Not store-listing ASO scoring</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/mobile-app-listing-gap-report</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>ASO triage before paid acquisition</li>
+      <li>Competitor listing metadata comparison</li>
+      <li>Checklist of missing title/description/screenshot coverage</li>
+      <li>Seed-keyword presence in listing copy (not rankings)</li>
+    </ul>
+
+    <h2>How is App Store &amp; Google Play Listing Gap Report different from Chrome Web Store Extension Intelligence and Website Content Extractor?</h2>
+    <p>App Store &amp; Google Play Listing Gap Report (taroyamada/mobile-app-listing-gap-report): This Actor scores public App Store and Google Play listing metadata for one target app against competitor listings and returns a capped, source-linked improvement report. Seed keywords are checked only as presence in listing text — it does not scrape rankings, autocomplete, or search volume. Not an ASO rank tracker, keyword-volume tool, review scraper, or paid-acquisition optimizer. Watch-tier listing_change_watch_summary is proof-gated and not selectable at public launch. Chrome Web Store Extension Intelligence is for Chrome Web Store listing/search metadata (input extensionUrls / searchTerms; chromewebstore.google.com HTML; extension metadata rows). Not App Store or Play listing gap reports. Website Content Extractor is for Docs/pricing/help pages to markdown (input urls; page HTML body; markdown/text). Not store-listing ASO scoring.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: <code>targetApp</code>. exampleRunInput sets dryRun true and reportTier entry with maxChargeUsd 9. Schema default dryRun is false. Watch templates are not public. Keep maxChargeUsd aligned with the selected tier.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>targetApp</code></td>
+          <td>string required</td>
+          <td><code>https://apps.apple.com/us/app/duolingo-language-lessons/id570060128</code></td>
+          <td>Target app URL, App Store ID, or package. App Store URL/numeric ID or Google Play URL/package for the app you want to improve.</td>
+        </tr>
+        <tr>
+          <td><code>competitorApps</code></td>
+          <td>array</td>
+          <td><code>see schema prefill</code></td>
+          <td>Competitor app URLs, IDs, or packages. Add 3-10 competitor App Store or Google Play listings for a paid competitor gap report.</td>
+        </tr>
+        <tr>
+          <td><code>country</code></td>
+          <td>string</td>
+          <td><code>us</code></td>
+          <td>Country/storefront. Two-letter country/storefront code. Used for public metadata requests only.</td>
+        </tr>
+        <tr>
+          <td><code>language</code></td>
+          <td>string</td>
+          <td><code>en</code></td>
+          <td>Language. Language code for Google Play listing pages.</td>
+        </tr>
+        <tr>
+          <td><code>seedKeywords</code></td>
+          <td>array</td>
+          <td><code>["language learning", "spanish", "vocabulary"]</code></td>
+          <td>Seed keywords. Optional buyer-provided terms. The actor checks listing metadata coverage only; it does not scrape rankings, autocomplete, or search volume.</td>
+        </tr>
+        <tr>
+          <td><code>reportTier</code></td>
+          <td>string</td>
+          <td><code>entry</code></td>
+          <td>Report tier. Choose entry or premium. Watch templates are proof-gated and not selectable during public launch.</td>
+        </tr>
+        <tr>
+          <td><code>maxChargeUsd</code></td>
+          <td>number</td>
+          <td><code>9</code></td>
+          <td>Max charge USD. Safety cap for this run. This cap always wins before charging any report group.</td>
+        </tr>
+        <tr>
+          <td><code>demoMode</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Demo mode. Return a no-charge preview and sample nextRunInput.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run. Set true to return a no-charge previewReport with nextRunInput and estimated cost.</td>
+        </tr>
+        <tr>
+          <td><code>maxReports</code></td>
+          <td>integer</td>
+          <td><code>1</code></td>
+          <td>Advanced max reports. Advanced. Maximum report groups to charge; maxChargeUsd is still checked first.</td>
+        </tr>
+        <tr>
+          <td><code>sourceDatasetId</code></td>
+          <td>string</td>
+          <td><code></code></td>
+          <td>Advanced source dataset ID. Advanced only. Optional prepared input dataset. Not needed for the first run.</td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td><code></code></td>
+          <td>Advanced webhook URL. Advanced. Optional URL to receive results outside Apify.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  "targetApp": "https://apps.apple.com/us/app/duolingo-language-lessons/id570060128",
+  "competitorApps": [
+    "https://apps.apple.com/us/app/babbel-language-learning/id829587759",
+    "https://apps.apple.com/us/app/busuu-language-learning/id379968583",
+    "com.memrise.android.memrisecompanion"
+  ],
+  "country": "us",
+  "language": "en",
+  "seedKeywords": [
+    "language learning",
+    "spanish",
+    "vocabulary"
+  ],
+  "reportTier": "entry",
+  "maxChargeUsd": 9,
+  "dryRun": true
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/mobile-app-listing-gap-report">Run App Store &amp; Google Play Listing Gap Report on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>No fenced output JSON. README field list: status, chargedEvent, chargedUsd, reason, listingScore, metadataCoverageScore, keywordCoverage, competitorGaps, actionList, rewriteSuggestions, sourceUrls, confidence, errors, recoveryHint. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is App Store &amp; Google Play Listing Gap Report priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $9.00 per listing_snapshot_checklist (primary); $29.00 per competitor_listing_gap_report; Actor Start $0.001; $49 listing_change_watch_summary is live but hidden until paid proof. 1,000 checklists would be $9,000 — this is a per-report Actor, not a per-row /1,000 crawler.</strong>. Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>apify-actor-start</code> (Actor Start)</td>
+          <td>$0.001</td>
+          <td>Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).</td>
+        </tr>
+        <tr>
+          <td><code>listing_snapshot_checklist</code> (Listing snapshot checklist)</td>
+          <td>$9.00</td>
+          <td>Charged once for a public app listing checklist with metadata coverage, warnings, and prioritized actions.</td>
+        </tr>
+        <tr>
+          <td><code>competitor_listing_gap_report</code> (Competitor listing gap report)</td>
+          <td>$29.00</td>
+          <td>Charged once for a target-app plus competitor listing gap report with rewrite/action suggestions.</td>
+        </tr>
+        <tr>
+          <td><code>listing_change_watch_summary</code> (Listing change watch summary)</td>
+          <td>$49.00</td>
+          <td>Hidden until paid proof; runtime defaults to no-charge high_tier_hold without owner-controlled proof inputs.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>The published README Cost block is stale versus the live Store pricing tab. README $9 / $29 matches live listing_snapshot_checklist and competitor_listing_gap_report. Public README table omits live $49 listing_change_watch_summary (hidden until paid proof). Actor Start live $0.001 is also omitted from that table. This page quotes live PPE only.</p>
+    <p class="price">from $9.00 per listing_snapshot_checklist (primary); $29.00 per competitor_listing_gap_report; Actor Start $0.001; $49 listing_change_watch_summary is live but hidden until paid proof. 1,000 checklists would be $9,000 — this is a per-report Actor, not a per-row /1,000 crawler.</p>
+    <p><a href="https://apify.com/taroyamada/mobile-app-listing-gap-report/pricing">See App Store &amp; Google Play Listing Gap Report pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Public listing pages and lookup endpoints only</li>
+      <li>No rankings, autocomplete, or search volume</li>
+      <li>reportTier enum is entry|premium only</li>
+      <li>maxReports maximum 1</li>
+      <li>maxChargeUsd wins before any report group charge</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/mobile-app-listing-gap-report">Open App Store &amp; Google Play Listing Gap Report on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/chrome-web-store-extension-intelligence/">Chrome Web Store Extension Intelligence</a> — Browser-extension storefront metadata, not iOS/Android listings.</li>
+      <li><a href="/website-content-extractor/">Website Content Extractor</a> — Clean page markdown for RAG, not ASO gap reports.</li>
+      <li><a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a> — B2B SaaS reviews, not app-store listing metadata.</li>
+      <li><a href="/apple-app-store-intelligence/">Apple App Store Scraper</a> — iOS listing metadata and reviews, not a scored gap report</li>
+      <li><a href="/google-play-intelligence/">Google Play App Scraper</a> — Play metadata and ASO fields, not a competitor gap score</li>
+      <li><a href="/app-review-cross-platform-intelligence/">iOS &amp; Android App Review Scraper</a> — Combined App Store + Play review summaries</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

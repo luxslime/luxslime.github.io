@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GitHub Release &amp; Tag Scraper — changelog alerts</title>
+  <meta name="description" content="taroyamada/github-release-monitor. From $8.00 / 1,000 result rows. Not private repos or npm/PyPI registries.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/github-release-monitor/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is GitHub Release & Tag Scraper different from Website Content Extractor and Status Page Incident Digest Monitor?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "GitHub Release & Tag Scraper (taroyamada/github-release-monitor): This Actor monitors public GitHub repositories for new releases, tags, and optional changelog pages, then emits summary-first rows with diffs when surfaces change. Live input is repositories[] with repo plus modes — README examples that send repos/semverFilter are not schema fields. Not a private-registry or private-repo scanner. Not npm/PyPI package intelligence. Public GitHub HTTP only. Website Content Extractor is for One-shot page markdown (input urls; HTML; markdown). Not GitHub release diffs. Status Page Incident Digest Monitor is for Vendor incidents (input status pages; status sites; incident rows). Not GitHub tags/releases."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What input is required?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Live required fields: repositories. Live schema fields: repositories, requestTimeoutSeconds, userAgent, maxChars, delivery, datasetMode, webhookUrl, notifyOnNoChange, snapshotKey, diffMode, summaryMaxLines, concurrency, batchDelayMs, nowIso, dryRun. exampleRunInput watches apify/crawlee (releases+tags) and axios/axios (releases+tags+changelog). Keep snapshotKey stable. datasetMode default changes_only. delivery enum includes unused email placeholder. additionalProperties is not documented on this page beyond the live Store schema."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the best first run?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use the published Store example run input below. exampleRunInput watches apify/crawlee (releases+tags) and axios/axios (releases+tags+changelog). Keep snapshotKey stable. datasetMode default changes_only. delivery enum includes unused email placeholder. Keep the first live run small. Use dryRun when you only need to validate input."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does a result contain?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do dataset, webhook, and dry-run delivery work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. datasetMode can limit emits to changes_only versus all. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is GitHub Release & Tag Scraper priced?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Billing is pay per event. Live Store card: from $8.00 / 1,000 delivered monitoring result rows ($0.008 per new or changed row). No Actor Start. Unchanged runs are free. Delivered monitoring result row (apify-default-dataset-item) $0.008: Charged only when a new or changed monitoring result row is delivered. Unchanged runs are free. Do not use the README Cost block as live pricing. README Cost quotes actor-start $0.01 + dataset-item $0.003. Live: Delivered monitoring result row $0.008, no start. README extra examples use repos/includeTags/semverFilter which are not live fields. Platform usage is listed as included on the Store pricing tab."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / GitHub Release &amp; Tag Scraper</nav>
+    <h1>GitHub release, tag, and changelog watches for public repositories</h1>
+    <p>This Actor monitors public GitHub repositories for new releases, tags, and optional changelog pages, then emits summary-first rows with diffs when surfaces change. Live input is repositories[] with repo plus modes — README examples that send repos/semverFilter are not schema fields.</p>
+    <p>Not a private-registry or private-repo scanner. Not npm/PyPI package intelligence. Public GitHub HTTP only.</p>
+    <p class="price">from $8.00 / 1,000 delivered monitoring result rows ($0.008 per new or changed row). No Actor Start. Unchanged runs are free.</p>
+    <p><a href="https://apify.com/taroyamada/github-release-monitor">Open GitHub Release &amp; Tag Scraper on Apify</a></p>
+
+    <h2>GitHub Release &amp; Tag Scraper, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/website-content-extractor/">Website Content Extractor</a> for One-shot page markdown; Use <a href="/status-page-incident-digest-monitor/">Status Page Incident Digest Monitor</a> for Vendor incidents.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>This Actor</th>
+          <th>Website Content Extractor</th>
+          <th>Status Page Incident Digest Monitor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>GitHub Release & Tag Scraper</td>
+          <td>One-shot page markdown</td>
+          <td>Vendor incidents</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td><code>repositories</code></td>
+          <td>urls</td>
+          <td>status pages</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>Public sources listed on the Store page</td>
+          <td>HTML</td>
+          <td>status sites</td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td>Dataset rows billed per live PPE</td>
+          <td>markdown</td>
+          <td>incident rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td>
+          <td>Not a private-registry or private-repo scanner. Not npm/PyPI package intelligence. Public GitHub HTTP only.</td>
+          <td>Not GitHub release diffs</td>
+          <td>Not GitHub tags/releases</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/github-release-monitor</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Dependency upgrade watches</li>
+      <li>Changelog diffs to on-call</li>
+      <li>Tag-only monorepo monitors via modes</li>
+    </ul>
+
+    <h2>How is GitHub Release &amp; Tag Scraper different from Website Content Extractor and Status Page Incident Digest Monitor?</h2>
+    <p>GitHub Release &amp; Tag Scraper (taroyamada/github-release-monitor): This Actor monitors public GitHub repositories for new releases, tags, and optional changelog pages, then emits summary-first rows with diffs when surfaces change. Live input is repositories[] with repo plus modes — README examples that send repos/semverFilter are not schema fields. Not a private-registry or private-repo scanner. Not npm/PyPI package intelligence. Public GitHub HTTP only. Website Content Extractor is for One-shot page markdown (input urls; HTML; markdown). Not GitHub release diffs. Status Page Incident Digest Monitor is for Vendor incidents (input status pages; status sites; incident rows). Not GitHub tags/releases.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: <code>repositories</code>. exampleRunInput watches apify/crawlee (releases+tags) and axios/axios (releases+tags+changelog). Keep snapshotKey stable. datasetMode default changes_only. delivery enum includes unused email placeholder.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>repositories</code></td>
+          <td>array required</td>
+          <td><code>empty</code></td>
+          <td>Repositories (one summary row each). List of repositories to monitor. Each item supports id, name, repo, criticality, owner, tags, modes, releaseUrl, releaseNotesUrl, tagsUrl, changelogUrl, and optional surfaces overr…</td>
+        </tr>
+        <tr>
+          <td><code>requestTimeoutSeconds</code></td>
+          <td>integer</td>
+          <td><code>30</code></td>
+          <td>Request timeout (seconds). HTTP request timeout per monitored source.</td>
+        </tr>
+        <tr>
+          <td><code>userAgent</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Custom User-Agent. Optional User-Agent header for upstream requests.</td>
+        </tr>
+        <tr>
+          <td><code>maxChars</code></td>
+          <td>integer</td>
+          <td><code>35000</code></td>
+          <td>Global max chars per source. Upper bound for extracted text per monitored source.</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string</td>
+          <td><code>dataset</code></td>
+          <td>Delivery mode. Where to send summary-first repository results.</td>
+        </tr>
+        <tr>
+          <td><code>datasetMode</code></td>
+          <td>string</td>
+          <td><code>changes_only</code></td>
+          <td>Dataset mode. Choose every repository row, only changed rows, or only action-needed rows.</td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Webhook URL. Required when delivery is webhook.</td>
+        </tr>
+        <tr>
+          <td><code>notifyOnNoChange</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Notify even if no change. When false, webhook delivery skips when there are no changed or action-needed repository summaries.</td>
+        </tr>
+        <tr>
+          <td><code>snapshotKey</code></td>
+          <td>string</td>
+          <td><code>github-release-monitor-snapshots</code></td>
+          <td>Snapshot key. Key used for recurring snapshot persistence. Keep it stable so release and changelog drift stays comparable over time.</td>
+        </tr>
+        <tr>
+          <td><code>diffMode</code></td>
+          <td>string</td>
+          <td><code>line_summary</code></td>
+          <td>Diff mode. Choose between line-level change summaries for reviewer context or hash-only detection when you only need alerting.</td>
+        </tr>
+        <tr>
+          <td><code>summaryMaxLines</code></td>
+          <td>integer</td>
+          <td><code>12</code></td>
+          <td>Max diff lines per source. Maximum added and removed lines retained in each source change summary.</td>
+        </tr>
+        <tr>
+          <td><code>concurrency</code></td>
+          <td>integer</td>
+          <td><code>2</code></td>
+          <td>Concurrency. Maximum number of monitored sources processed in parallel.</td>
+        </tr>
+        <tr>
+          <td><code>batchDelayMs</code></td>
+          <td>integer</td>
+          <td><code>250</code></td>
+          <td>Inter-batch delay (ms). Delay between processing batches to reduce rate-limit pressure.</td>
+        </tr>
+        <tr>
+          <td><code>nowIso</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Override current time (ISO). Optional deterministic timestamp override.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run. Skip snapshot persistence and side-effect delivery.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  "repositories": [
+    {
+      "id": "apify-crawlee",
+      "name": "Apify Crawlee",
+      "repo": "apify/crawlee",
+      "criticality": "high",
+      "owner": "Platform",
+      "tags": [
+        "crawler",
+        "sdk"
+      ],
+      "modes": [
+        "releases",
+        "tags"
+      ]
+    },
+    {
+      "id": "axios",
+      "name": "Axios",
+      "repo": "axios/axios",
+      "criticality": "standard",
+      "owner": "Developer Experience",
+      "tags": [
+        "dependency",
+        "http-client"
+      ],
+      "modes": [
+        "releases",
+        "tags",
+        "changelog"
+      ],
+      "changelogUrl": "https://raw.githubusercontent.com/axios/axios/v1.x/CHANGELOG.md"
+    }
+  ],
+  "delivery": "dataset",
+  "datasetMode": "changes_only",
+  "notifyOnNoChange": false,
+  "snapshotKey": "github-release-monitor-quickstart",
+  "diffMode": "line_summary",
+  "summaryMaxLines": 12,
+  "concurrency": 2,
+  "batchDelayMs": 250,
+  "dryRun": false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/github-release-monitor">Run GitHub Release &amp; Tag Scraper on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. datasetMode can limit emits to changes_only versus all. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON.</p>
+<pre><code>{
+  "repositoryId": "axios",
+  "repositoryName": "Axios",
+  "repo": "axios/axios",
+  "status": "changed",
+  "severity": "high",
+  "signals": [
+    "action_required",
+    "deprecation"
+  ],
+  "recommendedActions": [
+    "Review the latest GitHub release notes with Platform and decide whether upgrade, regression-test, or compatibility work is needed.",
+    "Read the changelog diff and extract migration, configuration, or rollout work for Platform."
+  ],
+  "repositorySummary": {
+    "changedSurfaces": [
+      "releases",
+      "changelog"
+    ],
+    "actionNeeded": true
+  }
+}</code></pre>
+    <p>There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is GitHub Release &amp; Tag Scraper priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $8.00 / 1,000 delivered monitoring result rows ($0.008 per new or changed row). No Actor Start. Unchanged runs are free.</strong>. Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>apify-default-dataset-item</code> (Delivered monitoring result row)</td>
+          <td>$0.008</td>
+          <td>Charged only when a new or changed monitoring result row is delivered. Unchanged runs are free.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>The published README Cost block is stale versus the live Store pricing tab. README Cost quotes actor-start $0.01 + dataset-item $0.003. Live: Delivered monitoring result row $0.008, no start. README extra examples use repos/includeTags/semverFilter which are not live fields. This page quotes live PPE only.</p>
+    <p class="price">from $8.00 / 1,000 delivered monitoring result rows ($0.008 per new or changed row). No Actor Start. Unchanged runs are free.</p>
+    <p><a href="https://apify.com/taroyamada/github-release-monitor/pricing">See GitHub Release &amp; Tag Scraper pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Public GitHub only</li>
+      <li>concurrency 1–10</li>
+      <li>maxChars 1000–200000</li>
+      <li>Not private repos</li>
+      <li>README repos examples are stale vs repositories</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/github-release-monitor">Open GitHub Release &amp; Tag Scraper on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/website-content-extractor/">Website Content Extractor</a> — Fetch docs pages; this Actor diffs GitHub release surfaces.</li>
+      <li><a href="/status-page-incident-digest-monitor/">Status Page Incident Digest Monitor</a> — Incidents, not changelogs.</li>
+      <li><a href="/docs-changelog-drift-monitor/">Docs &amp; Changelog Drift Scraper</a> — Docs/changelog pages, not GitHub releases/tags</li>
+      <li><a href="/chrome-web-store-extension-intelligence/">Chrome Web Store Extension Intelligence</a> — Chrome extensions, not GitHub repos</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

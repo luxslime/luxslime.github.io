@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hacker News Stories Scraper — comments &amp; RAG JSON</title>
+  <meta name="description" content="taroyamada/hacker-news-intelligence. From $1.00 / 1,000 story rows. Not Google News or full-article extraction.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/hacker-news-intelligence/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is Hacker News Stories Scraper different from Google News Scraper and Article Content Extractor?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Hacker News Stories Scraper — Comments & RAG JSON (taroyamada/hacker-news-intelligence): This Actor pulls public Hacker News story lists (top, new, best, ask, show, job) and can optionally include comment trees. Default mode is top; includeComments defaults false. Not Google News, not full article body extraction, and not a sentiment model. Story JSON for RAG/downstream scoring only. Google News Scraper is for Google News headlines (input queries / topics; Google News; headline URLs). Not Hacker News. Article Content Extractor is for Clean article body (input article urls; article HTML; title/byline/body). Not HN story lists."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What input is required?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Live required fields: none (see live fields). Live schema fields: mode, maxItems, minScore, includeComments, timeoutMs, delivery, webhookUrl, dryRun. exampleRunInput is mode top, maxItems 10, includeComments false. Schema default maxItems 100 (max 500). No required fields. additionalProperties is not documented on this page beyond the live Store schema."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the best first run?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use the published Store example run input below. exampleRunInput is mode top, maxItems 10, includeComments false. Schema default maxItems 100 (max 500). No required fields. Keep the first live run small. Use dryRun when you only need to validate input."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does a result contain?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do dataset, webhook, and dry-run delivery work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Hacker News Stories Scraper priced?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Billing is pay per event. Live Store card: from $1.00 / 1,000 Hacker News story rows ($0.001 per successfully delivered story row). No Actor Start. Hacker News story row (apify-default-dataset-item) $0.001: Charged only for one successfully delivered public Hacker News story row. Do not use the README Cost block as live pricing. README Cost quotes actor-start $0.01 + dataset-item $0.003. Live: Hacker News story row $0.001, no start. Platform usage is listed as included on the Store pricing tab."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Hacker News Stories Scraper</nav>
+    <h1>Hacker News top/new/best stories and optional comment trees</h1>
+    <p>This Actor pulls public Hacker News story lists (top, new, best, ask, show, job) and can optionally include comment trees. Default mode is top; includeComments defaults false.</p>
+    <p>Not Google News, not full article body extraction, and not a sentiment model. Story JSON for RAG/downstream scoring only.</p>
+    <p class="price">from $1.00 / 1,000 Hacker News story rows ($0.001 per successfully delivered story row). No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/hacker-news-intelligence">Open Hacker News Stories Scraper on Apify</a></p>
+
+    <h2>Hacker News Stories Scraper, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/google-news-scraper/">Google News Scraper</a> for Google News headlines; Use <a href="/article-content-extractor/">Article Content Extractor</a> for Clean article body.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>This Actor</th>
+          <th>Google News Scraper</th>
+          <th>Article Content Extractor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>Hacker News Stories Scraper</td>
+          <td>Google News headlines</td>
+          <td>Clean article body</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td><code>see schema</code></td>
+          <td>queries / topics</td>
+          <td>article urls</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>Public sources listed on the Store page</td>
+          <td>Google News</td>
+          <td>article HTML</td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td>Dataset rows billed per live PPE</td>
+          <td>headline URLs</td>
+          <td>title/byline/body</td>
+        </tr>
+        <tr>
+          <td>Not this job</td>
+          <td>Not Google News, not full article body extraction, and not a sentiment model. Story JSON for RAG/downstream scoring only.</td>
+          <td>Not Hacker News</td>
+          <td>Not HN story lists</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/hacker-news-intelligence</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>HN firehose for RAG</li>
+      <li>Sentiment/watch on top stories</li>
+      <li>Ask/Show/Job list pulls</li>
+    </ul>
+
+    <h2>How is Hacker News Stories Scraper different from Google News Scraper and Article Content Extractor?</h2>
+    <p>Hacker News Stories Scraper — Comments &amp; RAG JSON (taroyamada/hacker-news-intelligence): This Actor pulls public Hacker News story lists (top, new, best, ask, show, job) and can optionally include comment trees. Default mode is top; includeComments defaults false. Not Google News, not full article body extraction, and not a sentiment model. Story JSON for RAG/downstream scoring only. Google News Scraper is for Google News headlines (input queries / topics; Google News; headline URLs). Not Hacker News. Article Content Extractor is for Clean article body (input article urls; article HTML; title/byline/body). Not HN story lists.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: none listed (see live fields). exampleRunInput is mode top, maxItems 10, includeComments false. Schema default maxItems 100 (max 500). No required fields.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>mode</code></td>
+          <td>string</td>
+          <td><code>top</code></td>
+          <td>Mode. Operation mode</td>
+        </tr>
+        <tr>
+          <td><code>maxItems</code></td>
+          <td>integer</td>
+          <td><code>100</code></td>
+          <td>Max Items. Maximum number of items to return</td>
+        </tr>
+        <tr>
+          <td><code>minScore</code></td>
+          <td>integer</td>
+          <td><code>0</code></td>
+          <td>Min Score. Minimum score threshold for filtering</td>
+        </tr>
+        <tr>
+          <td><code>includeComments</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Include Comments. Include comments in output</td>
+        </tr>
+        <tr>
+          <td><code>timeoutMs</code></td>
+          <td>integer</td>
+          <td><code>15000</code></td>
+          <td>Timeout (ms). Request timeout in milliseconds</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string</td>
+          <td><code>dataset</code></td>
+          <td>Delivery. Where to send results: dataset or webhook</td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Webhook URL. Webhook URL to POST results to (if delivery=webhook)</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry Run. Run without saving results (for testing)</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  "mode": "top",
+  "maxItems": 10,
+  "minScore": 0,
+  "includeComments": false,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/hacker-news-intelligence">Run Hacker News Stories Scraper on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON.</p>
+<pre><code>{
+  "id": 12345678,
+  "title": "Claude 4.5 released with new features",
+  "url": "https://anthropic.com/news/claude-4-5",
+  "score": 523,
+  "by": "user123",
+  "time": 1712345678,
+  "descendants": 142,
+  "type": "story"
+}</code></pre>
+    <p>There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is Hacker News Stories Scraper priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $1.00 / 1,000 Hacker News story rows ($0.001 per successfully delivered story row). No Actor Start.</strong>. Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>apify-default-dataset-item</code> (Hacker News story row)</td>
+          <td>$0.001</td>
+          <td>Charged only for one successfully delivered public Hacker News story row.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>The published README Cost block is stale versus the live Store pricing tab. README Cost quotes actor-start $0.01 + dataset-item $0.003. Live: Hacker News story row $0.001, no start. This page quotes live PPE only.</p>
+    <p class="price">from $1.00 / 1,000 Hacker News story rows ($0.001 per successfully delivered story row). No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/hacker-news-intelligence/pricing">See Hacker News Stories Scraper pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Public HN API/pages</li>
+      <li>maxItems 1–500</li>
+      <li>Comments off by default</li>
+      <li>Not article extraction</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/hacker-news-intelligence">Open Hacker News Stories Scraper on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/google-news-scraper/">Google News Scraper</a> — News headlines, not HN.</li>
+      <li><a href="/article-content-extractor/">Article Content Extractor</a> — Fetch article bodies from HN urls downstream.</li>
+      <li><a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a> — Feed items you already have URLs for</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Site Governance Monitor — robots, sitemap, schema</title>
+  <meta name="description" content="taroyamada/site-governance-monitor. From $9.00 / 1,000 result rows. Not a full HTML crawl or broken-link spider.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/site-governance-monitor/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is Site Governance Monitor different from robots.txt Parser & AI Crawler Block Checker and Sitemap Scraper & Analyzer?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Site Governance Monitor — Robots, Sitemap & Schema (taroyamada/site-governance-monitor): This Actor checks domains you supply for robots.txt AI-crawler rules, sitemap.xml health, and JSON-LD/Microdata on sampled paths (homepage-first by default). One summary-first payload per domain with alerts. Not a sitewide HTML crawl, not a known-URL status checker, and not a standalone robots.txt-only AI policy audit. Homepage-first samplePaths default to [/]. robots.txt Parser & AI Crawler Block Checker is for robots.txt AI policy only (input domains max 500; robots.txt; per-bot allow/disallow rows). Not sitemap+schema bundle. Sitemap Scraper & Analyzer is for sitemap.xml URL inventory (input sitemapUrls; sitemap XML; URL inventory). Not robots+schema governance score. Broken Link Checker is for HTML crawl for 404s (input startUrls max 10; crawled HTML anchors; broken-link rows). Not robots/sitemap/schema bundle."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What input is required?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Live required fields: domains. Live schema fields: domains, samplePaths, delivery, webhookUrl, snapshotKey, checkAiBots, checkSchema, checkSitemap, followRedirects, concurrency, batchDelayMs, requestTimeoutSecs, maxSitemapUrls, emitUnchanged, dryRun. exampleRunInput is vercel.com, samplePaths [/], all three checks true, concurrency 1, maxSitemapUrls 5000. Schema concurrency default 3. Keep snapshotKey stable across deploys. additionalProperties is not documented on this page beyond the live Store schema."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the best first run?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use the published Store example run input below. exampleRunInput is vercel.com, samplePaths [/], all three checks true, concurrency 1, maxSitemapUrls 5000. Schema concurrency default 3. Keep snapshotKey stable across deploys. Keep the first live run small. Use dryRun when you only need to validate input."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does a result contain?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do dataset, webhook, and dry-run delivery work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. emitUnchanged controls whether unchanged watches write rows. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Site Governance Monitor priced?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Billing is pay per event. Live Store card: from $9.00 / 1,000 delivered monitoring result rows ($0.009 per new or changed row). No Actor Start. Unchanged runs with emitUnchanged false are free. Delivered monitoring result row (apify-default-dataset-item) $0.009: Charged only when a new or changed monitoring result row is delivered. Unchanged runs are free. Do not use the README Cost block as live pricing. README Cost quotes actor-start $0.01 + dataset-item $0.003. Live: Delivered monitoring result row $0.009, no start. README Input Examples that send urls are not live schema (use domains + samplePaths). Platform usage is listed as included on the Store pricing tab."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Site Governance Monitor</nav>
+    <h1>Post-deploy robots.txt, sitemap, and schema governance diffs</h1>
+    <p>This Actor checks domains you supply for robots.txt AI-crawler rules, sitemap.xml health, and JSON-LD/Microdata on sampled paths (homepage-first by default). One summary-first payload per domain with alerts.</p>
+    <p>Not a sitewide HTML crawl, not a known-URL status checker, and not a standalone robots.txt-only AI policy audit. Homepage-first samplePaths default to [/].</p>
+    <p class="price">from $9.00 / 1,000 delivered monitoring result rows ($0.009 per new or changed row). No Actor Start. Unchanged runs with emitUnchanged false are free.</p>
+    <p><a href="https://apify.com/taroyamada/site-governance-monitor">Open Site Governance Monitor on Apify</a></p>
+
+    <h2>Site Governance Monitor, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/robotstxt-ai-crawler-block-checker/">robots.txt Parser &amp; AI Crawler Block Checker</a> for robots.txt AI policy only; Use <a href="/sitemap-scraper-analyzer/">Sitemap Scraper &amp; Analyzer</a> for sitemap.xml URL inventory; Use <a href="/broken-link-checker/">Broken Link Checker</a> for HTML crawl for 404s.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>This Actor</th>
+          <th>robots.txt Parser &amp; AI Crawler Block Checker</th>
+          <th>Sitemap Scraper &amp; Analyzer</th>
+          <th>Broken Link Checker</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>Site Governance Monitor</td>
+          <td>robots.txt AI policy only</td>
+          <td>sitemap.xml URL inventory</td>
+          <td>HTML crawl for 404s</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td><code>domains</code></td>
+          <td>domains max 500</td>
+          <td>sitemapUrls</td>
+          <td>startUrls max 10</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>Public sources listed on the Store page</td>
+          <td>robots.txt</td>
+          <td>sitemap XML</td>
+          <td>crawled HTML anchors</td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td>Dataset rows billed per live PPE</td>
+          <td>per-bot allow/disallow rows</td>
+          <td>URL inventory</td>
+          <td>broken-link rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td>
+          <td>Not a sitewide HTML crawl, not a known-URL status checker, and not a standalone robots.txt-only AI policy audit. Homepage-first samplePaths default to [/].</td>
+          <td>Not sitemap+schema bundle</td>
+          <td>Not robots+schema governance score</td>
+          <td>Not robots/sitemap/schema bundle</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/site-governance-monitor</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Release QA for robots/sitemap/schema drift</li>
+      <li>AI crawler allow/block watches</li>
+      <li>Portfolio governance summaries</li>
+    </ul>
+
+    <h2>How is Site Governance Monitor different from robots.txt Parser &amp; AI Crawler Block Checker and Sitemap Scraper &amp; Analyzer?</h2>
+    <p>Site Governance Monitor — Robots, Sitemap &amp; Schema (taroyamada/site-governance-monitor): This Actor checks domains you supply for robots.txt AI-crawler rules, sitemap.xml health, and JSON-LD/Microdata on sampled paths (homepage-first by default). One summary-first payload per domain with alerts. Not a sitewide HTML crawl, not a known-URL status checker, and not a standalone robots.txt-only AI policy audit. Homepage-first samplePaths default to [/]. robots.txt Parser &amp; AI Crawler Block Checker is for robots.txt AI policy only (input domains max 500; robots.txt; per-bot allow/disallow rows). Not sitemap+schema bundle. Sitemap Scraper &amp; Analyzer is for sitemap.xml URL inventory (input sitemapUrls; sitemap XML; URL inventory). Not robots+schema governance score. Broken Link Checker is for HTML crawl for 404s (input startUrls max 10; crawled HTML anchors; broken-link rows). Not robots/sitemap/schema bundle.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: <code>domains</code>. exampleRunInput is vercel.com, samplePaths [/], all three checks true, concurrency 1, maxSitemapUrls 5000. Schema concurrency default 3. Keep snapshotKey stable across deploys.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>domains</code></td>
+          <td>array required</td>
+          <td><code>empty</code></td>
+          <td>Sites or domains to monitor. Starter quickstart: begin with 1-3 sites for a lightweight first success. Homepage-first runs stay intentionally small, while larger recurring watches can expand to broader portfolios with…</td>
+        </tr>
+        <tr>
+          <td><code>samplePaths</code></td>
+          <td>array</td>
+          <td><code>empty</code></td>
+          <td>Sample paths for release QA. Path-only routes to validate on every domain. Keep the starter quickstart homepage-first with ["/"], then add /pricing and /docs when you want broader release-QA template coverage. Default…</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string</td>
+          <td><code>dataset</code></td>
+          <td>Delivery mode. Starter path: dataset keeps the first run low-friction and still writes the full summary-first payload to OUTPUT. Advanced path: webhook sends the same meta/alerts/results payload to your endpoint for r…</td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Webhook URL. Advanced delivery only: required when delivery is webhook. Must be a valid http(s) URL. The payload includes the executive summary, flattened alerts, workflow metadata, and per-domain governance results.</td>
+        </tr>
+        <tr>
+          <td><code>snapshotKey</code></td>
+          <td>string</td>
+          <td><code>site-governance-monitor-snapshots</code></td>
+          <td>Snapshot key for recurring checks. Keep this stable when you move from the homepage-first quickstart to recurring release-QA, portfolio, or webhook workflows so governance drift stays comparable run to run.</td>
+        </tr>
+        <tr>
+          <td><code>checkAiBots</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Robots.txt monitor. Monitor robots.txt for missing files, AI crawler allow/block rules, and drift after releases.</td>
+        </tr>
+        <tr>
+          <td><code>checkSchema</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Schema validator monitor. Validate JSON-LD and Microdata on homepage, pricing, docs, and other release-sensitive templates.</td>
+        </tr>
+        <tr>
+          <td><code>checkSitemap</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Sitemap monitor. Monitor sitemap.xml reachability, freshness, robots.txt declarations, and URL inventory drift.</td>
+        </tr>
+        <tr>
+          <td><code>followRedirects</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Follow redirects. Follow redirects before grading sitemap and sampled page responses so canonical properties are scored correctly.</td>
+        </tr>
+        <tr>
+          <td><code>concurrency</code></td>
+          <td>integer</td>
+          <td><code>3</code></td>
+          <td>Concurrency. Starter runs usually only need 1-3 parallel checks. Increase it for broader recurring portfolios when you want more properties covered in one run.</td>
+        </tr>
+        <tr>
+          <td><code>batchDelayMs</code></td>
+          <td>integer</td>
+          <td><code>250</code></td>
+          <td>Batch delay (ms). Pause between batches to keep recurring sweeps polite and stable across portfolios and platform estates.</td>
+        </tr>
+        <tr>
+          <td><code>requestTimeoutSecs</code></td>
+          <td>integer</td>
+          <td><code>15</code></td>
+          <td>Request timeout (seconds). Timeout used for robots.txt, sitemap, and sampled page fetches during each recurring governance check.</td>
+        </tr>
+        <tr>
+          <td><code>maxSitemapUrls</code></td>
+          <td>integer</td>
+          <td><code>5000</code></td>
+          <td>Max sitemap URLs. Maximum number of sitemap URLs to parse when expanding sitemap indexes for larger sites or portfolios.</td>
+        </tr>
+        <tr>
+          <td><code>emitUnchanged</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit unchanged site rows. Keep disabled for recurring monitoring so unchanged runs write zero dataset rows and incur zero result charges.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run. Preview the governance bundle without saving snapshots, dataset rows, or sending webhooks. Useful for validation, not for capturing a recurring baseline.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  "domains": [
+    "vercel.com"
+  ],
+  "samplePaths": [
+    "/"
+  ],
+  "delivery": "dataset",
+  "snapshotKey": "site-governance-homepage-quickstart",
+  "checkAiBots": true,
+  "checkSchema": true,
+  "checkSitemap": true,
+  "concurrency": 1,
+  "batchDelayMs": 250,
+  "requestTimeoutSecs": 15,
+  "maxSitemapUrls": 5000,
+  "dryRun": false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/site-governance-monitor">Run Site Governance Monitor on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. emitUnchanged controls whether unchanged watches write rows. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON.</p>
+<pre><code>{
+  "meta": {
+    "executiveSummary": {
+      "overallStatus": "attention_needed",
+      "recommendedCadence": "daily"
+    },
+    "runProfile": {
+      "tier": "starter",
+      "label": "Starter first-success path"
+    },
+    "upgradeSuggestions": [
+      {
+        "type": "webhook",
+        "templateId": "action_needed_webhook",
+        "title": "Route action-needed domains to your endpoint"
+      }
+    ],
+    "nextWorkflow": {
+      "type": "same_actor_template",
+      "id": "action_needed_webhook",
+      "title": "Next best step: Action-Needed Webhook Handoff"
+    }
+  },
+  "alerts": [
+    {
+      "domain": "client-release.example",
+      "severity": "high",
+      "component": "sitemapHealth",
+      "type": "sitemap_missing",
+      "message": "No reachable XML sitemap was found for this domain."
+    }
+  ],
+  "results": [
+    {
+      "domain": "client-release.example",
+      "status": "changed",
+      "severity": "high",
+      "brief": "3 alert(s): No reachable XML sitemap was found for this domain.",
+      "recommendedActions": [
+        "Publish a reachable XML sitemap for the domain and keep it updated.",
+        "Publish a robots.txt file so the robots.txt monitor can confirm which AI crawlers you allow or block."
+      ]
+    }
+  ]
+}</code></pre>
+    <p>There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is Site Governance Monitor priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $9.00 / 1,000 delivered monitoring result rows ($0.009 per new or changed row). No Actor Start. Unchanged runs with emitUnchanged false are free.</strong>. Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>apify-default-dataset-item</code> (Delivered monitoring result row)</td>
+          <td>$0.009</td>
+          <td>Charged only when a new or changed monitoring result row is delivered. Unchanged runs are free.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>The published README Cost block is stale versus the live Store pricing tab. README Cost quotes actor-start $0.01 + dataset-item $0.003. Live: Delivered monitoring result row $0.009, no start. README Input Examples that send urls are not live schema (use domains + samplePaths). This page quotes live PPE only.</p>
+    <p class="price">from $9.00 / 1,000 delivered monitoring result rows ($0.009 per new or changed row). No Actor Start. Unchanged runs with emitUnchanged false are free.</p>
+    <p><a href="https://apify.com/taroyamada/site-governance-monitor/pricing">See Site Governance Monitor pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Not a full-site crawler</li>
+      <li>samplePaths are path-only</li>
+      <li>maxSitemapUrls 100–50000</li>
+      <li>README urls examples are stale</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/site-governance-monitor">Open Site Governance Monitor on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/robotstxt-ai-crawler-block-checker/">robots.txt Parser &amp; AI Crawler Block Checker</a> — robots.txt-only AI bot audit.</li>
+      <li><a href="/sitemap-scraper-analyzer/">Sitemap Scraper &amp; Analyzer</a> — Sitemap URL discovery without schema/robots bundle.</li>
+      <li><a href="/structured-data-scraper-validator/">Structured Data Scraper &amp; Validator</a> — JSON-LD/Microdata score on known URLs, not domain governance diffs.</li>
+      <li><a href="/privacy-cookie-compliance-scanner/">GDPR &amp; CCPA Cookie Compliance Scraper</a> — Cookie banners/policies, not robots/sitemap/schema</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>
