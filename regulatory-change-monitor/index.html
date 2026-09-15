@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Regulatory Alerts Scraper — government page watchlists</title>
+  <meta name="description" content="taroyamada/regulatory-change-monitor. from $9.00 / 1,000 Delivered monitoring result row ($0.009 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. Not the Federal Register document API. Not authentica">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/regulatory-change-monitor/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is Regulatory Alerts Scraper different from Federal Register Scraper and SaaS Pricing Tracker?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Regulatory Alerts Scraper (taroyamada/regulatory-change-monitor): This Actor fetches public government pages you list in targets[], snapshots extracted text, and emits source-linked change rows when filtered text drifts or watch terms hit. Live input is targets, not Federal Register API feeds. Not the Federal Register document API. Not authenticated portals. Not legal advice. Public HTML only; bot walls may block fetches. Federal Register Scraper is for Federal Register docs (input feeds / watchTerms; federalregister.gov API; FR digest rows). Not page-HTML regulatory crawls. SaaS Pricing Tracker is for Pricing/terms diffs (input targets[]; public SaaS pages; SaaS change rows). Not B2B competitor pricing packs. Docs & Changelog Drift Scraper is for Docs/changelog diffs (input doc URLs; public docs HTML; drift rows). Not Federal Register rules."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: targets. Live schema fields: targets, requestTimeoutSeconds, userAgent, maxChars, delivery, datasetMode, webhookUrl, notifyOnNoChange, snapshotKey, diffMode, summaryMaxLines, concurrency, batchDelayMs, nowIso, dryRun. Summary-first monitoring for official regulator update feeds, government bulletin pages, and public compliance notices additionalProperties is false on the live schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: targets, delivery, datasetMode, notifyOnNoChange, snapshotKey, diffMode, summaryMaxLines, concurrency, batchDelayMs, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. datasetMode can limit emits to changes_only / changed_only / action_needed versus all. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is Regulatory Alerts Scraper priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $9.00 / 1,000 Delivered monitoring result row ($0.009 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. Delivered monitoring result row (apify-default-dataset-item) $0.009: Charged only when a new or changed monitoring result row is delivered. Unchanged runs are free. Do not use the README Cost block as live pricing. The published README Cost block is stale versus the live Store pricing tab. README Cost still quotes actor-start $0.01. README Cost quotes dataset-item $0.003; live primary is $0.009 (Delivered monitoring result row). Live: Delivered monitoring result row $0.009. This page quotes live PPE only."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Regulatory Alerts Scraper</nav>
+    <h1>Keyword watchlists on public government web pages</h1>
+    <p>This Actor fetches public government pages you list in targets[], snapshots extracted text, and emits source-linked change rows when filtered text drifts or watch terms hit. Live input is targets, not Federal Register API feeds.</p>
+    <p>Not the Federal Register document API. Not authenticated portals. Not legal advice. Public HTML only; bot walls may block fetches.</p>
+    <p class="price">from $9.00 / 1,000 Delivered monitoring result row ($0.009 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+    <p><a href="https://apify.com/taroyamada/regulatory-change-monitor">Open Regulatory Alerts Scraper on Apify</a></p>
+
+    <h2>Regulatory Alerts Scraper, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/federal-register-digest/">Federal Register Scraper</a> for Federal Register docs; Use <a href="/saas-change-monitor-actor/">SaaS Pricing Tracker</a> for Pricing/terms diffs; Use <a href="/docs-changelog-drift-monitor/">Docs &amp; Changelog Drift Scraper</a> for Docs/changelog diffs.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>Federal Register Scraper</th><th>SaaS Pricing Tracker</th><th>Docs &amp; Changelog Drift Scraper</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>Regulatory Alerts Scraper</td><td>Federal Register docs</td><td>Pricing/terms diffs</td><td>Docs/changelog diffs</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td><code>see schema</code></td><td>feeds / watchTerms</td><td>targets[]</td><td>doc URLs</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>Public sources listed on the Store page</td><td>federalregister.gov API</td><td>public SaaS pages</td><td>public docs HTML</td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td>Dataset rows billed per live PPE</td><td>FR digest rows</td><td>SaaS change rows</td><td>drift rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td>
+          <td>Not the Federal Register document API. Not authenticated portals. Not legal advice. Public HTML only; bot walls may block fetches.</td><td>Not page-HTML regulatory crawls</td><td>Not B2B competitor pricing packs</td><td>Not Federal Register rules</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/regulatory-change-monitor</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Agency landing-page watchlists</li>
+      <li>Severity-term text diffs</li>
+      <li>Webhook on change</li>
+    </ul>
+
+    <h2>How is Regulatory Alerts Scraper different from Federal Register Scraper and SaaS Pricing Tracker?</h2>
+    <p>Regulatory Alerts Scraper (taroyamada/regulatory-change-monitor): This Actor fetches public government pages you list in targets[], snapshots extracted text, and emits source-linked change rows when filtered text drifts or watch terms hit. Live input is targets, not Federal Register API feeds. Not the Federal Register document API. Not authenticated portals. Not legal advice. Public HTML only; bot walls may block fetches. Federal Register Scraper is for Federal Register docs (input feeds / watchTerms; federalregister.gov API; FR digest rows). Not page-HTML regulatory crawls. SaaS Pricing Tracker is for Pricing/terms diffs (input targets[]; public SaaS pages; SaaS change rows). Not B2B competitor pricing packs. Docs &amp; Changelog Drift Scraper is for Docs/changelog diffs (input doc URLs; public docs HTML; drift rows). Not Federal Register rules.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: <code>targets</code>. Published exampleRunInput is shown below. Summary-first monitoring for official regulator update feeds, government bulletin pages, and public compliance notices</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>targets</code></td>
+          <td>any[] required</td>
+          <td><code>empty</code></td>
+          <td>required Targets (one digest row each). List of regulatory sources to monitor. Each item supports id, name, jurisdiction, regulator, domain, criticality, owner, tags, feedUrl, bulletinUrl, noticesUrl, and optional sourcePages[].</td>
+        </tr>
+        <tr>
+          <td><code>requestTimeoutSeconds</code></td>
+          <td>integer</td>
+          <td><code>30</code></td>
+          <td>Request timeout (seconds). Maximum time to wait for one public source request. min=5 max=120</td>
+        </tr>
+        <tr>
+          <td><code>userAgent</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Custom User-Agent. Optional custom User-Agent string for public HTTP requests.</td>
+        </tr>
+        <tr>
+          <td><code>maxChars</code></td>
+          <td>integer</td>
+          <td><code>35000</code></td>
+          <td>Global max chars per source. Upper bound for extracted text per monitored source before hashing and diff. min=1000 max=200000</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string enum</td>
+          <td><code>dataset</code></td>
+          <td>Delivery mode. Choose whether digest rows should be written to the dataset, posted to a webhook, or reserved for a future email path. enum: dataset, webhook, email</td>
+        </tr>
+        <tr>
+          <td><code>datasetMode</code></td>
+          <td>string enum</td>
+          <td><code>changes_only</code></td>
+          <td>Dataset mode. Controls which target rows are persisted: only action-needed rows, only changed rows, or every monitored target. enum: action_needed, changes_only, all</td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Webhook URL. Webhook destination when delivery is set to webhook.</td>
+        </tr>
+        <tr>
+          <td><code>notifyOnNoChange</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Notify even if no change. If true, webhook delivery still fires even when no target crosses the change threshold.</td>
+        </tr>
+        <tr>
+          <td><code>snapshotKey</code></td>
+          <td>string</td>
+          <td><code>regulatory-change-monitor-snapshots</code></td>
+          <td>Snapshot key. Stable key used to load and save previous source snapshots between recurring runs.</td>
+        </tr>
+        <tr>
+          <td><code>diffMode</code></td>
+          <td>string enum</td>
+          <td><code>line_summary</code></td>
+          <td>Diff mode. Use line summaries for concise change evidence or hash-only mode for simple changed/unchanged detection. enum: line_summary, hash_only</td>
+        </tr>
+        <tr>
+          <td><code>summaryMaxLines</code></td>
+          <td>integer</td>
+          <td><code>12</code></td>
+          <td>Max diff lines per source. Maximum number of added and removed lines to keep in each source-level change summary. min=5 max=50</td>
+        </tr>
+        <tr>
+          <td><code>concurrency</code></td>
+          <td>integer</td>
+          <td><code>2</code></td>
+          <td>Concurrency. How many public sources the actor may fetch in parallel. min=1 max=10</td>
+        </tr>
+        <tr>
+          <td><code>batchDelayMs</code></td>
+          <td>integer</td>
+          <td><code>500</code></td>
+          <td>Inter-batch delay (ms). Delay between fetch batches to soften load on public regulatory sources. min=0 max=10000</td>
+        </tr>
+        <tr>
+          <td><code>nowIso</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Override current time (ISO). Optional ISO timestamp override for deterministic fixture tests or proof snapshots.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run. If true, the actor skips snapshot writes and remote delivery while still producing local output.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  "targets": [
+    {
+      "id": "sec-rss",
+      "name": "SEC Press Releases",
+      "jurisdiction": "US-Federal",
+      "regulator": "SEC",
+      "domain": "securities",
+      "criticality": "high",
+      "owner": "Legal / Compliance",
+      "tags": [
+        "securities",
+        "federal"
+      ],
+      "feedUrl": "https://www.sec.gov/news/pressreleases.rss"
+    },
+    {
+      "id": "fda-recalls",
+      "name": "FDA Recalls &amp; Safety",
+      "jurisdiction": "US-Federal",
+      "regulator": "FDA",
+      "domain": "health",
+      "criticality": "high",
+      "owner": "Regulatory Affairs",
+      "tags": [
+        "health",
+        "safety"
+      ],
+      "feedUrl": "https://www.fda.gov/about-fda/contact-fda/stay-informed/rss-feeds/recalls/rss.xml"
+    }
+  ],
+  "delivery": "dataset",
+  "datasetMode": "changes_only",
+  "notifyOnNoChange": false,
+  "snapshotKey": "regulatory-change-quickstart",
+  "diffMode": "line_summary",
+  "summaryMaxLines": 12,
+  "concurrency": 2,
+  "batchDelayMs": 500,
+  "dryRun": false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/regulatory-change-monitor">Run Regulatory Alerts Scraper on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. datasetMode can limit emits to changes_only / changed_only / action_needed versus all. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is Regulatory Alerts Scraper priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $9.00 / 1,000 Delivered monitoring result row ($0.009 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>apify-default-dataset-item</code> (Delivered monitoring result row)</td>
+          <td>$0.009</td>
+          <td>Charged only when a new or changed monitoring result row is delivered. Unchanged runs are free.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>The published README Cost block is stale versus the live Store pricing tab. README Cost still quotes actor-start $0.01. README Cost quotes dataset-item $0.003; live primary is $0.009 (Delivered monitoring result row). Live: Delivered monitoring result row $0.009. This page quotes live PPE only.</p>
+    <p class="price">from $9.00 / 1,000 Delivered monitoring result row ($0.009 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+    <p><a href="https://apify.com/taroyamada/regulatory-change-monitor/pricing">See Regulatory Alerts Scraper pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>targets required</li>
+      <li>Public HTML only</li>
+      <li>diffMode / summaryMaxLines cap text diffs</li>
+      <li>Not FR API documents</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/regulatory-change-monitor">Open Regulatory Alerts Scraper on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/federal-register-digest/">Federal Register Scraper</a> — FR API documents, not page HTML.</li>
+      <li><a href="/saas-change-monitor-actor/">SaaS Pricing Tracker</a> — SaaS pricing/terms, not .gov pages.</li>
+      <li><a href="/docs-changelog-drift-monitor/">Docs &amp; Changelog Drift Scraper</a> — Vendor docs, not regulatory HTML.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

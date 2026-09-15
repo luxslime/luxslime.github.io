@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SEC Material Contract Intelligence — exhibit leads</title>
+  <meta name="description" content="taroyamada/sec-material-contract-intelligence. from $8.00 / 1,000 Result ($0.008 per delivered apify-default-dataset-item). $0.001 Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. Not investment, legal, or procurement advice. Not Form 4 insider ">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/sec-material-contract-intelligence/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is SEC Material Contract Intelligence different from SEC EDGAR Scraper and SEC & ESG Report Scraper?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "SEC Material Contract Intelligence (taroyamada/sec-material-contract-intelligence): This Actor searches official SEC filings (tickers, CIKs, issuers, accessionNumbers) for material agreements and exhibits matching contractKeywords / counterpartyTerms. Optional includeExhibitText pulls capped exhibit text. Not investment, legal, or procurement advice. Not Form 4 insider trades. Not a complete contract database. Respect SEC fair-access User-Agent rules (secUserAgent on the live schema). SEC EDGAR Scraper is for 8-K/S-1 filing alerts (input companies; SEC EDGAR; SEC filing rows). Not ESG report packs. SEC & ESG Report Scraper is for ESG/climate packs (input company disclosure targets; SEC EDGAR + reports; disclosure change rows). Not 8-K/S-1 filing alerts alone. SEC Insider Transaction Scraper is for Forms 3/4/5 trades (input issuers; SEC EDGAR ownership; insider-trade rows). Not 8-K material contracts."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: none (see live fields). Live schema fields: tickers, ciks, issuers, accessionNumbers, formTypes, startDate, endDate, daysBack, limit, maxFilingsPerIssuer, maxExhibitsPerFiling, contractKeywords, counterpartyTerms, includeExhibitText, maxExhibitChars, emitFilingRowsWithoutExhibits, requestDelayMs, timeoutMs, secUserAgent, delivery, webhookUrl, dryRun. Find material agreement, customer contract, partnership, procurement, and exhibit leads from official SEC filings. additionalProperties is false on the live schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: tickers, ciks, issuers, accessionNumbers, formTypes, startDate, endDate, daysBack, limit, maxFilingsPerIssuer, maxExhibitsPerFiling, contractKeywords, counterpartyTerms, includeExhibitText, maxExhibitChars, emitFilingRowsWithoutExhibits, requestDelayMs, timeoutMs, secUserAgent, delivery, webhookUrl, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is SEC Material Contract Intelligence priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $8.00 / 1,000 Result ($0.008 per delivered apify-default-dataset-item). $0.001 Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. Result (apify-default-dataset-item) $0.008: Charged for each normalized result row saved to the default dataset. Actor Start (apify-actor-start) $0.001: Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event). Platform usage is listed as included on the Store pricing tab."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / SEC Material Contract Intelligence</nav>
+    <h1>SEC exhibit and material-agreement leads from official EDGAR filings</h1>
+    <p>This Actor searches official SEC filings (tickers, CIKs, issuers, accessionNumbers) for material agreements and exhibits matching contractKeywords / counterpartyTerms. Optional includeExhibitText pulls capped exhibit text.</p>
+    <p>Not investment, legal, or procurement advice. Not Form 4 insider trades. Not a complete contract database. Respect SEC fair-access User-Agent rules (secUserAgent on the live schema).</p>
+    <p class="price">from $8.00 / 1,000 Result ($0.008 per delivered apify-default-dataset-item). $0.001 Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+    <p><a href="https://apify.com/taroyamada/sec-material-contract-intelligence">Open SEC Material Contract Intelligence on Apify</a></p>
+
+    <h2>SEC Material Contract Intelligence, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/sec-edgar-filings-monitor/">SEC EDGAR Scraper</a> for 8-K/S-1 filing alerts; Use <a href="/esg-disclosure-tracker/">SEC &amp; ESG Report Scraper</a> for ESG/climate packs; Use <a href="/sec-insider-transaction-intelligence/">SEC Insider Transaction Scraper</a> for Forms 3/4/5 trades.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>SEC EDGAR Scraper</th><th>SEC &amp; ESG Report Scraper</th><th>SEC Insider Transaction Scraper</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>SEC Material Contract Intelligence</td><td>8-K/S-1 filing alerts</td><td>ESG/climate packs</td><td>Forms 3/4/5 trades</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td><code>see schema</code></td><td>companies</td><td>company disclosure targets</td><td>issuers</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>Public sources listed on the Store page</td><td>SEC EDGAR</td><td>SEC EDGAR + reports</td><td>SEC EDGAR ownership</td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td>Dataset rows billed per live PPE</td><td>SEC filing rows</td><td>disclosure change rows</td><td>insider-trade rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td>
+          <td>Not investment, legal, or procurement advice. Not Form 4 insider trades. Not a complete contract database. Respect SEC fair-access User-Agent rules (secUserAgent on the live schema).</td><td>Not ESG report packs</td><td>Not 8-K/S-1 filing alerts alone</td><td>Not 8-K material contracts</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/sec-material-contract-intelligence</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Ticker exhibit watches</li>
+      <li>Keyword hits on material agreements</li>
+      <li>Capped exhibit-text extracts</li>
+    </ul>
+
+    <h2>How is SEC Material Contract Intelligence different from SEC EDGAR Scraper and SEC &amp; ESG Report Scraper?</h2>
+    <p>SEC Material Contract Intelligence (taroyamada/sec-material-contract-intelligence): This Actor searches official SEC filings (tickers, CIKs, issuers, accessionNumbers) for material agreements and exhibits matching contractKeywords / counterpartyTerms. Optional includeExhibitText pulls capped exhibit text. Not investment, legal, or procurement advice. Not Form 4 insider trades. Not a complete contract database. Respect SEC fair-access User-Agent rules (secUserAgent on the live schema). SEC EDGAR Scraper is for 8-K/S-1 filing alerts (input companies; SEC EDGAR; SEC filing rows). Not ESG report packs. SEC &amp; ESG Report Scraper is for ESG/climate packs (input company disclosure targets; SEC EDGAR + reports; disclosure change rows). Not 8-K/S-1 filing alerts alone. SEC Insider Transaction Scraper is for Forms 3/4/5 trades (input issuers; SEC EDGAR ownership; insider-trade rows). Not 8-K material contracts.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: none listed (see live fields). Published exampleRunInput is shown below. Find material agreement, customer contract, partnership, procurement, and exhibit leads from official SEC filings.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>tickers</code></td>
+          <td>any[]</td>
+          <td><code>["MSFT"]</code></td>
+          <td>Tickers. Ticker symbols to resolve through the SEC company ticker index.</td>
+        </tr>
+        <tr>
+          <td><code>ciks</code></td>
+          <td>any[]</td>
+          <td><code>empty</code></td>
+          <td>CIKs. SEC Central Index Key values. Use this when a ticker is unavailable or ambiguous.</td>
+        </tr>
+        <tr>
+          <td><code>issuers</code></td>
+          <td>any[]</td>
+          <td><code>[]</code></td>
+          <td>Issuers. Mixed ticker symbols or CIK numbers to inspect. Prefer Tickers and CIKs for clearer runs.</td>
+        </tr>
+        <tr>
+          <td><code>accessionNumbers</code></td>
+          <td>any[]</td>
+          <td><code>empty</code></td>
+          <td>Accession numbers. Optional direct SEC accession numbers to inspect, such as 0000789019-26-000111.</td>
+        </tr>
+        <tr>
+          <td><code>formTypes</code></td>
+          <td>any[]</td>
+          <td><code>["8-K", "10-K", "10-Q"]</code></td>
+          <td>Form types. SEC forms to include.</td>
+        </tr>
+        <tr>
+          <td><code>startDate</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Start date. Optional filing date lower bound in YYYY-MM-DD format. Overrides daysBack start when set.</td>
+        </tr>
+        <tr>
+          <td><code>endDate</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>End date. Optional filing date upper bound in YYYY-MM-DD format. Defaults to today when empty.</td>
+        </tr>
+        <tr>
+          <td><code>daysBack</code></td>
+          <td>integer</td>
+          <td><code>365</code></td>
+          <td>Days back. How far back to scan recent SEC filings. min=1 max=3650</td>
+        </tr>
+        <tr>
+          <td><code>limit</code></td>
+          <td>integer</td>
+          <td><code>50</code></td>
+          <td>Result limit. Maximum rows to emit. min=1 max=500</td>
+        </tr>
+        <tr>
+          <td><code>maxFilingsPerIssuer</code></td>
+          <td>integer</td>
+          <td><code>50</code></td>
+          <td>Max filings per issuer. Maximum matching filings to inspect per issuer before row limiting. min=1 max=500</td>
+        </tr>
+        <tr>
+          <td><code>maxExhibitsPerFiling</code></td>
+          <td>integer</td>
+          <td><code>12</code></td>
+          <td>Max exhibits per filing. Maximum Exhibit 10-style attachments to emit per filing. min=0 max=100</td>
+        </tr>
+        <tr>
+          <td><code>contractKeywords</code></td>
+          <td>any[]</td>
+          <td><code>empty</code></td>
+          <td>Contract keywords. Additional phrases to flag in filing metadata or fetched exhibit text.</td>
+        </tr>
+        <tr>
+          <td><code>counterpartyTerms</code></td>
+          <td>any[]</td>
+          <td><code>empty</code></td>
+          <td>Counterparty terms. Optional customer, partner, supplier, agency, or competitor names to highlight.</td>
+        </tr>
+        <tr>
+          <td><code>includeExhibitText</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Fetch exhibit text. Fetch Exhibit 10 documents for value, effective-date, and counterparty hints. Leave off for lighter metadata-only runs.</td>
+        </tr>
+        <tr>
+          <td><code>maxExhibitChars</code></td>
+          <td>integer</td>
+          <td><code>12000</code></td>
+          <td>Max exhibit characters. Maximum exhibit text characters to analyze when Fetch exhibit text is enabled. min=1000 max=50000</td>
+        </tr>
+        <tr>
+          <td><code>emitFilingRowsWithoutExhibits</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Emit filing-only rows. Emit a filing-level row when a relevant filing has no Exhibit 10-style attachment in the SEC directory index.</td>
+        </tr>
+        <tr>
+          <td><code>requestDelayMs</code></td>
+          <td>integer</td>
+          <td><code>120</code></td>
+          <td>Delay between SEC filing requests. Delay between SEC Archives filing requests. min=0 max=5000</td>
+        </tr>
+        <tr>
+          <td><code>timeoutMs</code></td>
+          <td>integer</td>
+          <td><code>25000</code></td>
+          <td>HTTP timeout (ms). HTTP timeout for SEC API and Archives requests. min=1000 max=60000</td>
+        </tr>
+        <tr>
+          <td><code>secUserAgent</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>SEC User-Agent. Optional SEC-compliant User-Agent with contact information.</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string enum</td>
+          <td><code>dataset</code></td>
+          <td>Delivery. Where to send results. Dry runs never push dataset rows or webhooks. enum: dataset, webhook</td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Webhook URL. Required when delivery=webhook.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run. Run without writing dataset rows or posting webhook output.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  "tickers": [
+    "MSFT"
+  ],
+  "ciks": [],
+  "issuers": [],
+  "accessionNumbers": [],
+  "formTypes": [
+    "8-K",
+    "10-K",
+    "10-Q"
+  ],
+  "startDate": "",
+  "endDate": "",
+  "daysBack": 365,
+  "limit": 50,
+  "maxFilingsPerIssuer": 25,
+  "maxExhibitsPerFiling": 12,
+  "contractKeywords": [
+    "master services agreement",
+    "supply agreement",
+    "license agreement"
+  ],
+  "counterpartyTerms": [],
+  "includeExhibitText": false,
+  "maxExhibitChars": 12000,
+  "emitFilingRowsWithoutExhibits": true,
+  "requestDelayMs": 120,
+  "timeoutMs": 25000,
+  "secUserAgent": "",
+  "delivery": "dataset",
+  "webhookUrl": "",
+  "dryRun": false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/sec-material-contract-intelligence">Run SEC Material Contract Intelligence on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is SEC Material Contract Intelligence priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $8.00 / 1,000 Result ($0.008 per delivered apify-default-dataset-item). $0.001 Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>apify-default-dataset-item</code> (Result)</td>
+          <td>$0.008</td>
+          <td>Charged for each normalized result row saved to the default dataset.</td>
+        </tr>
+        <tr>
+          <td><code>apify-actor-start</code> (Actor Start)</td>
+          <td>$0.001</td>
+          <td>Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="price">from $8.00 / 1,000 Result ($0.008 per delivered apify-default-dataset-item). $0.001 Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+    <p><a href="https://apify.com/taroyamada/sec-material-contract-intelligence/pricing">See SEC Material Contract Intelligence pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Public EDGAR</li>
+      <li>maxFilingsPerIssuer / maxExhibitsPerFiling / maxExhibitChars</li>
+      <li>secUserAgent for SEC fair access</li>
+      <li>Not legal advice</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/sec-material-contract-intelligence">Open SEC Material Contract Intelligence on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/sec-edgar-filings-monitor/">SEC EDGAR Scraper</a> — Filing-index alerts, not exhibit text.</li>
+      <li><a href="/esg-disclosure-tracker/">SEC &amp; ESG Report Scraper</a> — ESG packs, not material contracts.</li>
+      <li><a href="/sec-insider-transaction-intelligence/">SEC Insider Transaction Scraper</a> — Forms 3/4/5, not exhibits.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

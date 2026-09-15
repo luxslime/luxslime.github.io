@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FDA Warning Letters Scraper — company and product alerts</title>
+  <meta name="description" content="taroyamada/fda-warning-letter-digest. from $8.00 / 1,000 FDA warning letter digest row ($0.008 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. Informational only. Not legal, regulatory, or medical a">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/fda-warning-letter-digest/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is FDA Warning Letters Scraper different from ClinicalTrials.gov Sponsor Pipeline Scraper and HHS Healthcare Data Breach Change Scraper?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "FDA Warning Letters Scraper (taroyamada/fda-warning-letter-digest): This Actor monitors public FDA warning-letter and import-alert metadata from official sources and emits source-linked digest rows. Leave feeds empty for the default warning-letters feed, or add issuing offices and watch terms. Informational only. Not legal, regulatory, or medical advice. Not a prospecting list or outreach tool. Not ClinicalTrials.gov and not HHS OCR breach notices. ClinicalTrials.gov Sponsor Pipeline Scraper is for Clinical trial records (input sponsor/condition watches; ClinicalTrials.gov; trial change rows). Not FDA warning letters. HHS Healthcare Data Breach Change Scraper is for HHS OCR breaches (input portal watch; HHS OCR; breach change rows). Not FDA warning letters. EPA ECHO Enforcement Scraper is for EPA ECHO records (input targets[]; EPA ECHO public pages; ECHO digest rows). Not FDA warning letters."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: none (see live fields). Live schema fields: feeds, watchTerms, lookbackDays, maxItemsPerFeed, maxPagesPerFeed, maxDetailFetchesPerFeed, delivery, webhookUrl, datasetMode, snapshotKey, notifyOnNoNew, requestTimeoutSeconds, batchDelayMs, warningLettersApiUrl, importAlertsIndexUrl, dryRun, nowIso. Quickstart: leave feeds empty to monitor the default public FDA warning letters feed, set lookbackDays=30, keep delivery=dataset, and reuse the same snapshotKey for scheduled runs additionalProperties is false on the live schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: feeds, watchTerms, lookbackDays, delivery, datasetMode, snapshotKey, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. datasetMode can limit emits to changes_only / changed_only / action_needed versus all. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is FDA Warning Letters Scraper priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $8.00 / 1,000 FDA warning letter digest row ($0.008 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. FDA warning letter digest row (apify-default-dataset-item) $0.008: Charged only when an FDA warning letter digest row is delivered. Do not use the README Cost block as live pricing. The published README Cost block is stale versus the live Store pricing tab. README Cost still quotes actor-start $0.01. README Cost quotes dataset-item $0.003; live primary is $0.008 (FDA warning letter digest row). Live: FDA warning letter digest row $0.008. This page quotes live PPE only."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / FDA Warning Letters Scraper</nav>
+    <h1>FDA warning-letter and import-alert digests from public agency feeds</h1>
+    <p>This Actor monitors public FDA warning-letter and import-alert metadata from official sources and emits source-linked digest rows. Leave feeds empty for the default warning-letters feed, or add issuing offices and watch terms.</p>
+    <p>Informational only. Not legal, regulatory, or medical advice. Not a prospecting list or outreach tool. Not ClinicalTrials.gov and not HHS OCR breach notices.</p>
+    <p class="price">from $8.00 / 1,000 FDA warning letter digest row ($0.008 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+    <p><a href="https://apify.com/taroyamada/fda-warning-letter-digest">Open FDA Warning Letters Scraper on Apify</a></p>
+
+    <h2>FDA Warning Letters Scraper, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/clinical-trials-pipeline-monitor/">ClinicalTrials.gov Sponsor Pipeline Scraper</a> for Clinical trial records; Use <a href="/hhs-healthcare-data-breach-scraper/">HHS Healthcare Data Breach Change Scraper</a> for HHS OCR breaches; Use <a href="/epa-enforcement-digest/">EPA ECHO Enforcement Scraper</a> for EPA ECHO records.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>ClinicalTrials.gov Sponsor Pipeline Scraper</th><th>HHS Healthcare Data Breach Change Scraper</th><th>EPA ECHO Enforcement Scraper</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>FDA Warning Letters Scraper</td><td>Clinical trial records</td><td>HHS OCR breaches</td><td>EPA ECHO records</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td><code>see schema</code></td><td>sponsor/condition watches</td><td>portal watch</td><td>targets[]</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>Public sources listed on the Store page</td><td>ClinicalTrials.gov</td><td>HHS OCR</td><td>EPA ECHO public pages</td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td>Dataset rows billed per live PPE</td><td>trial change rows</td><td>breach change rows</td><td>ECHO digest rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td>
+          <td>Informational only. Not legal, regulatory, or medical advice. Not a prospecting list or outreach tool. Not ClinicalTrials.gov and not HHS OCR breach notices.</td><td>Not FDA warning letters</td><td>Not FDA warning letters</td><td>Not FDA warning letters</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/fda-warning-letter-digest</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Watch CDER/CDRH warning letters for named companies or cGMP terms</li>
+      <li>Recurring snapshotKey runs for new/changed letters</li>
+      <li>Webhook when watchTerms match</li>
+    </ul>
+
+    <h2>How is FDA Warning Letters Scraper different from ClinicalTrials.gov Sponsor Pipeline Scraper and HHS Healthcare Data Breach Change Scraper?</h2>
+    <p>FDA Warning Letters Scraper (taroyamada/fda-warning-letter-digest): This Actor monitors public FDA warning-letter and import-alert metadata from official sources and emits source-linked digest rows. Leave feeds empty for the default warning-letters feed, or add issuing offices and watch terms. Informational only. Not legal, regulatory, or medical advice. Not a prospecting list or outreach tool. Not ClinicalTrials.gov and not HHS OCR breach notices. ClinicalTrials.gov Sponsor Pipeline Scraper is for Clinical trial records (input sponsor/condition watches; ClinicalTrials.gov; trial change rows). Not FDA warning letters. HHS Healthcare Data Breach Change Scraper is for HHS OCR breaches (input portal watch; HHS OCR; breach change rows). Not FDA warning letters. EPA ECHO Enforcement Scraper is for EPA ECHO records (input targets[]; EPA ECHO public pages; ECHO digest rows). Not FDA warning letters.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: none listed (see live fields). Published exampleRunInput is shown below. Quickstart: leave feeds empty to monitor the default public FDA warning letters feed, set lookbackDays=30, keep delivery=dataset, and reuse the same snapshotKey for scheduled runs</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>feeds</code></td>
+          <td>object[]</td>
+          <td><code>empty</code></td>
+          <td>Feeds to monitor. One entry per monitored feed or watchlist. Leave empty to use the default public warning_letters_latest feed. import_alerts and govdelivery are optional advanced feeds and are not enabled by default in v1. Each item supports id, name, source, searchQuery, watchTerms, lookbackDays, maxItems, maxPages, issuingOffices, alertNumbers, bulletinUrls, includeDetailPages, detailFetchLimit. item required: source</td>
+        </tr>
+        <tr>
+          <td><code>watchTerms</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Global watch terms (comma-separated). Applied to every feed in addition to any feed-level watchTerms. Matching new/changed items trigger action_needed.</td>
+        </tr>
+        <tr>
+          <td><code>lookbackDays</code></td>
+          <td>integer</td>
+          <td><code>30</code></td>
+          <td>Global lookback window (days). How far back to look for warning-letter posting dates, import-alert publish dates, or bulletin send dates. min=1 max=365</td>
+        </tr>
+        <tr>
+          <td><code>maxItemsPerFeed</code></td>
+          <td>integer</td>
+          <td><code>50</code></td>
+          <td>Max items per feed. Upper bound on normalized items per feed. Lower values keep recurring runs maintenance-light. min=1 max=200</td>
+        </tr>
+        <tr>
+          <td><code>maxPagesPerFeed</code></td>
+          <td>integer</td>
+          <td><code>5</code></td>
+          <td>Max warning-letter datatables pages. Only used for warning_letters feeds. Stop after this many public datatables requests even if the lookback window is broader. min=1 max=50</td>
+        </tr>
+        <tr>
+          <td><code>maxDetailFetchesPerFeed</code></td>
+          <td>integer</td>
+          <td><code>25</code></td>
+          <td>Max import alert detail pages per feed. Cap on detail-page enrichment for import_alerts feeds. min=0 max=100</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string enum</td>
+          <td><code>dataset</code></td>
+          <td>Delivery mode. dataset writes digest rows to the Apify dataset; webhook POSTs the digest payload to webhookUrl. enum: dataset, webhook</td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Webhook URL (required when delivery=webhook). POST target for the digest payload.</td>
+        </tr>
+        <tr>
+          <td><code>datasetMode</code></td>
+          <td>string enum</td>
+          <td><code>all</code></td>
+          <td>Dataset output mode. all emits every digest row. action_needed emits only feeds with changed items matching watch terms (plus errors). changed_only emits only feeds with new or updated items (plus errors). enum: all, action_needed, changed_only</td>
+        </tr>
+        <tr>
+          <td><code>snapshotKey</code></td>
+          <td>string</td>
+          <td><code>fda-warning-letter-digest-state</code></td>
+          <td>Snapshot key for recurring state. Stable key used to persist prior signatures per record so new and updated warning letters/import alerts can be detected across scheduled runs.</td>
+        </tr>
+        <tr>
+          <td><code>notifyOnNoNew</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Emit stable digest rows in delivery outputs. When false, delivery outputs omit feeds with no new or updated items unless the feed errored. Local output/results.json still contains the full payload.</td>
+        </tr>
+        <tr>
+          <td><code>requestTimeoutSeconds</code></td>
+          <td>integer</td>
+          <td><code>30</code></td>
+          <td>HTTP request timeout (seconds). Timeout for each public source request. min=5 max=120</td>
+        </tr>
+        <tr>
+          <td><code>batchDelayMs</code></td>
+          <td>integer</td>
+          <td><code>0</code></td>
+          <td>Delay between feeds (ms). Milliseconds to wait between feed fetches. min=0 max=10000</td>
+        </tr>
+        <tr>
+          <td><code>warningLettersApiUrl</code></td>
+          <td>string</td>
+          <td><code>https://www.fda.gov/datatables/views/ajax</code></td>
+          <td>Warning letters datatables API URL. Advanced override for the public FDA warning letters datatables endpoint.</td>
+        </tr>
+        <tr>
+          <td><code>importAlertsIndexUrl</code></td>
+          <td>string</td>
+          <td><code>https://www.accessdata.fda.gov/cms_ia/iapublishdate.html</code></td>
+          <td>Import alerts index URL. Advanced override for the public import alerts by publish date page.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run (skip snapshot writes and delivery). Fetch and assemble the digest without persisting state or posting webhooks.</td>
+        </tr>
+        <tr>
+          <td><code>nowIso</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Override current time (ISO string, for testing). Set to a fixed ISO timestamp to make runs deterministic against fixture data.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  "feeds": [
+    {
+      "id": "cder-warning-letters",
+      "name": "CDER Warning Letters",
+      "source": "warning_letters",
+      "issuingOffices": "Center for Drug Evaluation and Research",
+      "maxItems": 25
+    }
+  ],
+  "watchTerms": "Acme, sterile, cGMP",
+  "lookbackDays": 30,
+  "delivery": "dataset",
+  "datasetMode": "all",
+  "snapshotKey": "fda-warning-letters-prod",
+  "dryRun": false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/fda-warning-letter-digest">Run FDA Warning Letters Scraper on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. datasetMode can limit emits to changes_only / changed_only / action_needed versus all. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is FDA Warning Letters Scraper priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $8.00 / 1,000 FDA warning letter digest row ($0.008 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>apify-default-dataset-item</code> (FDA warning letter digest row)</td>
+          <td>$0.008</td>
+          <td>Charged only when an FDA warning letter digest row is delivered.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>The published README Cost block is stale versus the live Store pricing tab. README Cost still quotes actor-start $0.01. README Cost quotes dataset-item $0.003; live primary is $0.008 (FDA warning letter digest row). Live: FDA warning letter digest row $0.008. This page quotes live PPE only.</p>
+    <p class="price">from $8.00 / 1,000 FDA warning letter digest row ($0.008 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+    <p><a href="https://apify.com/taroyamada/fda-warning-letter-digest/pricing">See FDA Warning Letters Scraper pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Public FDA sources only</li>
+      <li>import_alerts and govdelivery are optional advanced feeds</li>
+      <li>maxPagesPerFeed caps datatables requests</li>
+      <li>Not professional advice</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/fda-warning-letter-digest">Open FDA Warning Letters Scraper on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/clinical-trials-pipeline-monitor/">ClinicalTrials.gov Sponsor Pipeline Scraper</a> — Trial records, not warning letters.</li>
+      <li><a href="/hhs-healthcare-data-breach-scraper/">HHS Healthcare Data Breach Change Scraper</a> — HHS OCR breaches, not FDA letters.</li>
+      <li><a href="/epa-enforcement-digest/">EPA ECHO Enforcement Scraper</a> — EPA ECHO facilities, not FDA letters.</li>
+      <li><a href="/product-safety-recall-digest/">Product Safety Recall Scraper</a> — FDA/CPSC recalls, not warning-letter dockets.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

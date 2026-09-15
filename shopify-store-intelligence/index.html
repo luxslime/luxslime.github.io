@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shopify Store Scraper — metadata and catalog extractor</title>
+  <meta name="description" content="taroyamada/shopify-store-intelligence. from $10.00 / 1,000 Non-Shopify ecommerce store detected ($0.01 per delivered non_shopify_store_detected). $0.00005 Actor Start. $0.05 per Store enriched. $0.02 per Partial store intelligence. Unchanged runs that write zero default-dataset rows typically charge">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/shopify-store-intelligence/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is Shopify Store Scraper different from Shopify App Store Review Scraper and B2B Pricing Scraper?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Shopify Store Scraper (taroyamada/shopify-store-intelligence): This Actor reads public Shopify JSON endpoints (homepage, /meta.json, /products.json, /collections.json, optional pages/blogs) for storeUrls you already know. No browser and no auth. It is not a store-discovery search engine. Not Shopify App Store reviews. Not checkout, customer, or authenticated Admin API data. Provide known storefront URLs only. Shopify App Store Review Scraper is for App Store reviews (input app URLs; apps.shopify.com; review rows). Not merchant storefront catalogs. B2B Pricing Scraper is for B2B public pricing pages (input competitors[]; public pricing HTML; pricing change rows). Not SaaS terms/feature snapshots. Google Maps Lead Enrichment is for Lead enrichment (input business inputs; enrichment APIs; lead rows). Not Shopify JSON catalogs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: storeUrls. Live schema fields: storeUrls, productSampleLimit, collectionSampleLimit, includeContentMetadata, contentSampleLimit, timeoutMs, delivery, webhookUrl, dryRun, maxChargeUsd. Inspect known public storefront URLs for Shopify and ecommerce signals additionalProperties is false on the live schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: storeUrls, productSampleLimit, collectionSampleLimit, includeContentMetadata, contentSampleLimit, timeoutMs, delivery, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "README output fence is truncated or invalid JSON on Store. Illustration head: { \"inputUrl\": \"https://example-shop.com\", \"normalizedUrl\": \"https://example-shop.com\", \"hostname\": \"example-shop.com\", \"status\": \"success\", \"chargedEvent\": \"store_enriched\", \"isShopify\": true, \"normalizedDomain\": \"example-shop.com\", \"storeName\": \"Example Shop\", \"currency\": \"USD\",… Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is Shopify Store Scraper priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $10.00 / 1,000 Non-Shopify ecommerce store detected ($0.01 per delivered non_shopify_store_detected). $0.00005 Actor Start. $0.05 per Store enriched. $0.02 per Partial store intelligence. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. Non-Shopify ecommerce store detected (non_shopify_store_detected) $0.01: Useful public ecommerce evidence returned for a non-Shopify storefront, such as cart, checkout, product, pricing, or platform signals. Store enriched (store_enriched) $0.05: A useful Shopify or ecommerce store intelligence result with normalized storefront identity, product/catalog signals, and commercial metadata. Partial store intelligence (store_partial) $0.02: Useful partial public storefront evidence returned when catalog or metadata coverage is limited by endpoint restrictions, timeout, or storefront structure. Actor Start (apify-actor-start) $0.00005: Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event). Platform usage is listed as included on the Store pricing tab."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Shopify Store Scraper</nav>
+    <h1>Public Shopify storefront metadata and catalog samples</h1>
+    <p>This Actor reads public Shopify JSON endpoints (homepage, /meta.json, /products.json, /collections.json, optional pages/blogs) for storeUrls you already know. No browser and no auth. It is not a store-discovery search engine.</p>
+    <p>Not Shopify App Store reviews. Not checkout, customer, or authenticated Admin API data. Provide known storefront URLs only.</p>
+    <p class="price">from $10.00 / 1,000 Non-Shopify ecommerce store detected ($0.01 per delivered non_shopify_store_detected). $0.00005 Actor Start. $0.05 per Store enriched. $0.02 per Partial store intelligence. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+    <p><a href="https://apify.com/taroyamada/shopify-store-intelligence">Open Shopify Store Scraper on Apify</a></p>
+
+    <h2>Shopify Store Scraper, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a> for App Store reviews; Use <a href="/competitive-pricing-monitor/">B2B Pricing Scraper</a> for B2B public pricing pages; Use <a href="/google-maps-lead-enrichment/">Google Maps Lead Enrichment</a> for Lead enrichment.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>Shopify App Store Review Scraper</th><th>B2B Pricing Scraper</th><th>Google Maps Lead Enrichment</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>Shopify Store Scraper</td><td>App Store reviews</td><td>B2B public pricing pages</td><td>Lead enrichment</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td><code>see schema</code></td><td>app URLs</td><td>competitors[]</td><td>business inputs</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>Public sources listed on the Store page</td><td>apps.shopify.com</td><td>public pricing HTML</td><td>enrichment APIs</td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td>Dataset rows billed per live PPE</td><td>review rows</td><td>pricing change rows</td><td>lead rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td>
+          <td>Not Shopify App Store reviews. Not checkout, customer, or authenticated Admin API data. Provide known storefront URLs only.</td><td>Not merchant storefront catalogs</td><td>Not SaaS terms/feature snapshots</td><td>Not Shopify JSON catalogs</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/shopify-store-intelligence</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Known-store catalog samples</li>
+      <li>Currency/price-range merch rollups</li>
+      <li>Optional public page/blog metadata</li>
+    </ul>
+
+    <h2>How is Shopify Store Scraper different from Shopify App Store Review Scraper and B2B Pricing Scraper?</h2>
+    <p>Shopify Store Scraper (taroyamada/shopify-store-intelligence): This Actor reads public Shopify JSON endpoints (homepage, /meta.json, /products.json, /collections.json, optional pages/blogs) for storeUrls you already know. No browser and no auth. It is not a store-discovery search engine. Not Shopify App Store reviews. Not checkout, customer, or authenticated Admin API data. Provide known storefront URLs only. Shopify App Store Review Scraper is for App Store reviews (input app URLs; apps.shopify.com; review rows). Not merchant storefront catalogs. B2B Pricing Scraper is for B2B public pricing pages (input competitors[]; public pricing HTML; pricing change rows). Not SaaS terms/feature snapshots. Google Maps Lead Enrichment is for Lead enrichment (input business inputs; enrichment APIs; lead rows). Not Shopify JSON catalogs.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: <code>storeUrls</code>. Published exampleRunInput is shown below. Inspect known public storefront URLs for Shopify and ecommerce signals</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>storeUrls</code></td>
+          <td>string[] required</td>
+          <td><code>empty</code></td>
+          <td>required Known Storefront URLs. One or more known storefront URLs to inspect. Custom domains and *.myshopify.com domains both work. This actor does not search for stores; maximum 50 URLs per run. minItems=1</td>
+        </tr>
+        <tr>
+          <td><code>productSampleLimit</code></td>
+          <td>integer</td>
+          <td><code>25</code></td>
+          <td>Product Sample Limit. Maximum number of public products to fetch per store from /products.json. ProductCount, priceRange, productsSample, and merch rollups are based on this sample, not the full catalog. min=1 max=250</td>
+        </tr>
+        <tr>
+          <td><code>collectionSampleLimit</code></td>
+          <td>integer</td>
+          <td><code>25</code></td>
+          <td>Collection Sample Limit. Maximum number of public collections to fetch per store from /collections.json. min=1 max=250</td>
+        </tr>
+        <tr>
+          <td><code>includeContentMetadata</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Include Pages / Blogs Metadata. Attempt lightweight metadata fetches from /pages.json and /blogs.json when public storefront endpoints expose them. Leave off for the fastest analyst baseline.</td>
+        </tr>
+        <tr>
+          <td><code>contentSampleLimit</code></td>
+          <td>integer</td>
+          <td><code>10</code></td>
+          <td>Content Sample Limit. Maximum public pages or blogs to sample per store when includeContentMetadata is enabled. min=1 max=100</td>
+        </tr>
+        <tr>
+          <td><code>timeoutMs</code></td>
+          <td>integer</td>
+          <td><code>15000</code></td>
+          <td>Timeout (ms). Per-request timeout in milliseconds. Timeout rows are no-charge diagnostics when useful storefront data cannot be captured. min=1000 max=30000</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string enum</td>
+          <td><code>dataset</code></td>
+          <td>Delivery Mode. Start with dataset for analyst inspection. Webhook writes dataset rows first, then posts the same meta/results payload to your endpoint. enum: dataset, webhook</td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Webhook URL. Required only when delivery is webhook. Leave empty for dataset-first Store quickstarts.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry Run. If true, skips dataset writes and webhook delivery while still writing local output/result.json. Use for development shape checks only.</td>
+        </tr>
+        <tr>
+          <td><code>maxChargeUsd</code></td>
+          <td>number</td>
+          <td><code>2.5</code></td>
+          <td>Max Charge USD. Hard safety cap for custom PPE result events in this run. Rows that would exceed the cap are emitted as no-charge limit_reached diagnostics. min=0 max=100</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  "storeUrls": [
+    "https://colourpop.com",
+    "https://allbirds.com"
+  ],
+  "productSampleLimit": 25,
+  "collectionSampleLimit": 25,
+  "includeContentMetadata": false,
+  "contentSampleLimit": 10,
+  "timeoutMs": 15000,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/shopify-store-intelligence">Run Shopify Store Scraper on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>README output fence is truncated or invalid JSON on Store. Illustration head: { "inputUrl": "https://example-shop.com", "normalizedUrl": "https://example-shop.com", "hostname": "example-shop.com", "status": "success", "chargedEvent": "store_enriched", "isShopify": true, "normalizedDomain": "example-shop.com", "storeName": "Example Shop", "currency": "USD",… Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is Shopify Store Scraper priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $10.00 / 1,000 Non-Shopify ecommerce store detected ($0.01 per delivered non_shopify_store_detected). $0.00005 Actor Start. $0.05 per Store enriched. $0.02 per Partial store intelligence. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>non_shopify_store_detected</code> (Non-Shopify ecommerce store detected)</td>
+          <td>$0.01</td>
+          <td>Useful public ecommerce evidence returned for a non-Shopify storefront, such as cart, checkout, product, pricing, or platform signals.</td>
+        </tr>
+        <tr>
+          <td><code>store_enriched</code> (Store enriched)</td>
+          <td>$0.05</td>
+          <td>A useful Shopify or ecommerce store intelligence result with normalized storefront identity, product/catalog signals, and commercial metadata.</td>
+        </tr>
+        <tr>
+          <td><code>store_partial</code> (Partial store intelligence)</td>
+          <td>$0.02</td>
+          <td>Useful partial public storefront evidence returned when catalog or metadata coverage is limited by endpoint restrictions, timeout, or storefront structure.</td>
+        </tr>
+        <tr>
+          <td><code>apify-actor-start</code> (Actor Start)</td>
+          <td>$0.00005</td>
+          <td>Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="price">from $10.00 / 1,000 Non-Shopify ecommerce store detected ($0.01 per delivered non_shopify_store_detected). $0.00005 Actor Start. $0.05 per Store enriched. $0.02 per Partial store intelligence. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+    <p><a href="https://apify.com/taroyamada/shopify-store-intelligence/pricing">See Shopify Store Scraper pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>storeUrls required</li>
+      <li>Public JSON only</li>
+      <li>productSampleLimit / collectionSampleLimit caps</li>
+      <li>Not App Store reviews</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/shopify-store-intelligence">Open Shopify Store Scraper on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a> — apps.shopify.com reviews, not merchant catalogs.</li>
+      <li><a href="/competitive-pricing-monitor/">B2B Pricing Scraper</a> — HTML pricing pages, not Shopify JSON.</li>
+      <li><a href="/google-maps-lead-enrichment/">Google Maps Lead Enrichment</a> — Lead enrichment, not Shopify endpoints.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>
