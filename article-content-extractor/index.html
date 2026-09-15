@@ -3,14 +3,47 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Article Content Extractor Apify — extract headline, byline, and body from news, blog, and press URLs</title>
-  <meta name="description" content="Article Content Extractor Apify extracts article bodies, bylines, publish dates, excerpts, and hero images from public news, blog, newsroom, and press URLs. Live PPE: $0.008 per useful article row; $2.50 per audit report.">
+  <title>Article Content Extractor Apify — extract headline, byline, and body from news and blog URLs</title>
+  <meta name="description" content="Article Content Extractor Apify extracts headline, byline, publish date, body, excerpt, and hero image from public news, blog, newsroom, and press URLs. Store: taroyamada/article-content-extractor. Live PPE: $0.008 per useful article row; $2.50 per audit report.">
+  <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://apify.momiji-space.com/article-content-extractor/">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "name": "Article Content Extractor Apify",
+        "url": "https://apify.momiji-space.com/article-content-extractor/",
+        "description": "Article Content Extractor Apify extracts headline, byline, and body from public news, blog, and press URLs. Store actor taroyamada/article-content-extractor."
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is Article Content Extractor Apify?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Article Content Extractor Apify is the taroyamada Store actor article-content-extractor. It fetches public news, blog, newsroom, and press URLs you already have and returns structured article rows: headline, byline, publish date, body, excerpt, and hero image. It is not Google News search and not a full-site crawler. The live Store listing is https://apify.com/taroyamada/article-content-extractor."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I use Article Content Extractor Apify?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Open the Store listing, pass a urls list of article-shaped HTTP(S) pages (maximum 300), keep includeImages false for the cheapest first paid run, and leave generateReport and emitExport off. See the cheapest first paid run guide on this site."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Where is the Article Content Extractor Apify Store page?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The live listing is https://apify.com/taroyamada/article-content-extractor. This page is the English landing on apify.momiji-space.com/article-content-extractor/."
+        }
+      },
       {
         "@type": "Question",
         "name": "How is Article Content Extractor different from Website Content Extractor?",
@@ -123,6 +156,8 @@
           "text": "No. Required input is a urls list of article-shaped HTTP(S) pages. For query-based Google News RSS discovery use Google News Scraper (queries). For known-publisher feed XML use RSS & Atom Feed Extractor (feedUrls). After those discovery runs, send news, blog, and press page URLs here and docs, pricing, policy, or product URLs to Website Content Extractor."
         }
       }
+        ]
+      }
     ]
   }
   </script>
@@ -147,14 +182,23 @@
 <body>
   <main>
     <nav><a href="/">Home</a> / Article Content Extractor</nav>
-    <h1>Article Content Extractor Apify — headline, byline, and body from news, blog, and press URLs</h1>
-    <p><a href="https://apify.com/taroyamada/article-content-extractor">Article Content Extractor Apify</a> fetches public news, blog, newsroom, and press pages you already have and returns structured article rows: headline, byline, publish date, body, excerpt, and hero image. It is a bounded HTML cleanup step for research, content QA, and RAG ingestion — not a ranking tool, a full-site crawler, or a Google News search. For docs, pricing, policy, product, and help-center pages, use <a href="/website-content-extractor/">Website Content Extractor</a>. For the RAG split, see <a href="/compare/article-vs-website-content-extractor/">Article Content Extractor vs Website Content Extractor for RAG</a>. For query-based headline discovery, use <a href="/google-news-scraper/">Google News Scraper</a>.</p>
+    <h1>Article Content Extractor Apify — extract headline, byline, and body from news and blog URLs</h1>
+    <p>Article Content Extractor Apify fetches public news, blog, newsroom, and press pages you already have and returns structured article rows: headline, byline, publish date, body, excerpt, and hero image. Store actor <code>taroyamada/article-content-extractor</code>. It is a bounded HTML cleanup step for research, content QA, and RAG ingestion — not a ranking tool, a full-site crawler, or a Google News search. For docs, pricing, policy, product, and help-center pages, use <a href="/website-content-extractor/">Website Content Extractor Apify</a>. For the RAG split, see <a href="/compare/article-vs-website-content-extractor/">Article Content Extractor vs Website Content Extractor for RAG</a>. For query-based headline discovery, use <a href="/google-news-scraper/">Google News Scraper Apify</a>.</p>
     <p class="price">From $2,500.00 / 1,000 article content audit reports ($2.50 per report). Useful article row $0.008 ($8.00 / 1,000). Batch export $5.00. Actor Start $0.00005. Cheapest first paid path leaves both value events off.</p>
     <p><a href="https://apify.com/taroyamada/article-content-extractor">Open Article Content Extractor on Apify</a>
       ·
       <a href="/guides/article-extractor-first-paid-run/">Cheapest first paid run</a>
       ·
       <a href="/compare/article-vs-website-content-extractor/">Compare with Website Content Extractor</a></p>
+
+    <h2>What is Article Content Extractor Apify?</h2>
+    <p>Article Content Extractor Apify is the taroyamada Store actor <code>article-content-extractor</code>. It fetches public news, blog, newsroom, and press URLs you already have and returns structured article rows: headline, byline, publish date, body, excerpt, and hero image. It is not Google News search and not a full-site crawler.</p>
+
+    <h2>How do I use Article Content Extractor Apify?</h2>
+    <p>Pass a <code>urls</code> list of article-shaped HTTP(S) pages (maximum 300). Keep <code>includeImages</code> false for the cheapest first paid run and leave <code>generateReport</code> and <code>emitExport</code> off. See the <a href="/guides/article-extractor-first-paid-run/">cheapest first paid run</a>.</p>
+
+    <h2>Where is the Article Content Extractor Apify Store page?</h2>
+    <p>The live listing is <a href="https://apify.com/taroyamada/article-content-extractor">https://apify.com/taroyamada/article-content-extractor</a>. This page is the English landing.</p>
 
     <h2>Articles versus site pages versus news discovery</h2>
     <p>Use this page when the URLs are article-shaped: news, blog, newsroom, or press. Use <a href="/website-content-extractor/">Website Content Extractor</a> when the URLs are broader site pages that are not article-shaped. Side-by-side: <a href="/compare/article-vs-website-content-extractor/">Article Content Extractor vs Website Content Extractor for RAG</a>. Use <a href="/google-news-scraper/">Google News Scraper</a> when you still need article URLs from search queries.</p>
@@ -413,6 +457,15 @@
     <h2>Can I send Google News queries or RSS feed URLs into Article Content Extractor?</h2>
     <p>No. Required input is a <code>urls</code> list of article-shaped HTTP(S) pages. For query-based Google News RSS discovery use <a href="/google-news-scraper/">Google News Scraper</a> (<code>queries</code>). For known-publisher feed XML use <a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a> (<code>feedUrls</code>). After those discovery runs, send news, blog, and press page URLs here and docs, pricing, policy, or product URLs to <a href="/website-content-extractor/">Website Content Extractor</a>.</p>
     <p><a href="https://apify.com/taroyamada/article-content-extractor">Open Article Content Extractor on Apify</a></p>
+
+    <h2>Related actors</h2>
+    <ul>
+      <li><a href="/website-content-extractor/">Website Content Extractor Apify</a> — docs, pricing, policy, and help-center HTML</li>
+      <li><a href="/google-news-scraper/">Google News Scraper Apify</a> — query-based headline discovery before cleanup</li>
+      <li><a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a> — known-publisher feed XML</li>
+      <li><a href="/youtube-transcript-scraper/">YouTube Transcript Scraper Apify</a> — video captions, not article HTML</li>
+      <li><a href="/wayback-machine-bulk-checker/">Wayback Machine Bulk Checker</a> — Internet Archive availability, not live HTML</li>
+    </ul>
 
     <h2>Related pages</h2>
     <ul>

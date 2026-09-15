@@ -3,14 +3,47 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>G2 Reviews Scraper Apify — G2 Capterra reviews scraper for ratings, pros, and cons</title>
-  <meta name="description" content="G2 Reviews Scraper Apify parses public G2 (g2.com/products/{slug}/reviews) and Capterra (capterra.com/p/{id}/{slug}/reviews/) pages into product ratings, rating breakdowns, and review rows with pros and cons. Live PPE: from $3.00 / 1,000 results ($0.003 per result). Not Shopify App Store listings. Not Apple Podcasts RSS.">
+  <title>G2 Reviews Scraper Apify — G2 and Capterra ratings, pros, and cons</title>
+  <meta name="description" content="G2 Reviews Scraper Apify scrapes public G2 and Capterra review pages into ratings, pros, and cons. Store: taroyamada/g2-capterra-review-intelligence. Live PPE: from $3.00 / 1,000 results ($0.003 per result). Not Shopify App Store. Not Trustpilot. Not Apple Podcasts RSS.">
+  <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://apify.momiji-space.com/g2-capterra-review-scraper/">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "name": "G2 Reviews Scraper Apify",
+        "url": "https://apify.momiji-space.com/g2-capterra-review-scraper/",
+        "description": "G2 Reviews Scraper Apify parses public G2 and Capterra review pages into ratings, pros, and cons. Store actor taroyamada/g2-capterra-review-intelligence."
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is G2 Reviews Scraper Apify?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "G2 Reviews Scraper Apify is the taroyamada Store actor g2-capterra-review-intelligence. It reads public G2 (g2.com/products/{slug}/reviews) and Capterra (capterra.com/p/{id}/{slug}/reviews/) pages into product ratings, rating breakdowns, and review rows with pros and cons. The live Store listing is https://apify.com/taroyamada/g2-capterra-review-intelligence."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I use G2 Reviews Scraper Apify?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Pass one public G2 reviewPageUrls item in the published review-page format, keep reviewLimit at 1 on the first paid run, leave delivery on dataset, and mix Capterra only after that one-URL schema check. See the cheapest first paid run guide on this site."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Where is the G2 Reviews Scraper Apify Store page?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The live listing is https://apify.com/taroyamada/g2-capterra-review-intelligence. This page is the English landing on apify.momiji-space.com/g2-capterra-review-scraper/."
+        }
+      },
       {
         "@type": "Question",
         "name": "How is G2 & Capterra Review Scraper different from Shopify App Store Review Scraper and Apple Podcasts Reviews Scraper?",
@@ -123,6 +156,8 @@
           "text": "The published README says the meta section reports implementationStatus as live, partial, degraded, or no_valid_sources. Per-product status is ok, partial, blocked, or error, with fetchError when a fetch failed and warnings when page shapes change or access is blocked. Use those fields instead of treating a thin or blocked page as a silent empty success."
         }
       }
+        ]
+      }
     ]
   }
   </script>
@@ -147,14 +182,23 @@
 <body>
   <main>
     <nav><a href="/">Home</a> / G2 &amp; Capterra Review Scraper</nav>
-    <h1>G2 Reviews Scraper on Apify — G2 &amp; Capterra review pages to ratings, pros, and cons</h1>
-    <p>G2 Reviews Scraper Apify is the G2 Capterra reviews scraper (Store id <a href="https://apify.com/taroyamada/g2-capterra-review-intelligence"><code>taroyamada/g2-capterra-review-intelligence</code></a>). It reads public G2 and Capterra product review pages you supply. The live Store description is: scrape B2B software reviews, pros and cons, ratings, and reviewer metadata from G2 and Capterra pages for SaaS competitor research. Required input is <code>reviewPageUrls</code>. The Actor auto-detects G2 versus Capterra and routes each URL to the matching parser. For one catalog versus mixed G2 and Capterra URLs in the same run, see <a href="/compare/g2-capterra-dual-source-vs-single-source/">G2 + Capterra dual-source vs single-source review scrape</a>. It is not a Shopify App Store listing tool and not an Apple Podcasts review RSS tool — those jobs belong on <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a> and <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a>.</p>
+    <h1>G2 Reviews Scraper Apify — G2 and Capterra ratings, pros, and cons</h1>
+    <p>G2 Reviews Scraper Apify is the G2 Capterra reviews scraper (Store id <a href="https://apify.com/taroyamada/g2-capterra-review-intelligence"><code>taroyamada/g2-capterra-review-intelligence</code></a>). It reads public G2 and Capterra product review pages you supply. The live Store description is: scrape B2B software reviews, pros and cons, ratings, and reviewer metadata from G2 and Capterra pages for SaaS competitor research. Required input is <code>reviewPageUrls</code>. The Actor auto-detects G2 versus Capterra and routes each URL to the matching parser. For one catalog versus mixed G2 and Capterra URLs in the same run, see <a href="/compare/g2-capterra-dual-source-vs-single-source/">G2 + Capterra dual-source vs single-source review scrape</a>. It is not a Shopify App Store listing tool, not Trustpilot, and not an Apple Podcasts review RSS tool — those jobs belong on <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper Apify</a>, <a href="/trustpilot-reviews-scraper/">Trustpilot Reviews Scraper Apify</a>, and <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a>.</p>
     <p class="price">from $3.00 / 1,000 results ($0.003 per default-dataset result titled result; Actor Start $0.001)</p>
     <p><a href="https://apify.com/taroyamada/g2-capterra-review-intelligence">Open G2 &amp; Capterra Review Scraper on Apify</a>
       ·
       <a href="/guides/g2-reviews-scraper-first-paid-run/">Cheapest first paid run</a>
       ·
       <a href="/compare/g2-capterra-dual-source-vs-single-source/">Compare dual-source vs single-source</a></p>
+
+    <h2>What is G2 Reviews Scraper Apify?</h2>
+    <p>G2 Reviews Scraper Apify is the taroyamada Store actor <code>g2-capterra-review-intelligence</code>. It reads public G2 and Capterra product review pages into ratings, rating breakdowns, and review rows with pros and cons. The live listing is <a href="https://apify.com/taroyamada/g2-capterra-review-intelligence">https://apify.com/taroyamada/g2-capterra-review-intelligence</a>.</p>
+
+    <h2>How do I use G2 Reviews Scraper Apify?</h2>
+    <p>Pass one public G2 <code>reviewPageUrls</code> item, keep <code>reviewLimit</code> at 1 on the first paid run, leave <code>delivery</code> on <code>dataset</code>, and mix Capterra only after that one-URL schema check. See the <a href="/guides/g2-reviews-scraper-first-paid-run/">cheapest first paid run</a>.</p>
+
+    <h2>Where is the G2 Reviews Scraper Apify Store page?</h2>
+    <p>The live listing is <a href="https://apify.com/taroyamada/g2-capterra-review-intelligence">https://apify.com/taroyamada/g2-capterra-review-intelligence</a>. This page is the English landing.</p>
 
     <h2>G2 and Capterra software reviews, not Shopify apps or podcasts</h2>
     <p>Use this page when the job is B2B software reputation on G2 or Capterra: category benchmarks, competitor proof points, and a single schema across both sites. Dual-source versus one catalog: <a href="/compare/g2-capterra-dual-source-vs-single-source/">G2 + Capterra dual-source vs single-source review scrape</a>. Use <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a> when the source is a merchant listing at <code>apps.shopify.com/{slug}</code>. Use <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> when the source is Apple/iTunes Customer Reviews RSS for podcast collection IDs.</p>
@@ -367,6 +411,15 @@
       ·
       <a href="/guides/g2-reviews-scraper-first-paid-run/">Cheapest first paid run</a></p>
 
+    <h2>Related actors</h2>
+    <ul>
+      <li><a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper Apify</a> — apps.shopify.com listings</li>
+      <li><a href="/trustpilot-reviews-scraper/">Trustpilot Reviews Scraper Apify</a> — Trustpilot company profiles</li>
+      <li><a href="/google-maps-reviews-scraper/">Google Maps Review Scraper Apify</a> — Maps place HTML snippets</li>
+      <li><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> — iTunes Customer Reviews RSS</li>
+      <li><a href="/chrome-web-store-extension-intelligence/">Chrome Web Store Extension Intelligence</a> — extension listings, not G2</li>
+    </ul>
+
     <h2>Related pages</h2>
     <ul>
       <li><a href="/compare/g2-capterra-dual-source-vs-single-source/">G2 + Capterra dual-source vs single-source review scrape</a> — one catalog versus mixed URLs in one run</li>
@@ -376,6 +429,8 @@
       <li><a href="/tools/">Tools</a></li>
       <li><a href="/">Home</a></li>
       <li><a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a> — Shopify merchant listings, not G2 or Capterra</li>
+      <li><a href="/trustpilot-reviews-scraper/">Trustpilot Reviews Scraper Apify</a> — Trustpilot company profiles, not G2</li>
+      <li><a href="/google-maps-reviews-scraper/">Google Maps Review Scraper Apify</a> — Maps place HTML snippets, not G2</li>
       <li><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> — public podcast review RSS, not B2B software review sites</li>
       <li><a href="/use-cases/apple-podcast-reviews/">Apple Podcasts reviews scraper</a></li>
       <li><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> — show search, episodes, and watchlists</li>

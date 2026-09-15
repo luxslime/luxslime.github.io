@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Google Maps Reviews Scraper Apify — ratings and review snippets from place URLs</title>
+  <meta name="description" content="Google Maps Reviews Scraper Apify reads public Google Maps place pages into ratings, review snippets, and place metadata. Store: taroyamada/google-maps-review-intelligence. Live PPE: $0.008 per result; Actor Start $0.001. Not lead-row enrichment. Snippets are whatever is embedded in public HTML.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/google-maps-reviews-scraper/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "name": "Google Maps Reviews Scraper Apify",
+        "url": "https://apify.momiji-space.com/google-maps-reviews-scraper/",
+        "description": "English landing for taroyamada/google-maps-review-intelligence. Public Google Maps place URLs to ratings and HTML-embedded review snippets."
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is Google Maps Reviews Scraper Apify?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Google Maps Reviews Scraper Apify is the taroyamada Store actor google-maps-review-intelligence. It fetches public Google Maps place pages and extracts structured place and review signals from public HTML: place metadata, aggregate rating and review counts, and public review snippets when they are embedded in the page."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is this a Google Maps reviews scraper on Apify?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, for public place HTML. Required input is placeUrls (Maps place URLs, goo.gl/maps share links, maps.app.goo.gl links, or /maps/place/ URLs). The live schema notes that full review extraction requires the Places API; this Actor returns whatever review snippets are embedded in the public HTML. It is not Google Maps Lead Enrichment, which does not scrape Google Maps."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Where is the Google Maps Reviews Scraper Apify Store page?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The live listing is https://apify.com/taroyamada/google-maps-review-intelligence. This page is the English landing on apify.momiji-space.com."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How is Google Maps Review Scraper different from Google Maps Lead Enrichment?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "This Actor reads public Maps place HTML you supply in placeUrls. Google Maps Lead Enrichment appends website, contact, social, and health fields to existing lead rows or an Apify dataset you already have; it does not scrape Google Maps itself. Use this Actor for place ratings and HTML snippets. Use Lead Enrichment when the Maps export already exists and you need public website/contact fields."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Which live input fields does Google Maps Review Scraper accept?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The published input schema requires placeUrls. Optional fields are reviewLimit (integer, default 200; maximum review snippets per place), delivery (dataset or webhook, default dataset), webhookUrl (when delivery is webhook), and dryRun (boolean, default false). additionalProperties is false. Schema prefill is https://www.google.com/maps/place/Tokyo+Station/."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does Google Maps Reviews Scraper Apify return every review on a place?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No guarantee. The live schema description for reviewLimit says full review extraction requires the Places API; this Actor returns whatever review snippets are embedded in the public HTML. Use that bound instead of treating the output as a complete review dump."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What place fields can a run include?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The published README summary lists normalized place metadata (name, address, coordinates, category, phone, website), aggregate rating and review counts, public review snippets, and provenance/warning indicators. Extraction uses meta tags (og:title, og:description, og:image), JSON-LD LocalBusiness schema, embedded script data, URL components, and inline text patterns. That summary is not a live coverage guarantee for every place URL."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How is Google Maps Review Scraper priced?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Billing is pay-per-event. Published events are Actor Start at $0.001 (charged when the Actor starts; one event per GB, minimum one event) and result at $0.008 (single result in the default dataset). Check the Store pricing card for the current per-event rates."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do dataset, webhook, and dryRun work?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "delivery defaults to dataset. Set delivery to webhook and provide webhookUrl to POST results. dryRun true runs extraction without saving to the dataset or delivering to webhook. The published enum is dataset or webhook."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does Google Maps Reviews Scraper Apify accept a Google login, cookie, or Places API key?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. The published input schema is placeUrls, reviewLimit, delivery, webhookUrl, and dryRun. There is no login, cookie, or Places API key field. This independent Actor is not affiliated with or endorsed by Google. Do not use the output to target individual reviewers."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Google Maps Reviews Scraper</nav>
+    <h1>Google Maps Reviews Scraper Apify — ratings and review snippets from place URLs</h1>
+    <p>Google Maps Reviews Scraper Apify (Store id <code>taroyamada/google-maps-review-intelligence</code>) reads public Google Maps place pages you supply. Required input is <code>placeUrls</code>. The live Store description is: Google Maps reviews scraper: ratings, review text, place URL. The live schema notes that full review extraction requires the Places API; this Actor returns whatever review snippets are embedded in the public HTML. It is not <a href="/google-maps-lead-enrichment/">Google Maps Lead Enrichment</a>, which does <strong>not</strong> scrape Google Maps.</p>
+    <p class="price">$0.008 per default-dataset result titled result; Actor Start $0.001. Check the live Store pricing card.</p>
+    <p><a href="https://apify.com/taroyamada/google-maps-review-intelligence">Open Google Maps Review Scraper on Apify</a>
+      ·
+      <a href="https://apify.com/taroyamada/google-maps-review-intelligence/input">Open Input</a></p>
+
+    <h2>What is Google Maps Reviews Scraper Apify?</h2>
+    <p>Google Maps Reviews Scraper Apify is the taroyamada Store actor <code>google-maps-review-intelligence</code>. It fetches initial HTML from public place URLs and extracts structured place and review signals. This English landing is <a href="https://apify.momiji-space.com/google-maps-reviews-scraper/">https://apify.momiji-space.com/google-maps-reviews-scraper/</a>.</p>
+
+    <h2>Is this a Google Maps reviews scraper on Apify?</h2>
+    <p>Yes, for public place HTML. Pass Maps place URLs, <code>goo.gl/maps</code> share links, <code>maps.app.goo.gl</code> links, or <code>/maps/place/</code> URLs in <code>placeUrls</code>. Do not expect a complete Places API dump: snippets are whatever is embedded in the public HTML.</p>
+<pre><code>{
+  "placeUrls": [
+    "https://www.google.com/maps/place/Tokyo+Station/"
+  ],
+  "reviewLimit": 200,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+
+    <h2>Where is the Google Maps Reviews Scraper Apify Store page?</h2>
+    <p>The live listing is <a href="https://apify.com/taroyamada/google-maps-review-intelligence">https://apify.com/taroyamada/google-maps-review-intelligence</a>.</p>
+
+    <h2>Maps place HTML, not lead-row enrichment and not Trustpilot</h2>
+    <p>Use this page when the job is public Maps place ratings and HTML-embedded review snippets. Use <a href="/google-maps-lead-enrichment/">Google Maps Lead Enrichment Scraper</a> when you already have lead rows and need website, email, phone, social, and health fields. Use <a href="/trustpilot-reviews-scraper/">Trustpilot Reviews Scraper Apify</a> for Trustpilot company profiles. Use <a href="/g2-capterra-review-scraper/">G2 Reviews Scraper Apify</a> for G2 and Capterra product pages.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>This Actor</th>
+          <th>Google Maps Lead Enrichment</th>
+          <th>Trustpilot Reviews Scraper Apify</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>Place ratings and HTML review snippets</td>
+          <td>Enrich existing lead rows; does not scrape Maps</td>
+          <td>Trustpilot company ratings and samples</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td><code>placeUrls</code></td>
+          <td><code>leads</code> or <code>sourceDatasetId</code></td>
+          <td><code>companyUrls</code></td>
+        </tr>
+        <tr>
+          <td>Published price</td>
+          <td>$0.008 per result; Actor Start $0.001</td>
+          <td>$0.025 enriched / $0.01 partial; Start $0.00005</td>
+          <td>$0.01 per result; Actor Start $0.001</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Which live input fields does Google Maps Review Scraper accept?</h2>
+    <p><code>placeUrls</code> is required. Optional published fields are <code>reviewLimit</code> (default 200), <code>delivery</code> (<code>dataset</code> or <code>webhook</code>), <code>webhookUrl</code>, and <code>dryRun</code>. <code>additionalProperties</code> is false.</p>
+
+    <h2>Does Google Maps Reviews Scraper Apify return every review on a place?</h2>
+    <p>No guarantee. The live schema says full review extraction requires the Places API; this Actor returns whatever review snippets are embedded in the public HTML.</p>
+
+    <h2>What place fields can a run include?</h2>
+    <p>The published README summary lists name, address, coordinates, category, phone, website, aggregate rating and review counts, public review snippets, and provenance/warning indicators. Extraction uses Open Graph meta tags, JSON-LD LocalBusiness, embedded script data, URL components, and inline text patterns. That list is not a live coverage guarantee for every URL.</p>
+
+    <h2>How is Google Maps Review Scraper priced?</h2>
+    <p>Billing is pay-per-event. Published events are Actor Start at <strong>$0.001</strong> and result at <strong>$0.008</strong>. Check the Store pricing card for current rates.</p>
+    <p><a href="https://apify.com/taroyamada/google-maps-review-intelligence/pricing">See Google Maps Review Scraper pricing on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dryRun work?</h2>
+    <p><code>delivery</code> defaults to <code>dataset</code>. Set <code>delivery</code> to <code>webhook</code> and provide <code>webhookUrl</code> to POST results. <code>dryRun</code> true runs extraction without saving to the dataset or webhook.</p>
+
+    <h2>Does Google Maps Reviews Scraper Apify accept a Google login or Places API key?</h2>
+    <p>No. The published input schema is <code>placeUrls</code>, <code>reviewLimit</code>, <code>delivery</code>, <code>webhookUrl</code>, and <code>dryRun</code>. This independent Actor is not affiliated with or endorsed by Google. Do not use the output to target individual reviewers.</p>
+
+    <h2>Related actors</h2>
+    <ul>
+      <li><a href="/google-maps-lead-enrichment/">Google Maps Lead Enrichment Scraper</a> — existing lead rows, not Maps HTML</li>
+      <li><a href="/trustpilot-reviews-scraper/">Trustpilot Reviews Scraper Apify</a> — Trustpilot company pages</li>
+      <li><a href="/g2-capterra-review-scraper/">G2 Reviews Scraper Apify</a> — G2 and Capterra product reviews</li>
+      <li><a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper Apify</a> — apps.shopify.com listings</li>
+      <li><a href="/contact-details-extractor/">Contact Page Audit &amp; Business Channel Extractor</a> — contact-page inventory you supply</li>
+    </ul>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/review-intelligence/">Review Intelligence pack</a></li>
+      <li><a href="/google-maps-lead-enrichment/">Google Maps Lead Enrichment Scraper</a></li>
+      <li><a href="/trustpilot-reviews-scraper/">Trustpilot Reviews Scraper Apify</a></li>
+      <li><a href="/g2-capterra-review-scraper/">G2 Reviews Scraper Apify</a></li>
+      <li><a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper Apify</a></li>
+      <li><a href="/contact-details-extractor/">Contact Page Audit &amp; Business Channel Extractor</a></li>
+      <li><a href="/bulk-url-status-checker/">Bulk URL Status Checker</a></li>
+      <li><a href="/tools/">Tools</a></li>
+      <li><a href="/">Home</a></li>
+    </ul>
+  </main>
+</body>
+</html>
