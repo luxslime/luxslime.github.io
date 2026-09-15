@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CourtListener Public Opinion Watch — stable-ID opinion triggers</title>
+  <meta name="description" content="taroyamada/courtlistener-public-docket-opinion-watch-scraper. from $8.00 / 1,000 result ($0.008 per delivered apify-default-dataset-item). $0.00005 Actor Start. Unchan…">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/courtlistener-public-docket-opinion-watch-scraper/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is CourtListener Public Opinion Watch different from USPTO Patent Search Scraper and SEC EDGAR Scraper?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "CourtListener Public Opinion Watch (taroyamada/courtlistener-public-docket-opinion-watch-scraper): This Actor watches public CourtListener opinion search results with stable IDs for litigation trigger monitoring. No user API key, PACER purchase, or sealed-document access. Not PACER, not sealed documents, not USPTO patents. No user API key. Informational only. Not legal advice. USPTO Patent Search Scraper is for Keyword filing alerts (input search terms; USPTO public search; Patent rows). Not CourtListener opinions. SEC EDGAR Scraper is for 8-K and S-1 filing alerts (input companies; Public EDGAR; Filing-index rows). Not Form D notices or 8-K item candidates. Federal Register Scraper is for FR rules and notices (input watch terms; Federal Register; FR digest rows). Not eCFR section diffs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: none (see live fields). Live schema fields: queries, daysBack, knownStableIds, maxChargeUsd, limit, firstRunMode, delivery, webhookUrl, dryRun. Watch public CourtListener opinion search results without user API keys, PACER purchases, or sealed-document access. exampleRunInput keys: queries, knownStableIds, daysBack, limit, firstRunMode, delivery, dryRun, maxChargeUsd. additionalProperties is false on the live schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: queries, knownStableIds, daysBack, limit, firstRunMode, delivery, dryRun, maxChargeUsd. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "README output fence is truncated or invalid JSON on Store. Illustration head: { \"meta\": { \"actorName\": \"courtlistener-public-docket-opinion-watch-scraper\", \"actorTitle\": \"CourtListener Public Docket & Opinion Watch Scraper\", \"bundle\": \"Regulatory Trigger Pack\", \"fetchedAt\": \"2026-05-06T00:00:00.000Z\", \"totalRows\": 1 }, \"rows\": [ { \"actorName\": \"courtlisten\u2026 Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is CourtListener Public Opinion Watch priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $8.00 / 1,000 result ($0.008 per delivered apify-default-dataset-item). $0.00005 Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. Actor Start (apify-actor-start) $0.00005: Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event). result (apify-default-dataset-item) $0.008: Single result in the default dataset. README quotes $0.001 actor start; live Store Actor Start is $0.00005. README quotes $0.020 per emitted trigger row; live primary is $0.008 (result). This page quotes live PPE only. Platform usage is listed as included on the Store pricing tab."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / CourtListener Public Opinion Watch</nav>
+    <h1>Public CourtListener opinion search with stable IDs</h1>
+    <p>This Actor watches public CourtListener opinion search results with stable IDs for litigation trigger monitoring. No user API key, PACER purchase, or sealed-document access.</p>
+    <p>Not PACER, not sealed documents, not USPTO patents. No user API key. Informational only. Not legal advice.</p>
+    <p class="price">from $8.00 / 1,000 result ($0.008 per delivered apify-default-dataset-item). $0.00005 Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+    <p><a href="https://apify.com/taroyamada/courtlistener-public-docket-opinion-watch-scraper">Open CourtListener Public Opinion Watch on Apify</a></p>
+
+    <h2>CourtListener Public Opinion Watch, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/uspto-patent-scraper/">USPTO Patent Search Scraper</a> for Keyword filing alerts; Use <a href="/sec-edgar-filings-monitor/">SEC EDGAR Scraper</a> for 8-K and S-1 filing alerts; Use <a href="/federal-register-digest/">Federal Register Scraper</a> for FR rules and notices.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>USPTO Patent Search Scraper</th><th>SEC EDGAR Scraper</th><th>Federal Register Scraper</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td><td>CourtListener Public Opinion Watch</td><td>Keyword filing alerts</td><td>8-K and S-1 filing alerts</td><td>FR rules and notices</td>
+        </tr>
+        <tr>
+          <td>Primary input</td><td><code>queries</code></td><td>search terms</td><td>companies</td><td>watch terms</td>
+        </tr>
+        <tr>
+          <td>What it reads</td><td>Public CourtListener opinion search</td><td>USPTO public search</td><td>Public EDGAR</td><td>Federal Register</td>
+        </tr>
+        <tr>
+          <td>Primary output</td><td>Trigger rows billed per live PPE</td><td>Patent rows</td><td>Filing-index rows</td><td>FR digest rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td><td>Not PACER, not sealed documents, not USPTO patents. No user API key. Informational only. Not legal advice.</td><td>Not CourtListener opinions.</td><td>Not Form D notices or 8-K item candidates.</td><td>Not eCFR section diffs.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/courtlistener-public-docket-opinion-watch-scraper</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Public opinion queries with a small limit</li>
+      <li>knownStableIds for recurring trigger watches</li>
+      <li>firstRunMode baseline vs emit</li>
+    </ul>
+
+    <h2>How is CourtListener Public Opinion Watch different from USPTO Patent Search Scraper and SEC EDGAR Scraper?</h2>
+    <p>CourtListener Public Opinion Watch (taroyamada/courtlistener-public-docket-opinion-watch-scraper): This Actor watches public CourtListener opinion search results with stable IDs for litigation trigger monitoring. No user API key, PACER purchase, or sealed-document access. Not PACER, not sealed documents, not USPTO patents. No user API key. Informational only. Not legal advice. USPTO Patent Search Scraper is for Keyword filing alerts (input search terms; USPTO public search; Patent rows). Not CourtListener opinions. SEC EDGAR Scraper is for 8-K and S-1 filing alerts (input companies; Public EDGAR; Filing-index rows). Not Form D notices or 8-K item candidates. Federal Register Scraper is for FR rules and notices (input watch terms; Federal Register; FR digest rows). Not eCFR section diffs.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: none listed (see live fields). Published exampleRunInput is shown below.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>queries</code></td>
+          <td>any[]</td>
+          <td><code>[&quot;antitrust&quot;]</code></td>
+          <td>Queries. CourtListener search queries.</td>
+        </tr>
+        <tr>
+          <td><code>daysBack</code></td>
+          <td>integer</td>
+          <td><code>30</code></td>
+          <td>Days back. Only emit records dated within this window when a date is present. minimum=1 maximum=3650</td>
+        </tr>
+        <tr>
+          <td><code>knownStableIds</code></td>
+          <td>any[]</td>
+          <td><code>empty</code></td>
+          <td>Known stable IDs. Optional IDs already seen by your previous workflow run. Matching rows are suppressed to avoid no-change charges.</td>
+        </tr>
+        <tr>
+          <td><code>maxChargeUsd</code></td>
+          <td>number</td>
+          <td><code>1</code></td>
+          <td>Maximum charge USD. Safety cap for billable dataset rows. The actor stops emitting billable rows once this cap would be exceeded. minimum=0 maximum=100</td>
+        </tr>
+        <tr>
+          <td><code>limit</code></td>
+          <td>integer</td>
+          <td><code>30</code></td>
+          <td>Result limit. Maximum billable rows to emit. minimum=1 maximum=500</td>
+        </tr>
+        <tr>
+          <td><code>firstRunMode</code></td>
+          <td>string enum</td>
+          <td><code>emit_all</code></td>
+          <td>First run mode. emit_all writes the first matching rows. seed_only stores the baseline and writes no rows. enum: emit_all, seed_only</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string enum</td>
+          <td><code>dataset</code></td>
+          <td>Delivery. Where to send emitted trigger rows. enum: dataset, webhook</td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Webhook URL. Required when delivery=webhook.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run. Run without external source requests or dataset writes.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  "queries": [
+    "antitrust"
+  ],
+  "knownStableIds": [],
+  "daysBack": 30,
+  "limit": 30,
+  "firstRunMode": "emit_all",
+  "delivery": "dataset",
+  "dryRun": true,
+  "maxChargeUsd": 1
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/courtlistener-public-docket-opinion-watch-scraper">Run CourtListener Public Opinion Watch on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>README output fence is truncated or invalid JSON on Store. Illustration head: { "meta": { "actorName": "courtlistener-public-docket-opinion-watch-scraper", "actorTitle": "CourtListener Public Docket &amp; Opinion Watch Scraper", "bundle": "Regulatory Trigger Pack", "fetchedAt": "2026-05-06T00:00:00.000Z", "totalRows": 1 }, "rows": [ { "actorName": "courtlisten… Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is CourtListener Public Opinion Watch priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $8.00 / 1,000 result ($0.008 per delivered apify-default-dataset-item). $0.00005 Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>apify-actor-start</code> (Actor Start)</td>
+          <td>$0.00005</td>
+          <td>Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).</td>
+        </tr>
+        <tr>
+          <td><code>apify-default-dataset-item</code> (result)</td>
+          <td>$0.008</td>
+          <td>Single result in the default dataset.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>README quotes $0.001 actor start; live Store Actor Start is $0.00005. README quotes $0.020 per emitted trigger row; live primary is $0.008 (result). This page quotes live PPE only.</p>
+    <p class="price">from $8.00 / 1,000 result ($0.008 per delivered apify-default-dataset-item). $0.00005 Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+    <p><a href="https://apify.com/taroyamada/courtlistener-public-docket-opinion-watch-scraper/pricing">See CourtListener Public Opinion Watch pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Public CourtListener only</li>
+      <li>No PACER / sealed docs</li>
+      <li>Not legal advice</li>
+      <li>limit / maxChargeUsd caps</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/courtlistener-public-docket-opinion-watch-scraper">Open CourtListener Public Opinion Watch on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/uspto-patent-scraper/">USPTO Patent Search Scraper</a> — Not CourtListener opinions.</li>
+      <li><a href="/sec-edgar-filings-monitor/">SEC EDGAR Scraper</a> — Not Form D notices or 8-K item candidates.</li>
+      <li><a href="/federal-register-digest/">Federal Register Scraper</a> — Not eCFR section diffs.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

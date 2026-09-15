@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SaaS Pricing Changelog Battlecard Watch — pricing and changelog diffs</title>
+  <meta name="description" content="taroyamada/saas-pricing-changelog-battlecard-watch-scraper. from $30.00 / 1,000 SaaS pricing page snapshot ($0.03 per delivered saas-pricing-page-snapshot); $0.35 per…">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/saas-pricing-changelog-battlecard-watch-scraper/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is SaaS Pricing Changelog Battlecard Watch different from SaaS Pricing Tracker and B2B Pricing Scraper?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "SaaS Pricing Changelog Battlecard Watch (taroyamada/saas-pricing-changelog-battlecard-watch-scraper): This Actor unofficially watches public SaaS pricing and changelog pages, then emits source-linked pricing changes and battlecard report rows. Not authenticated billing portals. Not the cheaper SaaS Pricing Tracker row Actor. Not a legal-page SHA256 watcher. Public pages only. SaaS Pricing Tracker is for Public SaaS page change rows (input targets; Public pricing/terms HTML; SaaS change rows). Not premium SHA256 legal diffs or battlecards. B2B Pricing Scraper is for Public subscription-tier changes (input competitors[]; Public pricing HTML; Pricing change rows). Not Shopify catalog maps or ads-library pages. Docs & Changelog Drift Scraper is for API docs/changelog drift (input doc URLs; Public docs HTML; Drift rows). Not legal-page SHA256 diffs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: none (see live fields). Live schema fields: competitorTargets, trackedTerms, maxTargets, emitSnapshotRows, generateBattlecard, emitExport, emitUnchanged, dryRun, initialRunMode, snapshotKey. Watch public SaaS pricing and changelog pages and emit source-linked battlecard rows. exampleRunInput keys: competitorTargets, trackedTerms, maxTargets, emitSnapshotRows, generateBattlecard, emitExport, emitUnchanged, dryRun. additionalProperties is false on the live schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: competitorTargets, trackedTerms, maxTargets, emitSnapshotRows, generateBattlecard, emitExport, emitUnchanged, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "README output fence is truncated or invalid JSON on Store. Illustration head: { \"actorName\": \"saas-pricing-changelog-battlecard-watch-scraper\", \"rowType\": \"saas_pricing_change\", \"billingEventName\": \"saas-pricing-change-detected\", \"competitorName\": \"Example SaaS\", \"currentPriceSignals\": [\"$39/mo\"], \"sourceUrl\": \"https://example.com/pricing\" } Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is SaaS Pricing Changelog Battlecard Watch priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $30.00 / 1,000 SaaS pricing page snapshot ($0.03 per delivered saas-pricing-page-snapshot); $0.35 per SaaS pricing change detected; $0.15 per SaaS changelog entry detected; $9.00 per SaaS battlecard report; $7.00 per SaaS watch export generated. No Actor Start. SaaS pricing page snapshot (saas-pricing-page-snapshot) $0.03: Charged for each optional source-linked public pricing page snapshot row. SaaS pricing change detected (saas-pricing-change-detected) $0.35: Charged for each source-linked pricing page change row. SaaS changelog entry detected (saas-changelog-entry-detected) $0.15: Charged for each source-linked public changelog entry row. SaaS battlecard report (saas-battlecard-report) $9.00: Charged for each generated competitive pricing and changelog battlecard report row. SaaS watch export generated (saas-watch-export-generated) $7.00: Charged for each generated SaaS watch handoff export row. Platform usage is listed as included on the Store pricing tab."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / SaaS Pricing Changelog Battlecard Watch</nav>
+    <h1>Public SaaS pricing and changelog pages into battlecard rows</h1>
+    <p>This Actor unofficially watches public SaaS pricing and changelog pages, then emits source-linked pricing changes and battlecard report rows.</p>
+    <p>Not authenticated billing portals. Not the cheaper SaaS Pricing Tracker row Actor. Not a legal-page SHA256 watcher. Public pages only.</p>
+    <p class="price">from $30.00 / 1,000 SaaS pricing page snapshot ($0.03 per delivered saas-pricing-page-snapshot); $0.35 per SaaS pricing change detected; $0.15 per SaaS changelog entry detected; $9.00 per SaaS battlecard report; $7.00 per SaaS watch export generated. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/saas-pricing-changelog-battlecard-watch-scraper">Open SaaS Pricing Changelog Battlecard Watch on Apify</a></p>
+
+    <h2>SaaS Pricing Changelog Battlecard Watch, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/saas-change-monitor-actor/">SaaS Pricing Tracker</a> for Public SaaS page change rows; Use <a href="/competitive-pricing-monitor/">B2B Pricing Scraper</a> for Public subscription-tier changes; Use <a href="/docs-changelog-drift-monitor/">Docs &amp; Changelog Drift Scraper</a> for API docs/changelog drift.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>SaaS Pricing Tracker</th><th>B2B Pricing Scraper</th><th>Docs &amp; Changelog Drift Scraper</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td><td>SaaS Pricing Changelog Battlecard Watch</td><td>Public SaaS page change rows</td><td>Public subscription-tier changes</td><td>API docs/changelog drift</td>
+        </tr>
+        <tr>
+          <td>Primary input</td><td><code>competitorTargets</code></td><td>targets</td><td>competitors[]</td><td>doc URLs</td>
+        </tr>
+        <tr>
+          <td>What it reads</td><td>User-supplied public pricing and changelog pages</td><td>Public pricing/terms HTML</td><td>Public pricing HTML</td><td>Public docs HTML</td>
+        </tr>
+        <tr>
+          <td>Primary output</td><td>Snapshot, change, changelog, battlecard, and export events</td><td>SaaS change rows</td><td>Pricing change rows</td><td>Drift rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td><td>Not authenticated billing portals. Not the cheaper SaaS Pricing Tracker row Actor. Not a legal-page SHA256 watcher. Public pages only.</td><td>Not premium SHA256 legal diffs or battlecards.</td><td>Not Shopify catalog maps or ads-library pages.</td><td>Not legal-page SHA256 diffs.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/saas-pricing-changelog-battlecard-watch-scraper</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>competitorTargets of public pricing/changelog URLs</li>
+      <li>Keep generateBattlecard/emitExport off on first run</li>
+      <li>trackedTerms as local filters</li>
+    </ul>
+
+    <h2>How is SaaS Pricing Changelog Battlecard Watch different from SaaS Pricing Tracker and B2B Pricing Scraper?</h2>
+    <p>SaaS Pricing Changelog Battlecard Watch (taroyamada/saas-pricing-changelog-battlecard-watch-scraper): This Actor unofficially watches public SaaS pricing and changelog pages, then emits source-linked pricing changes and battlecard report rows. Not authenticated billing portals. Not the cheaper SaaS Pricing Tracker row Actor. Not a legal-page SHA256 watcher. Public pages only. SaaS Pricing Tracker is for Public SaaS page change rows (input targets; Public pricing/terms HTML; SaaS change rows). Not premium SHA256 legal diffs or battlecards. B2B Pricing Scraper is for Public subscription-tier changes (input competitors[]; Public pricing HTML; Pricing change rows). Not Shopify catalog maps or ads-library pages. Docs &amp; Changelog Drift Scraper is for API docs/changelog drift (input doc URLs; Public docs HTML; Drift rows). Not legal-page SHA256 diffs.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: none listed (see live fields). Published exampleRunInput is shown below.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>competitorTargets</code></td>
+          <td>any[]</td>
+          <td><code>[{&quot;name&quot;: &quot;Example SaaS&quot;, &quot;pricingUrl&quot;: &quot;https://example.com/pricing&quot;, &quot;changelogUrl&quot;: &quot;https://example.com/changelog&quot;}]</code></td>
+          <td>Competitor targets. Public SaaS pricing and changelog page targets.</td>
+        </tr>
+        <tr>
+          <td><code>trackedTerms</code></td>
+          <td>any[]</td>
+          <td><code>[&quot;price&quot;, &quot;plan&quot;, &quot;seat&quot;, &quot;usage&quot;, &quot;enterprise&quot;]</code></td>
+          <td>Tracked terms. Terms to flag in pricing pages and battlecard rows.</td>
+        </tr>
+        <tr>
+          <td><code>maxTargets</code></td>
+          <td>integer</td>
+          <td><code>10</code></td>
+          <td>Max targets. Maximum competitor targets to check. minimum=1 maximum=50</td>
+        </tr>
+        <tr>
+          <td><code>emitSnapshotRows</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit snapshot rows. Emit optional public pricing page snapshot rows.</td>
+        </tr>
+        <tr>
+          <td><code>generateBattlecard</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Generate battlecard row. Generate a competitive battlecard report row when watched signals are emitted.</td>
+        </tr>
+        <tr>
+          <td><code>emitExport</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Generate export row. Generate an export row for handoff workflows.</td>
+        </tr>
+        <tr>
+          <td><code>emitUnchanged</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit unchanged rows. When false, repeated unchanged runs emit zero rows and zero charges.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run. Emit local sample rows without charging.</td>
+        </tr>
+        <tr>
+          <td><code>initialRunMode</code></td>
+          <td>string enum</td>
+          <td><code>emit_backfill</code></td>
+          <td>Initial run mode. Deployment canary control used by automation; emit_backfill allows first-run proof rows, baseline_only is used for no-change proof. enum: emit_backfill, baseline_only</td>
+        </tr>
+        <tr>
+          <td><code>snapshotKey</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Snapshot key. Optional state namespace for canary and recurring no-change proof runs.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  "competitorTargets": [
+    {
+      "name": "Example SaaS",
+      "pricingUrl": "https://example.com/pricing",
+      "changelogUrl": "https://example.com/changelog"
+    }
+  ],
+  "trackedTerms": [
+    "price",
+    "plan"
+  ],
+  "maxTargets": 3,
+  "emitSnapshotRows": false,
+  "generateBattlecard": true,
+  "emitExport": false,
+  "emitUnchanged": false,
+  "dryRun": false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/saas-pricing-changelog-battlecard-watch-scraper">Run SaaS Pricing Changelog Battlecard Watch on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>README output fence is truncated or invalid JSON on Store. Illustration head: { "actorName": "saas-pricing-changelog-battlecard-watch-scraper", "rowType": "saas_pricing_change", "billingEventName": "saas-pricing-change-detected", "competitorName": "Example SaaS", "currentPriceSignals": ["$39/mo"], "sourceUrl": "https://example.com/pricing" } Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is SaaS Pricing Changelog Battlecard Watch priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $30.00 / 1,000 SaaS pricing page snapshot ($0.03 per delivered saas-pricing-page-snapshot); $0.35 per SaaS pricing change detected; $0.15 per SaaS changelog entry detected; $9.00 per SaaS battlecard report; $7.00 per SaaS watch export generated. No Actor Start.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>saas-pricing-page-snapshot</code> (SaaS pricing page snapshot)</td>
+          <td>$0.03</td>
+          <td>Charged for each optional source-linked public pricing page snapshot row.</td>
+        </tr>
+        <tr>
+          <td><code>saas-pricing-change-detected</code> (SaaS pricing change detected)</td>
+          <td>$0.35</td>
+          <td>Charged for each source-linked pricing page change row.</td>
+        </tr>
+        <tr>
+          <td><code>saas-changelog-entry-detected</code> (SaaS changelog entry detected)</td>
+          <td>$0.15</td>
+          <td>Charged for each source-linked public changelog entry row.</td>
+        </tr>
+        <tr>
+          <td><code>saas-battlecard-report</code> (SaaS battlecard report)</td>
+          <td>$9.00</td>
+          <td>Charged for each generated competitive pricing and changelog battlecard report row.</td>
+        </tr>
+        <tr>
+          <td><code>saas-watch-export-generated</code> (SaaS watch export generated)</td>
+          <td>$7.00</td>
+          <td>Charged for each generated SaaS watch handoff export row.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="price">from $30.00 / 1,000 SaaS pricing page snapshot ($0.03 per delivered saas-pricing-page-snapshot); $0.35 per SaaS pricing change detected; $0.15 per SaaS changelog entry detected; $9.00 per SaaS battlecard report; $7.00 per SaaS watch export generated. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/saas-pricing-changelog-battlecard-watch-scraper/pricing">See SaaS Pricing Changelog Battlecard Watch pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Public HTML only</li>
+      <li>You supply targets</li>
+      <li>Battlecard and export are separate billed events</li>
+      <li>Bot walls may block fetches</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/saas-pricing-changelog-battlecard-watch-scraper">Open SaaS Pricing Changelog Battlecard Watch on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/saas-change-monitor-actor/">SaaS Pricing Tracker</a> — Not premium SHA256 legal diffs or battlecards.</li>
+      <li><a href="/competitive-pricing-monitor/">B2B Pricing Scraper</a> — Not Shopify catalog maps or ads-library pages.</li>
+      <li><a href="/docs-changelog-drift-monitor/">Docs &amp; Changelog Drift Scraper</a> — Not legal-page SHA256 diffs.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

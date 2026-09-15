@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Industrial Supplier Intelligence — B2B enrichment from URLs you supply</title>
+  <meta name="description" content="taroyamada/industrial-supplier-intelligence. from $60.00 / 1,000 Supplier profile enriched ($0.06 per delivered supplier_profile_enriched); $0.025 per Partial supplier…">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/industrial-supplier-intelligence/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is Industrial Supplier Intelligence different from Trade Show Exhibitor Intelligence and Google Maps Lead Enrichment?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Industrial Supplier Intelligence (taroyamada/industrial-supplier-intelligence): This Actor enriches user-provided industrial supplier websites into B2B profiles with categories, capabilities, locations, certifications, contact pages, and confidence. Keywords are local hints against supplied pages, not search-engine queries. No search-engine discovery. Not a trade-show booth scrape. Not authenticated portals. Public HTML only. Not a supplier-approval decision. Trade Show Exhibitor Intelligence is for Booth fields from supplied URLs (input exhibitor URLs; User-supplied show pages; Exhibitor rows). Not ATS job boards. Google Maps Lead Enrichment is for Enrich existing leads (input business inputs; Enrichment APIs; Lead rows). Does not scrape Maps or ATS boards. TED, SAM.gov & Grants Bid Alerts is for Open opportunities / tenders (input keywords / jurisdictions; SAM/TED/Grants notices; Opportunity rows). Not vendor-pursuit profiles, Form D notices, or post-award spend reports."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: none (see live fields). Live schema fields: urls, domains, keywords, region, maxResults, dryRun, maxChargeUsd. Provide at least one supplier URL or domain. V1 is direct-source only: no search engines, no private portals, no authentication, and no paid/private supplier data collection. Useful success and partial rows are charged with custom PPE events; invalid, blocked, not_found, and error rows are no-charge diagnostics. exampleRunInput keys: urls, domains, keywords, maxResults, dryRun, maxChargeUsd. additionalProperties is false on the live schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: urls, domains, keywords, maxResults, dryRun, maxChargeUsd. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "README output fence is truncated or invalid JSON on Store. Illustration head: { \"companyName\": \"Acme Industrial Manufacturing\", \"website\": \"https://acme.example\", \"categories\": [\"machining\", \"metal fabrication\"], \"capabilities\": [\"CNC machining\", \"milling\", \"welding\", \"assembly\"], \"locations\": [\"Cleveland, United States\"], \"certifications\": [\"ISO 9001:2015\u2026 Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is Industrial Supplier Intelligence priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $60.00 / 1,000 Supplier profile enriched ($0.06 per delivered supplier_profile_enriched); $0.025 per Partial supplier profile. $0.001 Actor Start. Actor Start (apify-actor-start) $0.001: Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event). Supplier profile enriched (supplier_profile_enriched) $0.06: Useful supplier/company profile with public capability, category, location, certification, or contact-page evidence. Partial supplier profile (supplier_partial) $0.025: Useful partial supplier evidence returned when the public page has limited structured company data. Platform usage is listed as included on the Store pricing tab."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Industrial Supplier Intelligence</nav>
+    <h1>Procurement-ready supplier profiles from websites you already have</h1>
+    <p>This Actor enriches user-provided industrial supplier websites into B2B profiles with categories, capabilities, locations, certifications, contact pages, and confidence. Keywords are local hints against supplied pages, not search-engine queries.</p>
+    <p>No search-engine discovery. Not a trade-show booth scrape. Not authenticated portals. Public HTML only. Not a supplier-approval decision.</p>
+    <p class="price">from $60.00 / 1,000 Supplier profile enriched ($0.06 per delivered supplier_profile_enriched); $0.025 per Partial supplier profile. $0.001 Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/industrial-supplier-intelligence">Open Industrial Supplier Intelligence on Apify</a></p>
+
+    <h2>Industrial Supplier Intelligence, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/trade-show-exhibitor-intelligence/">Trade Show Exhibitor Intelligence</a> for Booth fields from supplied URLs; Use <a href="/google-maps-lead-enrichment/">Google Maps Lead Enrichment</a> for Enrich existing leads; Use <a href="/ted-sam-grants-bid-alerts/">TED, SAM.gov &amp; Grants Bid Alerts</a> for Open opportunities / tenders.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>Trade Show Exhibitor Intelligence</th><th>Google Maps Lead Enrichment</th><th>TED, SAM.gov &amp; Grants Bid Alerts</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td><td>Industrial Supplier Intelligence</td><td>Booth fields from supplied URLs</td><td>Enrich existing leads</td><td>Open opportunities / tenders</td>
+        </tr>
+        <tr>
+          <td>Primary input</td><td><code>urls / domains</code></td><td>exhibitor URLs</td><td>business inputs</td><td>keywords / jurisdictions</td>
+        </tr>
+        <tr>
+          <td>What it reads</td><td>User-supplied public supplier HTML</td><td>User-supplied show pages</td><td>Enrichment APIs</td><td>SAM/TED/Grants notices</td>
+        </tr>
+        <tr>
+          <td>Primary output</td><td>Enriched or partial supplier profile events</td><td>Exhibitor rows</td><td>Lead rows</td><td>Opportunity rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td><td>No search-engine discovery. Not a trade-show booth scrape. Not authenticated portals. Public HTML only. Not a supplier-approval decision.</td><td>Not ATS job boards.</td><td>Does not scrape Maps or ATS boards.</td><td>Not vendor-pursuit profiles, Form D notices, or post-award spend reports.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/industrial-supplier-intelligence</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Enrich known supplier home/about/capabilities URLs</li>
+      <li>Bare domains normalized to https://domain/</li>
+      <li>Partial vs enriched PPE depending on extract quality</li>
+    </ul>
+
+    <h2>How is Industrial Supplier Intelligence different from Trade Show Exhibitor Intelligence and Google Maps Lead Enrichment?</h2>
+    <p>Industrial Supplier Intelligence (taroyamada/industrial-supplier-intelligence): This Actor enriches user-provided industrial supplier websites into B2B profiles with categories, capabilities, locations, certifications, contact pages, and confidence. Keywords are local hints against supplied pages, not search-engine queries. No search-engine discovery. Not a trade-show booth scrape. Not authenticated portals. Public HTML only. Not a supplier-approval decision. Trade Show Exhibitor Intelligence is for Booth fields from supplied URLs (input exhibitor URLs; User-supplied show pages; Exhibitor rows). Not ATS job boards. Google Maps Lead Enrichment is for Enrich existing leads (input business inputs; Enrichment APIs; Lead rows). Does not scrape Maps or ATS boards. TED, SAM.gov &amp; Grants Bid Alerts is for Open opportunities / tenders (input keywords / jurisdictions; SAM/TED/Grants notices; Opportunity rows). Not vendor-pursuit profiles, Form D notices, or post-award spend reports.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: none listed (see live fields). Published exampleRunInput is shown below.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>urls</code></td>
+          <td>string[]</td>
+          <td><code>empty</code></td>
+          <td>Supplier URLs. Specific supplier website URLs to enrich. Use public home, about, capabilities, products, certifications, quote, RFQ, or contact pages. No search engine discovery is used. maxItems=100</td>
+        </tr>
+        <tr>
+          <td><code>domains</code></td>
+          <td>string[]</td>
+          <td><code>empty</code></td>
+          <td>Supplier Domains. Bare supplier domains from ERP, vendor master, procurement research, sourcing spreadsheets, or account lists. Domains are normalized to https://domain/ and fetched directly. maxItems=100</td>
+        </tr>
+        <tr>
+          <td><code>keywords</code></td>
+          <td>string[]</td>
+          <td><code>empty</code></td>
+          <td>Procurement Keywords / Capability Hints. Industrial terms used only for local relevance scoring and category/capability hints against supplied URLs/domains. They are not sent to search engines. maxItems=50</td>
+        </tr>
+        <tr>
+          <td><code>region</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Buyer Region / Sourcing Market. Optional buyer region, country, or sourcing market used as a location and relevance hint. Example: United States, Mexico, Germany, Japan, or Southeast Asia.</td>
+        </tr>
+        <tr>
+          <td><code>maxResults</code></td>
+          <td>integer</td>
+          <td><code>25</code></td>
+          <td>Max Supplier Profiles. Maximum normalized supplier sources to process and emit. Keep this small for quickstarts; increase for recurring procurement shortlist refreshes. minimum=1 maximum=100</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry Run. Validate input and write the local output summary without sending dataset rows, triggering webhook delivery, or charging custom PPE events.</td>
+        </tr>
+        <tr>
+          <td><code>maxChargeUsd</code></td>
+          <td>number</td>
+          <td><code>6</code></td>
+          <td>Max Charge USD. Hard safety cap for custom PPE supplier events in this run. Rows that would exceed the cap are emitted as no-charge limit_reached diagnostics. minimum=0 maximum=100</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  "urls": [
+    "https://www.parker.com/",
+    "https://www.smcusa.com/"
+  ],
+  "domains": [
+    "parker.com",
+    "smcusa.com"
+  ],
+  "keywords": [
+    "industrial automation",
+    "pneumatics"
+  ],
+  "maxResults": 3,
+  "dryRun": false,
+  "maxChargeUsd": 3
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/industrial-supplier-intelligence">Run Industrial Supplier Intelligence on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>README output fence is truncated or invalid JSON on Store. Illustration head: { "companyName": "Acme Industrial Manufacturing", "website": "https://acme.example", "categories": ["machining", "metal fabrication"], "capabilities": ["CNC machining", "milling", "welding", "assembly"], "locations": ["Cleveland, United States"], "certifications": ["ISO 9001:2015… Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is Industrial Supplier Intelligence priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $60.00 / 1,000 Supplier profile enriched ($0.06 per delivered supplier_profile_enriched); $0.025 per Partial supplier profile. $0.001 Actor Start.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>apify-actor-start</code> (Actor Start)</td>
+          <td>$0.001</td>
+          <td>Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).</td>
+        </tr>
+        <tr>
+          <td><code>supplier_profile_enriched</code> (Supplier profile enriched)</td>
+          <td>$0.06</td>
+          <td>Useful supplier/company profile with public capability, category, location, certification, or contact-page evidence.</td>
+        </tr>
+        <tr>
+          <td><code>supplier_partial</code> (Partial supplier profile)</td>
+          <td>$0.025</td>
+          <td>Useful partial supplier evidence returned when the public page has limited structured company data.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="price">from $60.00 / 1,000 Supplier profile enriched ($0.06 per delivered supplier_profile_enriched); $0.025 per Partial supplier profile. $0.001 Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/industrial-supplier-intelligence/pricing">See Industrial Supplier Intelligence pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>No search discovery</li>
+      <li>JS-heavy sites may be partial</li>
+      <li>Certifications are text-detected</li>
+      <li>maxResults and maxChargeUsd cap spend</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/industrial-supplier-intelligence">Open Industrial Supplier Intelligence on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/trade-show-exhibitor-intelligence/">Trade Show Exhibitor Intelligence</a> — Not ATS job boards.</li>
+      <li><a href="/google-maps-lead-enrichment/">Google Maps Lead Enrichment</a> — Does not scrape Maps or ATS boards.</li>
+      <li><a href="/ted-sam-grants-bid-alerts/">TED, SAM.gov &amp; Grants Bid Alerts</a> — Not vendor-pursuit profiles, Form D notices, or post-award spend reports.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

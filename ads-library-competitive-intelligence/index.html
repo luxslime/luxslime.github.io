@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ads Library Competitive Intelligence — direct-source ad-library pages</title>
+  <meta name="description" content="taroyamada/ads-library-competitive-intelligence. from $20.00 / 1,000 Ad creative profile ($0.02 per delivered ad_creative_profile); $0.008 per Partial ad library intel…">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/ads-library-competitive-intelligence/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is Ads Library Competitive Intelligence different from Chrome Web Store Extension Intelligence and B2B Pricing Scraper?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ads Library Competitive Intelligence (taroyamada/ads-library-competitive-intelligence): This Actor is a direct-source parser for user-provided public ad-library pages, exports, and saved HTML snapshots. It structures ad creatives and advertiser signals without search, crawling, login, browser automation, pagination, or API replay. Not an ads-library search engine. Not landing-page CRO analysis. Not authenticated ads-manager access. You must supply the source URLs or HTML. Chrome Web Store Extension Intelligence is for Extension listing metadata (input extension URLs; Chrome Web Store HTML; Extension metadata). Not ads-library creatives. B2B Pricing Scraper is for Public subscription-tier changes (input competitors[]; Public pricing HTML; Pricing change rows). Not Shopify catalog maps or ads-library pages. Website Content Extractor is for One-shot page-to-markdown (input urls; Page HTML; Markdown/text). Not recurring pricing/legal diffs or RAG audits."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: none (see live fields). Live schema fields: sourceUrls, htmlSnapshots, savedHtmlFiles, brandHints, maxAdsPerSource, maxSources, dryRun. Provide at least one user-supplied public ad-library/export URL, HTML snapshot, or saved HTML/export file. V1 is direct-source only: no search engines, no browser automation, no login, no pagination, no GraphQL replay, and no scraping of Meta/Google/LinkedIn beyond the exact user-provided public source. ad_creative_profile and ad_library_partial rows are charged; invalid, blocked, not_found, not_ad_library, and error rows are no-charge diagnostics. Every row includes status, chargedEvent, sourceUrls, and errors. exampleRunInput keys: sourceUrls, maxAdsPerSource, maxSources, dryRun. additionalProperties is false on the live schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: sourceUrls, maxAdsPerSource, maxSources, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is Ads Library Competitive Intelligence priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $20.00 / 1,000 Ad creative profile ($0.02 per delivered ad_creative_profile); $0.008 per Partial ad library intelligence. $0.00005 Actor Start. Actor Start (apify-actor-start) $0.00005: Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event). Ad creative profile (ad_creative_profile) $0.02: A normalized ad creative row was extracted from a user-provided public ad-library page, export, or saved HTML snapshot. Partial ad library intelligence (ad_library_partial) $0.008: Useful ad-library level evidence was extracted when a complete ad creative row was not available. Platform usage is listed as included on the Store pricing tab."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Ads Library Competitive Intelligence</nav>
+    <h1>Public ad-library pages and HTML snapshots you already have</h1>
+    <p>This Actor is a direct-source parser for user-provided public ad-library pages, exports, and saved HTML snapshots. It structures ad creatives and advertiser signals without search, crawling, login, browser automation, pagination, or API replay.</p>
+    <p>Not an ads-library search engine. Not landing-page CRO analysis. Not authenticated ads-manager access. You must supply the source URLs or HTML.</p>
+    <p class="price">from $20.00 / 1,000 Ad creative profile ($0.02 per delivered ad_creative_profile); $0.008 per Partial ad library intelligence. $0.00005 Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/ads-library-competitive-intelligence">Open Ads Library Competitive Intelligence on Apify</a></p>
+
+    <h2>Ads Library Competitive Intelligence, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/chrome-web-store-extension-intelligence/">Chrome Web Store Extension Intelligence</a> for Extension listing metadata; Use <a href="/competitive-pricing-monitor/">B2B Pricing Scraper</a> for Public subscription-tier changes; Use <a href="/website-content-extractor/">Website Content Extractor</a> for One-shot page-to-markdown.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>Chrome Web Store Extension Intelligence</th><th>B2B Pricing Scraper</th><th>Website Content Extractor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td><td>Ads Library Competitive Intelligence</td><td>Extension listing metadata</td><td>Public subscription-tier changes</td><td>One-shot page-to-markdown</td>
+        </tr>
+        <tr>
+          <td>Primary input</td><td><code>sourceUrls</code></td><td>extension URLs</td><td>competitors[]</td><td>urls</td>
+        </tr>
+        <tr>
+          <td>What it reads</td><td>User-supplied public ad-library pages or HTML</td><td>Chrome Web Store HTML</td><td>Public pricing HTML</td><td>Page HTML</td>
+        </tr>
+        <tr>
+          <td>Primary output</td><td>Creative and partial creative events</td><td>Extension metadata</td><td>Pricing change rows</td><td>Markdown/text</td>
+        </tr>
+        <tr>
+          <td>Not this job</td><td>Not an ads-library search engine. Not landing-page CRO analysis. Not authenticated ads-manager access. You must supply the source URLs or HTML.</td><td>Not ads-library creatives.</td><td>Not Shopify catalog maps or ads-library pages.</td><td>Not recurring pricing/legal diffs or RAG audits.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/ads-library-competitive-intelligence</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Paste known Meta/Google ads-library URLs</li>
+      <li>Optional saved HTML snapshots</li>
+      <li>maxAdsPerSource / maxSources caps</li>
+    </ul>
+
+    <h2>How is Ads Library Competitive Intelligence different from Chrome Web Store Extension Intelligence and B2B Pricing Scraper?</h2>
+    <p>Ads Library Competitive Intelligence (taroyamada/ads-library-competitive-intelligence): This Actor is a direct-source parser for user-provided public ad-library pages, exports, and saved HTML snapshots. It structures ad creatives and advertiser signals without search, crawling, login, browser automation, pagination, or API replay. Not an ads-library search engine. Not landing-page CRO analysis. Not authenticated ads-manager access. You must supply the source URLs or HTML. Chrome Web Store Extension Intelligence is for Extension listing metadata (input extension URLs; Chrome Web Store HTML; Extension metadata). Not ads-library creatives. B2B Pricing Scraper is for Public subscription-tier changes (input competitors[]; Public pricing HTML; Pricing change rows). Not Shopify catalog maps or ads-library pages. Website Content Extractor is for One-shot page-to-markdown (input urls; Page HTML; Markdown/text). Not recurring pricing/legal diffs or RAG audits.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: none listed (see live fields). Published exampleRunInput is shown below.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>sourceUrls</code></td>
+          <td>string[]</td>
+          <td><code>empty</code></td>
+          <td>Public Ad Library or Export URLs. User-provided public ad-library pages or export URLs to fetch directly once. V1 does not discover, paginate, replay APIs, log in, or automate browsers. maxItems=100</td>
+        </tr>
+        <tr>
+          <td><code>htmlSnapshots</code></td>
+          <td>object[]</td>
+          <td><code>empty</code></td>
+          <td>HTML Snapshots. Saved ad-library HTML snapshots supplied in the input. Each item can include url, html, and label. This is safest for high-risk platforms because no network request is made. item required: html maxItems=50</td>
+        </tr>
+        <tr>
+          <td><code>savedHtmlFiles</code></td>
+          <td>string[]</td>
+          <td><code>empty</code></td>
+          <td>Saved HTML Files. Optional local saved HTML or export files to parse. Files must be inside the Actor working directory at runtime. maxItems=50</td>
+        </tr>
+        <tr>
+          <td><code>brandHints</code></td>
+          <td>string[]</td>
+          <td><code>empty</code></td>
+          <td>Brand Hints. Optional advertiser or competitor names used only for local matching in parsed rows. maxItems=50</td>
+        </tr>
+        <tr>
+          <td><code>maxAdsPerSource</code></td>
+          <td>integer</td>
+          <td><code>25</code></td>
+          <td>Max Ads per Source. Maximum ad creative rows emitted from each direct source. minimum=1 maximum=100</td>
+        </tr>
+        <tr>
+          <td><code>maxSources</code></td>
+          <td>integer</td>
+          <td><code>50</code></td>
+          <td>Max Sources. Maximum normalized direct sources to process. minimum=1 maximum=150</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry Run. Validate input, parse sources, and write local output without pushing dataset rows or charging custom PPE events.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  "sourceUrls": [
+    "https://www.facebook.com/ads/library/?active_status=all&amp;ad_type=all&amp;country=US&amp;q=example",
+    "https://adstransparency.google.com/advertiser/example"
+  ],
+  "maxAdsPerSource": 3,
+  "maxSources": 3,
+  "dryRun": false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/ads-library-competitive-intelligence">Run Ads Library Competitive Intelligence on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is Ads Library Competitive Intelligence priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $20.00 / 1,000 Ad creative profile ($0.02 per delivered ad_creative_profile); $0.008 per Partial ad library intelligence. $0.00005 Actor Start.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>apify-actor-start</code> (Actor Start)</td>
+          <td>$0.00005</td>
+          <td>Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).</td>
+        </tr>
+        <tr>
+          <td><code>ad_creative_profile</code> (Ad creative profile)</td>
+          <td>$0.02</td>
+          <td>A normalized ad creative row was extracted from a user-provided public ad-library page, export, or saved HTML snapshot.</td>
+        </tr>
+        <tr>
+          <td><code>ad_library_partial</code> (Partial ad library intelligence)</td>
+          <td>$0.008</td>
+          <td>Useful ad-library level evidence was extracted when a complete ad creative row was not available.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="price">from $20.00 / 1,000 Ad creative profile ($0.02 per delivered ad_creative_profile); $0.008 per Partial ad library intelligence. $0.00005 Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/ads-library-competitive-intelligence/pricing">See Ads Library Competitive Intelligence pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>No search or pagination replay</li>
+      <li>No login</li>
+      <li>You supply sources</li>
+      <li>JS-heavy libraries may be partial</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/ads-library-competitive-intelligence">Open Ads Library Competitive Intelligence on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/chrome-web-store-extension-intelligence/">Chrome Web Store Extension Intelligence</a> — Not ads-library creatives.</li>
+      <li><a href="/competitive-pricing-monitor/">B2B Pricing Scraper</a> — Not Shopify catalog maps or ads-library pages.</li>
+      <li><a href="/website-content-extractor/">Website Content Extractor</a> — Not recurring pricing/legal diffs or RAG audits.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

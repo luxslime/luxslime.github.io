@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ATS Hiring Signal Scraper — Greenhouse, Lever, Ashby boards</title>
+  <meta name="description" content="taroyamada/ats-hiring-signal-intelligence. from $60.00 / 1,000 Company hiring signal ($0.06 per delivered company_hiring_signal); $0.02 per Job delta; $0.03 per Hiring…">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/ats-hiring-signal-intelligence/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is ATS Hiring Signal Scraper different from Career Site Scraper and Trade Show Exhibitor Intelligence?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "ATS Hiring Signal Scraper (taroyamada/ats-hiring-signal-intelligence): This Actor monitors Greenhouse, Lever, and Ashby public job boards for new roles, departments, regions, remote hiring, matched keywords, and hiring-signal rows. Invalid or no-public-board sources can emit no-charge diagnostics. Not a career-site HTML crawl of arbitrary /jobs pages (use Career Site Scraper). Not a resume parser or applicant PII collector. Public boards only. Not a hiring recommendation. Career Site Scraper is for Public /jobs HTML signals (input careerUrls; Public career pages; Hiring-signal rows). Not Greenhouse/Lever/Ashby board APIs. Trade Show Exhibitor Intelligence is for Booth fields from supplied URLs (input exhibitor URLs; User-supplied show pages; Exhibitor rows). Not ATS job boards. Google Maps Lead Enrichment is for Enrich existing leads (input business inputs; Enrichment APIs; Lead rows). Does not scrape Maps or ATS boards."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: none (see live fields). Live schema fields: companies, keywords, regions, remoteOnly, sinceDays, watchMode, maxJobs, dryRun. exampleRunInput keys: companies, remoteOnly, sinceDays, watchMode, maxJobs, dryRun."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: companies, remoteOnly, sinceDays, watchMode, maxJobs, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is ATS Hiring Signal Scraper priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $60.00 / 1,000 Company hiring signal ($0.06 per delivered company_hiring_signal); $0.02 per Job delta; $0.03 per Hiring summary. $0.00005 Actor Start. Actor Start (apify-actor-start) $0.00005: Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event). Company hiring signal (company_hiring_signal) $0.06: A company-level hiring signal summary was generated from a supported public ATS board. Job delta (job_delta) $0.02: A job record or watch-mode delta was extracted from a supported public ATS board. Hiring summary (hiring_summary) $0.03: A compact hiring summary row was generated for a supported company board. Platform usage is listed as included on the Store pricing tab."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / ATS Hiring Signal Scraper</nav>
+    <h1>Public ATS job-board hiring signals from companies you list</h1>
+    <p>This Actor monitors Greenhouse, Lever, and Ashby public job boards for new roles, departments, regions, remote hiring, matched keywords, and hiring-signal rows. Invalid or no-public-board sources can emit no-charge diagnostics.</p>
+    <p>Not a career-site HTML crawl of arbitrary /jobs pages (use Career Site Scraper). Not a resume parser or applicant PII collector. Public boards only. Not a hiring recommendation.</p>
+    <p class="price">from $60.00 / 1,000 Company hiring signal ($0.06 per delivered company_hiring_signal); $0.02 per Job delta; $0.03 per Hiring summary. $0.00005 Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/ats-hiring-signal-intelligence">Open ATS Hiring Signal Scraper on Apify</a></p>
+
+    <h2>ATS Hiring Signal Scraper, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/career-site-hiring-lead-intelligence/">Career Site Scraper</a> for Public /jobs HTML signals; Use <a href="/trade-show-exhibitor-intelligence/">Trade Show Exhibitor Intelligence</a> for Booth fields from supplied URLs; Use <a href="/google-maps-lead-enrichment/">Google Maps Lead Enrichment</a> for Enrich existing leads.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>Career Site Scraper</th><th>Trade Show Exhibitor Intelligence</th><th>Google Maps Lead Enrichment</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td><td>ATS Hiring Signal Scraper</td><td>Public /jobs HTML signals</td><td>Booth fields from supplied URLs</td><td>Enrich existing leads</td>
+        </tr>
+        <tr>
+          <td>Primary input</td><td><code>companies</code></td><td>careerUrls</td><td>exhibitor URLs</td><td>business inputs</td>
+        </tr>
+        <tr>
+          <td>What it reads</td><td>Public Greenhouse, Lever, and Ashby boards</td><td>Public career pages</td><td>User-supplied show pages</td><td>Enrichment APIs</td>
+        </tr>
+        <tr>
+          <td>Primary output</td><td>Hiring-signal, job-delta, and summary events</td><td>Hiring-signal rows</td><td>Exhibitor rows</td><td>Lead rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td><td>Not a career-site HTML crawl of arbitrary /jobs pages (use Career Site Scraper). Not a resume parser or applicant PII collector. Public boards only. Not a hiring recommendation.</td><td>Not Greenhouse/Lever/Ashby board APIs.</td><td>Not ATS job boards.</td><td>Does not scrape Maps or ATS boards.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/ats-hiring-signal-intelligence</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Watch named companies on public Greenhouse/Lever/Ashby boards</li>
+      <li>Keyword and remote filters with maxJobs cap</li>
+      <li>Recurring watchMode for job_delta rows</li>
+    </ul>
+
+    <h2>How is ATS Hiring Signal Scraper different from Career Site Scraper and Trade Show Exhibitor Intelligence?</h2>
+    <p>ATS Hiring Signal Scraper (taroyamada/ats-hiring-signal-intelligence): This Actor monitors Greenhouse, Lever, and Ashby public job boards for new roles, departments, regions, remote hiring, matched keywords, and hiring-signal rows. Invalid or no-public-board sources can emit no-charge diagnostics. Not a career-site HTML crawl of arbitrary /jobs pages (use Career Site Scraper). Not a resume parser or applicant PII collector. Public boards only. Not a hiring recommendation. Career Site Scraper is for Public /jobs HTML signals (input careerUrls; Public career pages; Hiring-signal rows). Not Greenhouse/Lever/Ashby board APIs. Trade Show Exhibitor Intelligence is for Booth fields from supplied URLs (input exhibitor URLs; User-supplied show pages; Exhibitor rows). Not ATS job boards. Google Maps Lead Enrichment is for Enrich existing leads (input business inputs; Enrichment APIs; Lead rows). Does not scrape Maps or ATS boards.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: none listed (see live fields). Published exampleRunInput is shown below.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>companies</code></td>
+          <td>any[]</td>
+          <td><code>[{&quot;ats&quot;: &quot;greenhouse&quot;, &quot;slug&quot;: &quot;airbnb&quot;, &quot;companyName&quot;: &quot;Airbnb&quot;}]</code></td>
+          <td>Companies. Public ATS boards to monitor. Each item needs ats=greenhouse, lever, or ashby plus slug and optional companyName.</td>
+        </tr>
+        <tr>
+          <td><code>keywords</code></td>
+          <td>any[]</td>
+          <td><code>empty</code></td>
+          <td>Keywords. Role, department, technology, or market terms used to flag relevant hiring signals.</td>
+        </tr>
+        <tr>
+          <td><code>regions</code></td>
+          <td>any[]</td>
+          <td><code>empty</code></td>
+          <td>Regions. Location terms used to keep jobs from matching offices, countries, cities, or remote regions you care about.</td>
+        </tr>
+        <tr>
+          <td><code>remoteOnly</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Remote only. When enabled, only jobs that look remote-friendly are returned.</td>
+        </tr>
+        <tr>
+          <td><code>sinceDays</code></td>
+          <td>integer</td>
+          <td><code>14</code></td>
+          <td>New Role Window. Treat jobs posted within this many days as fresh deltas for watch-mode scoring. minimum=1 maximum=365</td>
+        </tr>
+        <tr>
+          <td><code>watchMode</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Watch Mode. When enabled, emit company-level summary rows in addition to matching job rows.</td>
+        </tr>
+        <tr>
+          <td><code>maxJobs</code></td>
+          <td>integer</td>
+          <td><code>250</code></td>
+          <td>Max Jobs. Maximum number of job rows to emit across all companies in this run. minimum=1 maximum=2000</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry Run. Validate inputs and emit no-charge preview rows without applying paid PPE events.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  "companies": [
+    {
+      "ats": "greenhouse",
+      "slug": "airbnb",
+      "companyName": "Airbnb"
+    }
+  ],
+  "remoteOnly": false,
+  "sinceDays": 14,
+  "watchMode": true,
+  "maxJobs": 3,
+  "dryRun": false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/ats-hiring-signal-intelligence">Run ATS Hiring Signal Scraper on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is ATS Hiring Signal Scraper priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $60.00 / 1,000 Company hiring signal ($0.06 per delivered company_hiring_signal); $0.02 per Job delta; $0.03 per Hiring summary. $0.00005 Actor Start.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>apify-actor-start</code> (Actor Start)</td>
+          <td>$0.00005</td>
+          <td>Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).</td>
+        </tr>
+        <tr>
+          <td><code>company_hiring_signal</code> (Company hiring signal)</td>
+          <td>$0.06</td>
+          <td>A company-level hiring signal summary was generated from a supported public ATS board.</td>
+        </tr>
+        <tr>
+          <td><code>job_delta</code> (Job delta)</td>
+          <td>$0.02</td>
+          <td>A job record or watch-mode delta was extracted from a supported public ATS board.</td>
+        </tr>
+        <tr>
+          <td><code>hiring_summary</code> (Hiring summary)</td>
+          <td>$0.03</td>
+          <td>A compact hiring summary row was generated for a supported company board.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="price">from $60.00 / 1,000 Company hiring signal ($0.06 per delivered company_hiring_signal); $0.02 per Job delta; $0.03 per Hiring summary. $0.00005 Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/ats-hiring-signal-intelligence/pricing">See ATS Hiring Signal Scraper pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Public ATS boards only</li>
+      <li>maxJobs cap</li>
+      <li>No applicant PII</li>
+      <li>Not a general career-site crawler</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/ats-hiring-signal-intelligence">Open ATS Hiring Signal Scraper on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/career-site-hiring-lead-intelligence/">Career Site Scraper</a> — Not Greenhouse/Lever/Ashby board APIs.</li>
+      <li><a href="/trade-show-exhibitor-intelligence/">Trade Show Exhibitor Intelligence</a> — Not ATS job boards.</li>
+      <li><a href="/google-maps-lead-enrichment/">Google Maps Lead Enrichment</a> — Does not scrape Maps or ATS boards.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

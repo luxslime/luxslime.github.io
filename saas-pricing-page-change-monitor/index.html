@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SaaS Pricing Competitor Monitor — price-page snapshots</title>
+  <meta name="description" content="taroyamada/saas-pricing-page-change-monitor. $3.00 per Pricing snapshot report (pricing_snapshot_report); $15 per Competitor pricing report. $0.00005 Actor Start. Not…">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/saas-pricing-page-change-monitor/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is SaaS Pricing Competitor Monitor different from SaaS Pricing Tracker and B2B Pricing Scraper?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "SaaS Pricing Competitor Monitor (taroyamada/saas-pricing-page-change-monitor): This Actor is a SaaS pricing competitor monitor: track plan and price page changes from competitor URLs you paste. Not the SHA256 legal-page watcher (Website Terms & Policy Scraper). Not B2B public-catalog pricing (use B2B Pricing Scraper). Not authenticated billing portals. SaaS Pricing Tracker is for Public SaaS page change rows (input targets; Public pricing/terms HTML; SaaS change rows). Not premium SHA256 legal diffs or battlecards. B2B Pricing Scraper is for Public subscription-tier changes (input competitors[]; Public pricing HTML; Pricing change rows). Not Shopify catalog maps or ads-library pages. Docs & Changelog Drift Scraper is for API docs/changelog drift (input doc URLs; Public docs HTML; Drift rows). Not legal-page SHA256 diffs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: none (see live fields). Live schema fields: pricingPageUrls, competitors, watchMode, previousSnapshotText, reportTier, maxChargeUsd, demoMode, dryRun, maxReports, sourceDatasetId, webhookUrl. exampleRunInput keys: pricingPageUrls, competitors, previousSnapshotText, reportTier, maxChargeUsd, maxReports, demoMode, dryRun."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: pricingPageUrls, competitors, previousSnapshotText, reportTier, maxChargeUsd, maxReports, demoMode, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. webhookUrl is on the live schema for optional POST delivery. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is SaaS Pricing Competitor Monitor priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: $3.00 per Pricing snapshot report (pricing_snapshot_report); $15 per Competitor pricing report. $0.00005 Actor Start. Actor Start (apify-actor-start) $0.00005: Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event). Pricing snapshot report (pricing_snapshot_report) $3.00: Single public pricing snapshot with plans, price mentions, and pricing-page signals. Competitor pricing report (competitor_pricing_report) $15: Competitor pricing comparison report with change signals and positioning notes. Platform usage is listed as included on the Store pricing tab."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / SaaS Pricing Competitor Monitor</nav>
+    <h1>Public SaaS pricing-page snapshots and competitor reports</h1>
+    <p>This Actor is a SaaS pricing competitor monitor: track plan and price page changes from competitor URLs you paste.</p>
+    <p>Not the SHA256 legal-page watcher (Website Terms &amp; Policy Scraper). Not B2B public-catalog pricing (use B2B Pricing Scraper). Not authenticated billing portals.</p>
+    <p class="price">$3.00 per Pricing snapshot report (pricing_snapshot_report); $15 per Competitor pricing report. $0.00005 Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/saas-pricing-page-change-monitor">Open SaaS Pricing Competitor Monitor on Apify</a></p>
+
+    <h2>SaaS Pricing Competitor Monitor, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/saas-change-monitor-actor/">SaaS Pricing Tracker</a> for Public SaaS page change rows; Use <a href="/competitive-pricing-monitor/">B2B Pricing Scraper</a> for Public subscription-tier changes; Use <a href="/docs-changelog-drift-monitor/">Docs &amp; Changelog Drift Scraper</a> for API docs/changelog drift.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>SaaS Pricing Tracker</th><th>B2B Pricing Scraper</th><th>Docs &amp; Changelog Drift Scraper</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td><td>SaaS Pricing Competitor Monitor</td><td>Public SaaS page change rows</td><td>Public subscription-tier changes</td><td>API docs/changelog drift</td>
+        </tr>
+        <tr>
+          <td>Primary input</td><td><code>pricingPageUrls</code></td><td>targets</td><td>competitors[]</td><td>doc URLs</td>
+        </tr>
+        <tr>
+          <td>What it reads</td><td>User-supplied public pricing pages</td><td>Public pricing/terms HTML</td><td>Public pricing HTML</td><td>Public docs HTML</td>
+        </tr>
+        <tr>
+          <td>Primary output</td><td>Snapshot and competitor pricing report events</td><td>SaaS change rows</td><td>Pricing change rows</td><td>Drift rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td><td>Not the SHA256 legal-page watcher (Website Terms &amp; Policy Scraper). Not B2B public-catalog pricing (use B2B Pricing Scraper). Not authenticated billing portals.</td><td>Not premium SHA256 legal diffs or battlecards.</td><td>Not Shopify catalog maps or ads-library pages.</td><td>Not legal-page SHA256 diffs.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/saas-pricing-page-change-monitor</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Paste known public pricing URLs</li>
+      <li>Snapshot report first; competitor pack later</li>
+      <li>Optional previousSnapshotText for a one-shot diff</li>
+    </ul>
+
+    <h2>How is SaaS Pricing Competitor Monitor different from SaaS Pricing Tracker and B2B Pricing Scraper?</h2>
+    <p>SaaS Pricing Competitor Monitor (taroyamada/saas-pricing-page-change-monitor): This Actor is a SaaS pricing competitor monitor: track plan and price page changes from competitor URLs you paste. Not the SHA256 legal-page watcher (Website Terms &amp; Policy Scraper). Not B2B public-catalog pricing (use B2B Pricing Scraper). Not authenticated billing portals. SaaS Pricing Tracker is for Public SaaS page change rows (input targets; Public pricing/terms HTML; SaaS change rows). Not premium SHA256 legal diffs or battlecards. B2B Pricing Scraper is for Public subscription-tier changes (input competitors[]; Public pricing HTML; Pricing change rows). Not Shopify catalog maps or ads-library pages. Docs &amp; Changelog Drift Scraper is for API docs/changelog drift (input doc URLs; Public docs HTML; Drift rows). Not legal-page SHA256 diffs.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: none listed (see live fields). Published exampleRunInput is shown below.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>pricingPageUrls</code></td>
+          <td>any[]</td>
+          <td><code>empty</code></td>
+          <td>Pricing page URLs. Public pricing page URLs to inspect. Login, checkout, customer portal, or paywalled URLs are blocked with no charge.</td>
+        </tr>
+        <tr>
+          <td><code>competitors</code></td>
+          <td>any[]</td>
+          <td><code>empty</code></td>
+          <td>Competitors. Optional competitor labels/domains.</td>
+        </tr>
+        <tr>
+          <td><code>watchMode</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Watch mode. Treat this run as a public pricing change-monitoring report.</td>
+        </tr>
+        <tr>
+          <td><code>previousSnapshotText</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Previous snapshot text. Optional previous pricing text for change detection.</td>
+        </tr>
+        <tr>
+          <td><code>reportTier</code></td>
+          <td>string enum</td>
+          <td><code>entry</code></td>
+          <td>Report tier. Choose entry or premium. Watch/audit templates are proof-gated and not selectable during public launch; maxChargeUsd is only a safety cap. enum: entry, premium</td>
+        </tr>
+        <tr>
+          <td><code>maxChargeUsd</code></td>
+          <td>number</td>
+          <td><code>3</code></td>
+          <td>Max charge USD. Safety cap for this run. This cap always wins before charging any report group. minimum=0 maximum=100</td>
+        </tr>
+        <tr>
+          <td><code>demoMode</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Demo mode. Run a sample with no external fetch and no charge.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run. Set true to return a no-charge previewReport with nextRunInput and estimated cost.</td>
+        </tr>
+        <tr>
+          <td><code>maxReports</code></td>
+          <td>integer</td>
+          <td><code>1</code></td>
+          <td>Advanced max reports. Advanced. Maximum report groups to charge; maxChargeUsd is still checked first. minimum=1 maximum=25</td>
+        </tr>
+        <tr>
+          <td><code>sourceDatasetId</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Advanced source dataset ID. Advanced only. Optional Apify dataset ID for prepared input rows. Not needed for the first run.</td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Advanced webhook URL. Advanced. Optional URL to receive results outside Apify.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  "pricingPageUrls": [
+    "https://example.com/pricing"
+  ],
+  "competitors": [
+    {
+      "name": "Example SaaS",
+      "domain": "example.com"
+    }
+  ],
+  "previousSnapshotText": "Starter $19/mo Pro $49/mo Enterprise custom",
+  "reportTier": "entry",
+  "maxChargeUsd": 3,
+  "maxReports": 1,
+  "demoMode": false,
+  "dryRun": true
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/saas-pricing-page-change-monitor">Run SaaS Pricing Competitor Monitor on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>Dataset output is the billable surface when rows are written. See live PPE for which events bill. webhookUrl is on the live schema for optional POST delivery. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is SaaS Pricing Competitor Monitor priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>$3.00 per Pricing snapshot report (pricing_snapshot_report); $15 per Competitor pricing report. $0.00005 Actor Start.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>apify-actor-start</code> (Actor Start)</td>
+          <td>$0.00005</td>
+          <td>Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).</td>
+        </tr>
+        <tr>
+          <td><code>pricing_snapshot_report</code> (Pricing snapshot report)</td>
+          <td>$3.00</td>
+          <td>Single public pricing snapshot with plans, price mentions, and pricing-page signals.</td>
+        </tr>
+        <tr>
+          <td><code>competitor_pricing_report</code> (Competitor pricing report)</td>
+          <td>$15</td>
+          <td>Competitor pricing comparison report with change signals and positioning notes.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="price">$3.00 per Pricing snapshot report (pricing_snapshot_report); $15 per Competitor pricing report. $0.00005 Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/saas-pricing-page-change-monitor/pricing">See SaaS Pricing Competitor Monitor pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Public pricing HTML</li>
+      <li>You supply URLs</li>
+      <li>reportTier selects billed reports</li>
+      <li>Bot walls may block fetches</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/saas-pricing-page-change-monitor">Open SaaS Pricing Competitor Monitor on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/saas-change-monitor-actor/">SaaS Pricing Tracker</a> — Not premium SHA256 legal diffs or battlecards.</li>
+      <li><a href="/competitive-pricing-monitor/">B2B Pricing Scraper</a> — Not Shopify catalog maps or ads-library pages.</li>
+      <li><a href="/docs-changelog-drift-monitor/">Docs &amp; Changelog Drift Scraper</a> — Not legal-page SHA256 diffs.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

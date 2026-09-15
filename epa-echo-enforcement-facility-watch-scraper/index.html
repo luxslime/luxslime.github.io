@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EPA ECHO Facility Watch — enforcement and compliance alerts</title>
+  <meta name="description" content="taroyamada/epa-echo-enforcement-facility-watch-scraper. from $100.00 / 1,000 EPA ECHO watch alert ($0.1 per delivered epa-echo-watch-alert); $0.3 per EPA ECHO digest;…">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/epa-echo-enforcement-facility-watch-scraper/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is EPA ECHO Facility Watch different from EPA ECHO Enforcement Scraper and FDA Warning Letters Scraper?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "EPA ECHO Facility Watch (taroyamada/epa-echo-enforcement-facility-watch-scraper): This Actor is an EPA ECHO enforcement scraper for facility, compliance, and watch-term matches from public ECHO sources. Paste state/terms and Start. Not the EPA ECHO digest Actor (taroyamada/epa-enforcement-digest) if you only need a simple digest. Not FDA warning letters. Not HHS OCR breaches. Informational only. Not legal or environmental advice. EPA ECHO Enforcement Scraper is for ECHO digest rows (input targets[]; EPA ECHO public pages; ECHO digest rows). Not the facility watch with alert/report PPE. FDA Warning Letters Scraper is for FDA warning-letter digests (input feeds; FDA warning-letter feeds; Warning-letter digest rows). Not CPSC/NHTSA/EPA records. HHS Healthcare Data Breach Change Scraper is for HHS OCR breaches (input portal watch; HHS OCR; Breach change rows). Not EPA ECHO facilities."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: feeds. Live schema fields: feeds, watchTerms, lookbackDays, datasetMode, notifyOnNoNew, emitReport, snapshotKey, requestTimeoutSeconds, dryRun, fixturePath, nowIso, initialRunMode. EPA ECHO Enforcement & Facility Watch Scraper Input. exampleRunInput keys: feeds, dryRun."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: feeds, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "README output fence is truncated or invalid JSON on Store. Illustration head: { \"actorName\": \"epa-echo-enforcement-facility-watch-scraper\", \"rowType\": \"epa_echo_digest\", \"feedId\": \"california-active-facilities\", \"feedName\": \"California active facility watch\", \"checkedAt\": \"2026-05-11T00:00:00.000Z\", \"fetchedAt\": \"2026-05-11T00:00:00.000Z\", \"sourceUrl\": \"ht\u2026 Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. datasetMode can limit emits to changes_only / changed_only / action_needed versus all. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is EPA ECHO Facility Watch priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $100.00 / 1,000 EPA ECHO watch alert ($0.1 per delivered epa-echo-watch-alert); $0.3 per EPA ECHO digest; $7.00 per EPA ECHO report. No Actor Start. EPA ECHO watch alert (epa-echo-watch-alert) $0.1: Charged for each watchlist-matched public EPA ECHO facility or enforcement alert. EPA ECHO digest (epa-echo-digest) $0.3: Charged for each non-empty EPA ECHO digest row. EPA ECHO report (epa-echo-report) $7.00: Charged for each generated EPA ECHO watch report. Platform usage is listed as included on the Store pricing tab."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / EPA ECHO Facility Watch</nav>
+    <h1>EPA ECHO facility, compliance, and watch-term matches</h1>
+    <p>This Actor is an EPA ECHO enforcement scraper for facility, compliance, and watch-term matches from public ECHO sources. Paste state/terms and Start.</p>
+    <p>Not the EPA ECHO digest Actor (taroyamada/epa-enforcement-digest) if you only need a simple digest. Not FDA warning letters. Not HHS OCR breaches. Informational only. Not legal or environmental advice.</p>
+    <p class="price">from $100.00 / 1,000 EPA ECHO watch alert ($0.1 per delivered epa-echo-watch-alert); $0.3 per EPA ECHO digest; $7.00 per EPA ECHO report. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/epa-echo-enforcement-facility-watch-scraper">Open EPA ECHO Facility Watch on Apify</a></p>
+
+    <h2>EPA ECHO Facility Watch, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/epa-enforcement-digest/">EPA ECHO Enforcement Scraper</a> for ECHO digest rows; Use <a href="/fda-warning-letter-digest/">FDA Warning Letters Scraper</a> for FDA warning-letter digests; Use <a href="/hhs-healthcare-data-breach-scraper/">HHS Healthcare Data Breach Change Scraper</a> for HHS OCR breaches.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>EPA ECHO Enforcement Scraper</th><th>FDA Warning Letters Scraper</th><th>HHS Healthcare Data Breach Change Scraper</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td><td>EPA ECHO Facility Watch</td><td>ECHO digest rows</td><td>FDA warning-letter digests</td><td>HHS OCR breaches</td>
+        </tr>
+        <tr>
+          <td>Primary input</td><td><code>feeds</code></td><td>targets[]</td><td>feeds</td><td>portal watch</td>
+        </tr>
+        <tr>
+          <td>What it reads</td><td>Public EPA ECHO pages/APIs</td><td>EPA ECHO public pages</td><td>FDA warning-letter feeds</td><td>HHS OCR</td>
+        </tr>
+        <tr>
+          <td>Primary output</td><td>ECHO watch-alert, digest, and report events</td><td>ECHO digest rows</td><td>Warning-letter digest rows</td><td>Breach change rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td><td>Not the EPA ECHO digest Actor (taroyamada/epa-enforcement-digest) if you only need a simple digest. Not FDA warning letters. Not HHS OCR breaches. Informational only. Not legal or environmental advice.</td><td>Not the facility watch with alert/report PPE.</td><td>Not CPSC/NHTSA/EPA records.</td><td>Not EPA ECHO facilities.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/epa-echo-enforcement-facility-watch-scraper</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>State/term watches against public ECHO</li>
+      <li>Recurring snapshotKey runs</li>
+      <li>Alert vs digest vs report events</li>
+    </ul>
+
+    <h2>How is EPA ECHO Facility Watch different from EPA ECHO Enforcement Scraper and FDA Warning Letters Scraper?</h2>
+    <p>EPA ECHO Facility Watch (taroyamada/epa-echo-enforcement-facility-watch-scraper): This Actor is an EPA ECHO enforcement scraper for facility, compliance, and watch-term matches from public ECHO sources. Paste state/terms and Start. Not the EPA ECHO digest Actor (taroyamada/epa-enforcement-digest) if you only need a simple digest. Not FDA warning letters. Not HHS OCR breaches. Informational only. Not legal or environmental advice. EPA ECHO Enforcement Scraper is for ECHO digest rows (input targets[]; EPA ECHO public pages; ECHO digest rows). Not the facility watch with alert/report PPE. FDA Warning Letters Scraper is for FDA warning-letter digests (input feeds; FDA warning-letter feeds; Warning-letter digest rows). Not CPSC/NHTSA/EPA records. HHS Healthcare Data Breach Change Scraper is for HHS OCR breaches (input portal watch; HHS OCR; Breach change rows). Not EPA ECHO facilities.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: feeds. Published exampleRunInput is shown below.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>feeds</code></td>
+          <td>object[]</td>
+          <td><code>[{&quot;id&quot;: &quot;california-active-facilities&quot;, &quot;name&quot;: &quot;California active facility watch&quot;, &quot;states&quot;: &quot;CA&quot;, &quot;programs&quot;: &quot;CWA&quot;, &quot;facilityNames&quot;: &quot;&quot;, &quot;keywords&quot;: &quot;enforcement,violation,penalty&quot;}]</code></td>
+          <td>Watch feeds. One watch target per product, vehicle, facility, company, program, or keyword group. Required.</td>
+        </tr>
+        <tr>
+          <td><code>watchTerms</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Global watch terms. Global watch terms.</td>
+        </tr>
+        <tr>
+          <td><code>lookbackDays</code></td>
+          <td>integer</td>
+          <td><code>30</code></td>
+          <td>Lookback days. Lookback days. minimum=1 maximum=365</td>
+        </tr>
+        <tr>
+          <td><code>datasetMode</code></td>
+          <td>string enum</td>
+          <td><code>action_needed</code></td>
+          <td>Dataset output mode. Dataset output mode. enum: all, action_needed, new_only</td>
+        </tr>
+        <tr>
+          <td><code>notifyOnNoNew</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit no-change rows. Emit no-change rows.</td>
+        </tr>
+        <tr>
+          <td><code>emitReport</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Emit report row. Emit report row.</td>
+        </tr>
+        <tr>
+          <td><code>snapshotKey</code></td>
+          <td>string</td>
+          <td><code>epa-echo-enforcement-facility-watch-state</code></td>
+          <td>Snapshot key. Snapshot key.</td>
+        </tr>
+        <tr>
+          <td><code>requestTimeoutSeconds</code></td>
+          <td>integer</td>
+          <td><code>30</code></td>
+          <td>HTTP timeout seconds. HTTP timeout seconds. minimum=5 maximum=120</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run. Dry run.</td>
+        </tr>
+        <tr>
+          <td><code>fixturePath</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Fixture path. Fixture path.</td>
+        </tr>
+        <tr>
+          <td><code>nowIso</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Override current time. Override current time.</td>
+        </tr>
+        <tr>
+          <td><code>initialRunMode</code></td>
+          <td>string enum</td>
+          <td><code>emit_current_window</code></td>
+          <td>Initial run mode. Controls first-run behavior. emit_current_window only bills records inside lookbackDays; baseline_only saves state with zero rows; emit_backfill is for explicit setup/canary runs. enum: emit_current_window, baseline_only, emit_backfill</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  "feeds": [
+    {
+      "id": "california-active-facilities",
+      "name": "California active facility watch",
+      "states": "CA",
+      "programs": "CWA",
+      "facilityNames": "",
+      "keywords": "enforcement,violation,penalty"
+    }
+  ],
+  "dryRun": false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/epa-echo-enforcement-facility-watch-scraper">Run EPA ECHO Facility Watch on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. datasetMode can limit emits to changes_only / changed_only / action_needed versus all. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>README output fence is truncated or invalid JSON on Store. Illustration head: { "actorName": "epa-echo-enforcement-facility-watch-scraper", "rowType": "epa_echo_digest", "feedId": "california-active-facilities", "feedName": "California active facility watch", "checkedAt": "2026-05-11T00:00:00.000Z", "fetchedAt": "2026-05-11T00:00:00.000Z", "sourceUrl": "ht… Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is EPA ECHO Facility Watch priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $100.00 / 1,000 EPA ECHO watch alert ($0.1 per delivered epa-echo-watch-alert); $0.3 per EPA ECHO digest; $7.00 per EPA ECHO report. No Actor Start.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>epa-echo-watch-alert</code> (EPA ECHO watch alert)</td>
+          <td>$0.1</td>
+          <td>Charged for each watchlist-matched public EPA ECHO facility or enforcement alert.</td>
+        </tr>
+        <tr>
+          <td><code>epa-echo-digest</code> (EPA ECHO digest)</td>
+          <td>$0.3</td>
+          <td>Charged for each non-empty EPA ECHO digest row.</td>
+        </tr>
+        <tr>
+          <td><code>epa-echo-report</code> (EPA ECHO report)</td>
+          <td>$7.00</td>
+          <td>Charged for each generated EPA ECHO watch report.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="price">from $100.00 / 1,000 EPA ECHO watch alert ($0.1 per delivered epa-echo-watch-alert); $0.3 per EPA ECHO digest; $7.00 per EPA ECHO report. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/epa-echo-enforcement-facility-watch-scraper/pricing">See EPA ECHO Facility Watch pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Public EPA ECHO only</li>
+      <li>Not professional advice</li>
+      <li>Watch terms are filters, not a nationwide dump</li>
+      <li>Respect source terms</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/epa-echo-enforcement-facility-watch-scraper">Open EPA ECHO Facility Watch on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/epa-enforcement-digest/">EPA ECHO Enforcement Scraper</a> — Not the facility watch with alert/report PPE.</li>
+      <li><a href="/fda-warning-letter-digest/">FDA Warning Letters Scraper</a> — Not CPSC/NHTSA/EPA records.</li>
+      <li><a href="/hhs-healthcare-data-breach-scraper/">HHS Healthcare Data Breach Change Scraper</a> — Not EPA ECHO facilities.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

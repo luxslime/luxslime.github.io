@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>App Store &amp; Google Play Reviews &amp; ASO Scraper — reviews and listing snapshots</title>
+  <meta name="description" content="taroyamada/app-store-review-aso-scraper. from $0.50 / 1,000 App review ($0.0005 per delivered app-review); $0.02 per App profile / ASO snapshot. No Actor Start. Not a…">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/app-store-review-aso-scraper/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is App Store & Google Play Reviews & ASO Scraper different from Apple App Store Scraper and Google Play App Scraper?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "App Store & Google Play Reviews & ASO Scraper (taroyamada/app-store-review-aso-scraper): This Actor scrapes Apple App Store and Google Play customer reviews and app/ASO intelligence in bulk by app ID, store URL, bundle/package ID, or keyword search. Public store endpoints only. Not a release-regression report (use App Review Regression & Release Report). Not Chrome Web Store. Not a reviewer-profiling or outreach tool. Public storefronts only. Apple App Store Scraper is for App metadata and ratings (input app IDs; App Store public pages; App metadata rows). Not bulk review pagination. Google Play App Scraper is for Play metadata and ASO (input package IDs; Play public pages; Play metadata rows). Not a dual-store review dump. iOS & Android App Review Scraper is for Cross-store review samples (input app IDs; App Store / Play reviews; Review rows). Not a release-regression report."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: none (see live fields). Live schema fields: appIds, appUrls, bundleIds, searchTerms, playAppIds, playUrls, maxAppsPerTerm, countries, language, maxReviewPages, reviewSort, includeReviews, includeAppProfile, minRating, proxy, dryRun, runMode, monitorKey, initialRunMode, maxChargeUsd, emitUnchanged, baselineStableKeys. Scrape Apple App Store customer reviews and app/ASO metadata in bulk by app ID, App Store URL, bundle ID, or keyword search. You are charged per review and per app profile delivered. exampleRunInput keys: appIds, maxAppsPerTerm, countries, language, maxReviewPages, reviewSort, includeReviews, includeAppProfile. additionalProperties is false on the live schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: appIds, maxAppsPerTerm, countries, language, maxReviewPages, reviewSort, includeReviews, includeAppProfile. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "README output fence is truncated or invalid JSON on Store. Illustration head: { \"rowType\": \"app_review\", \"appId\": \"1438388363\", \"appName\": \"Habit Tracker\", \"country\": \"us\", \"reviewId\": \"14143606963\", \"author\": \"Chelsea123\", \"rating\": 5, \"title\": \"Love it\", \"content\": \"Keeps me consistent every day...\", \"appVersion\": \"2.14.11\", \"voteSum\": 3, \"voteCount\": 4,\u2026 Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is App Store & Google Play Reviews & ASO Scraper priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $0.50 / 1,000 App review ($0.0005 per delivered app-review); $0.02 per App profile / ASO snapshot. No Actor Start. App review (app-review) $0.0005: Charged once per delivered public App Store or Google Play review row. App profile / ASO snapshot (app-profile) $0.02: Charged once per app per storefront for a public ASO profile snapshot with ratings, version, category, and aggregate signals. Platform usage is listed as included on the Store pricing tab."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / App Store &amp; Google Play Reviews &amp; ASO Scraper</nav>
+    <h1>Public App Store and Google Play reviews plus ASO snapshots</h1>
+    <p>This Actor scrapes Apple App Store and Google Play customer reviews and app/ASO intelligence in bulk by app ID, store URL, bundle/package ID, or keyword search. Public store endpoints only.</p>
+    <p>Not a release-regression report (use App Review Regression &amp; Release Report). Not Chrome Web Store. Not a reviewer-profiling or outreach tool. Public storefronts only.</p>
+    <p class="price">from $0.50 / 1,000 App review ($0.0005 per delivered app-review); $0.02 per App profile / ASO snapshot. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/app-store-review-aso-scraper">Open App Store &amp; Google Play Reviews &amp; ASO Scraper on Apify</a></p>
+
+    <h2>App Store &amp; Google Play Reviews &amp; ASO Scraper, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/apple-app-store-intelligence/">Apple App Store Scraper</a> for App metadata and ratings; Use <a href="/google-play-intelligence/">Google Play App Scraper</a> for Play metadata and ASO; Use <a href="/app-review-cross-platform-intelligence/">iOS &amp; Android App Review Scraper</a> for Cross-store review samples.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>Apple App Store Scraper</th><th>Google Play App Scraper</th><th>iOS &amp; Android App Review Scraper</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td><td>App Store & Google Play Reviews & ASO Scraper</td><td>App metadata and ratings</td><td>Play metadata and ASO</td><td>Cross-store review samples</td>
+        </tr>
+        <tr>
+          <td>Primary input</td><td><code>appIds / playAppIds</code></td><td>app IDs</td><td>package IDs</td><td>app IDs</td>
+        </tr>
+        <tr>
+          <td>What it reads</td><td>Apple App Store and Google Play public pages</td><td>App Store public pages</td><td>Play public pages</td><td>App Store / Play reviews</td>
+        </tr>
+        <tr>
+          <td>Primary output</td><td>App review and profile/ASO events</td><td>App metadata rows</td><td>Play metadata rows</td><td>Review rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td><td>Not a release-regression report (use App Review Regression &amp; Release Report). Not Chrome Web Store. Not a reviewer-profiling or outreach tool. Public storefronts only.</td><td>Not bulk review pagination.</td><td>Not a dual-store review dump.</td><td>Not a release-regression report.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/app-store-review-aso-scraper</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Known app IDs with includeReviews true and a small maxReviewPages</li>
+      <li>ASO snapshot via includeAppProfile</li>
+      <li>Multi-country public storefronts you specify</li>
+    </ul>
+
+    <h2>How is App Store &amp; Google Play Reviews &amp; ASO Scraper different from Apple App Store Scraper and Google Play App Scraper?</h2>
+    <p>App Store &amp; Google Play Reviews &amp; ASO Scraper (taroyamada/app-store-review-aso-scraper): This Actor scrapes Apple App Store and Google Play customer reviews and app/ASO intelligence in bulk by app ID, store URL, bundle/package ID, or keyword search. Public store endpoints only. Not a release-regression report (use App Review Regression &amp; Release Report). Not Chrome Web Store. Not a reviewer-profiling or outreach tool. Public storefronts only. Apple App Store Scraper is for App metadata and ratings (input app IDs; App Store public pages; App metadata rows). Not bulk review pagination. Google Play App Scraper is for Play metadata and ASO (input package IDs; Play public pages; Play metadata rows). Not a dual-store review dump. iOS &amp; Android App Review Scraper is for Cross-store review samples (input app IDs; App Store / Play reviews; Review rows). Not a release-regression report.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: none listed (see live fields). Published exampleRunInput is shown below.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>appIds</code></td>
+          <td>string[]</td>
+          <td><code>empty</code></td>
+          <td>App IDs. Numeric Apple App Store track IDs (e.g. 1232780281).</td>
+        </tr>
+        <tr>
+          <td><code>appUrls</code></td>
+          <td>string[]</td>
+          <td><code>empty</code></td>
+          <td>App Store URLs. Full App Store URLs (e.g. https://apps.apple.com/us/app/notion/id1232780281).</td>
+        </tr>
+        <tr>
+          <td><code>bundleIds</code></td>
+          <td>string[]</td>
+          <td><code>empty</code></td>
+          <td>Bundle IDs. App bundle identifiers (e.g. com.notion.notion). Resolved to apps per storefront.</td>
+        </tr>
+        <tr>
+          <td><code>searchTerms</code></td>
+          <td>string[]</td>
+          <td><code>empty</code></td>
+          <td>Search terms (App Store). Keywords to discover Apple App Store apps. Useful for ASO and competitive monitoring.</td>
+        </tr>
+        <tr>
+          <td><code>playAppIds</code></td>
+          <td>string[]</td>
+          <td><code>empty</code></td>
+          <td>Google Play package names. Google Play app package names, e.g. com.spotify.music.</td>
+        </tr>
+        <tr>
+          <td><code>playUrls</code></td>
+          <td>string[]</td>
+          <td><code>empty</code></td>
+          <td>Google Play URLs. Google Play store URLs, e.g. https://play.google.com/store/apps/details?id=com.spotify.music.</td>
+        </tr>
+        <tr>
+          <td><code>maxAppsPerTerm</code></td>
+          <td>integer</td>
+          <td><code>5</code></td>
+          <td>Max apps per search term. How many top apps to take from each search term. minimum=1 maximum=50</td>
+        </tr>
+        <tr>
+          <td><code>countries</code></td>
+          <td>string[]</td>
+          <td><code>[&quot;us&quot;]</code></td>
+          <td>Storefront countries. Two-letter App Store country codes to scrape (e.g. us, gb, jp, de). Reviews and ratings are per storefront.</td>
+        </tr>
+        <tr>
+          <td><code>language</code></td>
+          <td>string</td>
+          <td><code>en</code></td>
+          <td>Language (Google Play). Two-letter language code used for Google Play requests, e.g. en, ja, de.</td>
+        </tr>
+        <tr>
+          <td><code>maxReviewPages</code></td>
+          <td>integer</td>
+          <td><code>5</code></td>
+          <td>Max review pages per app. Each page returns up to 50 recent reviews (Apple exposes up to 10 pages = ~500 reviews per storefront). minimum=1 maximum=10</td>
+        </tr>
+        <tr>
+          <td><code>reviewSort</code></td>
+          <td>string enum</td>
+          <td><code>mostRecent</code></td>
+          <td>Review sort. Order reviews by most recent or most helpful. enum: mostRecent, mostHelpful</td>
+        </tr>
+        <tr>
+          <td><code>includeReviews</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Include reviews. Emit one row per customer review.</td>
+        </tr>
+        <tr>
+          <td><code>includeAppProfile</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Include app profile / ASO snapshot. Emit one metadata + ASO + aggregate-rating row per app per storefront.</td>
+        </tr>
+        <tr>
+          <td><code>minRating</code></td>
+          <td>integer</td>
+          <td><code>0</code></td>
+          <td>Minimum review rating. Only keep reviews with at least this star rating (0 = keep all). minimum=0 maximum=5</td>
+        </tr>
+        <tr>
+          <td><code>proxy</code></td>
+          <td>object</td>
+          <td><code>{&quot;useApifyProxy&quot;: false}</code></td>
+          <td>Proxy configuration. Optional. Apple's public endpoints generally work without a proxy; enable one only for very large runs.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Dry run. When true, emit illustrative sample rows without live calls or billing. Set to false to scrape real data.</td>
+        </tr>
+        <tr>
+          <td><code>runMode</code></td>
+          <td>string enum</td>
+          <td><code>extract</code></td>
+          <td>Run mode. Extract always returns current rows. Audit returns a current snapshot. Monitor stores a private baseline and emits only new or changed rows. enum: extract, audit, monitor</td>
+        </tr>
+        <tr>
+          <td><code>monitorKey</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Monitor key. Optional stable name for a recurring monitor. State is isolated by the calling Apify user and this key.</td>
+        </tr>
+        <tr>
+          <td><code>initialRunMode</code></td>
+          <td>string enum</td>
+          <td><code>baseline_only</code></td>
+          <td>First monitor run. Baseline only stores the first snapshot for free. Emit backfill returns the initial rows. enum: baseline_only, emit_backfill</td>
+        </tr>
+        <tr>
+          <td><code>maxChargeUsd</code></td>
+          <td>number</td>
+          <td><code>0</code></td>
+          <td>Maximum Actor charge. Optional Actor-side budget. Zero uses the Apify run spending limit only. minimum=0 maximum=1000</td>
+        </tr>
+        <tr>
+          <td><code>emitUnchanged</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Emit unchanged rows. Keep enabled for extract/audit runs. Monitor mode defaults to changed rows only and stores its own baseline.</td>
+        </tr>
+        <tr>
+          <td><code>baselineStableKeys</code></td>
+          <td>string[]</td>
+          <td><code>empty</code></td>
+          <td>Baseline stable keys. Optional stableKey values from a previous run. When emitUnchanged is false, matching rows are skipped and not charged.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  "appIds": [
+    "1232780281"
+  ],
+  "maxAppsPerTerm": 5,
+  "countries": [
+    "us"
+  ],
+  "language": "en",
+  "maxReviewPages": 5,
+  "reviewSort": "mostRecent",
+  "includeReviews": true,
+  "includeAppProfile": true
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/app-store-review-aso-scraper">Run App Store &amp; Google Play Reviews &amp; ASO Scraper on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>README output fence is truncated or invalid JSON on Store. Illustration head: { "rowType": "app_review", "appId": "1438388363", "appName": "Habit Tracker", "country": "us", "reviewId": "14143606963", "author": "Chelsea123", "rating": 5, "title": "Love it", "content": "Keeps me consistent every day...", "appVersion": "2.14.11", "voteSum": 3, "voteCount": 4,… Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is App Store &amp; Google Play Reviews &amp; ASO Scraper priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $0.50 / 1,000 App review ($0.0005 per delivered app-review); $0.02 per App profile / ASO snapshot. No Actor Start.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>app-review</code> (App review)</td>
+          <td>$0.0005</td>
+          <td>Charged once per delivered public App Store or Google Play review row.</td>
+        </tr>
+        <tr>
+          <td><code>app-profile</code> (App profile / ASO snapshot)</td>
+          <td>$0.02</td>
+          <td>Charged once per app per storefront for a public ASO profile snapshot with ratings, version, category, and aggregate signals.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="price">from $0.50 / 1,000 App review ($0.0005 per delivered app-review); $0.02 per App profile / ASO snapshot. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/app-store-review-aso-scraper/pricing">See App Store &amp; Google Play Reviews &amp; ASO Scraper pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Public store endpoints only</li>
+      <li>maxReviewPages / maxAppsPerTerm caps</li>
+      <li>No reviewer targeting</li>
+      <li>Keyword search is not a discovery engine for private listings</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/app-store-review-aso-scraper">Open App Store &amp; Google Play Reviews &amp; ASO Scraper on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/apple-app-store-intelligence/">Apple App Store Scraper</a> — Not bulk review pagination.</li>
+      <li><a href="/google-play-intelligence/">Google Play App Scraper</a> — Not a dual-store review dump.</li>
+      <li><a href="/app-review-cross-platform-intelligence/">iOS &amp; Android App Review Scraper</a> — Not a release-regression report.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

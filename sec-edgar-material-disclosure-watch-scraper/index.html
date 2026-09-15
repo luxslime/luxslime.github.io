@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SEC EDGAR Disclosure Candidate Watch — 8-K item and exhibit candidates</title>
+  <meta name="description" content="taroyamada/sec-edgar-material-disclosure-watch-scraper. from $10.00 / 1,000 SEC filing detected ($0.01 per delivered sec-filing-detected); $0.35 per SEC disclosure can…">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/sec-edgar-material-disclosure-watch-scraper/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is SEC EDGAR Disclosure Candidate Watch different from SEC EDGAR Scraper and SEC Material Contract Intelligence?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "SEC EDGAR Disclosure Candidate Watch (taroyamada/sec-edgar-material-disclosure-watch-scraper): This Actor watches SEC EDGAR public submissions for source-linked disclosure candidates, 8-K item metadata, filing deltas, exhibit links, and portfolio reports with source-linked context only. Not a full EDGAR filing-index monitor (use SEC EDGAR Scraper). Not Forms 3/4/5 insider rows. Not exhibit-contract extraction (use SEC Material Contract Intelligence). Informational only. Not investment advice. The $0.01 SEC filing-detected event is a live primary PPE key, not a stale actor-start. SEC EDGAR Scraper is for 8-K and S-1 filing alerts (input companies; Public EDGAR; Filing-index rows). Not Form D notices or 8-K item candidates. SEC Material Contract Intelligence is for Exhibit/contract leads (input issuers; EDGAR exhibits; Contract intelligence rows). Not Form D or insider Forms 3/4/5. SEC Insider Transaction Scraper is for Forms 3, 4, 5 (input issuers; EDGAR ownership forms; Insider transaction rows). Not Form D exempt offerings."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: none (see live fields). Live schema fields: issuers, formTypes, daysBack, disclosureKeywords, secUserAgent, generateReport, emitUnchanged, dryRun. Watch SEC EDGAR public submissions for source-linked disclosure candidates, 8-K item metadata, filing deltas, exhibit links, and portfolio reports with source-linked context only. exampleRunInput keys: issuers, formTypes, daysBack, disclosureKeywords, secUserAgent, generateReport, emitUnchanged, dryRun. additionalProperties is false on the live schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: issuers, formTypes, daysBack, disclosureKeywords, secUserAgent, generateReport, emitUnchanged, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "README output fence is truncated or invalid JSON on Store. Illustration head: { \"rowType\": \"sec_disclosure_report\", \"billingEventName\": \"sec-disclosure-report\", \"issuer\": \"MSFT\", \"formTypes\": [\"8-K\", \"10-Q\"], \"matchedDisclosureKeywords\": [\"customer agreement\", \"acquisition\"], \"reportSummary\": \"Source-linked disclosure candidates found in recent SEC EDGAR s\u2026 Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is SEC EDGAR Disclosure Candidate Watch priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $10.00 / 1,000 SEC filing detected ($0.01 per delivered sec-filing-detected); $0.35 per SEC disclosure candidate alert; $12 per SEC disclosure report. No Actor Start. SEC filing detected (sec-filing-detected) $0.01: Charged for each new source-linked SEC filing row. SEC disclosure candidate alert (sec-disclosure-candidate-alert) $0.35: Charged for each filing row matching configured disclosure candidate forms, items, or keywords. SEC disclosure report (sec-disclosure-report) $12: Charged for each portfolio-level SEC disclosure report row. Platform usage is listed as included on the Store pricing tab."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / SEC EDGAR Disclosure Candidate Watch</nav>
+    <h1>Public EDGAR submissions into disclosure-candidate and report rows</h1>
+    <p>This Actor watches SEC EDGAR public submissions for source-linked disclosure candidates, 8-K item metadata, filing deltas, exhibit links, and portfolio reports with source-linked context only.</p>
+    <p>Not a full EDGAR filing-index monitor (use SEC EDGAR Scraper). Not Forms 3/4/5 insider rows. Not exhibit-contract extraction (use SEC Material Contract Intelligence). Informational only. Not investment advice. The $0.01 SEC filing-detected event is a live primary PPE key, not a stale actor-start.</p>
+    <p class="price">from $10.00 / 1,000 SEC filing detected ($0.01 per delivered sec-filing-detected); $0.35 per SEC disclosure candidate alert; $12 per SEC disclosure report. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/sec-edgar-material-disclosure-watch-scraper">Open SEC EDGAR Disclosure Candidate Watch on Apify</a></p>
+
+    <h2>SEC EDGAR Disclosure Candidate Watch, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/sec-edgar-filings-monitor/">SEC EDGAR Scraper</a> for 8-K and S-1 filing alerts; Use <a href="/sec-material-contract-intelligence/">SEC Material Contract Intelligence</a> for Exhibit/contract leads; Use <a href="/sec-insider-transaction-intelligence/">SEC Insider Transaction Scraper</a> for Forms 3, 4, 5.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>SEC EDGAR Scraper</th><th>SEC Material Contract Intelligence</th><th>SEC Insider Transaction Scraper</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td><td>SEC EDGAR Disclosure Candidate Watch</td><td>8-K and S-1 filing alerts</td><td>Exhibit/contract leads</td><td>Forms 3, 4, 5</td>
+        </tr>
+        <tr>
+          <td>Primary input</td><td><code>issuers</code></td><td>companies</td><td>issuers</td><td>issuers</td>
+        </tr>
+        <tr>
+          <td>What it reads</td><td>SEC EDGAR public submissions</td><td>Public EDGAR</td><td>EDGAR exhibits</td><td>EDGAR ownership forms</td>
+        </tr>
+        <tr>
+          <td>Primary output</td><td>Filing-detected, candidate, and report events</td><td>Filing-index rows</td><td>Contract intelligence rows</td><td>Insider transaction rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td><td>Not a full EDGAR filing-index monitor (use SEC EDGAR Scraper). Not Forms 3/4/5 insider rows. Not exhibit-contract extraction (use SEC Material Contract Intelligence). Informational only. Not investment advice. The $0.01 SEC filing-detected event is a live primary PPE key, not a stale actor-start.</td><td>Not Form D notices or 8-K item candidates.</td><td>Not Form D or insider Forms 3/4/5.</td><td>Not Form D exempt offerings.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/sec-edgar-material-disclosure-watch-scraper</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Watch known issuers for 8-K item candidates</li>
+      <li>Optional report event when you need a packed portfolio</li>
+      <li>Source-linked context only</li>
+    </ul>
+
+    <h2>How is SEC EDGAR Disclosure Candidate Watch different from SEC EDGAR Scraper and SEC Material Contract Intelligence?</h2>
+    <p>SEC EDGAR Disclosure Candidate Watch (taroyamada/sec-edgar-material-disclosure-watch-scraper): This Actor watches SEC EDGAR public submissions for source-linked disclosure candidates, 8-K item metadata, filing deltas, exhibit links, and portfolio reports with source-linked context only. Not a full EDGAR filing-index monitor (use SEC EDGAR Scraper). Not Forms 3/4/5 insider rows. Not exhibit-contract extraction (use SEC Material Contract Intelligence). Informational only. Not investment advice. The $0.01 SEC filing-detected event is a live primary PPE key, not a stale actor-start. SEC EDGAR Scraper is for 8-K and S-1 filing alerts (input companies; Public EDGAR; Filing-index rows). Not Form D notices or 8-K item candidates. SEC Material Contract Intelligence is for Exhibit/contract leads (input issuers; EDGAR exhibits; Contract intelligence rows). Not Form D or insider Forms 3/4/5. SEC Insider Transaction Scraper is for Forms 3, 4, 5 (input issuers; EDGAR ownership forms; Insider transaction rows). Not Form D exempt offerings.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: none listed (see live fields). Published exampleRunInput is shown below.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>issuers</code></td>
+          <td>string[]</td>
+          <td><code>[&quot;MSFT&quot;]</code></td>
+          <td>Issuers. Ticker symbols or CIK numbers to inspect.</td>
+        </tr>
+        <tr>
+          <td><code>formTypes</code></td>
+          <td>string[]</td>
+          <td><code>[&quot;8-K&quot;, &quot;10-K&quot;, &quot;10-Q&quot;, &quot;S-1&quot;]</code></td>
+          <td>Form types. SEC form types to include.</td>
+        </tr>
+        <tr>
+          <td><code>daysBack</code></td>
+          <td>integer</td>
+          <td><code>90</code></td>
+          <td>Days back. How far back to inspect recent submissions. minimum=1 maximum=3650</td>
+        </tr>
+        <tr>
+          <td><code>disclosureKeywords</code></td>
+          <td>string[]</td>
+          <td><code>[&quot;customer agreement&quot;, &quot;acquisition&quot;]</code></td>
+          <td>Disclosure keywords. Source-text keywords that mark a disclosure candidate. The actor does not classify filing importance.</td>
+        </tr>
+        <tr>
+          <td><code>secUserAgent</code></td>
+          <td>string</td>
+          <td><code>taroyamada-sec-disclosure-watch/1.0 ops@example.com</code></td>
+          <td>SEC User-Agent. SEC-compliant User-Agent with app and contact information. Example: your-company-edgar-watch/1.0 ops@yourcompany.com</td>
+        </tr>
+        <tr>
+          <td><code>generateReport</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Generate report. Emit a portfolio-level report row when filings are found.</td>
+        </tr>
+        <tr>
+          <td><code>emitUnchanged</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit unchanged rows. When false, previously seen filings are suppressed.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run. When true, emit sample rows locally without external live calls or billing.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  "issuers": [
+    "MSFT"
+  ],
+  "formTypes": [
+    "8-K",
+    "10-K"
+  ],
+  "daysBack": 90,
+  "disclosureKeywords": [
+    "customer agreement",
+    "acquisition"
+  ],
+  "secUserAgent": "taroyamada-sec-disclosure-watch/1.0 ops@example.com",
+  "generateReport": false,
+  "emitUnchanged": false,
+  "dryRun": false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/sec-edgar-material-disclosure-watch-scraper">Run SEC EDGAR Disclosure Candidate Watch on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>README output fence is truncated or invalid JSON on Store. Illustration head: { "rowType": "sec_disclosure_report", "billingEventName": "sec-disclosure-report", "issuer": "MSFT", "formTypes": ["8-K", "10-Q"], "matchedDisclosureKeywords": ["customer agreement", "acquisition"], "reportSummary": "Source-linked disclosure candidates found in recent SEC EDGAR s… Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is SEC EDGAR Disclosure Candidate Watch priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $10.00 / 1,000 SEC filing detected ($0.01 per delivered sec-filing-detected); $0.35 per SEC disclosure candidate alert; $12 per SEC disclosure report. No Actor Start.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>sec-filing-detected</code> (SEC filing detected)</td>
+          <td>$0.01</td>
+          <td>Charged for each new source-linked SEC filing row.</td>
+        </tr>
+        <tr>
+          <td><code>sec-disclosure-candidate-alert</code> (SEC disclosure candidate alert)</td>
+          <td>$0.35</td>
+          <td>Charged for each filing row matching configured disclosure candidate forms, items, or keywords.</td>
+        </tr>
+        <tr>
+          <td><code>sec-disclosure-report</code> (SEC disclosure report)</td>
+          <td>$12</td>
+          <td>Charged for each portfolio-level SEC disclosure report row.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="price">from $10.00 / 1,000 SEC filing detected ($0.01 per delivered sec-filing-detected); $0.35 per SEC disclosure candidate alert; $12 per SEC disclosure report. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/sec-edgar-material-disclosure-watch-scraper/pricing">See SEC EDGAR Disclosure Candidate Watch pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Public EDGAR only</li>
+      <li>Not investment advice</li>
+      <li>Report events are separate billed keys</li>
+      <li>Not a substitute for EDGAR full-text review</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/sec-edgar-material-disclosure-watch-scraper">Open SEC EDGAR Disclosure Candidate Watch on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/sec-edgar-filings-monitor/">SEC EDGAR Scraper</a> — Not Form D notices or 8-K item candidates.</li>
+      <li><a href="/sec-material-contract-intelligence/">SEC Material Contract Intelligence</a> — Not Form D or insider Forms 3/4/5.</li>
+      <li><a href="/sec-insider-transaction-intelligence/">SEC Insider Transaction Scraper</a> — Not Form D exempt offerings.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

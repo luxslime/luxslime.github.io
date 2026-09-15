@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Podcast Media Buyer Shortlist Scraper — RSS show candidates</title>
+  <meta name="description" content="taroyamada/podcast-media-buyer-shortlist-scraper. from $5.00 / 1,000 Podcast show candidate ($0.005 per delivered podcast-show-candidate); $0.05 per Podcast fit eviden…">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/podcast-media-buyer-shortlist-scraper/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is Podcast Media Buyer Shortlist Scraper different from Apple Podcasts Scraper and Apple Podcasts Chart Scraper?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Podcast Media Buyer Shortlist Scraper (taroyamada/podcast-media-buyer-shortlist-scraper): This Actor builds a podcast media-buyer shortlist from RSS feeds and show URLs you supply. First paid Input: 1 RSS + maxEpisodes 1, search off, export off. Not iTunes Search or Apple charts. Not sponsor-evidence extraction (use Podcast Sponsor Evidence Report Scraper). Not a contact/outreach list. Apple Podcasts Scraper is for iTunes search, charts, episodes (input searchTerm; Apple/iTunes endpoints; Podcast metadata rows). Not RSS-only sponsor evidence. Apple Podcasts Chart Scraper is for Top Podcasts ranks (input chart params; Apple chart endpoints; Chart rows). Not episode watchlists. RSS & Atom Feed Extractor is for Known-publisher feed XML (input feed URLs; RSS/Atom XML; Feed item rows). Not sponsor-evidence extraction."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: none (see live fields). Live schema fields: rssFeedUrls, showUrls, searchTerms, targetKeywords, maxEpisodesPerFeed, emitShortlistExport, emitUnchanged, dryRun. Build podcast advertising shortlists from Apple search terms and public RSS feeds with source-linked fit evidence and export rows. exampleRunInput keys: rssFeedUrls, showUrls, searchTerms, targetKeywords, maxEpisodesPerFeed, emitShortlistExport, emitUnchanged, dryRun. additionalProperties is false on the live schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: rssFeedUrls, showUrls, searchTerms, targetKeywords, maxEpisodesPerFeed, emitShortlistExport, emitUnchanged, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "README output fence is truncated or invalid JSON on Store. Illustration head: { \"rowType\": \"podcast_shortlist_export\", \"billingEventName\": \"podcast-shortlist-export\", \"sourceName\": \"Podcast Media Buyer Shortlist\", \"sourceUrl\": \"https://feeds.npr.org/510289/podcast.xml\", \"showTitle\": \"Planet Money\", \"matchedKeywords\": [\"business\", \"marketing\"], \"mediaBuyerF\u2026 Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is Podcast Media Buyer Shortlist Scraper priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $5.00 / 1,000 Podcast show candidate ($0.005 per delivered podcast-show-candidate); $0.05 per Podcast fit evidence; $2.50 per Podcast shortlist export. No Actor Start. Podcast show candidate (podcast-show-candidate) $0.005: Charged for each public podcast show candidate row in a media buyer shortlist. Podcast fit evidence (podcast-fit-evidence) $0.05: Charged for each source-linked fit evidence row matched to buyer keywords or campaign context. Podcast shortlist export (podcast-shortlist-export) $2.50: Charged for each generated media buyer shortlist export row. Platform usage is listed as included on the Store pricing tab."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Podcast Media Buyer Shortlist Scraper</nav>
+    <h1>Public RSS and show URLs into media-buyer shortlist rows</h1>
+    <p>This Actor builds a podcast media-buyer shortlist from RSS feeds and show URLs you supply. First paid Input: 1 RSS + maxEpisodes 1, search off, export off.</p>
+    <p>Not iTunes Search or Apple charts. Not sponsor-evidence extraction (use Podcast Sponsor Evidence Report Scraper). Not a contact/outreach list.</p>
+    <p class="price">from $5.00 / 1,000 Podcast show candidate ($0.005 per delivered podcast-show-candidate); $0.05 per Podcast fit evidence; $2.50 per Podcast shortlist export. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/podcast-media-buyer-shortlist-scraper">Open Podcast Media Buyer Shortlist Scraper on Apify</a></p>
+
+    <h2>Podcast Media Buyer Shortlist Scraper, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> for iTunes search, charts, episodes; Use <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> for Top Podcasts ranks; Use <a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a> for Known-publisher feed XML.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>Apple Podcasts Scraper</th><th>Apple Podcasts Chart Scraper</th><th>RSS &amp; Atom Feed Extractor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td><td>Podcast Media Buyer Shortlist Scraper</td><td>iTunes search, charts, episodes</td><td>Top Podcasts ranks</td><td>Known-publisher feed XML</td>
+        </tr>
+        <tr>
+          <td>Primary input</td><td><code>rssFeedUrls</code></td><td>searchTerm</td><td>chart params</td><td>feed URLs</td>
+        </tr>
+        <tr>
+          <td>What it reads</td><td>User-supplied RSS and show URLs</td><td>Apple/iTunes endpoints</td><td>Apple chart endpoints</td><td>RSS/Atom XML</td>
+        </tr>
+        <tr>
+          <td>Primary output</td><td>Show-candidate, fit-evidence, and export events</td><td>Podcast metadata rows</td><td>Chart rows</td><td>Feed item rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td><td>Not iTunes Search or Apple charts. Not sponsor-evidence extraction (use Podcast Sponsor Evidence Report Scraper). Not a contact/outreach list.</td><td>Not RSS-only sponsor evidence.</td><td>Not episode watchlists.</td><td>Not sponsor-evidence extraction.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/podcast-media-buyer-shortlist-scraper</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>One RSS feed, maxEpisodes 1, emitShortlistExport false</li>
+      <li>Optional targetKeywords as local filters</li>
+      <li>Export event only when you need a packed shortlist</li>
+    </ul>
+
+    <h2>How is Podcast Media Buyer Shortlist Scraper different from Apple Podcasts Scraper and Apple Podcasts Chart Scraper?</h2>
+    <p>Podcast Media Buyer Shortlist Scraper (taroyamada/podcast-media-buyer-shortlist-scraper): This Actor builds a podcast media-buyer shortlist from RSS feeds and show URLs you supply. First paid Input: 1 RSS + maxEpisodes 1, search off, export off. Not iTunes Search or Apple charts. Not sponsor-evidence extraction (use Podcast Sponsor Evidence Report Scraper). Not a contact/outreach list. Apple Podcasts Scraper is for iTunes search, charts, episodes (input searchTerm; Apple/iTunes endpoints; Podcast metadata rows). Not RSS-only sponsor evidence. Apple Podcasts Chart Scraper is for Top Podcasts ranks (input chart params; Apple chart endpoints; Chart rows). Not episode watchlists. RSS &amp; Atom Feed Extractor is for Known-publisher feed XML (input feed URLs; RSS/Atom XML; Feed item rows). Not sponsor-evidence extraction.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: none listed (see live fields). Published exampleRunInput is shown below.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>rssFeedUrls</code></td>
+          <td>string[]</td>
+          <td><code>[&quot;https://feeds.npr.org/510289/podcast.xml&quot;]</code></td>
+          <td>RSS feed URLs. Public podcast RSS feed URLs to score for shortlist fit.</td>
+        </tr>
+        <tr>
+          <td><code>showUrls</code></td>
+          <td>string[]</td>
+          <td><code>empty</code></td>
+          <td>Show URLs. Public podcast show or publisher pages to include as fit evidence surfaces.</td>
+        </tr>
+        <tr>
+          <td><code>searchTerms</code></td>
+          <td>string[]</td>
+          <td><code>empty</code></td>
+          <td>Apple Podcast search terms. Apple iTunes Search API terms for public feed discovery.</td>
+        </tr>
+        <tr>
+          <td><code>targetKeywords</code></td>
+          <td>string[]</td>
+          <td><code>[&quot;business&quot;]</code></td>
+          <td>Target keywords. Campaign, audience, category, or topic keywords used to score candidate shows.</td>
+        </tr>
+        <tr>
+          <td><code>maxEpisodesPerFeed</code></td>
+          <td>integer</td>
+          <td><code>1</code></td>
+          <td>Max episodes per feed. Maximum RSS episode items to inspect per feed. minimum=1 maximum=50</td>
+        </tr>
+        <tr>
+          <td><code>emitShortlistExport</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit shortlist export. Emit one shortlist export row when candidate rows are found.</td>
+        </tr>
+        <tr>
+          <td><code>emitUnchanged</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit unchanged rows. When false, previously seen candidate rows are suppressed.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run. When true, emit sample rows locally without external live calls or billing.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  "rssFeedUrls": [
+    "https://feeds.npr.org/510289/podcast.xml"
+  ],
+  "showUrls": [],
+  "searchTerms": [],
+  "targetKeywords": [
+    "business"
+  ],
+  "maxEpisodesPerFeed": 1,
+  "emitShortlistExport": false,
+  "emitUnchanged": false,
+  "dryRun": false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/podcast-media-buyer-shortlist-scraper">Run Podcast Media Buyer Shortlist Scraper on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>README output fence is truncated or invalid JSON on Store. Illustration head: { "rowType": "podcast_shortlist_export", "billingEventName": "podcast-shortlist-export", "sourceName": "Podcast Media Buyer Shortlist", "sourceUrl": "https://feeds.npr.org/510289/podcast.xml", "showTitle": "Planet Money", "matchedKeywords": ["business", "marketing"], "mediaBuyerF… Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is Podcast Media Buyer Shortlist Scraper priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $5.00 / 1,000 Podcast show candidate ($0.005 per delivered podcast-show-candidate); $0.05 per Podcast fit evidence; $2.50 per Podcast shortlist export. No Actor Start.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>podcast-show-candidate</code> (Podcast show candidate)</td>
+          <td>$0.005</td>
+          <td>Charged for each public podcast show candidate row in a media buyer shortlist.</td>
+        </tr>
+        <tr>
+          <td><code>podcast-fit-evidence</code> (Podcast fit evidence)</td>
+          <td>$0.05</td>
+          <td>Charged for each source-linked fit evidence row matched to buyer keywords or campaign context.</td>
+        </tr>
+        <tr>
+          <td><code>podcast-shortlist-export</code> (Podcast shortlist export)</td>
+          <td>$2.50</td>
+          <td>Charged for each generated media buyer shortlist export row.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="price">from $5.00 / 1,000 Podcast show candidate ($0.005 per delivered podcast-show-candidate); $0.05 per Podcast fit evidence; $2.50 per Podcast shortlist export. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/podcast-media-buyer-shortlist-scraper/pricing">See Podcast Media Buyer Shortlist Scraper pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Public RSS/show URLs you supply</li>
+      <li>searchTerms are not a Store-wide discovery engine</li>
+      <li>Export is a separate billed event</li>
+      <li>Not advertiser PII</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/podcast-media-buyer-shortlist-scraper">Open Podcast Media Buyer Shortlist Scraper on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> — Not RSS-only sponsor evidence.</li>
+      <li><a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> — Not episode watchlists.</li>
+      <li><a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a> — Not sponsor-evidence extraction.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

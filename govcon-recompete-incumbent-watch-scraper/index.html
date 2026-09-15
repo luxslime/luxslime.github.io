@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GovCon Recompete &amp; Spend Shift Watch — award windows and concentration</title>
+  <meta name="description" content="taroyamada/govcon-recompete-incumbent-watch-scraper. from $80.00 / 1,000 GovCon recompete candidate ($0.08 per delivered govcon-recompete-candidate). No Actor Start. N…">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/govcon-recompete-incumbent-watch-scraper/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is GovCon Recompete & Spend Shift Watch different from TED, SAM.gov & Grants Bid Alerts and Government Contract Award Change Report?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "GovCon Recompete & Spend Shift Watch (taroyamada/govcon-recompete-incumbent-watch-scraper): This Actor watches official public federal award data for recompete windows, agency spend shifts, and vendor concentration reports. Not an open-opportunity bid desk (use TED, SAM.gov & Grants Bid Alerts). Not Grants.gov-only notices. Informational only. Not a bid/no-bid decision. TED, SAM.gov & Grants Bid Alerts is for Open opportunities / tenders (input keywords / jurisdictions; SAM/TED/Grants notices; Opportunity rows). Not vendor-pursuit profiles, Form D notices, or post-award spend reports. Government Contract Award Change Report is for Post-award spend/award changes (input feeds; TED / USASpending awards; Award change rows). Not open bid queues. Grants.gov Scraper is for Grants.gov-only funding notices (input feeds / watch terms; Grants.gov; Funding digest rows). Not a multi-source TED/SAM desk."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: none (see live fields). Live schema fields: awardSearches, maxAwardsPerSearch, emitBaselineSummary, emitAwardRows, generateReport, watchMode, spendWatches, maxSpendingRows, emitSpendExport, fixturePath, emitUnchanged, dryRun, initialRunMode, snapshotKey. Watch official public federal award data for recompete windows and incumbent contractor signals. exampleRunInput keys: awardSearches, maxAwardsPerSearch, emitBaselineSummary, emitAwardRows, generateReport, watchMode, maxSpendingRows, emitSpendExport, emitUnchanged, dryRun, initialRunMode. additionalProperties is false on the live schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: awardSearches, maxAwardsPerSearch, emitBaselineSummary, emitAwardRows, generateReport, watchMode, maxSpendingRows, emitSpendExport, emitUnchanged, dryRun, initialRunMode. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is GovCon Recompete & Spend Shift Watch priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $80.00 / 1,000 GovCon recompete candidate ($0.08 per delivered govcon-recompete-candidate). No Actor Start. GovCon recompete candidate (govcon-recompete-candidate) $0.08: Charged for each source-linked public award that appears inside a recompete watch window. GovCon incumbent map generated (govcon-incumbent-map-generated) $0.1: Charged for each search-level incumbent map summary row. GovCon incumbent change detected (govcon-incumbent-change-detected) $0.06: Charged for each source-linked incumbent or award-content change signal. GovCon incumbent award observed (govcon-incumbent-award-observed) $0.004: Charged for each optional public award observation row when explicitly enabled. GovCon recompete watch report (govcon-recompete-watch-report) $6.00: Charged for each portfolio-level recompete watch report row. GovCon spend shift alert (govcon-spend-shift-alert) $0.5: Charged for each source-linked material agency or vendor spend-share change alert. GovCon vendor concentration report (govcon-vendor-concentration-report) $12: Charged for each generated agency and vendor concentration report. GovCon spend export (govcon-spend-export) $5.00: Charged for each generated source-linked spend analysis export. Platform usage is listed as included on the Store pricing tab."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / GovCon Recompete &amp; Spend Shift Watch</nav>
+    <h1>Public federal award data for recompete windows and spend shifts</h1>
+    <p>This Actor watches official public federal award data for recompete windows, agency spend shifts, and vendor concentration reports.</p>
+    <p>Not an open-opportunity bid desk (use TED, SAM.gov &amp; Grants Bid Alerts). Not Grants.gov-only notices. Informational only. Not a bid/no-bid decision.</p>
+    <p class="price">from $80.00 / 1,000 GovCon recompete candidate ($0.08 per delivered govcon-recompete-candidate). No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/govcon-recompete-incumbent-watch-scraper">Open GovCon Recompete &amp; Spend Shift Watch on Apify</a></p>
+
+    <h2>GovCon Recompete &amp; Spend Shift Watch, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/ted-sam-grants-bid-alerts/">TED, SAM.gov &amp; Grants Bid Alerts</a> for Open opportunities / tenders; Use <a href="/government-contract-award-monitor/">Government Contract Award Change Report</a> for Post-award spend/award changes; Use <a href="/grants-gov-funding-digest/">Grants.gov Scraper</a> for Grants.gov-only funding notices.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>TED, SAM.gov &amp; Grants Bid Alerts</th><th>Government Contract Award Change Report</th><th>Grants.gov Scraper</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td><td>GovCon Recompete & Spend Shift Watch</td><td>Open opportunities / tenders</td><td>Post-award spend/award changes</td><td>Grants.gov-only funding notices</td>
+        </tr>
+        <tr>
+          <td>Primary input</td><td><code>awardSearches</code></td><td>keywords / jurisdictions</td><td>feeds</td><td>feeds / watch terms</td>
+        </tr>
+        <tr>
+          <td>What it reads</td><td>Official public federal award data</td><td>SAM/TED/Grants notices</td><td>TED / USASpending awards</td><td>Grants.gov</td>
+        </tr>
+        <tr>
+          <td>Primary output</td><td>Recompete, incumbent, spend, and report events</td><td>Opportunity rows</td><td>Award change rows</td><td>Funding digest rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td><td>Not an open-opportunity bid desk (use TED, SAM.gov &amp; Grants Bid Alerts). Not Grants.gov-only notices. Informational only. Not a bid/no-bid decision.</td><td>Not vendor-pursuit profiles, Form D notices, or post-award spend reports.</td><td>Not open bid queues.</td><td>Not a multi-source TED/SAM desk.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/govcon-recompete-incumbent-watch-scraper</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>awardSearches against official public award data</li>
+      <li>Keep emitAwardRows/exports off until needed</li>
+      <li>Optional spendWatches for shift alerts</li>
+    </ul>
+
+    <h2>How is GovCon Recompete &amp; Spend Shift Watch different from TED, SAM.gov &amp; Grants Bid Alerts and Government Contract Award Change Report?</h2>
+    <p>GovCon Recompete &amp; Spend Shift Watch (taroyamada/govcon-recompete-incumbent-watch-scraper): This Actor watches official public federal award data for recompete windows, agency spend shifts, and vendor concentration reports. Not an open-opportunity bid desk (use TED, SAM.gov &amp; Grants Bid Alerts). Not Grants.gov-only notices. Informational only. Not a bid/no-bid decision. TED, SAM.gov &amp; Grants Bid Alerts is for Open opportunities / tenders (input keywords / jurisdictions; SAM/TED/Grants notices; Opportunity rows). Not vendor-pursuit profiles, Form D notices, or post-award spend reports. Government Contract Award Change Report is for Post-award spend/award changes (input feeds; TED / USASpending awards; Award change rows). Not open bid queues. Grants.gov Scraper is for Grants.gov-only funding notices (input feeds / watch terms; Grants.gov; Funding digest rows). Not a multi-source TED/SAM desk.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: none listed (see live fields). Published exampleRunInput is shown below.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>awardSearches</code></td>
+          <td>any[]</td>
+          <td><code>[{&quot;id&quot;: &quot;sample-it-services&quot;, &quot;keywords&quot;: [&quot;cloud&quot;, &quot;modernization&quot;], &quot;recipientNames&quot;: [], &quot;naicsCodes&quot;: [&quot;541512&quot;], &quot;pscCodes&quot;: [], &quot;daysUntilEnd&quot;: 365, &quot;minimumAwardAmount&quot;: 1000000}]</code></td>
+          <td>Award searches. Search definitions for official public federal award data.</td>
+        </tr>
+        <tr>
+          <td><code>maxAwardsPerSearch</code></td>
+          <td>integer</td>
+          <td><code>50</code></td>
+          <td>Max awards per search. Max awards per search input. minimum=1 maximum=500</td>
+        </tr>
+        <tr>
+          <td><code>emitBaselineSummary</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Emit baseline summary. Emit a baseline summary row on the first run for a new snapshot namespace.</td>
+        </tr>
+        <tr>
+          <td><code>emitAwardRows</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit award observation rows. Emit optional public award observation rows. Off by default; recompete candidates carry the business value.</td>
+        </tr>
+        <tr>
+          <td><code>generateReport</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Generate watch report. Generate a report row when report-worthy rows are emitted.</td>
+        </tr>
+        <tr>
+          <td><code>watchMode</code></td>
+          <td>string enum</td>
+          <td><code>recompete</code></td>
+          <td>Watch mode. Keep recompete for the existing award workflow. Use spend_shift for bounded agency spend and vendor concentration reports. enum: recompete, spend_shift</td>
+        </tr>
+        <tr>
+          <td><code>spendWatches</code></td>
+          <td>any[]</td>
+          <td><code>empty</code></td>
+          <td>Spend shift watches. Optional public-spend watch definitions. Each watch is limited to the configured official USAspending query and two comparison periods. maxItems=10</td>
+        </tr>
+        <tr>
+          <td><code>maxSpendingRows</code></td>
+          <td>integer</td>
+          <td><code>100</code></td>
+          <td>Max spending rows per period. Bound the number of official USAspending award rows fetched for each period. minimum=1 maximum=100</td>
+        </tr>
+        <tr>
+          <td><code>emitSpendExport</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Generate spend export event. Generate one source-linked spend export row per changed spend snapshot.</td>
+        </tr>
+        <tr>
+          <td><code>fixturePath</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Fixture path. Optional local fixture path for private canary/testing runs.</td>
+        </tr>
+        <tr>
+          <td><code>emitUnchanged</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit unchanged rows. When false, unchanged searches emit no dataset rows and no charges.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run. When true, emit sample rows without live calls or billing.</td>
+        </tr>
+        <tr>
+          <td><code>initialRunMode</code></td>
+          <td>string enum</td>
+          <td><code>emit_backfill</code></td>
+          <td>Initial run mode. Deployment canary control used by automation; emit_backfill allows first-run proof rows, baseline_only is used for no-change proof. enum: emit_backfill, baseline_only</td>
+        </tr>
+        <tr>
+          <td><code>snapshotKey</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Snapshot key. Optional state namespace for canary and recurring no-change proof runs.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  "awardSearches": [
+    {
+      "id": "sample-it-services",
+      "keywords": [
+        "cloud",
+        "modernization"
+      ],
+      "recipientNames": [],
+      "naicsCodes": [
+        "541512"
+      ],
+      "pscCodes": [],
+      "daysUntilEnd": 365,
+      "minimumAwardAmount": 1000000
+    }
+  ],
+  "maxAwardsPerSearch": 50,
+  "emitBaselineSummary": true,
+  "emitAwardRows": false,
+  "generateReport": false,
+  "watchMode": "recompete",
+  "maxSpendingRows": 100,
+  "emitSpendExport": false,
+  "emitUnchanged": false,
+  "dryRun": false,
+  "initialRunMode": "baseline_only"
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/govcon-recompete-incumbent-watch-scraper">Run GovCon Recompete &amp; Spend Shift Watch on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is GovCon Recompete &amp; Spend Shift Watch priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $80.00 / 1,000 GovCon recompete candidate ($0.08 per delivered govcon-recompete-candidate). No Actor Start.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>govcon-recompete-candidate</code> (GovCon recompete candidate)</td>
+          <td>$0.08</td>
+          <td>Charged for each source-linked public award that appears inside a recompete watch window.</td>
+        </tr>
+        <tr>
+          <td><code>govcon-incumbent-map-generated</code> (GovCon incumbent map generated)</td>
+          <td>$0.1</td>
+          <td>Charged for each search-level incumbent map summary row.</td>
+        </tr>
+        <tr>
+          <td><code>govcon-incumbent-change-detected</code> (GovCon incumbent change detected)</td>
+          <td>$0.06</td>
+          <td>Charged for each source-linked incumbent or award-content change signal.</td>
+        </tr>
+        <tr>
+          <td><code>govcon-incumbent-award-observed</code> (GovCon incumbent award observed)</td>
+          <td>$0.004</td>
+          <td>Charged for each optional public award observation row when explicitly enabled.</td>
+        </tr>
+        <tr>
+          <td><code>govcon-recompete-watch-report</code> (GovCon recompete watch report)</td>
+          <td>$6.00</td>
+          <td>Charged for each portfolio-level recompete watch report row.</td>
+        </tr>
+        <tr>
+          <td><code>govcon-spend-shift-alert</code> (GovCon spend shift alert)</td>
+          <td>$0.5</td>
+          <td>Charged for each source-linked material agency or vendor spend-share change alert.</td>
+        </tr>
+        <tr>
+          <td><code>govcon-vendor-concentration-report</code> (GovCon vendor concentration report)</td>
+          <td>$12</td>
+          <td>Charged for each generated agency and vendor concentration report.</td>
+        </tr>
+        <tr>
+          <td><code>govcon-spend-export</code> (GovCon spend export)</td>
+          <td>$5.00</td>
+          <td>Charged for each generated source-linked spend analysis export.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="price">from $80.00 / 1,000 GovCon recompete candidate ($0.08 per delivered govcon-recompete-candidate). No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/govcon-recompete-incumbent-watch-scraper/pricing">See GovCon Recompete &amp; Spend Shift Watch pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Official public award sources</li>
+      <li>Multiple billed event keys</li>
+      <li>Not a bid desk</li>
+      <li>maxAwardsPerSearch / maxSpendingRows caps</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/govcon-recompete-incumbent-watch-scraper">Open GovCon Recompete &amp; Spend Shift Watch on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/ted-sam-grants-bid-alerts/">TED, SAM.gov &amp; Grants Bid Alerts</a> — Not vendor-pursuit profiles, Form D notices, or post-award spend reports.</li>
+      <li><a href="/government-contract-award-monitor/">Government Contract Award Change Report</a> — Not open bid queues.</li>
+      <li><a href="/grants-gov-funding-digest/">Grants.gov Scraper</a> — Not a multi-source TED/SAM desk.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

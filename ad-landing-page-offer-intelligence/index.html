@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ad Landing Page Offer Intelligence — CRO gap reports from URLs you paste</title>
+  <meta name="description" content="taroyamada/ad-landing-page-offer-intelligence. $3.00 per Landing offer report (landing_offer_report); $15 per CRO gap report pack. $0.00005 Actor Start. Not an ads-lib…">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/ad-landing-page-offer-intelligence/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is Ad Landing Page Offer Intelligence different from Website Content Extractor and Article Content Extractor?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ad Landing Page Offer Intelligence (taroyamada/ad-landing-page-offer-intelligence): This Actor analyzes user-provided landing pages and pasted ad copy for offer, CTA, proof, pricing, and CRO gaps without scraping ad libraries. Not an ads-library crawler (use Ads Library Competitive Intelligence on URLs you supply). Not a website-to-markdown dump. Not authenticated ad-manager access. Website Content Extractor is for One-shot page-to-markdown (input urls; Page HTML; Markdown/text). Not recurring pricing/legal diffs or RAG audits. Article Content Extractor is for News/blog HTML cleanup (input urls; Article HTML; Headline/byline/body). Not landing-page CRO reports. B2B Pricing Scraper is for Public subscription-tier changes (input competitors[]; Public pricing HTML; Pricing change rows). Not Shopify catalog maps or ads-library pages."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: none (see live fields). Live schema fields: landingPageUrls, adCopy, reportTier, maxChargeUsd, demoMode, dryRun, maxReports, maxPagesPerReport, includeCtaAudit, includeOfferMatrix, sourceDatasetId, webhookUrl. exampleRunInput keys: landingPageUrls, adCopy, reportTier, maxChargeUsd, maxReports, demoMode, dryRun."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: landingPageUrls, adCopy, reportTier, maxChargeUsd, maxReports, demoMode, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. webhookUrl is on the live schema for optional POST delivery. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is Ad Landing Page Offer Intelligence priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: $3.00 per Landing offer report (landing_offer_report); $15 per CRO gap report pack. $0.00005 Actor Start. Actor Start (apify-actor-start) $0.00005: Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event). Landing offer report (landing_offer_report) $3.00: Landing page offer, proof, CTA, and CRO snapshot. CRO gap report pack (cro_gap_report_pack) $15: CRO gap pack with ad-message match, offer clarity, proof, CTA, and page recommendations. Platform usage is listed as included on the Store pricing tab."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Ad Landing Page Offer Intelligence</nav>
+    <h1>Landing-page offer, CTA, and proof gaps from URLs you already have</h1>
+    <p>This Actor analyzes user-provided landing pages and pasted ad copy for offer, CTA, proof, pricing, and CRO gaps without scraping ad libraries.</p>
+    <p>Not an ads-library crawler (use Ads Library Competitive Intelligence on URLs you supply). Not a website-to-markdown dump. Not authenticated ad-manager access.</p>
+    <p class="price">$3.00 per Landing offer report (landing_offer_report); $15 per CRO gap report pack. $0.00005 Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/ad-landing-page-offer-intelligence">Open Ad Landing Page Offer Intelligence on Apify</a></p>
+
+    <h2>Ad Landing Page Offer Intelligence, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/website-content-extractor/">Website Content Extractor</a> for One-shot page-to-markdown; Use <a href="/article-content-extractor/">Article Content Extractor</a> for News/blog HTML cleanup; Use <a href="/competitive-pricing-monitor/">B2B Pricing Scraper</a> for Public subscription-tier changes.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>Website Content Extractor</th><th>Article Content Extractor</th><th>B2B Pricing Scraper</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td><td>Ad Landing Page Offer Intelligence</td><td>One-shot page-to-markdown</td><td>News/blog HTML cleanup</td><td>Public subscription-tier changes</td>
+        </tr>
+        <tr>
+          <td>Primary input</td><td><code>landingPageUrls</code></td><td>urls</td><td>urls</td><td>competitors[]</td>
+        </tr>
+        <tr>
+          <td>What it reads</td><td>User-supplied landing pages and pasted copy</td><td>Page HTML</td><td>Article HTML</td><td>Public pricing HTML</td>
+        </tr>
+        <tr>
+          <td>Primary output</td><td>Offer report and optional CRO pack events</td><td>Markdown/text</td><td>Headline/byline/body</td><td>Pricing change rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td><td>Not an ads-library crawler (use Ads Library Competitive Intelligence on URLs you supply). Not a website-to-markdown dump. Not authenticated ad-manager access.</td><td>Not recurring pricing/legal diffs or RAG audits.</td><td>Not landing-page CRO reports.</td><td>Not Shopify catalog maps or ads-library pages.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/ad-landing-page-offer-intelligence</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Known landing URLs plus optional pasted ad copy</li>
+      <li>landing_offer_report first; keep CRO pack off until needed</li>
+      <li>maxPagesPerReport cap</li>
+    </ul>
+
+    <h2>How is Ad Landing Page Offer Intelligence different from Website Content Extractor and Article Content Extractor?</h2>
+    <p>Ad Landing Page Offer Intelligence (taroyamada/ad-landing-page-offer-intelligence): This Actor analyzes user-provided landing pages and pasted ad copy for offer, CTA, proof, pricing, and CRO gaps without scraping ad libraries. Not an ads-library crawler (use Ads Library Competitive Intelligence on URLs you supply). Not a website-to-markdown dump. Not authenticated ad-manager access. Website Content Extractor is for One-shot page-to-markdown (input urls; Page HTML; Markdown/text). Not recurring pricing/legal diffs or RAG audits. Article Content Extractor is for News/blog HTML cleanup (input urls; Article HTML; Headline/byline/body). Not landing-page CRO reports. B2B Pricing Scraper is for Public subscription-tier changes (input competitors[]; Public pricing HTML; Pricing change rows). Not Shopify catalog maps or ads-library pages.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: none listed (see live fields). Published exampleRunInput is shown below.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>landingPageUrls</code></td>
+          <td>any[]</td>
+          <td><code>empty</code></td>
+          <td>Landing page URLs. Public landing page URLs to inspect. Only http/https HTML pages are accepted; localhost, private/link-local/metadata/reserved IPs, unsafe redirects, non-HTML responses, and oversized responses are blocked with no charge. Ad library URLs are blocked with no charge.</td>
+        </tr>
+        <tr>
+          <td><code>adCopy</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Ad copy. Optional pasted ad copy. The actor does not scrape ad libraries.</td>
+        </tr>
+        <tr>
+          <td><code>reportTier</code></td>
+          <td>string enum</td>
+          <td><code>entry</code></td>
+          <td>Report tier. Choose entry or premium. Watch/audit templates are proof-gated and not selectable during public launch; maxChargeUsd is only a safety cap. enum: entry, premium</td>
+        </tr>
+        <tr>
+          <td><code>maxChargeUsd</code></td>
+          <td>number</td>
+          <td><code>3</code></td>
+          <td>Max charge USD. Safety cap for this run. This cap always wins before charging any report group. minimum=0 maximum=100</td>
+        </tr>
+        <tr>
+          <td><code>demoMode</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Demo mode. Run a sample with no external fetch and no charge.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run. Set true to return a no-charge previewReport with nextRunInput and estimated cost.</td>
+        </tr>
+        <tr>
+          <td><code>maxReports</code></td>
+          <td>integer</td>
+          <td><code>1</code></td>
+          <td>Advanced max reports. Advanced. Maximum report groups to charge; maxChargeUsd is still checked first. minimum=1 maximum=25</td>
+        </tr>
+        <tr>
+          <td><code>maxPagesPerReport</code></td>
+          <td>integer</td>
+          <td><code>5</code></td>
+          <td>Maximum pages in one comparison report. For the premium tier, compare between 2 and 10 public landing pages in one CRO gap report pack. minimum=2 maximum=10</td>
+        </tr>
+        <tr>
+          <td><code>includeCtaAudit</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Include CTA and form-friction audit. Include source-linked CTA labels, competing CTA counts, form counts, and form-field evidence.</td>
+        </tr>
+        <tr>
+          <td><code>includeOfferMatrix</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Include cross-page offer matrix. Include the page-by-page offer, proof, pricing, CTA-friction, and ad-message-match matrix in premium output.</td>
+        </tr>
+        <tr>
+          <td><code>sourceDatasetId</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Advanced source dataset ID. Advanced only. Optional Apify dataset ID for prepared input rows. Not needed for the first run.</td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Advanced webhook URL. Advanced. Optional URL to receive results outside Apify.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  "landingPageUrls": [
+    "https://example.com/landing"
+  ],
+  "adCopy": "Get a free trial today. Save 30% on annual plans. Trusted by 5,000 teams.",
+  "reportTier": "entry",
+  "maxChargeUsd": 3,
+  "maxReports": 1,
+  "demoMode": false,
+  "dryRun": true
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/ad-landing-page-offer-intelligence">Run Ad Landing Page Offer Intelligence on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>Dataset output is the billable surface when rows are written. See live PPE for which events bill. webhookUrl is on the live schema for optional POST delivery. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is Ad Landing Page Offer Intelligence priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>$3.00 per Landing offer report (landing_offer_report); $15 per CRO gap report pack. $0.00005 Actor Start.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>apify-actor-start</code> (Actor Start)</td>
+          <td>$0.00005</td>
+          <td>Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).</td>
+        </tr>
+        <tr>
+          <td><code>landing_offer_report</code> (Landing offer report)</td>
+          <td>$3.00</td>
+          <td>Landing page offer, proof, CTA, and CRO snapshot.</td>
+        </tr>
+        <tr>
+          <td><code>cro_gap_report_pack</code> (CRO gap report pack)</td>
+          <td>$15</td>
+          <td>CRO gap pack with ad-message match, offer clarity, proof, CTA, and page recommendations.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="price">$3.00 per Landing offer report (landing_offer_report); $15 per CRO gap report pack. $0.00005 Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/ad-landing-page-offer-intelligence/pricing">See Ad Landing Page Offer Intelligence pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>You supply the URLs</li>
+      <li>No ad-library search</li>
+      <li>reportTier selects billed reports</li>
+      <li>Public pages only</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/ad-landing-page-offer-intelligence">Open Ad Landing Page Offer Intelligence on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/website-content-extractor/">Website Content Extractor</a> — Not recurring pricing/legal diffs or RAG audits.</li>
+      <li><a href="/article-content-extractor/">Article Content Extractor</a> — Not landing-page CRO reports.</li>
+      <li><a href="/competitive-pricing-monitor/">B2B Pricing Scraper</a> — Not Shopify catalog maps or ads-library pages.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>
