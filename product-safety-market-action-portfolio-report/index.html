@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CPSC Recall Portfolio Watch — NHTSA Vehicle Safety Alerts on pay-per-event</title>
+  <meta name="description" content="taroyamada/product-safety-market-action-portfolio-report. Live Store: from $6.00 / 1,000 safety record rows ($0.006) plus $0.20 alert, $8 report, $5 export. No Actor Start.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/product-safety-market-action-portfolio-report/">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is CPSC Recall Portfolio Watch different from CPSC Product Recall Marketplace Watch and NHTSA Recall Scraper?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "CPSC Recall Portfolio Watch — NHTSA Vehicle Safety Alerts (taroyamada/product-safety-market-action-portfolio-report) reads official CPSC, NHTSA, and openFDA enforcement for watchlists you supply. Live PPE is safety-record-row $0.006 (Store primary), market-action-alert $0.20, product-safety-portfolio-report $8, and product-safety-export $5. No Actor Start. CPSC Product Recall Marketplace Watch is a CPSC-only alert/digest/report Actor. NHTSA Recall Scraper and NHTSA Recall & Complaint Watch are NHTSA-focused. Product Safety Recall Scraper is FDA/CPSC digest scraping. Use this Actor for a multi-agency portfolio. Use the CPSC marketplace watch for CPSC-only PPE. Use NHTSA Actors for vehicles only. Not a safety rating."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: watchlists, monitorKey, initialRunMode, generateReport, emitRawRows, emitUnchanged, maxChargeUsd, dryRun. watchlists[] live properties: id, agency (CPSC, NHTSA, FDA), productTypes (FDA: drug, device, or food; max 3), productNames (max 20), keywords (max 20), brands (max 20), classifications (max 5), statuses (max 5), lookbackDays (min 1, max 3650), maxResults (min 1, max 100). Array minItems 1, maxItems 100. Default watchlist is battery CPSC 30d. Optional: emitExport, maxChangedRecords (default 1, min 1, max 1000), requestTimeoutSeconds, rateLimitMs, maxRetries, backoffBaseMs, maxBackoffMs, delivery (dataset or webhook), webhookUrl. Schema default dryRun true and maxChargeUsd 0."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the cheapest first paid Try Input?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live README low-cost trial: one CPSC battery watchlist, emit_backfill, generateReport false, emitRawRows true, emitExport false, maxChangedRecords 1, maxChargeUsd 1, dryRun false. README: safety-record-row $0.006 plus market-action-alert $0.20 when matches exist. Free if baseline_only or unchanged. Set maxChargeUsd to 1 because default 0 blocks paid push."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "README rowType values include product_safety_portfolio_report, safety_record, market_action_alert, and product_safety_export. Every billable row includes stableKey, idempotencyKey, official source URLs, limitations, and prohibitedInterpretations. FDA rows may include fdaProductType, classification, and status. Also deliveryAudit. dataset_schema path only — not served on Store. Treat README samples as illustrations, not a live coverage guarantee."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is CPSC Recall Portfolio Watch priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay-per-event. The live Store card is from $6.00 / 1,000 safety record rows. Live events are safety-record-row $0.006 (Store API primary), market-action-alert $0.20, product-safety-portfolio-report $8, and product-safety-export $5, each charged when that row is delivered. No Actor Start. README USD amounts match. actor.json marks market-action-alert primary; prefer the Store card which marks safety-record-row primary. Store description: safety record row row (duplicated word)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "delivery defaults to dataset and also accepts webhook. dryRun defaults to true (no network/state/charges). Unchanged-with-a-change only when emitUnchanged is false. Dataset output is the billable surface when rows are written."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / CPSC Recall Portfolio Watch — NHTSA Vehicle Safety Alerts</nav>
+    <h1>Official CPSC, NHTSA, and openFDA enforcement rows for product watchlists</h1>
+    <p>CPSC Recall Portfolio Watch — NHTSA Vehicle Safety Alerts reads the official CPSC Recalls API, NHTSA recalls/complaints, and keyless openFDA <strong>enforcement</strong> only (no adverse-event endpoints). Baseline, backfill, or current-window. Evidence for review, not a safety rating. Schema default <code>dryRun</code> is <strong>true</strong> and <code>maxChargeUsd</code> is <strong>0</strong>. It is not the CPSC marketplace watch with alert/digest/report PPE — that job is <a href="/cpsc-product-recall-marketplace-watch-scraper/">CPSC Product Recall Marketplace Watch</a> — and it is not NHTSA-only digest scraping (<a href="/nhtsa-vehicle-recall-digest/">NHTSA Recall Scraper</a>).</p>
+    <p class="price">Try Input: 1 CPSC battery watchlist, emit_backfill, reports off, maxChangedRecords 1, maxChargeUsd 1, dryRun false. Live Store: from $6.00 / 1,000 safety record rows ($0.006) + $0.20 market-action-alert + $8 report + $5 export. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/product-safety-market-action-portfolio-report/input">Try the cheapest first paid CPSC Recall Portfolio Watch — NHTSA Vehicle Safety Alerts run on Apify Input</a></p>
+    <p><a href="https://apify.com/taroyamada/product-safety-market-action-portfolio-report">Open taroyamada/product-safety-market-action-portfolio-report on the Apify Store</a></p>
+
+    <h2>Multi-agency safety portfolio, not a CPSC-only marketplace watch or NHTSA-only digest</h2>
+    <p>Use this page when the job is a bounded product watchlist across CPSC, NHTSA, and FDA enforcement. Use <a href="/cpsc-product-recall-marketplace-watch-scraper/">CPSC Product Recall Marketplace Watch</a> for CPSC alert/digest/report PPE. Use <a href="/nhtsa-recall-complaint-watch-scraper/">NHTSA Recall &amp; Complaint Watch</a> for make/model campaign watches. Use <a href="/product-safety-recall-digest/">Product Safety Recall Scraper</a> for FDA/CPSC recall digests that are not this portfolio card.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>CPSC Recall Portfolio Watch — NHTSA Vehicle Safety Alerts</th>
+          <th>CPSC Product Recall Marketplace Watch</th>
+          <th>NHTSA Recall Scraper</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>CPSC + NHTSA + openFDA enforcement portfolio</td>
+          <td>CPSC marketplace watch with alert/digest/report events</td>
+          <td>NHTSA vehicle recall digest</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td><code>watchlists[]</code> with agency CPSC/NHTSA/FDA</td>
+          <td><code>feeds</code> on that Actor</td>
+          <td>NHTSA digest inputs</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>Official CPSC Recalls API, NHTSA recalls/complaints, openFDA enforcement only</td>
+          <td>Official CPSC sources</td>
+          <td>NHTSA recalls</td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td>safety-record-row (Store primary), market-action-alert, optional report/export</td>
+          <td>cpsc-recall-alert / digest / report</td>
+          <td>NHTSA recall rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td>
+          <td>Not a safety rating. Not adverse-event endpoints.</td>
+          <td>Not NHTSA/FDA enforcement in one portfolio.</td>
+          <td>Not CPSC consumer-product recalls.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/product-safety-market-action-portfolio-report</code>. Categories on the live Store card: Business. Fetch only sources you are authorized to use. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Start with the published low-cost trial: one CPSC battery productNames watch, 30-day lookback, maxChangedRecords 1, reports off.</li>
+      <li>Add NHTSA or FDA watchlists after the CPSC path writes useful rows. Live item properties include agency, productTypes, productNames, keywords, brands, classifications, statuses, lookbackDays, maxResults.</li>
+      <li>Keep <code>initialRunMode</code> <code>baseline_only</code> when you only need to seed state (free).</li>
+    </ul>
+    <p>The live Store tagline is: CPSC recall portfolio watch plus NHTSA vehicle safety alerts; paste product list and Start. README also describes name, make, model, modelYear, recordTypes, includeComplaints — those keys are not in the live input schema items.properties.</p>
+
+    <h2>How is CPSC Recall Portfolio Watch different from CPSC Product Recall Marketplace Watch and NHTSA Recall Scraper?</h2>
+    <p>CPSC Recall Portfolio Watch — NHTSA Vehicle Safety Alerts (taroyamada/product-safety-market-action-portfolio-report) reads official CPSC, NHTSA, and openFDA enforcement for watchlists you supply. Live PPE is safety-record-row $0.006 (Store primary), market-action-alert $0.20, product-safety-portfolio-report $8, and product-safety-export $5. No Actor Start. CPSC Product Recall Marketplace Watch is a CPSC-only alert/digest/report Actor. NHTSA Recall Scraper and NHTSA Recall & Complaint Watch are NHTSA-focused. Product Safety Recall Scraper is FDA/CPSC digest scraping. Use this Actor for a multi-agency portfolio. Use the CPSC marketplace watch for CPSC-only PPE. Use NHTSA Actors for vehicles only. Not a safety rating.</p>
+    <h2>What input is required?</h2>
+    <p>Live required fields: watchlists, monitorKey, initialRunMode, generateReport, emitRawRows, emitUnchanged, maxChargeUsd, dryRun. watchlists[] live properties: id, agency (CPSC, NHTSA, FDA), productTypes (FDA: drug, device, or food; max 3), productNames (max 20), keywords (max 20), brands (max 20), classifications (max 5), statuses (max 5), lookbackDays (min 1, max 3650), maxResults (min 1, max 100). Array minItems 1, maxItems 100. Default watchlist is battery CPSC 30d. Optional: emitExport, maxChangedRecords (default 1, min 1, max 1000), requestTimeoutSeconds, rateLimitMs, maxRetries, backoffBaseMs, maxBackoffMs, delivery (dataset or webhook), webhookUrl. Schema default dryRun true and maxChargeUsd 0.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>watchlists</code></td>
+          <td>array</td>
+          <td>battery CPSC 30d prefill</td>
+          <td>minItems 1, maxItems 100. Required. Item agency enum CPSC, NHTSA, FDA.</td>
+        </tr>
+        <tr>
+          <td><code>monitorKey</code></td>
+          <td>string</td>
+          <td><code>starter-battery-recalls</code></td>
+          <td>maxLength 120. Required.</td>
+        </tr>
+        <tr>
+          <td><code>initialRunMode</code></td>
+          <td>string</td>
+          <td><code>emit_backfill</code></td>
+          <td>Enum: <code>baseline_only</code>, <code>emit_current_window</code>, <code>emit_backfill</code>. Required.</td>
+        </tr>
+        <tr>
+          <td><code>generateReport</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Portfolio report ($8). Required.</td>
+        </tr>
+        <tr>
+          <td><code>emitRawRows</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>safety-record-row events. Required.</td>
+        </tr>
+        <tr>
+          <td><code>emitUnchanged</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Required.</td>
+        </tr>
+        <tr>
+          <td><code>emitExport</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Export row ($5).</td>
+        </tr>
+        <tr>
+          <td><code>maxChangedRecords</code></td>
+          <td>integer</td>
+          <td><code>1</code></td>
+          <td>Cap changed records. min 1, max 1000.</td>
+        </tr>
+        <tr>
+          <td><code>maxChargeUsd</code></td>
+          <td>number</td>
+          <td><code>0</code></td>
+          <td>Plan must fit before push. min 0, max 5000. Required. Paid try needs &gt; 0.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>No network/state/charges. Required.</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string</td>
+          <td><code>dataset</code></td>
+          <td>Enum: <code>dataset</code>, <code>webhook</code>.</td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td>—</td>
+          <td>HTTPS handoff.</td>
+        </tr>
+        <tr>
+          <td><code>requestTimeoutSeconds</code></td>
+          <td>integer</td>
+          <td><code>30</code></td>
+          <td>Same timeout family as other monitors.</td>
+        </tr>
+        <tr>
+          <td><code>rateLimitMs</code></td>
+          <td>integer</td>
+          <td><code>250</code></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><code>maxRetries</code></td>
+          <td>integer</td>
+          <td><code>2</code></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><code>backoffBaseMs</code></td>
+          <td>integer</td>
+          <td><code>250</code></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><code>maxBackoffMs</code></td>
+          <td>integer</td>
+          <td><code>4000</code></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Cheapest first paid input (README low-cost trial):</p>
+<pre><code>{
+  "watchlists": [
+    {
+      "id": "battery-recalls",
+      "agency": "CPSC",
+      "productNames": [
+        "battery"
+      ],
+      "lookbackDays": 30
+    }
+  ],
+  "monitorKey": "starter-battery-recalls",
+  "initialRunMode": "emit_backfill",
+  "generateReport": false,
+  "emitRawRows": true,
+  "emitUnchanged": false,
+  "emitExport": false,
+  "maxChangedRecords": 1,
+  "maxChargeUsd": 1,
+  "dryRun": false
+}</code></pre>
+    <p>README: <code>safety-record-row</code> <strong>$0.006</strong> + <code>market-action-alert</code> <strong>$0.20</strong> when matches exist.</p>
+    <p><a href="https://apify.com/taroyamada/product-safety-market-action-portfolio-report/input">Run this starter watchlist on Apify</a></p>
+    <h2>What is the cheapest first paid Try Input?</h2>
+    <p>Live README low-cost trial: one CPSC battery watchlist, emit_backfill, generateReport false, emitRawRows true, emitExport false, maxChangedRecords 1, maxChargeUsd 1, dryRun false. README: safety-record-row $0.006 plus market-action-alert $0.20 when matches exist. Free if baseline_only or unchanged. Set maxChargeUsd to 1 because default 0 blocks paid push.</p>
+    <h2>What does a result contain?</h2>
+    <p>README rowType values include product_safety_portfolio_report, safety_record, market_action_alert, and product_safety_export. Every billable row includes stableKey, idempotencyKey, official source URLs, limitations, and prohibitedInterpretations. FDA rows may include fdaProductType, classification, and status. Also deliveryAudit. dataset_schema path only — not served on Store. Treat README samples as illustrations, not a live coverage guarantee.</p>
+    <h2>How is CPSC Recall Portfolio Watch priced?</h2>
+    <p>Billing is pay-per-event. The live Store card is from $6.00 / 1,000 safety record rows. Live events are safety-record-row $0.006 (Store API primary), market-action-alert $0.20, product-safety-portfolio-report $8, and product-safety-export $5, each charged when that row is delivered. No Actor Start. README USD amounts match. actor.json marks market-action-alert primary; prefer the Store card which marks safety-record-row primary. Store description: safety record row row (duplicated word).</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>safety-record-row</code> (Safety record row)</td>
+          <td>$0.006</td>
+          <td>PAID when that row is delivered. Store API primary.</td>
+        </tr>
+        <tr>
+          <td><code>market-action-alert</code> (Market action alert)</td>
+          <td>$0.20</td>
+          <td>PAID when that row is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>product-safety-portfolio-report</code> (Product safety portfolio report)</td>
+          <td>$8</td>
+          <td>PAID when that row is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>product-safety-export</code> (Product safety export)</td>
+          <td>$5</td>
+          <td>PAID when that row is delivered.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>README USD amounts match. Prefer Store primary safety-record-row. This page quotes live PPE only. Not a safety rating.</p>
+    <p class="price">from $6.00 / 1,000 safety record rows. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/product-safety-market-action-portfolio-report/pricing">See CPSC Recall Portfolio Watch pricing on Apify</a></p>
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>delivery defaults to dataset and also accepts webhook. dryRun defaults to true (no network/state/charges). Unchanged-with-a-change only when emitUnchanged is false. Dataset output is the billable surface when rows are written.</p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Evidence for review, not a safety rating or legal conclusion.</li>
+      <li>openFDA <strong>enforcement</strong> only — no adverse-event endpoints.</li>
+      <li>README keys <code>name</code>, <code>make</code>, <code>model</code>, <code>modelYear</code>, <code>recordTypes</code>, <code>includeComplaints</code> are not live schema properties.</li>
+      <li>Schema default <code>dryRun</code> true and <code>maxChargeUsd</code> 0 block a paid push until you change them.</li>
+      <li>Official CPSC, NHTSA, and openFDA sources only.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/product-safety-market-action-portfolio-report">Open CPSC Recall Portfolio Watch — NHTSA Vehicle Safety Alerts on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/cpsc-product-recall-marketplace-watch-scraper/">CPSC Product Recall Marketplace Watch</a> — CPSC-only alert/digest/report PPE.</li>
+      <li><a href="/nhtsa-vehicle-recall-digest/">NHTSA Recall Scraper</a> — NHTSA digest, not this portfolio card.</li>
+      <li><a href="/nhtsa-recall-complaint-watch-scraper/">NHTSA Recall &amp; Complaint Watch</a> — Make/model campaign watches.</li>
+      <li><a href="/product-safety-recall-digest/">Product Safety Recall Scraper</a> — FDA/CPSC digest, not this portfolio card.</li>
+      <li><a href="/fda-warning-letter-digest/">FDA Warning Letters Scraper</a> — Warning letters, not recall portfolios.</li>
+      <li><a href="/food-safety-alert-portfolio-report/">UK FSA Food Safety Alert Portfolio Report</a> — UK FSA alerts, not CPSC/NHTSA.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

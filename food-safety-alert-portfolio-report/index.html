@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>UK FSA Food Safety Alert Portfolio Report — official Food Alerts on pay-per-event</title>
+  <meta name="description" content="taroyamada/food-safety-alert-portfolio-report. Live Store: from $8.00 / 1,000 food safety alert rows ($0.008) plus $0.25 change alert, $12 report, $8 export. No Actor Start.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/food-safety-alert-portfolio-report/">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is UK FSA Food Safety Alert Portfolio Report different from CPSC Recall Portfolio Watch and Product Safety Recall Scraper?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "UK FSA Food Safety Alert Portfolio Report (taroyamada/food-safety-alert-portfolio-report) reads the official UK FSA Food Alerts JSON API (AA, PRIN, FAFA only). Live PPE is food-safety-alert-row $0.008 (Store primary), food-safety-change-alert $0.25, food-safety-portfolio-report $12, and food-safety-export $8. No Actor Start. CPSC Recall Portfolio Watch is US CPSC/NHTSA/openFDA enforcement. Product Safety Recall Scraper is FDA/CPSC digest scraping. CPSC Product Recall Marketplace Watch is CPSC-only. Use this Actor for UK FSA Food Alerts. Use the US Actors for CPSC/NHTSA/FDA. No RASFF scrape. No business-identity inference."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: watchlists, monitorKey, initialRunMode, generateReport, emitRawRows, emitUnchanged, maxChargeUsd, dryRun. watchlists[] required id. Optional: name (max 160), alertTypes (max 3; AA/PRIN/FAFA), allergens (max 20), hazards (max 20), products (max 20), searchTerms (max 20), modifiedSince (ISO), lookbackDays (1–3650, default 30), maxResults (1–100, default 25). Array minItems 1, maxItems 100. Prefill is all-uk-alerts AA/PRIN/FAFA 30d max 25. Optional: emitExport, maxChangedRecords (default 25, min 1, max 1000), requestTimeoutSeconds, rateLimitMs, maxRetries, backoffBaseMs, maxBackoffMs, delivery, webhookUrl. initialRunMode: baseline_only, emit_current_window, or emit_backfill."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the cheapest first paid Try Input?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "baseline_only is free. Skip the $12 report and $8 export. README: changed runs emit food_safety_change_alert ($0.25) even when raw rows are off. emitRawRows false avoids extra $0.008. Cap at 1 change. Default maxChargeUsd 1 covers $0.25. Use one AA-only watchlist, emit_backfill, generateReport false, maxChangedRecords 1, dryRun false."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "README: first changed-run row is food_safety_portfolio_report, then food_safety_change_alert, optional food_safety_alert, optional food_safety_export. Each billable row includes stableKey, idempotencyKey, official source URLs, limitations, and prohibited interpretations. There is no published output JSON schema on the Store page. Treat README samples as illustrations, not a live coverage guarantee."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is UK FSA Food Safety Alert Portfolio Report priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay-per-event. The live Store card is from $8.00 / 1,000 food safety alert rows. Live events are food-safety-alert-row $0.008 (Store API primary), food-safety-change-alert $0.25, food-safety-portfolio-report $12, and food-safety-export $8, each charged when delivered. No Actor Start. README USD amounts match. actor.json marks food-safety-change-alert primary; prefer the Store card which marks food-safety-alert-row primary."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "delivery defaults to dataset and also accepts webhook. dryRun is a fixture path: no network/state/charges. Unchanged context only if another alert changed when emitUnchanged is false. Dataset output is the billable surface when rows are written. maxChangedRecords fails closed if the change set exceeds the cap."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / UK FSA Food Safety Alert Portfolio Report</nav>
+    <h1>Official UK FSA Food Alerts for allergy, recall, and action notices</h1>
+    <p>UK FSA Food Safety Alert Portfolio Report monitors the official UK Food Standards Agency Food Alerts JSON API only for Allergy Alerts (<code>AA</code>), Product Recall Information Notices (<code>PRIN</code>), and Food Alerts for Action (<code>FAFA</code>). No RASFF scrape. No business-identity inference. Baseline/unchanged: 0 rows / 0 charge. Schema default <code>generateReport</code> is <strong>true</strong> — turn it off on the cheapest paid path. It is not a CPSC/NHTSA portfolio — that job is <a href="/product-safety-market-action-portfolio-report/">CPSC Recall Portfolio Watch — NHTSA Vehicle Safety Alerts</a> — and it is not FDA/CPSC recall digest scraping (<a href="/product-safety-recall-digest/">Product Safety Recall Scraper</a>).</p>
+    <p class="price">Try Input: AA-only watchlist, emit_backfill, generateReport false, emitRawRows false, maxChangedRecords 1. Live Store: from $8.00 / 1,000 food safety alert rows ($0.008) + $0.25 change alert + $12 report + $8 export. No Actor Start. README: changed runs emit the $0.25 change alert even when raw rows are off.</p>
+    <p><a href="https://apify.com/taroyamada/food-safety-alert-portfolio-report/input">Try the cheapest first paid UK FSA Food Safety Alert Portfolio Report run on Apify Input</a></p>
+    <p><a href="https://apify.com/taroyamada/food-safety-alert-portfolio-report">Open taroyamada/food-safety-alert-portfolio-report on the Apify Store</a></p>
+
+    <h2>UK FSA Food Alerts, not CPSC/NHTSA portfolios or FDA warning letters</h2>
+    <p>Use this page when the job is official UK FSA Food Alerts JSON. Use <a href="/product-safety-market-action-portfolio-report/">CPSC Recall Portfolio Watch — NHTSA Vehicle Safety Alerts</a> for US CPSC/NHTSA/openFDA enforcement. Use <a href="/cpsc-product-recall-marketplace-watch-scraper/">CPSC Product Recall Marketplace Watch</a> for CPSC-only watches. Use <a href="/fda-warning-letter-digest/">FDA Warning Letters Scraper</a> for FDA warning letters.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>UK FSA Food Safety Alert Portfolio Report</th>
+          <th>CPSC Recall Portfolio Watch</th>
+          <th>Product Safety Recall Scraper</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>UK FSA AA / PRIN / FAFA portfolio</td>
+          <td>US CPSC + NHTSA + openFDA enforcement</td>
+          <td>FDA/CPSC recall digest</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td><code>watchlists[]</code> of FSA filters</td>
+          <td>agency CPSC/NHTSA/FDA watchlists</td>
+          <td>Recall digest inputs</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>Official keyless UK FSA Food Alerts JSON API</td>
+          <td>CPSC Recalls API, NHTSA, openFDA enforcement</td>
+          <td>FDA/CPSC recall sources</td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td>food-safety-alert-row (Store primary), food-safety-change-alert, optional report/export</td>
+          <td>safety-record-row and market-action-alert</td>
+          <td>Recall digest rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td>
+          <td>No RASFF scrape. No business-identity inference.</td>
+          <td>Not UK FSA Food Alerts.</td>
+          <td>Not UK FSA JSON.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/food-safety-alert-portfolio-report</code>. Categories on the live Store card: Business. Fetch only sources you are authorized to use. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Start with allergy alerts only (<code>AA</code>), maxResults 1, emit_backfill, reports off, emitRawRows false so the first paid event is the $0.25 change alert when something changed.</li>
+      <li>Add PRIN/FAFA types after the AA path is useful. Filters OR within a group, AND across groups.</li>
+      <li>Use <code>baseline_only</code> to seed state with zero rows / zero charge.</li>
+    </ul>
+    <p>The live Store tagline is: monitor official UK Food Standards Agency Food Alerts for Allergy Alerts, Product Recall Information Notices, and Food Alerts for Action; receive source-linked change alerts, portfolio reports, and exports. Source: https://data.food.gov.uk/food-alerts/id?_format=json. Schema default maxChargeUsd is 1. Default dryRun is false. Default emitRawRows is false. Default generateReport is true.</p>
+
+    <h2>How is UK FSA Food Safety Alert Portfolio Report different from CPSC Recall Portfolio Watch and Product Safety Recall Scraper?</h2>
+    <p>UK FSA Food Safety Alert Portfolio Report (taroyamada/food-safety-alert-portfolio-report) reads the official UK FSA Food Alerts JSON API (AA, PRIN, FAFA only). Live PPE is food-safety-alert-row $0.008 (Store primary), food-safety-change-alert $0.25, food-safety-portfolio-report $12, and food-safety-export $8. No Actor Start. CPSC Recall Portfolio Watch is US CPSC/NHTSA/openFDA enforcement. Product Safety Recall Scraper is FDA/CPSC digest scraping. CPSC Product Recall Marketplace Watch is CPSC-only. Use this Actor for UK FSA Food Alerts. Use the US Actors for CPSC/NHTSA/FDA. No RASFF scrape. No business-identity inference.</p>
+    <h2>What input is required?</h2>
+    <p>Live required fields: watchlists, monitorKey, initialRunMode, generateReport, emitRawRows, emitUnchanged, maxChargeUsd, dryRun. watchlists[] required id. Optional: name (max 160), alertTypes (max 3; AA/PRIN/FAFA), allergens (max 20), hazards (max 20), products (max 20), searchTerms (max 20), modifiedSince (ISO), lookbackDays (1–3650, default 30), maxResults (1–100, default 25). Array minItems 1, maxItems 100. Prefill is all-uk-alerts AA/PRIN/FAFA 30d max 25. Optional: emitExport, maxChangedRecords (default 25, min 1, max 1000), requestTimeoutSeconds, rateLimitMs, maxRetries, backoffBaseMs, maxBackoffMs, delivery, webhookUrl. initialRunMode: baseline_only, emit_current_window, or emit_backfill.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>watchlists</code></td>
+          <td>array</td>
+          <td>all-uk-alerts AA/PRIN/FAFA 30d max 25 prefill</td>
+          <td>Independent FSA queries; OR within group, AND across groups. Item required: id. Required.</td>
+        </tr>
+        <tr>
+          <td><code>monitorKey</code></td>
+          <td>string</td>
+          <td><code>food-safety-default</code></td>
+          <td>maxLength 120. Required.</td>
+        </tr>
+        <tr>
+          <td><code>initialRunMode</code></td>
+          <td>string</td>
+          <td><code>baseline_only</code></td>
+          <td>Enum: <code>baseline_only</code>, <code>emit_current_window</code>, <code>emit_backfill</code>. Required.</td>
+        </tr>
+        <tr>
+          <td><code>generateReport</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Portfolio report on new/changed ($12). Required. Turn off for cheapest try.</td>
+        </tr>
+        <tr>
+          <td><code>emitRawRows</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Low-priced normalized alert rows ($0.008). Required.</td>
+        </tr>
+        <tr>
+          <td><code>emitUnchanged</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Unchanged context only if another alert changed. Required.</td>
+        </tr>
+        <tr>
+          <td><code>emitExport</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Handoff export ($8).</td>
+        </tr>
+        <tr>
+          <td><code>maxChangedRecords</code></td>
+          <td>integer</td>
+          <td><code>25</code></td>
+          <td>Fail closed if change set exceeds this. min 1, max 1000.</td>
+        </tr>
+        <tr>
+          <td><code>maxChargeUsd</code></td>
+          <td>number</td>
+          <td><code>1</code></td>
+          <td>Plan must fit before delivery. min 0, max 5000. Required.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Fixture; no network/state/charges. Required.</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string</td>
+          <td><code>dataset</code></td>
+          <td>Enum: <code>dataset</code>, <code>webhook</code>.</td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td>—</td>
+          <td>HTTPS handoff.</td>
+        </tr>
+        <tr>
+          <td><code>requestTimeoutSeconds</code></td>
+          <td>integer</td>
+          <td><code>30</code></td>
+          <td>min 2, max 120.</td>
+        </tr>
+        <tr>
+          <td><code>rateLimitMs</code></td>
+          <td>integer</td>
+          <td><code>250</code></td>
+          <td>min 0, max 10000.</td>
+        </tr>
+        <tr>
+          <td><code>maxRetries</code></td>
+          <td>integer</td>
+          <td><code>2</code></td>
+          <td>min 0, max 4.</td>
+        </tr>
+        <tr>
+          <td><code>backoffBaseMs</code></td>
+          <td>integer</td>
+          <td><code>250</code></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><code>maxBackoffMs</code></td>
+          <td>integer</td>
+          <td><code>4000</code></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Cheapest first paid input (skip $12 report and $8 export; raw rows off):</p>
+<pre><code>{
+  "watchlists": [
+    {
+      "id": "aa-only",
+      "name": "Allergy alerts only",
+      "alertTypes": [
+        "AA"
+      ],
+      "lookbackDays": 30,
+      "maxResults": 1
+    }
+  ],
+  "monitorKey": "food-safety-try-paid",
+  "initialRunMode": "emit_backfill",
+  "generateReport": false,
+  "emitRawRows": false,
+  "emitUnchanged": false,
+  "emitExport": false,
+  "maxChangedRecords": 1,
+  "maxChargeUsd": 1,
+  "dryRun": false
+}</code></pre>
+    <p>README: changed runs emit <code>food_safety_change_alert</code> at <strong>$0.25</strong> even when raw rows are off.</p>
+    <p><a href="https://apify.com/taroyamada/food-safety-alert-portfolio-report/input">Run this AA-only input on Apify</a></p>
+    <h2>What is the cheapest first paid Try Input?</h2>
+    <p>baseline_only is free. Skip the $12 report and $8 export. README: changed runs emit food_safety_change_alert ($0.25) even when raw rows are off. emitRawRows false avoids extra $0.008. Cap at 1 change. Default maxChargeUsd 1 covers $0.25. Use one AA-only watchlist, emit_backfill, generateReport false, maxChangedRecords 1, dryRun false.</p>
+    <h2>What does a result contain?</h2>
+    <p>README: first changed-run row is food_safety_portfolio_report, then food_safety_change_alert, optional food_safety_alert, optional food_safety_export. Each billable row includes stableKey, idempotencyKey, official source URLs, limitations, and prohibited interpretations. There is no published output JSON schema on the Store page. Treat README samples as illustrations, not a live coverage guarantee.</p>
+    <h2>How is UK FSA Food Safety Alert Portfolio Report priced?</h2>
+    <p>Billing is pay-per-event. The live Store card is from $8.00 / 1,000 food safety alert rows. Live events are food-safety-alert-row $0.008 (Store API primary), food-safety-change-alert $0.25, food-safety-portfolio-report $12, and food-safety-export $8, each charged when delivered. No Actor Start. README USD amounts match. actor.json marks food-safety-change-alert primary; prefer the Store card which marks food-safety-alert-row primary.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>food-safety-alert-row</code> (Food safety alert row)</td>
+          <td>$0.008</td>
+          <td>PAID when delivered. Store API primary.</td>
+        </tr>
+        <tr>
+          <td><code>food-safety-change-alert</code> (Food safety change alert)</td>
+          <td>$0.25</td>
+          <td>PAID when delivered.</td>
+        </tr>
+        <tr>
+          <td><code>food-safety-portfolio-report</code> (Food safety portfolio report)</td>
+          <td>$12</td>
+          <td>PAID when delivered.</td>
+        </tr>
+        <tr>
+          <td><code>food-safety-export</code> (Food safety export)</td>
+          <td>$8</td>
+          <td>PAID when delivered.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>README USD amounts match. Prefer Store primary food-safety-alert-row. This page quotes live PPE only. No RASFF scrape.</p>
+    <p class="price">from $8.00 / 1,000 food safety alert rows. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/food-safety-alert-portfolio-report/pricing">See UK FSA Food Safety Alert Portfolio Report pricing on Apify</a></p>
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>delivery defaults to dataset and also accepts webhook. dryRun is a fixture path: no network/state/charges. Unchanged context only if another alert changed when emitUnchanged is false. Dataset output is the billable surface when rows are written. maxChangedRecords fails closed if the change set exceeds the cap.</p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Official keyless UK FSA Food Alerts JSON only: AA, PRIN, FAFA. No RASFF scrape.</li>
+      <li>No business-identity inference.</li>
+      <li>Schema default <code>generateReport</code> is true ($12) — turn it off on the cheapest paid path.</li>
+      <li><code>baseline_only</code> / unchanged: 0 rows / 0 charge.</li>
+      <li>Not a safety rating or legal conclusion.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/food-safety-alert-portfolio-report">Open UK FSA Food Safety Alert Portfolio Report on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/product-safety-market-action-portfolio-report/">CPSC Recall Portfolio Watch — NHTSA Vehicle Safety Alerts</a> — US CPSC/NHTSA/openFDA, not UK FSA.</li>
+      <li><a href="/product-safety-recall-digest/">Product Safety Recall Scraper</a> — FDA/CPSC digest, not UK FSA.</li>
+      <li><a href="/cpsc-product-recall-marketplace-watch-scraper/">CPSC Product Recall Marketplace Watch</a> — CPSC-only watches.</li>
+      <li><a href="/fda-warning-letter-digest/">FDA Warning Letters Scraper</a> — FDA warning letters, not FSA alerts.</li>
+      <li><a href="/dailymed-label-change-watch-report/">DailyMed Label Change Watch Report</a> — US SPL metadata, not UK FSA.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

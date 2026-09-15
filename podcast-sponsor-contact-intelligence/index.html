@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Podcast Sponsor Evidence Scraper — public RSS sponsor evidence on pay-per-event</title>
+  <meta name="description" content="taroyamada/podcast-sponsor-contact-intelligence. Live Store: from $15.00 / 1,000 podcast enriched shows ($0.015) plus $0.25 evidence and $7 export. Try emitResearchExport=false.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/podcast-sponsor-contact-intelligence/">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is Podcast Sponsor Evidence Scraper different from Podcast Sponsor Evidence Report Scraper and Apple Podcasts Scraper?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Podcast Sponsor Evidence Scraper (taroyamada/podcast-sponsor-contact-intelligence) reads public RSS, show pages, and optional iTunes Search terms. Live PPE is podcast-enriched-show $0.015 (primary), podcast-sponsor-evidence $0.25, and podcast-research-export $7 (skip with emitResearchExport=false). Podcast Sponsor Evidence Report Scraper is a sibling Actor with a different live card (do not copy those prices here). Apple Podcasts Scraper is catalog/episode/chart metadata, not sponsor evidence. RSS & Atom Feed Extractor is generic feed XML. Use this Actor for source-linked sponsor evidence. Use Apple Podcasts Scraper for iTunes catalog. Use RSS & Atom Feed Extractor for feed items only."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The live schema required array is empty. Live fields are rssFeedUrls (default one NPR feed URL), showUrls (default empty), searchTerms (default one business-podcast term), maxEpisodesPerFeed (default 3, min 1, max 50), emitResearchExport (default false), emitUnchanged (default false), and dryRun (default false)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the cheapest first paid Try Input?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "One public RSS URL, empty showUrls, empty searchTerms (avoid extra discovery), maxEpisodesPerFeed 1, emitResearchExport false, emitUnchanged false, dryRun false. Expected paid events: $0.015 per enriched show plus $0.25 per evidence row if found. Skip the $7 export on the first paid path. dryRun must be false."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "README rows include billingEventName plus sourceName, sourceUrl, retrievedAt, sourceMethod, authorizationBasis, limitations, and prohibitedInterpretations. A sample lives in docs/sample-output.json on the Actor, which is not fetched as a Store resource here. There is no published output JSON schema on the Store page. Treat README samples as illustrations, not a live coverage guarantee."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is Podcast Sponsor Evidence Scraper priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay-per-event. The live Store card is from $15.00 / 1,000 podcast enriched shows. Live events are podcast-enriched-show $0.015 (primary), podcast-sponsor-evidence $0.25, and podcast-research-export $7. No Actor Start on the current card (a superseded older card had start $0.001 plus Result $0.006). README matches those three event names and USD amounts. Prefer the live Store card if a later README drifts."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "This schema does not expose a delivery enum. Dataset output is the billable surface when rows are written. dryRun true samples rows locally with no live calls or billing. emitUnchanged false suppresses previously seen evidence so unchanged runs can write zero rows and zero events."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Podcast Sponsor Evidence Scraper</nav>
+    <h1>Public podcast sponsor evidence from RSS, show pages, and iTunes search</h1>
+    <p>Podcast Sponsor Evidence Scraper scans public RSS feeds, show pages, and optional Apple iTunes Search terms for source-linked sponsor evidence. The Store tagline is: public podcast sponsor evidence; try <code>emitResearchExport=false</code> (skip the $7 export); paste 1 RSS URL and Start. It is not the cheaper report scraper sibling — compare <a href="/podcast-sponsor-evidence-report-scraper/">Podcast Sponsor Evidence Report Scraper</a> — and it is not Apple Podcasts catalog metadata (<a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a>).</p>
+    <p class="price">Try Input: 1 RSS URL, maxEpisodesPerFeed 1, emitResearchExport false. Live Store card: from $15.00 / 1,000 podcast enriched shows ($0.015 per show) + $0.25 per sponsor evidence row + $7 per research export. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/podcast-sponsor-contact-intelligence/input">Try the cheapest first paid Podcast Sponsor Evidence Scraper run on Apify Input</a></p>
+    <p><a href="https://apify.com/taroyamada/podcast-sponsor-contact-intelligence">Open taroyamada/podcast-sponsor-contact-intelligence on the Apify Store</a></p>
+
+    <h2>Sponsor evidence from RSS you paste, not catalog scrape or generic feed XML</h2>
+    <p>Use this page when the job is source-linked sponsorship evidence from public RSS and show pages. Use <a href="/podcast-sponsor-evidence-report-scraper/">Podcast Sponsor Evidence Report Scraper</a> when you want that Actor’s live PPE (enriched show $0.005, evidence $0.05, export $2.50 on its landing). Use <a href="/podcast-sponsor-public-signal-report/">Podcast Sponsor Public Signal Report</a> for public-signal reports. Use <a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a> when you only need feed items, not sponsor evidence.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Podcast Sponsor Evidence Scraper</th>
+          <th>Podcast Sponsor Evidence Report Scraper</th>
+          <th>Apple Podcasts Scraper</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>Source-linked sponsor evidence from RSS/show/search</td>
+          <td>Sibling report scraper with different live PPE</td>
+          <td>iTunes/Apple Podcasts catalog, episodes, charts</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td><code>rssFeedUrls</code>, optional showUrls and searchTerms</td>
+          <td>Public RSS you supply on that Actor</td>
+          <td>Search / lookup / charts inputs</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>Public RSS, show pages, Apple iTunes Search</td>
+          <td>Public RSS for that Actor’s evidence rows</td>
+          <td>Apple/iTunes endpoints</td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td>podcast-enriched-show, podcast-sponsor-evidence, optional $7 export</td>
+          <td>Enriched show, evidence, export events on that card</td>
+          <td>Show/episode/chart rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td>
+          <td>Not an outreach contact-purchase list. Not private CRM data.</td>
+          <td>Different event prices — do not mix cards.</td>
+          <td>Not sponsor-evidence extraction.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/podcast-sponsor-contact-intelligence</code>. Categories on the live Store card: Business, Automation. Fetch only sources you are authorized to use. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Agencies: paste one public RSS URL, keep <code>emitResearchExport</code> false, and inspect enriched-show plus evidence rows before turning export on.</li>
+      <li>Researchers: add optional <code>showUrls</code> or Apple iTunes Search <code>searchTerms</code> after the one-feed path works.</li>
+      <li>Recurring monitors: leave <code>emitUnchanged</code> false so previously seen evidence is suppressed; no-change runs write zero rows / zero events.</li>
+    </ul>
+    <p>Live schema required array is empty; rssFeedUrls defaults to the NPR Planet Money feed in schema. dryRun samples rows locally with no live calls or billing. Default memory on the Store listing is 1024 MB.</p>
+
+    <h2>How is Podcast Sponsor Evidence Scraper different from Podcast Sponsor Evidence Report Scraper and Apple Podcasts Scraper?</h2>
+    <p>Podcast Sponsor Evidence Scraper (taroyamada/podcast-sponsor-contact-intelligence) reads public RSS, show pages, and optional iTunes Search terms. Live PPE is podcast-enriched-show $0.015 (primary), podcast-sponsor-evidence $0.25, and podcast-research-export $7 (skip with emitResearchExport=false). Podcast Sponsor Evidence Report Scraper is a sibling Actor with a different live card (do not copy those prices here). Apple Podcasts Scraper is catalog/episode/chart metadata, not sponsor evidence. RSS & Atom Feed Extractor is generic feed XML. Use this Actor for source-linked sponsor evidence. Use Apple Podcasts Scraper for iTunes catalog. Use RSS & Atom Feed Extractor for feed items only.</p>
+    <h2>What input is required?</h2>
+    <p>The live schema required array is empty. Live fields are rssFeedUrls (default one NPR feed URL), showUrls (default empty), searchTerms (default one business-podcast term), maxEpisodesPerFeed (default 3, min 1, max 50), emitResearchExport (default false), emitUnchanged (default false), and dryRun (default false).</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>rssFeedUrls</code></td>
+          <td>string[]</td>
+          <td>NPR Planet Money feed prefill</td>
+          <td>Public podcast RSS feed URLs.</td>
+        </tr>
+        <tr>
+          <td><code>showUrls</code></td>
+          <td>string[]</td>
+          <td><code>[]</code></td>
+          <td>Public show or publisher pages.</td>
+        </tr>
+        <tr>
+          <td><code>searchTerms</code></td>
+          <td>string[]</td>
+          <td>one iTunes term prefill</td>
+          <td>Optional Apple iTunes Search API terms.</td>
+        </tr>
+        <tr>
+          <td><code>maxEpisodesPerFeed</code></td>
+          <td>integer</td>
+          <td><code>3</code></td>
+          <td>Max RSS episode items per feed. min 1, max 50.</td>
+        </tr>
+        <tr>
+          <td><code>emitResearchExport</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit one research export row when evidence is found ($7).</td>
+        </tr>
+        <tr>
+          <td><code>emitUnchanged</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>If false, previously seen evidence is suppressed.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Sample rows locally; no live calls or billing.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Cheapest first paid input (skip the $7 export):</p>
+<pre><code>{
+  "rssFeedUrls": [
+    "https://feeds.npr.org/510289/podcast.xml"
+  ],
+  "showUrls": [],
+  "searchTerms": [],
+  "maxEpisodesPerFeed": 1,
+  "emitResearchExport": false,
+  "emitUnchanged": false,
+  "dryRun": false
+}</code></pre>
+    <p>Documented live PPE is <strong>$0.015</strong> per enriched show plus <strong>$0.25</strong> per evidence row if found.</p>
+    <p><a href="https://apify.com/taroyamada/podcast-sponsor-contact-intelligence/input">Run this 1-RSS input on Apify</a></p>
+    <h2>What is the cheapest first paid Try Input?</h2>
+    <p>One public RSS URL, empty showUrls, empty searchTerms (avoid extra discovery), maxEpisodesPerFeed 1, emitResearchExport false, emitUnchanged false, dryRun false. Expected paid events: $0.015 per enriched show plus $0.25 per evidence row if found. Skip the $7 export on the first paid path. dryRun must be false.</p>
+    <h2>What does a result contain?</h2>
+    <p>README rows include billingEventName plus sourceName, sourceUrl, retrievedAt, sourceMethod, authorizationBasis, limitations, and prohibitedInterpretations. A sample lives in docs/sample-output.json on the Actor, which is not fetched as a Store resource here. There is no published output JSON schema on the Store page. Treat README samples as illustrations, not a live coverage guarantee.</p>
+    <h2>How is Podcast Sponsor Evidence Scraper priced?</h2>
+    <p>Billing is pay-per-event. The live Store card is from $15.00 / 1,000 podcast enriched shows. Live events are podcast-enriched-show $0.015 (primary), podcast-sponsor-evidence $0.25, and podcast-research-export $7. No Actor Start on the current card (a superseded older card had start $0.001 plus Result $0.006). README matches those three event names and USD amounts. Prefer the live Store card if a later README drifts.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>podcast-enriched-show</code> (Podcast enriched show)</td>
+          <td>$0.015</td>
+          <td>PAID per public RSS/show profile row with sponsorship research context. Primary.</td>
+        </tr>
+        <tr>
+          <td><code>podcast-sponsor-evidence</code> (Podcast sponsor evidence)</td>
+          <td>$0.25</td>
+          <td>PAID per source-linked sponsorship evidence row.</td>
+        </tr>
+        <tr>
+          <td><code>podcast-research-export</code> (Podcast research export)</td>
+          <td>$7</td>
+          <td>PAID per generated campaign/export bundle row. Skip with emitResearchExport=false.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>README event names and USD amounts match the live card. This page quotes live PPE only.</p>
+    <p class="price">from $15.00 / 1,000 podcast enriched shows. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/podcast-sponsor-contact-intelligence/pricing">See Podcast Sponsor Evidence Scraper pricing on Apify</a></p>
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>This schema does not expose a delivery enum. Dataset output is the billable surface when rows are written. dryRun true samples rows locally with no live calls or billing. emitUnchanged false suppresses previously seen evidence so unchanged runs can write zero rows and zero events.</p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>No required fields; first paid path still needs a public RSS URL and dryRun false.</li>
+      <li>Skip <code>emitResearchExport</code> on the first paid run ($7).</li>
+      <li>Not an outreach list, not purchased emails, and not a claim of advertiser intent.</li>
+      <li>Unchanged evidence is suppressed when <code>emitUnchanged</code> is false.</li>
+      <li>Respect RSS/show publisher terms and Apple Search API terms.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/podcast-sponsor-contact-intelligence">Open Podcast Sponsor Evidence Scraper on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/podcast-sponsor-evidence-report-scraper/">Podcast Sponsor Evidence Report Scraper</a> — Sibling report Actor with a different live PPE card.</li>
+      <li><a href="/podcast-sponsor-public-signal-report/">Podcast Sponsor Public Signal Report</a> — Public-signal reports, not this evidence card.</li>
+      <li><a href="/podcast-media-buyer-shortlist-scraper/">Podcast Media Buyer Shortlist Scraper</a> — Shortlists, not source-linked evidence rows.</li>
+      <li><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> — Catalog/episodes/charts, not sponsor evidence.</li>
+      <li><a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a> — Feed items, not sponsor evidence.</li>
+      <li><a href="/apple-podcast-episode-watchlist/">Apple Podcast Episode Watchlist</a> — Episode watchlists, not sponsors.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>
