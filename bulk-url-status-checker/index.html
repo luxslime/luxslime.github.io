@@ -157,7 +157,7 @@
     <p>This Actor checks a known URL list for HTTP status, redirect chains, response timing, and broken URL findings. Required input is <code>urls</code> (maximum 1000). It does not crawl pages to discover links. <a href="/dns-propagation-checker/">DNS Propagation Checker</a> queries public DNS for hostnames in <code>domains</code> (maximum 200) and does not fetch HTTP(S) HTML. <a href="/short-url-resolver-scraper/">Short URL Resolver &amp; Scraper</a> expands shortened or obfuscated links and logs the hop path; it is unshortening, not a status-QA pass over a known list. <a href="/wayback-machine-bulk-checker/">Wayback Machine Bulk Checker</a> queries the Internet Archive <code>available</code> endpoint for historical cache availability (maximum 500 URLs) and does not check live HTTP status. Use this Actor for live HTTP QA on URLs you already have.</p>
 
     <h2>Does this Actor crawl pages to find broken links?</h2>
-    <p>No. The live input schema states this Actor does not crawl pages. Pass known URLs in <code>urls</code>. For crawl or page-level broken-link discovery from source HTML, the schema points to Broken Link Checker. README handoff names for the same URL set are Site QA Broken Link Report Scraper, Site QA Content Report Scraper, and Site QA Indexability AI Crawler Report Scraper. Those are downstream report paths, not this Actor and not extra landings on this site.</p>
+    <p>No. The live input schema states this Actor does not crawl pages. Pass known URLs in <code>urls</code>. For crawl or page-level broken-link discovery from source HTML, the schema points to <a href="/broken-link-checker/">Broken Link Checker</a>. README handoff names for the same URL set are Site QA Broken Link Report Scraper, Site QA Content Report Scraper, and Site QA Indexability AI Crawler Report Scraper. Those are downstream report paths, not this Actor and not extra landings on this site.</p>
     <p>The README “Run the next report” section treats this Actor as the source step. A paid report/export handoff is produced by those linked report actors, not by adding more raw status rows here.</p>
 
     <h2>What input is required?</h2>
@@ -303,6 +303,7 @@
 
     <h2>Related pages</h2>
     <ul>
+      <li><a href="/broken-link-checker/">Broken Link Checker</a> — crawl start URLs for 404s, not a known URL-list status pass</li>
       <li><a href="/google-maps-lead-enrichment/">Google Maps Lead Enrichment Scraper</a> — enrich existing Maps/local-business lead rows, not HTTP status QA</li>
       <li><a href="/ssl-tls-certificate-scraper/">SSL/TLS Certificate Scraper</a> — TLS cert expiry and fingerprints on domains, not HTTP status</li>
       <li><a href="/dns-propagation-checker/">DNS Propagation Checker</a> — public DNS records, not HTTP status</li>

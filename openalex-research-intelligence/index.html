@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OpenAlex Scholarly Works Scraper — works, authors, citations, OA signals</title>
+  <meta name="description" content="Extract works, authors, institutions, sources, citations, topics, DOI, and open-access signals from the official OpenAlex API. Store: taroyamada/openalex-research-intelligence. $4.00 / 1,000 openalex research rows. Not PubMed E-utilities and not Google News RSS.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/openalex-research-intelligence/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is OpenAlex Scholarly Works Scraper different from PubMed Literature Watch and Google News Scraper?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "This Actor queries the official OpenAlex API for works, authors, institutions, sources, citations, topics, DOI, and open-access signals. Store ID taroyamada/openalex-research-intelligence. PubMed Literature Watch queries NCBI ESearch/ESummary for PubMed citation metadata, literature-update reports, and new-PMID alerts; it is not OpenAlex. Google News Scraper is query-based Google News RSS of headlines and article URLs. Article Content Extractor cleans news/blog HTML. NIH RePORTER Funding Landscape Report is NIH awards, not scholarly works. Use this Actor for OpenAlex bibliometrics and discovery, then confirm a focused PubMed query when needed."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What input is required?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The live schema required array is empty. additionalProperties is false. Supply at least one of searchTerms, workIds, authorIds, institutionIds, or conceptIds. Other live fields are fromDate and toDate (YYYY-MM-DD), sort (default cited_by_count:desc; also publication_date:desc, publication_date:asc, relevance_score:desc), limitPerSource (integer, default 25), maxWorks (integer, default 100), includeAbstract (boolean, default false), mailto (OpenAlex polite-pool email), timeoutMs (integer, default 20000), delivery (dataset or webhook, default dataset), webhookUrl, monitor (boolean, default false), monitorKey, initialRunMode (baseline_only or emit_backfill, default baseline_only; used when monitor is true), and dryRun (boolean, default false). Schema prefill search terms include LLM/RAG. Relevance sort is search-only."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the best first run?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The published Store Quickstart monitor uses searchTerms retrieval augmented generation, fromDate 2025-01-01, sort publication_date:desc, limitPerSource 10, maxWorks 20, monitor true, monitorKey rag-literature-watch, initialRunMode baseline_only, delivery dataset, and dryRun false. That first baseline_only monitor writes zero rows and zero charges. Later unchanged polls are also zero. emit_backfill bills the current baseline. The published exampleRunInput is a non-monitor extract with LLM/RAG search terms, fromDate 2024-01-01, limitPerSource 10, maxWorks 20, and includeAbstract false."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does a result contain?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Published README row types are work_summary (title, DOI, OpenAlex ID, year/date, type, citations, OA, retraction, source/publisher, landing/PDF, topics/concepts/countries/institutions), author_signal (work id/title, author name/id, order, corresponding flag, affiliations), and source_summary (journal/source, type, ISSN, host org, OA source flag). Sample JSON lives in docs/sample-output.json on the Actor, not inlined on the Store README. This Actor does not emit report, export, or synthetic alert rows; companion Actors do. There is no MCP output schema from recent runs."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does this Actor return abstracts or fabricate reports?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "includeAbstract default is false. When true, abstracts are reconstructed from OpenAlex inverted index and increase payload size. OpenAlex is not Crossref, PubMed, Semantic Scholar, or a publisher API. Citation counts can lag. Auth-free official API. It does not fabricate literature reports or funding landscapes; use PubMed Literature Watch and NIH RePORTER Funding Landscape Report for those jobs. Fail-closed on state/charge receipt errors."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is OpenAlex Scholarly Works Scraper priced?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Billing is pay per event. The live Store card is $4.00 / 1,000 openalex research rows. The billed event is OpenAlex research row (apify-default-dataset-item) at $0.004, charged for one delivered source-linked OpenAlex work, author, or source row. There is no Actor Start on the current pricing tab. A first baseline_only monitor and a later unchanged poll cost $0.00. emit_backfill bills the current baseline."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / OpenAlex Scholarly Works Scraper</nav>
+    <h1>Extract OpenAlex works, authors, citations, and OA signals</h1>
+    <p>OpenAlex Scholarly Works Scraper queries the official OpenAlex API for works, authors, institutions, sources, citations, topics, DOI, and open-access signals. It is bibliometrics and scholarly discovery — not NCBI PubMed E-utilities, not NIH RePORTER awards, and not Google News RSS.</p>
+    <p>This independent Actor is not affiliated with, sponsored by, or endorsed by OpenAlex.</p>
+    <p class="price">$4.00 / 1,000 openalex research rows ($0.004 per delivered work, author, or source row)</p>
+    <p><a href="https://apify.com/taroyamada/openalex-research-intelligence">Open OpenAlex Scholarly Works Scraper on Apify</a></p>
+
+    <h2>Official OpenAlex API, not PubMed E-utilities or news RSS</h2>
+    <p>Use this page when the job is OpenAlex works and related rows. Use <a href="/pubmed-literature-watch/">PubMed Literature Watch &amp; Research Report</a> for NCBI citation metadata and literature-update reports. Use <a href="/nih-research-funding-landscape-report/">NIH RePORTER Funding Landscape Report</a> for NIH awards. Use <a href="/biomedical-trial-literature-evidence-report/">PubMed &amp; Clinical Trials Evidence Gap Report</a> for trial↔PubMed gaps. Use <a href="/google-news-scraper/">Google News Scraper</a> for news headlines.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>This Actor</th>
+          <th>PubMed Literature Watch</th>
+          <th>NIH RePORTER Funding Landscape</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>OpenAlex works, authors, sources, OA, citations</td>
+          <td>PubMed citation watch, reports, new-PMID alerts</td>
+          <td>NIH award landscape, alerts, exports</td>
+        </tr>
+        <tr>
+          <td>Source</td>
+          <td>Official OpenAlex API</td>
+          <td>Official NCBI ESearch/ESummary</td>
+          <td>Official NIH RePORTER v2 Project API</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td>Search terms or OpenAlex IDs</td>
+          <td>PubMed <code>searchTerms</code> or <code>pmids</code></td>
+          <td><code>watches[]</code> (terms, FY, activity codes)</td>
+        </tr>
+        <tr>
+          <td>Reports / exports</td>
+          <td>No. Work/author/source rows only</td>
+          <td>Yes — literature-update report and citation export</td>
+          <td>Yes — landscape report and export events</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Bibliometrics at scale from the official OpenAlex API (README: 250M+ works in the catalog).</li>
+      <li>Scheduled author, institution, or concept alerts with <code>monitor</code> true.</li>
+      <li>Broader discovery, then a focused PubMed confirmation on <a href="/pubmed-literature-watch/">PubMed Literature Watch</a>.</li>
+      <li>Feed companion literature and funding Actors on this site.</li>
+    </ul>
+
+    <h2>How is OpenAlex Scholarly Works Scraper different from PubMed Literature Watch and Google News Scraper?</h2>
+    <p>This Actor queries the official OpenAlex API for works, authors, institutions, sources, citations, topics, DOI, and open-access signals. Store ID <code>taroyamada/openalex-research-intelligence</code>. <a href="/pubmed-literature-watch/">PubMed Literature Watch</a> queries NCBI ESearch/ESummary for PubMed citation metadata, literature-update reports, and new-PMID alerts; it is not OpenAlex. <a href="/google-news-scraper/">Google News Scraper</a> is query-based Google News RSS of headlines and article URLs. <a href="/article-content-extractor/">Article Content Extractor</a> cleans news/blog HTML. <a href="/nih-research-funding-landscape-report/">NIH RePORTER Funding Landscape Report</a> is NIH awards, not scholarly works. Use this Actor for OpenAlex bibliometrics and discovery, then confirm a focused PubMed query when needed.</p>
+
+    <h2>What input is required?</h2>
+    <p>The live schema required array is empty. <code>additionalProperties</code> is false. Supply at least one of <code>searchTerms</code>, <code>workIds</code>, <code>authorIds</code>, <code>institutionIds</code>, or <code>conceptIds</code>.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>searchTerms</code></td>
+          <td>string[]</td>
+          <td>prefill LLM/RAG</td>
+          <td>Work search keywords</td>
+        </tr>
+        <tr>
+          <td><code>workIds</code> / <code>authorIds</code> / <code>institutionIds</code> / <code>conceptIds</code></td>
+          <td>string[]</td>
+          <td>—</td>
+          <td>OpenAlex IDs or URLs (example work id <code>W2741809807</code>)</td>
+        </tr>
+        <tr>
+          <td><code>fromDate</code> / <code>toDate</code></td>
+          <td>string</td>
+          <td>—</td>
+          <td><code>YYYY-MM-DD</code></td>
+        </tr>
+        <tr>
+          <td><code>sort</code></td>
+          <td>string</td>
+          <td><code>cited_by_count:desc</code></td>
+          <td>Also <code>publication_date:desc</code>, <code>publication_date:asc</code>, <code>relevance_score:desc</code>. Relevance is search-only</td>
+        </tr>
+        <tr>
+          <td><code>limitPerSource</code></td>
+          <td>integer</td>
+          <td>25</td>
+          <td>Works per source input</td>
+        </tr>
+        <tr>
+          <td><code>maxWorks</code></td>
+          <td>integer</td>
+          <td>100</td>
+          <td>Global unique work cap</td>
+        </tr>
+        <tr>
+          <td><code>includeAbstract</code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Reconstruct abstract from inverted index</td>
+        </tr>
+        <tr>
+          <td><code>mailto</code></td>
+          <td>string</td>
+          <td>—</td>
+          <td>OpenAlex polite-pool email</td>
+        </tr>
+        <tr>
+          <td><code>timeoutMs</code></td>
+          <td>integer</td>
+          <td>20000</td>
+          <td>Per-request timeout</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string</td>
+          <td><code>dataset</code></td>
+          <td><code>dataset</code> or <code>webhook</code></td>
+        </tr>
+        <tr>
+          <td><code>monitor</code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Emit only unseen works when true</td>
+        </tr>
+        <tr>
+          <td><code>monitorKey</code></td>
+          <td>string</td>
+          <td>—</td>
+          <td>Blank → derived from query</td>
+        </tr>
+        <tr>
+          <td><code>initialRunMode</code></td>
+          <td>string</td>
+          <td><code>baseline_only</code></td>
+          <td>Used when <code>monitor</code> is true</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Skip dataset/webhook</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store Quickstart (free baseline monitor):</p>
+<pre><code>{
+  "searchTerms": ["retrieval augmented generation"],
+  "fromDate": "2025-01-01",
+  "sort": "publication_date:desc",
+  "limitPerSource": 10,
+  "maxWorks": 20,
+  "monitor": true,
+  "monitorKey": "rag-literature-watch",
+  "initialRunMode": "baseline_only",
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p>Published example run input (non-monitor extract):</p>
+<pre><code>{
+  "searchTerms": ["retrieval augmented generation"],
+  "workIds": [],
+  "authorIds": [],
+  "institutionIds": [],
+  "conceptIds": [],
+  "fromDate": "2024-01-01",
+  "limitPerSource": 10,
+  "maxWorks": 20,
+  "includeAbstract": false,
+  "dryRun": false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/openalex-research-intelligence">Run OpenAlex Scholarly Works Scraper on Apify</a></p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README row types:</p>
+    <ul>
+      <li><code>work_summary</code> — title, DOI, OpenAlex ID, year/date, type, citations, OA, retraction, source/publisher, landing/PDF, topics/concepts/countries/institutions</li>
+      <li><code>author_signal</code> — work id/title, author name/id, order, corresponding flag, affiliations</li>
+      <li><code>source_summary</code> — journal/source, type, ISSN, host org, OA source flag</li>
+    </ul>
+    <p>Sample JSON lives in <code>docs/sample-output.json</code> on the Actor, not inlined on the Store README. This Actor does not emit report, export, or synthetic alert rows; companion Actors do.</p>
+
+    <h2>Does this Actor return abstracts or fabricate reports?</h2>
+    <p><code>includeAbstract</code> default is false. When true, abstracts are reconstructed from the OpenAlex inverted index and increase payload size. OpenAlex is not Crossref, PubMed, Semantic Scholar, or a publisher API. Citation counts can lag. Auth-free official API. It does not fabricate literature reports or funding landscapes; use <a href="/pubmed-literature-watch/">PubMed Literature Watch</a> and <a href="/nih-research-funding-landscape-report/">NIH RePORTER Funding Landscape Report</a> for those jobs. Fail-closed on state/charge receipt errors.</p>
+
+    <h2>How is OpenAlex Scholarly Works Scraper priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>$4.00 / 1,000 openalex research rows</strong>. The billed event is OpenAlex research row (<code>apify-default-dataset-item</code>) at <strong>$0.004</strong>, charged for one delivered source-linked OpenAlex work, author, or source row. There is no Actor Start on the current pricing tab. A first <code>baseline_only</code> monitor and a later unchanged poll cost $0.00. <code>emit_backfill</code> bills the current baseline.</p>
+    <p class="price">$4.00 per 1,000 openalex research rows ($0.004 per delivered row)</p>
+    <p><a href="https://apify.com/taroyamada/openalex-research-intelligence/pricing">See OpenAlex Scholarly Works Scraper pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>At least one of <code>searchTerms</code>, <code>workIds</code>, <code>authorIds</code>, <code>institutionIds</code>, <code>conceptIds</code>.</li>
+      <li>Official OpenAlex API only. Not PubMed, not NIH RePORTER, not news RSS.</li>
+      <li>No report/export events on this Actor. Abstracts off by default.</li>
+      <li>Relevance sort is search-only. Citation counts can lag.</li>
+      <li>Not affiliated with OpenAlex.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/openalex-research-intelligence">Open OpenAlex Scholarly Works Scraper on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/pubmed-literature-watch/">PubMed Literature Watch &amp; Research Report</a> — NCBI citation watch and reports</li>
+      <li><a href="/biomedical-trial-literature-evidence-report/">PubMed &amp; Clinical Trials Evidence Gap Report</a> — trial↔PubMed gaps</li>
+      <li><a href="/nih-research-funding-landscape-report/">NIH RePORTER Funding Landscape Report</a> — NIH awards</li>
+      <li><a href="/google-news-scraper/">Google News Scraper</a> — news RSS, not scholarly works</li>
+      <li><a href="/article-content-extractor/">Article Content Extractor</a> — article HTML cleanup</li>
+      <li><a href="/ted-sam-grants-bid-alerts/">TED, SAM.gov &amp; Grants Bid Alerts Scraper</a> — procurement notices, not OpenAlex</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

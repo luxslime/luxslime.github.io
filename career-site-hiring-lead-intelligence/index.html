@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Career Site Scraper — Hiring Signals &amp; Open Roles from public career pages</title>
+  <meta name="description" content="Extract source-linked hiring signals, ATS hints, open roles, departments, locations, and remote-work indicators from public career pages. Store: taroyamada/career-site-hiring-lead-intelligence. From $5.00 / 1,000 company hiring signals. Not Maps lead enrichment and not a contact-page inventory.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/career-site-hiring-lead-intelligence/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is Career Site Scraper different from Google Maps Lead Enrichment and Contact Page Audit?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "This Actor reads public career, jobs, and hiring pages you supply and returns source-linked job titles, departments, locations, ATS platform hints, remote-work indicators, and hiring-signal tags. Store ID taroyamada/career-site-hiring-lead-intelligence. Google Maps Lead Enrichment appends website, email, phone, social, and health fields to existing local-business lead rows; it does not scrape Google Maps and it does not crawl career boards. Contact Page Audit inventories public business contact channels from contact, about, support, and policy pages; person-level emails are suppressed. Trade Show Exhibitor Intelligence extracts exhibitor booth rows from event pages you supply. Use this Actor for public career-page hiring signals. Use Maps enrichment for existing local-business rows. Use Contact Page Audit for support-channel inventory."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What input is required?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The live input schema has an empty required list. additionalProperties is false. Supply at least one of careerUrls, companyUrls, or companyDomains. Live fields are careerUrls (array; career/jobs/Greenhouse/Lever/Ashby/Workday/hiring pages; schema prefill https://www.ycombinator.com/jobs), companyUrls (array; homepages that discover /careers and /jobs), companyDomains (array; domains probed at /careers and /jobs), searchTerms (array; labels for grouping/notes, not a search engine; schema prefill AI infrastructure hiring), monitorKey (string, default default), initialRunMode (baseline_only or emit_backfill, default baseline_only), emitUnchanged (boolean, default false), limit (integer, default 50), delivery (dataset or webhook, default dataset), webhookUrl (required when delivery is webhook and dryRun is false), dryRun (boolean, default false), and maxChargeUsd (number, default 0.25). Auth, account, sign-in, and sign-up URLs are excluded."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the best first run?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The published Store Quickstart uses careerUrls https://www.ycombinator.com/jobs, monitorKey yc-hiring-watch, initialRunMode emit_backfill, emitUnchanged false, limit 20, maxChargeUsd 0.1, delivery dataset, and dryRun false. Default initialRunMode is baseline_only: the first successful run stores a snapshot with no dataset rows and no PPE. Unchanged recurring runs with emitUnchanged false write zero rows and zero charges. searchTerms are labels only; they do not query a search engine. Keep the first live backfill small."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does a result contain?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The published README sample is a job_or_hiring_signal row with companyName, careerUrl, jobTitle, department, location, remote, atsHints, hiringSignals, status, chargedEvent, and sourceUrl. chargedEvent on that sample is company_hiring_signal. The sample is a README illustration, not a live coverage guarantee. There is no published output JSON schema on the Store page. Recurring watches can emit job_delta and hiring_summary events at the same unit price. No personal emails are collected."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do baseline, backfill, and unchanged monitors work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "initialRunMode default is baseline_only: store a snapshot with no dataset rows and no PPE. emit_backfill emits the first observed hiring rows under limit and maxChargeUsd. emitUnchanged default is false: later runs emit only newly observed hiring rows. Keep monitorKey stable for the same watch. delivery always writes the dataset first; webhook POSTs after dataset output succeeds. dryRun true returns sample rows and skips dataset writes and webhook. Rows beyond maxChargeUsd are no-charge limit_reached diagnostics."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Career Site Scraper priced?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Billing is pay per event. The live Store card is from $5.00 / 1,000 company hiring signals. Current PPE: company_hiring_signal (Company hiring signal) $0.005; job_delta (Job delta) $0.005 for a newly detected or changed job row; hiring_summary (Hiring summary) $0.005 for a company-level summary. There is no Actor Start on the current pricing tab. A baseline_only first run and an unchanged poll with emitUnchanged false both cost $0.00. Platform usage is listed as included."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Career Site Scraper — Hiring Signals &amp; Open Roles</nav>
+    <h1>Extract hiring signals and open roles from public career pages</h1>
+    <p>Career Site Scraper — Hiring Signals &amp; Open Roles reads public career and jobs pages you supply and returns source-linked job titles, departments, locations, ATS platform hints (Greenhouse, Lever, Ashby, Workday), remote-work indicators, and hiring-signal tags. It is public career-page observation — not Maps lead enrichment, not a contact-page channel inventory, and not a trade-show exhibitor extract.</p>
+    <p>Outputs are hiring observations, not employment, legal, or investment advice. Public non-authenticated career pages only. No personal emails.</p>
+    <p class="price">from $5.00 / 1,000 company hiring signals ($0.005 per company hiring signal, job delta, or hiring summary)</p>
+    <p><a href="https://apify.com/taroyamada/career-site-hiring-lead-intelligence">Open Career Site Scraper on Apify</a></p>
+
+    <h2>Public career-page hiring signals, not Maps enrichment or contact-channel inventory</h2>
+    <p>Use this page when the job is open roles and hiring signals from public career pages. Use <a href="/google-maps-lead-enrichment/">Google Maps Lead Enrichment Scraper</a> to append website, email, phone, and social fields to existing local-business lead rows. Use <a href="/contact-details-extractor/">Contact Page Audit &amp; Business Channel Extractor</a> for support paths, phones, and socials on contact pages. Use <a href="/trade-show-exhibitor-intelligence/">Trade Show Exhibitor Intelligence</a> for exhibitor booth directories you already have.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>This Actor</th>
+          <th>Google Maps Lead Enrichment</th>
+          <th>Contact Page Audit</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>Hiring signals and open roles from public career pages</td>
+          <td>Enrich existing Maps/local-business lead rows</td>
+          <td>Inventory public business contact channels</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td><code>careerUrls</code>, <code>companyUrls</code>, or <code>companyDomains</code></td>
+          <td>Existing <code>leads</code> or <code>sourceDatasetId</code></td>
+          <td>Contact/about/support URLs in <code>urls</code> (max 100)</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>Public career/jobs pages; probes <code>/careers</code> and <code>/jobs</code></td>
+          <td>User-supplied lead rows; does not scrape Google Maps</td>
+          <td>Public contact/support/policy pages</td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td>Job title, department, location, remote flag, ATS hints, hiring tags</td>
+          <td>Website, public email/phone/social, HTTP health</td>
+          <td><code>public_contact_channel</code> rows; person-level emails suppressed</td>
+        </tr>
+        <tr>
+          <td>Not this job</td>
+          <td>Maps search, contact-page inventory, exhibitor booths</td>
+          <td>Career-board crawl</td>
+          <td>Open-role extraction</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/career-site-hiring-lead-intelligence</code>. Respect source terms, robots.txt, and rate limits. Auth/account/sign-in/sign-up URLs are excluded.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Competitive intelligence: watch competitor career pages for newly posted roles.</li>
+      <li>Sourcing research: map departments, locations, and remote indicators from public boards.</li>
+      <li>ATS board reports: Greenhouse, Lever, Ashby, and Workday hints on public career pages.</li>
+      <li>Homepage to career-page discovery: pass company URLs or domains and probe <code>/careers</code> and <code>/jobs</code>.</li>
+      <li>Recurring watches: baseline once, then emit only newly observed hiring rows.</li>
+    </ul>
+
+    <h2>How is Career Site Scraper different from Google Maps Lead Enrichment and Contact Page Audit?</h2>
+    <p>This Actor reads public career, jobs, and hiring pages you supply and returns source-linked job titles, departments, locations, ATS platform hints, remote-work indicators, and hiring-signal tags. Store ID <code>taroyamada/career-site-hiring-lead-intelligence</code>. <a href="/google-maps-lead-enrichment/">Google Maps Lead Enrichment</a> appends website, email, phone, social, and health fields to existing local-business lead rows; it does not scrape Google Maps and it does not crawl career boards. <a href="/contact-details-extractor/">Contact Page Audit</a> inventories public business contact channels from contact, about, support, and policy pages; person-level emails are suppressed. <a href="/trade-show-exhibitor-intelligence/">Trade Show Exhibitor Intelligence</a> extracts exhibitor booth rows from event pages you supply. Use this Actor for public career-page hiring signals.</p>
+
+    <h2>What input is required?</h2>
+    <p>The live input schema has an empty required list. <code>additionalProperties</code> is false. Supply at least one of <code>careerUrls</code>, <code>companyUrls</code>, or <code>companyDomains</code>.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>careerUrls</code></td>
+          <td>string[]</td>
+          <td>prefill <code>https://www.ycombinator.com/jobs</code></td>
+          <td>Career/jobs/Greenhouse/Lever/Ashby/Workday/hiring pages</td>
+        </tr>
+        <tr>
+          <td><code>companyUrls</code></td>
+          <td>string[]</td>
+          <td><code>[]</code></td>
+          <td>Homepages; discovers careers/jobs links; probes <code>/careers</code> and <code>/jobs</code></td>
+        </tr>
+        <tr>
+          <td><code>companyDomains</code></td>
+          <td>string[]</td>
+          <td><code>[]</code></td>
+          <td>Domains to probe <code>/careers</code> and <code>/jobs</code></td>
+        </tr>
+        <tr>
+          <td><code>searchTerms</code></td>
+          <td>string[]</td>
+          <td>prefill <code>AI infrastructure hiring</code></td>
+          <td>Labels for grouping/notes, not a search engine</td>
+        </tr>
+        <tr>
+          <td><code>monitorKey</code></td>
+          <td>string</td>
+          <td><code>default</code></td>
+          <td>Stable watch id versus the previous successful run</td>
+        </tr>
+        <tr>
+          <td><code>initialRunMode</code></td>
+          <td>string</td>
+          <td><code>baseline_only</code></td>
+          <td><code>baseline_only</code> or <code>emit_backfill</code></td>
+        </tr>
+        <tr>
+          <td><code>emitUnchanged</code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>If false, recurring runs emit only newly observed hiring rows</td>
+        </tr>
+        <tr>
+          <td><code>limit</code></td>
+          <td>integer</td>
+          <td>50</td>
+          <td>Maximum rows to emit</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string</td>
+          <td><code>dataset</code></td>
+          <td><code>dataset</code> or <code>webhook</code>. Dataset is always written first</td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td>empty</td>
+          <td>Required when <code>delivery</code> is <code>webhook</code> and <code>dryRun</code> is false</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Sample rows; skip dataset writes and webhook</td>
+        </tr>
+        <tr>
+          <td><code>maxChargeUsd</code></td>
+          <td>number</td>
+          <td>0.25</td>
+          <td>Cap; over-cap rows are no-charge <code>limit_reached</code> diagnostics</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store Quickstart (first live backfill; keep it small):</p>
+<pre><code>{
+  "careerUrls": ["https://www.ycombinator.com/jobs"],
+  "companyUrls": [],
+  "companyDomains": [],
+  "monitorKey": "yc-hiring-watch",
+  "initialRunMode": "emit_backfill",
+  "emitUnchanged": false,
+  "limit": 20,
+  "maxChargeUsd": 0.1,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p>Published Store example run input (omitted fields take schema defaults, including <code>initialRunMode</code> <code>baseline_only</code>):</p>
+<pre><code>{
+  "careerUrls": ["https://www.ycombinator.com/jobs"],
+  "companyDomains": [],
+  "searchTerms": ["AI infrastructure hiring"],
+  "limit": 50,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/career-site-hiring-lead-intelligence">Run Career Site Scraper on Apify</a></p>
+
+    <h2>How do baseline, backfill, and unchanged monitors work?</h2>
+    <p><code>initialRunMode</code> default is <code>baseline_only</code>: store a snapshot with no dataset rows and no PPE. <code>emit_backfill</code> emits the first observed hiring rows under <code>limit</code> and <code>maxChargeUsd</code>. <code>emitUnchanged</code> default is false: later runs emit only newly observed hiring rows. Keep <code>monitorKey</code> stable for the same watch. <code>delivery</code> always writes the dataset first; webhook POSTs after dataset output succeeds. <code>dryRun</code> true returns sample rows and skips dataset writes and webhook.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>The published README sample is a <code>job_or_hiring_signal</code> row. It is a README illustration, not a live coverage guarantee:</p>
+<pre><code>{
+  "rowType": "job_or_hiring_signal",
+  "companyName": "example.com",
+  "careerUrl": "https://example.com/jobs/security-engineer",
+  "jobTitle": "Security Engineer",
+  "department": "Engineering",
+  "location": "Remote",
+  "remote": true,
+  "atsHints": ["greenhouse"],
+  "hiringSignals": ["active_hiring", "remote_work", "engineering", "security"],
+  "status": "success",
+  "chargedEvent": "company_hiring_signal",
+  "sourceUrl": "https://example.com/jobs/security-engineer"
+}</code></pre>
+    <p>Recurring watches can emit <code>job_delta</code> and <code>hiring_summary</code> events at the same unit price. No personal emails are collected.</p>
+
+    <h2>How is Career Site Scraper priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $5.00 / 1,000 company hiring signals</strong>. Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>company_hiring_signal</code></td>
+          <td>$0.005</td>
+          <td>One company hiring-signal row</td>
+        </tr>
+        <tr>
+          <td><code>job_delta</code></td>
+          <td>$0.005</td>
+          <td>One newly detected or changed job row</td>
+        </tr>
+        <tr>
+          <td><code>hiring_summary</code></td>
+          <td>$0.005</td>
+          <td>One company-level hiring summary</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>There is no Actor Start on the current pricing tab. A <code>baseline_only</code> first run and an unchanged poll with <code>emitUnchanged</code> false both cost $0.00. Platform usage is listed as included.</p>
+    <p class="price">from $5.00 per 1,000 company hiring signals</p>
+    <p><a href="https://apify.com/taroyamada/career-site-hiring-lead-intelligence/pricing">See Career Site Scraper pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Public non-authenticated career pages only. Auth/account/sign-in/sign-up URLs are excluded.</li>
+      <li>No personal emails. Observations, not employment, legal, or investment advice.</li>
+      <li><code>searchTerms</code> are labels only; they do not query a search engine.</li>
+      <li>Default first run is a free baseline. Use <code>emit_backfill</code> only when you want the first snapshot billed.</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p>Published README companion (no local landing on this site): <a href="https://apify.com/taroyamada/ats-hiring-signal-report">ATS Hiring Signal Report on Apify</a> for public Greenhouse/Lever/Ashby boards.</p>
+    <p><a href="https://apify.com/taroyamada/career-site-hiring-lead-intelligence">Open Career Site Scraper on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/google-maps-lead-enrichment/">Google Maps Lead Enrichment Scraper</a> — existing local-business lead rows, not career-page hiring signals</li>
+      <li><a href="/contact-details-extractor/">Contact Page Audit &amp; Business Channel Extractor</a> — public support channels, not open roles</li>
+      <li><a href="/trade-show-exhibitor-intelligence/">Trade Show Exhibitor Intelligence</a> — exhibitor booth directories, not career boards</li>
+      <li><a href="/tech-events-cfp-calendar/">Tech Events &amp; CFP Calendar Scraper</a> — conference CFPs, not hiring pages</li>
+      <li><a href="/bulk-url-status-checker/">Bulk URL Status Checker</a> — HTTP status on a known URL list</li>
+      <li><a href="/website-content-extractor/">Website Content Extractor</a> — cleaned page body, not hiring-signal rows</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SaaS Status Page &amp; Incident Scraper — vendor outage digests</title>
+  <meta name="description" content="Monitor vendor status pages and generate digests of outages, incidents, and component health. Store: taroyamada/status-page-incident-digest-monitor. $8.00 / 1,000 status incident digests. Not HHS OCR breaches and not Google News RSS.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/status-page-incident-digest-monitor/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is SaaS Status Page & Incident Scraper different from HHS Healthcare Data Breach Change Scraper and RSS Feed Extractor?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "This Actor fetches public vendor status pages and optional incident RSS/JSON feeds, then emits one executive digest per vendor: current state, incident counts, affected components, recommended actions, and evidence. Required input is vendors (objects with statusPageUrl). Store ID taroyamada/status-page-incident-digest-monitor. HHS Healthcare Data Breach Change Scraper monitors the public HHS OCR Breach Portal, not SaaS status pages. RSS & Atom Feed Extractor parses known-publisher feed XML for headlines and item URLs; it is not a vendor-incident digest. Google News Scraper is query-based news RSS. Use this Actor for third-party SaaS/cloud status pages you list."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What input is required?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "vendors is required: an array of objects. Each vendor must have statusPageUrl; incidentFeedUrl, id, name, criticality, owner, and tags are optional. Schema prefill is Stripe at https://status.stripe.com with history RSS. Optional live fields are requestTimeoutSeconds (integer, default 30), userAgent, maxIncidentsPerVendor (integer, default 10), incidentLookbackDays (integer, default 30; 0 means all), delivery (dataset or webhook, default dataset), datasetMode (all, changes_only, or action_needed, default all), webhookUrl, notifyOnNoChange (boolean, default false), snapshotKey (string, default status-page-incident-snapshots), concurrency (integer, default 3), nowIso, and dryRun (boolean, default false). additionalProperties is false. README examples that send vendors as strings, incidentSinceDays, or emitChangedOnly are not live schema fields."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does a digest contain?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Published README fields include vendorId, vendorName, checkedAt, executiveSummary, incidentState, incidentCount, affectedComponents, actionNeeded, recommendedActions, changedSinceLastRun, evidence, and meta (statusPageUrl, incidentFeedUrl, criticality, owner, tags, parseSource, fingerprint, previousFingerprint, isFirstRun). The published Stripe sample is a README illustration, not a live coverage guarantee. Unreachable pages set incidentState unknown and actionNeeded true."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do datasetMode, snapshots, and webhooks work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "datasetMode default is all: always emit the digest. changes_only emits when the fingerprint changed. action_needed emits only when actionNeeded is true. Keep snapshotKey constant for change detection (schema default status-page-incident-snapshots; Store example run uses status-page-incident-quickstart). notifyOnNoChange default is false: skip webhook when nothing changed. dryRun true saves no snapshots and fires no webhook. HTTP plus JSON/RSS parsing; no headless browser."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is SaaS Status Page & Incident Scraper priced?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Billing is pay per event. The live Store card is $8.00 / 1,000 status incident digests. The billed event is Status incident digest (apify-default-dataset-item) at $0.008, charged for one delivered vendor status baseline or changed incident digest. There is no Actor Start on the current pricing tab. The README Cost section that still quotes $0.01 start plus $0.003 per item is stale."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does this Actor log into vendor portals or render a browser?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. It uses HTTP plus JSON/RSS parsing without a headless browser. It is not for authenticated internal portals and it does not bypass anti-bot. incidentFeedUrl is optional. Only scan public status pages you are authorized to monitor."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / SaaS Status Page &amp; Incident Scraper</nav>
+    <h1>Monitor vendor status pages and emit incident digests</h1>
+    <p>SaaS Status Page &amp; Incident Scraper fetches public vendor status pages and optional incident RSS/JSON feeds, then returns one executive digest per vendor: current state, incident counts, affected components, recommended actions, and evidence. It is third-party SaaS/cloud uptime monitoring — not HHS OCR breach disclosures, not Google News RSS, and not a login to internal portals.</p>
+    <p class="price">$8.00 / 1,000 status incident digests ($0.008 per delivered vendor baseline or changed digest)</p>
+    <p><a href="https://apify.com/taroyamada/status-page-incident-digest-monitor">Open SaaS Status Page &amp; Incident Scraper on Apify</a></p>
+
+    <h2>Public status-page digests, not OCR breaches or news RSS</h2>
+    <p>Use this page when the job is vendor status pages and incident feeds you list. Use <a href="/hhs-healthcare-data-breach-scraper/">HHS Healthcare Data Breach Change Scraper</a> for public HHS OCR disclosures. Use <a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a> for known-publisher feed XML. Use <a href="/google-news-scraper/">Google News Scraper</a> for query-based headlines. Use <a href="/trust-center-subprocessor-monitor/">Subprocessor &amp; Trust Center Scraper</a> for DPA and subprocessor page diffs.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>This Actor</th>
+          <th>HHS Healthcare Data Breach</th>
+          <th>RSS &amp; Atom Feed Extractor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>Vendor status-page incident digests</td>
+          <td>Newly published HHS OCR disclosures</td>
+          <td>Known-publisher feed items</td>
+        </tr>
+        <tr>
+          <td>Input</td>
+          <td><code>vendors[]</code> with <code>statusPageUrl</code></td>
+          <td>Date window and optional filters</td>
+          <td><code>feedUrls</code> (max 50)</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>HTTP status pages plus optional RSS/JSON</td>
+          <td>HHS OCR Breach Portal rows</td>
+          <td>Feed XML</td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td>One digest per vendor with evidence</td>
+          <td>One disclosure digest per query window</td>
+          <td>Item URL, title, timestamp</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/status-page-incident-digest-monitor</code>. HTTP plus JSON/RSS; no headless browser.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Third-party SaaS/cloud uptime: scheduled status-page checks.</li>
+      <li>Incident-response digests for ops owners tagged on each vendor.</li>
+      <li>Vendor-risk / procurement evidence from public status pages.</li>
+      <li>Webhook skip when nothing changed (<code>notifyOnNoChange</code> false).</li>
+    </ul>
+
+    <h2>How is SaaS Status Page &amp; Incident Scraper different from HHS Healthcare Data Breach Change Scraper and RSS Feed Extractor?</h2>
+    <p>This Actor fetches public vendor status pages and optional incident RSS/JSON feeds, then emits one executive digest per vendor: current state, incident counts, affected components, recommended actions, and evidence. Required input is <code>vendors</code> (objects with <code>statusPageUrl</code>). Store ID <code>taroyamada/status-page-incident-digest-monitor</code>. <a href="/hhs-healthcare-data-breach-scraper/">HHS Healthcare Data Breach Change Scraper</a> monitors the public HHS OCR Breach Portal, not SaaS status pages. <a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a> parses known-publisher feed XML for headlines and item URLs; it is not a vendor-incident digest. <a href="/google-news-scraper/">Google News Scraper</a> is query-based news RSS. Use this Actor for third-party SaaS/cloud status pages you list.</p>
+
+    <h2>What input is required?</h2>
+    <p><code>vendors</code> is required: an array of objects. Each vendor must have <code>statusPageUrl</code>. README examples that send <code>vendors</code> as strings, <code>incidentSinceDays</code>, or <code>emitChangedOnly</code> are not live schema fields. <code>additionalProperties</code> is false. Use <code>datasetMode</code> as the change filter.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>vendors</code></td>
+          <td>object[]</td>
+          <td>required</td>
+          <td>Each item needs <code>statusPageUrl</code>. Optional <code>incidentFeedUrl</code>, <code>id</code>, <code>name</code>, <code>criticality</code>, <code>owner</code>, <code>tags</code></td>
+        </tr>
+        <tr>
+          <td><code>requestTimeoutSeconds</code></td>
+          <td>integer</td>
+          <td>30</td>
+          <td>HTTP timeout per page/feed</td>
+        </tr>
+        <tr>
+          <td><code>userAgent</code></td>
+          <td>string</td>
+          <td>—</td>
+          <td>Optional UA override</td>
+        </tr>
+        <tr>
+          <td><code>maxIncidentsPerVendor</code></td>
+          <td>integer</td>
+          <td>10</td>
+          <td>Max incidents in evidence</td>
+        </tr>
+        <tr>
+          <td><code>incidentLookbackDays</code></td>
+          <td>integer</td>
+          <td>30</td>
+          <td><code>0</code> means all feed items</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string</td>
+          <td><code>dataset</code></td>
+          <td><code>dataset</code> or <code>webhook</code></td>
+        </tr>
+        <tr>
+          <td><code>datasetMode</code></td>
+          <td>string</td>
+          <td><code>all</code></td>
+          <td><code>all</code>, <code>changes_only</code>, or <code>action_needed</code></td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td>—</td>
+          <td>Required when <code>delivery</code> is <code>webhook</code></td>
+        </tr>
+        <tr>
+          <td><code>notifyOnNoChange</code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>If false, skip webhook when nothing changed</td>
+        </tr>
+        <tr>
+          <td><code>snapshotKey</code></td>
+          <td>string</td>
+          <td><code>status-page-incident-snapshots</code></td>
+          <td>Store example run uses <code>status-page-incident-quickstart</code></td>
+        </tr>
+        <tr>
+          <td><code>concurrency</code></td>
+          <td>integer</td>
+          <td>3</td>
+          <td>Parallel vendors. README: keep 2–3</td>
+        </tr>
+        <tr>
+          <td><code>nowIso</code></td>
+          <td>string</td>
+          <td>—</td>
+          <td>Deterministic timestamp for tests</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>No snapshots, no webhook</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published schema prefill / starter vendor (Stripe is a capability example, not an affiliation):</p>
+<pre><code>{
+  "vendors": [
+    {
+      "id": "stripe",
+      "name": "Stripe",
+      "criticality": "high",
+      "owner": "Ops",
+      "tags": ["payments", "core"],
+      "statusPageUrl": "https://status.stripe.com",
+      "incidentFeedUrl": "https://status.stripe.com/history.rss"
+    }
+  ],
+  "delivery": "dataset",
+  "datasetMode": "all",
+  "snapshotKey": "status-page-incident-quickstart",
+  "concurrency": 2,
+  "dryRun": false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/status-page-incident-digest-monitor">Run SaaS Status Page &amp; Incident Scraper on Apify</a></p>
+
+    <h2>What does a digest contain?</h2>
+    <p>Published README fields include <code>vendorId</code>, <code>vendorName</code>, <code>checkedAt</code>, <code>executiveSummary</code>, <code>incidentState</code>, <code>incidentCount</code>, <code>affectedComponents</code>, <code>actionNeeded</code>, <code>recommendedActions</code>, <code>changedSinceLastRun</code>, <code>evidence</code>, and <code>meta</code> (<code>statusPageUrl</code>, <code>incidentFeedUrl</code>, <code>criticality</code>, <code>owner</code>, <code>tags</code>, <code>parseSource</code>, <code>fingerprint</code>, <code>previousFingerprint</code>, <code>isFirstRun</code>). The published Stripe sample is a README illustration, not a live coverage guarantee. Unreachable pages set <code>incidentState</code> <code>unknown</code> and <code>actionNeeded</code> true.</p>
+
+    <h2>How do datasetMode, snapshots, and webhooks work?</h2>
+    <p><code>datasetMode</code> default is <code>all</code>: always emit the digest. <code>changes_only</code> emits when the fingerprint changed. <code>action_needed</code> emits only when <code>actionNeeded</code> is true. Keep <code>snapshotKey</code> constant for change detection. <code>notifyOnNoChange</code> default is false: skip webhook when nothing changed. <code>dryRun</code> true saves no snapshots and fires no webhook.</p>
+
+    <h2>Does this Actor log into vendor portals or render a browser?</h2>
+    <p>No. It uses HTTP plus JSON/RSS parsing without a headless browser. It is not for authenticated internal portals and it does not bypass anti-bot. <code>incidentFeedUrl</code> is optional. Only scan public status pages you are authorized to monitor.</p>
+
+    <h2>How is SaaS Status Page &amp; Incident Scraper priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>$8.00 / 1,000 status incident digests</strong>. The billed event is Status incident digest (<code>apify-default-dataset-item</code>) at <strong>$0.008</strong>, charged for one delivered vendor status baseline or changed incident digest. There is no Actor Start on the current pricing tab. The README Cost section that still quotes $0.01 start plus $0.003 per item is stale.</p>
+    <p class="price">$8.00 per 1,000 status incident digests ($0.008 per delivered digest)</p>
+    <p><a href="https://apify.com/taroyamada/status-page-incident-digest-monitor/pricing">See SaaS Status Page &amp; Incident Scraper pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Required: <code>vendors[]</code> objects with <code>statusPageUrl</code>. Not a string list of vendor names.</li>
+      <li>No headless browser. Not authenticated portals. Not anti-bot bypass.</li>
+      <li>Live schema names do not include <code>incidentSinceDays</code> or <code>emitChangedOnly</code>.</li>
+      <li>Keep concurrency around 2–3. Unreachable pages mark <code>unknown</code> / <code>actionNeeded</code>.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/status-page-incident-digest-monitor">Open SaaS Status Page &amp; Incident Scraper on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/trust-center-subprocessor-monitor/">Subprocessor &amp; Trust Center Scraper</a> — DPA/subprocessor page diffs, not status-page incidents</li>
+      <li><a href="/hhs-healthcare-data-breach-scraper/">HHS Healthcare Data Breach Change Scraper</a> — HHS OCR disclosures, not SaaS status pages</li>
+      <li><a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a> — publisher feeds, not vendor incident digests</li>
+      <li><a href="/google-news-scraper/">Google News Scraper</a> — news RSS, not status pages</li>
+      <li><a href="/ssl-tls-certificate-scraper/">SSL/TLS Certificate Scraper</a> — TLS expiry, not incident feeds</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>
