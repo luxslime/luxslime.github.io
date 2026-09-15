@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>App Review Regression &amp; Release Report — rating shifts</title>
+  <meta name="description" content="taroyamada/app-release-review-regression-monitor. From $0.0005/review row; $2 report. Not a review-generation tool.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/app-release-review-regression-monitor/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is App Review Regression & Release Report different from Chrome Web Store Extension Intelligence and Website Content Extractor?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "App Review Regression & Release Report (taroyamada/app-release-review-regression-monitor): This Actor compares public App Store and Google Play release metadata and review samples across a release window versus lookback, then can emit regression alerts and per-app reports. Default dryRun is true, so a default Start does not bill. Not a review generator, reviewer profiler, or guarantee of store performance. Sample-based signals only; do not identify or target individual reviewers. Chrome Web Store Extension Intelligence is for Chrome extension listings (input extensionUrls / searchTerms; Chrome Web Store HTML; extension metadata). Not iOS/Android release regression. Website Content Extractor is for Page markdown (input urls; HTML body; markdown). Not store review samples. G2 & Capterra Review Scraper is for B2B SaaS reviews (input reviewPageUrls; G2/Capterra pages; review rows). Not App Store/Play release windows."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What input is required?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Live required fields: none (see live fields). Live schema fields: appleAppIds, appleCountries, googlePlayIds, language, reviewLimit, lookbackDays, releaseWindowDays, ratingRegressionThreshold, negativeShareThresholdPct, minRegressionReviews, runMode, monitorKey, initialRunMode, emitRawReviews, generateReport, maxChargeUsd, dryRun. exampleRunInput sets dryRun false, reviewLimit 10, and includes limit, delivery, webhookUrl which are NOT live schema fields. Live fields include runMode audit|monitor, initialRunMode baseline_only|emit_backfill, generateReport default true, dryRun default true, maxChargeUsd default 0. additionalProperties is not documented on this page beyond the live Store schema."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the best first run?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use the published Store example run input below. exampleRunInput sets dryRun false, reviewLimit 10, and includes limit, delivery, webhookUrl which are NOT live schema fields. Live fields include runMode audit|monitor, initialRunMode baseline_only|emit_backfill, generateReport default true, dryRun default true, maxChargeUsd default 0. Keep the first live run small. Use dryRun when you only need to validate input."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does a result contain?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No fenced output JSON. README: every row carries billingEventName, stableKey, sourceUrl, retrievedAt, source limitations, prohibited interpretations; report rows add release metadata, review-sample aggregates, regression status, recommended investigation steps. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do dataset, webhook, and dry-run delivery work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is App Review Regression & Release Report priced?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Billing is pay per event. Live Store card: from $0.50 / 1,000 optional app-review-row events ($0.0005 each); $0.10 per app-regression-alert; $2.00 per app-regression-report. No Actor Start. Report-first: keep emitRawReviews false. Schema default dryRun true. App review row (app-review-row) $0.0005: Charged for each optional raw app review row when explicitly emitted. App review regression alert (app-regression-alert) $0.1: Charged for each release-linked rating, sentiment, or review regression alert. App release regression report (app-regression-report) $2.00: Charged for each app/release-level regression report row. Platform usage is listed as included on the Store pricing tab."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / App Review Regression &amp; Release Report</nav>
+    <h1>App Store and Google Play release-window review regression reports</h1>
+    <p>This Actor compares public App Store and Google Play release metadata and review samples across a release window versus lookback, then can emit regression alerts and per-app reports. Default dryRun is true, so a default Start does not bill.</p>
+    <p>Not a review generator, reviewer profiler, or guarantee of store performance. Sample-based signals only; do not identify or target individual reviewers.</p>
+    <p class="price">from $0.50 / 1,000 optional app-review-row events ($0.0005 each); $0.10 per app-regression-alert; $2.00 per app-regression-report. No Actor Start. Report-first: keep emitRawReviews false. Schema default dryRun true.</p>
+    <p><a href="https://apify.com/taroyamada/app-release-review-regression-monitor">Open App Review Regression &amp; Release Report on Apify</a></p>
+
+    <h2>App Review Regression &amp; Release Report, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/chrome-web-store-extension-intelligence/">Chrome Web Store Extension Intelligence</a> for Chrome extension listings; Use <a href="/website-content-extractor/">Website Content Extractor</a> for Page markdown; Use <a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a> for B2B SaaS reviews.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>This Actor</th>
+          <th>Chrome Web Store Extension Intelligence</th>
+          <th>Website Content Extractor</th>
+          <th>G2 &amp; Capterra Review Scraper</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>App Review Regression & Release Report</td>
+          <td>Chrome extension listings</td>
+          <td>Page markdown</td>
+          <td>B2B SaaS reviews</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td><code>see schema</code></td>
+          <td>extensionUrls / searchTerms</td>
+          <td>urls</td>
+          <td>reviewPageUrls</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>Public sources listed on the Store page</td>
+          <td>Chrome Web Store HTML</td>
+          <td>HTML body</td>
+          <td>G2/Capterra pages</td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td>Dataset rows billed per live PPE</td>
+          <td>extension metadata</td>
+          <td>markdown</td>
+          <td>review rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td>
+          <td>Not a review generator, reviewer profiler, or guarantee of store performance. Sample-based signals only; do not identify or target individual reviewers.</td>
+          <td>Not iOS/Android release regression</td>
+          <td>Not store review samples</td>
+          <td>Not App Store/Play release windows</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/app-release-review-regression-monitor</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Post-release rating/review regression checks</li>
+      <li>Source-linked app reports for QA</li>
+      <li>Optional raw review samples when emitRawReviews true</li>
+    </ul>
+
+    <h2>How is App Review Regression &amp; Release Report different from Chrome Web Store Extension Intelligence and Website Content Extractor?</h2>
+    <p>App Review Regression &amp; Release Report (taroyamada/app-release-review-regression-monitor): This Actor compares public App Store and Google Play release metadata and review samples across a release window versus lookback, then can emit regression alerts and per-app reports. Default dryRun is true, so a default Start does not bill. Not a review generator, reviewer profiler, or guarantee of store performance. Sample-based signals only; do not identify or target individual reviewers. Chrome Web Store Extension Intelligence is for Chrome extension listings (input extensionUrls / searchTerms; Chrome Web Store HTML; extension metadata). Not iOS/Android release regression. Website Content Extractor is for Page markdown (input urls; HTML body; markdown). Not store review samples. G2 &amp; Capterra Review Scraper is for B2B SaaS reviews (input reviewPageUrls; G2/Capterra pages; review rows). Not App Store/Play release windows.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: none listed (see live fields). exampleRunInput sets dryRun false, reviewLimit 10, and includes limit, delivery, webhookUrl which are NOT live schema fields. Live fields include runMode audit|monitor, initialRunMode baseline_only|emit_backfill, generateReport default true, dryRun default true, maxChargeUsd default 0.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>appleAppIds</code></td>
+          <td>array</td>
+          <td><code>["284882215"]</code></td>
+          <td>Apple App IDs. Numeric Apple App Store IDs to analyze.. items type=string</td>
+        </tr>
+        <tr>
+          <td><code>appleCountries</code></td>
+          <td>array</td>
+          <td><code>["us"]</code></td>
+          <td>Apple storefront countries. Two-letter Apple storefront codes.. items type=string</td>
+        </tr>
+        <tr>
+          <td><code>googlePlayIds</code></td>
+          <td>array</td>
+          <td><code>[]</code></td>
+          <td>Google Play package IDs. Google Play package names to analyze.. items type=string</td>
+        </tr>
+        <tr>
+          <td><code>language</code></td>
+          <td>string</td>
+          <td><code>en_US</code></td>
+          <td>Google Play language. Locale used for Google Play listing requests.</td>
+        </tr>
+        <tr>
+          <td><code>reviewLimit</code></td>
+          <td>integer</td>
+          <td><code>30</code></td>
+          <td>Review samples per app. Maximum recent review samples analyzed per app and storefront.</td>
+        </tr>
+        <tr>
+          <td><code>lookbackDays</code></td>
+          <td>integer</td>
+          <td><code>120</code></td>
+          <td>Review lookback days. Ignore sampled reviews older than this window.</td>
+        </tr>
+        <tr>
+          <td><code>releaseWindowDays</code></td>
+          <td>integer</td>
+          <td><code>21</code></td>
+          <td>Release regression window. Days after a release treated as the regression window.</td>
+        </tr>
+        <tr>
+          <td><code>ratingRegressionThreshold</code></td>
+          <td>number</td>
+          <td><code>0.35</code></td>
+          <td>Rating-drop threshold. Minimum average-rating drop that contributes to a regression signal.</td>
+        </tr>
+        <tr>
+          <td><code>negativeShareThresholdPct</code></td>
+          <td>integer</td>
+          <td><code>35</code></td>
+          <td>Negative-review threshold (%). Negative review share that contributes to a regression signal.</td>
+        </tr>
+        <tr>
+          <td><code>minRegressionReviews</code></td>
+          <td>integer</td>
+          <td><code>3</code></td>
+          <td>Minimum regression sample. Minimum post-release review sample before classifying a regression.</td>
+        </tr>
+        <tr>
+          <td><code>runMode</code></td>
+          <td>string</td>
+          <td><code>audit</code></td>
+          <td>Run mode. Audit generates a current report; monitor stores state and emits changes.</td>
+        </tr>
+        <tr>
+          <td><code>monitorKey</code></td>
+          <td>string</td>
+          <td><code></code></td>
+          <td>Monitor key. Stable private state namespace for scheduled monitoring.</td>
+        </tr>
+        <tr>
+          <td><code>initialRunMode</code></td>
+          <td>string</td>
+          <td><code>baseline_only</code></td>
+          <td>First monitor run. Store a free baseline or emit the initial report.</td>
+        </tr>
+        <tr>
+          <td><code>emitRawReviews</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Include raw review samples. Emit optional review-level rows in addition to report rows.</td>
+        </tr>
+        <tr>
+          <td><code>generateReport</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Generate regression report. Generate one source-linked report for each analyzed app and storefront.</td>
+        </tr>
+        <tr>
+          <td><code>maxChargeUsd</code></td>
+          <td>number</td>
+          <td><code>0</code></td>
+          <td>Maximum Actor charge. Optional Actor-side spending cap; zero uses only the Apify run limit.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Dry run. Return illustrative rows without live requests or billing.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  "appleAppIds": [
+    "284882215"
+  ],
+  "appleCountries": [
+    "us"
+  ],
+  "googlePlayIds": [
+    "com.duolingo"
+  ],
+  "reviewLimit": 10,
+  "limit": 50,
+  "delivery": "dataset",
+  "webhookUrl": "",
+  "dryRun": false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/app-release-review-regression-monitor">Run App Review Regression &amp; Release Report on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>No fenced output JSON. README: every row carries billingEventName, stableKey, sourceUrl, retrievedAt, source limitations, prohibited interpretations; report rows add release metadata, review-sample aggregates, regression status, recommended investigation steps. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is App Review Regression &amp; Release Report priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $0.50 / 1,000 optional app-review-row events ($0.0005 each); $0.10 per app-regression-alert; $2.00 per app-regression-report. No Actor Start. Report-first: keep emitRawReviews false. Schema default dryRun true.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>app-review-row</code> (App review row)</td>
+          <td>$0.0005</td>
+          <td>Charged for each optional raw app review row when explicitly emitted.</td>
+        </tr>
+        <tr>
+          <td><code>app-regression-alert</code> (App review regression alert)</td>
+          <td>$0.1</td>
+          <td>Charged for each release-linked rating, sentiment, or review regression alert.</td>
+        </tr>
+        <tr>
+          <td><code>app-regression-report</code> (App release regression report)</td>
+          <td>$2.00</td>
+          <td>Charged for each app/release-level regression report row.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="price">from $0.50 / 1,000 optional app-review-row events ($0.0005 each); $0.10 per app-regression-alert; $2.00 per app-regression-report. No Actor Start. Report-first: keep emitRawReviews false. Schema default dryRun true.</p>
+    <p><a href="https://apify.com/taroyamada/app-release-review-regression-monitor/pricing">See App Review Regression &amp; Release Report pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Public storefront samples only</li>
+      <li>Google Play coverage is best-effort vs Apple RSS</li>
+      <li>No reviewer PII targeting</li>
+      <li>exampleRunInput extra keys limit/delivery/webhookUrl are not in schema</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/app-release-review-regression-monitor">Open App Review Regression &amp; Release Report on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/chrome-web-store-extension-intelligence/">Chrome Web Store Extension Intelligence</a> — Browser extensions, not mobile storefronts.</li>
+      <li><a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a> — SaaS reviews, not iOS/Android release diffs.</li>
+      <li><a href="/website-content-extractor/">Website Content Extractor</a> — Site copy, not store review samples.</li>
+      <li><a href="/app-review-cross-platform-intelligence/">iOS &amp; Android App Review Scraper</a> — Combined review summaries, not release-window regression</li>
+      <li><a href="/apple-app-store-intelligence/">Apple App Store Scraper</a> — iOS metadata/reviews, not regression alerts</li>
+      <li><a href="/google-play-intelligence/">Google Play App Scraper</a> — Play metadata, not release-window regression</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

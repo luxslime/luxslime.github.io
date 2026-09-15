@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SaaS Pricing Tracker — competitor page change alerts</title>
+  <meta name="description" content="taroyamada/saas-change-monitor-actor. From $1.00 / 1,000 change rows. Not authenticated billing portals.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/saas-change-monitor-actor/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is SaaS Pricing Tracker different from Website Content Extractor and Status Page Incident Digest Monitor?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "SaaS Pricing Tracker — Competitor Page Change Alerts (taroyamada/saas-change-monitor-actor): This Actor fetches public SaaS pricing, terms, and feature pages, snapshots extracted text, and emits source-linked change rows when the page hash or filtered text drifts. Live input is a targets[] list of id, name, kind, and url — not a top-level urls array. Not an authenticated customer portal, CPQ, or invoice scraper. Not a PDF-contract parser. Public web only; aggressive bot walls may block fetches. Website Content Extractor is for One-shot page-to-markdown (input urls; page HTML; markdown/text). Not recurring pricing diffs. Status Page Incident Digest Monitor is for Vendor status-page incidents (input status page feeds/URLs; status.io-style public pages; incident digest rows). Not pricing/terms copy diffs. Trust Center Subprocessor Monitor is for Trust-center vendor lists (input trust-center URLs; public subprocessors pages; subprocessor change rows). Not plan-price text diffs."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What input is required?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Live required fields: targets. Live schema fields: targets, requestTimeoutSeconds, userAgent, maxChars, delivery, datasetMode, webhookUrl, notifyOnNoChange, snapshotKey, nowIso, dryRun. Published exampleRunInput uses three targets (Stripe pricing, Linear terms, Vercel features) with include/exclude patterns. Schema prefill is Notion pricing. datasetMode default changes_only. delivery enum includes email as a placeholder path. additionalProperties is not documented on this page beyond the live Store schema."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the best first run?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use the published Store example run input below. Published exampleRunInput uses three targets (Stripe pricing, Linear terms, Vercel features) with include/exclude patterns. Schema prefill is Notion pricing. datasetMode default changes_only. delivery enum includes email as a placeholder path. Keep the first live run small. Use dryRun when you only need to validate input."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does a result contain?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "README output fence is truncated or invalid JSON on Store. Illustration head: { \"meta\": { \"generatedAt\": \"2026-03-13T09:40:25.990Z\", \"now\": \"2026-03-13T09:40:25.951Z\", \"input\": { \"targets\": [ { \"id\": \"notion-pricing\", \"name\": \"Notion Pricing\", \"kind\": \"price\", \"url\": \"\" }, { \"id\": \"linear-terms\", \"name\": \"Linear Terms\", \"kind\": \"terms\", \"url\": \"\" } ], \"requestTimeoutSeconds\": 30, \"maxChars\": 25000, \"delivery\": \"dataset\", \"datasetMode\": \"all\", \"dryRun\": false }, \"snapshot\": { \"key\": \"saas-chan… Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do dataset, webhook, and dry-run delivery work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. datasetMode can limit emits to changes_only versus all. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is SaaS Pricing Tracker priced?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Billing is pay per event. Live Store card: from $1.00 / 1,000 SaaS change rows ($0.001 per delivered apify-default-dataset-item). No Actor Start. Unchanged datasetMode=changes_only runs can emit zero rows and zero charge. SaaS change row (apify-default-dataset-item) $0.001: Charged only when a source-linked SaaS page change row is delivered. Do not use the README Cost block as live pricing. README Cost still quotes actor-start $0.01 + dataset-item $0.003 ($3.01 / 1,000). Live Store: SaaS change row $0.001, no start. README Input Examples use urls/emitTextDiff; live schema requires targets and has no emitTextDiff. Platform usage is listed as included on the Store pricing tab."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / SaaS Pricing Tracker</nav>
+    <h1>SaaS pricing and policy page change alerts from public URLs</h1>
+    <p>This Actor fetches public SaaS pricing, terms, and feature pages, snapshots extracted text, and emits source-linked change rows when the page hash or filtered text drifts. Live input is a targets[] list of id, name, kind, and url — not a top-level urls array.</p>
+    <p>Not an authenticated customer portal, CPQ, or invoice scraper. Not a PDF-contract parser. Public web only; aggressive bot walls may block fetches.</p>
+    <p class="price">from $1.00 / 1,000 SaaS change rows ($0.001 per delivered apify-default-dataset-item). No Actor Start. Unchanged datasetMode=changes_only runs can emit zero rows and zero charge.</p>
+    <p><a href="https://apify.com/taroyamada/saas-change-monitor-actor">Open SaaS Pricing Tracker on Apify</a></p>
+
+    <h2>SaaS Pricing Tracker, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/website-content-extractor/">Website Content Extractor</a> for One-shot page-to-markdown; Use <a href="/status-page-incident-digest-monitor/">Status Page Incident Digest Monitor</a> for Vendor status-page incidents; Use <a href="/trust-center-subprocessor-monitor/">Trust Center Subprocessor Monitor</a> for Trust-center vendor lists.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>This Actor</th>
+          <th>Website Content Extractor</th>
+          <th>Status Page Incident Digest Monitor</th>
+          <th>Trust Center Subprocessor Monitor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>SaaS Pricing Tracker</td>
+          <td>One-shot page-to-markdown</td>
+          <td>Vendor status-page incidents</td>
+          <td>Trust-center vendor lists</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td><code>targets</code></td>
+          <td>urls</td>
+          <td>status page feeds/URLs</td>
+          <td>trust-center URLs</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>Public sources listed on the Store page</td>
+          <td>page HTML</td>
+          <td>status.io-style public pages</td>
+          <td>public subprocessors pages</td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td>Dataset rows billed per live PPE</td>
+          <td>markdown/text</td>
+          <td>incident digest rows</td>
+          <td>subprocessor change rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td>
+          <td>Not an authenticated customer portal, CPQ, or invoice scraper. Not a PDF-contract parser. Public web only; aggressive bot walls may block fetches.</td>
+          <td>Not recurring pricing diffs</td>
+          <td>Not pricing/terms copy diffs</td>
+          <td>Not plan-price text diffs</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/saas-change-monitor-actor</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Competitor pricing page watchlists</li>
+      <li>Terms/privacy policy drift alerts</li>
+      <li>Feature-matrix text diffs without building a crawler</li>
+    </ul>
+
+    <h2>How is SaaS Pricing Tracker different from Website Content Extractor and Status Page Incident Digest Monitor?</h2>
+    <p>SaaS Pricing Tracker — Competitor Page Change Alerts (taroyamada/saas-change-monitor-actor): This Actor fetches public SaaS pricing, terms, and feature pages, snapshots extracted text, and emits source-linked change rows when the page hash or filtered text drifts. Live input is a targets[] list of id, name, kind, and url — not a top-level urls array. Not an authenticated customer portal, CPQ, or invoice scraper. Not a PDF-contract parser. Public web only; aggressive bot walls may block fetches. Website Content Extractor is for One-shot page-to-markdown (input urls; page HTML; markdown/text). Not recurring pricing diffs. Status Page Incident Digest Monitor is for Vendor status-page incidents (input status page feeds/URLs; status.io-style public pages; incident digest rows). Not pricing/terms copy diffs. Trust Center Subprocessor Monitor is for Trust-center vendor lists (input trust-center URLs; public subprocessors pages; subprocessor change rows). Not plan-price text diffs.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: <code>targets</code>. Published exampleRunInput uses three targets (Stripe pricing, Linear terms, Vercel features) with include/exclude patterns. Schema prefill is Notion pricing. datasetMode default changes_only. delivery enum includes email as a placeholder path.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>targets</code></td>
+          <td>array required</td>
+          <td><code>empty</code></td>
+          <td>Monitored Targets. List of targets. Each item supports id, name, kind, url, includePatterns, excludePatterns, maxChars, fixtureHtml, fixturePath.</td>
+        </tr>
+        <tr>
+          <td><code>requestTimeoutSeconds</code></td>
+          <td>integer</td>
+          <td><code>30</code></td>
+          <td>Request Timeout (seconds). HTTP request timeout per target.</td>
+        </tr>
+        <tr>
+          <td><code>userAgent</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Custom User-Agent. Optional user-agent header for target requests.</td>
+        </tr>
+        <tr>
+          <td><code>maxChars</code></td>
+          <td>integer</td>
+          <td><code>25000</code></td>
+          <td>Global Max Chars per Page. Upper bound for extracted text length.</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string</td>
+          <td><code>dataset</code></td>
+          <td>Delivery Mode. Where to send run results.</td>
+        </tr>
+        <tr>
+          <td><code>datasetMode</code></td>
+          <td>string</td>
+          <td><code>changes_only</code></td>
+          <td>Dataset Mode. Choose whether dataset/webhook sends all targets or only event items.</td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Webhook URL. Required when delivery is webhook.</td>
+        </tr>
+        <tr>
+          <td><code>notifyOnNoChange</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Notify Even If No Change. When false, webhook mode skips if no event items.</td>
+        </tr>
+        <tr>
+          <td><code>snapshotKey</code></td>
+          <td>string</td>
+          <td><code>saas-change-monitor-snapshots</code></td>
+          <td>Snapshot Key. Key used for snapshot persistence.</td>
+        </tr>
+        <tr>
+          <td><code>nowIso</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Now (ISO, optional). Optional fixed timestamp for deterministic tests.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry Run. Skip delivery side effects and snapshot save.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  "targets": [
+    {
+      "id": "stripe-pricing",
+      "name": "Stripe Pricing",
+      "kind": "price",
+      "url": "https://stripe.com/pricing",
+      "includePatterns": [
+        "pricing",
+        "starter",
+        "professional",
+        "enterprise"
+      ],
+      "excludePatterns": [
+        "cookie",
+        "sign in",
+        "support"
+      ]
+    },
+    {
+      "id": "linear-terms",
+      "name": "Linear Terms",
+      "kind": "terms",
+      "url": "https://linear.app/legal/terms",
+      "includePatterns": [
+        "billing",
+        "refund",
+        "termination",
+        "subscription"
+      ],
+      "excludePatterns": [
+        "cookie",
+        "sign in"
+      ]
+    },
+    {
+      "id": "vercel-features",
+      "name": "Vercel Features",
+      "kind": "features",
+      "url": "https://vercel.com/features",
+      "includePatterns": [
+        "feature",
+        "edge",
+        "security",
+        "analytics"
+      ],
+      "excludePatterns": [
+        "cookie",
+        "sign in"
+      ]
+    }
+  ],
+  "requestTimeoutSeconds": 30,
+  "maxChars": 25000,
+  "delivery": "dataset",
+  "datasetMode": "changes_only",
+  "notifyOnNoChange": false,
+  "snapshotKey": "saas-change-monitor-snapshots",
+  "dryRun": false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/saas-change-monitor-actor">Run SaaS Pricing Tracker on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. datasetMode can limit emits to changes_only versus all. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>The published README output sample on the Store page is truncated or not valid standalone JSON. Treat README field lists as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is SaaS Pricing Tracker priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $1.00 / 1,000 SaaS change rows ($0.001 per delivered apify-default-dataset-item). No Actor Start. Unchanged datasetMode=changes_only runs can emit zero rows and zero charge.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>apify-default-dataset-item</code> (SaaS change row)</td>
+          <td>$0.001</td>
+          <td>Charged only when a source-linked SaaS page change row is delivered.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>The published README Cost block is stale versus the live Store pricing tab. README Cost still quotes actor-start $0.01 + dataset-item $0.003 ($3.01 / 1,000). Live Store: SaaS change row $0.001, no start. README Input Examples use urls/emitTextDiff; live schema requires targets and has no emitTextDiff. This page quotes live PPE only.</p>
+    <p class="price">from $1.00 / 1,000 SaaS change rows ($0.001 per delivered apify-default-dataset-item). No Actor Start. Unchanged datasetMode=changes_only runs can emit zero rows and zero charge.</p>
+    <p><a href="https://apify.com/taroyamada/saas-change-monitor-actor/pricing">See SaaS Pricing Tracker pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Public pages only; no login</li>
+      <li>Semantic/text snapshot, not full visual QA</li>
+      <li>PDF-only vendors may need manual review</li>
+      <li>README urls examples are not live schema</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/saas-change-monitor-actor">Open SaaS Pricing Tracker on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/website-content-extractor/">Website Content Extractor</a> — Extract page markdown once; this Actor diffs recurring snapshots.</li>
+      <li><a href="/status-page-incident-digest-monitor/">Status Page Incident Digest Monitor</a> — Uptime incidents, not pricing copy.</li>
+      <li><a href="/trust-center-subprocessor-monitor/">Trust Center Subprocessor Monitor</a> — Vendor subprocessors, not plan tables.</li>
+      <li><a href="/docs-changelog-drift-monitor/">Docs &amp; Changelog Drift Scraper</a> — Docs/changelog surfaces, not pricing/terms copy</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

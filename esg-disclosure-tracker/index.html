@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SEC &amp; ESG Report Scraper — climate and IR pages</title>
+  <meta name="description" content="taroyamada/esg-disclosure-tracker. From $10.00 / 1,000 result rows. Not an auditor or emissions inventory.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/esg-disclosure-tracker/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is SEC & ESG Report Scraper different from TED, SAM.gov & Grants Bid Alerts and NIH Research Funding Landscape Report?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "SEC & ESG Report Scraper (taroyamada/esg-disclosure-tracker): This Actor monitors company disclosure packs you configure: sustainability/IR URLs and optional SEC EDGAR submissions by CIK and form types. It snapshots extracted text and emits company-level change rows. Not a GHG inventory, ESG rating, or legal/audit opinion. Public IR pages and EDGAR only. TED, SAM.gov & Grants Bid Alerts is for Procurement notices (input keywords; SAM/TED/Grants; opportunity rows). Not SEC ESG disclosures. NIH Research Funding Landscape Report is for NIH awards (input org/term filters; NIH Reporter; award rows). Not corporate ESG filings. Website Content Extractor is for One-shot page markdown (input urls; HTML; markdown). Not recurring EDGAR/IR diffs."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What input is required?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Live required fields: companies. Live schema fields: companies, requestTimeoutSeconds, maxChars, delivery, datasetMode, webhookUrl, notifyOnNoChange, snapshotKey, diffMode, summaryMaxLines, concurrency, batchDelayMs, dryRun, nowIso. exampleRunInput monitors Microsoft sustainability URL plus CIK 789019 10-K/10-Q/8-K. datasetMode default changes_only. email delivery is a placeholder enum. additionalProperties is not documented on this page beyond the live Store schema."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the best first run?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use the published Store example run input below. exampleRunInput monitors Microsoft sustainability URL plus CIK 789019 10-K/10-Q/8-K. datasetMode default changes_only. email delivery is a placeholder enum. Keep the first live run small. Use dryRun when you only need to validate input."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does a result contain?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "README output fence is truncated or invalid JSON on Store. Illustration head: { \"meta\": { \"generatedAt\": \"2026-04-05T13:28:06.026Z\", \"now\": \"2026-03-25T12:00:00.000Z\", \"input\": { \"companyCount\": 2, \"surfaceCount\": 5, \"delivery\": \"dataset\", \"datasetMode\": \"all\", \"diffMode\": \"line_summary\", \"summaryMaxLines\": 12, \"concurrency\": 2, \"batchDelayMs\": 0, \"dryRun\": false }, \"snapshot\": { \"key\": \"local-esg-disclosure-proof\", \"loadedFrom\": \"local\", \"savedTo\": \"local\" }, \"warnings\": [], \"totals\": { \"com… Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do dataset, webhook, and dry-run delivery work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. datasetMode can limit emits to changes_only versus all. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is SEC & ESG Report Scraper priced?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Billing is pay per event. Live Store card: from $10.00 / 1,000 delivered monitoring result rows ($0.01 per new or changed company row). No Actor Start. Unchanged runs are free. Delivered monitoring result row (apify-default-dataset-item) $0.01: Charged only when a new or changed monitoring result row is delivered. Unchanged runs are free. Do not use the README Cost block as live pricing. README Cost quotes actor-start $0.01 + dataset-item $0.003. Live: Delivered monitoring result row $0.01, no start. Platform usage is listed as included on the Store pricing tab."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / SEC &amp; ESG Report Scraper</nav>
+    <h1>SEC EDGAR and IR-page ESG disclosure change watches</h1>
+    <p>This Actor monitors company disclosure packs you configure: sustainability/IR URLs and optional SEC EDGAR submissions by CIK and form types. It snapshots extracted text and emits company-level change rows.</p>
+    <p>Not a GHG inventory, ESG rating, or legal/audit opinion. Public IR pages and EDGAR only.</p>
+    <p class="price">from $10.00 / 1,000 delivered monitoring result rows ($0.01 per new or changed company row). No Actor Start. Unchanged runs are free.</p>
+    <p><a href="https://apify.com/taroyamada/esg-disclosure-tracker">Open SEC &amp; ESG Report Scraper on Apify</a></p>
+
+    <h2>SEC &amp; ESG Report Scraper, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/ted-sam-grants-bid-alerts/">TED, SAM.gov &amp; Grants Bid Alerts</a> for Procurement notices; Use <a href="/nih-research-funding-landscape-report/">NIH Research Funding Landscape Report</a> for NIH awards; Use <a href="/website-content-extractor/">Website Content Extractor</a> for One-shot page markdown.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>This Actor</th>
+          <th>TED, SAM.gov &amp; Grants Bid Alerts</th>
+          <th>NIH Research Funding Landscape Report</th>
+          <th>Website Content Extractor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>SEC & ESG Report Scraper</td>
+          <td>Procurement notices</td>
+          <td>NIH awards</td>
+          <td>One-shot page markdown</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td><code>companies</code></td>
+          <td>keywords</td>
+          <td>org/term filters</td>
+          <td>urls</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>Public sources listed on the Store page</td>
+          <td>SAM/TED/Grants</td>
+          <td>NIH Reporter</td>
+          <td>HTML</td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td>Dataset rows billed per live PPE</td>
+          <td>opportunity rows</td>
+          <td>award rows</td>
+          <td>markdown</td>
+        </tr>
+        <tr>
+          <td>Not this job</td>
+          <td>Not a GHG inventory, ESG rating, or legal/audit opinion. Public IR pages and EDGAR only.</td>
+          <td>Not SEC ESG disclosures</td>
+          <td>Not corporate ESG filings</td>
+          <td>Not recurring EDGAR/IR diffs</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/esg-disclosure-tracker</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Sustainability report refresh watches</li>
+      <li>EDGAR form watches for ESG language</li>
+      <li>Stale-disclosure flags via staleAfterDays</li>
+    </ul>
+
+    <h2>How is SEC &amp; ESG Report Scraper different from TED, SAM.gov &amp; Grants Bid Alerts and NIH Research Funding Landscape Report?</h2>
+    <p>SEC &amp; ESG Report Scraper (taroyamada/esg-disclosure-tracker): This Actor monitors company disclosure packs you configure: sustainability/IR URLs and optional SEC EDGAR submissions by CIK and form types. It snapshots extracted text and emits company-level change rows. Not a GHG inventory, ESG rating, or legal/audit opinion. Public IR pages and EDGAR only. TED, SAM.gov &amp; Grants Bid Alerts is for Procurement notices (input keywords; SAM/TED/Grants; opportunity rows). Not SEC ESG disclosures. NIH Research Funding Landscape Report is for NIH awards (input org/term filters; NIH Reporter; award rows). Not corporate ESG filings. Website Content Extractor is for One-shot page markdown (input urls; HTML; markdown). Not recurring EDGAR/IR diffs.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: <code>companies</code>. exampleRunInput monitors Microsoft sustainability URL plus CIK 789019 10-K/10-Q/8-K. datasetMode default changes_only. email delivery is a placeholder enum.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>companies</code></td>
+          <td>array required</td>
+          <td><code>empty</code></td>
+          <td>Companies. One monitored company per output row. Use official disclosure pages and SEC / EDGAR company submissions where possible.</td>
+        </tr>
+        <tr>
+          <td><code>requestTimeoutSeconds</code></td>
+          <td>integer</td>
+          <td><code>30</code></td>
+          <td>Request Timeout (seconds). Timeout for each disclosure page or SEC / EDGAR request.</td>
+        </tr>
+        <tr>
+          <td><code>maxChars</code></td>
+          <td>integer</td>
+          <td><code>30000</code></td>
+          <td>Max Extracted Characters per Surface. Upper bound for extracted page text per monitored disclosure surface.</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string</td>
+          <td><code>dataset</code></td>
+          <td>Delivery. dataset writes results to the Apify dataset. webhook posts the digest JSON. email is a placeholder for later delivery expansion.</td>
+        </tr>
+        <tr>
+          <td><code>datasetMode</code></td>
+          <td>string</td>
+          <td><code>changes_only</code></td>
+          <td>Dataset Mode. changes_only emits only changed companies. all emits every company row. action_needed limits results to higher-severity disclosure changes.</td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Webhook URL. POST target for webhook delivery. Leave empty for dataset runs.</td>
+        </tr>
+        <tr>
+          <td><code>notifyOnNoChange</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Notify On No Change. When false, webhook delivery is skipped if no company changed.</td>
+        </tr>
+        <tr>
+          <td><code>snapshotKey</code></td>
+          <td>string</td>
+          <td><code>esg-disclosure-tracker-snapshots</code></td>
+          <td>Snapshot Key. Stable key used to persist disclosure snapshots between recurring runs.</td>
+        </tr>
+        <tr>
+          <td><code>diffMode</code></td>
+          <td>string</td>
+          <td><code>line_summary</code></td>
+          <td>Diff Mode. line_summary includes compact added/removed disclosure text snippets. hash_only only compares snapshot hashes.</td>
+        </tr>
+        <tr>
+          <td><code>summaryMaxLines</code></td>
+          <td>integer</td>
+          <td><code>12</code></td>
+          <td>Max Diff Summary Lines. Maximum added and removed lines included in disclosure change summaries.</td>
+        </tr>
+        <tr>
+          <td><code>concurrency</code></td>
+          <td>integer</td>
+          <td><code>2</code></td>
+          <td>Concurrency. Concurrent disclosure fetches. Keep low for polite recurring monitoring.</td>
+        </tr>
+        <tr>
+          <td><code>batchDelayMs</code></td>
+          <td>integer</td>
+          <td><code>500</code></td>
+          <td>Inter-batch Delay (ms). Delay between concurrency batches to reduce rate-limit pressure on disclosure surfaces.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry Run. Preview fetch and diff behavior without persisting snapshots or posting webhooks.</td>
+        </tr>
+        <tr>
+          <td><code>nowIso</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Override Current Time. Optional ISO timestamp override for deterministic fixture or replay tests.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  "companies": [
+    {
+      "id": "microsoft",
+      "name": "Microsoft",
+      "criticality": "high",
+      "owner": "ESG Program Office",
+      "peerGroup": "mega-cap-software",
+      "tags": [
+        "software",
+        "climate",
+        "scope-3"
+      ],
+      "disclosurePacks": {
+        "sustainability": [
+          {
+            "id": "msft-sustainability-report",
+            "name": "Microsoft Sustainability Report",
+            "url": "https://www.microsoft.com/en-us/corporate-responsibility/sustainability/report",
+            "includePatterns": [
+              "sustainability report",
+              "annual report",
+              "scope 1",
+              "scope 2",
+              "scope 3",
+              "net zero"
+            ],
+            "staleAfterDays": 430
+          }
+        ],
+        "sec_filings": [
+          {
+            "id": "msft-sec-watch",
+            "name": "Microsoft SEC filing watch",
+            "sourceType": "sec_edgar",
+            "cik": "789019",
+            "formTypes": [
+              "10-K",
+              "10-Q",
+              "8-K"
+            ],
+            "staleAfterDays": 430
+          }
+        ]
+      }
+    }
+  ],
+  "delivery": "dataset",
+  "datasetMode": "changes_only",
+  "snapshotKey": "esg-disclosure-quickstart",
+  "diffMode": "line_summary",
+  "summaryMaxLines": 12,
+  "concurrency": 2,
+  "batchDelayMs": 500,
+  "dryRun": false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/esg-disclosure-tracker">Run SEC &amp; ESG Report Scraper on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. datasetMode can limit emits to changes_only versus all. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>The published README output sample on the Store page is truncated or not valid standalone JSON. Treat README field lists as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is SEC &amp; ESG Report Scraper priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $10.00 / 1,000 delivered monitoring result rows ($0.01 per new or changed company row). No Actor Start. Unchanged runs are free.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>apify-default-dataset-item</code> (Delivered monitoring result row)</td>
+          <td>$0.01</td>
+          <td>Charged only when a new or changed monitoring result row is delivered. Unchanged runs are free.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>The published README Cost block is stale versus the live Store pricing tab. README Cost quotes actor-start $0.01 + dataset-item $0.003. Live: Delivered monitoring result row $0.01, no start. This page quotes live PPE only.</p>
+    <p class="price">from $10.00 / 1,000 delivered monitoring result rows ($0.01 per new or changed company row). No Actor Start. Unchanged runs are free.</p>
+    <p><a href="https://apify.com/taroyamada/esg-disclosure-tracker/pricing">See SEC &amp; ESG Report Scraper pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Public pages/EDGAR only</li>
+      <li>Not an audit</li>
+      <li>concurrency 1–10</li>
+      <li>email delivery not implemented</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/esg-disclosure-tracker">Open SEC &amp; ESG Report Scraper on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/website-content-extractor/">Website Content Extractor</a> — Extract a report page once; this Actor diffs recurring disclosures.</li>
+      <li><a href="/nih-research-funding-landscape-report/">NIH Research Funding Landscape Report</a> — Public grant awards, not corporate ESG.</li>
+      <li><a href="/hhs-healthcare-data-breach-scraper/">HHS Healthcare Data Breach Change Scraper</a> — HHS breach notices, not ESG/SEC packs</li>
+      <li><a href="/campaign-finance-lobbying-digest/">Campaign Finance Scraper</a> — FEC/LDA filings, not climate disclosures</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

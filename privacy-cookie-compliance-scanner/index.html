@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GDPR &amp; CCPA Cookie Compliance Scraper — banner audit</title>
+  <meta name="description" content="taroyamada/privacy-cookie-compliance-scanner. From $12.00 / 1,000 results + $0.002 start. Not a pentest or CMP.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/privacy-cookie-compliance-scanner/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is GDPR & CCPA Cookie Compliance Scraper different from DMARC & Email Security Checker and Trust Center Subprocessor Monitor?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "GDPR & CCPA Cookie Compliance Scraper (taroyamada/privacy-cookie-compliance-scanner): This Actor fetches public homepages (and optional privacy/cookie policy URLs) to look for cookie-banner and policy signals for compliance-audit evidence. Each sites[] item requires homepageUrl; policy URLs auto-discover if omitted. Maximum 100 sites per run. Not a penetration test, consent-management platform, or legal opinion. Passive public-page scanning only. Not itself a SOC2 certification. DMARC & Email Security Checker is for Email DNS posture (input domains; DNS TXT; DMARC/SPF/DKIM rows). Not cookie banners. Trust Center Subprocessor Monitor is for Trust-center vendor lists (input trust-center URLs; public subprocessors pages; vendor-list diffs). Not cookie-banner scans. Website Content Extractor is for Policy page markdown (input urls; HTML body; markdown). Not banner/compliance scoring."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What input is required?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Live required fields: sites. Live schema fields: sites, delivery, webhookUrl, snapshotKey, concurrency, batchDelayMs, requestTimeoutSecs, followRedirects, dryRun. exampleRunInput scans vercel.com with privacyPolicyUrl, region EU, concurrency 1. Schema prefill matches Vercel. Max 100 sites. Only scan properties you are authorized to check. additionalProperties is not documented on this page beyond the live Store schema."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the best first run?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use the published Store example run input below. exampleRunInput scans vercel.com with privacyPolicyUrl, region EU, concurrency 1. Schema prefill matches Vercel. Max 100 sites. Only scan properties you are authorized to check. Keep the first live run small. Use dryRun when you only need to validate input."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does a result contain?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "README output fence is truncated or invalid JSON on Store. Illustration head: { \"meta\": { \"generatedAt\": \"2026-06-01T12:00:00.000Z\", \"totals\": { \"total\": 2, \"initial\": 0, \"ok\": 1, \"changed\": 1, \"error\": 0, \"compliant\": 1, \"partial\": 1, \"non_compliant\": 1, \"unknown\": 0 }, \"severityCounts\": { \"critical\": 0, \"high\": 1, \"watch\": 1, \"info\": 0 }, \"alertCount\": 3, \"executiveSummary\": { \"overallStatus\": \"attention_needed\", \"brief\": \"2 of 2 site(s) need compliance attention. Top issue: Cookie banner p… Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do dataset, webhook, and dry-run delivery work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is GDPR & CCPA Cookie Compliance Scraper priced?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Billing is pay per event. Live Store card: from $12.00 / 1,000 results ($0.012 per result) plus Actor Start $0.002. One-site cheapest path ≈ $0.014 if one start + one result. Actor Start (apify-actor-start) $0.002: Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event). result (apify-default-dataset-item) $0.012: Single result in the default dataset. Do not use the README Cost block as live pricing. README Cost quotes actor-start $0.01 + dataset-item $0.003. Live: Actor Start $0.002 + result $0.012. README examples that send urls/includeStorage/acceptConsent are not live schema (use sites[]). Platform usage is listed as included on the Store pricing tab."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / GDPR &amp; CCPA Cookie Compliance Scraper</nav>
+    <h1>Public homepage cookie-banner and privacy-policy compliance scans</h1>
+    <p>This Actor fetches public homepages (and optional privacy/cookie policy URLs) to look for cookie-banner and policy signals for compliance-audit evidence. Each sites[] item requires homepageUrl; policy URLs auto-discover if omitted. Maximum 100 sites per run.</p>
+    <p>Not a penetration test, consent-management platform, or legal opinion. Passive public-page scanning only. Not itself a SOC2 certification.</p>
+    <p class="price">from $12.00 / 1,000 results ($0.012 per result) plus Actor Start $0.002. One-site cheapest path ≈ $0.014 if one start + one result.</p>
+    <p><a href="https://apify.com/taroyamada/privacy-cookie-compliance-scanner">Open GDPR &amp; CCPA Cookie Compliance Scraper on Apify</a></p>
+
+    <h2>GDPR &amp; CCPA Cookie Compliance Scraper, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/dmarc-email-security-checker/">DMARC &amp; Email Security Checker</a> for Email DNS posture; Use <a href="/trust-center-subprocessor-monitor/">Trust Center Subprocessor Monitor</a> for Trust-center vendor lists; Use <a href="/website-content-extractor/">Website Content Extractor</a> for Policy page markdown.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>This Actor</th>
+          <th>DMARC &amp; Email Security Checker</th>
+          <th>Trust Center Subprocessor Monitor</th>
+          <th>Website Content Extractor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>GDPR & CCPA Cookie Compliance Scraper</td>
+          <td>Email DNS posture</td>
+          <td>Trust-center vendor lists</td>
+          <td>Policy page markdown</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td><code>sites</code></td>
+          <td>domains</td>
+          <td>trust-center URLs</td>
+          <td>urls</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>Public sources listed on the Store page</td>
+          <td>DNS TXT</td>
+          <td>public subprocessors pages</td>
+          <td>HTML body</td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td>Dataset rows billed per live PPE</td>
+          <td>DMARC/SPF/DKIM rows</td>
+          <td>vendor-list diffs</td>
+          <td>markdown</td>
+        </tr>
+        <tr>
+          <td>Not this job</td>
+          <td>Not a penetration test, consent-management platform, or legal opinion. Passive public-page scanning only. Not itself a SOC2 certification.</td>
+          <td>Not cookie banners</td>
+          <td>Not cookie-banner scans</td>
+          <td>Not banner/compliance scoring</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/privacy-cookie-compliance-scanner</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Cookie-banner presence watches</li>
+      <li>Privacy-policy URL drift</li>
+      <li>Agency compliance evidence artifacts</li>
+    </ul>
+
+    <h2>How is GDPR &amp; CCPA Cookie Compliance Scraper different from DMARC &amp; Email Security Checker and Trust Center Subprocessor Monitor?</h2>
+    <p>GDPR &amp; CCPA Cookie Compliance Scraper (taroyamada/privacy-cookie-compliance-scanner): This Actor fetches public homepages (and optional privacy/cookie policy URLs) to look for cookie-banner and policy signals for compliance-audit evidence. Each sites[] item requires homepageUrl; policy URLs auto-discover if omitted. Maximum 100 sites per run. Not a penetration test, consent-management platform, or legal opinion. Passive public-page scanning only. Not itself a SOC2 certification. DMARC &amp; Email Security Checker is for Email DNS posture (input domains; DNS TXT; DMARC/SPF/DKIM rows). Not cookie banners. Trust Center Subprocessor Monitor is for Trust-center vendor lists (input trust-center URLs; public subprocessors pages; vendor-list diffs). Not cookie-banner scans. Website Content Extractor is for Policy page markdown (input urls; HTML body; markdown). Not banner/compliance scoring.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: <code>sites</code>. exampleRunInput scans vercel.com with privacyPolicyUrl, region EU, concurrency 1. Schema prefill matches Vercel. Max 100 sites. Only scan properties you are authorized to check.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>sites</code></td>
+          <td>array required</td>
+          <td><code>empty</code></td>
+          <td>Sites to scan. List of sites to scan. Each entry requires a homepageUrl; privacyPolicyUrl and cookiePolicyUrl are auto-discovered if omitted. Quickstart: begin with one site. Maximum 100 per run.</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string</td>
+          <td><code>dataset</code></td>
+          <td>Delivery mode. Starter path: dataset keeps the first run low-friction. Advanced path: webhook sends the same payload to your endpoint for compliance ops or agency handoff.</td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Webhook URL. Advanced delivery only: required when delivery is webhook. Must be a valid http(s) URL.</td>
+        </tr>
+        <tr>
+          <td><code>snapshotKey</code></td>
+          <td>string</td>
+          <td><code>privacy-cookie-compliance-snapshots</code></td>
+          <td>Snapshot key for recurring checks. Keep this stable when moving from the quickstart to recurring compliance monitoring so policy drift stays comparable run to run.</td>
+        </tr>
+        <tr>
+          <td><code>concurrency</code></td>
+          <td>integer</td>
+          <td><code>2</code></td>
+          <td>Concurrency. Parallel site checks. Keep at 1-2 for quickstart runs; increase for larger compliance portfolios.</td>
+        </tr>
+        <tr>
+          <td><code>batchDelayMs</code></td>
+          <td>integer</td>
+          <td><code>500</code></td>
+          <td>Batch delay (ms). Pause between batches to keep scans polite and avoid rate limiting.</td>
+        </tr>
+        <tr>
+          <td><code>requestTimeoutSecs</code></td>
+          <td>integer</td>
+          <td><code>20</code></td>
+          <td>Request timeout (seconds). Per-request timeout for fetching homepage, privacy policy, and cookie policy pages.</td>
+        </tr>
+        <tr>
+          <td><code>followRedirects</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Follow redirects. Follow HTTP redirects before scanning pages so canonical URLs are evaluated correctly.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run. Preview scan results without saving snapshots, dataset rows, or sending webhooks.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  "sites": [
+    {
+      "homepageUrl": "https://vercel.com",
+      "privacyPolicyUrl": "https://vercel.com/legal/privacy-policy",
+      "cookiePolicyUrl": "",
+      "region": "EU",
+      "consentMode": ""
+    }
+  ],
+  "delivery": "dataset",
+  "snapshotKey": "privacy-cookie-compliance-quickstart",
+  "concurrency": 1,
+  "batchDelayMs": 500,
+  "requestTimeoutSecs": 20,
+  "followRedirects": true,
+  "dryRun": false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/privacy-cookie-compliance-scanner">Run GDPR &amp; CCPA Cookie Compliance Scraper on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>The published README output sample on the Store page is truncated or not valid standalone JSON. Treat README field lists as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is GDPR &amp; CCPA Cookie Compliance Scraper priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $12.00 / 1,000 results ($0.012 per result) plus Actor Start $0.002. One-site cheapest path ≈ $0.014 if one start + one result.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>apify-actor-start</code> (Actor Start)</td>
+          <td>$0.002</td>
+          <td>Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).</td>
+        </tr>
+        <tr>
+          <td><code>apify-default-dataset-item</code> (result)</td>
+          <td>$0.012</td>
+          <td>Single result in the default dataset.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>The published README Cost block is stale versus the live Store pricing tab. README Cost quotes actor-start $0.01 + dataset-item $0.003. Live: Actor Start $0.002 + result $0.012. README examples that send urls/includeStorage/acceptConsent are not live schema (use sites[]). This page quotes live PPE only.</p>
+    <p class="price">from $12.00 / 1,000 results ($0.012 per result) plus Actor Start $0.002. One-site cheapest path ≈ $0.014 if one start + one result.</p>
+    <p><a href="https://apify.com/taroyamada/privacy-cookie-compliance-scanner/pricing">See GDPR &amp; CCPA Cookie Compliance Scraper pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Max 100 sites</li>
+      <li>Passive public HTML only</li>
+      <li>No exploitation/auth bypass</li>
+      <li>README urls examples are stale</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/privacy-cookie-compliance-scanner">Open GDPR &amp; CCPA Cookie Compliance Scraper on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/dmarc-email-security-checker/">DMARC &amp; Email Security Checker</a> — Email authentication DNS, not cookies.</li>
+      <li><a href="/trust-center-subprocessor-monitor/">Trust Center Subprocessor Monitor</a> — Subprocessors, not cookie banners.</li>
+      <li><a href="/website-content-extractor/">Website Content Extractor</a> — Extract policy markdown; this Actor scores banner/policy signals.</li>
+      <li><a href="/site-governance-monitor/">Site Governance Monitor</a> — robots/sitemap/schema drift, not cookie banners</li>
+      <li><a href="/robotstxt-ai-crawler-block-checker/">robots.txt Parser &amp; AI Crawler Block Checker</a> — AI crawler allow/disallow, not CMP banners</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

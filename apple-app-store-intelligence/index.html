@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Apple App Store Scraper — ratings, reviews, metadata</title>
+  <meta name="description" content="taroyamada/apple-app-store-intelligence. From $9.00 / 1,000 results + $0.001 start. Not Google Play or Chrome Web Store.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/apple-app-store-intelligence/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is Apple App Store Scraper different from Chrome Web Store Extension Intelligence and Website Content Extractor?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Apple App Store Scraper — Ratings, Reviews & Metadata (taroyamada/apple-app-store-intelligence): This Actor uses public iTunes lookup plus RSS customer-review feeds for App Store URLs or numeric IDs. reviewLimit defaults to 100 (max 500, RSS ~500 per storefront). maxChargeUsd default 1 fails closed with no-charge limit_reached summaries. Not Google Play, Chrome Web Store, or a private App Store Connect export. Public lookup/RSS only. Chrome Web Store Extension Intelligence is for Chrome extensions (input extensionUrls / searchTerms; Chrome Web Store HTML; extension metadata). Not Apple App Store. Website Content Extractor is for Generic page markdown (input urls; HTML body; markdown). Not iTunes lookup/RSS reviews."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What input is required?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Live required fields: appUrls. Live schema fields: appUrls, country, reviewLimit, timeoutMs, delivery, webhookUrl, dryRun, maxChargeUsd. exampleRunInput is Spotify US URL, reviewLimit 50. Schema default reviewLimit 100 and maxChargeUsd 1. Prefer keeping first runs under the cap. additionalProperties is not documented on this page beyond the live Store schema."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the best first run?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use the published Store example run input below. exampleRunInput is Spotify US URL, reviewLimit 50. Schema default reviewLimit 100 and maxChargeUsd 1. Prefer keeping first runs under the cap. Keep the first live run small. Use dryRun when you only need to validate input."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does a result contain?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "README sample uses ellipses and is not valid JSON. Illustration keys: appId, url, country, retrievedAt, metadata (name, developer, bundleId, primaryGenre, icon, version, ageRating, languageCodes), rating, pricing, reviewSamples, rollups.themes. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do dataset, webhook, and dry-run delivery work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Apple App Store Scraper priced?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Billing is pay per event. Live Store card: from $9.00 / 1,000 results ($0.009 per result) plus Actor Start $0.001. First paid 1-app path ≈ $0.010 if one start + one result, subject to reviewLimit rows actually written. Actor Start (apify-actor-start) $0.001: Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event). result (apify-default-dataset-item) $0.009: Single result in the default dataset. Do not use the README Cost block as live pricing. README does not quote this Actor’s live PPE. It advertises follow-on listing-gap $9/$29. Live card: Actor Start $0.001 + result $0.009 (apify-actor-start, apify-default-dataset-item). Platform usage is listed as included on the Store pricing tab."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Apple App Store Scraper</nav>
+    <h1>Apple App Store metadata, ratings, and RSS review samples</h1>
+    <p>This Actor uses public iTunes lookup plus RSS customer-review feeds for App Store URLs or numeric IDs. reviewLimit defaults to 100 (max 500, RSS ~500 per storefront). maxChargeUsd default 1 fails closed with no-charge limit_reached summaries.</p>
+    <p>Not Google Play, Chrome Web Store, or a private App Store Connect export. Public lookup/RSS only.</p>
+    <p class="price">from $9.00 / 1,000 results ($0.009 per result) plus Actor Start $0.001. First paid 1-app path ≈ $0.010 if one start + one result, subject to reviewLimit rows actually written.</p>
+    <p><a href="https://apify.com/taroyamada/apple-app-store-intelligence">Open Apple App Store Scraper on Apify</a></p>
+
+    <h2>Apple App Store Scraper, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/chrome-web-store-extension-intelligence/">Chrome Web Store Extension Intelligence</a> for Chrome extensions; Use <a href="/website-content-extractor/">Website Content Extractor</a> for Generic page markdown.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>This Actor</th>
+          <th>Chrome Web Store Extension Intelligence</th>
+          <th>Website Content Extractor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>Apple App Store Scraper</td>
+          <td>Chrome extensions</td>
+          <td>Generic page markdown</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td><code>appUrls</code></td>
+          <td>extensionUrls / searchTerms</td>
+          <td>urls</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>Public sources listed on the Store page</td>
+          <td>Chrome Web Store HTML</td>
+          <td>HTML body</td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td>Dataset rows billed per live PPE</td>
+          <td>extension metadata</td>
+          <td>markdown</td>
+        </tr>
+        <tr>
+          <td>Not this job</td>
+          <td>Not Google Play, Chrome Web Store, or a private App Store Connect export. Public lookup/RSS only.</td>
+          <td>Not Apple App Store</td>
+          <td>Not iTunes lookup/RSS reviews</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/apple-app-store-intelligence</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>iOS competitor metadata</li>
+      <li>Storefront-specific pricing/availability</li>
+      <li>Public RSS review samples + theme rollups</li>
+    </ul>
+
+    <h2>How is Apple App Store Scraper different from Chrome Web Store Extension Intelligence and Website Content Extractor?</h2>
+    <p>Apple App Store Scraper — Ratings, Reviews &amp; Metadata (taroyamada/apple-app-store-intelligence): This Actor uses public iTunes lookup plus RSS customer-review feeds for App Store URLs or numeric IDs. reviewLimit defaults to 100 (max 500, RSS ~500 per storefront). maxChargeUsd default 1 fails closed with no-charge limit_reached summaries. Not Google Play, Chrome Web Store, or a private App Store Connect export. Public lookup/RSS only. Chrome Web Store Extension Intelligence is for Chrome extensions (input extensionUrls / searchTerms; Chrome Web Store HTML; extension metadata). Not Apple App Store. Website Content Extractor is for Generic page markdown (input urls; HTML body; markdown). Not iTunes lookup/RSS reviews.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: <code>appUrls</code>. exampleRunInput is Spotify US URL, reviewLimit 50. Schema default reviewLimit 100 and maxChargeUsd 1. Prefer keeping first runs under the cap.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>appUrls</code></td>
+          <td>array required</td>
+          <td><code>empty</code></td>
+          <td>App URLs. One or more Apple App Store URLs (e.g. https://apps.apple.com/us/app/spotify/id324684580) or numeric app IDs (e.g. 324684580).</td>
+        </tr>
+        <tr>
+          <td><code>country</code></td>
+          <td>string</td>
+          <td><code>us</code></td>
+          <td>Country / Storefront. Two-letter storefront code (e.g. us, gb, jp). Controls which country's reviews are fetched and which pricing/availability is returned.. minLength=2</td>
+        </tr>
+        <tr>
+          <td><code>reviewLimit</code></td>
+          <td>integer</td>
+          <td><code>100</code></td>
+          <td>Review Limit. Maximum reviews to collect per app (1–500). Reviews come from Apple's public RSS feed, limited to ~500 per storefront.</td>
+        </tr>
+        <tr>
+          <td><code>timeoutMs</code></td>
+          <td>integer</td>
+          <td><code>20000</code></td>
+          <td>Timeout (ms). HTTP request timeout per API call in milliseconds.</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string</td>
+          <td><code>dataset</code></td>
+          <td>Delivery. Where to send results: dataset or webhook.</td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Webhook URL. Webhook URL to POST results to when delivery=webhook.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry Run. Run without saving results to dataset or webhook.</td>
+        </tr>
+        <tr>
+          <td><code>maxChargeUsd</code></td>
+          <td>number</td>
+          <td><code>1</code></td>
+          <td>Maximum charge (USD). Safety cap for this run. Billable rows beyond this cap are returned as no-charge limit_reached summaries.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  "appUrls": [
+    "https://apps.apple.com/us/app/spotify-music-and-podcasts/id324684580"
+  ],
+  "country": "us",
+  "reviewLimit": 50,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/apple-app-store-intelligence">Run Apple App Store Scraper on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>README sample uses ellipses and is not valid JSON. Illustration keys: appId, url, country, retrievedAt, metadata (name, developer, bundleId, primaryGenre, icon, version, ageRating, languageCodes), rating, pricing, reviewSamples, rollups.themes. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is Apple App Store Scraper priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $9.00 / 1,000 results ($0.009 per result) plus Actor Start $0.001. First paid 1-app path ≈ $0.010 if one start + one result, subject to reviewLimit rows actually written.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>apify-actor-start</code> (Actor Start)</td>
+          <td>$0.001</td>
+          <td>Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).</td>
+        </tr>
+        <tr>
+          <td><code>apify-default-dataset-item</code> (result)</td>
+          <td>$0.009</td>
+          <td>Single result in the default dataset.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>The published README Cost block is stale versus the live Store pricing tab. README does not quote this Actor’s live PPE. It advertises follow-on listing-gap $9/$29. Live card: Actor Start $0.001 + result $0.009 (apify-actor-start, apify-default-dataset-item). This page quotes live PPE only.</p>
+    <p class="price">from $9.00 / 1,000 results ($0.009 per result) plus Actor Start $0.001. First paid 1-app path ≈ $0.010 if one start + one result, subject to reviewLimit rows actually written.</p>
+    <p><a href="https://apify.com/taroyamada/apple-app-store-intelligence/pricing">See Apple App Store Scraper pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>RSS ~500 reviews per storefront</li>
+      <li>reviewLimit 1–500</li>
+      <li>Public iTunes/RSS only</li>
+      <li>Not Play or Chrome Web Store</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/apple-app-store-intelligence">Open Apple App Store Scraper on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/chrome-web-store-extension-intelligence/">Chrome Web Store Extension Intelligence</a> — Chrome extensions, not iOS apps.</li>
+      <li><a href="/website-content-extractor/">Website Content Extractor</a> — Website copy, not App Store RSS.</li>
+      <li><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> — Podcast reviews, not iOS app listings.</li>
+      <li><a href="/google-play-intelligence/">Google Play App Scraper</a> — Android listings, not App Store</li>
+      <li><a href="/mobile-app-listing-gap-report/">App Store &amp; Google Play Listing Gap Report</a> — Scored competitor listing gaps</li>
+      <li><a href="/app-review-cross-platform-intelligence/">iOS &amp; Android App Review Scraper</a> — Combined review summaries</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>
