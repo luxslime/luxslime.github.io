@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SEC Insider Transaction Scraper — Forms 3, 4, 5</title>
+  <meta name="description" content="taroyamada/sec-insider-transaction-intelligence. from $4.00 / 1,000 result ($0.004 per delivered apify-default-dataset-item). $0.001 Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. Not investment advice. Not 8-K material contracts. Not a copy o">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/sec-insider-transaction-intelligence/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is SEC Insider Transaction Scraper different from SEC EDGAR Scraper and SEC Material Contract Intelligence?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "SEC Insider Transaction Scraper (taroyamada/sec-insider-transaction-intelligence): This Actor reads official EDGAR ownership forms for issuers you list and emits insider purchase, sale, grant, and holding rows, with optional transactionCodes and minTransactionValue filters. Not investment advice. Not 8-K material contracts. Not a copy of paid insider-trading products. Public EDGAR ownership XML/HTML only. SEC EDGAR Scraper is for 8-K/S-1 filing alerts (input companies; SEC EDGAR; SEC filing rows). Not ESG report packs. SEC Material Contract Intelligence is for SEC exhibit contracts (input tickers / CIKs; SEC EDGAR exhibits; contract-intel rows). Not Form 4 insider trades. Campaign Finance Scraper is for FEC/LDA filings (input feeds / watchTerms; OpenFEC / LDA.gov; campaign digest rows). Not OFAC sanctions or Federal Register."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: issuers. Live schema fields: issuers, formTypes, daysBack, maxFilingsPerIssuer, transactionCodes, minTransactionValue, includeDerivativeTransactions, includeHoldings, requestDelayMs, timeoutMs, secUserAgent, delivery, webhookUrl, dryRun. Track SEC Forms 3, 4, and 5 insider ownership transactions by ticker or CIK using official EDGAR data. additionalProperties is false on the live schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: issuers, formTypes, daysBack, maxFilingsPerIssuer, transactionCodes, minTransactionValue, includeDerivativeTransactions, includeHoldings, requestDelayMs, timeoutMs, delivery, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is SEC Insider Transaction Scraper priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $4.00 / 1,000 result ($0.004 per delivered apify-default-dataset-item). $0.001 Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. result (apify-default-dataset-item) $0.004: Single result in the default dataset. Actor Start (apify-actor-start) $0.001: Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event). Platform usage is listed as included on the Store pricing tab."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / SEC Insider Transaction Scraper</nav>
+    <h1>SEC Forms 3, 4, and 5 insider purchase, sale, and grant rows</h1>
+    <p>This Actor reads official EDGAR ownership forms for issuers you list and emits insider purchase, sale, grant, and holding rows, with optional transactionCodes and minTransactionValue filters.</p>
+    <p>Not investment advice. Not 8-K material contracts. Not a copy of paid insider-trading products. Public EDGAR ownership XML/HTML only.</p>
+    <p class="price">from $4.00 / 1,000 result ($0.004 per delivered apify-default-dataset-item). $0.001 Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+    <p><a href="https://apify.com/taroyamada/sec-insider-transaction-intelligence">Open SEC Insider Transaction Scraper on Apify</a></p>
+
+    <h2>SEC Insider Transaction Scraper, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/sec-edgar-filings-monitor/">SEC EDGAR Scraper</a> for 8-K/S-1 filing alerts; Use <a href="/sec-material-contract-intelligence/">SEC Material Contract Intelligence</a> for SEC exhibit contracts; Use <a href="/campaign-finance-lobbying-digest/">Campaign Finance Scraper</a> for FEC/LDA filings.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>SEC EDGAR Scraper</th><th>SEC Material Contract Intelligence</th><th>Campaign Finance Scraper</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>SEC Insider Transaction Scraper</td><td>8-K/S-1 filing alerts</td><td>SEC exhibit contracts</td><td>FEC/LDA filings</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td><code>see schema</code></td><td>companies</td><td>tickers / CIKs</td><td>feeds / watchTerms</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>Public sources listed on the Store page</td><td>SEC EDGAR</td><td>SEC EDGAR exhibits</td><td>OpenFEC / LDA.gov</td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td>Dataset rows billed per live PPE</td><td>SEC filing rows</td><td>contract-intel rows</td><td>campaign digest rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td>
+          <td>Not investment advice. Not 8-K material contracts. Not a copy of paid insider-trading products. Public EDGAR ownership XML/HTML only.</td><td>Not ESG report packs</td><td>Not Form 4 insider trades</td><td>Not OFAC sanctions or Federal Register</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/sec-insider-transaction-intelligence</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Issuer Form 4 watches</li>
+      <li>Code-filtered purchases/sales</li>
+      <li>Holdings extracts when includeHoldings is true</li>
+    </ul>
+
+    <h2>How is SEC Insider Transaction Scraper different from SEC EDGAR Scraper and SEC Material Contract Intelligence?</h2>
+    <p>SEC Insider Transaction Scraper (taroyamada/sec-insider-transaction-intelligence): This Actor reads official EDGAR ownership forms for issuers you list and emits insider purchase, sale, grant, and holding rows, with optional transactionCodes and minTransactionValue filters. Not investment advice. Not 8-K material contracts. Not a copy of paid insider-trading products. Public EDGAR ownership XML/HTML only. SEC EDGAR Scraper is for 8-K/S-1 filing alerts (input companies; SEC EDGAR; SEC filing rows). Not ESG report packs. SEC Material Contract Intelligence is for SEC exhibit contracts (input tickers / CIKs; SEC EDGAR exhibits; contract-intel rows). Not Form 4 insider trades. Campaign Finance Scraper is for FEC/LDA filings (input feeds / watchTerms; OpenFEC / LDA.gov; campaign digest rows). Not OFAC sanctions or Federal Register.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: <code>issuers</code>. Published exampleRunInput is shown below. Track SEC Forms 3, 4, and 5 insider ownership transactions by ticker or CIK using official EDGAR data.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>issuers</code></td>
+          <td>any[] required</td>
+          <td><code>empty</code></td>
+          <td>required Issuers. Ticker symbols or CIK numbers. Example: MSFT, NVDA, 0000789019.</td>
+        </tr>
+        <tr>
+          <td><code>formTypes</code></td>
+          <td>any[]</td>
+          <td><code>["3", "4", "5"]</code></td>
+          <td>Ownership form types. SEC ownership forms to include. Allowed values: 3, 4, 5.</td>
+        </tr>
+        <tr>
+          <td><code>daysBack</code></td>
+          <td>integer</td>
+          <td><code>120</code></td>
+          <td>Days back. How far back to scan issuer submissions for Forms 3, 4, and 5. min=1 max=3650</td>
+        </tr>
+        <tr>
+          <td><code>maxFilingsPerIssuer</code></td>
+          <td>integer</td>
+          <td><code>20</code></td>
+          <td>Max filings per issuer. Maximum ownership filings to inspect for each issuer. min=1 max=200</td>
+        </tr>
+        <tr>
+          <td><code>transactionCodes</code></td>
+          <td>any[]</td>
+          <td><code>empty</code></td>
+          <td>Transaction codes. Optional filter such as P, S, A, M. Leave empty to include all transaction codes.</td>
+        </tr>
+        <tr>
+          <td><code>minTransactionValue</code></td>
+          <td>number</td>
+          <td><code>0</code></td>
+          <td>Minimum transaction value. Minimum absolute transaction value to keep. Set 0 to include all values. min=0</td>
+        </tr>
+        <tr>
+          <td><code>includeDerivativeTransactions</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Include derivative transactions. Include derivative transaction rows such as options, restricted stock units, and conversions.</td>
+        </tr>
+        <tr>
+          <td><code>includeHoldings</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Include holding rows. Also emit non-transaction holding rows from ownership documents.</td>
+        </tr>
+        <tr>
+          <td><code>requestDelayMs</code></td>
+          <td>integer</td>
+          <td><code>120</code></td>
+          <td>Delay between filing requests. Delay between SEC Archives filing requests to stay within polite API usage. min=0 max=2000</td>
+        </tr>
+        <tr>
+          <td><code>timeoutMs</code></td>
+          <td>integer</td>
+          <td><code>20000</code></td>
+          <td>Timeout (ms). HTTP request timeout for SEC API and Archives requests. min=1000 max=60000</td>
+        </tr>
+        <tr>
+          <td><code>secUserAgent</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>SEC User-Agent. Optional declared SEC User-Agent with contact information. The actor has a default, but production users should provide their own contact.</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string enum</td>
+          <td><code>dataset</code></td>
+          <td>Delivery. Where to send results. Webhook delivery does not also push dataset rows. enum: dataset, webhook</td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Webhook URL. Webhook URL to POST the full normalized payload to when delivery=webhook.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run. Run without pushing rows to the dataset or webhook.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  "issuers": [
+    "MSFT",
+    "NVDA"
+  ],
+  "formTypes": [
+    "4"
+  ],
+  "daysBack": 180,
+  "maxFilingsPerIssuer": 5,
+  "transactionCodes": [],
+  "minTransactionValue": 0,
+  "includeDerivativeTransactions": true,
+  "includeHoldings": false,
+  "requestDelayMs": 120,
+  "timeoutMs": 20000,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/sec-insider-transaction-intelligence">Run SEC Insider Transaction Scraper on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is SEC Insider Transaction Scraper priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $4.00 / 1,000 result ($0.004 per delivered apify-default-dataset-item). $0.001 Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>apify-default-dataset-item</code> (result)</td>
+          <td>$0.004</td>
+          <td>Single result in the default dataset.</td>
+        </tr>
+        <tr>
+          <td><code>apify-actor-start</code> (Actor Start)</td>
+          <td>$0.001</td>
+          <td>Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="price">from $4.00 / 1,000 result ($0.004 per delivered apify-default-dataset-item). $0.001 Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+    <p><a href="https://apify.com/taroyamada/sec-insider-transaction-intelligence/pricing">See SEC Insider Transaction Scraper pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>issuers required</li>
+      <li>Public EDGAR ownership forms</li>
+      <li>maxFilingsPerIssuer / requestDelayMs</li>
+      <li>Not investment advice</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/sec-insider-transaction-intelligence">Open SEC Insider Transaction Scraper on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/sec-edgar-filings-monitor/">SEC EDGAR Scraper</a> — 8-K/S-1 index alerts, not Forms 3/4/5.</li>
+      <li><a href="/sec-material-contract-intelligence/">SEC Material Contract Intelligence</a> — Exhibits, not insider trades.</li>
+      <li><a href="/campaign-finance-lobbying-digest/">Campaign Finance Scraper</a> — FEC/LDA, not EDGAR ownership.</li>
+      <li><a href="/esg-disclosure-tracker/">SEC &amp; ESG Report Scraper</a> — ESG packs, not insider forms.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

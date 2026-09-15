@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Product Safety Recall Scraper — FDA and CPSC alerts</title>
+  <meta name="description" content="taroyamada/product-safety-recall-digest. from $9.00 / 1,000 Delivered monitoring result row ($0.009 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. Not NHTSA vehicle complaints. Not legal advice. No">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/product-safety-recall-digest/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is Product Safety Recall Scraper different from NHTSA Recall Scraper and FDA Warning Letters Scraper?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Product Safety Recall Scraper (taroyamada/product-safety-recall-digest): This Actor scrapes official FDA and CPSC public recall databases and emits source-linked digest rows (alerts, docket numbers, agency dates). Default feeds cover those public recall sources when you leave feeds empty per the live schema. Not NHTSA vehicle complaints. Not legal advice. Not a takedown or marketplace-enforcement tool. NHTSA Recall Scraper is for NHTSA recalls/complaints (input vehicle feeds; NHTSA public APIs; recall digest rows). Not CPSC consumer-product recalls. FDA Warning Letters Scraper is for FDA warning-letter digests (input feeds / watchTerms; FDA public warning-letter feeds; warning-letter digest rows). Not ClinicalTrials.gov or HHS OCR. Shopify Store Scraper is for Public Shopify catalogs (input storeUrls; Shopify JSON endpoints; store/catalog rows). Not Shopify App Store reviews."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: none (see live fields). Live schema fields: feeds, lookbackDays, recallClasses, maxRecallsPerFeed, delivery, webhookUrl, datasetMode, snapshotKey, notifyOnNoNew, requestTimeoutSeconds, batchDelayMs, dryRun, nowIso. Quickstart: leave feeds empty to monitor all 4 default sources (CPSC + FDA food/drug/device), set lookbackDays=30, recallClasses=[\"I\",\"II\"], and schedule recurring runs additionalProperties is false on the live schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: lookbackDays, recallClasses, maxRecallsPerFeed, delivery, datasetMode, snapshotKey, notifyOnNoNew, batchDelayMs, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. datasetMode can limit emits to changes_only / changed_only / action_needed versus all. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is Product Safety Recall Scraper priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $9.00 / 1,000 Delivered monitoring result row ($0.009 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. Delivered monitoring result row (apify-default-dataset-item) $0.009: Charged only when a new or changed monitoring result row is delivered. Unchanged runs are free. Do not use the README Cost block as live pricing. The published README Cost block is stale versus the live Store pricing tab. README Cost still quotes actor-start $0.01. README Cost quotes dataset-item $0.003; live primary is $0.009 (Delivered monitoring result row). Live: Delivered monitoring result row $0.009. This page quotes live PPE only."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Product Safety Recall Scraper</nav>
+    <h1>FDA and CPSC product-recall digests for storefront watchlists</h1>
+    <p>This Actor scrapes official FDA and CPSC public recall databases and emits source-linked digest rows (alerts, docket numbers, agency dates). Default feeds cover those public recall sources when you leave feeds empty per the live schema.</p>
+    <p>Not NHTSA vehicle complaints. Not legal advice. Not a takedown or marketplace-enforcement tool.</p>
+    <p class="price">from $9.00 / 1,000 Delivered monitoring result row ($0.009 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+    <p><a href="https://apify.com/taroyamada/product-safety-recall-digest">Open Product Safety Recall Scraper on Apify</a></p>
+
+    <h2>Product Safety Recall Scraper, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/nhtsa-vehicle-recall-digest/">NHTSA Recall Scraper</a> for NHTSA recalls/complaints; Use <a href="/fda-warning-letter-digest/">FDA Warning Letters Scraper</a> for FDA warning-letter digests; Use <a href="/shopify-store-intelligence/">Shopify Store Scraper</a> for Public Shopify catalogs.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>NHTSA Recall Scraper</th><th>FDA Warning Letters Scraper</th><th>Shopify Store Scraper</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>Product Safety Recall Scraper</td><td>NHTSA recalls/complaints</td><td>FDA warning-letter digests</td><td>Public Shopify catalogs</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td><code>see schema</code></td><td>vehicle feeds</td><td>feeds / watchTerms</td><td>storeUrls</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>Public sources listed on the Store page</td><td>NHTSA public APIs</td><td>FDA public warning-letter feeds</td><td>Shopify JSON endpoints</td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td>Dataset rows billed per live PPE</td><td>recall digest rows</td><td>warning-letter digest rows</td><td>store/catalog rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td>
+          <td>Not NHTSA vehicle complaints. Not legal advice. Not a takedown or marketplace-enforcement tool.</td><td>Not CPSC consumer-product recalls</td><td>Not ClinicalTrials.gov or HHS OCR</td><td>Not Shopify App Store reviews</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/product-safety-recall-digest</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Ecommerce SKU/watch-term recall checks</li>
+      <li>Class I/II filters via recallClasses</li>
+      <li>Scheduled snapshotKey storefront watches</li>
+    </ul>
+
+    <h2>How is Product Safety Recall Scraper different from NHTSA Recall Scraper and FDA Warning Letters Scraper?</h2>
+    <p>Product Safety Recall Scraper (taroyamada/product-safety-recall-digest): This Actor scrapes official FDA and CPSC public recall databases and emits source-linked digest rows (alerts, docket numbers, agency dates). Default feeds cover those public recall sources when you leave feeds empty per the live schema. Not NHTSA vehicle complaints. Not legal advice. Not a takedown or marketplace-enforcement tool. NHTSA Recall Scraper is for NHTSA recalls/complaints (input vehicle feeds; NHTSA public APIs; recall digest rows). Not CPSC consumer-product recalls. FDA Warning Letters Scraper is for FDA warning-letter digests (input feeds / watchTerms; FDA public warning-letter feeds; warning-letter digest rows). Not ClinicalTrials.gov or HHS OCR. Shopify Store Scraper is for Public Shopify catalogs (input storeUrls; Shopify JSON endpoints; store/catalog rows). Not Shopify App Store reviews.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: none listed (see live fields). Published exampleRunInput is shown below. Quickstart: leave feeds empty to monitor all 4 default sources (CPSC + FDA food/drug/device), set lookbackDays=30, recallClasses=["I","II"], and schedule recurring runs</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>feeds</code></td>
+          <td>object[]</td>
+          <td><code>empty</code></td>
+          <td>Feeds to monitor. One entry per monitored feed/source. Each produces one digest row. Leave empty to use all 4 default feeds (CPSC, FDA food, FDA drug, FDA device). Each item supports id, name, source, lookbackDays, recallClasses, maxRecalls. item required: source</td>
+        </tr>
+        <tr>
+          <td><code>lookbackDays</code></td>
+          <td>integer</td>
+          <td><code>30</code></td>
+          <td>Lookback window (days). Number of days back to search for recalls. Applies to all feeds unless overridden per feed. min=1 max=365</td>
+        </tr>
+        <tr>
+          <td><code>recallClasses</code></td>
+          <td>string[]</td>
+          <td><code>["I", "II"]</code></td>
+          <td>FDA recall classes to include. Filter openFDA results to specific recall classes. Valid values: I (most serious), II, III. Does not apply to CPSC (which uses a different classification scheme).</td>
+        </tr>
+        <tr>
+          <td><code>maxRecallsPerFeed</code></td>
+          <td>integer</td>
+          <td><code>50</code></td>
+          <td>Max recalls per feed. Upper bound on recall records fetched per feed per run. Lower = faster and less data; keep ≤ 50 for recurring digests. min=1 max=200</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string enum</td>
+          <td><code>dataset</code></td>
+          <td>Delivery mode. dataset stores digest rows in the Apify dataset. webhook posts the digest JSON to webhookUrl. enum: dataset, webhook</td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Webhook URL (required when delivery=webhook). POST target for the recall digest payload. Leave empty for dataset delivery.</td>
+        </tr>
+        <tr>
+          <td><code>datasetMode</code></td>
+          <td>string enum</td>
+          <td><code>all</code></td>
+          <td>Dataset output mode. all emits every feed digest row. action_needed emits only feeds with new or first-run recalls. new_only emits only feeds with new recall IDs not seen in the previous run. enum: all, action_needed, new_only</td>
+        </tr>
+        <tr>
+          <td><code>snapshotKey</code></td>
+          <td>string</td>
+          <td><code>product-safety-recall-digest-state</code></td>
+          <td>Snapshot key for recurring state. Stable key used to persist seen recall IDs across recurring runs so new_only and action_needed modes stay comparable. Use the same key across scheduled runs.</td>
+        </tr>
+        <tr>
+          <td><code>notifyOnNoNew</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Emit digest even when no new recalls found. When true (default), every feed always produces a digest row even if no new recalls were found. When false, feeds with no new recalls are omitted from webhook payloads.</td>
+        </tr>
+        <tr>
+          <td><code>requestTimeoutSeconds</code></td>
+          <td>integer</td>
+          <td><code>30</code></td>
+          <td>HTTP request timeout (seconds). Timeout for each API request. min=5 max=120</td>
+        </tr>
+        <tr>
+          <td><code>batchDelayMs</code></td>
+          <td>integer</td>
+          <td><code>800</code></td>
+          <td>Delay between feeds (ms). Milliseconds to wait between feed fetches. Keeps keyless openFDA usage well below the 40 req/min rate limit. min=0 max=10000</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run (skip snapshot writes and webhook delivery). Validate, fetch, and assemble without persisting state or posting webhooks. Safe for testing input shapes.</td>
+        </tr>
+        <tr>
+          <td><code>nowIso</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Override current time (ISO string, for testing). Set to a fixed ISO timestamp to make runs deterministic against fixture data.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  "lookbackDays": 30,
+  "recallClasses": [
+    "I",
+    "II"
+  ],
+  "maxRecallsPerFeed": 50,
+  "delivery": "dataset",
+  "datasetMode": "all",
+  "snapshotKey": "recall-digest-quickstart",
+  "notifyOnNoNew": true,
+  "batchDelayMs": 800,
+  "dryRun": false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/product-safety-recall-digest">Run Product Safety Recall Scraper on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. datasetMode can limit emits to changes_only / changed_only / action_needed versus all. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is Product Safety Recall Scraper priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $9.00 / 1,000 Delivered monitoring result row ($0.009 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>apify-default-dataset-item</code> (Delivered monitoring result row)</td>
+          <td>$0.009</td>
+          <td>Charged only when a new or changed monitoring result row is delivered. Unchanged runs are free.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>The published README Cost block is stale versus the live Store pricing tab. README Cost still quotes actor-start $0.01. README Cost quotes dataset-item $0.003; live primary is $0.009 (Delivered monitoring result row). Live: Delivered monitoring result row $0.009. This page quotes live PPE only.</p>
+    <p class="price">from $9.00 / 1,000 Delivered monitoring result row ($0.009 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+    <p><a href="https://apify.com/taroyamada/product-safety-recall-digest/pricing">See Product Safety Recall Scraper pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Public FDA/CPSC recall sources</li>
+      <li>recallClasses filters classes when set</li>
+      <li>Not NHTSA</li>
+      <li>Not professional advice</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/product-safety-recall-digest">Open Product Safety Recall Scraper on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/nhtsa-vehicle-recall-digest/">NHTSA Recall Scraper</a> — Vehicles, not consumer-product recalls.</li>
+      <li><a href="/fda-warning-letter-digest/">FDA Warning Letters Scraper</a> — Warning letters, not recall dockets.</li>
+      <li><a href="/shopify-store-intelligence/">Shopify Store Scraper</a> — Catalog metadata, not recalls.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

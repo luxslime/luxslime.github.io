@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>US Treasury Data Scraper — debt, rates, outlays</title>
+  <meta name="description" content="taroyamada/treasury-fiscal-data-digest. from $9.00 / 1,000 Treasury fiscal data change row ($0.009 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. Not FX mid-market rates. Not financial advice. Not ">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/treasury-fiscal-data-digest/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is US Treasury Data Scraper different from Forex Exchange Rate Scraper and Grants.gov Scraper?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "US Treasury Data Scraper (taroyamada/treasury-fiscal-data-digest): This Actor pulls official US Treasury Fiscal Data API datasets (debt to the penny, average interest rates, MTS Table 1, record-setting auctions) for feeds you configure and emits source-linked change rows. Not FX mid-market rates. Not financial advice. Not a trading signal. Public Treasury APIs only. Forex Exchange Rate Scraper is for FX snapshots (input baseCurrency; open.er-api.com; exchange-rate snapshots). Not Treasury fiscal series. Grants.gov Scraper is for Grants.gov notices (input feeds / watchTerms; Grants.gov API; funding digest rows). Not TED/SAM.gov bid queues. Campaign Finance Scraper is for FEC/LDA filings (input feeds / watchTerms; OpenFEC / LDA.gov; campaign digest rows). Not OFAC sanctions or Federal Register."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: feeds. Live schema fields: feeds, watchTerms, lookbackDays, maxEvidencePerFeed, delivery, webhookUrl, datasetMode, snapshotKey, debtToPennyApiUrl, avgInterestRatesApiUrl, mtsTable1ApiUrl, recordSettingAuctionApiUrl, requestTimeoutSeconds, notifyOnNoNew, dryRun, nowIso, debtFixturePath, ratesFixturePath, mtsFixturePath, auctionFixturePath. Quickstart: configure one or more feeds, keep delivery=dataset, and run once to seed the baseline additionalProperties is false on the live schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: feeds, watchTerms, lookbackDays, maxEvidencePerFeed, delivery, datasetMode, snapshotKey, notifyOnNoNew, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "README output fence is truncated or invalid JSON on Store. Illustration head: { \"meta\": { \"feedCount\": 4, \"totalEvidenceRows\": 8, \"actionNeededCount\": 3, \"executiveSummary\": { \"overallStatus\": \"action_needed\", \"brief\": \"3 feed(s) require review; 4 changed since the last run.\" } }, \"digests\": [ { \"feedId\": \"monthly-budget\", \"status\": \"action_needed\", \"headl… Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. datasetMode can limit emits to changes_only / changed_only / action_needed versus all. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is US Treasury Data Scraper priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $9.00 / 1,000 Treasury fiscal data change row ($0.009 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. Treasury fiscal data change row (apify-default-dataset-item) $0.009: Charged for one successfully delivered new or changed Treasury Fiscal Data record. Do not use the README Cost block as live pricing. The published README Cost block is stale versus the live Store pricing tab. README Cost still quotes actor-start $0.01. README Cost quotes dataset-item $0.003; live primary is $0.009 (Treasury fiscal data change row). Live: Treasury fiscal data change row $0.009. This page quotes live PPE only."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / US Treasury Data Scraper</nav>
+    <h1>Official Treasury Fiscal Data series: debt, rates, outlays, auctions</h1>
+    <p>This Actor pulls official US Treasury Fiscal Data API datasets (debt to the penny, average interest rates, MTS Table 1, record-setting auctions) for feeds you configure and emits source-linked change rows.</p>
+    <p>Not FX mid-market rates. Not financial advice. Not a trading signal. Public Treasury APIs only.</p>
+    <p class="price">from $9.00 / 1,000 Treasury fiscal data change row ($0.009 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+    <p><a href="https://apify.com/taroyamada/treasury-fiscal-data-digest">Open US Treasury Data Scraper on Apify</a></p>
+
+    <h2>US Treasury Data Scraper, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/exchange-rate-monitor/">Forex Exchange Rate Scraper</a> for FX snapshots; Use <a href="/grants-gov-funding-digest/">Grants.gov Scraper</a> for Grants.gov notices; Use <a href="/campaign-finance-lobbying-digest/">Campaign Finance Scraper</a> for FEC/LDA filings.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>Forex Exchange Rate Scraper</th><th>Grants.gov Scraper</th><th>Campaign Finance Scraper</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>US Treasury Data Scraper</td><td>FX snapshots</td><td>Grants.gov notices</td><td>FEC/LDA filings</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td><code>see schema</code></td><td>baseCurrency</td><td>feeds / watchTerms</td><td>feeds / watchTerms</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>Public sources listed on the Store page</td><td>open.er-api.com</td><td>Grants.gov API</td><td>OpenFEC / LDA.gov</td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td>Dataset rows billed per live PPE</td><td>exchange-rate snapshots</td><td>funding digest rows</td><td>campaign digest rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td>
+          <td>Not FX mid-market rates. Not financial advice. Not a trading signal. Public Treasury APIs only.</td><td>Not Treasury fiscal series</td><td>Not TED/SAM.gov bid queues</td><td>Not OFAC sanctions or Federal Register</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/treasury-fiscal-data-digest</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Debt-to-the-penny watches</li>
+      <li>Average interest-rate diffs</li>
+      <li>Scheduled fiscal snapshotKey runs</li>
+    </ul>
+
+    <h2>How is US Treasury Data Scraper different from Forex Exchange Rate Scraper and Grants.gov Scraper?</h2>
+    <p>US Treasury Data Scraper (taroyamada/treasury-fiscal-data-digest): This Actor pulls official US Treasury Fiscal Data API datasets (debt to the penny, average interest rates, MTS Table 1, record-setting auctions) for feeds you configure and emits source-linked change rows. Not FX mid-market rates. Not financial advice. Not a trading signal. Public Treasury APIs only. Forex Exchange Rate Scraper is for FX snapshots (input baseCurrency; open.er-api.com; exchange-rate snapshots). Not Treasury fiscal series. Grants.gov Scraper is for Grants.gov notices (input feeds / watchTerms; Grants.gov API; funding digest rows). Not TED/SAM.gov bid queues. Campaign Finance Scraper is for FEC/LDA filings (input feeds / watchTerms; OpenFEC / LDA.gov; campaign digest rows). Not OFAC sanctions or Federal Register.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: <code>feeds</code>. Published exampleRunInput is shown below. Quickstart: configure one or more feeds, keep delivery=dataset, and run once to seed the baseline</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>feeds</code></td>
+          <td>object[] required</td>
+          <td><code>empty</code></td>
+          <td>required Treasury feeds to monitor (required). One entry per watch target. Each feed produces one summary digest row. Use debt_to_penny for headline debt, avg_interest_rates for monthly rates, mts_table_1 for receipts/outlays, and record_setting_auction for auction record watches. Each item supports id, name, source, securityTypes, securityDescriptions, securityTerms, lookbackDays, maxEvidence.</td>
+        </tr>
+        <tr>
+          <td><code>watchTerms</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Watch terms (comma-separated). Keywords to flag in digest evidence titles, summaries, and source dimensions. Use this for terms like deficit, 10-Year, Treasury Bills, or Bonds.</td>
+        </tr>
+        <tr>
+          <td><code>lookbackDays</code></td>
+          <td>integer</td>
+          <td><code>90</code></td>
+          <td>Global lookback window (days). Used to fetch enough history for comparisons and to determine recency for record-setting auction dates. 90 works well for recurring runs; 365 is broader for discovery. min=1 max=730</td>
+        </tr>
+        <tr>
+          <td><code>maxEvidencePerFeed</code></td>
+          <td>integer</td>
+          <td><code>10</code></td>
+          <td>Max evidence rows per feed. Upper bound on nested evidence rows per feed digest. Keep it low for summary-first output; raise it only when you intentionally want a broader panel of securities or auction terms. min=1 max=50</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string enum</td>
+          <td><code>dataset</code></td>
+          <td>Delivery mode. dataset stores results in the Apify dataset. webhook posts the digest JSON to webhookUrl. enum: dataset, webhook</td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Webhook URL (required when delivery=webhook). POST target for the digest payload. Leave empty for dataset delivery.</td>
+        </tr>
+        <tr>
+          <td><code>datasetMode</code></td>
+          <td>string enum</td>
+          <td><code>new_only</code></td>
+          <td>Dataset output mode. all emits every feed digest row. action_needed emits only feeds with critical signals or watch-term hits. new_only emits only feeds whose evidence changed since the prior run. enum: all, action_needed, new_only</td>
+        </tr>
+        <tr>
+          <td><code>snapshotKey</code></td>
+          <td>string</td>
+          <td><code>treasury-fiscal-data-digest-state</code></td>
+          <td>Snapshot key for recurring state. Stable key used to persist seen evidence hashes across recurring runs so changedSinceLastRun and new_only mode stay comparable. Use the same key across scheduled runs.</td>
+        </tr>
+        <tr>
+          <td><code>debtToPennyApiUrl</code></td>
+          <td>string</td>
+          <td><code>https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v2/accounting/od/debt_to_penny</code></td>
+          <td>Debt to the Penny API URL. Treasury Fiscal Data endpoint for daily debt totals. No authentication required.</td>
+        </tr>
+        <tr>
+          <td><code>avgInterestRatesApiUrl</code></td>
+          <td>string</td>
+          <td><code>https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v2/accounting/od/avg_interest_rates</code></td>
+          <td>Average interest rates API URL. Treasury Fiscal Data endpoint for monthly average rates across marketable and non-marketable debt.</td>
+        </tr>
+        <tr>
+          <td><code>mtsTable1ApiUrl</code></td>
+          <td>string</td>
+          <td><code>https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/accounting/mts/mts_table_1</code></td>
+          <td>Monthly Treasury Statement Table 1 API URL. Treasury Fiscal Data endpoint for receipts, outlays, and surplus/deficit summary rows.</td>
+        </tr>
+        <tr>
+          <td><code>recordSettingAuctionApiUrl</code></td>
+          <td>string</td>
+          <td><code>https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v2/accounting/od/record_setting_auction</code></td>
+          <td>Record-setting auction API URL. Treasury Fiscal Data endpoint for record-setting auction highs and lows by security type and term.</td>
+        </tr>
+        <tr>
+          <td><code>requestTimeoutSeconds</code></td>
+          <td>integer</td>
+          <td><code>30</code></td>
+          <td>HTTP request timeout (seconds). Timeout for each Treasury API or webhook request. min=5 max=120</td>
+        </tr>
+        <tr>
+          <td><code>notifyOnNoNew</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit digest even when no changes were found. When true, every feed always produces a digest row even if no new evidence was detected. When false, stable feeds are omitted from all mode output.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run (skip snapshot writes and webhook delivery). Validate and fetch without persisting state or posting webhooks. Safe for testing input shapes.</td>
+        </tr>
+        <tr>
+          <td><code>nowIso</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Override current time (ISO string, for testing). Set a fixed ISO timestamp to make runs deterministic against fixture data.</td>
+        </tr>
+        <tr>
+          <td><code>debtFixturePath</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Debt fixture file path (testing). Local JSON fixture for offline debt_to_penny tests.</td>
+        </tr>
+        <tr>
+          <td><code>ratesFixturePath</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Rates fixture file path (testing). Local JSON fixture for offline avg_interest_rates tests.</td>
+        </tr>
+        <tr>
+          <td><code>mtsFixturePath</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>MTS fixture file path (testing). Local JSON fixture for offline mts_table_1 tests.</td>
+        </tr>
+        <tr>
+          <td><code>auctionFixturePath</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Auction fixture file path (testing). Local JSON fixture for offline record_setting_auction tests.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  "feeds": [
+    {
+      "id": "debt-daily",
+      "name": "Debt to the Penny",
+      "source": "debt_to_penny"
+    },
+    {
+      "id": "marketable-rates",
+      "name": "Marketable Treasury Rates",
+      "source": "avg_interest_rates",
+      "securityDescriptions": "Treasury Bills,Treasury Notes,Treasury Bonds"
+    },
+    {
+      "id": "monthly-budget",
+      "name": "MTS Receipts &amp; Outlays",
+      "source": "mts_table_1"
+    },
+    {
+      "id": "record-auctions",
+      "name": "Recent Record-Setting Auctions",
+      "source": "record_setting_auction",
+      "securityTypes": "Bills,Notes",
+      "lookbackDays": 180
+    }
+  ],
+  "watchTerms": "deficit,10-Year,Treasury Bills",
+  "lookbackDays": 180,
+  "maxEvidencePerFeed": 5,
+  "delivery": "dataset",
+  "datasetMode": "all",
+  "snapshotKey": "treasury-fiscal-data-digest-quickstart",
+  "notifyOnNoNew": true,
+  "dryRun": false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/treasury-fiscal-data-digest">Run US Treasury Data Scraper on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. datasetMode can limit emits to changes_only / changed_only / action_needed versus all. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>README output fence is truncated or invalid JSON on Store. Illustration head: { "meta": { "feedCount": 4, "totalEvidenceRows": 8, "actionNeededCount": 3, "executiveSummary": { "overallStatus": "action_needed", "brief": "3 feed(s) require review; 4 changed since the last run." } }, "digests": [ { "feedId": "monthly-budget", "status": "action_needed", "headl… Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is US Treasury Data Scraper priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $9.00 / 1,000 Treasury fiscal data change row ($0.009 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>apify-default-dataset-item</code> (Treasury fiscal data change row)</td>
+          <td>$0.009</td>
+          <td>Charged for one successfully delivered new or changed Treasury Fiscal Data record.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>The published README Cost block is stale versus the live Store pricing tab. README Cost still quotes actor-start $0.01. README Cost quotes dataset-item $0.003; live primary is $0.009 (Treasury fiscal data change row). Live: Treasury fiscal data change row $0.009. This page quotes live PPE only.</p>
+    <p class="price">from $9.00 / 1,000 Treasury fiscal data change row ($0.009 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+    <p><a href="https://apify.com/taroyamada/treasury-fiscal-data-digest/pricing">See US Treasury Data Scraper pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>feeds required</li>
+      <li>Treasury Fiscal Data APIs</li>
+      <li>maxEvidencePerFeed cap</li>
+      <li>Not financial advice</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/treasury-fiscal-data-digest">Open US Treasury Data Scraper on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/exchange-rate-monitor/">Forex Exchange Rate Scraper</a> — FX pairs, not Treasury series.</li>
+      <li><a href="/grants-gov-funding-digest/">Grants.gov Scraper</a> — Grant notices, not fiscal totals.</li>
+      <li><a href="/campaign-finance-lobbying-digest/">Campaign Finance Scraper</a> — FEC/LDA, not Treasury APIs.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GitHub Repo &amp; Dependency Scraper — manifests</title>
+  <meta name="description" content="taroyamada/github-repo-dependency-intelligence. from $3.00 / 1,000 result ($0.003 per delivered apify-default-dataset-item). $0.001 Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. Not a GitHub Releases watcher (use GitHub Release &amp; Tag Scraper)">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/github-repo-dependency-intelligence/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is GitHub Repo & Dependency Scraper different from GitHub Release & Tag Scraper and npm Package & Dependency Scraper?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "GitHub Repo & Dependency Scraper (taroyamada/github-repo-dependency-intelligence): This Actor uses the GitHub REST API for repositories you list, optionally reading manifestPaths, and emits repository summary and dependency rows. Public repos work without a token; githubToken raises rate limits. Not a GitHub Releases watcher (use GitHub Release & Tag Scraper). Not npm/PyPI registry intelligence. Not private-repo access without a token you supply. GitHub Release & Tag Scraper is for Release/tag diffs (input repositories; GitHub releases; release rows). Not npm/PyPI package metadata. npm Package & Dependency Scraper is for npm deps/versions (input packages; npm registry; npm dep rows). Not license-policy audits. OSS Vulnerability Monitor is for OSV/GitHub advisories (input packages; OSV + GitHub Advisories; vuln rows). Not license-policy trees."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: repositories. Live schema fields: repositories, manifestPaths, includeDevDependencies, includeRepositorySummary, maxDependenciesPerRepo, githubToken, timeoutMs, delivery, webhookUrl, dryRun. Analyze GitHub repository metadata and dependency manifests from public repositories. additionalProperties is false on the live schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: repositories, manifestPaths, includeDevDependencies, includeRepositorySummary, maxDependenciesPerRepo, timeoutMs, delivery, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is GitHub Repo & Dependency Scraper priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $3.00 / 1,000 result ($0.003 per delivered apify-default-dataset-item). $0.001 Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. result (apify-default-dataset-item) $0.003: Single result in the default dataset. Actor Start (apify-actor-start) $0.001: Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event). Platform usage is listed as included on the Store pricing tab."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / GitHub Repo &amp; Dependency Scraper</nav>
+    <h1>GitHub repository health and manifest dependency rows</h1>
+    <p>This Actor uses the GitHub REST API for repositories you list, optionally reading manifestPaths, and emits repository summary and dependency rows. Public repos work without a token; githubToken raises rate limits.</p>
+    <p>Not a GitHub Releases watcher (use GitHub Release &amp; Tag Scraper). Not npm/PyPI registry intelligence. Not private-repo access without a token you supply.</p>
+    <p class="price">from $3.00 / 1,000 result ($0.003 per delivered apify-default-dataset-item). $0.001 Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+    <p><a href="https://apify.com/taroyamada/github-repo-dependency-intelligence">Open GitHub Repo &amp; Dependency Scraper on Apify</a></p>
+
+    <h2>GitHub Repo &amp; Dependency Scraper, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/github-release-monitor/">GitHub Release &amp; Tag Scraper</a> for Release/tag diffs; Use <a href="/npm-package-dependency-intelligence/">npm Package &amp; Dependency Scraper</a> for npm deps/versions; Use <a href="/oss-vulnerability-monitor/">OSS Vulnerability Monitor</a> for OSV/GitHub advisories.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>GitHub Release &amp; Tag Scraper</th><th>npm Package &amp; Dependency Scraper</th><th>OSS Vulnerability Monitor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>GitHub Repo &amp; Dependency Scraper</td><td>Release/tag diffs</td><td>npm deps/versions</td><td>OSV/GitHub advisories</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td><code>see schema</code></td><td>repositories</td><td>packages</td><td>packages</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>Public sources listed on the Store page</td><td>GitHub releases</td><td>npm registry</td><td>OSV + GitHub Advisories</td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td>Dataset rows billed per live PPE</td><td>release rows</td><td>npm dep rows</td><td>vuln rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td>
+          <td>Not a GitHub Releases watcher (use GitHub Release &amp; Tag Scraper). Not npm/PyPI registry intelligence. Not private-repo access without a token you supply.</td><td>Not npm/PyPI package metadata</td><td>Not license-policy audits</td><td>Not license-policy trees</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/github-repo-dependency-intelligence</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Known-repo dependency inventories</li>
+      <li>Manifest-path scans</li>
+      <li>Scheduled public-repo health checks</li>
+    </ul>
+
+    <h2>How is GitHub Repo &amp; Dependency Scraper different from GitHub Release &amp; Tag Scraper and npm Package &amp; Dependency Scraper?</h2>
+    <p>GitHub Repo &amp; Dependency Scraper (taroyamada/github-repo-dependency-intelligence): This Actor uses the GitHub REST API for repositories you list, optionally reading manifestPaths, and emits repository summary and dependency rows. Public repos work without a token; githubToken raises rate limits. Not a GitHub Releases watcher (use GitHub Release &amp; Tag Scraper). Not npm/PyPI registry intelligence. Not private-repo access without a token you supply. GitHub Release &amp; Tag Scraper is for Release/tag diffs (input repositories; GitHub releases; release rows). Not npm/PyPI package metadata. npm Package &amp; Dependency Scraper is for npm deps/versions (input packages; npm registry; npm dep rows). Not license-policy audits. OSS Vulnerability Monitor is for OSV/GitHub advisories (input packages; OSV + GitHub Advisories; vuln rows). Not license-policy trees.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: <code>repositories</code>. Published exampleRunInput is shown below. Analyze GitHub repository metadata and dependency manifests from public repositories.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>repositories</code></td>
+          <td>any[] required</td>
+          <td><code>empty</code></td>
+          <td>required Repositories. GitHub repositories as owner/name slugs or URLs.</td>
+        </tr>
+        <tr>
+          <td><code>manifestPaths</code></td>
+          <td>any[]</td>
+          <td><code>empty</code></td>
+          <td>Manifest paths. Manifest file paths to inspect. Leave empty for common defaults.</td>
+        </tr>
+        <tr>
+          <td><code>includeDevDependencies</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Include dev dependencies. Include development/test dependency groups when present.</td>
+        </tr>
+        <tr>
+          <td><code>includeRepositorySummary</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Include repository summaries. Emit one repository_summary row for each repository.</td>
+        </tr>
+        <tr>
+          <td><code>maxDependenciesPerRepo</code></td>
+          <td>integer</td>
+          <td><code>250</code></td>
+          <td>Max dependencies per repo. Maximum dependency rows to emit per repository. min=1 max=1000</td>
+        </tr>
+        <tr>
+          <td><code>githubToken</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>GitHub token. Optional GitHub token for higher API rate limits.</td>
+        </tr>
+        <tr>
+          <td><code>timeoutMs</code></td>
+          <td>integer</td>
+          <td><code>20000</code></td>
+          <td>Timeout (ms). HTTP request timeout for GitHub API calls. min=1000 max=60000</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string enum</td>
+          <td><code>dataset</code></td>
+          <td>Delivery. Where to send results. Webhook delivery does not also push dataset rows. enum: dataset, webhook</td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Webhook URL. Webhook URL to POST the full normalized payload to when delivery=webhook.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run. Run without pushing rows to the dataset or webhook.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  "repositories": [
+    "facebook/react",
+    "vercel/next.js"
+  ],
+  "manifestPaths": [],
+  "includeDevDependencies": true,
+  "includeRepositorySummary": true,
+  "maxDependenciesPerRepo": 250,
+  "timeoutMs": 20000,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/github-repo-dependency-intelligence">Run GitHub Repo &amp; Dependency Scraper on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is GitHub Repo &amp; Dependency Scraper priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $3.00 / 1,000 result ($0.003 per delivered apify-default-dataset-item). $0.001 Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>apify-default-dataset-item</code> (result)</td>
+          <td>$0.003</td>
+          <td>Single result in the default dataset.</td>
+        </tr>
+        <tr>
+          <td><code>apify-actor-start</code> (Actor Start)</td>
+          <td>$0.001</td>
+          <td>Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="price">from $3.00 / 1,000 result ($0.003 per delivered apify-default-dataset-item). $0.001 Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+    <p><a href="https://apify.com/taroyamada/github-repo-dependency-intelligence/pricing">See GitHub Repo &amp; Dependency Scraper pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>repositories required</li>
+      <li>GitHub REST</li>
+      <li>maxDependenciesPerRepo cap</li>
+      <li>Token optional for public</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/github-repo-dependency-intelligence">Open GitHub Repo &amp; Dependency Scraper on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/github-release-monitor/">GitHub Release &amp; Tag Scraper</a> — Releases/tags, not manifests.</li>
+      <li><a href="/npm-package-dependency-intelligence/">npm Package &amp; Dependency Scraper</a> — npm registry, not GitHub files.</li>
+      <li><a href="/oss-vulnerability-monitor/">OSS Vulnerability Monitor</a> — OSV CVEs, not repo manifests.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

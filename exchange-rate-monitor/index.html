@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Forex Exchange Rate Scraper — Open ER API snapshots</title>
+  <meta name="description" content="taroyamada/exchange-rate-monitor. from $3.00 / 1,000 Exchange-rate snapshot ($0.003 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. Not a brokerage, executable quote, or Treasury fiscal series. Mid-">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/exchange-rate-monitor/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is Forex Exchange Rate Scraper different from US Treasury Data Scraper and Weather Forecast Scraper?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Forex Exchange Rate Scraper (taroyamada/exchange-rate-monitor): This Actor calls open.er-api.com for a baseCurrency and optional targetCurrencies and emits exchange-rate snapshot rows. Optional enableChangeDetection compares to the prior run. Not a brokerage, executable quote, or Treasury fiscal series. Mid-market public API rates only. Not financial advice. US Treasury Data Scraper is for Treasury fiscal series (input feeds; Treasury Fiscal Data API; fiscal change rows). Not FX mid-market rates. Weather Forecast Scraper is for Open-Meteo forecasts (input locations; Open-Meteo API; forecast rows). Not RSS weather feeds. RSS & Atom Feed Extractor is for Known feed XML (input feed URLs; RSS/Atom; feed items). Not Open-Meteo forecasts."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: baseCurrency. Live schema fields: baseCurrency, targetCurrencies, enableChangeDetection, timeoutMs, delivery, webhookUrl, dryRun. Monitor foreign exchange rates with change detection. additionalProperties is not documented on this page beyond the live Store schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: baseCurrency, targetCurrencies, enableChangeDetection, delivery, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is Forex Exchange Rate Scraper priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $3.00 / 1,000 Exchange-rate snapshot ($0.003 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. Exchange-rate snapshot (apify-default-dataset-item) $0.003: Charged only for one successfully delivered public exchange-rate snapshot. Do not use the README Cost block as live pricing. The published README Cost block is stale versus the live Store pricing tab. README Cost still quotes actor-start $0.01. README Cost quotes dataset-item $0.001; live primary is $0.003 (Exchange-rate snapshot). Live: Exchange-rate snapshot $0.003. This page quotes live PPE only."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Forex Exchange Rate Scraper</nav>
+    <h1>Open ER API mid-market FX snapshots for RAG and monitors</h1>
+    <p>This Actor calls open.er-api.com for a baseCurrency and optional targetCurrencies and emits exchange-rate snapshot rows. Optional enableChangeDetection compares to the prior run.</p>
+    <p>Not a brokerage, executable quote, or Treasury fiscal series. Mid-market public API rates only. Not financial advice.</p>
+    <p class="price">from $3.00 / 1,000 Exchange-rate snapshot ($0.003 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+    <p><a href="https://apify.com/taroyamada/exchange-rate-monitor">Open Forex Exchange Rate Scraper on Apify</a></p>
+
+    <h2>Forex Exchange Rate Scraper, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/treasury-fiscal-data-digest/">US Treasury Data Scraper</a> for Treasury fiscal series; Use <a href="/weather-forecast-fetcher/">Weather Forecast Scraper</a> for Open-Meteo forecasts; Use <a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a> for Known feed XML.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>US Treasury Data Scraper</th><th>Weather Forecast Scraper</th><th>RSS &amp; Atom Feed Extractor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>Forex Exchange Rate Scraper</td><td>Treasury fiscal series</td><td>Open-Meteo forecasts</td><td>Known feed XML</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td><code>see schema</code></td><td>feeds</td><td>locations</td><td>feed URLs</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>Public sources listed on the Store page</td><td>Treasury Fiscal Data API</td><td>Open-Meteo API</td><td>RSS/Atom</td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td>Dataset rows billed per live PPE</td><td>fiscal change rows</td><td>forecast rows</td><td>feed items</td>
+        </tr>
+        <tr>
+          <td>Not this job</td>
+          <td>Not a brokerage, executable quote, or Treasury fiscal series. Mid-market public API rates only. Not financial advice.</td><td>Not FX mid-market rates</td><td>Not RSS weather feeds</td><td>Not Open-Meteo forecasts</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/exchange-rate-monitor</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>USD→EUR/GBP/JPY snapshots</li>
+      <li>Scheduled FX drift checks</li>
+      <li>RAG tables of public mid-market rates</li>
+    </ul>
+
+    <h2>How is Forex Exchange Rate Scraper different from US Treasury Data Scraper and Weather Forecast Scraper?</h2>
+    <p>Forex Exchange Rate Scraper (taroyamada/exchange-rate-monitor): This Actor calls open.er-api.com for a baseCurrency and optional targetCurrencies and emits exchange-rate snapshot rows. Optional enableChangeDetection compares to the prior run. Not a brokerage, executable quote, or Treasury fiscal series. Mid-market public API rates only. Not financial advice. US Treasury Data Scraper is for Treasury fiscal series (input feeds; Treasury Fiscal Data API; fiscal change rows). Not FX mid-market rates. Weather Forecast Scraper is for Open-Meteo forecasts (input locations; Open-Meteo API; forecast rows). Not RSS weather feeds. RSS &amp; Atom Feed Extractor is for Known feed XML (input feed URLs; RSS/Atom; feed items). Not Open-Meteo forecasts.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: <code>baseCurrency</code>. Published exampleRunInput is shown below. Monitor foreign exchange rates with change detection.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>baseCurrency</code></td>
+          <td>string required</td>
+          <td><code>empty</code></td>
+          <td>required Base Currency. Base currency code (e.g., USD, EUR).</td>
+        </tr>
+        <tr>
+          <td><code>targetCurrencies</code></td>
+          <td>any[]</td>
+          <td><code>empty</code></td>
+          <td>Target Currencies. Leave empty for all currencies.</td>
+        </tr>
+        <tr>
+          <td><code>enableChangeDetection</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Change Detection. Compare with previous run.</td>
+        </tr>
+        <tr>
+          <td><code>timeoutMs</code></td>
+          <td>integer</td>
+          <td><code>15000</code></td>
+          <td>Timeout (ms). Request timeout in milliseconds min=1000 max=30000</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string enum</td>
+          <td><code>dataset</code></td>
+          <td>Delivery. Where to send results: dataset or webhook enum: dataset, webhook</td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Webhook URL. Webhook URL to POST results to (if delivery=webhook)</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry Run. Run without saving results (for testing)</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  "baseCurrency": "USD",
+  "targetCurrencies": [
+    "EUR",
+    "GBP",
+    "JPY"
+  ],
+  "enableChangeDetection": false,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/exchange-rate-monitor">Run Forex Exchange Rate Scraper on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is Forex Exchange Rate Scraper priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $3.00 / 1,000 Exchange-rate snapshot ($0.003 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>apify-default-dataset-item</code> (Exchange-rate snapshot)</td>
+          <td>$0.003</td>
+          <td>Charged only for one successfully delivered public exchange-rate snapshot.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>The published README Cost block is stale versus the live Store pricing tab. README Cost still quotes actor-start $0.01. README Cost quotes dataset-item $0.001; live primary is $0.003 (Exchange-rate snapshot). Live: Exchange-rate snapshot $0.003. This page quotes live PPE only.</p>
+    <p class="price">from $3.00 / 1,000 Exchange-rate snapshot ($0.003 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+    <p><a href="https://apify.com/taroyamada/exchange-rate-monitor/pricing">See Forex Exchange Rate Scraper pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>baseCurrency required</li>
+      <li>open.er-api.com only</li>
+      <li>Not executable FX</li>
+      <li>Not financial advice</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/exchange-rate-monitor">Open Forex Exchange Rate Scraper on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/treasury-fiscal-data-digest/">US Treasury Data Scraper</a> — Treasury fiscal series, not FX pairs.</li>
+      <li><a href="/weather-forecast-fetcher/">Weather Forecast Scraper</a> — Open-Meteo, not FX.</li>
+      <li><a href="/csv-data-cleaner/">CSV Cleaner &amp; Deduplication Tool</a> — Cleanup of user CSV, not live rates.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

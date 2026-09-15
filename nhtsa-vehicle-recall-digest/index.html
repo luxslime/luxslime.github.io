@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NHTSA Recall Scraper — vehicle complaints and safety data</title>
+  <meta name="description" content="taroyamada/nhtsa-vehicle-recall-digest. from $8.00 / 1,000 NHTSA recall digest row ($0.008 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. Not legal or safety advice. Not CPSC/FDA product recalls. N">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/nhtsa-vehicle-recall-digest/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is NHTSA Recall Scraper different from Product Safety Recall Scraper and FDA Warning Letters Scraper?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "NHTSA Recall Scraper (taroyamada/nhtsa-vehicle-recall-digest): This Actor watches official NHTSA recall and complaint records for vehicle feeds you supply (make/model, optional year) and emits source-linked digest rows. It is vehicle safety data, not CPSC consumer-product recalls. Not legal or safety advice. Not CPSC/FDA product recalls. Not a VIN decoder or crash-reconstruction tool. Product Safety Recall Scraper is for FDA/CPSC product recalls (input feeds / recallClasses; FDA + CPSC public recalls; product-recall rows). Not NHTSA vehicle complaints. FDA Warning Letters Scraper is for FDA warning-letter digests (input feeds / watchTerms; FDA public warning-letter feeds; warning-letter digest rows). Not ClinicalTrials.gov or HHS OCR. HTS Tariff & Trade Scraper is for HTS/USTR changes (input HTS watches; USITC/USTR public data; tariff digest rows). Not OFAC SDN list diffs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: none (see live fields). Live schema fields: feeds, recallLookbackDays, complaintLookbackDays, maxRecallsPerVehicle, maxComplaintsPerVehicle, maxDiscoveredModelsPerFeed, maxEvidenceItems, complaintAlertThreshold, delivery, webhookUrl, datasetMode, snapshotKey, notifyOnNoNew, requestTimeoutSeconds, batchDelayMs, dryRun, nowIso. Monitor official NHTSA recall and complaint endpoints for watched vehicle, VIN, and manufacturer feeds additionalProperties is false on the live schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: feeds, recallLookbackDays, complaintLookbackDays, complaintAlertThreshold, delivery, datasetMode, snapshotKey, notifyOnNoNew, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. datasetMode can limit emits to changes_only / changed_only / action_needed versus all. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is NHTSA Recall Scraper priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $8.00 / 1,000 NHTSA recall digest row ($0.008 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. NHTSA recall digest row (apify-default-dataset-item) $0.008: Charged only when a recall or complaint digest row is delivered. Do not use the README Cost block as live pricing. The published README Cost block is stale versus the live Store pricing tab. README Cost still quotes actor-start $0.01. README Cost quotes dataset-item $0.003; live primary is $0.008 (NHTSA recall digest row). Live: NHTSA recall digest row $0.008. This page quotes live PPE only."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / NHTSA Recall Scraper</nav>
+    <h1>NHTSA vehicle recall and complaint digests by make and model</h1>
+    <p>This Actor watches official NHTSA recall and complaint records for vehicle feeds you supply (make/model, optional year) and emits source-linked digest rows. It is vehicle safety data, not CPSC consumer-product recalls.</p>
+    <p>Not legal or safety advice. Not CPSC/FDA product recalls. Not a VIN decoder or crash-reconstruction tool.</p>
+    <p class="price">from $8.00 / 1,000 NHTSA recall digest row ($0.008 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+    <p><a href="https://apify.com/taroyamada/nhtsa-vehicle-recall-digest">Open NHTSA Recall Scraper on Apify</a></p>
+
+    <h2>NHTSA Recall Scraper, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/product-safety-recall-digest/">Product Safety Recall Scraper</a> for FDA/CPSC product recalls; Use <a href="/fda-warning-letter-digest/">FDA Warning Letters Scraper</a> for FDA warning-letter digests; Use <a href="/tariff-trade-change-digest/">HTS Tariff &amp; Trade Scraper</a> for HTS/USTR changes.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>Product Safety Recall Scraper</th><th>FDA Warning Letters Scraper</th><th>HTS Tariff &amp; Trade Scraper</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>NHTSA Recall Scraper</td><td>FDA/CPSC product recalls</td><td>FDA warning-letter digests</td><td>HTS/USTR changes</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td><code>see schema</code></td><td>feeds / recallClasses</td><td>feeds / watchTerms</td><td>HTS watches</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>Public sources listed on the Store page</td><td>FDA + CPSC public recalls</td><td>FDA public warning-letter feeds</td><td>USITC/USTR public data</td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td>Dataset rows billed per live PPE</td><td>product-recall rows</td><td>warning-letter digest rows</td><td>tariff digest rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td>
+          <td>Not legal or safety advice. Not CPSC/FDA product recalls. Not a VIN decoder or crash-reconstruction tool.</td><td>Not NHTSA vehicle complaints</td><td>Not ClinicalTrials.gov or HHS OCR</td><td>Not OFAC SDN list diffs</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/nhtsa-vehicle-recall-digest</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Make/model recall watches</li>
+      <li>Complaint-threshold alerts</li>
+      <li>Recurring snapshotKey vehicle portfolios</li>
+    </ul>
+
+    <h2>How is NHTSA Recall Scraper different from Product Safety Recall Scraper and FDA Warning Letters Scraper?</h2>
+    <p>NHTSA Recall Scraper (taroyamada/nhtsa-vehicle-recall-digest): This Actor watches official NHTSA recall and complaint records for vehicle feeds you supply (make/model, optional year) and emits source-linked digest rows. It is vehicle safety data, not CPSC consumer-product recalls. Not legal or safety advice. Not CPSC/FDA product recalls. Not a VIN decoder or crash-reconstruction tool. Product Safety Recall Scraper is for FDA/CPSC product recalls (input feeds / recallClasses; FDA + CPSC public recalls; product-recall rows). Not NHTSA vehicle complaints. FDA Warning Letters Scraper is for FDA warning-letter digests (input feeds / watchTerms; FDA public warning-letter feeds; warning-letter digest rows). Not ClinicalTrials.gov or HHS OCR. HTS Tariff &amp; Trade Scraper is for HTS/USTR changes (input HTS watches; USITC/USTR public data; tariff digest rows). Not OFAC SDN list diffs.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: none listed (see live fields). Published exampleRunInput is shown below. Monitor official NHTSA recall and complaint endpoints for watched vehicle, VIN, and manufacturer feeds</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>feeds</code></td>
+          <td>object[]</td>
+          <td><code>empty</code></td>
+          <td>Feeds to monitor. One digest row per watched vehicle, VIN, or manufacturer feed. Each item supports id, name, type, make, model, modelYear, modelYears, models, vin, recallLookbackDays, complaintLookbackDays, maxRecalls, maxComplaints, maxModels, complaintAlertThreshold.</td>
+        </tr>
+        <tr>
+          <td><code>recallLookbackDays</code></td>
+          <td>integer</td>
+          <td><code>30</code></td>
+          <td>Recall lookback days. Default recall lookback window used when a feed-specific override is not set. min=1 max=3650</td>
+        </tr>
+        <tr>
+          <td><code>complaintLookbackDays</code></td>
+          <td>integer</td>
+          <td><code>90</code></td>
+          <td>Complaint lookback days. Default complaint lookback window used when a feed-specific override is not set. min=1 max=3650</td>
+        </tr>
+        <tr>
+          <td><code>maxRecallsPerVehicle</code></td>
+          <td>integer</td>
+          <td><code>50</code></td>
+          <td>Max recalls per vehicle. Default cap on recall evidence rows per feed. min=1 max=500</td>
+        </tr>
+        <tr>
+          <td><code>maxComplaintsPerVehicle</code></td>
+          <td>integer</td>
+          <td><code>100</code></td>
+          <td>Max complaints per vehicle. Default cap on complaint evidence rows per feed. min=1 max=500</td>
+        </tr>
+        <tr>
+          <td><code>maxDiscoveredModelsPerFeed</code></td>
+          <td>integer</td>
+          <td><code>12</code></td>
+          <td>Max discovered models per feed. Default cap on manufacturer model expansion before complaints and recalls are fetched. min=1 max=100</td>
+        </tr>
+        <tr>
+          <td><code>maxEvidenceItems</code></td>
+          <td>integer</td>
+          <td><code>10</code></td>
+          <td>Max evidence items per section. Upper bound on recall or complaint items retained in each digest section. min=1 max=50</td>
+        </tr>
+        <tr>
+          <td><code>complaintAlertThreshold</code></td>
+          <td>integer</td>
+          <td><code>3</code></td>
+          <td>Complaint alert threshold. Complaint-count threshold that escalates a digest to action_needed. min=1 max=50</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string enum</td>
+          <td><code>dataset</code></td>
+          <td>Delivery mode. dataset writes digest rows to the Apify dataset. webhook POSTs the digest payload to webhookUrl. enum: dataset, webhook</td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Webhook URL. POST target used when delivery=webhook.</td>
+        </tr>
+        <tr>
+          <td><code>datasetMode</code></td>
+          <td>string enum</td>
+          <td><code>all</code></td>
+          <td>Dataset mode. Choose whether delivery includes all digests, only action-needed digests, or only feeds with new evidence. enum: all, action_needed, new_only</td>
+        </tr>
+        <tr>
+          <td><code>snapshotKey</code></td>
+          <td>string</td>
+          <td><code>nhtsa-vehicle-recall-digest-state</code></td>
+          <td>Snapshot key. Stable key used to persist seen recalls and complaints across recurring runs.</td>
+        </tr>
+        <tr>
+          <td><code>notifyOnNoNew</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Notify when nothing is new. When false, stable feeds are omitted from delivery outputs unless they errored.</td>
+        </tr>
+        <tr>
+          <td><code>requestTimeoutSeconds</code></td>
+          <td>integer</td>
+          <td><code>30</code></td>
+          <td>Request timeout seconds. Timeout for each NHTSA API request. min=5 max=120</td>
+        </tr>
+        <tr>
+          <td><code>batchDelayMs</code></td>
+          <td>integer</td>
+          <td><code>600</code></td>
+          <td>Delay between feeds (ms). Milliseconds to wait between feed fetches. min=0 max=10000</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run. Skip snapshot writes and webhook delivery while still producing local output.</td>
+        </tr>
+        <tr>
+          <td><code>nowIso</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Override current time. ISO timestamp used for deterministic tests and reproducible proofs.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  "feeds": [
+    {
+      "id": "ford-f150-2021",
+      "name": "2021 Ford F-150",
+      "type": "vehicle",
+      "make": "FORD",
+      "model": "F-150",
+      "modelYear": 2021
+    }
+  ],
+  "recallLookbackDays": 30,
+  "complaintLookbackDays": 90,
+  "complaintAlertThreshold": 3,
+  "delivery": "dataset",
+  "datasetMode": "all",
+  "snapshotKey": "nhtsa-f150-quickstart",
+  "notifyOnNoNew": true,
+  "dryRun": false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/nhtsa-vehicle-recall-digest">Run NHTSA Recall Scraper on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. datasetMode can limit emits to changes_only / changed_only / action_needed versus all. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is NHTSA Recall Scraper priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $8.00 / 1,000 NHTSA recall digest row ($0.008 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>apify-default-dataset-item</code> (NHTSA recall digest row)</td>
+          <td>$0.008</td>
+          <td>Charged only when a recall or complaint digest row is delivered.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>The published README Cost block is stale versus the live Store pricing tab. README Cost still quotes actor-start $0.01. README Cost quotes dataset-item $0.003; live primary is $0.008 (NHTSA recall digest row). Live: NHTSA recall digest row $0.008. This page quotes live PPE only.</p>
+    <p class="price">from $8.00 / 1,000 NHTSA recall digest row ($0.008 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+    <p><a href="https://apify.com/taroyamada/nhtsa-vehicle-recall-digest/pricing">See NHTSA Recall Scraper pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Public NHTSA APIs</li>
+      <li>maxRecallsPerVehicle / maxComplaintsPerVehicle caps</li>
+      <li>complaintAlertThreshold is a count flag, not a risk score</li>
+      <li>Not professional advice</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/nhtsa-vehicle-recall-digest">Open NHTSA Recall Scraper on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/product-safety-recall-digest/">Product Safety Recall Scraper</a> — FDA/CPSC products, not NHTSA vehicles.</li>
+      <li><a href="/fda-warning-letter-digest/">FDA Warning Letters Scraper</a> — Warning letters, not vehicle recalls.</li>
+      <li><a href="/tariff-trade-change-digest/">HTS Tariff &amp; Trade Scraper</a> — Tariffs, not vehicle safety.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

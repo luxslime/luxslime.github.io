@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bulk Email DNS Audit Scraper — SPF DKIM DMARC BIMI</title>
+  <meta name="description" content="taroyamada/email-deliverability-portfolio-audit. from $9.00 / 1,000 result ($0.009 per delivered apify-default-dataset-item). $0.001 Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. Not inbox placement testing. Not a bulk email sender. Not the B">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/email-deliverability-portfolio-audit/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is Bulk Email DNS Audit Scraper different from DMARC & Email Security Checker and Bulk Email Syntax & MX Validator?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Bulk Email DNS Audit Scraper (taroyamada/email-deliverability-portfolio-audit): This Actor resolves DNS for domains you supply and extracts SPF, DKIM (optional selectors), DMARC, and BIMI records into deliverability-readiness rows. It is a domain DNS audit, not an email-address syntax validator. Not inbox placement testing. Not a bulk email sender. Not the Bulk Email Syntax & MX Validator (addresses). Distinct from DMARC & Email Security Checker’s lighter SPF/DMARC/MX path. DMARC & Email Security Checker is for SPF/DMARC/MX check (input domains; DNS TXT; email-auth rows). Not a full BIMI/DKIM portfolio audit. Bulk Email Syntax & MX Validator is for Address syntax + MX (input emails; user-supplied addresses; syntax/MX rows). Not domain SPF/DMARC/BIMI. SSL/TLS Certificate Scraper is for TLS cert expiry (input domains; TLS handshake; cert rows). Not DNS email-auth records."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: domains. Live schema fields: domains, followRedirects, checkDkim, dkimSelectors, checkBimi, delivery, webhookUrl, snapshotKey, concurrency, dryRun. Audit email deliverability readiness for one domain or a small portfolio using stable public DNS, transport, and sender-readiness signals. additionalProperties is false on the live schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: domains, followRedirects, checkDkim, checkBimi, delivery, snapshotKey, concurrency, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is Bulk Email DNS Audit Scraper priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $9.00 / 1,000 result ($0.009 per delivered apify-default-dataset-item). $0.001 Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. result (apify-default-dataset-item) $0.009: Single result in the default dataset. Actor Start (apify-actor-start) $0.001: Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event). Do not use the README Cost block as live pricing. The published README Cost block is stale versus the live Store pricing tab. README Cost quotes actor-start $0.01; live Actor Start is $0.001. README Cost quotes dataset-item $0.003; live primary is $0.009 (result). Live: result $0.009, Actor Start $0.001. This page quotes live PPE only."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Bulk Email DNS Audit Scraper</nav>
+    <h1>SPF, DKIM, DMARC, and BIMI DNS audits for domain lists</h1>
+    <p>This Actor resolves DNS for domains you supply and extracts SPF, DKIM (optional selectors), DMARC, and BIMI records into deliverability-readiness rows. It is a domain DNS audit, not an email-address syntax validator.</p>
+    <p>Not inbox placement testing. Not a bulk email sender. Not the Bulk Email Syntax &amp; MX Validator (addresses). Distinct from DMARC &amp; Email Security Checker’s lighter SPF/DMARC/MX path.</p>
+    <p class="price">from $9.00 / 1,000 result ($0.009 per delivered apify-default-dataset-item). $0.001 Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+    <p><a href="https://apify.com/taroyamada/email-deliverability-portfolio-audit">Open Bulk Email DNS Audit Scraper on Apify</a></p>
+
+    <h2>Bulk Email DNS Audit Scraper, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/dmarc-email-security-checker/">DMARC &amp; Email Security Checker</a> for SPF/DMARC/MX check; Use <a href="/bulk-email-syntax-mx-validator/">Bulk Email Syntax &amp; MX Validator</a> for Address syntax + MX; Use <a href="/ssl-tls-certificate-scraper/">SSL/TLS Certificate Scraper</a> for TLS cert expiry.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>DMARC &amp; Email Security Checker</th><th>Bulk Email Syntax &amp; MX Validator</th><th>SSL/TLS Certificate Scraper</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>Bulk Email DNS Audit Scraper</td><td>SPF/DMARC/MX check</td><td>Address syntax + MX</td><td>TLS cert expiry</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td><code>see schema</code></td><td>domains</td><td>emails</td><td>domains</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>Public sources listed on the Store page</td><td>DNS TXT</td><td>user-supplied addresses</td><td>TLS handshake</td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td>Dataset rows billed per live PPE</td><td>email-auth rows</td><td>syntax/MX rows</td><td>cert rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td>
+          <td>Not inbox placement testing. Not a bulk email sender. Not the Bulk Email Syntax &amp; MX Validator (addresses). Distinct from DMARC &amp; Email Security Checker’s lighter SPF/DMARC/MX path.</td><td>Not a full BIMI/DKIM portfolio audit</td><td>Not domain SPF/DMARC/BIMI</td><td>Not DNS email-auth records</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/email-deliverability-portfolio-audit</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Agency domain portfolios</li>
+      <li>DKIM selector + BIMI checks</li>
+      <li>Scheduled snapshotKey DNS diffs</li>
+    </ul>
+
+    <h2>How is Bulk Email DNS Audit Scraper different from DMARC &amp; Email Security Checker and Bulk Email Syntax &amp; MX Validator?</h2>
+    <p>Bulk Email DNS Audit Scraper (taroyamada/email-deliverability-portfolio-audit): This Actor resolves DNS for domains you supply and extracts SPF, DKIM (optional selectors), DMARC, and BIMI records into deliverability-readiness rows. It is a domain DNS audit, not an email-address syntax validator. Not inbox placement testing. Not a bulk email sender. Not the Bulk Email Syntax &amp; MX Validator (addresses). Distinct from DMARC &amp; Email Security Checker’s lighter SPF/DMARC/MX path. DMARC &amp; Email Security Checker is for SPF/DMARC/MX check (input domains; DNS TXT; email-auth rows). Not a full BIMI/DKIM portfolio audit. Bulk Email Syntax &amp; MX Validator is for Address syntax + MX (input emails; user-supplied addresses; syntax/MX rows). Not domain SPF/DMARC/BIMI. SSL/TLS Certificate Scraper is for TLS cert expiry (input domains; TLS handshake; cert rows). Not DNS email-auth records.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: <code>domains</code>. Published exampleRunInput is shown below. Audit email deliverability readiness for one domain or a small portfolio using stable public DNS, transport, and sender-readiness signals.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>domains</code></td>
+          <td>any[] required</td>
+          <td><code>empty</code></td>
+          <td>required Free / starter: Domains to audit. Start with 2-3 domains for the first deliverability baseline. Expand later into larger recurring portfolios while keeping the same summary-first workflow.</td>
+        </tr>
+        <tr>
+          <td><code>followRedirects</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Follow redirects for sender-readiness checks. Follow redirects when checking the main HTTPS endpoint and the MTA-STS policy URL.</td>
+        </tr>
+        <tr>
+          <td><code>checkDkim</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Check DKIM selectors. Probe a small set of common selectors so the first run catches missing DKIM posture quickly.</td>
+        </tr>
+        <tr>
+          <td><code>dkimSelectors</code></td>
+          <td>any[]</td>
+          <td><code>empty</code></td>
+          <td>Custom DKIM selectors. Optional custom DKIM selectors to probe instead of the built-in defaults.</td>
+        </tr>
+        <tr>
+          <td><code>checkBimi</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Check BIMI. Optional branding readiness check. Missing BIMI is treated as an opportunity signal, not a hard failure.</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string enum</td>
+          <td><code>dataset</code></td>
+          <td>Delivery mode (starter dataset vs webhook). Dataset mode keeps the first run lightweight while still writing the full executive summary to OUTPUT. Webhook mode sends the same summary, alert queue, and per-domain rows to your endpoint. enum: dataset, webhook</td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Webhook URL. Required when delivery=webhook.</td>
+        </tr>
+        <tr>
+          <td><code>snapshotKey</code></td>
+          <td>string</td>
+          <td><code>email-deliverability-portfolio-audit</code></td>
+          <td>Snapshot key for recurring audits. Reuse the same key when you move from the starter baseline to recurring monitoring so policy changes stay comparable.</td>
+        </tr>
+        <tr>
+          <td><code>concurrency</code></td>
+          <td>integer</td>
+          <td><code>3</code></td>
+          <td>Parallel domain checks. Starter runs usually only need 2-3. Increase carefully for larger portfolios. min=1 max=10</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run. Preview the full summary without saving snapshots, dataset rows, or webhooks.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  "domains": [
+    "example.com",
+    "github.com"
+  ],
+  "followRedirects": true,
+  "checkDkim": true,
+  "checkBimi": true,
+  "delivery": "dataset",
+  "snapshotKey": "email-deliverability-quickstart",
+  "concurrency": 2,
+  "dryRun": false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/email-deliverability-portfolio-audit">Run Bulk Email DNS Audit Scraper on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is Bulk Email DNS Audit Scraper priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $9.00 / 1,000 result ($0.009 per delivered apify-default-dataset-item). $0.001 Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>apify-default-dataset-item</code> (result)</td>
+          <td>$0.009</td>
+          <td>Single result in the default dataset.</td>
+        </tr>
+        <tr>
+          <td><code>apify-actor-start</code> (Actor Start)</td>
+          <td>$0.001</td>
+          <td>Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>The published README Cost block is stale versus the live Store pricing tab. README Cost quotes actor-start $0.01; live Actor Start is $0.001. README Cost quotes dataset-item $0.003; live primary is $0.009 (result). Live: result $0.009, Actor Start $0.001. This page quotes live PPE only.</p>
+    <p class="price">from $9.00 / 1,000 result ($0.009 per delivered apify-default-dataset-item). $0.001 Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+    <p><a href="https://apify.com/taroyamada/email-deliverability-portfolio-audit/pricing">See Bulk Email DNS Audit Scraper pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>domains required</li>
+      <li>DNS only; no mailbox login</li>
+      <li>checkDkim / checkBimi flags</li>
+      <li>Not send-time placement</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/email-deliverability-portfolio-audit">Open Bulk Email DNS Audit Scraper on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/dmarc-email-security-checker/">DMARC &amp; Email Security Checker</a> — SPF/DMARC/MX; this Actor adds DKIM/BIMI portfolio fields.</li>
+      <li><a href="/bulk-email-syntax-mx-validator/">Bulk Email Syntax &amp; MX Validator</a> — Address syntax, not domain policy DNS.</li>
+      <li><a href="/ssl-tls-certificate-scraper/">SSL/TLS Certificate Scraper</a> — TLS certs, not email DNS.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

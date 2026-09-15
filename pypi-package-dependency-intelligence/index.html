@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PyPI Package &amp; Dependency Scraper — deps and releases</title>
+  <meta name="description" content="taroyamada/pypi-package-dependency-intelligence. from $3.00 / 1,000 PyPI package or dependency row ($0.003 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. Not npm trees. Not legal advice. Informatio">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/pypi-package-dependency-intelligence/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is PyPI Package & Dependency Scraper different from PyPI Vulnerability Scraper and npm Package & Dependency Scraper?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "PyPI Package & Dependency Scraper (taroyamada/pypi-package-dependency-intelligence): This Actor reads PyPI JSON for packages you list and emits dependency declarations, release cadence, maintainer hints, download stats, and OSV summaries. Python/PyPI only. Not npm trees. Not legal advice. Informational package metadata only. PyPI Vulnerability Scraper is for PyPI + OSV package alerts (input packages; PyPI + OSV; PyPI package rows). Not npm registry metadata. npm Package & Dependency Scraper is for npm deps/versions (input packages; npm registry; npm dep rows). Not license-policy audits. OSS Vulnerability Monitor is for OSV/GitHub advisories (input packages; OSV + GitHub Advisories; vuln rows). Not license-policy trees."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: packages. Live schema fields: packages, includeReleaseHistory, includeDownloadStats, includeVulnerabilities, maxReleaseRowsPerPackage, maxDependencyRowsPerPackage, concurrency, timeoutMs, delivery, webhookUrl, dryRun. Fetch official PyPI JSON API data and export package summaries, release cadence rows, dependency declarations, maintainer hints, download stats, and vulnerability signals. additionalProperties is false on the live schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: packages, includeReleaseHistory, includeDownloadStats, includeVulnerabilities, concurrency, timeoutMs, delivery, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is PyPI Package & Dependency Scraper priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $3.00 / 1,000 PyPI package or dependency row ($0.003 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. PyPI package or dependency row (apify-default-dataset-item) $0.003: Charged for one delivered PyPI package, release, or dependency row. Platform usage is listed as included on the Store pricing tab."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / PyPI Package &amp; Dependency Scraper</nav>
+    <h1>PyPI dependency declarations, releases, downloads, and OSV summaries</h1>
+    <p>This Actor reads PyPI JSON for packages you list and emits dependency declarations, release cadence, maintainer hints, download stats, and OSV summaries. Python/PyPI only.</p>
+    <p>Not npm trees. Not legal advice. Informational package metadata only.</p>
+    <p class="price">from $3.00 / 1,000 PyPI package or dependency row ($0.003 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+    <p><a href="https://apify.com/taroyamada/pypi-package-dependency-intelligence">Open PyPI Package &amp; Dependency Scraper on Apify</a></p>
+
+    <h2>PyPI Package &amp; Dependency Scraper, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/pypi-package-intelligence/">PyPI Vulnerability Scraper</a> for PyPI + OSV package alerts; Use <a href="/npm-package-dependency-intelligence/">npm Package &amp; Dependency Scraper</a> for npm deps/versions; Use <a href="/oss-vulnerability-monitor/">OSS Vulnerability Monitor</a> for OSV/GitHub advisories.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>PyPI Vulnerability Scraper</th><th>npm Package &amp; Dependency Scraper</th><th>OSS Vulnerability Monitor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>PyPI Package &amp; Dependency Scraper</td><td>PyPI + OSV package alerts</td><td>npm deps/versions</td><td>OSV/GitHub advisories</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td><code>see schema</code></td><td>packages</td><td>packages</td><td>packages</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>Public sources listed on the Store page</td><td>PyPI + OSV</td><td>npm registry</td><td>OSV + GitHub Advisories</td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td>Dataset rows billed per live PPE</td><td>PyPI package rows</td><td>npm dep rows</td><td>vuln rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td>
+          <td>Not npm trees. Not legal advice. Informational package metadata only.</td><td>Not npm registry metadata</td><td>Not license-policy audits</td><td>Not license-policy trees</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/pypi-package-dependency-intelligence</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>requirements-style dependency extracts</li>
+      <li>Release-row caps</li>
+      <li>OSV summaries beside deps</li>
+    </ul>
+
+    <h2>How is PyPI Package &amp; Dependency Scraper different from PyPI Vulnerability Scraper and npm Package &amp; Dependency Scraper?</h2>
+    <p>PyPI Package &amp; Dependency Scraper (taroyamada/pypi-package-dependency-intelligence): This Actor reads PyPI JSON for packages you list and emits dependency declarations, release cadence, maintainer hints, download stats, and OSV summaries. Python/PyPI only. Not npm trees. Not legal advice. Informational package metadata only. PyPI Vulnerability Scraper is for PyPI + OSV package alerts (input packages; PyPI + OSV; PyPI package rows). Not npm registry metadata. npm Package &amp; Dependency Scraper is for npm deps/versions (input packages; npm registry; npm dep rows). Not license-policy audits. OSS Vulnerability Monitor is for OSV/GitHub advisories (input packages; OSV + GitHub Advisories; vuln rows). Not license-policy trees.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: <code>packages</code>. Published exampleRunInput is shown below. Fetch official PyPI JSON API data and export package summaries, release cadence rows, dependency declarations, maintainer hints, download stats, and vulnerability signals.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>packages</code></td>
+          <td>any[] required</td>
+          <td><code>empty</code></td>
+          <td>required Package Names. PyPI package names to fetch from the official JSON API. Use names such as requests, fastapi, pandas, django, or numpy.</td>
+        </tr>
+        <tr>
+          <td><code>includeReleaseHistory</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Include Release Rows. When true, writes one release_version row per version in addition to the package summary and dependency rows.</td>
+        </tr>
+        <tr>
+          <td><code>includeDownloadStats</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Include Download Stats. Fetch recent package download counts from pypistats.org. Warnings are returned if the enrichment is unavailable.</td>
+        </tr>
+        <tr>
+          <td><code>includeVulnerabilities</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Include OSV Vulnerability Summary. Query OSV for known advisories for each package. Results are advisory summaries, not a complete security audit.</td>
+        </tr>
+        <tr>
+          <td><code>maxReleaseRowsPerPackage</code></td>
+          <td>integer</td>
+          <td><code>100</code></td>
+          <td>Max Release Rows Per Package. Maximum release_version rows to emit per package when release rows are enabled. min=1 max=1000</td>
+        </tr>
+        <tr>
+          <td><code>maxDependencyRowsPerPackage</code></td>
+          <td>integer</td>
+          <td><code>250</code></td>
+          <td>Max Dependency Rows Per Package. Maximum dependency rows to emit per package. min=1 max=1000</td>
+        </tr>
+        <tr>
+          <td><code>concurrency</code></td>
+          <td>integer</td>
+          <td><code>5</code></td>
+          <td>Concurrency. Number of packages to fetch in parallel. min=1 max=10</td>
+        </tr>
+        <tr>
+          <td><code>timeoutMs</code></td>
+          <td>integer</td>
+          <td><code>15000</code></td>
+          <td>Request Timeout (ms). Per-request timeout in milliseconds. min=1000 max=30000</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string enum</td>
+          <td><code>dataset</code></td>
+          <td>Delivery. Send flattened rows to the dataset or POST the full payload to a webhook. enum: dataset, webhook</td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Webhook URL. Required when delivery is webhook.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry Run. Run without saving dataset rows or sending a webhook.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  "packages": [
+    "requests",
+    "numpy"
+  ],
+  "includeReleaseHistory": true,
+  "includeDownloadStats": false,
+  "includeVulnerabilities": false,
+  "concurrency": 5,
+  "timeoutMs": 15000,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/pypi-package-dependency-intelligence">Run PyPI Package &amp; Dependency Scraper on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is PyPI Package &amp; Dependency Scraper priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $3.00 / 1,000 PyPI package or dependency row ($0.003 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>apify-default-dataset-item</code> (PyPI package or dependency row)</td>
+          <td>$0.003</td>
+          <td>Charged for one delivered PyPI package, release, or dependency row.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="price">from $3.00 / 1,000 PyPI package or dependency row ($0.003 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+    <p><a href="https://apify.com/taroyamada/pypi-package-dependency-intelligence/pricing">See PyPI Package &amp; Dependency Scraper pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>packages required</li>
+      <li>PyPI + OSV</li>
+      <li>maxReleaseRowsPerPackage / maxDependencyRowsPerPackage</li>
+      <li>Not npm</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/pypi-package-dependency-intelligence">Open PyPI Package &amp; Dependency Scraper on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/pypi-package-intelligence/">PyPI Vulnerability Scraper</a> — Package-level PyPI + OSV.</li>
+      <li><a href="/npm-package-dependency-intelligence/">npm Package &amp; Dependency Scraper</a> — npm, not PyPI.</li>
+      <li><a href="/oss-vulnerability-monitor/">OSS Vulnerability Monitor</a> — Cross-ecosystem OSV.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

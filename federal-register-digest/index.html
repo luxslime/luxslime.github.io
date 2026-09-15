@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Federal Register Scraper — rules, notices, watch terms</title>
+  <meta name="description" content="taroyamada/federal-register-digest. from $8.00 / 1,000 Federal Register digest ($0.008 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. Not a crawl of arbitrary .gov HTML (use Regulatory Alerts Scrap">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/federal-register-digest/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is Federal Register Scraper different from Regulatory Alerts Scraper and Campaign Finance Scraper?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Federal Register Scraper (taroyamada/federal-register-digest): This Actor queries the official Federal Register API for feeds (agencies, document types, terms) and emits source-linked digest rows with watch-term matches. feeds is required. Not a crawl of arbitrary .gov HTML (use Regulatory Alerts Scraper for that). Not legal advice. Not eCFR section diffs. Regulatory Alerts Scraper is for Gov page text diffs (input targets[]; public gov HTML; regulatory change rows). Not Federal Register API docs. Campaign Finance Scraper is for FEC/LDA filings (input feeds / watchTerms; OpenFEC / LDA.gov; campaign digest rows). Not OFAC sanctions or Federal Register. Docs & Changelog Drift Scraper is for Docs/changelog diffs (input doc URLs; public docs HTML; drift rows). Not Federal Register rules."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: feeds. Live schema fields: feeds, watchTerms, lookbackDays, maxDocsPerFeed, maxPagesPerFeed, delivery, webhookUrl, datasetMode, snapshotKey, federalRegisterApiUrl, requestTimeoutSeconds, notifyOnNoNew, dryRun, nowIso, fixturePath. Quickstart: set feeds with at least one entry (agencySlug + documentTypes), optionally add watchTerms to flag relevant topics, and set delivery=dataset additionalProperties is false on the live schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: feeds, watchTerms, lookbackDays, maxDocsPerFeed, maxPagesPerFeed, delivery, datasetMode, snapshotKey, notifyOnNoNew, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. datasetMode can limit emits to changes_only / changed_only / action_needed versus all. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is Federal Register Scraper priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $8.00 / 1,000 Federal Register digest ($0.008 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. Federal Register digest (apify-default-dataset-item) $0.008: Charged only for one delivered Federal Register agency or topic digest row. Do not use the README Cost block as live pricing. The published README Cost block is stale versus the live Store pricing tab. README Cost still quotes actor-start $0.01. README Cost quotes dataset-item $0.003; live primary is $0.008 (Federal Register digest). Live: Federal Register digest $0.008. This page quotes live PPE only."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Federal Register Scraper</nav>
+    <h1>Federal Register rules, proposed rules, and notices by agency</h1>
+    <p>This Actor queries the official Federal Register API for feeds (agencies, document types, terms) and emits source-linked digest rows with watch-term matches. feeds is required.</p>
+    <p>Not a crawl of arbitrary .gov HTML (use Regulatory Alerts Scraper for that). Not legal advice. Not eCFR section diffs.</p>
+    <p class="price">from $8.00 / 1,000 Federal Register digest ($0.008 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+    <p><a href="https://apify.com/taroyamada/federal-register-digest">Open Federal Register Scraper on Apify</a></p>
+
+    <h2>Federal Register Scraper, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/regulatory-change-monitor/">Regulatory Alerts Scraper</a> for Gov page text diffs; Use <a href="/campaign-finance-lobbying-digest/">Campaign Finance Scraper</a> for FEC/LDA filings; Use <a href="/docs-changelog-drift-monitor/">Docs &amp; Changelog Drift Scraper</a> for Docs/changelog diffs.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>Regulatory Alerts Scraper</th><th>Campaign Finance Scraper</th><th>Docs &amp; Changelog Drift Scraper</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>Federal Register Scraper</td><td>Gov page text diffs</td><td>FEC/LDA filings</td><td>Docs/changelog diffs</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td><code>see schema</code></td><td>targets[]</td><td>feeds / watchTerms</td><td>doc URLs</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>Public sources listed on the Store page</td><td>public gov HTML</td><td>OpenFEC / LDA.gov</td><td>public docs HTML</td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td>Dataset rows billed per live PPE</td><td>regulatory change rows</td><td>campaign digest rows</td><td>drift rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td>
+          <td>Not a crawl of arbitrary .gov HTML (use Regulatory Alerts Scraper for that). Not legal advice. Not eCFR section diffs.</td><td>Not Federal Register API docs</td><td>Not OFAC sanctions or Federal Register</td><td>Not Federal Register rules</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/federal-register-digest</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Agency rule/notice watches</li>
+      <li>Keyword hits on FR documents</li>
+      <li>Scheduled snapshotKey FR digests</li>
+    </ul>
+
+    <h2>How is Federal Register Scraper different from Regulatory Alerts Scraper and Campaign Finance Scraper?</h2>
+    <p>Federal Register Scraper (taroyamada/federal-register-digest): This Actor queries the official Federal Register API for feeds (agencies, document types, terms) and emits source-linked digest rows with watch-term matches. feeds is required. Not a crawl of arbitrary .gov HTML (use Regulatory Alerts Scraper for that). Not legal advice. Not eCFR section diffs. Regulatory Alerts Scraper is for Gov page text diffs (input targets[]; public gov HTML; regulatory change rows). Not Federal Register API docs. Campaign Finance Scraper is for FEC/LDA filings (input feeds / watchTerms; OpenFEC / LDA.gov; campaign digest rows). Not OFAC sanctions or Federal Register. Docs &amp; Changelog Drift Scraper is for Docs/changelog diffs (input doc URLs; public docs HTML; drift rows). Not Federal Register rules.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: <code>feeds</code>. Published exampleRunInput is shown below. Quickstart: set feeds with at least one entry (agencySlug + documentTypes), optionally add watchTerms to flag relevant topics, and set delivery=dataset</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>feeds</code></td>
+          <td>object[] required</td>
+          <td><code>empty</code></td>
+          <td>required Feeds to monitor (required). One entry per agency/topic watch target. Each feed produces one summary digest row. Set agencySlug and documentTypes to narrow the stream; add keywords for keyword filtering. Each item supports id, name, agencySlug, agencySlugs, documentTypes, keywords, lookbackDays.</td>
+        </tr>
+        <tr>
+          <td><code>watchTerms</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Watch terms (comma-separated). Keywords, company names, or regulatory topics to flag in document titles and abstracts. Matching documents receive a watch_term_hit signal tag.</td>
+        </tr>
+        <tr>
+          <td><code>lookbackDays</code></td>
+          <td>integer</td>
+          <td><code>7</code></td>
+          <td>Global lookback window (days). Fetch documents published within this many days. Use 7–14 for recurring scheduled runs; widen to 30+ for initial discovery. min=1 max=365</td>
+        </tr>
+        <tr>
+          <td><code>maxDocsPerFeed</code></td>
+          <td>integer</td>
+          <td><code>50</code></td>
+          <td>Max documents per feed. Upper bound on documents fetched per feed per run. Increase for broad discovery; keep low (50) for fast recurring digest runs. min=1 max=1000</td>
+        </tr>
+        <tr>
+          <td><code>maxPagesPerFeed</code></td>
+          <td>integer</td>
+          <td><code>5</code></td>
+          <td>Max API pages per feed. Hard page cap per feed to prevent runaway pagination. Each page fetches up to 100 documents. min=1 max=20</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string enum</td>
+          <td><code>dataset</code></td>
+          <td>Delivery mode. dataset stores results in the Apify dataset. webhook posts the digest JSON to webhookUrl. enum: dataset, webhook</td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Webhook URL (required when delivery=webhook). POST target for the digest payload. Leave empty for dataset delivery.</td>
+        </tr>
+        <tr>
+          <td><code>datasetMode</code></td>
+          <td>string enum</td>
+          <td><code>all</code></td>
+          <td>Dataset output mode. all emits every feed digest row. action_needed emits only feeds with watch-term hits. new_only emits only feeds with documents not seen in the previous run. enum: all, action_needed, new_only</td>
+        </tr>
+        <tr>
+          <td><code>snapshotKey</code></td>
+          <td>string</td>
+          <td><code>federal-register-digest-state</code></td>
+          <td>Snapshot key for recurring state. Stable key used to persist seen document numbers across recurring runs so new_only and action_needed modes stay comparable. Use the same key across scheduled runs.</td>
+        </tr>
+        <tr>
+          <td><code>federalRegisterApiUrl</code></td>
+          <td>string</td>
+          <td><code>https://www.federalregister.gov/api/v1/documents.json</code></td>
+          <td>Federal Register API URL. Federal Register documents endpoint. No authentication required.</td>
+        </tr>
+        <tr>
+          <td><code>requestTimeoutSeconds</code></td>
+          <td>integer</td>
+          <td><code>30</code></td>
+          <td>HTTP request timeout (seconds). Timeout for each API request. min=5 max=120</td>
+        </tr>
+        <tr>
+          <td><code>notifyOnNoNew</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Emit digest even when no new documents found. When true, every feed always produces a digest row even if no new documents were found. When false, feeds with no new documents are omitted from the output.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run (skip snapshot writes and webhook delivery). Validate and fetch without persisting state or posting webhooks. Safe for testing input shapes.</td>
+        </tr>
+        <tr>
+          <td><code>nowIso</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Override current time (ISO string, for testing). Set to a fixed ISO timestamp to make runs deterministic against fixture data.</td>
+        </tr>
+        <tr>
+          <td><code>fixturePath</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Fixture file path (testing). Local JSON fixture for offline tests. When set, all feeds use this file instead of the live API.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  "feeds": [
+    {
+      "id": "epa-rules-proposed",
+      "name": "EPA Rules &amp; Proposed Rules",
+      "agencySlug": "environmental-protection-agency",
+      "documentTypes": "RULE,PRORULE",
+      "keywords": ""
+    }
+  ],
+  "watchTerms": "climate,emissions,clean air,greenhouse,PFAS",
+  "lookbackDays": 7,
+  "maxDocsPerFeed": 50,
+  "maxPagesPerFeed": 5,
+  "delivery": "dataset",
+  "datasetMode": "all",
+  "snapshotKey": "federal-register-digest-quickstart",
+  "notifyOnNoNew": true,
+  "dryRun": false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/federal-register-digest">Run Federal Register Scraper on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. datasetMode can limit emits to changes_only / changed_only / action_needed versus all. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is Federal Register Scraper priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $8.00 / 1,000 Federal Register digest ($0.008 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>apify-default-dataset-item</code> (Federal Register digest)</td>
+          <td>$0.008</td>
+          <td>Charged only for one delivered Federal Register agency or topic digest row.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>The published README Cost block is stale versus the live Store pricing tab. README Cost still quotes actor-start $0.01. README Cost quotes dataset-item $0.003; live primary is $0.008 (Federal Register digest). Live: Federal Register digest $0.008. This page quotes live PPE only.</p>
+    <p class="price">from $8.00 / 1,000 Federal Register digest ($0.008 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+    <p><a href="https://apify.com/taroyamada/federal-register-digest/pricing">See Federal Register Scraper pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>feeds required</li>
+      <li>federalregister.gov API</li>
+      <li>maxDocsPerFeed / maxPagesPerFeed caps</li>
+      <li>Not legal advice</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/federal-register-digest">Open Federal Register Scraper on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/regulatory-change-monitor/">Regulatory Alerts Scraper</a> — Gov page HTML diffs, not the FR API.</li>
+      <li><a href="/campaign-finance-lobbying-digest/">Campaign Finance Scraper</a> — FEC/LDA, not FR rules.</li>
+      <li><a href="/docs-changelog-drift-monitor/">Docs &amp; Changelog Drift Scraper</a> — Vendor docs, not FR.</li>
+      <li><a href="/uspto-patent-scraper/">USPTO Patent Search Scraper</a> — Patents, not FR notices.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

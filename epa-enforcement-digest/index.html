@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EPA ECHO Enforcement Scraper — facility and case records</title>
+  <meta name="description" content="taroyamada/epa-enforcement-digest. from $8.00 / 1,000 EPA enforcement digest row ($0.008 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. Not legal or environmental advice. Not FDA warning letters. N">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/epa-enforcement-digest/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is EPA ECHO Enforcement Scraper different from FDA Warning Letters Scraper and Status Page Incident Digest Monitor?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "EPA ECHO Enforcement Scraper (taroyamada/epa-enforcement-digest): This Actor fetches public EPA ECHO facility/compliance/enforcement pages from targets[] and emits source-linked digest rows for EHS and diligence research. Public ECHO only. Not legal or environmental advice. Not FDA warning letters. Not a complete multi-media inspection. Unofficial research on public records. FDA Warning Letters Scraper is for FDA warning-letter digests (input feeds / watchTerms; FDA public warning-letter feeds; warning-letter digest rows). Not ClinicalTrials.gov or HHS OCR. Status Page Incident Digest Monitor is for Vendor incidents (input status page feeds; status.io-style pages; incident digest rows). Not EPA ECHO facilities. NHTSA Recall Scraper is for NHTSA recalls/complaints (input vehicle feeds; NHTSA public APIs; recall digest rows). Not CPSC consumer-product recalls."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: targets. Live schema fields: targets, requestTimeoutSeconds, userAgent, delivery, datasetMode, webhookUrl, notifyOnNoChange, snapshotKey, diffMode, summaryMaxLines, maxEvidenceItems, concurrency, batchDelayMs, dryRun, nowIso. Summary-first monitoring for EPA ECHO enforcement and compliance risk additionalProperties is false on the live schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: targets, delivery, datasetMode, snapshotKey, diffMode, summaryMaxLines, maxEvidenceItems, concurrency, batchDelayMs, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. datasetMode can limit emits to changes_only / changed_only / action_needed versus all. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is EPA ECHO Enforcement Scraper priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $8.00 / 1,000 EPA enforcement digest row ($0.008 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. EPA enforcement digest row (apify-default-dataset-item) $0.008: Charged only when an EPA enforcement digest row is delivered. Do not use the README Cost block as live pricing. The published README Cost block is stale versus the live Store pricing tab. README Cost still quotes actor-start $0.01. README Cost quotes dataset-item $0.003; live primary is $0.008 (EPA enforcement digest row). Live: EPA enforcement digest row $0.008. This page quotes live PPE only."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / EPA ECHO Enforcement Scraper</nav>
+    <h1>EPA ECHO facility, compliance, and enforcement-case digests</h1>
+    <p>This Actor fetches public EPA ECHO facility/compliance/enforcement pages from targets[] and emits source-linked digest rows for EHS and diligence research. Public ECHO only.</p>
+    <p>Not legal or environmental advice. Not FDA warning letters. Not a complete multi-media inspection. Unofficial research on public records.</p>
+    <p class="price">from $8.00 / 1,000 EPA enforcement digest row ($0.008 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+    <p><a href="https://apify.com/taroyamada/epa-enforcement-digest">Open EPA ECHO Enforcement Scraper on Apify</a></p>
+
+    <h2>EPA ECHO Enforcement Scraper, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/fda-warning-letter-digest/">FDA Warning Letters Scraper</a> for FDA warning-letter digests; Use <a href="/status-page-incident-digest-monitor/">Status Page Incident Digest Monitor</a> for Vendor incidents; Use <a href="/nhtsa-vehicle-recall-digest/">NHTSA Recall Scraper</a> for NHTSA recalls/complaints.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>FDA Warning Letters Scraper</th><th>Status Page Incident Digest Monitor</th><th>NHTSA Recall Scraper</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>EPA ECHO Enforcement Scraper</td><td>FDA warning-letter digests</td><td>Vendor incidents</td><td>NHTSA recalls/complaints</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td><code>see schema</code></td><td>feeds / watchTerms</td><td>status page feeds</td><td>vehicle feeds</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>Public sources listed on the Store page</td><td>FDA public warning-letter feeds</td><td>status.io-style pages</td><td>NHTSA public APIs</td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td>Dataset rows billed per live PPE</td><td>warning-letter digest rows</td><td>incident digest rows</td><td>recall digest rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td>
+          <td>Not legal or environmental advice. Not FDA warning letters. Not a complete multi-media inspection. Unofficial research on public records.</td><td>Not ClinicalTrials.gov or HHS OCR</td><td>Not EPA ECHO facilities</td><td>Not CPSC consumer-product recalls</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/epa-enforcement-digest</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Facility/registry watches</li>
+      <li>Enforcement-case text diffs</li>
+      <li>Scheduled snapshotKey EHS boards</li>
+    </ul>
+
+    <h2>How is EPA ECHO Enforcement Scraper different from FDA Warning Letters Scraper and Status Page Incident Digest Monitor?</h2>
+    <p>EPA ECHO Enforcement Scraper (taroyamada/epa-enforcement-digest): This Actor fetches public EPA ECHO facility/compliance/enforcement pages from targets[] and emits source-linked digest rows for EHS and diligence research. Public ECHO only. Not legal or environmental advice. Not FDA warning letters. Not a complete multi-media inspection. Unofficial research on public records. FDA Warning Letters Scraper is for FDA warning-letter digests (input feeds / watchTerms; FDA public warning-letter feeds; warning-letter digest rows). Not ClinicalTrials.gov or HHS OCR. Status Page Incident Digest Monitor is for Vendor incidents (input status page feeds; status.io-style pages; incident digest rows). Not EPA ECHO facilities. NHTSA Recall Scraper is for NHTSA recalls/complaints (input vehicle feeds; NHTSA public APIs; recall digest rows). Not CPSC consumer-product recalls.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: <code>targets</code>. Published exampleRunInput is shown below. Summary-first monitoring for EPA ECHO enforcement and compliance risk</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>targets</code></td>
+          <td>object[] required</td>
+          <td><code>empty</code></td>
+          <td>required Targets (one digest row each). List of watched facilities, company footprints, or case feeds. Shared target-level selectors (frsId, facilityName, state, city, region) are inherited by the individual ECHO surfaces unless overridden. Each item supports id, name, criticality, owner, tags, frsId, facilityName, state, city, region, facilitySearch, complianceScreener, caseSearch.</td>
+        </tr>
+        <tr>
+          <td><code>requestTimeoutSeconds</code></td>
+          <td>integer</td>
+          <td><code>30</code></td>
+          <td>Request timeout (seconds). Maximum time to wait for one EPA ECHO web-service request. min=5 max=120</td>
+        </tr>
+        <tr>
+          <td><code>userAgent</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Custom User-Agent. Optional custom User-Agent string for public EPA ECHO requests.</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string enum</td>
+          <td><code>dataset</code></td>
+          <td>Delivery mode. dataset writes selected target rows to the dataset. webhook posts the digest JSON. email is reserved for a future path. enum: dataset, webhook, email</td>
+        </tr>
+        <tr>
+          <td><code>datasetMode</code></td>
+          <td>string enum</td>
+          <td><code>changes_only</code></td>
+          <td>Dataset mode. Controls which target rows are persisted: action-needed only, changed/initial/partial/error rows, or every row. enum: action_needed, changes_only, all</td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Webhook URL. POST destination when delivery=webhook.</td>
+        </tr>
+        <tr>
+          <td><code>notifyOnNoChange</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Notify even if nothing changed. When true, webhook delivery still fires even when no selected target changed.</td>
+        </tr>
+        <tr>
+          <td><code>snapshotKey</code></td>
+          <td>string</td>
+          <td><code>epa-enforcement-digest-snapshots</code></td>
+          <td>Snapshot key. Stable key used to load and save prior ECHO surface snapshots between recurring runs.</td>
+        </tr>
+        <tr>
+          <td><code>diffMode</code></td>
+          <td>string enum</td>
+          <td><code>line_summary</code></td>
+          <td>Diff mode. line_summary keeps compact added/removed snapshot lines. hash_only only marks changed or unchanged. enum: line_summary, hash_only</td>
+        </tr>
+        <tr>
+          <td><code>summaryMaxLines</code></td>
+          <td>integer</td>
+          <td><code>12</code></td>
+          <td>Max diff summary lines. Maximum added and removed snapshot lines kept per surface. min=5 max=50</td>
+        </tr>
+        <tr>
+          <td><code>maxEvidenceItems</code></td>
+          <td>integer</td>
+          <td><code>5</code></td>
+          <td>Global evidence limit. Upper bound for top facilities/cases retained per surface unless overridden by a surface-level evidenceLimit. min=1 max=25</td>
+        </tr>
+        <tr>
+          <td><code>concurrency</code></td>
+          <td>integer</td>
+          <td><code>2</code></td>
+          <td>Concurrency. How many watch targets may be processed in parallel. min=1 max=10</td>
+        </tr>
+        <tr>
+          <td><code>batchDelayMs</code></td>
+          <td>integer</td>
+          <td><code>500</code></td>
+          <td>Inter-batch delay (ms). Delay between target batches to soften load on EPA ECHO. min=0 max=10000</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run. If true, the actor skips snapshot writes and remote delivery while still producing local output.</td>
+        </tr>
+        <tr>
+          <td><code>nowIso</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Override current time (ISO). Optional ISO timestamp override for deterministic fixture tests or proof snapshots.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  "targets": [
+    {
+      "id": "basf-texas",
+      "name": "BASF Texas EPA Watch",
+      "criticality": "high",
+      "owner": "EHS / Compliance",
+      "tags": "chemical,texas,epa",
+      "facilityName": "BASF",
+      "state": "TX",
+      "facilitySearch": {
+        "nameMatchMode": "CONTAINS"
+      },
+      "complianceScreener": {
+        "years": 5,
+        "activeOnly": true,
+        "nameMatchMode": "CONTAINS",
+        "evidenceLimit": 5
+      }
+    },
+    {
+      "id": "delaware-afr-feed",
+      "name": "Delaware Administrative Formal Cases",
+      "criticality": "high",
+      "owner": "Legal / Compliance",
+      "tags": "case-feed,delaware,enforcement",
+      "caseSearch": {
+        "state": "DE",
+        "caseCategory": "AFR",
+        "fromDate": "01/01/2024",
+        "toDate": "12/31/2024",
+        "evidenceLimit": 5
+      }
+    }
+  ],
+  "delivery": "dataset",
+  "datasetMode": "changes_only",
+  "snapshotKey": "epa-enforcement-store-example",
+  "diffMode": "line_summary",
+  "summaryMaxLines": 12,
+  "maxEvidenceItems": 5,
+  "concurrency": 2,
+  "batchDelayMs": 500,
+  "dryRun": false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/epa-enforcement-digest">Run EPA ECHO Enforcement Scraper on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. datasetMode can limit emits to changes_only / changed_only / action_needed versus all. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is EPA ECHO Enforcement Scraper priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $8.00 / 1,000 EPA enforcement digest row ($0.008 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>apify-default-dataset-item</code> (EPA enforcement digest row)</td>
+          <td>$0.008</td>
+          <td>Charged only when an EPA enforcement digest row is delivered.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>The published README Cost block is stale versus the live Store pricing tab. README Cost still quotes actor-start $0.01. README Cost quotes dataset-item $0.003; live primary is $0.008 (EPA enforcement digest row). Live: EPA enforcement digest row $0.008. This page quotes live PPE only.</p>
+    <p class="price">from $8.00 / 1,000 EPA enforcement digest row ($0.008 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+    <p><a href="https://apify.com/taroyamada/epa-enforcement-digest/pricing">See EPA ECHO Enforcement Scraper pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>targets required</li>
+      <li>Public ECHO HTML/APIs</li>
+      <li>maxEvidenceItems cap</li>
+      <li>Not professional advice</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/epa-enforcement-digest">Open EPA ECHO Enforcement Scraper on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/fda-warning-letter-digest/">FDA Warning Letters Scraper</a> — FDA letters, not EPA ECHO.</li>
+      <li><a href="/nhtsa-vehicle-recall-digest/">NHTSA Recall Scraper</a> — Vehicles, not ECHO facilities.</li>
+      <li><a href="/status-page-incident-digest-monitor/">Status Page Incident Digest Monitor</a> — SaaS incidents, not EPA.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

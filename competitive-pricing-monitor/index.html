@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>B2B Pricing Scraper — public subscription tier changes</title>
+  <meta name="description" content="taroyamada/competitive-pricing-monitor. from $9.00 / 1,000 Delivered monitoring result row ($0.009 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. Not authenticated billing portals, CPQ, or invoices">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/competitive-pricing-monitor/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is B2B Pricing Scraper different from SaaS Pricing Tracker and Website Content Extractor?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "B2B Pricing Scraper (taroyamada/competitive-pricing-monitor): This Actor fetches public competitor pricing pages from competitors[], snapshots extracted text, and emits source-linked change rows when price/tier copy drifts. Live required field is competitors, not a top-level urls array. Not authenticated billing portals, CPQ, or invoices. Not PDF contracts. Public web only. Distinct from SaaS Pricing Tracker, which uses targets[] for pricing/terms/features. SaaS Pricing Tracker is for Pricing/terms diffs (input targets[]; public SaaS pages; SaaS change rows). Not B2B competitor pricing packs. Website Content Extractor is for One-shot page-to-markdown (input urls; page HTML; markdown/text). Not recurring pricing diffs. Shopify Store Scraper is for Public Shopify catalogs (input storeUrls; Shopify JSON endpoints; store/catalog rows). Not Shopify App Store reviews."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: competitors. Live schema fields: competitors, requestTimeoutSeconds, userAgent, maxChars, delivery, datasetMode, webhookUrl, notifyOnNoChange, snapshotKey, summaryMaxLines, concurrency, batchDelayMs, nowIso, dryRun. Monitor SaaS and ecommerce competitor pricing pages for plan changes, price increases/decreases, new/removed tiers, and packaging shifts additionalProperties is false on the live schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: competitors, requestTimeoutSeconds, maxChars, delivery, datasetMode, notifyOnNoChange, snapshotKey, summaryMaxLines, concurrency, batchDelayMs, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. datasetMode can limit emits to changes_only / changed_only / action_needed versus all. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is B2B Pricing Scraper priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $9.00 / 1,000 Delivered monitoring result row ($0.009 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. Delivered monitoring result row (apify-default-dataset-item) $0.009: Charged only when a new or changed monitoring result row is delivered. Unchanged runs are free. Do not use the README Cost block as live pricing. The published README Cost block is stale versus the live Store pricing tab. README Cost still quotes actor-start $0.01. README Cost quotes dataset-item $0.003; live primary is $0.009 (Delivered monitoring result row). Live: Delivered monitoring result row $0.009. This page quotes live PPE only."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / B2B Pricing Scraper</nav>
+    <h1>Public SaaS and B2B pricing-page change alerts</h1>
+    <p>This Actor fetches public competitor pricing pages from competitors[], snapshots extracted text, and emits source-linked change rows when price/tier copy drifts. Live required field is competitors, not a top-level urls array.</p>
+    <p>Not authenticated billing portals, CPQ, or invoices. Not PDF contracts. Public web only. Distinct from SaaS Pricing Tracker, which uses targets[] for pricing/terms/features.</p>
+    <p class="price">from $9.00 / 1,000 Delivered monitoring result row ($0.009 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+    <p><a href="https://apify.com/taroyamada/competitive-pricing-monitor">Open B2B Pricing Scraper on Apify</a></p>
+
+    <h2>B2B Pricing Scraper, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/saas-change-monitor-actor/">SaaS Pricing Tracker</a> for Pricing/terms diffs; Use <a href="/website-content-extractor/">Website Content Extractor</a> for One-shot page-to-markdown; Use <a href="/shopify-store-intelligence/">Shopify Store Scraper</a> for Public Shopify catalogs.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>SaaS Pricing Tracker</th><th>Website Content Extractor</th><th>Shopify Store Scraper</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>B2B Pricing Scraper</td><td>Pricing/terms diffs</td><td>One-shot page-to-markdown</td><td>Public Shopify catalogs</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td><code>see schema</code></td><td>targets[]</td><td>urls</td><td>storeUrls</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>Public sources listed on the Store page</td><td>public SaaS pages</td><td>page HTML</td><td>Shopify JSON endpoints</td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td>Dataset rows billed per live PPE</td><td>SaaS change rows</td><td>markdown/text</td><td>store/catalog rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td>
+          <td>Not authenticated billing portals, CPQ, or invoices. Not PDF contracts. Public web only. Distinct from SaaS Pricing Tracker, which uses targets[] for pricing/terms/features.</td><td>Not B2B competitor pricing packs</td><td>Not recurring pricing diffs</td><td>Not Shopify App Store reviews</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/competitive-pricing-monitor</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Competitor tier/price watches</li>
+      <li>Rate-hike text diffs</li>
+      <li>Scheduled snapshotKey pricing boards</li>
+    </ul>
+
+    <h2>How is B2B Pricing Scraper different from SaaS Pricing Tracker and Website Content Extractor?</h2>
+    <p>B2B Pricing Scraper (taroyamada/competitive-pricing-monitor): This Actor fetches public competitor pricing pages from competitors[], snapshots extracted text, and emits source-linked change rows when price/tier copy drifts. Live required field is competitors, not a top-level urls array. Not authenticated billing portals, CPQ, or invoices. Not PDF contracts. Public web only. Distinct from SaaS Pricing Tracker, which uses targets[] for pricing/terms/features. SaaS Pricing Tracker is for Pricing/terms diffs (input targets[]; public SaaS pages; SaaS change rows). Not B2B competitor pricing packs. Website Content Extractor is for One-shot page-to-markdown (input urls; page HTML; markdown/text). Not recurring pricing diffs. Shopify Store Scraper is for Public Shopify catalogs (input storeUrls; Shopify JSON endpoints; store/catalog rows). Not Shopify App Store reviews.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: <code>competitors</code>. Published exampleRunInput is shown below. Monitor SaaS and ecommerce competitor pricing pages for plan changes, price increases/decreases, new/removed tiers, and packaging shifts</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>competitors</code></td>
+          <td>any[] required</td>
+          <td><code>empty</code></td>
+          <td>required Competitors to monitor. Each entry is one competitor. Provide pricing page URLs, optional include/exclude patterns, and a stable id. One summary row per competitor is written to the dataset.</td>
+        </tr>
+        <tr>
+          <td><code>requestTimeoutSeconds</code></td>
+          <td>integer</td>
+          <td><code>30</code></td>
+          <td>Request timeout (seconds). HTTP request timeout per pricing page fetch. min=5 max=120</td>
+        </tr>
+        <tr>
+          <td><code>userAgent</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Custom User-Agent. Optional User-Agent header used for pricing page requests.</td>
+        </tr>
+        <tr>
+          <td><code>maxChars</code></td>
+          <td>integer</td>
+          <td><code>40000</code></td>
+          <td>Max extracted chars per page. Upper bound for extracted text per pricing page. Increase for long pricing pages with many plans. min=1000 max=200000</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string enum</td>
+          <td><code>dataset</code></td>
+          <td>Delivery mode. dataset: write competitor rows to Apify dataset (recommended for starters). webhook: POST JSON payload to webhookUrl. email: placeholder, not implemented in MVP. enum: dataset, webhook, email</td>
+        </tr>
+        <tr>
+          <td><code>datasetMode</code></td>
+          <td>string enum</td>
+          <td><code>changes_only</code></td>
+          <td>Dataset rows to include. changes_only: only competitors with detected changes. all: all competitors regardless of change status. action_needed: only high-severity changes. enum: action_needed, changes_only, all</td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Webhook URL. Required when delivery is webhook.</td>
+        </tr>
+        <tr>
+          <td><code>notifyOnNoChange</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Notify even if no change. When false, webhook delivery is skipped if no competitors changed. Reduces noise.</td>
+        </tr>
+        <tr>
+          <td><code>snapshotKey</code></td>
+          <td>string</td>
+          <td><code>competitive-pricing-monitor</code></td>
+          <td>Snapshot key (keep stable). Key used to persist pricing snapshots between runs. Keep this stable across runs. First run seeds the baseline; second run detects the first changes.</td>
+        </tr>
+        <tr>
+          <td><code>summaryMaxLines</code></td>
+          <td>integer</td>
+          <td><code>15</code></td>
+          <td>Max diff lines per page. Maximum added and removed lines included in change summaries per page. min=5 max=50</td>
+        </tr>
+        <tr>
+          <td><code>concurrency</code></td>
+          <td>integer</td>
+          <td><code>3</code></td>
+          <td>Concurrency. Concurrent page fetches. Keep at 2–3 for respectful crawling. min=1 max=10</td>
+        </tr>
+        <tr>
+          <td><code>batchDelayMs</code></td>
+          <td>integer</td>
+          <td><code>500</code></td>
+          <td>Inter-batch delay (ms). Delay between concurrency batches to reduce rate-limit pressure. min=0 max=10000</td>
+        </tr>
+        <tr>
+          <td><code>nowIso</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Override current time (ISO). Optional deterministic timestamp override for testing.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run (no snapshot save). Preview competitor pricing pages without persisting snapshots. Leave false when you want the baseline to count.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  "competitors": [
+    {
+      "id": "hubspot",
+      "name": "HubSpot",
+      "tier": "direct",
+      "tags": [
+        "crm",
+        "marketing",
+        "smb"
+      ],
+      "pricingPages": [
+        {
+          "id": "hubspot-pricing",
+          "name": "HubSpot Pricing",
+          "url": "https://www.hubspot.com/pricing",
+          "includePatterns": [
+            "starter",
+            "professional",
+            "enterprise",
+            "per month",
+            "per user",
+            "\\$",
+            "pricing",
+            "free"
+          ],
+          "excludePatterns": [
+            "cookie",
+            "sign in",
+            "sign up",
+            "footer",
+            "nav",
+            "blog"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "salesforce",
+      "name": "Salesforce",
+      "tier": "direct",
+      "tags": [
+        "crm",
+        "enterprise"
+      ],
+      "pricingPages": [
+        {
+          "id": "salesforce-pricing",
+          "name": "Salesforce Sales Cloud Pricing",
+          "url": "https://www.salesforce.com/crm/pricing/",
+          "includePatterns": [
+            "essentials",
+            "professional",
+            "enterprise",
+            "unlimited",
+            "per user",
+            "\\$",
+            "annually"
+          ],
+          "excludePatterns": [
+            "cookie",
+            "sign in",
+            "sign up"
+          ]
+        }
+      ]
+    }
+  ],
+  "requestTimeoutSeconds": 30,
+  "maxChars": 40000,
+  "delivery": "dataset",
+  "datasetMode": "changes_only",
+  "notifyOnNoChange": false,
+  "snapshotKey": "competitive-pricing-quickstart",
+  "summaryMaxLines": 15,
+  "concurrency": 2,
+  "batchDelayMs": 800,
+  "dryRun": false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/competitive-pricing-monitor">Run B2B Pricing Scraper on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. datasetMode can limit emits to changes_only / changed_only / action_needed versus all. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is B2B Pricing Scraper priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $9.00 / 1,000 Delivered monitoring result row ($0.009 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>apify-default-dataset-item</code> (Delivered monitoring result row)</td>
+          <td>$0.009</td>
+          <td>Charged only when a new or changed monitoring result row is delivered. Unchanged runs are free.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>The published README Cost block is stale versus the live Store pricing tab. README Cost still quotes actor-start $0.01. README Cost quotes dataset-item $0.003; live primary is $0.009 (Delivered monitoring result row). Live: Delivered monitoring result row $0.009. This page quotes live PPE only.</p>
+    <p class="price">from $9.00 / 1,000 Delivered monitoring result row ($0.009 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+    <p><a href="https://apify.com/taroyamada/competitive-pricing-monitor/pricing">See B2B Pricing Scraper pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>competitors required</li>
+      <li>Public pages only</li>
+      <li>maxChars / concurrency caps</li>
+      <li>Not invoices or logged-in pricing</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/competitive-pricing-monitor">Open B2B Pricing Scraper on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/saas-change-monitor-actor/">SaaS Pricing Tracker</a> — targets[] pricing/terms/features; this Actor uses competitors[].</li>
+      <li><a href="/website-content-extractor/">Website Content Extractor</a> — One-shot markdown, not recurring price diffs.</li>
+      <li><a href="/shopify-store-intelligence/">Shopify Store Scraper</a> — Shopify JSON catalogs, not HTML price pages.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Docker Image Update Scraper — public Hub tags</title>
+  <meta name="description" content="taroyamada/dockerhub-image-intelligence. from $9.00 / 1,000 result ($0.009 per delivered apify-default-dataset-item). $0.001 Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. Not a private-registry scanner. Not image-content SAST. Not GitHub Rele">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/dockerhub-image-intelligence/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is Docker Image Update Scraper different from GitHub Release & Tag Scraper and npm License & Deprecation Checker?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Docker Image Update Scraper (taroyamada/dockerhub-image-intelligence): This Actor lists public Docker Hub repositories you name (or searchTerms) and optional tags, emitting tag-drift and size/last-updated rows. Public Hub metadata only. Not a private-registry scanner. Not image-content SAST. Not GitHub Releases. GitHub Release & Tag Scraper is for Release/tag diffs (input repositories; GitHub releases; release rows). Not npm/PyPI package metadata. npm License & Deprecation Checker is for npm license/deprecation (input packages; registry.npmjs.org; npm package rows). Not OSV vulnerability matching. OSS Vulnerability Monitor is for OSV/GitHub advisories (input packages; OSV + GitHub Advisories; vuln rows). Not license-policy trees."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: none (see live fields). Live schema fields: repositories, searchTerms, includeTags, maxTagsPerRepo, maxSearchResults, delivery, webhookUrl, dryRun. Public Docker Hub repository slugs and/or search terms additionalProperties is false on the live schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: repositories, searchTerms, includeTags, maxTagsPerRepo, maxSearchResults, delivery, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is Docker Image Update Scraper priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $9.00 / 1,000 result ($0.009 per delivered apify-default-dataset-item). $0.001 Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. result (apify-default-dataset-item) $0.009: Single result in the default dataset. Actor Start (apify-actor-start) $0.001: Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event). Platform usage is listed as included on the Store pricing tab."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Docker Image Update Scraper</nav>
+    <h1>Docker Hub tag, size, and last-updated rows for public images</h1>
+    <p>This Actor lists public Docker Hub repositories you name (or searchTerms) and optional tags, emitting tag-drift and size/last-updated rows. Public Hub metadata only.</p>
+    <p>Not a private-registry scanner. Not image-content SAST. Not GitHub Releases.</p>
+    <p class="price">from $9.00 / 1,000 result ($0.009 per delivered apify-default-dataset-item). $0.001 Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+    <p><a href="https://apify.com/taroyamada/dockerhub-image-intelligence">Open Docker Image Update Scraper on Apify</a></p>
+
+    <h2>Docker Image Update Scraper, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/github-release-monitor/">GitHub Release &amp; Tag Scraper</a> for Release/tag diffs; Use <a href="/npm-package-intelligence/">npm License &amp; Deprecation Checker</a> for npm license/deprecation; Use <a href="/oss-vulnerability-monitor/">OSS Vulnerability Monitor</a> for OSV/GitHub advisories.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>GitHub Release &amp; Tag Scraper</th><th>npm License &amp; Deprecation Checker</th><th>OSS Vulnerability Monitor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>Docker Image Update Scraper</td><td>Release/tag diffs</td><td>npm license/deprecation</td><td>OSV/GitHub advisories</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td><code>see schema</code></td><td>repositories</td><td>packages</td><td>packages</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>Public sources listed on the Store page</td><td>GitHub releases</td><td>registry.npmjs.org</td><td>OSV + GitHub Advisories</td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td>Dataset rows billed per live PPE</td><td>release rows</td><td>npm package rows</td><td>vuln rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td>
+          <td>Not a private-registry scanner. Not image-content SAST. Not GitHub Releases.</td><td>Not npm/PyPI package metadata</td><td>Not OSV vulnerability matching</td><td>Not license-policy trees</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/dockerhub-image-intelligence</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Pinned image tag watches</li>
+      <li>searchTerms discovery</li>
+      <li>Scheduled tag-drift checks</li>
+    </ul>
+
+    <h2>How is Docker Image Update Scraper different from GitHub Release &amp; Tag Scraper and npm License &amp; Deprecation Checker?</h2>
+    <p>Docker Image Update Scraper (taroyamada/dockerhub-image-intelligence): This Actor lists public Docker Hub repositories you name (or searchTerms) and optional tags, emitting tag-drift and size/last-updated rows. Public Hub metadata only. Not a private-registry scanner. Not image-content SAST. Not GitHub Releases. GitHub Release &amp; Tag Scraper is for Release/tag diffs (input repositories; GitHub releases; release rows). Not npm/PyPI package metadata. npm License &amp; Deprecation Checker is for npm license/deprecation (input packages; registry.npmjs.org; npm package rows). Not OSV vulnerability matching. OSS Vulnerability Monitor is for OSV/GitHub advisories (input packages; OSV + GitHub Advisories; vuln rows). Not license-policy trees.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: none listed (see live fields). Published exampleRunInput is shown below. Public Docker Hub repository slugs and/or search terms</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>repositories</code></td>
+          <td>any[]</td>
+          <td><code>empty</code></td>
+          <td>Repositories. Docker Hub repository slugs to fetch directly (e.g. 'library/nginx', 'ubuntu', 'myorg/myimage'). Bare names such as 'nginx' are normalized to 'library/nginx'.</td>
+        </tr>
+        <tr>
+          <td><code>searchTerms</code></td>
+          <td>any[]</td>
+          <td><code>empty</code></td>
+          <td>Search Terms. Optional search terms for the public Docker Hub repository search API. Matched repositories are normalized and merged with direct repository inputs.</td>
+        </tr>
+        <tr>
+          <td><code>includeTags</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Include Tags. When true, fetches the tag list for each repository (up to maxTagsPerRepo tags).</td>
+        </tr>
+        <tr>
+          <td><code>maxTagsPerRepo</code></td>
+          <td>integer</td>
+          <td><code>100</code></td>
+          <td>Max Tags per Repository. Maximum number of tags to return per repository. Docker Hub returns up to 100 tags per page; the actor paginates until this limit is reached. min=1 max=500</td>
+        </tr>
+        <tr>
+          <td><code>maxSearchResults</code></td>
+          <td>integer</td>
+          <td><code>25</code></td>
+          <td>Max Search Results per Term. Maximum number of repositories to return per search term. Search pagination continues until this cap is reached. min=1 max=250</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string enum</td>
+          <td><code>dataset</code></td>
+          <td>Delivery. Where to send results: dataset or webhook. enum: dataset, webhook</td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Webhook URL. Webhook URL to POST results to when delivery=webhook.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry Run. Run without saving results to the dataset.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  "repositories": [
+    "library/nginx"
+  ],
+  "searchTerms": [],
+  "includeTags": true,
+  "maxTagsPerRepo": 100,
+  "maxSearchResults": 25,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/dockerhub-image-intelligence">Run Docker Image Update Scraper on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is Docker Image Update Scraper priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $9.00 / 1,000 result ($0.009 per delivered apify-default-dataset-item). $0.001 Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>apify-default-dataset-item</code> (result)</td>
+          <td>$0.009</td>
+          <td>Single result in the default dataset.</td>
+        </tr>
+        <tr>
+          <td><code>apify-actor-start</code> (Actor Start)</td>
+          <td>$0.001</td>
+          <td>Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="price">from $9.00 / 1,000 result ($0.009 per delivered apify-default-dataset-item). $0.001 Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+    <p><a href="https://apify.com/taroyamada/dockerhub-image-intelligence/pricing">See Docker Image Update Scraper pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>repositories and/or searchTerms</li>
+      <li>Public Docker Hub</li>
+      <li>maxTagsPerRepo cap</li>
+      <li>Not private registries</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/dockerhub-image-intelligence">Open Docker Image Update Scraper on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/github-release-monitor/">GitHub Release &amp; Tag Scraper</a> — GitHub releases, not Docker Hub.</li>
+      <li><a href="/npm-package-intelligence/">npm License &amp; Deprecation Checker</a> — npm registry, not container tags.</li>
+      <li><a href="/oss-vulnerability-monitor/">OSS Vulnerability Monitor</a> — OSV CVEs, not Hub tags.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

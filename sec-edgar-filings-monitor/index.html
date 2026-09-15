@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SEC EDGAR Scraper — 8-K and S-1 filing alerts</title>
+  <meta name="description" content="taroyamada/sec-edgar-filings-monitor. from $3.00 / 1,000 SEC filing row ($0.003 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. Not investment advice. Not an ESG report pack (use SEC &amp; ESG Report Sc">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/sec-edgar-filings-monitor/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is SEC EDGAR Scraper different from SEC & ESG Report Scraper and SEC Material Contract Intelligence?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "SEC EDGAR Scraper (taroyamada/sec-edgar-filings-monitor): This Actor lists recent SEC EDGAR filings for companies you supply (ticker/CIK), filtered by formTypes and daysBack, and emits source-linked filing rows. Default example watches 8-K and S-1. Not investment advice. Not an ESG report pack (use SEC & ESG Report Scraper). Not Form 4 insider trades or exhibit-contract extraction. SEC & ESG Report Scraper is for ESG/climate packs (input company disclosure targets; SEC EDGAR + reports; disclosure change rows). Not 8-K/S-1 filing alerts alone. SEC Material Contract Intelligence is for SEC exhibit contracts (input tickers / CIKs; SEC EDGAR exhibits; contract-intel rows). Not Form 4 insider trades. SEC Insider Transaction Scraper is for Forms 3/4/5 trades (input issuers; SEC EDGAR ownership; insider-trade rows). Not 8-K material contracts."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: companies. Live schema fields: companies, formTypes, daysBack, maxItems, timeoutMs, delivery, webhookUrl, dryRun. Monitor SEC EDGAR filings for companies. additionalProperties is not documented on this page beyond the live Store schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: companies, formTypes, daysBack, maxItems, delivery, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is SEC EDGAR Scraper priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $3.00 / 1,000 SEC filing row ($0.003 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. SEC filing row (apify-default-dataset-item) $0.003: Charged only for one successfully delivered public SEC EDGAR filing row. Do not use the README Cost block as live pricing. The published README Cost block is stale versus the live Store pricing tab. README Cost still quotes actor-start $0.01. README Cost quotes dataset-item $0.005; live primary is $0.003 (SEC filing row). Live: SEC filing row $0.003. This page quotes live PPE only."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / SEC EDGAR Scraper</nav>
+    <h1>SEC EDGAR 8-K and S-1 filing alerts by ticker or CIK</h1>
+    <p>This Actor lists recent SEC EDGAR filings for companies you supply (ticker/CIK), filtered by formTypes and daysBack, and emits source-linked filing rows. Default example watches 8-K and S-1.</p>
+    <p>Not investment advice. Not an ESG report pack (use SEC &amp; ESG Report Scraper). Not Form 4 insider trades or exhibit-contract extraction.</p>
+    <p class="price">from $3.00 / 1,000 SEC filing row ($0.003 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+    <p><a href="https://apify.com/taroyamada/sec-edgar-filings-monitor">Open SEC EDGAR Scraper on Apify</a></p>
+
+    <h2>SEC EDGAR Scraper, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/esg-disclosure-tracker/">SEC &amp; ESG Report Scraper</a> for ESG/climate packs; Use <a href="/sec-material-contract-intelligence/">SEC Material Contract Intelligence</a> for SEC exhibit contracts; Use <a href="/sec-insider-transaction-intelligence/">SEC Insider Transaction Scraper</a> for Forms 3/4/5 trades.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>SEC &amp; ESG Report Scraper</th><th>SEC Material Contract Intelligence</th><th>SEC Insider Transaction Scraper</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>SEC EDGAR Scraper</td><td>ESG/climate packs</td><td>SEC exhibit contracts</td><td>Forms 3/4/5 trades</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td><code>see schema</code></td><td>company disclosure targets</td><td>tickers / CIKs</td><td>issuers</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>Public sources listed on the Store page</td><td>SEC EDGAR + reports</td><td>SEC EDGAR exhibits</td><td>SEC EDGAR ownership</td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td>Dataset rows billed per live PPE</td><td>disclosure change rows</td><td>contract-intel rows</td><td>insider-trade rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td>
+          <td>Not investment advice. Not an ESG report pack (use SEC &amp; ESG Report Scraper). Not Form 4 insider trades or exhibit-contract extraction.</td><td>Not 8-K/S-1 filing alerts alone</td><td>Not Form 4 insider trades</td><td>Not 8-K material contracts</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/sec-edgar-filings-monitor</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Ticker 8-K/S-1 watches</li>
+      <li>daysBack-bounded filing alerts</li>
+      <li>Webhook on new accessions</li>
+    </ul>
+
+    <h2>How is SEC EDGAR Scraper different from SEC &amp; ESG Report Scraper and SEC Material Contract Intelligence?</h2>
+    <p>SEC EDGAR Scraper (taroyamada/sec-edgar-filings-monitor): This Actor lists recent SEC EDGAR filings for companies you supply (ticker/CIK), filtered by formTypes and daysBack, and emits source-linked filing rows. Default example watches 8-K and S-1. Not investment advice. Not an ESG report pack (use SEC &amp; ESG Report Scraper). Not Form 4 insider trades or exhibit-contract extraction. SEC &amp; ESG Report Scraper is for ESG/climate packs (input company disclosure targets; SEC EDGAR + reports; disclosure change rows). Not 8-K/S-1 filing alerts alone. SEC Material Contract Intelligence is for SEC exhibit contracts (input tickers / CIKs; SEC EDGAR exhibits; contract-intel rows). Not Form 4 insider trades. SEC Insider Transaction Scraper is for Forms 3/4/5 trades (input issuers; SEC EDGAR ownership; insider-trade rows). Not 8-K material contracts.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: <code>companies</code>. Published exampleRunInput is shown below. Monitor SEC EDGAR filings for companies.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>companies</code></td>
+          <td>any[] required</td>
+          <td><code>empty</code></td>
+          <td>required Companies. Company names or tickers (max 50).</td>
+        </tr>
+        <tr>
+          <td><code>formTypes</code></td>
+          <td>any[]</td>
+          <td><code>empty</code></td>
+          <td>Form Types. Filter by form type (e.g., 10-K, 10-Q, 8-K).</td>
+        </tr>
+        <tr>
+          <td><code>daysBack</code></td>
+          <td>integer</td>
+          <td><code>30</code></td>
+          <td>Days Back. Number of days to look back min=1 max=365</td>
+        </tr>
+        <tr>
+          <td><code>maxItems</code></td>
+          <td>integer</td>
+          <td><code>50</code></td>
+          <td>Max Items per Company. Maximum number of items to return min=1 max=200</td>
+        </tr>
+        <tr>
+          <td><code>timeoutMs</code></td>
+          <td>integer</td>
+          <td><code>15000</code></td>
+          <td>Timeout (ms). Request timeout in milliseconds min=1000 max=30000</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string enum</td>
+          <td><code>dataset</code></td>
+          <td>Delivery. Where to send results: dataset or webhook enum: dataset, webhook</td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Webhook URL. Webhook URL to POST results to (if delivery=webhook)</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry Run. Run without saving results (for testing)</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  "companies": [
+    "AAPL"
+  ],
+  "formTypes": [],
+  "daysBack": 30,
+  "maxItems": 10,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/sec-edgar-filings-monitor">Run SEC EDGAR Scraper on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is SEC EDGAR Scraper priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $3.00 / 1,000 SEC filing row ($0.003 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>apify-default-dataset-item</code> (SEC filing row)</td>
+          <td>$0.003</td>
+          <td>Charged only for one successfully delivered public SEC EDGAR filing row.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>The published README Cost block is stale versus the live Store pricing tab. README Cost still quotes actor-start $0.01. README Cost quotes dataset-item $0.005; live primary is $0.003 (SEC filing row). Live: SEC filing row $0.003. This page quotes live PPE only.</p>
+    <p class="price">from $3.00 / 1,000 SEC filing row ($0.003 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+    <p><a href="https://apify.com/taroyamada/sec-edgar-filings-monitor/pricing">See SEC EDGAR Scraper pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>companies required</li>
+      <li>Public EDGAR</li>
+      <li>maxItems / daysBack caps</li>
+      <li>Not investment advice</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/sec-edgar-filings-monitor">Open SEC EDGAR Scraper on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/esg-disclosure-tracker/">SEC &amp; ESG Report Scraper</a> — ESG/climate packs, not 8-K/S-1 alerts.</li>
+      <li><a href="/sec-material-contract-intelligence/">SEC Material Contract Intelligence</a> — Exhibits/contracts, not filing-index alerts.</li>
+      <li><a href="/sec-insider-transaction-intelligence/">SEC Insider Transaction Scraper</a> — Forms 3/4/5, not 8-K/S-1.</li>
+      <li><a href="/campaign-finance-lobbying-digest/">Campaign Finance Scraper</a> — FEC/LDA, not EDGAR.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

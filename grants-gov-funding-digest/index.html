@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Grants.gov Scraper — federal funding notices</title>
+  <meta name="description" content="taroyamada/grants-gov-funding-digest. from $8.00 / 1,000 Grants.gov funding digest ($0.008 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. Not TED, SAM.gov, or USASpending award monitoring. Not NIH ">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/grants-gov-funding-digest/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is Grants.gov Scraper different from TED, SAM.gov & Grants Bid Alerts and NIH RePORTER Funding Landscape Report?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Grants.gov Scraper (taroyamada/grants-gov-funding-digest): This Actor queries the official Grants.gov opportunity API for bounded feeds (keywords, agencies, eligibility) and emits source-linked funding digest rows. It is a Grants.gov notice watcher, not a TED/SAM.gov bid queue. Not TED, SAM.gov, or USASpending award monitoring. Not NIH RePORTER awards. Not grant-writing or award-probability advice. TED, SAM.gov & Grants Bid Alerts is for Procurement notices (input keywords / jurisdictions; SAM/TED/Grants.gov; opportunity rows). Not FDA/NHTSA/CPSC recalls or SEC filings. NIH RePORTER Funding Landscape Report is for NIH awards (input org/term filters; NIH RePORTER; award rows). Not Grants.gov opportunity notices. Government Contract Award Change Report is for Awarded contracts (input award watches; TED/USASpending; award-change rows). Not Grants.gov pre-award notices."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: feeds. Live schema fields: feeds, watchTerms, lookbackDays, maxOpportunitiesPerFeed, minAwardCeiling, closingSoonDays, highValueThreshold, delivery, webhookUrl, datasetMode, snapshotKey, grantsGovApiUrl, requestTimeoutSeconds, notifyOnNoNew, dryRun, nowIso, grantsGovFixturePath. Quickstart: set feeds with at least one entry and one filter (agencies, fundingCategories, or keyword) additionalProperties is false on the live schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: feeds, watchTerms, lookbackDays, maxOpportunitiesPerFeed, minAwardCeiling, closingSoonDays, highValueThreshold, delivery, datasetMode, snapshotKey, notifyOnNoNew, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. datasetMode can limit emits to changes_only / changed_only / action_needed versus all. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is Grants.gov Scraper priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $8.00 / 1,000 Grants.gov funding digest ($0.008 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. Grants.gov funding digest (apify-default-dataset-item) $0.008: Charged only for one delivered Grants.gov funding opportunity digest row. Do not use the README Cost block as live pricing. The published README Cost block is stale versus the live Store pricing tab. README Cost still quotes actor-start $0.01. README Cost quotes dataset-item $0.003; live primary is $0.008 (Grants.gov funding digest). Live: Grants.gov funding digest $0.008. This page quotes live PPE only."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Grants.gov Scraper</nav>
+    <h1>Grants.gov federal funding notices with watch-term digests</h1>
+    <p>This Actor queries the official Grants.gov opportunity API for bounded feeds (keywords, agencies, eligibility) and emits source-linked funding digest rows. It is a Grants.gov notice watcher, not a TED/SAM.gov bid queue.</p>
+    <p>Not TED, SAM.gov, or USASpending award monitoring. Not NIH RePORTER awards. Not grant-writing or award-probability advice.</p>
+    <p class="price">from $8.00 / 1,000 Grants.gov funding digest ($0.008 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+    <p><a href="https://apify.com/taroyamada/grants-gov-funding-digest">Open Grants.gov Scraper on Apify</a></p>
+
+    <h2>Grants.gov Scraper, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/ted-sam-grants-bid-alerts/">TED, SAM.gov &amp; Grants Bid Alerts</a> for Procurement notices; Use <a href="/nih-research-funding-landscape-report/">NIH RePORTER Funding Landscape Report</a> for NIH awards; Use <a href="/government-contract-award-monitor/">Government Contract Award Change Report</a> for Awarded contracts.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>TED, SAM.gov &amp; Grants Bid Alerts</th><th>NIH RePORTER Funding Landscape Report</th><th>Government Contract Award Change Report</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>Grants.gov Scraper</td><td>Procurement notices</td><td>NIH awards</td><td>Awarded contracts</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td><code>see schema</code></td><td>keywords / jurisdictions</td><td>org/term filters</td><td>award watches</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>Public sources listed on the Store page</td><td>SAM/TED/Grants.gov</td><td>NIH RePORTER</td><td>TED/USASpending</td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td>Dataset rows billed per live PPE</td><td>opportunity rows</td><td>award rows</td><td>award-change rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td>
+          <td>Not TED, SAM.gov, or USASpending award monitoring. Not NIH RePORTER awards. Not grant-writing or award-probability advice.</td><td>Not FDA/NHTSA/CPSC recalls or SEC filings</td><td>Not Grants.gov opportunity notices</td><td>Not Grants.gov pre-award notices</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/grants-gov-funding-digest</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Keyword + agency notice watches</li>
+      <li>Closing-soon / high-value flags from live schema fields</li>
+      <li>Scheduled snapshotKey digests</li>
+    </ul>
+
+    <h2>How is Grants.gov Scraper different from TED, SAM.gov &amp; Grants Bid Alerts and NIH RePORTER Funding Landscape Report?</h2>
+    <p>Grants.gov Scraper (taroyamada/grants-gov-funding-digest): This Actor queries the official Grants.gov opportunity API for bounded feeds (keywords, agencies, eligibility) and emits source-linked funding digest rows. It is a Grants.gov notice watcher, not a TED/SAM.gov bid queue. Not TED, SAM.gov, or USASpending award monitoring. Not NIH RePORTER awards. Not grant-writing or award-probability advice. TED, SAM.gov &amp; Grants Bid Alerts is for Procurement notices (input keywords / jurisdictions; SAM/TED/Grants.gov; opportunity rows). Not FDA/NHTSA/CPSC recalls or SEC filings. NIH RePORTER Funding Landscape Report is for NIH awards (input org/term filters; NIH RePORTER; award rows). Not Grants.gov opportunity notices. Government Contract Award Change Report is for Awarded contracts (input award watches; TED/USASpending; award-change rows). Not Grants.gov pre-award notices.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: <code>feeds</code>. Published exampleRunInput is shown below. Quickstart: set feeds with at least one entry and one filter (agencies, fundingCategories, or keyword)</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>feeds</code></td>
+          <td>object[] required</td>
+          <td><code>empty</code></td>
+          <td>required Funding feeds to monitor (required). One entry per watch target. Each feed produces one digest row. At minimum, set id, name, and at least one filter (agencies, fundingCategories, or keyword). No API key required. Each item supports id, name, keyword, agencies, fundingCategories, fundingInstruments, oppStatuses, minAwardCeiling.</td>
+        </tr>
+        <tr>
+          <td><code>watchTerms</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Watch terms — keywords to flag in opportunity titles and synopses (comma-separated). Terms to flag in opportunity titles and synopses. Any opportunity matching a watch term receives a watch_term_hit signal tag and appears in the digest's watchTermHits section.</td>
+        </tr>
+        <tr>
+          <td><code>lookbackDays</code></td>
+          <td>integer</td>
+          <td><code>14</code></td>
+          <td>Opportunity lookback window (days). Include opportunities opened within this many days. Keep short (14–30) for recurring runs; widen for initial discovery. min=1 max=365</td>
+        </tr>
+        <tr>
+          <td><code>maxOpportunitiesPerFeed</code></td>
+          <td>integer</td>
+          <td><code>50</code></td>
+          <td>Max opportunities per feed. Upper bound on opportunities fetched per feed per run. min=1 max=500</td>
+        </tr>
+        <tr>
+          <td><code>minAwardCeiling</code></td>
+          <td>number</td>
+          <td><code>0</code></td>
+          <td>Global minimum award ceiling (USD). Skip opportunities with award ceiling below this value. Applied globally unless overridden per feed. Set 0 to include all. min=0</td>
+        </tr>
+        <tr>
+          <td><code>closingSoonDays</code></td>
+          <td>integer</td>
+          <td><code>14</code></td>
+          <td>Closing-soon threshold (days). Opportunities closing within this many days receive a closing_soon signal tag. min=1 max=90</td>
+        </tr>
+        <tr>
+          <td><code>highValueThreshold</code></td>
+          <td>number</td>
+          <td><code>1000000</code></td>
+          <td>High-value award ceiling threshold (USD). Opportunities with awardCeiling &gt;= this value receive a high_value signal tag. min=0</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string enum</td>
+          <td><code>dataset</code></td>
+          <td>Delivery mode. dataset stores results in the Apify dataset. webhook posts the digest JSON to webhookUrl. enum: dataset, webhook</td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Webhook URL (required when delivery=webhook). POST target for funding digest payload. Leave empty for dataset delivery.</td>
+        </tr>
+        <tr>
+          <td><code>datasetMode</code></td>
+          <td>string enum</td>
+          <td><code>all</code></td>
+          <td>Dataset output mode. all emits every feed digest row. action_needed emits only feeds with new or closing-soon opportunities. new_only emits only feeds with opportunities not seen in the previous run. enum: all, action_needed, new_only</td>
+        </tr>
+        <tr>
+          <td><code>snapshotKey</code></td>
+          <td>string</td>
+          <td><code>grants-funding-digest-state</code></td>
+          <td>Snapshot key for recurring state. Stable key used to persist seen opportunity IDs across recurring runs.</td>
+        </tr>
+        <tr>
+          <td><code>grantsGovApiUrl</code></td>
+          <td>string</td>
+          <td><code>https://api.grants.gov/v1/api/search2</code></td>
+          <td>Grants.gov search2 API URL. Grants.gov legacy search2 endpoint. No API key required.</td>
+        </tr>
+        <tr>
+          <td><code>requestTimeoutSeconds</code></td>
+          <td>integer</td>
+          <td><code>30</code></td>
+          <td>HTTP request timeout (seconds). Timeout for each API request. min=5 max=120</td>
+        </tr>
+        <tr>
+          <td><code>notifyOnNoNew</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Emit digest even when no new opportunities found. When true, every feed always produces a digest row even if no new opportunities were found.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run (skip snapshot writes and webhook delivery). Validate and fetch without persisting state or posting webhooks. Safe for testing input shapes.</td>
+        </tr>
+        <tr>
+          <td><code>nowIso</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Override current time (ISO string, for testing). Set to a fixed ISO timestamp to make runs deterministic against fixture data.</td>
+        </tr>
+        <tr>
+          <td><code>grantsGovFixturePath</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Grants.gov fixture file path (testing). Local JSON fixture for offline Grants.gov tests.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  "feeds": [
+    {
+      "id": "doe-clean-energy-grants",
+      "name": "DOE Clean Energy Grants",
+      "agencies": "DOE",
+      "fundingCategories": "EN",
+      "fundingInstruments": "G",
+      "oppStatuses": "posted"
+    }
+  ],
+  "watchTerms": "climate,solar,wind,battery",
+  "lookbackDays": 14,
+  "maxOpportunitiesPerFeed": 50,
+  "minAwardCeiling": 0,
+  "closingSoonDays": 14,
+  "highValueThreshold": 1000000,
+  "delivery": "dataset",
+  "datasetMode": "all",
+  "snapshotKey": "grants-funding-digest-quickstart",
+  "notifyOnNoNew": true,
+  "dryRun": false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/grants-gov-funding-digest">Run Grants.gov Scraper on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. datasetMode can limit emits to changes_only / changed_only / action_needed versus all. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is Grants.gov Scraper priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $8.00 / 1,000 Grants.gov funding digest ($0.008 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>apify-default-dataset-item</code> (Grants.gov funding digest)</td>
+          <td>$0.008</td>
+          <td>Charged only for one delivered Grants.gov funding opportunity digest row.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>The published README Cost block is stale versus the live Store pricing tab. README Cost still quotes actor-start $0.01. README Cost quotes dataset-item $0.003; live primary is $0.008 (Grants.gov funding digest). Live: Grants.gov funding digest $0.008. This page quotes live PPE only.</p>
+    <p class="price">from $8.00 / 1,000 Grants.gov funding digest ($0.008 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+    <p><a href="https://apify.com/taroyamada/grants-gov-funding-digest/pricing">See Grants.gov Scraper pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>feeds is required</li>
+      <li>Public Grants.gov API only</li>
+      <li>Caps via maxOpportunitiesPerFeed</li>
+      <li>Not SAM.gov/TED procurement</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/grants-gov-funding-digest">Open Grants.gov Scraper on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/ted-sam-grants-bid-alerts/">TED, SAM.gov &amp; Grants Bid Alerts</a> — Multi-jurisdiction bid queue; this page is Grants.gov-only.</li>
+      <li><a href="/nih-research-funding-landscape-report/">NIH RePORTER Funding Landscape Report</a> — NIH awards, not Grants.gov notices.</li>
+      <li><a href="/government-contract-award-monitor/">Government Contract Award Change Report</a> — Awarded contracts, not open notices.</li>
+      <li><a href="/campaign-finance-lobbying-digest/">Campaign Finance Scraper</a> — FEC/LDA, not grants.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>
