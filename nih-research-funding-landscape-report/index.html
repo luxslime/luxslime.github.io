@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NIH RePORTER Funding Landscape Report — awards by topic, institution, FY</title>
+  <meta name="description" content="Monitor official NIH RePORTER awards by topic, institution, fiscal year, agency, and activity code. Store: taroyamada/nih-research-funding-landscape-report. From $5.00 / 1,000 nih award rows. Baseline and unchanged checks are free. Not TED/SAM.gov procurement and not PubMed literature.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/nih-research-funding-landscape-report/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is NIH RePORTER Funding Landscape Report different from TED/SAM.gov Bid Alerts and PubMed Literature Watch?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "This Actor queries the official NIH RePORTER v2 Project API for awards matching bounded watches (terms, institutions, fiscal years, activity codes, agencies, project numbers). Store ID taroyamada/nih-research-funding-landscape-report. TED, SAM.gov & Grants Bid Alerts Scraper queues TED tenders, SAM.gov opportunities, and Grants.gov notices — public-sector procurement, not NIH RePORTER awards. PubMed Literature Watch is NCBI citation metadata. OpenAlex is scholarly works. PubMed & Clinical Trials Evidence Gap Report matches trials to PubMed. This page is NIH award landscape only."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What input is required?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "watches is required: an array of objects with additionalProperties false. Watch fields are id, terms, institutions, fiscalYears (integers, min 2000, max 2100), activityCodes, agencies, projectNumbers, and includeActiveProjects (boolean, default true). Other live fields are monitorKey (default nih-funding-watch), initialRunMode (baseline_only or emit_backfill, default baseline_only), generateReport (boolean, default true), emitRawRows (boolean, default false), emitExport (boolean, default false), emitUnchanged (boolean, default false; unchanged still 0 rows / 0 charge), maxProjectsPerWatch (integer, default 50; NIH request limit never greater than 500), maxChargeUsd (number, default 25), and dryRun (boolean, default false). additionalProperties is false on the root schema."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the best first run?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Published exampleRunInput: watches oncology-immunotherapy with terms immunotherapy and oncology, fiscalYears 2025 and 2026, activityCodes R01, maxProjectsPerWatch 3, maxChargeUsd 3, dryRun false. Default initialRunMode is baseline_only: the first successful run stores a free baseline with zero rows and zero charge. Use emit_backfill when you want the first matching awards billed. Store Quickstart uses emit_backfill, generateReport true, emitExport true, maxProjectsPerWatch 10, and maxChargeUsd 30. If planned PPE exceeds maxChargeUsd, the run fails closed with no delivery."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does a result contain?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "README sample JSON lives in docs/sample-output.json and is illustrative, not a live NIH result. A landscape report includes matched project count, new/changed counts, observed award totals, FY/org/activity/agency distributions, and an official source URL. Descriptive public funding fields only. The Actor excludes investigator identity and direct communication fields. It is not a directory or prospecting tool."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is this medical, financial, or grant-writing advice?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Not financial, medical, clinical, legal, grant-writing, award-probability, or institutional-performance advice. No NIH or HHS endorsement. Sequential RePORTER requests are spaced at least 1 second apart. State is isolated by monitorKey plus caller; a state failure does not mark the monitor successful."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is NIH RePORTER Funding Landscape Report priced?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Billing is pay per event. The live Store card is from $5.00 / 1,000 nih award rows. Current PPE: nih-award-row $0.005; nih-funding-change-alert $0.20; nih-funding-landscape-report $12.00; nih-funding-export $8.00. Baseline and unchanged checks are free (zero rows / zero charge), even if emitUnchanged is true. Default generateReport is true and bills $12.00 when a new or changed landscape is emitted; keep maxChargeUsd at or above the planned path. Default maxChargeUsd is 25."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / NIH RePORTER Funding Landscape Report</nav>
+    <h1>Monitor NIH RePORTER awards by topic, institution, and fiscal year</h1>
+    <p>NIH RePORTER Funding Landscape Report queries the official NIH RePORTER v2 Project API for awards matching bounded watches: terms, institutions, fiscal years, agencies, and activity codes. It returns source-linked funding change alerts, landscape reports, and compact exports from public award data. Baseline and unchanged checks are free.</p>
+    <p>Descriptive public funding fields only. Not a directory or prospecting tool. Not financial, medical, clinical, legal, grant-writing, award-probability, or institutional-performance advice. This independent Actor is not affiliated with, sponsored by, or endorsed by NIH or HHS.</p>
+    <p class="price">from $5.00 / 1,000 nih award rows ($0.005 per award row; $0.20 per change alert; $12.00 per landscape report; $8.00 per export)</p>
+    <p><a href="https://apify.com/taroyamada/nih-research-funding-landscape-report">Open NIH RePORTER Funding Landscape Report on Apify</a></p>
+
+    <h2>NIH RePORTER awards, not TED/SAM.gov bids and not PubMed literature</h2>
+    <p>Use this page when the job is NIH award landscape for a topic or institution. Use <a href="/ted-sam-grants-bid-alerts/">TED, SAM.gov &amp; Grants Bid Alerts Scraper</a> for TED/SAM.gov/Grants.gov procurement queues. Use <a href="/pubmed-literature-watch/">PubMed Literature Watch &amp; Research Report</a> for NCBI citations. Use <a href="/biomedical-trial-literature-evidence-report/">PubMed &amp; Clinical Trials Evidence Gap Report</a> for trial↔PubMed matching. Use <a href="/openalex-research-intelligence/">OpenAlex Scholarly Works Scraper</a> to widen scholarly discovery.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>This Actor</th>
+          <th>TED, SAM.gov &amp; Grants Bid Alerts</th>
+          <th>PubMed Literature Watch</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>NIH RePORTER award landscape, alerts, exports</td>
+          <td>Public-sector bid-alert queue</td>
+          <td>PubMed citation watch and reports</td>
+        </tr>
+        <tr>
+          <td>Source</td>
+          <td>NIH RePORTER v2 Project API</td>
+          <td>TED, SAM.gov, Grants.gov notice APIs</td>
+          <td>NCBI ESearch/ESummary</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td><code>watches[]</code></td>
+          <td>Jurisdictions, keywords, codes</td>
+          <td><code>searchTerms</code> or <code>pmids</code></td>
+        </tr>
+        <tr>
+          <td>Investigator identity</td>
+          <td>Excluded; not a prospecting directory</td>
+          <td>Notice contact fields as published</td>
+          <td>Citation authors as published metadata</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Bounded landscape for a topic or institution (for example oncology R01 in selected FYs).</li>
+      <li>Portfolio alerts: new or changed awards after a free baseline.</li>
+      <li>Backfill then schedule, keeping <code>monitorKey</code> stable.</li>
+      <li>Feed grant→publication linkage (README next Actor: NIH Grant Publication Linkage &amp; Output Report on the Store).</li>
+    </ul>
+
+    <h2>How is NIH RePORTER Funding Landscape Report different from TED/SAM.gov Bid Alerts and PubMed Literature Watch?</h2>
+    <p>This Actor queries the official NIH RePORTER v2 Project API for awards matching bounded watches (terms, institutions, fiscal years, activity codes, agencies, project numbers). Store ID <code>taroyamada/nih-research-funding-landscape-report</code>. <a href="/ted-sam-grants-bid-alerts/">TED, SAM.gov &amp; Grants Bid Alerts Scraper</a> queues TED tenders, SAM.gov opportunities, and Grants.gov notices — public-sector procurement, not NIH RePORTER awards. <a href="/pubmed-literature-watch/">PubMed Literature Watch</a> is NCBI citation metadata. <a href="/openalex-research-intelligence/">OpenAlex Scholarly Works Scraper</a> is scholarly works. <a href="/biomedical-trial-literature-evidence-report/">PubMed &amp; Clinical Trials Evidence Gap Report</a> matches trials to PubMed. This page is NIH award landscape only.</p>
+
+    <h2>What is the best first run?</h2>
+    <p>Default <code>initialRunMode</code> is <code>baseline_only</code>: the first successful run stores a free baseline with zero rows and zero charge. Published example run input (small live backfill under a $3 cap — omitted <code>initialRunMode</code> therefore stays <code>baseline_only</code> unless you set <code>emit_backfill</code>):</p>
+<pre><code>{
+  "watches": [{
+    "id": "oncology-immunotherapy",
+    "terms": ["immunotherapy", "oncology"],
+    "fiscalYears": [2025, 2026],
+    "activityCodes": ["R01"]
+  }],
+  "maxProjectsPerWatch": 3,
+  "maxChargeUsd": 3,
+  "dryRun": false
+}</code></pre>
+    <p>Use <code>initialRunMode</code> <code>emit_backfill</code> when you want the first matching awards billed. Store Quickstart uses <code>emit_backfill</code>, <code>generateReport</code> true, <code>emitExport</code> true, <code>maxProjectsPerWatch</code> 10, and <code>maxChargeUsd</code> 30. Default <code>generateReport</code> is true ($12.00 when a new or changed landscape is emitted). If planned PPE exceeds <code>maxChargeUsd</code>, the run fails closed with no delivery. Default <code>maxChargeUsd</code> is 25.</p>
+    <p><a href="https://apify.com/taroyamada/nih-research-funding-landscape-report">Run NIH RePORTER Funding Landscape Report on Apify</a></p>
+
+    <h2>What input is required?</h2>
+    <p><code>watches</code> is required. Root and watch-item <code>additionalProperties</code> are false.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>watches</code></td>
+          <td>object[]</td>
+          <td>required</td>
+          <td><code>id</code>, <code>terms</code>, <code>institutions</code>, <code>fiscalYears</code> (2000–2100), <code>activityCodes</code>, <code>agencies</code>, <code>projectNumbers</code>, <code>includeActiveProjects</code> (default true)</td>
+        </tr>
+        <tr>
+          <td><code>monitorKey</code></td>
+          <td>string</td>
+          <td><code>nih-funding-watch</code></td>
+          <td>Isolated state namespace</td>
+        </tr>
+        <tr>
+          <td><code>initialRunMode</code></td>
+          <td>string</td>
+          <td><code>baseline_only</code></td>
+          <td><code>baseline_only</code> or <code>emit_backfill</code></td>
+        </tr>
+        <tr>
+          <td><code>generateReport</code></td>
+          <td>boolean</td>
+          <td>true</td>
+          <td>Aggregate landscape only when new/changed awards are emitted</td>
+        </tr>
+        <tr>
+          <td><code>emitRawRows</code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Low-priced award rows</td>
+        </tr>
+        <tr>
+          <td><code>emitExport</code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Compact JSON export</td>
+        </tr>
+        <tr>
+          <td><code>emitUnchanged</code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Compatibility; unchanged still 0 rows / 0 charge</td>
+        </tr>
+        <tr>
+          <td><code>maxProjectsPerWatch</code></td>
+          <td>integer</td>
+          <td>50</td>
+          <td>NIH request limit never greater than 500</td>
+        </tr>
+        <tr>
+          <td><code>maxChargeUsd</code></td>
+          <td>number</td>
+          <td>25</td>
+          <td>Fail closed if planned PPE exceeds the cap</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Representative rows; no NIH, no state, no PPE</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>What does a result contain?</h2>
+    <p>README sample JSON lives in <code>docs/sample-output.json</code> and is illustrative, not a live NIH result. A landscape report includes matched project count, new/changed counts, observed award totals, FY/org/activity/agency distributions, and an official source URL. Descriptive public funding fields only. The Actor excludes investigator identity and direct communication fields. It is not a directory or prospecting tool.</p>
+
+    <h2>Is this medical, financial, or grant-writing advice?</h2>
+    <p>No. Not financial, medical, clinical, legal, grant-writing, award-probability, or institutional-performance advice. No NIH or HHS endorsement. Sequential RePORTER requests are spaced at least 1 second apart. State is isolated by <code>monitorKey</code> plus caller; a state failure does not mark the monitor successful.</p>
+
+    <h2>How is NIH RePORTER Funding Landscape Report priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $5.00 / 1,000 nih award rows</strong>. Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>nih-award-row</code></td>
+          <td>$0.005</td>
+          <td>One NIH award row</td>
+        </tr>
+        <tr>
+          <td><code>nih-funding-change-alert</code></td>
+          <td>$0.20</td>
+          <td>One funding change alert</td>
+        </tr>
+        <tr>
+          <td><code>nih-funding-landscape-report</code></td>
+          <td>$12.00</td>
+          <td>One landscape report</td>
+        </tr>
+        <tr>
+          <td><code>nih-funding-export</code></td>
+          <td>$8.00</td>
+          <td>One compact export</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Baseline and unchanged checks are free (zero rows / zero charge), even if <code>emitUnchanged</code> is true. Default <code>generateReport</code> is true and bills $12.00 when a new or changed landscape is emitted; keep <code>maxChargeUsd</code> at or above the planned path.</p>
+    <p class="price">from $5.00 per 1,000 nih award rows; $0.20 per change alert; $12.00 per landscape report; $8.00 per export</p>
+    <p><a href="https://apify.com/taroyamada/nih-research-funding-landscape-report/pricing">See NIH RePORTER Funding Landscape Report pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Required <code>watches[]</code>. <code>maxProjectsPerWatch</code> never greater than 500. Requests ≥ 1 second apart.</li>
+      <li>Baseline and unchanged checks are free. Fail closed if <code>maxChargeUsd</code> is too low.</li>
+      <li>Excludes investigator identity and direct communication fields. Not a prospecting tool.</li>
+      <li>Not TED/SAM.gov/Grants.gov procurement. Not PubMed literature. Not NIH/HHS endorsed.</li>
+    </ul>
+    <p>Published README next-report Store listing (no local landing): <a href="https://apify.com/taroyamada/nih-grant-publication-output-report">NIH Grant Publication Linkage &amp; Output Report on Apify</a>.</p>
+    <p><a href="https://apify.com/taroyamada/nih-research-funding-landscape-report">Open NIH RePORTER Funding Landscape Report on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/pubmed-literature-watch/">PubMed Literature Watch &amp; Research Report</a> — NCBI citations, not NIH awards</li>
+      <li><a href="/biomedical-trial-literature-evidence-report/">PubMed &amp; Clinical Trials Evidence Gap Report</a> — trial↔PubMed gaps</li>
+      <li><a href="/openalex-research-intelligence/">OpenAlex Scholarly Works Scraper</a> — OpenAlex works, not RePORTER</li>
+      <li><a href="/ted-sam-grants-bid-alerts/">TED, SAM.gov &amp; Grants Bid Alerts Scraper</a> — TED/SAM.gov/Grants.gov, not NIH RePORTER</li>
+      <li><a href="/hhs-healthcare-data-breach-scraper/">HHS Healthcare Data Breach Change Scraper</a> — HHS OCR disclosures</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

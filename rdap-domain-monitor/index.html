@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RDAP Domain Expiry &amp; Whois Scraper — expiry, registrar, and ownership changes</title>
+  <meta name="description" content="Track domain expirations and ownership changes via RDAP for dropped URLs, competitor assets, and brand protection. Store: taroyamada/rdap-domain-monitor. $9.00 / 1,000 delivered monitoring result rows. Unchanged runs are free. Not TLS inspection and not DNS propagation.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/rdap-domain-monitor/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is RDAP Domain Expiry & Whois Scraper different from SSL/TLS Certificate Scraper and DNS Propagation Checker?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "This Actor looks up domains you already have through RDAP: expiry timestamps, registrar, registrant/ownership, nameservers, change history, and expiry warnings. Required input is domains (maximum 500). Store ID taroyamada/rdap-domain-monitor. SSL/TLS Certificate Scraper inspects TLS certificates on hostnames (maximum 200): expiry, issuer, SHA-256 fingerprints, optional Google Web Risk; it does not query RDAP. DNS Propagation Checker queries public A/AAAA/MX/TXT/CNAME/NS/SOA across eight resolvers (maximum 200) and does not fetch RDAP registration records. DMARC & Email Security Checker grades SPF, DMARC, MX, and optional DKIM on domains. Use this Actor for RDAP expiry and ownership monitoring."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What input is required?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "domains is required: domain names to look up via RDAP, maximum 500 per run. Schema prefill is example.com and example.org. Optional live schema fields are checkOwnership (boolean, default true), expiryWarningDays (integer, default 30), delivery (dataset or webhook, default dataset), webhookUrl (required when delivery is webhook), snapshotKey (string, default rdap-domain-snapshots), concurrency (integer, default 3), emitUnchanged (boolean, default false), and dryRun (boolean, default false). additionalProperties is false. The published Store example run input uses expiryWarningDays 120 and snapshotKey rdap-domain-monitor-snapshots; those values override the schema defaults. This is an RDAP protocol lookup, not an HTML crawl."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does a monitoring result contain?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The published README output table lists meta and results[]. Fields per result are domain, status, rdap, changes, warnings, checkedAt, and error. The README sample uses fictional dates and is truncated; treat it as an illustration, not a live coverage guarantee. There is no published output JSON schema on the Store page. Lookup failures stay in the free OUTPUT diagnostic record and are never billed as result rows."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do unchanged rows, snapshots, and webhooks work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Recurring runs write only initial or changed successful checks to the billable Dataset by default. Stable checks produce 0 Dataset rows and 0 result charges. emitUnchanged defaults to false; keep it off for recurring monitoring. Keep snapshotKey constant across runs for change detection (schema default rdap-domain-snapshots). delivery defaults to dataset. Set delivery to webhook and provide webhookUrl to POST the same summary-plus-results JSON. dryRun true skips saving snapshots and sending webhooks."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is RDAP Domain Expiry & Whois Scraper priced?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Billing is pay per event. The live Store card is $9.00 / 1,000 delivered monitoring result rows. The billed event is Delivered monitoring result row (apify-default-dataset-item) at $0.009, charged only when a new or changed monitoring result row is delivered. Unchanged runs are free. There is no Actor Start on the current pricing tab. The README Cost section that still quotes actor-start $0.01 plus dataset-item $0.003 is stale; those figures are not the live Store rates."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does this Actor crawl websites or solve CAPTCHAs?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. It looks up registration data through RDAP for hostnames you supply. It is not a page crawler, not HTTP status QA, not TLS handshake inspection, and not a CAPTCHA or anti-bot bypass. Keep concurrency low (README tip: typically 1–10, often at or below 5). Unreachable lookups produce an error row; other domains continue."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / RDAP Domain Expiry &amp; Whois Scraper</nav>
+    <h1>Track domain expiry, registrar, and ownership changes via RDAP</h1>
+    <p>RDAP Domain Expiry &amp; Whois Scraper looks up domains you already have through RDAP and records expiry timestamps, registrar, registrant/ownership, nameservers, change history, and expiry warnings. It is registration-record monitoring for portfolio renewal, brand protection, and IT governance — not TLS certificate inspection, not multi-resolver DNS propagation, and not HTTP status QA.</p>
+    <p class="price">$9.00 / 1,000 delivered monitoring result rows (unchanged runs are free)</p>
+    <p><a href="https://apify.com/taroyamada/rdap-domain-monitor">Open RDAP Domain Expiry &amp; Whois Scraper on Apify</a></p>
+
+    <h2>RDAP registration records, not TLS certs or DNS propagation</h2>
+    <p>Use this page when the job is domain expiry, registrar, nameserver, and ownership diffs via RDAP. Use <a href="/ssl-tls-certificate-scraper/">SSL/TLS Certificate Scraper</a> for protocol-level TLS expiry and fingerprints. Use <a href="/dns-propagation-checker/">DNS Propagation Checker</a> for public A/MX/NS records across eight resolvers. Use <a href="/dmarc-email-security-checker/">DMARC &amp; Email Security Checker</a> for SPF/DMARC/MX grades.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>This Actor</th>
+          <th>SSL/TLS Certificate Scraper</th>
+          <th>DNS Propagation Checker</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>RDAP expiry, registrar, ownership, nameserver changes</td>
+          <td>TLS cert expiry, issuer, SHA-256 fingerprints</td>
+          <td>Multi-resolver public DNS propagation</td>
+        </tr>
+        <tr>
+          <td>Input</td>
+          <td>Hostnames in <code>domains</code> (max 500)</td>
+          <td>Hostnames in <code>domains</code> (max 200)</td>
+          <td>Hostnames in <code>domains</code> (max 200)</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>RDAP registration records</td>
+          <td>TLS on the supplied host (default port 443)</td>
+          <td>Public DNS via Node.js <code>dns.Resolver</code></td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td>Expiry, registrar, ownership, NS, changes, warnings</td>
+          <td>Cert fields, changes, optional Web Risk</td>
+          <td>Resolved values, TTL, resolver identity</td>
+        </tr>
+        <tr>
+          <td>Not this job</td>
+          <td>TLS handshake, HTTP status, HTML crawl</td>
+          <td>RDAP/Whois registration data</td>
+          <td>RDAP expiry or ownership diffs</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/rdap-domain-monitor</code>. This is an RDAP protocol lookup, not an HTML crawl and not a CAPTCHA bypass.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Portfolio renewal planning: expiry warnings before domains lapse.</li>
+      <li>Brand-protection watches: registrar, nameserver, and ownership transfers.</li>
+      <li>IT/security governance: scheduled RDAP diffs on assets you operate.</li>
+      <li>SEO drop-catch / backlink opportunity watch on domains you already list.</li>
+      <li>M&amp;A due diligence: registration facts for a bounded domain list.</li>
+    </ul>
+
+    <h2>How is RDAP Domain Expiry &amp; Whois Scraper different from SSL/TLS Certificate Scraper and DNS Propagation Checker?</h2>
+    <p>This Actor looks up domains you already have through RDAP: expiry timestamps, registrar, registrant/ownership, nameservers, change history, and expiry warnings. Required input is <code>domains</code> (maximum 500). Store ID <code>taroyamada/rdap-domain-monitor</code>. <a href="/ssl-tls-certificate-scraper/">SSL/TLS Certificate Scraper</a> inspects TLS certificates on hostnames (maximum 200): expiry, issuer, SHA-256 fingerprints, optional Google Web Risk; it does not query RDAP. <a href="/dns-propagation-checker/">DNS Propagation Checker</a> queries public A/AAAA/MX/TXT/CNAME/NS/SOA across eight resolvers (maximum 200) and does not fetch RDAP registration records. <a href="/dmarc-email-security-checker/">DMARC &amp; Email Security Checker</a> grades SPF, DMARC, MX, and optional DKIM on domains. Use this Actor for RDAP expiry and ownership monitoring.</p>
+
+    <h2>What input is required?</h2>
+    <p><code>domains</code> is required: domain names to look up via RDAP, maximum 500 per run. Schema prefill is <code>example.com</code> and <code>example.org</code>. <code>additionalProperties</code> is false.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>domains</code></td>
+          <td>string[]</td>
+          <td>required</td>
+          <td>Max 500. Schema prefill: <code>example.com</code>, <code>example.org</code></td>
+        </tr>
+        <tr>
+          <td><code>checkOwnership</code></td>
+          <td>boolean</td>
+          <td>true</td>
+          <td>Detect registrant/NS changes between runs</td>
+        </tr>
+        <tr>
+          <td><code>expiryWarningDays</code></td>
+          <td>integer</td>
+          <td>30</td>
+          <td>Alert when expiry is within this many days. Store example run uses 120</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string</td>
+          <td><code>dataset</code></td>
+          <td><code>dataset</code> or <code>webhook</code></td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td>—</td>
+          <td>Required when <code>delivery</code> is <code>webhook</code></td>
+        </tr>
+        <tr>
+          <td><code>snapshotKey</code></td>
+          <td>string</td>
+          <td><code>rdap-domain-snapshots</code></td>
+          <td>Persist baseline across runs. Store example run uses <code>rdap-domain-monitor-snapshots</code></td>
+        </tr>
+        <tr>
+          <td><code>concurrency</code></td>
+          <td>integer</td>
+          <td>3</td>
+          <td>Parallel RDAP lookups. README tip: keep low, often ≤ 5</td>
+        </tr>
+        <tr>
+          <td><code>emitUnchanged</code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Keep off so unchanged runs produce zero rows and zero charges</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Skip saving snapshots and sending webhooks</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Schema-valid input using live defaults:</p>
+<pre><code>{
+  "domains": ["example.com", "example.org"],
+  "checkOwnership": true,
+  "expiryWarningDays": 30,
+  "delivery": "dataset",
+  "snapshotKey": "rdap-domain-snapshots",
+  "concurrency": 3,
+  "emitUnchanged": false,
+  "dryRun": false
+}</code></pre>
+    <p>Published Store example run input:</p>
+<pre><code>{
+  "domains": ["google.com", "github.com"],
+  "checkOwnership": true,
+  "expiryWarningDays": 120,
+  "concurrency": 3,
+  "delivery": "dataset",
+  "snapshotKey": "rdap-domain-monitor-snapshots",
+  "dryRun": false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/rdap-domain-monitor">Run RDAP Domain Expiry &amp; Whois Scraper on Apify</a></p>
+
+    <h2>What does a monitoring result contain?</h2>
+    <p>The published README output table lists <code>meta</code> and <code>results[]</code>. Per-result fields are <code>domain</code>, <code>status</code>, <code>rdap</code>, <code>changes</code>, <code>warnings</code>, <code>checkedAt</code>, and <code>error</code>. The README sample uses fictional dates and is truncated; treat it as an illustration, not a live coverage guarantee. Lookup failures stay in the free <code>OUTPUT</code> diagnostic record and are never billed as result rows.</p>
+
+    <h2>How do unchanged rows, snapshots, and webhooks work?</h2>
+    <p>Recurring runs write only initial or changed successful checks to the billable Dataset by default. Stable checks produce 0 Dataset rows and 0 result charges. <code>emitUnchanged</code> defaults to false; keep it off for recurring monitoring. Keep <code>snapshotKey</code> constant across runs for change detection (schema default <code>rdap-domain-snapshots</code>). <code>delivery</code> defaults to <code>dataset</code>. Set <code>delivery</code> to <code>webhook</code> and provide <code>webhookUrl</code> to POST the same summary-plus-results JSON. <code>dryRun</code> true skips saving snapshots and sending webhooks.</p>
+
+    <h2>Does this Actor crawl websites or solve CAPTCHAs?</h2>
+    <p>No. It looks up registration data through RDAP for hostnames you supply. It is not a page crawler, not HTTP status QA, not TLS handshake inspection, and not a CAPTCHA or anti-bot bypass. Keep concurrency low (README tip: typically 1–10, often at or below 5). Unreachable lookups produce an error row; other domains continue.</p>
+
+    <h2>How is RDAP Domain Expiry &amp; Whois Scraper priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>$9.00 / 1,000 delivered monitoring result rows</strong>. The billed event is Delivered monitoring result row (<code>apify-default-dataset-item</code>) at <strong>$0.009</strong>, charged only when a new or changed monitoring result row is delivered. Unchanged runs are free. There is no Actor Start on the current pricing tab. The README Cost section that still quotes <code>actor-start</code> $0.01 plus <code>dataset-item</code> $0.003 is stale; those figures are not the live Store rates.</p>
+    <p class="price">$9.00 per 1,000 delivered monitoring result rows ($0.009 per new or changed row)</p>
+    <p><a href="https://apify.com/taroyamada/rdap-domain-monitor/pricing">See RDAP Domain Expiry &amp; Whois Scraper pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Maximum 500 domains per run. Required field is <code>domains</code>.</li>
+      <li>RDAP protocol lookup only — not HTML crawl, not HTTP status, not TLS, not DNS propagation.</li>
+      <li>Unchanged successful checks are not billed unless <code>emitUnchanged</code> is true. Failures stay in free <code>OUTPUT</code>.</li>
+      <li>Keep concurrency low. Unreachable lookups do not stop the rest of the batch.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/rdap-domain-monitor">Open RDAP Domain Expiry &amp; Whois Scraper on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/ssl-tls-certificate-scraper/">SSL/TLS Certificate Scraper</a> — TLS expiry and fingerprints, not RDAP registration records</li>
+      <li><a href="/dns-propagation-checker/">DNS Propagation Checker</a> — multi-resolver public DNS, not RDAP</li>
+      <li><a href="/dmarc-email-security-checker/">DMARC &amp; Email Security Checker</a> — SPF/DMARC/MX grades, not Whois/RDAP</li>
+      <li><a href="/broken-link-checker/">Broken Link Checker</a> — crawl start URLs for 404s, not domain registration</li>
+      <li><a href="/bulk-url-status-checker/">Bulk URL Status Checker</a> — HTTP status on a known URL list</li>
+      <li><a href="/sitemap-scraper-analyzer/">Sitemap Scraper &amp; Analyzer</a> — sitemap URL inventories</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

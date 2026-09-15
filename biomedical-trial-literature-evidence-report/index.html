@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PubMed &amp; Clinical Trials Evidence Gap Report — trial↔citation monitors</title>
+  <meta name="description" content="Compare ClinicalTrials.gov studies with PubMed citation metadata for source-linked evidence gaps, alerts, reports, and exports. Store: taroyamada/biomedical-trial-literature-evidence-report. From $8.00 / 1,000 biomedical evidence rows. Default dryRun is true. Not medical advice.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/biomedical-trial-literature-evidence-report/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is PubMed & Clinical Trials Evidence Gap Report different from PubMed Literature Watch?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "This Actor compares ClinicalTrials.gov studies with PubMed citation metadata and can emit evidence rows, evidence-gap alerts, a biomedical evidence report, and an export. Store ID taroyamada/biomedical-trial-literature-evidence-report. PubMed Literature Watch is NCBI E-utilities citation watch, literature-update reports, and new-PMID alerts without ClinicalTrials.gov matching. OpenAlex Scholarly Works Scraper is the official OpenAlex API, not trial matching. NIH RePORTER Funding Landscape Report is NIH awards. Google News Scraper is news RSS. Citation metadata only — not full text or abstracts. Not medical advice."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the best first run?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Live schema default dryRun is true: Start with defaults returns illustrative rows, does not call NCBI, and does not bill. Paid trial path from the README: watchlists starter-study with nctIds NCT04280705, runMode monitor, initialRunMode emit_backfill, emitRawRows true, generateReport false, generateExport false, maxChargeUsd 0.5, dryRun false. That path can deliver a biomedical-evidence-row at $0.008 and an evidence-gap-alert at $0.15 when the starter evidence matches. A zero-row run has zero event charge. Full report plus export uses a separate monitorKey, generateReport true, generateExport true, emitRawRows false, maxChargeUsd 8.41, dryRun false."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What input is required?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The live schema has no required array. additionalProperties is false. Live fields include searchTerms, pmids, fromDate (default 2025), toDate, sort (default most_recent), maxResultsPerQuery (default 1), maxArticles (default 1), maxStudiesPerWatchlist (default 1), maxPagesPerWatchlist (default 1), runMode (extract, audit, or monitor; default monitor), monitorKey (default starter-nct04280705-v2), initialRunMode (baseline_only or emit_backfill; live schema default emit_backfill — the README text that says default baseline_only is stale versus schema), emitRawRows (default true), generateReport (default false), generateExport (default false), tool, apiKey, timeoutMs (default 20000), delivery, webhookUrl, maxChargeUsd (default 0), dryRun (default true), watchlists (default starter-study / NCT04280705), and emitUnchanged (default false). README Quickstart JSON that sends watchlist conditions, interventions, and pubmedQuery is README documentation; the live items schema is not fully expanded."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does a result contain?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The published README sample is a literature_update_report row with billingEventName biomedical-evidence-report, query.searchTerms, query.fromDate, articleCount, pmids, topJournals, summary, and sourceUrl https://pubmed.ncbi.nlm.nih.gov/. That sample is a README illustration, not a live coverage guarantee. Outputs are citation metadata, not article full text or abstracts."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does this Actor return full text or medical conclusions?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Official NCBI ESearch and ESummary JSON; no browser scraping or login. Citation metadata only — not full text or abstracts. Outputs support literature research and screening workflows. They are not medical advice, clinical efficacy claims, or a substitute for reviewing the source publication. Keep NCBI attribution and source URLs. This independent Actor is not affiliated with NCBI, PubMed, or ClinicalTrials.gov."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is PubMed & Clinical Trials Evidence Gap Report priced?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Billing is pay per event. The live Store card is from $8.00 / 1,000 biomedical evidence rows. Current PPE: biomedical-evidence-row $0.008; evidence-gap-alert $0.15; biomedical-evidence-report $5.00; biomedical-evidence-export $3.00. There is no start charge. A baseline_only or unchanged monitor emits zero rows and zero event charge. Default dryRun true means a default Start does not bill. Do not run the $5.00 report under a cap that cannot cover it."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / PubMed &amp; Clinical Trials Evidence Gap Report</nav>
+    <h1>Compare ClinicalTrials.gov studies with PubMed citations for evidence gaps</h1>
+    <p>PubMed &amp; Clinical Trials Evidence Gap Report compares ClinicalTrials.gov records with PubMed citation metadata. Biomedical research, medical affairs, and evidence teams enter watchlists, NCT IDs, and PubMed queries. Outputs are source-linked evidence rows, gap alerts, reports, and exports. They are descriptive citation metadata — not medical conclusions, treatment guidance, article full text, or abstracts.</p>
+    <p>Live schema default <code>dryRun</code> is <strong>true</strong>: Start with defaults returns illustrative rows, does not call NCBI, and does not bill. Set <code>dryRun</code> false for a capped live run after preview.</p>
+    <p>This independent Actor is not affiliated with, sponsored by, or endorsed by NCBI, PubMed, or ClinicalTrials.gov.</p>
+    <p class="price">from $8.00 / 1,000 biomedical evidence rows ($0.008 per evidence row; $0.15 per gap alert; $5.00 per report; $3.00 per export)</p>
+    <p><a href="https://apify.com/taroyamada/biomedical-trial-literature-evidence-report">Open PubMed &amp; Clinical Trials Evidence Gap Report on Apify</a></p>
+
+    <h2>Trial↔PubMed evidence gaps, not PubMed-only watch and not news RSS</h2>
+    <p>Use this page when the job is matching ClinicalTrials.gov studies to PubMed citations and emitting gap alerts or reports. Use <a href="/pubmed-literature-watch/">PubMed Literature Watch &amp; Research Report</a> for PubMed-only citation monitors and literature-update reports. Use <a href="/openalex-research-intelligence/">OpenAlex Scholarly Works Scraper</a> for broader OpenAlex discovery. Use <a href="/nih-research-funding-landscape-report/">NIH RePORTER Funding Landscape Report</a> for NIH awards. Use <a href="/google-news-scraper/">Google News Scraper</a> for news headlines.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>This Actor</th>
+          <th>PubMed Literature Watch</th>
+          <th>NIH RePORTER Funding Landscape</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>Trial↔PubMed evidence gaps, alerts, report, export</td>
+          <td>PubMed citation watch and literature reports</td>
+          <td>NIH award landscape and funding alerts</td>
+        </tr>
+        <tr>
+          <td>Sources</td>
+          <td>ClinicalTrials.gov plus NCBI ESearch/ESummary</td>
+          <td>NCBI ESearch/ESummary only</td>
+          <td>NIH RePORTER v2 Project API</td>
+        </tr>
+        <tr>
+          <td>Default <code>dryRun</code></td>
+          <td>true (preview; no NCBI; no billing)</td>
+          <td>false</td>
+          <td>false</td>
+        </tr>
+        <tr>
+          <td>Full text / abstracts</td>
+          <td>No. Citation metadata only</td>
+          <td>No. Citation metadata only</td>
+          <td>Not literature full text</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Evidence-gap finding: compare NCT studies with PubMed citation metadata.</li>
+      <li>Watch NCT/condition/intervention portfolios with a stable <code>monitorKey</code>.</li>
+      <li>Low-cost paid trial: one NCT, raw row plus optional gap alert, cap at $0.50.</li>
+      <li>Screening export after the trial path proves useful.</li>
+      <li>Downstream of NIH funding / grant-publication Actors named in the README.</li>
+    </ul>
+
+    <h2>How is PubMed &amp; Clinical Trials Evidence Gap Report different from PubMed Literature Watch?</h2>
+    <p>This Actor compares ClinicalTrials.gov studies with PubMed citation metadata and can emit evidence rows, evidence-gap alerts, a biomedical evidence report, and an export. Store ID <code>taroyamada/biomedical-trial-literature-evidence-report</code>. <a href="/pubmed-literature-watch/">PubMed Literature Watch</a> is NCBI E-utilities citation watch, literature-update reports, and new-PMID alerts without ClinicalTrials.gov matching. <a href="/openalex-research-intelligence/">OpenAlex Scholarly Works Scraper</a> is the official OpenAlex API, not trial matching. <a href="/nih-research-funding-landscape-report/">NIH RePORTER Funding Landscape Report</a> is NIH awards. <a href="/google-news-scraper/">Google News Scraper</a> is news RSS. Citation metadata only — not full text or abstracts. Not medical advice.</p>
+
+    <h2>What is the best first run?</h2>
+    <p>Live schema default <code>dryRun</code> is true. Hitting Start with defaults does not call NCBI and does not bill. For a capped live trial, the published README uses this input. It can deliver a <code>biomedical-evidence-row</code> at $0.008 and an <code>evidence-gap-alert</code> at $0.15 when the starter evidence matches. A zero-row run has zero event charge:</p>
+<pre><code>{
+  "searchTerms": [],
+  "watchlists": [
+    {
+      "id": "starter-study",
+      "nctIds": ["NCT04280705"],
+      "maxStudies": 1
+    }
+  ],
+  "fromDate": "2025",
+  "sort": "most_recent",
+  "maxResultsPerQuery": 1,
+  "maxArticles": 1,
+  "maxStudiesPerWatchlist": 1,
+  "maxPagesPerWatchlist": 1,
+  "runMode": "monitor",
+  "monitorKey": "starter-nct04280705-v2",
+  "initialRunMode": "emit_backfill",
+  "emitRawRows": true,
+  "generateReport": false,
+  "generateExport": false,
+  "emitUnchanged": false,
+  "maxChargeUsd": 0.5,
+  "dryRun": false
+}</code></pre>
+    <p>When that result fits, the published full-report path uses a <strong>separate</strong> <code>monitorKey</code>, <code>generateReport</code> true, <code>generateExport</code> true, <code>emitRawRows</code> false, and <code>maxChargeUsd</code> 8.41 ($5.00 report + $3.00 export, plus headroom). Unchanged monitoring runs still produce zero rows and zero event charge:</p>
+<pre><code>{
+  "searchTerms": [],
+  "watchlists": [
+    {
+      "id": "starter-study",
+      "nctIds": ["NCT04280705"],
+      "maxStudies": 1
+    }
+  ],
+  "fromDate": "2025",
+  "sort": "most_recent",
+  "maxResultsPerQuery": 1,
+  "maxArticles": 1,
+  "maxStudiesPerWatchlist": 1,
+  "maxPagesPerWatchlist": 1,
+  "runMode": "monitor",
+  "monitorKey": "starter-nct04280705-v2-full-report-v1",
+  "initialRunMode": "emit_backfill",
+  "emitRawRows": false,
+  "generateReport": true,
+  "generateExport": true,
+  "emitUnchanged": false,
+  "maxChargeUsd": 8.41,
+  "dryRun": false
+}</code></pre>
+    <p>Published Store example run input omits <code>dryRun</code>; schema default <code>true</code> applies unless you override it. Live schema default <code>initialRunMode</code> is <code>emit_backfill</code>. README prose that still says the default is <code>baseline_only</code> is stale versus the live schema; prefer the schema.</p>
+    <p><a href="https://apify.com/taroyamada/biomedical-trial-literature-evidence-report">Run PubMed &amp; Clinical Trials Evidence Gap Report on Apify</a></p>
+
+    <h2>What input is required?</h2>
+    <p>The live schema has no required array. <code>additionalProperties</code> is false. README Quickstart JSON that sends watchlist <code>conditions</code>, <code>interventions</code>, and <code>pubmedQuery</code> is README documentation; the live items schema is not fully expanded. Prefer <code>nctIds</code> as in the paid-trial JSON above.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>searchTerms</code> / <code>pmids</code></td>
+          <td>string[]</td>
+          <td><code>[]</code></td>
+          <td>PubMed ESearch queries or known PMIDs</td>
+        </tr>
+        <tr>
+          <td><code>fromDate</code></td>
+          <td>string</td>
+          <td><code>2025</code></td>
+          <td>PubMed date lower bound</td>
+        </tr>
+        <tr>
+          <td><code>sort</code></td>
+          <td>string</td>
+          <td><code>most_recent</code></td>
+          <td><code>relevance</code>, <code>pub_date</code>, or <code>most_recent</code></td>
+        </tr>
+        <tr>
+          <td><code>maxResultsPerQuery</code> / <code>maxArticles</code> / <code>maxStudiesPerWatchlist</code> / <code>maxPagesPerWatchlist</code></td>
+          <td>integer</td>
+          <td>1</td>
+          <td>Bounded starter caps</td>
+        </tr>
+        <tr>
+          <td><code>runMode</code></td>
+          <td>string</td>
+          <td><code>monitor</code></td>
+          <td><code>extract</code> metadata; <code>audit</code> current report; <code>monitor</code> new PMIDs/gaps</td>
+        </tr>
+        <tr>
+          <td><code>monitorKey</code></td>
+          <td>string</td>
+          <td><code>starter-nct04280705-v2</code></td>
+          <td>Stable private state namespace</td>
+        </tr>
+        <tr>
+          <td><code>initialRunMode</code></td>
+          <td>string</td>
+          <td><code>emit_backfill</code></td>
+          <td>Live schema default. README <code>baseline_only</code> default text is stale</td>
+        </tr>
+        <tr>
+          <td><code>emitRawRows</code></td>
+          <td>boolean</td>
+          <td>true</td>
+          <td>Citation/author/journal rows</td>
+        </tr>
+        <tr>
+          <td><code>generateReport</code> / <code>generateExport</code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Off for the $0.50 trial path</td>
+        </tr>
+        <tr>
+          <td><code>maxChargeUsd</code></td>
+          <td>number</td>
+          <td>0</td>
+          <td>0 = Apify run limit only</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td>true</td>
+          <td>Illustrative rows; no NCBI; no billing until false</td>
+        </tr>
+        <tr>
+          <td><code>watchlists</code></td>
+          <td>object[]</td>
+          <td>starter NCT04280705</td>
+          <td>Named watches. Paid-trial JSON uses <code>nctIds</code></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>What does a result contain?</h2>
+    <p>The published README sample is a <code>literature_update_report</code> row. It is a README illustration, not a live coverage guarantee:</p>
+<pre><code>{
+  "rowType": "literature_update_report",
+  "billingEventName": "biomedical-evidence-report",
+  "query": {
+    "searchTerms": ["cancer immunotherapy"],
+    "fromDate": "2026"
+  },
+  "articleCount": 12,
+  "pmids": ["39763750", "39763800"],
+  "topJournals": [{"value": "Cancer Research", "count": 3}],
+  "summary": "12 PubMed publications matched this literature update.",
+  "sourceUrl": "https://pubmed.ncbi.nlm.nih.gov/"
+}</code></pre>
+
+    <h2>Does this Actor return full text or medical conclusions?</h2>
+    <p>No. Official NCBI ESearch and ESummary JSON; no browser scraping or login. Citation metadata only — not full text or abstracts. PubMed records can be incomplete or updated after publication. Optional NCBI API key; keyless mode is paced conservatively. Outputs are not medical advice, clinical efficacy claims, or a substitute for reviewing the source publication. Keep NCBI attribution and source URLs.</p>
+
+    <h2>How is PubMed &amp; Clinical Trials Evidence Gap Report priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $8.00 / 1,000 biomedical evidence rows</strong>. Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>biomedical-evidence-row</code></td>
+          <td>$0.008</td>
+          <td>A normalized trial or literature evidence row</td>
+        </tr>
+        <tr>
+          <td><code>evidence-gap-alert</code></td>
+          <td>$0.15</td>
+          <td>A saved monitor observes a source-linked evidence gap</td>
+        </tr>
+        <tr>
+          <td><code>biomedical-evidence-report</code></td>
+          <td>$5.00</td>
+          <td>A trial and literature evidence report is generated</td>
+        </tr>
+        <tr>
+          <td><code>biomedical-evidence-export</code></td>
+          <td>$3.00</td>
+          <td>A normalized evidence export is generated</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>There is no start charge. A <code>baseline_only</code> or unchanged monitor emits zero rows and zero event charge. Default <code>dryRun</code> true means a default Start does not bill. Do not run the $5.00 report under a cap that cannot cover it.</p>
+    <p class="price">from $8.00 per 1,000 biomedical evidence rows; $0.15 per gap alert; $5.00 per report; $3.00 per export</p>
+    <p><a href="https://apify.com/taroyamada/biomedical-trial-literature-evidence-report/pricing">See PubMed &amp; Clinical Trials Evidence Gap Report pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Default <code>dryRun</code> is true. Paid runs must set <code>dryRun</code> false.</li>
+      <li>Live schema default <code>initialRunMode</code> is <code>emit_backfill</code>, not the README <code>baseline_only</code> sentence.</li>
+      <li>Citation metadata only. Not full text, not abstracts, not medical advice.</li>
+      <li>Not affiliated with NCBI, PubMed, or ClinicalTrials.gov.</li>
+    </ul>
+    <p>Published README next-report Store listing (no local landing): <a href="https://apify.com/taroyamada/nih-grant-publication-output-report">NIH Grant Publication Linkage &amp; Output Report on Apify</a>.</p>
+    <p><a href="https://apify.com/taroyamada/biomedical-trial-literature-evidence-report">Open PubMed &amp; Clinical Trials Evidence Gap Report on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/pubmed-literature-watch/">PubMed Literature Watch &amp; Research Report</a> — PubMed-only citation watch and reports</li>
+      <li><a href="/openalex-research-intelligence/">OpenAlex Scholarly Works Scraper</a> — OpenAlex API discovery</li>
+      <li><a href="/nih-research-funding-landscape-report/">NIH RePORTER Funding Landscape Report</a> — NIH awards, not trial↔PubMed matching</li>
+      <li><a href="/hhs-healthcare-data-breach-scraper/">HHS Healthcare Data Breach Change Scraper</a> — HHS OCR disclosures, not literature</li>
+      <li><a href="/ted-sam-grants-bid-alerts/">TED, SAM.gov &amp; Grants Bid Alerts Scraper</a> — procurement notices, not ClinicalTrials.gov</li>
+      <li><a href="/google-news-scraper/">Google News Scraper</a> — news RSS</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

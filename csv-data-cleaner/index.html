@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CSV Cleaner &amp; Deduplication Tool — trim, drop empty rows, dedupe, sort</title>
+  <meta name="description" content="Clean user-supplied CSV: trim whitespace, drop empty rows, dedupe selected columns, and sort. Store: taroyamada/csv-data-cleaner. $1.00 / 1,000 cleaned csv rows. No external data collection. Not email MX validation and not phone E.164 formatting.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/csv-data-cleaner/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is CSV Cleaner different from Bulk Email Syntax & MX Validator and Bulk Phone Format Validator?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "This Actor cleans a user-supplied CSV table: trim whitespace, drop empty rows, deduplicate selected columns, and sort. It does not collect third-party data. Store ID taroyamada/csv-data-cleaner. Bulk Email Syntax & MX Validator checks email strings you already have for RFC syntax, DNS MX, and disposable domains; it does not parse CSV tables. Bulk Phone Format Validator formats phone strings to E.164 offline; it does not clean CSV. Pass the cleaned table onward to those Actors when the columns are emails or phones. This is table hygiene on data you provide, not enrichment."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What input is required?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The live input schema has no required array. Supply csvUrl or csvData. Live fields are csvUrl (string; URL to fetch CSV), csvData (string; raw CSV alternative), delimiter (string, default comma), trimWhitespace (boolean, default true), removeEmpty (boolean, default true), dedupColumns (array; columns to dedupe by), sortBy (string), sortOrder (asc or desc, default asc), delivery (dataset or webhook, default dataset), webhookUrl (when delivery is webhook), and dryRun (boolean, default false). README names datasetId, detectTypesOnly, normalizeNulls, dedupeRows, transformations, and removeDuplicates are not live schema fields. Do not invent them. additionalProperties is not set to false on this schema."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does a result contain?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The published README output table lists rowNumber, data, changes[], dropped, and dropReason. A separate README sample shows aggregate inputRows, outputRows, duplicatesRemoved, emptyRowsRemoved, and cleanedData[]. Those are two published shapes; treat both as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does this Actor fetch third-party data or validate types?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. User-supplied tables only; no third-party enrichment API. There is no type validation. Local files are not accepted as uploads; fetch via a public csvUrl or paste csvData. The schema delimiter field is configurable (default comma). A README FAQ that says TSV is not supported directly conflicts with that delimiter field; prefer the live schema. README also notes in-memory processing and approximate size guidance; those are README claims, not live schema limits."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is CSV Cleaner & Deduplication Tool priced?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Billing is pay per event. The live Store card is $1.00 / 1,000 cleaned csv rows. The billed event is Cleaned CSV row (apify-default-dataset-item) at $0.001. There is no Actor Start on the current pricing tab. The README Cost section that still quotes actor-start $0.01 plus dataset-item $0.001 ($1.01 per 1,000) is stale versus live Store rates."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do dataset, webhook, and dry-run delivery work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "delivery defaults to dataset. Set delivery to webhook and provide webhookUrl to POST results. dryRun true runs without saving results. Schema default dryRun is false. The published Store example run input uses inline csvData with a duplicate name row, trimWhitespace true, removeEmpty true, dedupColumns name, sortBy name, delivery dataset, and dryRun false."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / CSV Cleaner &amp; Deduplication Tool</nav>
+    <h1>Clean user-supplied CSV tables without collecting external data</h1>
+    <p>CSV Cleaner &amp; Deduplication Tool trims whitespace, drops empty rows, deduplicates selected columns, and sorts records in a CSV you paste or fetch from a public URL. It is table hygiene on data you already hold — not email MX validation, not phone E.164 formatting, and not third-party enrichment.</p>
+    <p class="price">$1.00 / 1,000 cleaned csv rows ($0.001 per cleaned CSV row)</p>
+    <p><a href="https://apify.com/taroyamada/csv-data-cleaner">Open CSV Cleaner &amp; Deduplication Tool on Apify</a></p>
+
+    <h2>User-supplied table hygiene, not email MX or phone E.164</h2>
+    <p>Use this page when the job is cleaning a CSV you already have. Use <a href="/bulk-email-syntax-mx-validator/">Bulk Email Syntax &amp; MX Validator</a> for RFC syntax, DNS MX, and disposable-domain checks on email strings. Use <a href="/bulk-phone-format-validator/">Bulk Phone Format Validator</a> for offline E.164 phone strings. Pipe cleaned columns into those Actors after this step.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>This Actor</th>
+          <th>Bulk Email Syntax &amp; MX Validator</th>
+          <th>Bulk Phone Format Validator</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>Trim, drop empty rows, dedupe, sort a CSV</td>
+          <td>Syntax, MX, disposable checks on emails</td>
+          <td>Offline E.164 format on phone strings</td>
+        </tr>
+        <tr>
+          <td>Input</td>
+          <td><code>csvUrl</code> or <code>csvData</code></td>
+          <td><code>emails</code> (max 1000)</td>
+          <td><code>numbers</code> (max 1000)</td>
+        </tr>
+        <tr>
+          <td>External collection</td>
+          <td>None. User-supplied tables only</td>
+          <td>Public DNS MX for supplied addresses</td>
+          <td>None. Offline format only</td>
+        </tr>
+        <tr>
+          <td>Not this job</td>
+          <td>Mailbox probes, HLR, third-party enrich</td>
+          <td>CSV parse/dedupe of mixed tables</td>
+          <td>CSV parse/dedupe of mixed tables</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/csv-data-cleaner</code>. Compliance: user-supplied tables only.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Scraper post-processing: trim and dedupe export tables before BI import.</li>
+      <li>Lead-list hygiene on URL, email, or phone columns you already hold.</li>
+      <li>Migration cleanup: drop empty rows and sort before loading a warehouse.</li>
+      <li>Pipeline post-process: webhook the cleaned table after dataset delivery.</li>
+    </ul>
+
+    <h2>How is CSV Cleaner different from Bulk Email Syntax &amp; MX Validator and Bulk Phone Format Validator?</h2>
+    <p>This Actor cleans a user-supplied CSV table: trim whitespace, drop empty rows, deduplicate selected columns, and sort. It does not collect third-party data. Store ID <code>taroyamada/csv-data-cleaner</code>. <a href="/bulk-email-syntax-mx-validator/">Bulk Email Syntax &amp; MX Validator</a> checks email strings you already have for RFC syntax, DNS MX, and disposable domains; it does not parse CSV tables. <a href="/bulk-phone-format-validator/">Bulk Phone Format Validator</a> formats phone strings to E.164 offline; it does not clean CSV. Pass the cleaned table onward to those Actors when the columns are emails or phones. This is table hygiene on data you provide, not enrichment.</p>
+
+    <h2>What input is required?</h2>
+    <p>The live input schema has no required array. Supply <code>csvUrl</code> or <code>csvData</code>. README names <code>datasetId</code>, <code>detectTypesOnly</code>, <code>normalizeNulls</code>, <code>dedupeRows</code>, <code>transformations</code>, and <code>removeDuplicates</code> are not live schema fields. Do not invent them.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>csvUrl</code></td>
+          <td>string</td>
+          <td>—</td>
+          <td>Public URL to fetch CSV. No local file upload</td>
+        </tr>
+        <tr>
+          <td><code>csvData</code></td>
+          <td>string</td>
+          <td>—</td>
+          <td>Raw CSV alternative to URL</td>
+        </tr>
+        <tr>
+          <td><code>delimiter</code></td>
+          <td>string</td>
+          <td><code>,</code></td>
+          <td>Field delimiter. Configurable; schema default is comma</td>
+        </tr>
+        <tr>
+          <td><code>trimWhitespace</code></td>
+          <td>boolean</td>
+          <td>true</td>
+          <td>Trim values</td>
+        </tr>
+        <tr>
+          <td><code>removeEmpty</code></td>
+          <td>boolean</td>
+          <td>true</td>
+          <td>Drop all-empty rows</td>
+        </tr>
+        <tr>
+          <td><code>dedupColumns</code></td>
+          <td>string[]</td>
+          <td>—</td>
+          <td>Columns to dedupe by</td>
+        </tr>
+        <tr>
+          <td><code>sortBy</code></td>
+          <td>string</td>
+          <td>—</td>
+          <td>Sort column</td>
+        </tr>
+        <tr>
+          <td><code>sortOrder</code></td>
+          <td>string</td>
+          <td><code>asc</code></td>
+          <td><code>asc</code> or <code>desc</code></td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string</td>
+          <td><code>dataset</code></td>
+          <td><code>dataset</code> or <code>webhook</code></td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td>—</td>
+          <td>Used when <code>delivery</code> is <code>webhook</code></td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Run without saving results</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input:</p>
+<pre><code>{
+  "csvData": "name,age\nAlice,30\nBob,25\nAlice,30",
+  "trimWhitespace": true,
+  "removeEmpty": true,
+  "dedupColumns": ["name"],
+  "sortBy": "name",
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p>Published Actor input object example (schema defaults, including the sample table with a duplicate and an empty row):</p>
+<pre><code>{
+  "csvData": "name,email,city\nAlice,alice@example.com,Tokyo\nBob,bob@example.com,New York\nAlice,alice@example.com,Tokyo\n,,\nCharlie,charlie@example.com,London",
+  "delimiter": ",",
+  "trimWhitespace": true,
+  "removeEmpty": true,
+  "sortOrder": "asc",
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/csv-data-cleaner">Run CSV Cleaner &amp; Deduplication Tool on Apify</a></p>
+
+    <h2>What does a result contain?</h2>
+    <p>The published README output table lists <code>rowNumber</code>, <code>data</code>, <code>changes[]</code>, <code>dropped</code>, and <code>dropReason</code>. A separate README sample shows aggregate <code>inputRows</code>, <code>outputRows</code>, <code>duplicatesRemoved</code>, <code>emptyRowsRemoved</code>, and <code>cleanedData[]</code>. Those are two published shapes; treat both as illustrations, not a live coverage guarantee.</p>
+
+    <h2>Does this Actor fetch third-party data or validate types?</h2>
+    <p>No. User-supplied tables only; no third-party enrichment API. There is no type validation. Local files are not accepted as uploads; fetch via a public <code>csvUrl</code> or paste <code>csvData</code>. The schema <code>delimiter</code> field is configurable (default comma). A README FAQ that says TSV is not supported directly conflicts with that delimiter field; prefer the live schema. README also notes in-memory processing and approximate size guidance; those are README claims, not live schema limits.</p>
+
+    <h2>How is CSV Cleaner &amp; Deduplication Tool priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>$1.00 / 1,000 cleaned csv rows</strong>. The billed event is Cleaned CSV row (<code>apify-default-dataset-item</code>) at <strong>$0.001</strong>. There is no Actor Start on the current pricing tab. The README Cost section that still quotes <code>actor-start</code> $0.01 plus <code>dataset-item</code> $0.001 ($1.01 per 1,000) is stale versus live Store rates.</p>
+    <p class="price">$1.00 per 1,000 cleaned csv rows ($0.001 per cleaned CSV row)</p>
+    <p><a href="https://apify.com/taroyamada/csv-data-cleaner/pricing">See CSV Cleaner &amp; Deduplication Tool pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>User-supplied tables only. No third-party collection or type validation.</li>
+      <li>Live fields do not include <code>datasetId</code>, <code>transformations</code>, or <code>removeDuplicates</code>.</li>
+      <li>Use <code>csvUrl</code> (public URL) or <code>csvData</code>. No local file upload.</li>
+      <li>After cleaning email or phone columns, hand off to the email or phone validators on this site.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/csv-data-cleaner">Open CSV Cleaner &amp; Deduplication Tool on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/bulk-email-syntax-mx-validator/">Bulk Email Syntax &amp; MX Validator</a> — RFC syntax/MX on email strings after you clean the table</li>
+      <li><a href="/bulk-phone-format-validator/">Bulk Phone Format Validator</a> — E.164 on phone strings after you clean the table</li>
+      <li><a href="/contact-details-extractor/">Contact Page Audit &amp; Business Channel Extractor</a> — public channels from pages, not CSV hygiene</li>
+      <li><a href="/google-maps-lead-enrichment/">Google Maps Lead Enrichment Scraper</a> — enrich existing lead rows, not CSV parse</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

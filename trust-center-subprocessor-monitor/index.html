@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Subprocessor &amp; Trust Center Scraper — DPA and subprocessor change monitors</title>
+  <meta name="description" content="Crawl vendor security and trust pages for DPA and subprocessor changes. Store: taroyamada/trust-center-subprocessor-monitor. $10.00 / 1,000 delivered monitoring result rows. Unchanged runs are free. Not a pentest and not HHS OCR monitoring.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/trust-center-subprocessor-monitor/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is Subprocessor & Trust Center Scraper different from HHS Healthcare Data Breach Change Scraper and Website Content Extractor?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "This Actor fetches public vendor trust-center, subprocessor, security, and DPA pages you list and emits severity-scored JSON digests with change flags, delta summaries, and remediation guidance. Required input is vendors. Store ID taroyamada/trust-center-subprocessor-monitor. HHS Healthcare Data Breach Change Scraper monitors the public HHS OCR Breach Portal, not vendor trust pages. Website Content Extractor cleans docs/policy HTML into markdown or text; it does not compute subprocessor diffs. SaaS Status Page & Incident Scraper monitors status pages for outages, not DPA text. DMARC and SSL Actors check DNS and TLS, not trust-center HTML."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What input is required?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "vendors is required. Each vendor can use shorthand trustCenterUrl, subprocessorsUrl, securityUrl, dpaUrl, or urlPacks. One vendor plus subprocessorsUrl is enough. Optional live fields are requestTimeoutSeconds (default 30), userAgent, maxChars (default 40000), delivery (dataset, webhook, or email; email is a placeholder and is not implemented), datasetMode (action_needed, changes_only, or all; default changes_only), webhookUrl, notifyOnNoChange (default false), snapshotKey (default trust-center-subprocessor-monitor-snapshots), diffMode (line_summary or hash_only; default line_summary), summaryMaxLines (default 15), concurrency (default 3), batchDelayMs (default 500), nowIso, and dryRun (default false). additionalProperties is false. README examples that send urls[], emitTextDiff, or emitChangedOnly are not live schema fields."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does a monitoring result contain?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Published README fields include meta, actionNeeded[] (vendorId, vendorName, owner, severity, status, reason, changedPacks, recommendedActions, executiveSummary), and results. The published sample is truncated; treat it as an illustration, not a live coverage guarantee. There is no published output JSON schema on the Store page. changedSinceLastRun-style flags are intended for Jira or security dashboards."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do changes_only, snapshots, and webhooks work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "datasetMode default is changes_only: emit only when pages changed. all always emits. action_needed emits only when actionNeeded is true. Unchanged runs are free on the live Store event. Keep snapshotKey constant to preserve the baseline; change it to reset. notifyOnNoChange default is false: skip webhook if no change and no action. dryRun true does not persist or deliver. delivery email is documented as a placeholder and is not implemented; use dataset or webhook."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is this a pentest or a SOC2 certification?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Passive public pages only. Not a pentest: no exploitation, fuzzing, or auth bypass. Published FAQ: evidence artifacts may support SOC2 workflows; the Actor is not itself a SOC2 certification. Scan only pages you are authorized to monitor under your own policy."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Subprocessor & Trust Center Scraper priced?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Billing is pay per event. The live Store card is $10.00 / 1,000 delivered monitoring result rows. The billed event is Delivered monitoring result row (apify-default-dataset-item) at $0.01, charged only when a new or changed monitoring result row is delivered. Unchanged runs are free. There is no Actor Start on the current pricing tab. The README Cost section that still quotes $0.01 start plus $0.003 per item is stale."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Subprocessor &amp; Trust Center Scraper</nav>
+    <h1>Watch vendor trust-center and subprocessor pages for DPA changes</h1>
+    <p>Subprocessor &amp; Trust Center Scraper fetches public vendor trust-center, subprocessor, security, and DPA pages you list and returns severity-scored JSON digests with change flags, delta summaries, and remediation guidance. Feed <code>changedSinceLastRun</code>-style flags into Jira or security dashboards. It is passive public-page monitoring — not a pentest, not an HHS OCR portal watch, and not a status-page incident digest.</p>
+    <p class="price">$10.00 / 1,000 delivered monitoring result rows (unchanged runs are free)</p>
+    <p><a href="https://apify.com/taroyamada/trust-center-subprocessor-monitor">Open Subprocessor &amp; Trust Center Scraper on Apify</a></p>
+
+    <h2>Trust-center diffs, not OCR breaches, status pages, or page-body RAG</h2>
+    <p>Use this page when the job is DPA and subprocessor text changes on vendor security pages. Use <a href="/hhs-healthcare-data-breach-scraper/">HHS Healthcare Data Breach Change Scraper</a> for HHS OCR disclosures. Use <a href="/status-page-incident-digest-monitor/">SaaS Status Page &amp; Incident Scraper</a> for outage digests. Use <a href="/website-content-extractor/">Website Content Extractor</a> for cleaned policy HTML. Use <a href="/ssl-tls-certificate-scraper/">SSL/TLS Certificate Scraper</a> and <a href="/dmarc-email-security-checker/">DMARC &amp; Email Security Checker</a> for TLS and email-auth DNS.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>This Actor</th>
+          <th>HHS Healthcare Data Breach</th>
+          <th>SaaS Status Page &amp; Incident</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>DPA / subprocessor / trust-center diffs</td>
+          <td>Newly published HHS OCR disclosures</td>
+          <td>Vendor status-page incident digests</td>
+        </tr>
+        <tr>
+          <td>Input</td>
+          <td><code>vendors[]</code> with trust/DPA/subprocessor URLs</td>
+          <td>Date window and optional filters</td>
+          <td><code>vendors[]</code> with <code>statusPageUrl</code></td>
+        </tr>
+        <tr>
+          <td>Default emit</td>
+          <td><code>changes_only</code></td>
+          <td><code>changes_only</code></td>
+          <td><code>all</code></td>
+        </tr>
+        <tr>
+          <td>Not this job</td>
+          <td>Pentest, OCR portal, status outages</td>
+          <td>Vendor DPA HTML diffs</td>
+          <td>Subprocessor list diffs</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/trust-center-subprocessor-monitor</code>. Schema prefill uses Okta public trust/DPA/subprocessor URLs as a capability example, not an affiliation.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Vendor inventory: recurring snapshot watches on public trust pages.</li>
+      <li>New-subprocessor alerts for security and procurement owners.</li>
+      <li>SOC2 evidence collection from public pages (not a certification).</li>
+      <li>Ticket on <code>action_needed</code> when severity-scored changes appear.</li>
+    </ul>
+
+    <h2>How is Subprocessor &amp; Trust Center Scraper different from HHS Healthcare Data Breach Change Scraper and Website Content Extractor?</h2>
+    <p>This Actor fetches public vendor trust-center, subprocessor, security, and DPA pages you list and emits severity-scored JSON digests with change flags, delta summaries, and remediation guidance. Required input is <code>vendors</code>. Store ID <code>taroyamada/trust-center-subprocessor-monitor</code>. <a href="/hhs-healthcare-data-breach-scraper/">HHS Healthcare Data Breach Change Scraper</a> monitors the public HHS OCR Breach Portal, not vendor trust pages. <a href="/website-content-extractor/">Website Content Extractor</a> cleans docs/policy HTML into markdown or text; it does not compute subprocessor diffs. <a href="/status-page-incident-digest-monitor/">SaaS Status Page &amp; Incident Scraper</a> monitors status pages for outages, not DPA text. DMARC and SSL Actors check DNS and TLS, not trust-center HTML.</p>
+
+    <h2>What input is required?</h2>
+    <p><code>vendors</code> is required. README examples that send <code>urls[]</code>, <code>emitTextDiff</code>, or <code>emitChangedOnly</code> are not live schema fields. Use <code>vendors[]</code> plus <code>datasetMode</code>. <code>additionalProperties</code> is false.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>vendors</code></td>
+          <td>object[]</td>
+          <td>required</td>
+          <td>Shorthand: <code>trustCenterUrl</code>, <code>subprocessorsUrl</code>, <code>securityUrl</code>, <code>dpaUrl</code>, or <code>urlPacks</code></td>
+        </tr>
+        <tr>
+          <td><code>requestTimeoutSeconds</code></td>
+          <td>integer</td>
+          <td>30</td>
+          <td>HTTP timeout</td>
+        </tr>
+        <tr>
+          <td><code>maxChars</code></td>
+          <td>integer</td>
+          <td>40000</td>
+          <td>Max extracted text per page</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string</td>
+          <td><code>dataset</code></td>
+          <td><code>dataset</code>, <code>webhook</code>, or <code>email</code>. <code>email</code> is not implemented</td>
+        </tr>
+        <tr>
+          <td><code>datasetMode</code></td>
+          <td>string</td>
+          <td><code>changes_only</code></td>
+          <td><code>action_needed</code>, <code>changes_only</code>, or <code>all</code></td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td>—</td>
+          <td>Required when <code>delivery</code> is <code>webhook</code></td>
+        </tr>
+        <tr>
+          <td><code>notifyOnNoChange</code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Skip webhook if no change and no action</td>
+        </tr>
+        <tr>
+          <td><code>snapshotKey</code></td>
+          <td>string</td>
+          <td><code>trust-center-subprocessor-monitor-snapshots</code></td>
+          <td>Change the key to reset the baseline. Store example uses <code>trust-center-quickstart</code></td>
+        </tr>
+        <tr>
+          <td><code>diffMode</code></td>
+          <td>string</td>
+          <td><code>line_summary</code></td>
+          <td><code>line_summary</code> or <code>hash_only</code></td>
+        </tr>
+        <tr>
+          <td><code>summaryMaxLines</code></td>
+          <td>integer</td>
+          <td>15</td>
+          <td>Max added/removed lines in evidence</td>
+        </tr>
+        <tr>
+          <td><code>concurrency</code></td>
+          <td>integer</td>
+          <td>3</td>
+          <td>Keep 1–3</td>
+        </tr>
+        <tr>
+          <td><code>batchDelayMs</code></td>
+          <td>integer</td>
+          <td>500</td>
+          <td>Inter-batch delay</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>No persist / no delivery</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input uses Okta public URLs plus <code>snapshotKey</code> <code>trust-center-quickstart</code>, <code>concurrency</code> 2, and <code>dryRun</code> false. Schema prefill: subprocessors + DPA + <code>https://trust.okta.com/</code>.</p>
+    <p><a href="https://apify.com/taroyamada/trust-center-subprocessor-monitor">Run Subprocessor &amp; Trust Center Scraper on Apify</a></p>
+
+    <h2>What does a monitoring result contain?</h2>
+    <p>Published README fields include <code>meta</code>, <code>actionNeeded[]</code> (<code>vendorId</code>, <code>vendorName</code>, <code>owner</code>, <code>severity</code>, <code>status</code>, <code>reason</code>, <code>changedPacks</code>, <code>recommendedActions</code>, <code>executiveSummary</code>), and <code>results</code>. The published sample is truncated; treat it as an illustration, not a live coverage guarantee.</p>
+
+    <h2>How do changes_only, snapshots, and webhooks work?</h2>
+    <p><code>datasetMode</code> default is <code>changes_only</code>: emit only when pages changed. <code>all</code> always emits. <code>action_needed</code> emits only when <code>actionNeeded</code> is true. Unchanged runs are free on the live Store event. Keep <code>snapshotKey</code> constant to preserve the baseline; change it to reset. <code>notifyOnNoChange</code> default is false. <code>dryRun</code> true does not persist or deliver. <code>delivery</code> <code>email</code> is a placeholder and is not implemented; use <code>dataset</code> or <code>webhook</code>.</p>
+
+    <h2>Is this a pentest or a SOC2 certification?</h2>
+    <p>No. Passive public pages only. Not a pentest: no exploitation, fuzzing, or auth bypass. Published FAQ: evidence artifacts may support SOC2 workflows; the Actor is not itself a SOC2 certification. Scan only pages you are authorized to monitor under your own policy.</p>
+
+    <h2>How is Subprocessor &amp; Trust Center Scraper priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>$10.00 / 1,000 delivered monitoring result rows</strong>. The billed event is Delivered monitoring result row (<code>apify-default-dataset-item</code>) at <strong>$0.01</strong>, charged only when a new or changed monitoring result row is delivered. Unchanged runs are free. There is no Actor Start on the current pricing tab. The README Cost section that still quotes $0.01 start plus $0.003 per item is stale.</p>
+    <p class="price">$10.00 per 1,000 delivered monitoring result rows ($0.01 per new or changed row)</p>
+    <p><a href="https://apify.com/taroyamada/trust-center-subprocessor-monitor/pricing">See Subprocessor &amp; Trust Center Scraper pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Required: <code>vendors[]</code>. Not a top-level <code>urls</code> array.</li>
+      <li><code>email</code> delivery is not implemented. Use dataset or webhook.</li>
+      <li>Passive public pages only. Not a pentest and not a SOC2 certification.</li>
+      <li>Keep concurrency 1–3. Default <code>changes_only</code> so unchanged runs are free.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/trust-center-subprocessor-monitor">Open Subprocessor &amp; Trust Center Scraper on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/status-page-incident-digest-monitor/">SaaS Status Page &amp; Incident Scraper</a> — status-page outages, not DPA diffs</li>
+      <li><a href="/hhs-healthcare-data-breach-scraper/">HHS Healthcare Data Breach Change Scraper</a> — HHS OCR disclosures, not vendor trust pages</li>
+      <li><a href="/ssl-tls-certificate-scraper/">SSL/TLS Certificate Scraper</a> — TLS expiry, not subprocessor HTML</li>
+      <li><a href="/dmarc-email-security-checker/">DMARC &amp; Email Security Checker</a> — SPF/DMARC/MX, not trust-center text</li>
+      <li><a href="/robotstxt-ai-crawler-block-checker/">robots.txt Parser &amp; AI Crawler Block Checker</a> — robots.txt AI policies</li>
+      <li><a href="/website-content-extractor/">Website Content Extractor</a> — cleaned policy HTML, not change diffs</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>
