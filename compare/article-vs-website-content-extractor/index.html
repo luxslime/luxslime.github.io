@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Article Content Extractor vs Website Content Extractor for RAG</title>
+  <meta name="description" content="When article-shaped news, blog, and press URLs belong on Article Content Extractor, and when docs, pricing, and help-center pages belong on Website Content Extractor for RAG. Useful article row $0.008. Website from $9.00 / 1,000 results.">
+  <link rel="canonical" href="https://apify.momiji-space.com/compare/article-vs-website-content-extractor/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "When should I use Article Content Extractor for RAG?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use Article Content Extractor when the URLs are article-shaped: public news, blog, newsroom, or press pages you already have. It returns headline, byline, publishedAt, articleText, excerpt, and heroImage as markdown (default) or text. Maximum 300 URLs per run. It does not emit HTML. Leave generateReport and emitExport false on the first paid run. Live PPE is $0.008 per useful article row."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "When should I use Website Content Extractor for RAG instead?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use Website Content Extractor when the URLs are broader site pages that are not article-shaped: docs, product, pricing, policy, and help-center HTML. It returns cleaned markdown (default), text, or HTML plus title, optional metadata, wordCount, sourceUrl, and fetchedAt. Sample rowType is web_content. Maximum 200 URLs per run. The live Store card is from $9.00 / 1,000 results."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do the first paid inputs differ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Article first paid is one news or blog URL, outputFormat markdown, generateReport false, emitExport false. Website first paid is one docs URL, outputFormat markdown, delivery dataset, dryRun false. Do not send generateReport or emitExport on Website Content Extractor; those belong on a linked report Actor. Article useful-row PPE is $0.008. Website first paid is documented as 1 docs URL ≈ $0.010 (Actor Start $0.001 plus result $0.009)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Article Content Extractor emit HTML?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. The published outputFormat enum is markdown (default) or text. Website Content Extractor is the sibling that can return html as well as markdown or text."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Website Content Extractor emit a Site QA or RAG report?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Website Content Extractor returns bounded source rows. Linked report actors have separate report and export events. Article Content Extractor can emit article-content-audit-report ($2.50) and article-batch-export ($5.00) when those flags are true; the first paid path leaves both false."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Should news, blog, newsroom, or press URLs go to Website Content Extractor?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Route article-shaped news, blog, newsroom, and press URLs to Article Content Extractor when you need headline, byline, publish date, article body, excerpt, and hero image. Website Content Extractor is for broader site pages that are not article-shaped."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Article Content Extractor priced versus Website Content Extractor?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Both are pay-per-event. Article live events include useful article row $0.008 ($8.00 / 1,000), article-content-audit-report $2.50, article-batch-export $5.00, and Actor Start $0.00005. Website live Store card is from $9.00 / 1,000 results: Actor Start $0.001 and result $0.009 per default-dataset item. Check the Store pricing cards for current rates."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do generateReport and emitExport belong on Website Content Extractor?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Those are Article Content Extractor value-event flags, or fields for a linked Site QA or RAG report Actor. Website Content Extractor additionalProperties is false, so unpublished report aliases are not accepted. First paid on Article leaves both flags false."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What fields does an article row include versus a web_content row?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Article README fields include rowType, url, headline, author, publishedAt, articleText, excerpt, heroImage, and sourceUrl. Sample rowType is article. Website README fields include rowType, url, title, markdown, text, wordCount, metadata, sourceUrl, and fetchedAt. Sample rowType is web_content."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does either Actor crawl a full site or rank pages?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. You supply the URL list. Article maximum is 300 URLs; Website maximum is 200. Both are bounded source extractors for research, content QA, and RAG ingestion — not ranking tools, full-site crawlers, or claims of publisher endorsement."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+    .note { font-size: 13px; color: #666; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Compare / Article vs Website Content Extractor</nav>
+    <h1>Article Content Extractor vs Website Content Extractor for RAG</h1>
+    <p>Both Actors clean public HTML you already have into text you can ingest. They are different jobs, not a ranking of quality. <a href="/article-content-extractor/">Article Content Extractor</a> is for article-shaped news, blog, newsroom, and press URLs. <a href="/website-content-extractor/">Website Content Extractor</a> is for broader docs, product, pricing, policy, and help-center pages. Neither is a search surface, a full-site crawler, or a buyer-facing RAG report.</p>
+    <p><a href="https://apify.com/taroyamada/article-content-extractor">Open Article Content Extractor on Apify</a>
+      ·
+      <a href="https://apify.com/taroyamada/website-content-extractor/input">Open Website Content Extractor Input on Apify</a></p>
+
+    <h2>Article-shaped URLs versus site-page markdown</h2>
+    <p>Use this page when the job is choosing which extractor feeds RAG. Discover article URLs first with <a href="/google-news-scraper/">Google News Scraper</a> or <a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a>. Use <a href="/meta-tag-opengraph-scraper/">Meta Tag &amp; OpenGraph Scraper</a> when the job is head metadata, not page body.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th><a href="/article-content-extractor/">Article Content Extractor</a></th>
+          <th><a href="/website-content-extractor/">Website Content Extractor</a></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>Parse news, blog, newsroom, and press article pages</td>
+          <td>Clean docs, product, pricing, policy, and help-center HTML</td>
+        </tr>
+        <tr>
+          <td>You have</td>
+          <td>Article-shaped page URLs</td>
+          <td>Broader site-page URLs</td>
+        </tr>
+        <tr>
+          <td>Max URLs</td>
+          <td>300 per run</td>
+          <td>200 per run</td>
+        </tr>
+        <tr>
+          <td>Output format</td>
+          <td><code>markdown</code> (default) or <code>text</code> — no HTML emit</td>
+          <td><code>markdown</code> (default), <code>text</code>, or <code>html</code></td>
+        </tr>
+        <tr>
+          <td>Sample row</td>
+          <td><code>article</code></td>
+          <td><code>web_content</code></td>
+        </tr>
+        <tr>
+          <td>RAG-facing fields</td>
+          <td>Headline, byline, <code>publishedAt</code>, <code>articleText</code>, excerpt, <code>heroImage</code></td>
+          <td>Title, markdown/text, <code>wordCount</code>, optional metadata</td>
+        </tr>
+        <tr>
+          <td>Optional extras</td>
+          <td><code>includeImages</code>, <code>generateReport</code>, <code>emitExport</code></td>
+          <td><code>includeMetadata</code>, <code>maxChargeUsd</code></td>
+        </tr>
+        <tr>
+          <td>Published price (sister LPs)</td>
+          <td>Useful article row $0.008 ($8.00 / 1,000)</td>
+          <td>From $9.00 / 1,000 results ($0.009 per row)</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>None of these Actors is a ranking tool, a full-site crawler, or a claim of publisher endorsement. Fetch public HTTP(S) URLs you own or are authorized to audit. Do not imply content ownership transfer.</p>
+
+    <h2>When Article Content Extractor is the RAG source</h2>
+    <p>Use Article Content Extractor when the URLs are article-shaped and you need a clean headline, byline, and body for RAG:</p>
+    <ul>
+      <li>News, blog, newsroom, and press pages</li>
+      <li>Markdown (default) or plain text — not HTML</li>
+      <li>Maximum 300 URLs per run</li>
+    </ul>
+    <p>Leave <code>generateReport</code> and <code>emitExport</code> false for the first paid run. Those value events are $2.50 and $5.00 on the Article LP when you request them. The Store Quickstart also sets <code>includeImages</code> false for a low-cost first run.</p>
+<pre><code>{
+  "urls": [
+    "https://example.com/news/example"
+  ],
+  "outputFormat": "markdown",
+  "generateReport": false,
+  "emitExport": false
+}</code></pre>
+    <p>If one Actor Start event and one useful article row charge, documented PPE on the Article LP is $0.00005 + $0.008 = $0.00805. Failed or no-content rows stay out of the default dataset. See <a href="/guides/article-extractor-first-paid-run/">the cheapest first paid article run</a> and <a href="/use-cases/news-blog-rag/">news and blog RAG</a>.</p>
+    <p><a href="https://apify.com/taroyamada/article-content-extractor">Run an article extraction on Apify</a></p>
+
+    <h2>When Website Content Extractor is the RAG source</h2>
+    <p>Use Website Content Extractor when the URLs are broader site pages that are not article-shaped. It is a docs and help-center crawl-style cleaner: you still supply the URL list; it does not crawl a full site on its own.</p>
+    <ul>
+      <li>Docs, product, pricing, policy, and help-center pages</li>
+      <li>Markdown (default), text, or HTML</li>
+      <li>Maximum 200 URLs per run</li>
+    </ul>
+    <p>Do not send <code>generateReport</code> or <code>emitExport</code> on this extractor. Those names belong on a linked Site QA or RAG report Actor. Cheapest first paid path on the Website LP is one <code>urls</code> item.</p>
+<pre><code>{
+  "urls": [
+    "https://docs.apify.com/platform/actors"
+  ],
+  "outputFormat": "markdown",
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p>If that run charges one Actor Start event and writes one useful content row, documented PPE on the Website LP is $0.001 + $0.009 = $0.010. The live Store card is from $9.00 / 1,000 results. See <a href="/use-cases/docs-rag-markdown/">docs and help-center RAG</a>. For current Website rates, see the <a href="https://apify.com/taroyamada/website-content-extractor/pricing">Store pricing card</a>.</p>
+    <p><a href="https://apify.com/taroyamada/website-content-extractor/input">Run this 1-URL Website input on Apify</a></p>
+
+    <h2>What each source does not do</h2>
+    <ul>
+      <li>Article Content Extractor does not emit HTML, accept <code>includeMetadata</code> or <code>maxChargeUsd</code>, or take Google News <code>queries</code> / RSS <code>feedUrls</code>.</li>
+      <li>Website Content Extractor does not parse article bylines, emit a Site QA or RAG report, or accept Article value-event flags.</li>
+      <li>Neither Actor discovers URLs. Discover news links with <a href="/google-news-scraper/">Google News Scraper</a> or publisher feeds with <a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a>, then send article-shaped pages to Article and docs pages to Website.</li>
+      <li>Neither Actor is a ranking tool or a full-site crawler. You supply the URL list.</li>
+    </ul>
+
+    <h2>A practical split</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>You have</th>
+          <th>Start with</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>News, blog, newsroom, or press URLs, and you need headline/byline/body Markdown</td>
+          <td><a href="/article-content-extractor/">Article Content Extractor</a></td>
+        </tr>
+        <tr>
+          <td>Docs, pricing, policy, product, or help-center URLs, and you need page Markdown</td>
+          <td><a href="/website-content-extractor/">Website Content Extractor</a></td>
+        </tr>
+        <tr>
+          <td>Search queries, and you still need article URLs</td>
+          <td><a href="/google-news-scraper/">Google News Scraper</a>, then Article cleanup</td>
+        </tr>
+        <tr>
+          <td>Publisher feed URLs, and you still need item links</td>
+          <td><a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a>, then Article cleanup</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>This is a source choice, not a ranking of tools. Article remains the right read for article-shaped pages. Website is the right read when the page is a site/docs body, not a news article. The four extractors sit on the <a href="/packs/content-intelligence/">Content Intelligence pack</a> hub.</p>
+    <p><a href="https://apify.com/taroyamada/article-content-extractor">Open Article Content Extractor on Apify</a>
+      ·
+      <a href="https://apify.com/taroyamada/website-content-extractor/input">Open Website Content Extractor Input on Apify</a></p>
+
+    <h2>When should I use Article Content Extractor for RAG?</h2>
+    <p>Use Article Content Extractor when the URLs are article-shaped: public news, blog, newsroom, or press pages you already have. It returns headline, byline, <code>publishedAt</code>, <code>articleText</code>, excerpt, and <code>heroImage</code> as markdown (default) or text. Maximum 300 URLs per run. It does not emit HTML. Leave <code>generateReport</code> and <code>emitExport</code> false on the first paid run. Live PPE is $0.008 per useful article row.</p>
+
+    <h2>When should I use Website Content Extractor for RAG instead?</h2>
+    <p>Use Website Content Extractor when the URLs are broader site pages that are not article-shaped: docs, product, pricing, policy, and help-center HTML. It returns cleaned markdown (default), text, or HTML plus title, optional metadata, <code>wordCount</code>, <code>sourceUrl</code>, and <code>fetchedAt</code>. Sample <code>rowType</code> is <code>web_content</code>. Maximum 200 URLs per run. The live Store card is from $9.00 / 1,000 results.</p>
+
+    <h2>How do the first paid inputs differ?</h2>
+    <p>Article first paid is one news or blog URL, <code>outputFormat</code> markdown, <code>generateReport</code> false, <code>emitExport</code> false. Website first paid is one docs URL, <code>outputFormat</code> markdown, <code>delivery</code> dataset, <code>dryRun</code> false. Do not send <code>generateReport</code> or <code>emitExport</code> on Website Content Extractor; those belong on a linked report Actor. Article useful-row PPE is $0.008. Website first paid is documented as 1 docs URL ≈ $0.010 (Actor Start $0.001 plus result $0.009).</p>
+
+    <h2>Does Article Content Extractor emit HTML?</h2>
+    <p>No. The published <code>outputFormat</code> enum is <code>markdown</code> (default) or <code>text</code>. <a href="/website-content-extractor/">Website Content Extractor</a> is the sibling that can return <code>html</code> as well as markdown or text.</p>
+
+    <h2>Does Website Content Extractor emit a Site QA or RAG report?</h2>
+    <p>No. Website Content Extractor returns bounded source rows. Linked report actors have separate report and export events. Article Content Extractor can emit <code>article-content-audit-report</code> ($2.50) and <code>article-batch-export</code> ($5.00) when those flags are true; the first paid path leaves both false.</p>
+
+    <h2>Should news, blog, newsroom, or press URLs go to Website Content Extractor?</h2>
+    <p>No. Route article-shaped news, blog, newsroom, and press URLs to <a href="/article-content-extractor/">Article Content Extractor</a> when you need headline, byline, publish date, article body, excerpt, and hero image. Website Content Extractor is for broader site pages that are not article-shaped.</p>
+
+    <h2>How to run the first paid path</h2>
+    <ol>
+      <li>Match the URL shape: article pages to Article Content Extractor; docs and site pages to Website Content Extractor.</li>
+      <li>Open the matching landing, then the Actor on the Apify Store.</li>
+      <li>Paste the first-paid JSON above. Leave Article <code>generateReport</code> / <code>emitExport</code> false. Do not add those flags on Website.</li>
+      <li>Review the default dataset, then raise the URL list after the row is useful.</li>
+    </ol>
+    <p class="price">Article: useful article row $0.008 ($8.00 / 1,000). Website: from $9.00 / 1,000 results; 1 docs URL ≈ $0.010.</p>
+    <p><a href="https://apify.com/taroyamada/article-content-extractor">Open Article Content Extractor on Apify</a>
+      ·
+      <a href="https://apify.com/taroyamada/website-content-extractor/input">Open Website Content Extractor Input on Apify</a></p>
+
+    <h2>How is Article Content Extractor priced versus Website Content Extractor?</h2>
+    <p>Both are pay-per-event. Article live events include useful article row <strong>$0.008</strong> ($8.00 / 1,000), <code>article-content-audit-report</code> $2.50, <code>article-batch-export</code> $5.00, and Actor Start $0.00005. Website live Store card is <strong>from $9.00 / 1,000 results</strong>: Actor Start $0.001 and result $0.009 per default-dataset item. Check the Store pricing cards for current rates.</p>
+    <p><a href="https://apify.com/taroyamada/article-content-extractor/pricing">Article pricing on Apify</a>
+      ·
+      <a href="https://apify.com/taroyamada/website-content-extractor/pricing">Website pricing on Apify</a></p>
+
+    <h2>Do generateReport and emitExport belong on Website Content Extractor?</h2>
+    <p>No. Those are Article Content Extractor value-event flags, or fields for a linked Site QA or RAG report Actor. Website Content Extractor <code>additionalProperties</code> is false, so unpublished report aliases are not accepted. First paid on Article leaves both flags false.</p>
+
+    <h2>What fields does an article row include versus a web_content row?</h2>
+    <p>Article README fields include <code>rowType</code>, <code>url</code>, <code>headline</code>, <code>author</code>, <code>publishedAt</code>, <code>articleText</code>, <code>excerpt</code>, <code>heroImage</code>, and <code>sourceUrl</code>. Sample <code>rowType</code> is <code>article</code>. Website README fields include <code>rowType</code>, <code>url</code>, <code>title</code>, <code>markdown</code>, <code>text</code>, <code>wordCount</code>, <code>metadata</code>, <code>sourceUrl</code>, and <code>fetchedAt</code>. Sample <code>rowType</code> is <code>web_content</code>.</p>
+
+    <h2>Does either Actor crawl a full site or rank pages?</h2>
+    <p>No. You supply the URL list. Article maximum is 300 URLs; Website maximum is 200. Both are bounded source extractors for research, content QA, and RAG ingestion — not ranking tools, full-site crawlers, or claims of publisher endorsement.</p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/article-content-extractor/">Article Content Extractor</a> — news, blog, and press HTML</li>
+      <li><a href="/website-content-extractor/">Website Content Extractor</a> — docs, pricing, policy, and product HTML</li>
+      <li><a href="/guides/article-extractor-first-paid-run/">Cheapest first paid run for Article Extractor</a></li>
+      <li><a href="/use-cases/news-blog-rag/">Article extractor for news and blog RAG</a></li>
+      <li><a href="/use-cases/docs-rag-markdown/">Website content extractor for docs and help-center RAG</a></li>
+      <li><a href="/packs/content-intelligence/">Content Intelligence pack</a></li>
+      <li><a href="/google-news-scraper/">Google News Scraper</a> — query-based discovery before article cleanup</li>
+      <li><a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a> — known-publisher feeds before article cleanup</li>
+      <li><a href="/meta-tag-opengraph-scraper/">Meta Tag &amp; OpenGraph Scraper</a> — head metadata, not page body</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+    <p class="note">Public HTTP(S) pages you own or are authorized to fetch. Not a ranking tool or a full-site crawler. Not affiliated with upstream publishers.</p>
+  </main>
+</body>
+</html>

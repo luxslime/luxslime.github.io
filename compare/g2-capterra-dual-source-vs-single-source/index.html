@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>G2 + Capterra dual-source vs single-source review scrape</title>
+  <meta name="description" content="When one G2 or Capterra review-page run is enough, and when mixing G2 and Capterra URLs in one Actor is the better lane. Aligned ratings, pros, and cons. From $3.00 / 1,000 results. First paid ≈ $0.01.">
+  <link rel="canonical" href="https://apify.momiji-space.com/compare/g2-capterra-dual-source-vs-single-source/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is a dual-source G2 + Capterra review scrape?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Dual-source means one run of G2 & Capterra Review Scraper with both G2 and Capterra review-page URLs in reviewPageUrls. The Actor auto-detects source and routes each URL to the matching parser. You get one Actor, aligned fields (ratings, pros, cons), and less glue code than stitching two separate single-source exports."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "When is a single-source G2 or Capterra run enough?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use a single-source run when you only have review pages from one catalog, or when you are still validating the schema. The live Store Quickstart is one G2 URL with reviewLimit 1. Mix Capterra only after that one-URL sample is useful. First paid on the sister LP is 1 URL / reviewLimit 1 ≈ $0.01 at current PPE."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can one run mix G2 and Capterra reviewPageUrls?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, after a one-URL schema check. Dual-source support accepts both G2 (g2.com/products/*/reviews) and Capterra (capterra.com/p/*/reviews/) URLs in reviewPageUrls. The Actor classifies each URL and routes it to the matching parser. Use dryRun true for validation-only checks before larger monitoring runs."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What fields stay aligned across G2 and Capterra?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Each product row can include source (g2 or capterra), productName, overallRating, totalReviewCount, ratingBreakdown, and nested reviews[] with title, rating, date, author, body, pros, cons, and verified. status is ok, partial, blocked, or error. That shared shape is the glue-code saving versus merging two unrelated scrapers."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is G2 & Capterra Review Scraper priced?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Billing is pay-per-event for both single-source and dual-source runs. The live Store card is from $3.00 / 1,000 results. Published events are Actor Start at $0.001 and result at $0.003 per default-dataset item. The Store Quickstart first-paid line is 1 URL / reviewLimit 1 ≈ $0.01 at current PPE. Check the Store pricing card for current rates."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is a billed result different from one nested reviews[] item?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. The live billed event title is result at $0.003 for a single result in the default dataset. The published README output is a per-product object with nested reviews[]. There is no separate published per-review billing event. Total cost mainly follows how many reviewPageUrls you process and how deep you sample reviews."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need two Actors to scrape G2 and Capterra?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. One Actor accepts both catalogs in reviewPageUrls. Single-source is a smaller input on that same Actor, not a different product. Dual-source is the same Actor with mixed URLs after the one-URL schema check."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does this Actor accept Shopify slugs or Apple podcast review IDs?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Required input is reviewPageUrls. additionalProperties is false. Shopify App Store merchant listings belong on Shopify App Store Review Scraper. Apple/iTunes podcast review RSS belongs on Apple Podcasts Reviews Scraper."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the cheapest first paid dual-source check?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Do not start mixed. The cheapest first paid path is one public G2 review-page URL, reviewLimit 1, delivery dataset, dryRun false. After that row is useful, add a Capterra URL in the same reviewPageUrls array. Keep reviewLimit at 1 until the dual-source schema is approved."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need unpublished README aliases such as products, source, or emitDeltas?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Dual-source uses the live schema: reviewPageUrls, reviewLimit, delivery, webhookUrl, and dryRun. README examples that send products, source, slug, maxReviewsPerProduct, or emitDeltas are not live schema fields. additionalProperties is false."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+    .note { font-size: 13px; color: #666; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Compare / G2 + Capterra dual-source vs single-source</nav>
+    <h1>G2 + Capterra dual-source vs single-source review scrape</h1>
+    <p>This is a run-shape choice on one Actor, not a ranking of tools. <a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a> (Store id <code>taroyamada/g2-capterra-review-intelligence</code>) reads public G2 and Capterra product review pages you supply. Single-source means one catalog in <code>reviewPageUrls</code>. Dual-source means G2 <em>and</em> Capterra URLs in the same run. One Actor, aligned fields (ratings, pros, cons), less glue code than merging two separate single-source exports. It is not affiliated with or endorsed by G2 or Capterra.</p>
+    <p class="price">from $3.00 / 1,000 results ($0.003 per default-dataset result; Actor Start $0.001). First paid: 1 URL / reviewLimit 1 ≈ $0.01.</p>
+    <p><a href="https://apify.com/taroyamada/g2-capterra-review-intelligence">Open G2 &amp; Capterra Review Scraper on Apify</a>
+      ·
+      <a href="/guides/g2-reviews-scraper-first-paid-run/">Cheapest first paid run</a></p>
+
+    <h2>Single-source versus dual-source on the same Actor</h2>
+    <p>Use this page when the job is choosing whether to mix catalogs. Use <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a> when the source is a merchant listing at <code>apps.shopify.com/{slug}</code>. Use <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> when the source is Apple/iTunes Customer Reviews RSS.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Single-source run</th>
+          <th>Dual-source run (G2 and Capterra)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>Validate schema, or track one catalog</td>
+          <td>One dataset across both review sites</td>
+        </tr>
+        <tr>
+          <td>Input</td>
+          <td>Only G2 <em>or</em> only Capterra URLs in <code>reviewPageUrls</code></td>
+          <td>Both G2 and Capterra URLs in the same <code>reviewPageUrls</code> array</td>
+        </tr>
+        <tr>
+          <td>Actors</td>
+          <td>One Actor, smaller URL list</td>
+          <td>Still one Actor — no second scraper to glue</td>
+        </tr>
+        <tr>
+          <td>Field alignment</td>
+          <td>Same product-row schema</td>
+          <td>Same schema, with <code>source</code> <code>g2</code> or <code>capterra</code></td>
+        </tr>
+        <tr>
+          <td>When</td>
+          <td>First paid check, or one catalog is the whole job</td>
+          <td>After the one-URL sample is useful</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>This Actor does not accept Shopify slugs, podcast IDs, or Apple show URLs. Review text is public source material for reputation and market research. Do not use the output to target individual reviewers.</p>
+
+    <h2>When a single-source run is enough</h2>
+    <p>Start single-source. The live Store Quickstart is one G2 URL with <code>reviewLimit</code> 1. Use that shape when:</p>
+    <ul>
+      <li>You only have review pages from one catalog</li>
+      <li>You are still checking <code>status</code>, <code>warnings</code>, and nested <code>reviews[]</code></li>
+      <li>You want the cheapest first paid path before mixing sources</li>
+    </ul>
+<pre><code>{
+  "reviewPageUrls": [
+    "https://www.g2.com/products/notion/reviews"
+  ],
+  "reviewLimit": 1,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p>Replace the sample with one public G2 review page you are authorized to fetch. If one Actor Start event and one result row charge, documented PPE on the sister LP is $0.001 + $0.003 = $0.004. The Store Quickstart first-paid line is 1 URL / <code>reviewLimit</code> 1 ≈ $0.01 at current PPE. See <a href="/guides/g2-reviews-scraper-first-paid-run/">G2 reviews scraper: cheapest first paid run</a>.</p>
+    <p><a href="https://apify.com/taroyamada/g2-capterra-review-intelligence">Run a single-source sample on Apify</a></p>
+
+    <h2>When dual-source is the better lane</h2>
+    <p>Mix G2 and Capterra in one run after the one-URL schema check. Dual-source support accepts both <code>g2.com/products/*/reviews</code> and <code>capterra.com/p/*/reviews/</code> URLs. The Actor classifies each URL and routes it to the matching parser. Factual benefits versus two separate single-source scrapers:</p>
+    <ul>
+      <li>One Actor — one input schema, one dataset export</li>
+      <li>Aligned fields — ratings, rating breakdowns, nested <code>pros</code> / <code>cons</code></li>
+      <li>Less glue code — no join across two unrelated row shapes</li>
+    </ul>
+<pre><code>{
+  "reviewPageUrls": [
+    "https://www.g2.com/products/notion/reviews",
+    "https://www.capterra.com/p/147384/Notion/reviews/"
+  ],
+  "reviewLimit": 1,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p>Keep <code>reviewLimit</code> at 1 until the dual-source row shape is useful. Use <code>dryRun: true</code> for validation-only checks before larger monitoring runs. Total cost mainly follows how many <code>reviewPageUrls</code> you process and how deep you sample reviews. There is no separate published per-review billing event.</p>
+    <p><a href="https://apify.com/taroyamada/g2-capterra-review-intelligence">Run a dual-source mix on Apify</a></p>
+
+    <h2>What does not change between the two</h2>
+    <ul>
+      <li>Billing is pay-per-event: Actor Start plus one result event per default-dataset item.</li>
+      <li>Live schema fields are <code>reviewPageUrls</code>, <code>reviewLimit</code>, <code>delivery</code>, <code>webhookUrl</code>, and <code>dryRun</code>. Do not send unpublished README aliases such as <code>products</code>, <code>source</code>, <code>slug</code>, <code>maxReviewsPerProduct</code>, or <code>emitDeltas</code>.</li>
+      <li>Reviews are extracted from server-rendered HTML. Pages that render reviews only via client-side JavaScript may return partial results. Blocked requests are reported honestly.</li>
+    </ul>
+
+    <h2>A practical split</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>You have</th>
+          <th>Start with</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>One G2 (or one Capterra) review page, and you have not validated the schema</td>
+          <td>Single-source, <code>reviewLimit</code> 1</td>
+        </tr>
+        <tr>
+          <td>Matching G2 and Capterra pages for the same product, after the sample is useful</td>
+          <td>Dual-source mix in one <code>reviewPageUrls</code> array</td>
+        </tr>
+        <tr>
+          <td>A new mix you have not tested</td>
+          <td><code>dryRun</code> true, then a live dual-source run</td>
+        </tr>
+        <tr>
+          <td>Shopify App Store merchant listings</td>
+          <td><a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a></td>
+        </tr>
+        <tr>
+          <td>Apple/iTunes podcast review RSS</td>
+          <td><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a></td>
+        </tr>
+      </tbody>
+    </table>
+    <p>A common sequence is one G2 URL first, keep the product-row shape, then add Capterra URLs on later runs. That is how the <a href="/use-cases/g2-reviews-scraper/">G2 reviews scraper</a> use case describes mixing sources. Choose among the three public-review sources on the <a href="/review-intelligence/">Review Intelligence pack</a> hub.</p>
+    <p><a href="https://apify.com/taroyamada/g2-capterra-review-intelligence">Open G2 &amp; Capterra Review Scraper on Apify</a></p>
+
+    <h2>What is a dual-source G2 + Capterra review scrape?</h2>
+    <p>Dual-source means one run of G2 &amp; Capterra Review Scraper with both G2 and Capterra review-page URLs in <code>reviewPageUrls</code>. The Actor auto-detects source and routes each URL to the matching parser. You get one Actor, aligned fields (ratings, pros, cons), and less glue code than stitching two separate single-source exports.</p>
+
+    <h2>When is a single-source G2 or Capterra run enough?</h2>
+    <p>Use a single-source run when you only have review pages from one catalog, or when you are still validating the schema. The live Store Quickstart is one G2 URL with <code>reviewLimit</code> 1. Mix Capterra only after that one-URL sample is useful. First paid on the sister LP is 1 URL / <code>reviewLimit</code> 1 ≈ $0.01 at current PPE.</p>
+
+    <h2>Can one run mix G2 and Capterra reviewPageUrls?</h2>
+    <p>Yes, after a one-URL schema check. Dual-source support accepts both G2 (<code>g2.com/products/*/reviews</code>) and Capterra (<code>capterra.com/p/*/reviews/</code>) URLs in <code>reviewPageUrls</code>. The Actor classifies each URL and routes it to the matching parser. Use <code>dryRun</code> true for validation-only checks before larger monitoring runs.</p>
+
+    <h2>What fields stay aligned across G2 and Capterra?</h2>
+    <p>Each product row can include <code>source</code> (<code>g2</code> or <code>capterra</code>), <code>productName</code>, <code>overallRating</code>, <code>totalReviewCount</code>, <code>ratingBreakdown</code>, and nested <code>reviews[]</code> with <code>title</code>, <code>rating</code>, <code>date</code>, <code>author</code>, <code>body</code>, <code>pros</code>, <code>cons</code>, and <code>verified</code>. <code>status</code> is <code>ok</code>, <code>partial</code>, <code>blocked</code>, or <code>error</code>. That shared shape is the glue-code saving versus merging two unrelated scrapers.</p>
+
+    <h2>How is a billed result different from one nested reviews[] item?</h2>
+    <p>The live billed event title is <code>result</code> at <strong>$0.003</strong> for a single result in the default dataset. The published README output is a per-product object with nested <code>reviews[]</code>. There is no separate published per-review billing event. Total cost mainly follows how many <code>reviewPageUrls</code> you process and how deep you sample reviews.</p>
+
+    <h2>Do I need two Actors to scrape G2 and Capterra?</h2>
+    <p>No. One Actor accepts both catalogs in <code>reviewPageUrls</code>. Single-source is a smaller input on that same Actor, not a different product. Dual-source is the same Actor with mixed URLs after the one-URL schema check.</p>
+
+    <h2>Does this Actor accept Shopify slugs or Apple podcast review IDs?</h2>
+    <p>No. Required input is <code>reviewPageUrls</code>. <code>additionalProperties</code> is false. Shopify App Store merchant listings belong on <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a>. Apple/iTunes podcast review RSS belongs on <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a>.</p>
+
+    <h2>How to run it</h2>
+    <ol>
+      <li>Open <a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a>, then the Actor on the Apify Store.</li>
+      <li>Pass one public G2 <code>reviewPageUrls</code> item. Keep <code>reviewLimit</code> at 1 on the first paid run.</li>
+      <li>Leave <code>delivery</code> on <code>dataset</code>. Mix a Capterra URL only after that one-URL schema check.</li>
+      <li>Use <code>dryRun: true</code> before a larger dual-source monitoring run. Switch to <code>webhook</code> only after the payload shape is useful.</li>
+    </ol>
+    <p class="price">from $3.00 / 1,000 results ($0.003 per default-dataset result titled result; Actor Start $0.001). First paid ≈ $0.01.</p>
+    <p><a href="https://apify.com/taroyamada/g2-capterra-review-intelligence">Open G2 &amp; Capterra Review Scraper on Apify</a>
+      ·
+      <a href="https://apify.com/taroyamada/g2-capterra-review-intelligence/pricing">See pricing on Apify</a></p>
+
+    <h2>How is G2 &amp; Capterra Review Scraper priced?</h2>
+    <p>Billing is pay-per-event for both single-source and dual-source runs. The live Store card is <strong>from $3.00 / 1,000 results</strong>. Published events are Actor Start at <strong>$0.001</strong> and result at <strong>$0.003</strong> per default-dataset item. The Store Quickstart first-paid line is 1 URL / <code>reviewLimit</code> 1 ≈ $0.01 at current PPE. Check the Store pricing card for current rates.</p>
+
+    <h2>What is the cheapest first paid dual-source check?</h2>
+    <p>Do not start mixed. The cheapest first paid path is one public G2 review-page URL, <code>reviewLimit</code> 1, <code>delivery</code> dataset, <code>dryRun</code> false. After that row is useful, add a Capterra URL in the same <code>reviewPageUrls</code> array. Keep <code>reviewLimit</code> at 1 until the dual-source schema is approved.</p>
+
+    <h2>Do I need unpublished README aliases such as products, source, or emitDeltas?</h2>
+    <p>No. Dual-source uses the live schema: <code>reviewPageUrls</code>, <code>reviewLimit</code>, <code>delivery</code>, <code>webhookUrl</code>, and <code>dryRun</code>. README examples that send <code>products</code>, <code>source</code>, <code>slug</code>, <code>maxReviewsPerProduct</code>, or <code>emitDeltas</code> are not live schema fields. <code>additionalProperties</code> is false.</p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a> — product landing and field list</li>
+      <li><a href="/use-cases/g2-reviews-scraper/">G2 reviews scraper</a> — query-intent page for public G2 and Capterra URLs</li>
+      <li><a href="/guides/g2-reviews-scraper-first-paid-run/">G2 reviews scraper: cheapest first paid run</a></li>
+      <li><a href="/review-intelligence/">Review Intelligence pack</a> — podcast vs Shopify App Store vs G2/Capterra reviews</li>
+      <li><a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a> — Shopify merchant listings, not G2 or Capterra</li>
+      <li><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> — public podcast review RSS</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+    <p class="note">Public G2 and Capterra review-page HTML only. No account session. Not affiliated with or endorsed by G2 or Capterra. Do not use the output to target individual reviewers.</p>
+  </main>
+</body>
+</html>
