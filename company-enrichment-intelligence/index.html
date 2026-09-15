@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Company Domain Tech, DNS &amp; Security Audit — keyless domain audits on pay-per-event</title>
+  <meta name="description" content="taroyamada/company-enrichment-intelligence. Live Store: Actor Start $0.005/GB plus company-basic $0.02 or company-full $0.08 per audited domain. Try auditLevel basic, dryRun false.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/company-enrichment-intelligence/">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is Company Domain Tech, DNS & Security Audit different from DMARC & Email Security Checker and SSL/TLS Certificate Scraper?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Company Domain Tech, DNS & Security Audit (taroyamada/company-enrichment-intelligence) audits domains you supply against the company website and public registries. Live PPE is Actor Start $0.005 per GB plus company-basic $0.02 or company-full $0.08 per domain that returns data. DMARC & Email Security Checker grades SPF/DMARC/MX (optional DKIM) only. SSL/TLS Certificate Scraper pulls certificates only. RDAP Domain Expiry & Whois Scraper is RDAP expiry only. DNS Propagation Checker is multi-resolver A/NS/SOA agreement. Use this Actor for a combined company-domain audit. Use the specialized Actors when you only need one signal family."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The live schema required array is empty. Live fields are domains (default empty array; prefill stripe.com, notion.so; www and duplicates removed), auditLevel (basic, security_audit, or techstack_report; default techstack_report), proxy (default useApifyProxy false), and dryRun (default true). Live schema does not document which auditLevel value maps to company-basic versus company-full. README maps company-basic to DNS/TLS/RDAP/firmographics/site and company-full to a full report including tech stack and schema.org. Store company-full text says verified public business contact signals (wording differs from README). Prefer live Store event titles; treat auditLevel basic as the cheapest domain event path."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the cheapest first paid Try Input?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "One domain, auditLevel basic, proxy useApifyProxy false, dryRun false. Domain event is $0.02 if data is returned (company-basic), plus Actor Start at $0.005 times GB. Default memory 4096 MB means four start events ($0.020) if you leave memory at default. Schema default dryRun true is not a paid try."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "README sample fields include rowType, billingEventName (company-basic or company-full), domain, companyName, description, website (reachable, finalUrl, title), dns (mx, mailProvider, spf, dmarc), rdap (registrar, createdDate, ageYears), ssl (issuer, daysToExpiry, sans), techStack, schemaOrg, site (hasRobots, hasSitemap, sitemapUrlCount), completeness, and signalsResolved. There is no published output JSON schema on the Store page. Treat README samples as illustrations, not a live coverage guarantee."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is Company Domain Tech, DNS & Security Audit priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay-per-event. Live Store events are Actor Start $0.005 (every live run; one event per GB, minimum one; default 4096 MB → 4 events if default memory is used), company-basic $0.02 once per domain for firmographics, tech stack, DNS, and SSL signals (no charge if the domain returns no data), and company-full $0.08 once per domain for full enrichment including verified public business contact signals on the Store card (no charge if no data). README Pricing table has no Actor Start — prefer the live Store card for the start fee. actor.json billing lists only company-basic / company-full. dryRun true: README says no live calls or billing."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "This schema does not expose a delivery enum. Dataset output is the billable surface when rows are written. dryRun defaults to true and must be false for a paid run. Optional proxy uses the Apify proxy editor object; default is useApifyProxy false."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Company Domain Tech, DNS &amp; Security Audit</nav>
+    <h1>Keyless website, DNS, SPF, DMARC, RDAP, TLS, robots, and sitemap audits</h1>
+    <p>Company Domain Tech, DNS &amp; Security Audit turns company domains into structured website, tech stack, DNS, SPF, DMARC, RDAP, TLS certificate, robots.txt, and sitemap audit records. Sources are public and keyless: the company website plus public registries. Pay per audited domain. Schema default <code>dryRun</code> is <strong>true</strong> — flip it to false for a paid run. It is not an email-policy grade on SPF/DMARC/MX alone — that job is <a href="/dmarc-email-security-checker/">DMARC &amp; Email Security Checker</a> — and it is not multi-resolver A/NS/SOA propagation (<a href="/dns-propagation-checker/">DNS Propagation Checker</a>).</p>
+    <p class="price">Try Input: 1 domain, auditLevel basic, dryRun false. Live Store: Actor Start $0.005 per GB (default memory 4096 MB → 4 start events = $0.020) plus $0.02 per company-basic domain with data (or $0.08 company-full). No charge for a domain that returns no data.</p>
+    <p><a href="https://apify.com/taroyamada/company-enrichment-intelligence/input">Try the cheapest first paid Company Domain Tech, DNS &amp; Security Audit run on Apify Input</a></p>
+    <p><a href="https://apify.com/taroyamada/company-enrichment-intelligence">Open taroyamada/company-enrichment-intelligence on the Apify Store</a></p>
+
+    <h2>Keyless company-domain audits, not email-only grades or TLS-only cert pulls</h2>
+    <p>Use this page when the job is a bounded company-domain audit across website, DNS, RDAP, TLS, robots, and sitemap. Use <a href="/dmarc-email-security-checker/">DMARC &amp; Email Security Checker</a> when you only need SPF/DMARC/MX grades. Use <a href="/ssl-tls-certificate-scraper/">SSL/TLS Certificate Scraper</a> when you only need certificates. Use <a href="/rdap-domain-monitor/">RDAP Domain Expiry &amp; Whois Scraper</a> when you only need RDAP expiry.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Company Domain Tech, DNS &amp; Security Audit</th>
+          <th>DMARC &amp; Email Security Checker</th>
+          <th>SSL/TLS Certificate Scraper</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>Keyless firmographics + DNS/TLS/RDAP/site audit per domain</td>
+          <td>SPF/DMARC/MX grade on supplied domains</td>
+          <td>TLS certificate rows</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td><code>domains</code> + <code>auditLevel</code></td>
+          <td><code>domains</code> (max 500)</td>
+          <td>Hostnames for cert pull</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>Company website plus public registries (keyless)</td>
+          <td>Public email-auth DNS</td>
+          <td>TLS handshake / cert</td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td>company-basic or company-full rows with completeness</td>
+          <td>Per-domain score / grade</td>
+          <td>Certificate fields</td>
+        </tr>
+        <tr>
+          <td>Not this job</td>
+          <td>Not person-targeting. Not a mailbox login.</td>
+          <td>Not RDAP/TLS/tech-stack bundles.</td>
+          <td>Not SPF/DMARC policy parsing.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/company-enrichment-intelligence</code>. Categories on the live Store card: Developer Tools, AI, Business. Fetch only sources you are authorized to use. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Vendor research and market mapping: audit one domain at <code>auditLevel</code> <code>basic</code> before raising depth.</li>
+      <li>Portfolio hygiene: collect DNS, SPF, DMARC, RDAP, and TLS signals without paid enrichment APIs.</li>
+      <li>Tech-stack reports: <code>techstack_report</code> (schema default) is a deeper billable path — do not use it as the cheapest first paid try.</li>
+    </ul>
+    <p>The live Store tagline is: turn company domains into structured website, tech stack, DNS, SPF, DMARC, RDAP, TLS certificate, robots.txt, and sitemap audit records; public, keyless sources only; pay per audited domain. Default memory on the Store listing is 4096 MB.</p>
+
+    <h2>How is Company Domain Tech, DNS &amp; Security Audit different from DMARC &amp; Email Security Checker and SSL/TLS Certificate Scraper?</h2>
+    <p>Company Domain Tech, DNS & Security Audit (taroyamada/company-enrichment-intelligence) audits domains you supply against the company website and public registries. Live PPE is Actor Start $0.005 per GB plus company-basic $0.02 or company-full $0.08 per domain that returns data. DMARC & Email Security Checker grades SPF/DMARC/MX (optional DKIM) only. SSL/TLS Certificate Scraper pulls certificates only. RDAP Domain Expiry & Whois Scraper is RDAP expiry only. DNS Propagation Checker is multi-resolver A/NS/SOA agreement. Use this Actor for a combined company-domain audit. Use the specialized Actors when you only need one signal family.</p>
+    <h2>What input is required?</h2>
+    <p>The live schema required array is empty. Live fields are domains (default empty array; prefill stripe.com, notion.so; www and duplicates removed), auditLevel (basic, security_audit, or techstack_report; default techstack_report), proxy (default useApifyProxy false), and dryRun (default true). Live schema does not document which auditLevel value maps to company-basic versus company-full. README maps company-basic to DNS/TLS/RDAP/firmographics/site and company-full to a full report including tech stack and schema.org. Store company-full text says verified public business contact signals (wording differs from README). Prefer live Store event titles; treat auditLevel basic as the cheapest domain event path.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>domains</code></td>
+          <td>string[]</td>
+          <td><code>[]</code> (prefill stripe.com, notion.so)</td>
+          <td>Domains or URLs; reduced to domain; www/dupes removed.</td>
+        </tr>
+        <tr>
+          <td><code>auditLevel</code></td>
+          <td>string</td>
+          <td><code>techstack_report</code></td>
+          <td>Enum: <code>basic</code>, <code>security_audit</code>, <code>techstack_report</code>.</td>
+        </tr>
+        <tr>
+          <td><code>proxy</code></td>
+          <td>object</td>
+          <td><code>{"useApifyProxy": false}</code></td>
+          <td>Optional Apify proxy editor object.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Illustrative sample; no live calls or billing. Flip to false for a paid run.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Cheapest first paid input (<code>dryRun</code> false, <code>auditLevel</code> basic, one domain):</p>
+<pre><code>{
+  "domains": [
+    "stripe.com"
+  ],
+  "auditLevel": "basic",
+  "proxy": {
+    "useApifyProxy": false
+  },
+  "dryRun": false
+}</code></pre>
+    <p>If data is returned, documented live PPE is <strong>$0.02</strong> company-basic plus Actor Start (<strong>$0.005 × GB</strong>).</p>
+    <p><a href="https://apify.com/taroyamada/company-enrichment-intelligence/input">Run this 1-domain input on Apify</a></p>
+    <h2>What is the cheapest first paid Try Input?</h2>
+    <p>One domain, auditLevel basic, proxy useApifyProxy false, dryRun false. Domain event is $0.02 if data is returned (company-basic), plus Actor Start at $0.005 times GB. Default memory 4096 MB means four start events ($0.020) if you leave memory at default. Schema default dryRun true is not a paid try.</p>
+    <h2>What does a result contain?</h2>
+    <p>README sample fields include rowType, billingEventName (company-basic or company-full), domain, companyName, description, website (reachable, finalUrl, title), dns (mx, mailProvider, spf, dmarc), rdap (registrar, createdDate, ageYears), ssl (issuer, daysToExpiry, sans), techStack, schemaOrg, site (hasRobots, hasSitemap, sitemapUrlCount), completeness, and signalsResolved. There is no published output JSON schema on the Store page. Treat README samples as illustrations, not a live coverage guarantee.</p>
+    <h2>How is Company Domain Tech, DNS &amp; Security Audit priced?</h2>
+    <p>Billing is pay-per-event. Live Store events are Actor Start $0.005 (every live run; one event per GB, minimum one; default 4096 MB → 4 events if default memory is used), company-basic $0.02 once per domain for firmographics, tech stack, DNS, and SSL signals (no charge if the domain returns no data), and company-full $0.08 once per domain for full enrichment including verified public business contact signals on the Store card (no charge if no data). README Pricing table has no Actor Start — prefer the live Store card for the start fee. actor.json billing lists only company-basic / company-full. dryRun true: README says no live calls or billing.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>apify-actor-start</code> (Actor Start)</td>
+          <td>$0.005</td>
+          <td>PAID every live run. 1 event per GB, min 1. Default memory 4096 MB → 4 start events if default memory is used ($0.020).</td>
+        </tr>
+        <tr>
+          <td><code>company-basic</code> (Company basic)</td>
+          <td>$0.02</td>
+          <td>PAID once per domain for firmographics, tech stack, DNS, and SSL signals. No charge if domain returns no data.</td>
+        </tr>
+        <tr>
+          <td><code>company-full</code> (Company full)</td>
+          <td>$0.08</td>
+          <td>PAID once per domain for full enrichment including verified public business contact signals on the Store card. No charge if domain returns no data.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>README omits Actor Start and describes company-full as tech stack + schema.org; the live Store card includes start and describes company-full as verified public business contact signals. This page quotes live PPE only.</p>
+    <p class="price">Actor Start $0.005/GB + company-basic $0.02 or company-full $0.08 per domain with data.</p>
+    <p><a href="https://apify.com/taroyamada/company-enrichment-intelligence/pricing">See Company Domain Tech, DNS &amp; Security Audit pricing on Apify</a></p>
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>This schema does not expose a delivery enum. Dataset output is the billable surface when rows are written. dryRun defaults to true and must be false for a paid run. Optional proxy uses the Apify proxy editor object; default is useApifyProxy false.</p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Schema default <code>dryRun</code> is true — not a paid try until you set it false.</li>
+      <li>Default memory 4096 MB means four Actor Start events at $0.005 each if you leave memory at default.</li>
+      <li>No person-targeting. Public, keyless sources only.</li>
+      <li>No charge for a domain that returns no data (per live Store event text).</li>
+      <li>Respect website, DNS, and registry terms.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/company-enrichment-intelligence">Open Company Domain Tech, DNS &amp; Security Audit on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/dmarc-email-security-checker/">DMARC &amp; Email Security Checker</a> — SPF/DMARC/MX grades only.</li>
+      <li><a href="/dns-propagation-checker/">DNS Propagation Checker</a> — Multi-resolver A/NS/SOA, not company audits.</li>
+      <li><a href="/ssl-tls-certificate-scraper/">SSL/TLS Certificate Scraper</a> — Certificates only.</li>
+      <li><a href="/rdap-domain-monitor/">RDAP Domain Expiry &amp; Whois Scraper</a> — RDAP expiry only.</li>
+      <li><a href="/email-deliverability-portfolio-audit/">Bulk Email DNS Audit Scraper</a> — SPF/DKIM/DMARC/BIMI portfolio DNS.</li>
+      <li><a href="/robotstxt-ai-crawler-block-checker/">robots.txt Parser &amp; AI Crawler Block Checker</a> — robots.txt only.</li>
+      <li><a href="/sitemap-scraper-analyzer/">Sitemap Scraper &amp; Analyzer</a> — sitemap.xml lists, not domain audits.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

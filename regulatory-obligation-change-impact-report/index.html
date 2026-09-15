@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>eCFR &amp; Federal Register Change Report — CFR watchlists on pay-per-event</title>
+  <meta name="description" content="taroyamada/regulatory-obligation-change-impact-report. Live Store: from $8.00 / 1,000 regulatory change rows ($0.008) plus $0.30 alert, $12 report, $7 export. No Actor Start.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/regulatory-obligation-change-impact-report/">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is eCFR & Federal Register Change Report different from eCFR CFR Section Change Watch and Federal Register Scraper?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "eCFR & Federal Register Change Report (taroyamada/regulatory-obligation-change-impact-report) compares official eCFR text and Federal Register metadata for CFR watchlists. Live PPE is regulatory-change-row $0.008 (Store primary), obligation-impact-alert $0.30, regulatory-impact-report $12, and regulatory-impact-export $7. No Actor Start. eCFR CFR Section Change Watch is an official eCFR API section watcher with its own alert/digest/report events. Federal Register Scraper is FR items. Regulatory Alerts Scraper is a broader alerts Actor. Use this Actor for obligation-impact watchlists. Use the eCFR section watcher for eCFR-only section diffs. Use Federal Register Scraper for FR-only rows. Not legal advice."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: watchlists, monitorKey, initialRunMode, generateReport, emitRawRows, emitUnchanged, maxChargeUsd, dryRun. watchlists is JSON (minItems 1, maxItems 100); default item is benzene 29 CFR 1910. Optional: emitExport (default false), delivery (dataset or webhook; default dataset), webhookUrl, requestTimeoutSeconds (default 30, min 2, max 120), rateLimitMs (default 250), maxRetries (default 2), backoffBaseMs (default 250), maxBackoffMs (default 4000), maxFederalRegisterDocuments (default 1, min 1, max 100), lookbackDays (default 30, min 1, max 365). Schema default dryRun is true and maxChargeUsd is 0."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the cheapest first paid Try Input?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Copied from the live README Start with a low-cost paid trial: one benzene watchlist, emit_backfill, generateReport false, emitRawRows true, emitExport false, maxFederalRegisterDocuments 1, lookbackDays 30, maxChargeUsd 1, dryRun false. README states it delivers regulatory-change-row $0.008 plus obligation-impact-alert $0.30 when starter evidence matches. baseline_only and unchanged runs are free, not a paid try. maxChargeUsd must be greater than 0 or the plan cannot push (default 0)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "README fields include rowType, billingEventName, stableKey, sourceUrls, watchlistId, obligationId, cfrCitation, observationKind, changeKinds, watchTermHits, checkedAt, limitations, and prohibitedInterpretations. actor.json datasetSchema is only a relative path to dataset_schema.json — the file is not served on the Store. Treat README samples as illustrations, not a live coverage guarantee."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is eCFR & Federal Register Change Report priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay-per-event. The live Store card is from $8.00 / 1,000 regulatory change rows. Live events are regulatory-change-row $0.008 (Store API primary), obligation-impact-alert $0.30, regulatory-impact-report $12, and regulatory-impact-export $7, each charged only when that row is delivered. No Actor Start. README USD amounts match. actor.json chargeEvents marks obligation-impact-alert as primary; prefer the Store/API card which marks regulatory-change-row as primary. Store event description has a duplicated word (regulatory change row row)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "delivery defaults to dataset and also accepts webhook. webhookUrl is the HTTPS handoff when delivery is webhook. dryRun defaults to true (no network / state / charges). Unchanged runs still suppressed when emitUnchanged is false. Dataset output is the billable surface when rows are written."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / eCFR &amp; Federal Register Change Report</nav>
+    <h1>Official eCFR text and Federal Register notice diffs for CFR watchlists</h1>
+    <p>eCFR &amp; Federal Register Change Report compares official eCFR text plus Federal Register metadata for CFR watchlists you supply. Baseline then diffs. Not legal advice. <code>baseline_only</code> first run and unchanged runs: 0 rows / 0 charge. Schema default <code>dryRun</code> is <strong>true</strong> and <code>maxChargeUsd</code> is <strong>0</strong> — a paid try must set dryRun false and maxChargeUsd above zero. It is not the eCFR-section watcher with digest/report PPE — that job is <a href="/ecfr-cfr-section-change-watch-scraper/">eCFR CFR Section Change Watch</a> — and it is not a Federal Register item scraper alone (<a href="/federal-register-digest/">Federal Register Scraper</a>).</p>
+    <p class="price">Try Input: starter benzene watchlist, emit_backfill, generateReport false, maxChargeUsd 1, dryRun false. Live Store: from $8.00 / 1,000 regulatory change rows ($0.008) + $0.30 obligation-impact-alert + $12 report + $7 export. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/regulatory-obligation-change-impact-report/input">Try the cheapest first paid eCFR &amp; Federal Register Change Report run on Apify Input</a></p>
+    <p><a href="https://apify.com/taroyamada/regulatory-obligation-change-impact-report">Open taroyamada/regulatory-obligation-change-impact-report on the Apify Store</a></p>
+
+    <h2>eCFR + Federal Register obligation impact, not a FR-only digest or eCFR-only section watch</h2>
+    <p>Use this page when the job is CFR watchlists with obligation-impact alerts, reports, and exports. Use <a href="/ecfr-cfr-section-change-watch-scraper/">eCFR CFR Section Change Watch</a> for official eCFR API section watches. Use <a href="/federal-register-digest/">Federal Register Scraper</a> for Federal Register items. Use <a href="/regulatory-change-monitor/">Regulatory Alerts Scraper</a> for broader regulatory-alert scraping that is not this eCFR/FR card.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>eCFR &amp; Federal Register Change Report</th>
+          <th>eCFR CFR Section Change Watch</th>
+          <th>Federal Register Scraper</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td>
+          <td>CFR watchlists with obligation-impact alerts and reports</td>
+          <td>Official eCFR API section watches</td>
+          <td>Federal Register item rows</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td><code>watchlists</code> + <code>monitorKey</code></td>
+          <td><code>feeds</code> on that Actor</td>
+          <td>FR search/digest inputs</td>
+        </tr>
+        <tr>
+          <td>What it reads</td>
+          <td>Official eCFR text + Federal Register metadata</td>
+          <td>Official eCFR API</td>
+          <td>Federal Register</td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td>regulatory-change-row (primary on Store), obligation-impact-alert, optional report/export</td>
+          <td>ecfr-change-alert / digest / report events</td>
+          <td>FR digest rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td>
+          <td>Not legal advice. Not a substitute for counsel.</td>
+          <td>Not Federal Register notices bundled as obligation impact.</td>
+          <td>Not eCFR section diffs.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/regulatory-obligation-change-impact-report</code>. Categories on the live Store card: Business. Fetch only sources you are authorized to use. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Start with the published low-cost paid trial: one benzene 29 CFR 1910 watchlist, emit_backfill, reports off, maxChargeUsd 1.</li>
+      <li>Seed state with <code>initialRunMode</code> <code>baseline_only</code> when you want zero rows / zero charge before diffs.</li>
+      <li>Keep <code>maxFederalRegisterDocuments</code> at 1 and <code>lookbackDays</code> at 30 on the first paid path.</li>
+    </ul>
+    <p>The live Store tagline is: track eCFR sections and Federal Register notices across regulatory watchlists; deliver source-linked changes, obligation-impact alerts, reports, and exports. Default memory on the Store listing is 1024 MB. Live schema watchlist item documents id, cfrTitle, part, keywords, federalRegisterTerms. README also documents name, sections, obligationLabel, agencySlugs — those keys are not listed as properties in the live schema.</p>
+
+    <h2>How is eCFR &amp; Federal Register Change Report different from eCFR CFR Section Change Watch and Federal Register Scraper?</h2>
+    <p>eCFR & Federal Register Change Report (taroyamada/regulatory-obligation-change-impact-report) compares official eCFR text and Federal Register metadata for CFR watchlists. Live PPE is regulatory-change-row $0.008 (Store primary), obligation-impact-alert $0.30, regulatory-impact-report $12, and regulatory-impact-export $7. No Actor Start. eCFR CFR Section Change Watch is an official eCFR API section watcher with its own alert/digest/report events. Federal Register Scraper is FR items. Regulatory Alerts Scraper is a broader alerts Actor. Use this Actor for obligation-impact watchlists. Use the eCFR section watcher for eCFR-only section diffs. Use Federal Register Scraper for FR-only rows. Not legal advice.</p>
+    <h2>What input is required?</h2>
+    <p>Live required fields: watchlists, monitorKey, initialRunMode, generateReport, emitRawRows, emitUnchanged, maxChargeUsd, dryRun. watchlists is JSON (minItems 1, maxItems 100); default item is benzene 29 CFR 1910. Optional: emitExport (default false), delivery (dataset or webhook; default dataset), webhookUrl, requestTimeoutSeconds (default 30, min 2, max 120), rateLimitMs (default 250), maxRetries (default 2), backoffBaseMs (default 250), maxBackoffMs (default 4000), maxFederalRegisterDocuments (default 1, min 1, max 100), lookbackDays (default 30, min 1, max 365). Schema default dryRun is true and maxChargeUsd is 0.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>watchlists</code></td>
+          <td>array (json)</td>
+          <td>benzene 29 CFR 1910 prefill</td>
+          <td>CFR titles/parts. minItems 1, maxItems 100. Required.</td>
+        </tr>
+        <tr>
+          <td><code>monitorKey</code></td>
+          <td>string</td>
+          <td><code>starter-benzene-exposure</code></td>
+          <td>Stable state namespace. minLength 1, maxLength 120. Required.</td>
+        </tr>
+        <tr>
+          <td><code>initialRunMode</code></td>
+          <td>string</td>
+          <td><code>emit_backfill</code></td>
+          <td>Enum: <code>baseline_only</code>, <code>emit_backfill</code>. Required.</td>
+        </tr>
+        <tr>
+          <td><code>generateReport</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit report event ($12) on changed run. Required.</td>
+        </tr>
+        <tr>
+          <td><code>emitRawRows</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Schema: change rows and one export handoff row. Required.</td>
+        </tr>
+        <tr>
+          <td><code>emitUnchanged</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Unchanged runs still suppressed. Required.</td>
+        </tr>
+        <tr>
+          <td><code>maxChargeUsd</code></td>
+          <td>number</td>
+          <td><code>0</code></td>
+          <td>Plan must fit before first push. min 0, max 5000. Required. Paid try needs &gt; 0.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>No network / state / charges. Required. Flip to false for a paid run.</td>
+        </tr>
+        <tr>
+          <td><code>emitExport</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Export when raw rows not requested ($7).</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string</td>
+          <td><code>dataset</code></td>
+          <td>Enum: <code>dataset</code>, <code>webhook</code>.</td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td>—</td>
+          <td>HTTPS handoff.</td>
+        </tr>
+        <tr>
+          <td><code>requestTimeoutSeconds</code></td>
+          <td>integer</td>
+          <td><code>30</code></td>
+          <td>min 2, max 120.</td>
+        </tr>
+        <tr>
+          <td><code>rateLimitMs</code></td>
+          <td>integer</td>
+          <td><code>250</code></td>
+          <td>min 0, max 10000.</td>
+        </tr>
+        <tr>
+          <td><code>maxRetries</code></td>
+          <td>integer</td>
+          <td><code>2</code></td>
+          <td>min 0, max 4.</td>
+        </tr>
+        <tr>
+          <td><code>backoffBaseMs</code></td>
+          <td>integer</td>
+          <td><code>250</code></td>
+          <td>min 0, max 5000.</td>
+        </tr>
+        <tr>
+          <td><code>maxBackoffMs</code></td>
+          <td>integer</td>
+          <td><code>4000</code></td>
+          <td>min 0, max 15000.</td>
+        </tr>
+        <tr>
+          <td><code>maxFederalRegisterDocuments</code></td>
+          <td>integer</td>
+          <td><code>1</code></td>
+          <td>min 1, max 100.</td>
+        </tr>
+        <tr>
+          <td><code>lookbackDays</code></td>
+          <td>integer</td>
+          <td><code>30</code></td>
+          <td>Federal Register lookback. min 1, max 365.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Cheapest first paid input (README low-cost trial; skip $12 report and $7 export):</p>
+<pre><code>{
+  "watchlists": [
+    {
+      "id": "benzene-exposure",
+      "cfrTitle": 29,
+      "part": "1910",
+      "keywords": [
+        "benzene"
+      ],
+      "federalRegisterTerms": [
+        "benzene"
+      ]
+    }
+  ],
+  "monitorKey": "starter-benzene-exposure",
+  "initialRunMode": "emit_backfill",
+  "generateReport": false,
+  "emitRawRows": true,
+  "emitUnchanged": false,
+  "emitExport": false,
+  "maxFederalRegisterDocuments": 1,
+  "lookbackDays": 30,
+  "maxChargeUsd": 1,
+  "dryRun": false
+}</code></pre>
+    <p>README: <code>regulatory-change-row</code> <strong>$0.008</strong> + <code>obligation-impact-alert</code> <strong>$0.30</strong> when starter evidence matches.</p>
+    <p><a href="https://apify.com/taroyamada/regulatory-obligation-change-impact-report/input">Run this starter watchlist on Apify</a></p>
+    <h2>What is the cheapest first paid Try Input?</h2>
+    <p>Copied from the live README Start with a low-cost paid trial: one benzene watchlist, emit_backfill, generateReport false, emitRawRows true, emitExport false, maxFederalRegisterDocuments 1, lookbackDays 30, maxChargeUsd 1, dryRun false. README states it delivers regulatory-change-row $0.008 plus obligation-impact-alert $0.30 when starter evidence matches. baseline_only and unchanged runs are free, not a paid try. maxChargeUsd must be greater than 0 or the plan cannot push (default 0).</p>
+    <h2>What does a result contain?</h2>
+    <p>README fields include rowType, billingEventName, stableKey, sourceUrls, watchlistId, obligationId, cfrCitation, observationKind, changeKinds, watchTermHits, checkedAt, limitations, and prohibitedInterpretations. actor.json datasetSchema is only a relative path to dataset_schema.json — the file is not served on the Store. Treat README samples as illustrations, not a live coverage guarantee.</p>
+    <h2>How is eCFR &amp; Federal Register Change Report priced?</h2>
+    <p>Billing is pay-per-event. The live Store card is from $8.00 / 1,000 regulatory change rows. Live events are regulatory-change-row $0.008 (Store API primary), obligation-impact-alert $0.30, regulatory-impact-report $12, and regulatory-impact-export $7, each charged only when that row is delivered. No Actor Start. README USD amounts match. actor.json chargeEvents marks obligation-impact-alert as primary; prefer the Store/API card which marks regulatory-change-row as primary. Store event description has a duplicated word (regulatory change row row).</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>regulatory-change-row</code> (Regulatory change row)</td>
+          <td>$0.008</td>
+          <td>PAID only when that row is delivered. Store API primary.</td>
+        </tr>
+        <tr>
+          <td><code>obligation-impact-alert</code> (Obligation impact alert)</td>
+          <td>$0.30</td>
+          <td>PAID only when that row is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>regulatory-impact-report</code> (Regulatory impact report)</td>
+          <td>$12</td>
+          <td>PAID only when that row is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>regulatory-impact-export</code> (Regulatory impact export)</td>
+          <td>$7</td>
+          <td>PAID only when that row is delivered.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>README USD amounts match. Prefer Store primary event regulatory-change-row. This page quotes live PPE only. Not legal advice.</p>
+    <p class="price">from $8.00 / 1,000 regulatory change rows. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/regulatory-obligation-change-impact-report/pricing">See eCFR &amp; Federal Register Change Report pricing on Apify</a></p>
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>delivery defaults to dataset and also accepts webhook. webhookUrl is the HTTPS handoff when delivery is webhook. dryRun defaults to true (no network / state / charges). Unchanged runs still suppressed when emitUnchanged is false. Dataset output is the billable surface when rows are written.</p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Not legal advice and not a substitute for counsel.</li>
+      <li>Schema default <code>dryRun</code> true and <code>maxChargeUsd</code> 0 block a paid push until you change them.</li>
+      <li><code>baseline_only</code> and unchanged runs: 0 rows / 0 charge.</li>
+      <li>README keys <code>name</code>, <code>sections</code>, <code>obligationLabel</code>, <code>agencySlugs</code> are not live schema properties.</li>
+      <li>Official eCFR + Federal Register only. Respect source terms.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/regulatory-obligation-change-impact-report">Open eCFR &amp; Federal Register Change Report on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/ecfr-cfr-section-change-watch-scraper/">eCFR CFR Section Change Watch</a> — eCFR API section watches, not this obligation-impact card.</li>
+      <li><a href="/federal-register-digest/">Federal Register Scraper</a> — FR items, not eCFR obligation impact.</li>
+      <li><a href="/regulatory-change-monitor/">Regulatory Alerts Scraper</a> — Broader alerts, not this eCFR/FR card.</li>
+      <li><a href="/bis-export-control-list-change-report/">BIS Export Control List Change Report</a> — BIS lists, not CFR watchlists.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>
