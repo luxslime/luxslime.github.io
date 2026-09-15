@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SAM.gov Vendor Pursuit Intelligence — keyword opportunity scrape</title>
+  <meta name="description" content="taroyamada/sam-vendor-pursuit-intelligence. from $8.00 / 1,000 Result ($0.008 per delivered apify-default-dataset-item). $0.001 Actor Start. Unchanged runs that write…">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/sam-vendor-pursuit-intelligence/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is SAM.gov Vendor Pursuit Intelligence different from TED, SAM.gov & Grants Bid Alerts and Government Contract Award Change Report?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "SAM.gov Vendor Pursuit Intelligence (taroyamada/sam-vendor-pursuit-intelligence): This Actor scrapes public SAM.gov opportunities from keywords, NAICS, and optional agency filters you supply. CSV/JSON dataset output. A SAM.gov API key is optional. Not a multi-source TED/Grants bid desk (use TED, SAM.gov & Grants Bid Alerts). Not post-award spend or incumbent mapping. Not a prospecting list or outreach tool. Informational only. TED, SAM.gov & Grants Bid Alerts is for Open opportunities / tenders (input keywords / jurisdictions; SAM/TED/Grants notices; Opportunity rows). Not vendor-pursuit profiles, Form D notices, or post-award spend reports. Government Contract Award Change Report is for Post-award spend/award changes (input feeds; TED / USASpending awards; Award change rows). Not open bid queues. Grants.gov Scraper is for Grants.gov-only funding notices (input feeds / watch terms; Grants.gov; Funding digest rows). Not a multi-source TED/SAM desk."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: none (see live fields). Live schema fields: keywords, naicsCodes, agency, postedFrom, postedTo, samApiKey, samApiUrl, emitSampleOnAuthMissing, limit, delivery, webhookUrl, dryRun. Extract federal opportunity pursuit leads from SAM.gov search inputs, with agency, NAICS, deadline, set-aside, contact, and warning fields. exampleRunInput keys: keywords, limit, delivery, dryRun. additionalProperties is false on the live schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: keywords, limit, delivery, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is SAM.gov Vendor Pursuit Intelligence priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $8.00 / 1,000 Result ($0.008 per delivered apify-default-dataset-item). $0.001 Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. Actor Start (apify-actor-start) $0.001: Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event). Result (apify-default-dataset-item) $0.008: Charged for each normalized result row saved to the default dataset. Platform usage is listed as included on the Store pricing tab."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / SAM.gov Vendor Pursuit Intelligence</nav>
+    <h1>SAM.gov opportunity rows from keywords you already have</h1>
+    <p>This Actor scrapes public SAM.gov opportunities from keywords, NAICS, and optional agency filters you supply. CSV/JSON dataset output. A SAM.gov API key is optional.</p>
+    <p>Not a multi-source TED/Grants bid desk (use TED, SAM.gov &amp; Grants Bid Alerts). Not post-award spend or incumbent mapping. Not a prospecting list or outreach tool. Informational only.</p>
+    <p class="price">from $8.00 / 1,000 Result ($0.008 per delivered apify-default-dataset-item). $0.001 Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+    <p><a href="https://apify.com/taroyamada/sam-vendor-pursuit-intelligence">Open SAM.gov Vendor Pursuit Intelligence on Apify</a></p>
+
+    <h2>SAM.gov Vendor Pursuit Intelligence, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/ted-sam-grants-bid-alerts/">TED, SAM.gov &amp; Grants Bid Alerts</a> for Open opportunities / tenders; Use <a href="/government-contract-award-monitor/">Government Contract Award Change Report</a> for Post-award spend/award changes; Use <a href="/grants-gov-funding-digest/">Grants.gov Scraper</a> for Grants.gov-only funding notices.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>TED, SAM.gov &amp; Grants Bid Alerts</th><th>Government Contract Award Change Report</th><th>Grants.gov Scraper</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td><td>SAM.gov Vendor Pursuit Intelligence</td><td>Open opportunities / tenders</td><td>Post-award spend/award changes</td><td>Grants.gov-only funding notices</td>
+        </tr>
+        <tr>
+          <td>Primary input</td><td><code>keywords</code></td><td>keywords / jurisdictions</td><td>feeds</td><td>feeds / watch terms</td>
+        </tr>
+        <tr>
+          <td>What it reads</td><td>SAM.gov opportunity search</td><td>SAM/TED/Grants notices</td><td>TED / USASpending awards</td><td>Grants.gov</td>
+        </tr>
+        <tr>
+          <td>Primary output</td><td>Opportunity rows billed per live PPE</td><td>Opportunity rows</td><td>Award change rows</td><td>Funding digest rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td><td>Not a multi-source TED/Grants bid desk (use TED, SAM.gov &amp; Grants Bid Alerts). Not post-award spend or incumbent mapping. Not a prospecting list or outreach tool. Informational only.</td><td>Not vendor-pursuit profiles, Form D notices, or post-award spend reports.</td><td>Not open bid queues.</td><td>Not a multi-source TED/SAM desk.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/sam-vendor-pursuit-intelligence</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Keyword watch on SAM.gov opportunities you already know how to query</li>
+      <li>Optional NAICS and agency filters with a small limit</li>
+      <li>CSV/JSON export of opportunity rows, not award ledgers</li>
+    </ul>
+
+    <h2>How is SAM.gov Vendor Pursuit Intelligence different from TED, SAM.gov &amp; Grants Bid Alerts and Government Contract Award Change Report?</h2>
+    <p>SAM.gov Vendor Pursuit Intelligence (taroyamada/sam-vendor-pursuit-intelligence): This Actor scrapes public SAM.gov opportunities from keywords, NAICS, and optional agency filters you supply. CSV/JSON dataset output. A SAM.gov API key is optional. Not a multi-source TED/Grants bid desk (use TED, SAM.gov &amp; Grants Bid Alerts). Not post-award spend or incumbent mapping. Not a prospecting list or outreach tool. Informational only. TED, SAM.gov &amp; Grants Bid Alerts is for Open opportunities / tenders (input keywords / jurisdictions; SAM/TED/Grants notices; Opportunity rows). Not vendor-pursuit profiles, Form D notices, or post-award spend reports. Government Contract Award Change Report is for Post-award spend/award changes (input feeds; TED / USASpending awards; Award change rows). Not open bid queues. Grants.gov Scraper is for Grants.gov-only funding notices (input feeds / watch terms; Grants.gov; Funding digest rows). Not a multi-source TED/SAM desk.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: none listed (see live fields). Published exampleRunInput is shown below.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>keywords</code></td>
+          <td>any[]</td>
+          <td><code>[&quot;software&quot;]</code></td>
+          <td>Keywords. Opportunity keywords to search.</td>
+        </tr>
+        <tr>
+          <td><code>naicsCodes</code></td>
+          <td>any[]</td>
+          <td><code>empty</code></td>
+          <td>NAICS codes. Optional NAICS filters.</td>
+        </tr>
+        <tr>
+          <td><code>agency</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Agency. Optional federal agency filter.</td>
+        </tr>
+        <tr>
+          <td><code>postedFrom</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Posted from. Optional posted-from date. Accepts MM/DD/YYYY or YYYY-MM-DD and is sent to the SAM API as MM/DD/YYYY.</td>
+        </tr>
+        <tr>
+          <td><code>postedTo</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Posted to. Optional posted-to date. Accepts MM/DD/YYYY or YYYY-MM-DD and is sent to the SAM API as MM/DD/YYYY.</td>
+        </tr>
+        <tr>
+          <td><code>samApiKey</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>SAM API key. Optional SAM.gov API key. Falls back to SAM_API_KEY environment variable.</td>
+        </tr>
+        <tr>
+          <td><code>samApiUrl</code></td>
+          <td>string</td>
+          <td><code>https://api.sam.gov/opportunities/v2/search</code></td>
+          <td>SAM API URL. Optional SAM opportunities search endpoint override for testing or gateway deployments.</td>
+        </tr>
+        <tr>
+          <td><code>emitSampleOnAuthMissing</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Emit sample on missing auth. Compatibility flag. Live runs without SAM authentication always emit zero rows; deterministic samples are dry-run only.</td>
+        </tr>
+        <tr>
+          <td><code>limit</code></td>
+          <td>integer</td>
+          <td><code>25</code></td>
+          <td>Result limit. Maximum rows to emit. minimum=1 maximum=100</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string enum</td>
+          <td><code>dataset</code></td>
+          <td>Delivery. Where to send results. enum: dataset, webhook</td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Webhook URL. Required when delivery=webhook.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run. Run without writing dataset rows or posting webhook output.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  "keywords": [
+    "software"
+  ],
+  "limit": 10,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/sam-vendor-pursuit-intelligence">Run SAM.gov Vendor Pursuit Intelligence on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is SAM.gov Vendor Pursuit Intelligence priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $8.00 / 1,000 Result ($0.008 per delivered apify-default-dataset-item). $0.001 Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>apify-actor-start</code> (Actor Start)</td>
+          <td>$0.001</td>
+          <td>Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).</td>
+        </tr>
+        <tr>
+          <td><code>apify-default-dataset-item</code> (Result)</td>
+          <td>$0.008</td>
+          <td>Charged for each normalized result row saved to the default dataset.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="price">from $8.00 / 1,000 Result ($0.008 per delivered apify-default-dataset-item). $0.001 Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+    <p><a href="https://apify.com/taroyamada/sam-vendor-pursuit-intelligence/pricing">See SAM.gov Vendor Pursuit Intelligence pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>SAM.gov public search only</li>
+      <li>samApiKey optional but some lanes need it</li>
+      <li>limit caps result count</li>
+      <li>Not a bid/no-bid recommendation</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/sam-vendor-pursuit-intelligence">Open SAM.gov Vendor Pursuit Intelligence on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/ted-sam-grants-bid-alerts/">TED, SAM.gov &amp; Grants Bid Alerts</a> — Not vendor-pursuit profiles, Form D notices, or post-award spend reports.</li>
+      <li><a href="/government-contract-award-monitor/">Government Contract Award Change Report</a> — Not open bid queues.</li>
+      <li><a href="/grants-gov-funding-digest/">Grants.gov Scraper</a> — Not a multi-source TED/SAM desk.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

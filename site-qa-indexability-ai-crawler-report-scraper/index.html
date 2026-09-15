@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Site QA Indexability AI Crawler Report — robots.txt and llms.txt signals</title>
+  <meta name="description" content="taroyamada/site-qa-indexability-ai-crawler-report-scraper. from $30.00 / 1,000 AI crawler policy checked ($0.03 per delivered ai-crawler-policy-checked); $0.12 per Ind…">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/site-qa-indexability-ai-crawler-report-scraper/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is Site QA Indexability AI Crawler Report different from robots.txt Parser & AI Crawler Block Checker and Sitemap Scraper & Analyzer?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Site QA Indexability AI Crawler Report (taroyamada/site-qa-indexability-ai-crawler-report-scraper): This Actor unofficially audits user-supplied public pages, robots.txt, and llms.txt signals for AI crawler indexability issues and source-linked report rows. Not a robots.txt parser-only check (use robots.txt Parser & AI Crawler Block Checker). Not a sitemap enumerator. Not a broken-link crawler. You supply the URLs. robots.txt Parser & AI Crawler Block Checker is for GPTBot/ClaudeBot disallow audits (input origin URLs; robots.txt; Disallow rows). Not an llms.txt + indexability report pack. Sitemap Scraper & Analyzer is for Nested XML sitemap URLs (input sitemap URLs; sitemap.xml; Sitemap URL rows). Not robots/llms.txt indexability issues. Broken Link Checker is for Crawl start URLs for 404s (input start URLs; Linked HTTP statuses; Broken-link rows). Not AI crawler policy checks."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: urls. Live schema fields: urls, aiCrawlerUserAgents, maxPages, checkRobotsTxt, checkLlmsTxt, authorizedUseConfirmed, emitPageRows, generateReport, emitExport, emitUnchanged, dryRun, initialRunMode, snapshotKey. Audit public pages, robots.txt, and llms.txt signals for AI crawler indexability reporting. exampleRunInput keys: urls, maxPages, dryRun. additionalProperties is false on the live schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: urls, maxPages, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "README output fence is truncated or invalid JSON on Store. Illustration head: { \"rowType\": \"ai_crawler_indexability_report\", \"billingEventName\": \"ai-crawler-indexability-report\", \"sourceUrl\": \"https://example.com/robots.txt\", \"checkedUrlCount\": 3, \"issueCount\": 1, \"reportStatus\": \"action_needed\" } Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is Site QA Indexability AI Crawler Report priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $30.00 / 1,000 AI crawler policy checked ($0.03 per delivered ai-crawler-policy-checked); $0.12 per Indexability issue detected; $6.00 per AI crawler indexability report; $8.00 per Indexability export generated. No Actor Start. AI crawler policy checked (ai-crawler-policy-checked) $0.03: Charged for each source-linked robots.txt or llms.txt policy observation row. Indexability issue detected (indexability-issue-detected) $0.12: Charged for each source-linked AI crawler or page indexability issue row. AI crawler indexability report (ai-crawler-indexability-report) $6.00: Charged for each site-level AI crawler indexability report row. Indexability export generated (indexability-export-generated) $8.00: Charged for each generated indexability handoff export row. Platform usage is listed as included on the Store pricing tab."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Site QA Indexability AI Crawler Report</nav>
+    <h1>Public pages, robots.txt, and llms.txt indexability issues</h1>
+    <p>This Actor unofficially audits user-supplied public pages, robots.txt, and llms.txt signals for AI crawler indexability issues and source-linked report rows.</p>
+    <p>Not a robots.txt parser-only check (use robots.txt Parser &amp; AI Crawler Block Checker). Not a sitemap enumerator. Not a broken-link crawler. You supply the URLs.</p>
+    <p class="price">from $30.00 / 1,000 AI crawler policy checked ($0.03 per delivered ai-crawler-policy-checked); $0.12 per Indexability issue detected; $6.00 per AI crawler indexability report; $8.00 per Indexability export generated. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/site-qa-indexability-ai-crawler-report-scraper">Open Site QA Indexability AI Crawler Report on Apify</a></p>
+
+    <h2>Site QA Indexability AI Crawler Report, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/robotstxt-ai-crawler-block-checker/">robots.txt Parser &amp; AI Crawler Block Checker</a> for GPTBot/ClaudeBot disallow audits; Use <a href="/sitemap-scraper-analyzer/">Sitemap Scraper &amp; Analyzer</a> for Nested XML sitemap URLs; Use <a href="/broken-link-checker/">Broken Link Checker</a> for Crawl start URLs for 404s.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>robots.txt Parser &amp; AI Crawler Block Checker</th><th>Sitemap Scraper &amp; Analyzer</th><th>Broken Link Checker</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td><td>Site QA Indexability AI Crawler Report</td><td>GPTBot/ClaudeBot disallow audits</td><td>Nested XML sitemap URLs</td><td>Crawl start URLs for 404s</td>
+        </tr>
+        <tr>
+          <td>Primary input</td><td><code>urls</code></td><td>origin URLs</td><td>sitemap URLs</td><td>start URLs</td>
+        </tr>
+        <tr>
+          <td>What it reads</td><td>User-supplied public pages, robots.txt, llms.txt</td><td>robots.txt</td><td>sitemap.xml</td><td>Linked HTTP statuses</td>
+        </tr>
+        <tr>
+          <td>Primary output</td><td>Policy-check, issue, report, and export events</td><td>Disallow rows</td><td>Sitemap URL rows</td><td>Broken-link rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td><td>Not a robots.txt parser-only check (use robots.txt Parser &amp; AI Crawler Block Checker). Not a sitemap enumerator. Not a broken-link crawler. You supply the URLs.</td><td>Not an llms.txt + indexability report pack.</td><td>Not robots/llms.txt indexability issues.</td><td>Not AI crawler policy checks.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/site-qa-indexability-ai-crawler-report-scraper</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Known URLs with checkRobotsTxt / checkLlmsTxt</li>
+      <li>Keep generateReport/emitExport off on first run</li>
+      <li>authorizedUseConfirmed for live audits</li>
+    </ul>
+
+    <h2>How is Site QA Indexability AI Crawler Report different from robots.txt Parser &amp; AI Crawler Block Checker and Sitemap Scraper &amp; Analyzer?</h2>
+    <p>Site QA Indexability AI Crawler Report (taroyamada/site-qa-indexability-ai-crawler-report-scraper): This Actor unofficially audits user-supplied public pages, robots.txt, and llms.txt signals for AI crawler indexability issues and source-linked report rows. Not a robots.txt parser-only check (use robots.txt Parser &amp; AI Crawler Block Checker). Not a sitemap enumerator. Not a broken-link crawler. You supply the URLs. robots.txt Parser &amp; AI Crawler Block Checker is for GPTBot/ClaudeBot disallow audits (input origin URLs; robots.txt; Disallow rows). Not an llms.txt + indexability report pack. Sitemap Scraper &amp; Analyzer is for Nested XML sitemap URLs (input sitemap URLs; sitemap.xml; Sitemap URL rows). Not robots/llms.txt indexability issues. Broken Link Checker is for Crawl start URLs for 404s (input start URLs; Linked HTTP statuses; Broken-link rows). Not AI crawler policy checks.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: urls. Published exampleRunInput is shown below.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>urls</code></td>
+          <td>any[]</td>
+          <td><code>[&quot;https://example.com/?siteQaCanary=indexability-ai-crawler-v1&quot;]</code></td>
+          <td>Public page URLs. Public URLs that you are allowed to audit. Required.</td>
+        </tr>
+        <tr>
+          <td><code>aiCrawlerUserAgents</code></td>
+          <td>any[]</td>
+          <td><code>[&quot;GPTBot&quot;, &quot;Google-Extended&quot;, &quot;PerplexityBot&quot;, &quot;ClaudeBot&quot;]</code></td>
+          <td>AI crawler user agents. Crawler user-agent names to inspect in robots.txt.</td>
+        </tr>
+        <tr>
+          <td><code>maxPages</code></td>
+          <td>integer</td>
+          <td><code>10</code></td>
+          <td>Max pages. Maximum number of input pages to check. minimum=1 maximum=100</td>
+        </tr>
+        <tr>
+          <td><code>checkRobotsTxt</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Check robots.txt. Fetch and inspect robots.txt at each site origin.</td>
+        </tr>
+        <tr>
+          <td><code>checkLlmsTxt</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Check llms.txt. Fetch and inspect llms.txt at each site origin.</td>
+        </tr>
+        <tr>
+          <td><code>authorizedUseConfirmed</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Authorized use confirmed. Required for non-dry runs. Confirms each URL is owned by you, your client, or otherwise authorized for this audit.</td>
+        </tr>
+        <tr>
+          <td><code>emitPageRows</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit page snapshot rows. Emit optional public page indexability snapshot rows.</td>
+        </tr>
+        <tr>
+          <td><code>generateReport</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Generate report row. Generate a site-level AI crawler indexability report row.</td>
+        </tr>
+        <tr>
+          <td><code>emitExport</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Generate export row. Generate an export row for handoff workflows.</td>
+        </tr>
+        <tr>
+          <td><code>emitUnchanged</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit unchanged rows. When false, repeated unchanged runs emit zero rows and zero charges.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Dry run. Emit local sample rows without charging.</td>
+        </tr>
+        <tr>
+          <td><code>initialRunMode</code></td>
+          <td>string enum</td>
+          <td><code>emit_backfill</code></td>
+          <td>Initial run mode. Deployment canary control used by automation; emit_backfill allows first-run proof rows, baseline_only is used for no-change proof. enum: emit_backfill, baseline_only</td>
+        </tr>
+        <tr>
+          <td><code>snapshotKey</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Snapshot key. Optional state namespace for canary and recurring no-change proof runs.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  "urls": [
+    "https://example.com/?siteQaCanary=indexability-ai-crawler-v1"
+  ],
+  "maxPages": 1,
+  "dryRun": true
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/site-qa-indexability-ai-crawler-report-scraper">Run Site QA Indexability AI Crawler Report on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>README output fence is truncated or invalid JSON on Store. Illustration head: { "rowType": "ai_crawler_indexability_report", "billingEventName": "ai-crawler-indexability-report", "sourceUrl": "https://example.com/robots.txt", "checkedUrlCount": 3, "issueCount": 1, "reportStatus": "action_needed" } Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is Site QA Indexability AI Crawler Report priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $30.00 / 1,000 AI crawler policy checked ($0.03 per delivered ai-crawler-policy-checked); $0.12 per Indexability issue detected; $6.00 per AI crawler indexability report; $8.00 per Indexability export generated. No Actor Start.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>ai-crawler-policy-checked</code> (AI crawler policy checked)</td>
+          <td>$0.03</td>
+          <td>Charged for each source-linked robots.txt or llms.txt policy observation row.</td>
+        </tr>
+        <tr>
+          <td><code>indexability-issue-detected</code> (Indexability issue detected)</td>
+          <td>$0.12</td>
+          <td>Charged for each source-linked AI crawler or page indexability issue row.</td>
+        </tr>
+        <tr>
+          <td><code>ai-crawler-indexability-report</code> (AI crawler indexability report)</td>
+          <td>$6.00</td>
+          <td>Charged for each site-level AI crawler indexability report row.</td>
+        </tr>
+        <tr>
+          <td><code>indexability-export-generated</code> (Indexability export generated)</td>
+          <td>$8.00</td>
+          <td>Charged for each generated indexability handoff export row.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="price">from $30.00 / 1,000 AI crawler policy checked ($0.03 per delivered ai-crawler-policy-checked); $0.12 per Indexability issue detected; $6.00 per AI crawler indexability report; $8.00 per Indexability export generated. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/site-qa-indexability-ai-crawler-report-scraper/pricing">See Site QA Indexability AI Crawler Report pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>You supply urls</li>
+      <li>urls required</li>
+      <li>Report and export are separate billed events</li>
+      <li>Not a site-wide crawler beyond maxPages</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/site-qa-indexability-ai-crawler-report-scraper">Open Site QA Indexability AI Crawler Report on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/robotstxt-ai-crawler-block-checker/">robots.txt Parser &amp; AI Crawler Block Checker</a> — Not an llms.txt + indexability report pack.</li>
+      <li><a href="/sitemap-scraper-analyzer/">Sitemap Scraper &amp; Analyzer</a> — Not robots/llms.txt indexability issues.</li>
+      <li><a href="/broken-link-checker/">Broken Link Checker</a> — Not AI crawler policy checks.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

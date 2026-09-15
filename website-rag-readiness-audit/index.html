@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Website RAG Readiness Audit — coverage and chunking risk</title>
+  <meta name="description" content="taroyamada/website-rag-readiness-audit. $9.00 per Website RAG snapshot report (website_rag_snapshot_report); $29 per Website RAG readiness report. $0.001 Actor Start.…">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/website-rag-readiness-audit/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is Website RAG Readiness Audit different from Website Content Extractor and Article Content Extractor?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Website RAG Readiness Audit (taroyamada/website-rag-readiness-audit): This Actor turns public website URLs into a decision-ready RAG readiness audit with coverage, chunking risk, retrieval cleanup actions, and source URLs. No user API key required. Not a general website-to-markdown dump (use Website Content Extractor). Not article boilerplate cleanup (use Article Content Extractor). Not a JSON-LD validator. Website Content Extractor is for One-shot page-to-markdown (input urls; Page HTML; Markdown/text). Not recurring pricing/legal diffs or RAG audits. Article Content Extractor is for News/blog HTML cleanup (input urls; Article HTML; Headline/byline/body). Not landing-page CRO reports. Structured Data Scraper & Validator is for JSON-LD / Microdata audits (input urls; Page head/body schema; Schema validation rows). Not RAG readiness reports."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: none (see live fields). Live schema fields: urls, domain, reportTier, seedQuestions, maxPages, maxReports, maxChargeUsd, demoMode, dryRun, sourceDatasetId. exampleRunInput keys: reportTier, maxPages, maxReports, maxChargeUsd, demoMode, dryRun."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: reportTier, maxPages, maxReports, maxChargeUsd, demoMode, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is Website RAG Readiness Audit priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: $9.00 per Website RAG snapshot report (website_rag_snapshot_report); $29 per Website RAG readiness report. $0.001 Actor Start. Actor Start (apify-actor-start) $0.001: Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event). Website RAG snapshot report (website_rag_snapshot_report) $9.00: One public website RAG snapshot with coverage score, warnings, source URLs, and prioritized cleanup actions. Website RAG readiness report (website_rag_readiness_report) $29: One deeper website RAG readiness report with chunking risks, retrieval QA actions, and implementation priorities. Platform usage is listed as included on the Store pricing tab."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Website RAG Readiness Audit</nav>
+    <h1>Public website URLs into a RAG readiness audit</h1>
+    <p>This Actor turns public website URLs into a decision-ready RAG readiness audit with coverage, chunking risk, retrieval cleanup actions, and source URLs. No user API key required.</p>
+    <p>Not a general website-to-markdown dump (use Website Content Extractor). Not article boilerplate cleanup (use Article Content Extractor). Not a JSON-LD validator.</p>
+    <p class="price">$9.00 per Website RAG snapshot report (website_rag_snapshot_report); $29 per Website RAG readiness report. $0.001 Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/website-rag-readiness-audit">Open Website RAG Readiness Audit on Apify</a></p>
+
+    <h2>Website RAG Readiness Audit, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/website-content-extractor/">Website Content Extractor</a> for One-shot page-to-markdown; Use <a href="/article-content-extractor/">Article Content Extractor</a> for News/blog HTML cleanup; Use <a href="/structured-data-scraper-validator/">Structured Data Scraper &amp; Validator</a> for JSON-LD / Microdata audits.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>Website Content Extractor</th><th>Article Content Extractor</th><th>Structured Data Scraper &amp; Validator</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td><td>Website RAG Readiness Audit</td><td>One-shot page-to-markdown</td><td>News/blog HTML cleanup</td><td>JSON-LD / Microdata audits</td>
+        </tr>
+        <tr>
+          <td>Primary input</td><td><code>urls</code></td><td>urls</td><td>urls</td><td>urls</td>
+        </tr>
+        <tr>
+          <td>What it reads</td><td>User-supplied public website URLs</td><td>Page HTML</td><td>Article HTML</td><td>Page head/body schema</td>
+        </tr>
+        <tr>
+          <td>Primary output</td><td>Snapshot and readiness report events</td><td>Markdown/text</td><td>Headline/byline/body</td><td>Schema validation rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td><td>Not a general website-to-markdown dump (use Website Content Extractor). Not article boilerplate cleanup (use Article Content Extractor). Not a JSON-LD validator.</td><td>Not recurring pricing/legal diffs or RAG audits.</td><td>Not landing-page CRO reports.</td><td>Not RAG readiness reports.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/website-rag-readiness-audit</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Known docs/help URLs with a small maxPages</li>
+      <li>Snapshot report first; $29 readiness later</li>
+      <li>Optional seedQuestions for retrieval checks</li>
+    </ul>
+
+    <h2>How is Website RAG Readiness Audit different from Website Content Extractor and Article Content Extractor?</h2>
+    <p>Website RAG Readiness Audit (taroyamada/website-rag-readiness-audit): This Actor turns public website URLs into a decision-ready RAG readiness audit with coverage, chunking risk, retrieval cleanup actions, and source URLs. No user API key required. Not a general website-to-markdown dump (use Website Content Extractor). Not article boilerplate cleanup (use Article Content Extractor). Not a JSON-LD validator. Website Content Extractor is for One-shot page-to-markdown (input urls; Page HTML; Markdown/text). Not recurring pricing/legal diffs or RAG audits. Article Content Extractor is for News/blog HTML cleanup (input urls; Article HTML; Headline/byline/body). Not landing-page CRO reports. Structured Data Scraper &amp; Validator is for JSON-LD / Microdata audits (input urls; Page head/body schema; Schema validation rows). Not RAG readiness reports.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: none listed (see live fields). Published exampleRunInput is shown below.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>urls</code></td>
+          <td>any[]</td>
+          <td><code>empty</code></td>
+          <td>Public URLs. Public website pages to audit. Use docs, pricing, help, blog, policy, or product pages. Login/paywall/private dashboard URLs are skipped as no-charge.</td>
+        </tr>
+        <tr>
+          <td><code>domain</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Domain. Optional public domain. If provided without URLs, the Actor audits the homepage only in v1.</td>
+        </tr>
+        <tr>
+          <td><code>reportTier</code></td>
+          <td>string enum</td>
+          <td><code>snapshot</code></td>
+          <td>Report tier. Choose the public launch tier. Watch summaries are proof-gated and not selectable publicly. enum: snapshot, readiness</td>
+        </tr>
+        <tr>
+          <td><code>seedQuestions</code></td>
+          <td>any[]</td>
+          <td><code>empty</code></td>
+          <td>Seed questions. Optional buyer questions the RAG corpus should answer. Used for action recommendations only.</td>
+        </tr>
+        <tr>
+          <td><code>maxPages</code></td>
+          <td>integer</td>
+          <td><code>3</code></td>
+          <td>Max pages. Maximum public pages to fetch in this run. maxChargeUsd is still checked before charging. minimum=1 maximum=25</td>
+        </tr>
+        <tr>
+          <td><code>maxReports</code></td>
+          <td>integer</td>
+          <td><code>1</code></td>
+          <td>Max reports. Maximum report groups to charge. Usually 1 for this Actor. minimum=1 maximum=5</td>
+        </tr>
+        <tr>
+          <td><code>maxChargeUsd</code></td>
+          <td>number</td>
+          <td><code>9</code></td>
+          <td>Max charge USD. Hard safety cap. If the selected report would exceed this cap, the Actor returns a no-charge limit_reached summary. minimum=0 maximum=100</td>
+        </tr>
+        <tr>
+          <td><code>demoMode</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Demo mode. Return a no-charge sample preview without fetching external pages.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run. Return a no-charge previewReport and nextRunInput.</td>
+        </tr>
+        <tr>
+          <td><code>sourceDatasetId</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Advanced source dataset ID. Advanced only. Optional future hook for prepared URL rows; not needed for first run.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  "reportTier": "snapshot",
+  "maxPages": 3,
+  "maxReports": 1,
+  "maxChargeUsd": 9,
+  "demoMode": false,
+  "dryRun": false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/website-rag-readiness-audit">Run Website RAG Readiness Audit on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is Website RAG Readiness Audit priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>$9.00 per Website RAG snapshot report (website_rag_snapshot_report); $29 per Website RAG readiness report. $0.001 Actor Start.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>apify-actor-start</code> (Actor Start)</td>
+          <td>$0.001</td>
+          <td>Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).</td>
+        </tr>
+        <tr>
+          <td><code>website_rag_snapshot_report</code> (Website RAG snapshot report)</td>
+          <td>$9.00</td>
+          <td>One public website RAG snapshot with coverage score, warnings, source URLs, and prioritized cleanup actions.</td>
+        </tr>
+        <tr>
+          <td><code>website_rag_readiness_report</code> (Website RAG readiness report)</td>
+          <td>$29</td>
+          <td>One deeper website RAG readiness report with chunking risks, retrieval QA actions, and implementation priorities.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="price">$9.00 per Website RAG snapshot report (website_rag_snapshot_report); $29 per Website RAG readiness report. $0.001 Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/website-rag-readiness-audit/pricing">See Website RAG Readiness Audit pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Public URLs you supply</li>
+      <li>reportTier selects billed reports</li>
+      <li>maxPages cap</li>
+      <li>Not a full-site crawler</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/website-rag-readiness-audit">Open Website RAG Readiness Audit on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/website-content-extractor/">Website Content Extractor</a> — Not recurring pricing/legal diffs or RAG audits.</li>
+      <li><a href="/article-content-extractor/">Article Content Extractor</a> — Not landing-page CRO reports.</li>
+      <li><a href="/structured-data-scraper-validator/">Structured Data Scraper &amp; Validator</a> — Not RAG readiness reports.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

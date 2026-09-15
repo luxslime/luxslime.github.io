@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Public RFP Rebid Watch Report — snapshot and rebid timing</title>
+  <meta name="description" content="taroyamada/public-rfp-rebid-watch-report. $9.00 per RFP snapshot report (rfp_snapshot_report); $29 per Rebid timing report; $79 per Rebid watch summary. $0.00005 Actor…">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/public-rfp-rebid-watch-report/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is Public RFP Rebid Watch Report different from TED, SAM.gov & Grants Bid Alerts and Government Contract Award Change Report?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Public RFP Rebid Watch Report (taroyamada/public-rfp-rebid-watch-report): This Actor turns public RFP notices, award pages, SAM.gov/USAspending/Grants.gov links, or pasted public text into decision-ready RFP snapshot and rebid timing reports. Not a live TED/SAM opportunity search desk (use TED, SAM.gov & Grants Bid Alerts). Not USASpending award-change monitoring (use Government Contract Award Change Report). Informational only. Not a bid/no-bid decision. TED, SAM.gov & Grants Bid Alerts is for Open opportunities / tenders (input keywords / jurisdictions; SAM/TED/Grants notices; Opportunity rows). Not vendor-pursuit profiles, Form D notices, or post-award spend reports. Government Contract Award Change Report is for Post-award spend/award changes (input feeds; TED / USASpending awards; Award change rows). Not open bid queues. Grants.gov Scraper is for Grants.gov-only funding notices (input feeds / watch terms; Grants.gov; Funding digest rows). Not a multi-source TED/SAM desk."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: none (see live fields). Live schema fields: reportTier, keywords, agencies, naicsCodes, opportunityUrls, awardUrls, publicNoticeText, recordsJson, sourceDatasetId, sinceDays, watchWindowDays, maxRecords, maxChargeUsd, maxReports, delivery, webhookUrl, demoMode, dryRun. Build decision-ready public RFP snapshot and rebid timing reports from SAM.gov, USAspending, Grants.gov, public agency pages, and user-provided public notices. No login-only sources. exampleRunInput keys: reportTier, keywords, sinceDays, watchWindowDays, maxRecords, maxChargeUsd, maxReports, delivery, demoMode, dryRun. additionalProperties is false on the live schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: reportTier, keywords, sinceDays, watchWindowDays, maxRecords, maxChargeUsd, maxReports, delivery, demoMode, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is Public RFP Rebid Watch Report priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: $9.00 per RFP snapshot report (rfp_snapshot_report); $29 per Rebid timing report; $79 per Rebid watch summary. $0.00005 Actor Start. Actor Start (apify-actor-start) $0.00005: Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event). RFP snapshot report (rfp_snapshot_report) $9.00: Public RFP source coverage, buyer fit, deadlines, and snapshot recommendations. Rebid timing report (rebid_timing_report) $29: Incumbent/recompete timing signals, pursuit fit, and action list. Rebid watch summary (rebid_watch_summary) $79: Proof-gated rebid watch summary across a public source set. Platform usage is listed as included on the Store pricing tab."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Public RFP Rebid Watch Report</nav>
+    <h1>Public RFP and award pages into snapshot and rebid-timing reports</h1>
+    <p>This Actor turns public RFP notices, award pages, SAM.gov/USAspending/Grants.gov links, or pasted public text into decision-ready RFP snapshot and rebid timing reports.</p>
+    <p>Not a live TED/SAM opportunity search desk (use TED, SAM.gov &amp; Grants Bid Alerts). Not USASpending award-change monitoring (use Government Contract Award Change Report). Informational only. Not a bid/no-bid decision.</p>
+    <p class="price">$9.00 per RFP snapshot report (rfp_snapshot_report); $29 per Rebid timing report; $79 per Rebid watch summary. $0.00005 Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/public-rfp-rebid-watch-report">Open Public RFP Rebid Watch Report on Apify</a></p>
+
+    <h2>Public RFP Rebid Watch Report, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/ted-sam-grants-bid-alerts/">TED, SAM.gov &amp; Grants Bid Alerts</a> for Open opportunities / tenders; Use <a href="/government-contract-award-monitor/">Government Contract Award Change Report</a> for Post-award spend/award changes; Use <a href="/grants-gov-funding-digest/">Grants.gov Scraper</a> for Grants.gov-only funding notices.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>TED, SAM.gov &amp; Grants Bid Alerts</th><th>Government Contract Award Change Report</th><th>Grants.gov Scraper</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td><td>Public RFP Rebid Watch Report</td><td>Open opportunities / tenders</td><td>Post-award spend/award changes</td><td>Grants.gov-only funding notices</td>
+        </tr>
+        <tr>
+          <td>Primary input</td><td><code>opportunityUrls / publicNoticeText</code></td><td>keywords / jurisdictions</td><td>feeds</td><td>feeds / watch terms</td>
+        </tr>
+        <tr>
+          <td>What it reads</td><td>User-supplied public RFP/award sources</td><td>SAM/TED/Grants notices</td><td>TED / USASpending awards</td><td>Grants.gov</td>
+        </tr>
+        <tr>
+          <td>Primary output</td><td>Snapshot, timing, and summary report events</td><td>Opportunity rows</td><td>Award change rows</td><td>Funding digest rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td><td>Not a live TED/SAM opportunity search desk (use TED, SAM.gov &amp; Grants Bid Alerts). Not USASpending award-change monitoring (use Government Contract Award Change Report). Informational only. Not a bid/no-bid decision.</td><td>Not vendor-pursuit profiles, Form D notices, or post-award spend reports.</td><td>Not open bid queues.</td><td>Not a multi-source TED/SAM desk.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/public-rfp-rebid-watch-report</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Paste known notice/award URLs or public text</li>
+      <li>Snapshot-only reportTier on first run</li>
+      <li>Optional keywords/NAICS as local filters, not a Store-wide search</li>
+    </ul>
+
+    <h2>How is Public RFP Rebid Watch Report different from TED, SAM.gov &amp; Grants Bid Alerts and Government Contract Award Change Report?</h2>
+    <p>Public RFP Rebid Watch Report (taroyamada/public-rfp-rebid-watch-report): This Actor turns public RFP notices, award pages, SAM.gov/USAspending/Grants.gov links, or pasted public text into decision-ready RFP snapshot and rebid timing reports. Not a live TED/SAM opportunity search desk (use TED, SAM.gov &amp; Grants Bid Alerts). Not USASpending award-change monitoring (use Government Contract Award Change Report). Informational only. Not a bid/no-bid decision. TED, SAM.gov &amp; Grants Bid Alerts is for Open opportunities / tenders (input keywords / jurisdictions; SAM/TED/Grants notices; Opportunity rows). Not vendor-pursuit profiles, Form D notices, or post-award spend reports. Government Contract Award Change Report is for Post-award spend/award changes (input feeds; TED / USASpending awards; Award change rows). Not open bid queues. Grants.gov Scraper is for Grants.gov-only funding notices (input feeds / watch terms; Grants.gov; Funding digest rows). Not a multi-source TED/SAM desk.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: none listed (see live fields). Published exampleRunInput is shown below.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>reportTier</code></td>
+          <td>string enum</td>
+          <td><code>snapshot</code></td>
+          <td>Report Tier. Select the public report value level. Watch summaries are planned and proof-gated, but not selectable during public launch. enum: snapshot, rebid_timing</td>
+        </tr>
+        <tr>
+          <td><code>keywords</code></td>
+          <td>any[]</td>
+          <td><code>[&quot;software modernization&quot;, &quot;cybersecurity&quot;]</code></td>
+          <td>Keywords. Products, services, agencies, incumbents, NAICS labels, or opportunity terms to score for fit.</td>
+        </tr>
+        <tr>
+          <td><code>agencies</code></td>
+          <td>any[]</td>
+          <td><code>empty</code></td>
+          <td>Agencies. Target agencies or bureaus used for scoring and summaries.</td>
+        </tr>
+        <tr>
+          <td><code>naicsCodes</code></td>
+          <td>any[]</td>
+          <td><code>empty</code></td>
+          <td>NAICS Codes. Optional NAICS codes used for scoring and summaries when present in pasted public records or public pages.</td>
+        </tr>
+        <tr>
+          <td><code>opportunityUrls</code></td>
+          <td>any[]</td>
+          <td><code>empty</code></td>
+          <td>Opportunity URLs. Public RFP, solicitation, SAM.gov, Grants.gov, or agency opportunity URLs.</td>
+        </tr>
+        <tr>
+          <td><code>awardUrls</code></td>
+          <td>any[]</td>
+          <td><code>empty</code></td>
+          <td>Award / Incumbent URLs. Public award, USAspending, or incumbent contract pages used for rebid timing evidence.</td>
+        </tr>
+        <tr>
+          <td><code>publicNoticeText</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Public Notice Text. Paste public RFP/award text when you already have it. This avoids fetching and helps first-run success.</td>
+        </tr>
+        <tr>
+          <td><code>recordsJson</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Records JSON. Advanced: paste an array of public notice records from an upstream dataset. sourceDatasetId is supported as an advanced workflow, but first-run examples use pasted text/URLs.</td>
+        </tr>
+        <tr>
+          <td><code>sourceDatasetId</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Source Dataset ID. Advanced: user-owned upstream dataset ID. Used only when available to the run; upstream actor costs remain with the upstream run.</td>
+        </tr>
+        <tr>
+          <td><code>sinceDays</code></td>
+          <td>integer</td>
+          <td><code>365</code></td>
+          <td>Since Days. How far back to consider records for timing and watch summaries. minimum=1 maximum=3650</td>
+        </tr>
+        <tr>
+          <td><code>watchWindowDays</code></td>
+          <td>integer</td>
+          <td><code>180</code></td>
+          <td>Watch Window Days. Forward-looking window for rebid/watch recommendations. minimum=7 maximum=1095</td>
+        </tr>
+        <tr>
+          <td><code>maxRecords</code></td>
+          <td>integer</td>
+          <td><code>25</code></td>
+          <td>Max Records. Maximum source records to analyze. minimum=1 maximum=250</td>
+        </tr>
+        <tr>
+          <td><code>maxChargeUsd</code></td>
+          <td>number</td>
+          <td><code>9</code></td>
+          <td>Max Charge USD. Safety cap. If the selected report tier would exceed this cap, the run returns limit_reached with no charge. minimum=0 maximum=500</td>
+        </tr>
+        <tr>
+          <td><code>maxReports</code></td>
+          <td>integer</td>
+          <td><code>1</code></td>
+          <td>Max Reports. Safety limit. V1 emits one report per run. minimum=1 maximum=10</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string enum</td>
+          <td><code>dataset</code></td>
+          <td>Delivery Mode. Write dataset rows, send final payload to webhookUrl, or both. enum: dataset, webhook, dataset_and_webhook</td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Webhook URL. HTTPS endpoint required when delivery uses webhook.</td>
+        </tr>
+        <tr>
+          <td><code>demoMode</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Demo Mode. Return a no-charge sample report without external requests.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry Run. Set true to validate inputs and return a no-charge preview without external requests or dataset delivery.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  "reportTier": "snapshot",
+  "keywords": [
+    "software modernization",
+    "cybersecurity"
+  ],
+  "sinceDays": 365,
+  "watchWindowDays": 180,
+  "maxRecords": 25,
+  "maxChargeUsd": 9,
+  "maxReports": 1,
+  "delivery": "dataset",
+  "demoMode": false,
+  "dryRun": false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/public-rfp-rebid-watch-report">Run Public RFP Rebid Watch Report on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is Public RFP Rebid Watch Report priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>$9.00 per RFP snapshot report (rfp_snapshot_report); $29 per Rebid timing report; $79 per Rebid watch summary. $0.00005 Actor Start.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>apify-actor-start</code> (Actor Start)</td>
+          <td>$0.00005</td>
+          <td>Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).</td>
+        </tr>
+        <tr>
+          <td><code>rfp_snapshot_report</code> (RFP snapshot report)</td>
+          <td>$9.00</td>
+          <td>Public RFP source coverage, buyer fit, deadlines, and snapshot recommendations.</td>
+        </tr>
+        <tr>
+          <td><code>rebid_timing_report</code> (Rebid timing report)</td>
+          <td>$29</td>
+          <td>Incumbent/recompete timing signals, pursuit fit, and action list.</td>
+        </tr>
+        <tr>
+          <td><code>rebid_watch_summary</code> (Rebid watch summary)</td>
+          <td>$79</td>
+          <td>Proof-gated rebid watch summary across a public source set.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="price">$9.00 per RFP snapshot report (rfp_snapshot_report); $29 per Rebid timing report; $79 per Rebid watch summary. $0.00005 Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/public-rfp-rebid-watch-report/pricing">See Public RFP Rebid Watch Report pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>You supply notices/URLs/text</li>
+      <li>reportTier selects billed reports</li>
+      <li>Not a bid desk</li>
+      <li>maxRecords / maxChargeUsd caps</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/public-rfp-rebid-watch-report">Open Public RFP Rebid Watch Report on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/ted-sam-grants-bid-alerts/">TED, SAM.gov &amp; Grants Bid Alerts</a> — Not vendor-pursuit profiles, Form D notices, or post-award spend reports.</li>
+      <li><a href="/government-contract-award-monitor/">Government Contract Award Change Report</a> — Not open bid queues.</li>
+      <li><a href="/grants-gov-funding-digest/">Grants.gov Scraper</a> — Not a multi-source TED/SAM desk.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

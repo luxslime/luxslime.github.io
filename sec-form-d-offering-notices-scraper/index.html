@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SEC Form D Exempt Offering Notices — as-filed D and D/A watches</title>
+  <meta name="description" content="taroyamada/sec-form-d-offering-notices-scraper. from $8.00 / 1,000 result ($0.008 per delivered apify-default-dataset-item). $0.00005 Actor Start. Unchanged runs that…">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/sec-form-d-offering-notices-scraper/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is SEC Form D Exempt Offering Notices different from SEC EDGAR Scraper and SEC Insider Transaction Scraper?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "SEC Form D Exempt Offering Notices (taroyamada/sec-form-d-offering-notices-scraper): This Actor tracks as-filed SEC Form D and D/A exempt offering notices from EDGAR with stable IDs for recurring regulatory trigger monitoring. Not 8-K/S-1 filing-index alerts. Not Forms 3/4/5. Not exhibit-contract extraction. Informational only. Not investment advice. SEC EDGAR Scraper is for 8-K and S-1 filing alerts (input companies; Public EDGAR; Filing-index rows). Not Form D notices or 8-K item candidates. SEC Insider Transaction Scraper is for Forms 3, 4, 5 (input issuers; EDGAR ownership forms; Insider transaction rows). Not Form D exempt offerings. SEC Material Contract Intelligence is for Exhibit/contract leads (input issuers; EDGAR exhibits; Contract intelligence rows). Not Form D or insider Forms 3/4/5."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: none (see live fields). Live schema fields: mode, issuers, daysBack, secUserAgent, knownStableIds, maxChargeUsd, limit, firstRunMode, delivery, webhookUrl, dryRun. Track as-filed SEC Form D and D/A exempt offering notices from official EDGAR sources for regulatory trigger monitoring. exampleRunInput keys: mode, issuers, knownStableIds, daysBack, limit, secUserAgent, firstRunMode, delivery, dryRun, maxChargeUsd. additionalProperties is false on the live schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: mode, issuers, knownStableIds, daysBack, limit, secUserAgent, firstRunMode, delivery, dryRun, maxChargeUsd. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "README output fence is truncated or invalid JSON on Store. Illustration head: { \"meta\": { \"actorName\": \"sec-form-d-offering-notices-scraper\", \"actorTitle\": \"SEC Form D Exempt Offering Notices Scraper\", \"bundle\": \"Regulatory Trigger Pack\", \"fetchedAt\": \"2026-05-06T00:00:00.000Z\", \"totalRows\": 1 }, \"rows\": [ { \"actorName\": \"sec-form-d-offering-notices-scrape\u2026 Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is SEC Form D Exempt Offering Notices priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $8.00 / 1,000 result ($0.008 per delivered apify-default-dataset-item). $0.00005 Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. Actor Start (apify-actor-start) $0.00005: Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event). result (apify-default-dataset-item) $0.008: Single result in the default dataset. README quotes $0.001 actor start; live Store Actor Start is $0.00005. README quotes $0.025 per emitted trigger row; live primary is $0.008 (result). This page quotes live PPE only. Platform usage is listed as included on the Store pricing tab."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / SEC Form D Exempt Offering Notices</nav>
+    <h1>As-filed SEC Form D and D/A notices from public EDGAR</h1>
+    <p>This Actor tracks as-filed SEC Form D and D/A exempt offering notices from EDGAR with stable IDs for recurring regulatory trigger monitoring.</p>
+    <p>Not 8-K/S-1 filing-index alerts. Not Forms 3/4/5. Not exhibit-contract extraction. Informational only. Not investment advice.</p>
+    <p class="price">from $8.00 / 1,000 result ($0.008 per delivered apify-default-dataset-item). $0.00005 Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+    <p><a href="https://apify.com/taroyamada/sec-form-d-offering-notices-scraper">Open SEC Form D Exempt Offering Notices on Apify</a></p>
+
+    <h2>SEC Form D Exempt Offering Notices, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/sec-edgar-filings-monitor/">SEC EDGAR Scraper</a> for 8-K and S-1 filing alerts; Use <a href="/sec-insider-transaction-intelligence/">SEC Insider Transaction Scraper</a> for Forms 3, 4, 5; Use <a href="/sec-material-contract-intelligence/">SEC Material Contract Intelligence</a> for Exhibit/contract leads.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>SEC EDGAR Scraper</th><th>SEC Insider Transaction Scraper</th><th>SEC Material Contract Intelligence</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td><td>SEC Form D Exempt Offering Notices</td><td>8-K and S-1 filing alerts</td><td>Forms 3, 4, 5</td><td>Exhibit/contract leads</td>
+        </tr>
+        <tr>
+          <td>Primary input</td><td><code>issuers / mode</code></td><td>companies</td><td>issuers</td><td>issuers</td>
+        </tr>
+        <tr>
+          <td>What it reads</td><td>Public EDGAR Form D / D/A notices</td><td>Public EDGAR</td><td>EDGAR ownership forms</td><td>EDGAR exhibits</td>
+        </tr>
+        <tr>
+          <td>Primary output</td><td>Trigger rows billed per live PPE</td><td>Filing-index rows</td><td>Insider transaction rows</td><td>Contract intelligence rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td><td>Not 8-K/S-1 filing-index alerts. Not Forms 3/4/5. Not exhibit-contract extraction. Informational only. Not investment advice.</td><td>Not Form D notices or 8-K item candidates.</td><td>Not Form D exempt offerings.</td><td>Not Form D or insider Forms 3/4/5.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/sec-form-d-offering-notices-scraper</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Issuer watches for new Form D / D/A notices</li>
+      <li>knownStableIds for recurring triggers</li>
+      <li>firstRunMode baseline vs emit</li>
+    </ul>
+
+    <h2>How is SEC Form D Exempt Offering Notices different from SEC EDGAR Scraper and SEC Insider Transaction Scraper?</h2>
+    <p>SEC Form D Exempt Offering Notices (taroyamada/sec-form-d-offering-notices-scraper): This Actor tracks as-filed SEC Form D and D/A exempt offering notices from EDGAR with stable IDs for recurring regulatory trigger monitoring. Not 8-K/S-1 filing-index alerts. Not Forms 3/4/5. Not exhibit-contract extraction. Informational only. Not investment advice. SEC EDGAR Scraper is for 8-K and S-1 filing alerts (input companies; Public EDGAR; Filing-index rows). Not Form D notices or 8-K item candidates. SEC Insider Transaction Scraper is for Forms 3, 4, 5 (input issuers; EDGAR ownership forms; Insider transaction rows). Not Form D exempt offerings. SEC Material Contract Intelligence is for Exhibit/contract leads (input issuers; EDGAR exhibits; Contract intelligence rows). Not Form D or insider Forms 3/4/5.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: none listed (see live fields). Published exampleRunInput is shown below.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>mode</code></td>
+          <td>string enum</td>
+          <td><code>latest</code></td>
+          <td>Mode. latest scans the current Form D Atom feed. issuers scans Form D/D-A filings for supplied CIKs or tickers. enum: latest, issuers</td>
+        </tr>
+        <tr>
+          <td><code>issuers</code></td>
+          <td>any[]</td>
+          <td><code>empty</code></td>
+          <td>Issuers. Ticker symbols or CIK numbers used when mode=issuers.</td>
+        </tr>
+        <tr>
+          <td><code>daysBack</code></td>
+          <td>integer</td>
+          <td><code>30</code></td>
+          <td>Days back. Only emit filings dated within this window. minimum=1 maximum=3650</td>
+        </tr>
+        <tr>
+          <td><code>secUserAgent</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>SEC User-Agent. SEC-compliant User-Agent with contact information. Falls back to SEC_USER_AGENT environment variable.</td>
+        </tr>
+        <tr>
+          <td><code>knownStableIds</code></td>
+          <td>any[]</td>
+          <td><code>empty</code></td>
+          <td>Known stable IDs. Optional IDs already seen by your previous workflow run. Matching rows are suppressed to avoid no-change charges.</td>
+        </tr>
+        <tr>
+          <td><code>maxChargeUsd</code></td>
+          <td>number</td>
+          <td><code>1</code></td>
+          <td>Maximum charge USD. Safety cap for billable dataset rows. The actor stops emitting billable rows once this cap would be exceeded. minimum=0 maximum=100</td>
+        </tr>
+        <tr>
+          <td><code>limit</code></td>
+          <td>integer</td>
+          <td><code>40</code></td>
+          <td>Result limit. Maximum billable rows to emit. minimum=1 maximum=500</td>
+        </tr>
+        <tr>
+          <td><code>firstRunMode</code></td>
+          <td>string enum</td>
+          <td><code>emit_all</code></td>
+          <td>First run mode. emit_all writes the first matching rows. seed_only stores the baseline and writes no rows. enum: emit_all, seed_only</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string enum</td>
+          <td><code>dataset</code></td>
+          <td>Delivery. Where to send emitted trigger rows. enum: dataset, webhook</td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Webhook URL. Required when delivery=webhook.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run. Run without external source requests or dataset writes.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  "mode": "latest",
+  "issuers": [],
+  "knownStableIds": [],
+  "daysBack": 30,
+  "limit": 40,
+  "secUserAgent": "",
+  "firstRunMode": "emit_all",
+  "delivery": "dataset",
+  "dryRun": true,
+  "maxChargeUsd": 1
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/sec-form-d-offering-notices-scraper">Run SEC Form D Exempt Offering Notices on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>README output fence is truncated or invalid JSON on Store. Illustration head: { "meta": { "actorName": "sec-form-d-offering-notices-scraper", "actorTitle": "SEC Form D Exempt Offering Notices Scraper", "bundle": "Regulatory Trigger Pack", "fetchedAt": "2026-05-06T00:00:00.000Z", "totalRows": 1 }, "rows": [ { "actorName": "sec-form-d-offering-notices-scrape… Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is SEC Form D Exempt Offering Notices priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $8.00 / 1,000 result ($0.008 per delivered apify-default-dataset-item). $0.00005 Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>apify-actor-start</code> (Actor Start)</td>
+          <td>$0.00005</td>
+          <td>Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).</td>
+        </tr>
+        <tr>
+          <td><code>apify-default-dataset-item</code> (result)</td>
+          <td>$0.008</td>
+          <td>Single result in the default dataset.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>README quotes $0.001 actor start; live Store Actor Start is $0.00005. README quotes $0.025 per emitted trigger row; live primary is $0.008 (result). This page quotes live PPE only.</p>
+    <p class="price">from $8.00 / 1,000 result ($0.008 per delivered apify-default-dataset-item). $0.00005 Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+    <p><a href="https://apify.com/taroyamada/sec-form-d-offering-notices-scraper/pricing">See SEC Form D Exempt Offering Notices pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Public EDGAR Form D/D/A</li>
+      <li>secUserAgent as required by SEC fair-access</li>
+      <li>Not investment advice</li>
+      <li>limit / maxChargeUsd caps</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/sec-form-d-offering-notices-scraper">Open SEC Form D Exempt Offering Notices on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/sec-edgar-filings-monitor/">SEC EDGAR Scraper</a> — Not Form D notices or 8-K item candidates.</li>
+      <li><a href="/sec-insider-transaction-intelligence/">SEC Insider Transaction Scraper</a> — Not Form D exempt offerings.</li>
+      <li><a href="/sec-material-contract-intelligence/">SEC Material Contract Intelligence</a> — Not Form D or insider Forms 3/4/5.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

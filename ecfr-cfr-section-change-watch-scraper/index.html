@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>eCFR CFR Section Change Watch — title, part, and section diffs</title>
+  <meta name="description" content="taroyamada/ecfr-cfr-section-change-watch-scraper. from $60.00 / 1,000 eCFR change alert ($0.06 per delivered ecfr-change-alert); $0.35 per eCFR digest; $3.00 per eCFR…">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/ecfr-cfr-section-change-watch-scraper/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is eCFR CFR Section Change Watch different from Federal Register Scraper and Regulatory Alerts Scraper?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "eCFR CFR Section Change Watch (taroyamada/ecfr-cfr-section-change-watch-scraper): This Actor tracks selected CFR titles, parts, and sections from the official eCFR API and emits source-linked change rows for regulatory operations review. Not Federal Register notices (use Federal Register Scraper). Not a general government-page watchlist (use Regulatory Alerts Scraper). Informational only. Not legal advice. Federal Register Scraper is for FR rules and notices (input watch terms; Federal Register; FR digest rows). Not eCFR section diffs. Regulatory Alerts Scraper is for Government page watchlists (input page URLs; Public agency HTML; Page-change rows). Not official eCFR API section watches. FDA Warning Letters Scraper is for FDA warning-letter digests (input feeds; FDA warning-letter feeds; Warning-letter digest rows). Not CPSC/NHTSA/EPA records."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: feeds. Live schema fields: feeds, watchTerms, datasetMode, notifyOnNoNew, snapshotKey, ecfrContentApiUrl, ecfrVersionsApiUrl, requestTimeoutSeconds, delivery, webhookUrl, dryRun, fixturePath, nowIso. exampleRunInput keys: feeds, dryRun."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: feeds, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "README output fence is truncated or invalid JSON on Store. Illustration head: { \"actorName\": \"ecfr-cfr-section-change-watch-scraper\", \"rowType\": \"ecfr_digest\", \"feedId\": \"21-cfr-11\", \"feedName\": \"21 CFR Part 11\", \"checkedAt\": \"2026-05-07T00:00:00.000Z\", \"status\": \"action_needed\", \"newDocCount\": 1, \"totalDocCount\": 1, \"changedSinceLastRun\": true, \"actionNee\u2026 Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. datasetMode can limit emits to changes_only / changed_only / action_needed versus all. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is eCFR CFR Section Change Watch priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $60.00 / 1,000 eCFR change alert ($0.06 per delivered ecfr-change-alert); $0.35 per eCFR digest; $3.00 per eCFR report. No Actor Start. eCFR change alert (ecfr-change-alert) $0.06: Charged for each watchlist-matched CFR section change alert. eCFR digest (ecfr-digest) $0.35: Charged for each non-empty CFR change digest row. eCFR report (ecfr-report) $3.00: Charged for each generated CFR watchlist report. Platform usage is listed as included on the Store pricing tab."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / eCFR CFR Section Change Watch</nav>
+    <h1>Official eCFR API watches for selected CFR titles, parts, and sections</h1>
+    <p>This Actor tracks selected CFR titles, parts, and sections from the official eCFR API and emits source-linked change rows for regulatory operations review.</p>
+    <p>Not Federal Register notices (use Federal Register Scraper). Not a general government-page watchlist (use Regulatory Alerts Scraper). Informational only. Not legal advice.</p>
+    <p class="price">from $60.00 / 1,000 eCFR change alert ($0.06 per delivered ecfr-change-alert); $0.35 per eCFR digest; $3.00 per eCFR report. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/ecfr-cfr-section-change-watch-scraper">Open eCFR CFR Section Change Watch on Apify</a></p>
+
+    <h2>eCFR CFR Section Change Watch, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/federal-register-digest/">Federal Register Scraper</a> for FR rules and notices; Use <a href="/regulatory-change-monitor/">Regulatory Alerts Scraper</a> for Government page watchlists; Use <a href="/fda-warning-letter-digest/">FDA Warning Letters Scraper</a> for FDA warning-letter digests.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>Federal Register Scraper</th><th>Regulatory Alerts Scraper</th><th>FDA Warning Letters Scraper</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td><td>eCFR CFR Section Change Watch</td><td>FR rules and notices</td><td>Government page watchlists</td><td>FDA warning-letter digests</td>
+        </tr>
+        <tr>
+          <td>Primary input</td><td><code>feeds</code></td><td>watch terms</td><td>page URLs</td><td>feeds</td>
+        </tr>
+        <tr>
+          <td>What it reads</td><td>eCFR content and versions APIs</td><td>Federal Register</td><td>Public agency HTML</td><td>FDA warning-letter feeds</td>
+        </tr>
+        <tr>
+          <td>Primary output</td><td>Change-alert, digest, and report events</td><td>FR digest rows</td><td>Page-change rows</td><td>Warning-letter digest rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td><td>Not Federal Register notices (use Federal Register Scraper). Not a general government-page watchlist (use Regulatory Alerts Scraper). Informational only. Not legal advice.</td><td>Not eCFR section diffs.</td><td>Not official eCFR API section watches.</td><td>Not CPSC/NHTSA/EPA records.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/ecfr-cfr-section-change-watch-scraper</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Watch named CFR parts/sections for text changes</li>
+      <li>Recurring snapshotKey runs for new/changed sections</li>
+      <li>Digest vs report events when you need a packed summary</li>
+    </ul>
+
+    <h2>How is eCFR CFR Section Change Watch different from Federal Register Scraper and Regulatory Alerts Scraper?</h2>
+    <p>eCFR CFR Section Change Watch (taroyamada/ecfr-cfr-section-change-watch-scraper): This Actor tracks selected CFR titles, parts, and sections from the official eCFR API and emits source-linked change rows for regulatory operations review. Not Federal Register notices (use Federal Register Scraper). Not a general government-page watchlist (use Regulatory Alerts Scraper). Informational only. Not legal advice. Federal Register Scraper is for FR rules and notices (input watch terms; Federal Register; FR digest rows). Not eCFR section diffs. Regulatory Alerts Scraper is for Government page watchlists (input page URLs; Public agency HTML; Page-change rows). Not official eCFR API section watches. FDA Warning Letters Scraper is for FDA warning-letter digests (input feeds; FDA warning-letter feeds; Warning-letter digest rows). Not CPSC/NHTSA/EPA records.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: feeds. Published exampleRunInput is shown below.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>feeds</code></td>
+          <td>object[]</td>
+          <td><code>[{&quot;id&quot;: &quot;21-cfr-11&quot;, &quot;name&quot;: &quot;21 CFR Part 11&quot;, &quot;cfrTitle&quot;: 21, &quot;part&quot;: &quot;11&quot;, &quot;keywords&quot;: &quot;electronic records,electronic signatures&quot;}, {&quot;id&quot;: &quot;40-cfr-60&quot;, &quot;name&quot;: &quot;40 CFR Part 60&quot;, &quot;cfrTitle&quot;: 40, &quot;part&quot;: &quot;60&quot;, &quot;keywords&quot;: &quot;emissions,standards&quot;}, {&quot;id&quot;: &quot;29-cfr-1910-1200&quot;, &quot;name&quot;: &quot;29 CFR 1910.1200&quot;, &quot;cfrTitle&quot;: 29, &quot;part&quot;: &quot;1910&quot;, &quot;section&quot;: &quot;1200&quot;, &quot;keywords&quot;: &quot;hazard communication&quot;}]</code></td>
+          <td>CFR sections or parts to watch. One watch target per CFR citation. Each feed emits a digest row only when new or matching evidence should be reviewed. Required. item required: cfrTitle</td>
+        </tr>
+        <tr>
+          <td><code>watchTerms</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Global watch terms. Comma-separated terms to flag in section headings and text previews.</td>
+        </tr>
+        <tr>
+          <td><code>datasetMode</code></td>
+          <td>string enum</td>
+          <td><code>new_only</code></td>
+          <td>Dataset output mode. Dataset output mode enum: all, action_needed, new_only</td>
+        </tr>
+        <tr>
+          <td><code>notifyOnNoNew</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit no-change rows. Keep false for recurring paid runs so no-change polls do not emit dataset rows.</td>
+        </tr>
+        <tr>
+          <td><code>snapshotKey</code></td>
+          <td>string</td>
+          <td><code>ecfr-cfr-section-change-watch-state</code></td>
+          <td>Snapshot key. Snapshot key</td>
+        </tr>
+        <tr>
+          <td><code>ecfrContentApiUrl</code></td>
+          <td>string</td>
+          <td><code>https://www.ecfr.gov/api/renderer/v1/content/enhanced</code></td>
+          <td>eCFR content API base URL. eCFR content API base URL</td>
+        </tr>
+        <tr>
+          <td><code>ecfrVersionsApiUrl</code></td>
+          <td>string</td>
+          <td><code>https://www.ecfr.gov/api/versioner/v1/versions</code></td>
+          <td>eCFR versions API base URL. eCFR versions API base URL</td>
+        </tr>
+        <tr>
+          <td><code>requestTimeoutSeconds</code></td>
+          <td>integer</td>
+          <td><code>30</code></td>
+          <td>HTTP timeout seconds. HTTP timeout seconds minimum=5 maximum=120</td>
+        </tr>
+        <tr>
+          <td><code>delivery</code></td>
+          <td>string enum</td>
+          <td><code>dataset</code></td>
+          <td>Delivery mode. Delivery mode enum: dataset, webhook</td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Webhook URL. Webhook URL</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run. Dry run</td>
+        </tr>
+        <tr>
+          <td><code>fixturePath</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Fixture path. Fixture path</td>
+        </tr>
+        <tr>
+          <td><code>nowIso</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Override current time. Override current time</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  "feeds": [
+    {
+      "id": "21-cfr-11",
+      "name": "21 CFR Part 11",
+      "cfrTitle": 21,
+      "part": "11",
+      "keywords": "electronic records,electronic signatures"
+    },
+    {
+      "id": "40-cfr-60",
+      "name": "40 CFR Part 60",
+      "cfrTitle": 40,
+      "part": "60",
+      "keywords": "emissions,standards"
+    }
+  ],
+  "dryRun": false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/ecfr-cfr-section-change-watch-scraper">Run eCFR CFR Section Change Watch on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. datasetMode can limit emits to changes_only / changed_only / action_needed versus all. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>README output fence is truncated or invalid JSON on Store. Illustration head: { "actorName": "ecfr-cfr-section-change-watch-scraper", "rowType": "ecfr_digest", "feedId": "21-cfr-11", "feedName": "21 CFR Part 11", "checkedAt": "2026-05-07T00:00:00.000Z", "status": "action_needed", "newDocCount": 1, "totalDocCount": 1, "changedSinceLastRun": true, "actionNee… Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is eCFR CFR Section Change Watch priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $60.00 / 1,000 eCFR change alert ($0.06 per delivered ecfr-change-alert); $0.35 per eCFR digest; $3.00 per eCFR report. No Actor Start.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>ecfr-change-alert</code> (eCFR change alert)</td>
+          <td>$0.06</td>
+          <td>Charged for each watchlist-matched CFR section change alert.</td>
+        </tr>
+        <tr>
+          <td><code>ecfr-digest</code> (eCFR digest)</td>
+          <td>$0.35</td>
+          <td>Charged for each non-empty CFR change digest row.</td>
+        </tr>
+        <tr>
+          <td><code>ecfr-report</code> (eCFR report)</td>
+          <td>$3.00</td>
+          <td>Charged for each generated CFR watchlist report.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="price">from $60.00 / 1,000 eCFR change alert ($0.06 per delivered ecfr-change-alert); $0.35 per eCFR digest; $3.00 per eCFR report. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/ecfr-cfr-section-change-watch-scraper/pricing">See eCFR CFR Section Change Watch pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Official eCFR API only</li>
+      <li>feeds required</li>
+      <li>Not a substitute for counsel</li>
+      <li>fixturePath is for tests</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/ecfr-cfr-section-change-watch-scraper">Open eCFR CFR Section Change Watch on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/federal-register-digest/">Federal Register Scraper</a> — Not eCFR section diffs.</li>
+      <li><a href="/regulatory-change-monitor/">Regulatory Alerts Scraper</a> — Not official eCFR API section watches.</li>
+      <li><a href="/fda-warning-letter-digest/">FDA Warning Letters Scraper</a> — Not CPSC/NHTSA/EPA records.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

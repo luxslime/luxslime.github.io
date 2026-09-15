@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CSV Local Business List Scoring Report — CRM hygiene without Maps scrape</title>
+  <meta name="description" content="taroyamada/csv-local-business-list-scoring-report. $3.00 per Lead scoring report (lead_scoring_report); $15 per Agency lead gap report. $0.00005 Actor Start. Does not…">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/csv-local-business-list-scoring-report/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is CSV Local Business List Scoring Report different from CSV Cleaner & Deduplication Tool and Google Maps Lead Enrichment?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "CSV Local Business List Scoring Report (taroyamada/csv-local-business-list-scoring-report): This Actor turns pasted CSV business lists into CRM hygiene, local SEO gap, and prioritization reports without scraping Google Maps or extracting contacts. Does not scrape Google Maps. Does not extract emails/phones from the web. Not a CSV cleaner (use CSV Cleaner & Deduplication Tool). You paste the list. CSV Cleaner & Deduplication Tool is for Trim/dedupe/sort user CSV (input CSV text; User-supplied CSV; Cleaned CSV rows). Not local-SEO scoring reports. Google Maps Lead Enrichment is for Enrich existing leads (input business inputs; Enrichment APIs; Lead rows). Does not scrape Maps or ATS boards. Contact Page Audit is for Public contact-channel extract (input page URLs; Public contact pages; Channel rows). Not CSV list scoring."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: none (see live fields). Live schema fields: csvText, businesses, reportTier, maxChargeUsd, demoMode, dryRun, maxReports, sourceDatasetId, webhookUrl. exampleRunInput keys: csvText, reportTier, maxChargeUsd, maxReports, demoMode, dryRun."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: csvText, reportTier, maxChargeUsd, maxReports, demoMode, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. webhookUrl is on the live schema for optional POST delivery. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is CSV Local Business List Scoring Report priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: $3.00 per Lead scoring report (lead_scoring_report); $15 per Agency lead gap report. $0.00005 Actor Start. Actor Start (apify-actor-start) $0.00005: Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event). Lead scoring report (lead_scoring_report) $3.00: CSV lead scoring report with priority buckets and basic local SEO/list hygiene gaps. Agency lead gap report (agency_lead_gap_report) $15: Agency-ready segment comparison with list quality, SEO gaps, and suggested client/audience buckets. Platform usage is listed as included on the Store pricing tab."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / CSV Local Business List Scoring Report</nav>
+    <h1>Pasted CSV business lists into scoring and local-SEO gap reports</h1>
+    <p>This Actor turns pasted CSV business lists into CRM hygiene, local SEO gap, and prioritization reports without scraping Google Maps or extracting contacts.</p>
+    <p>Does not scrape Google Maps. Does not extract emails/phones from the web. Not a CSV cleaner (use CSV Cleaner &amp; Deduplication Tool). You paste the list.</p>
+    <p class="price">$3.00 per Lead scoring report (lead_scoring_report); $15 per Agency lead gap report. $0.00005 Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/csv-local-business-list-scoring-report">Open CSV Local Business List Scoring Report on Apify</a></p>
+
+    <h2>CSV Local Business List Scoring Report, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/csv-data-cleaner/">CSV Cleaner &amp; Deduplication Tool</a> for Trim/dedupe/sort user CSV; Use <a href="/google-maps-lead-enrichment/">Google Maps Lead Enrichment</a> for Enrich existing leads; Use <a href="/contact-details-extractor/">Contact Page Audit</a> for Public contact-channel extract.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>CSV Cleaner &amp; Deduplication Tool</th><th>Google Maps Lead Enrichment</th><th>Contact Page Audit</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td><td>CSV Local Business List Scoring Report</td><td>Trim/dedupe/sort user CSV</td><td>Enrich existing leads</td><td>Public contact-channel extract</td>
+        </tr>
+        <tr>
+          <td>Primary input</td><td><code>csvText</code></td><td>CSV text</td><td>business inputs</td><td>page URLs</td>
+        </tr>
+        <tr>
+          <td>What it reads</td><td>User-pasted CSV / business rows</td><td>User-supplied CSV</td><td>Enrichment APIs</td><td>Public contact pages</td>
+        </tr>
+        <tr>
+          <td>Primary output</td><td>Scoring and optional gap-report events</td><td>Cleaned CSV rows</td><td>Lead rows</td><td>Channel rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td><td>Does not scrape Google Maps. Does not extract emails/phones from the web. Not a CSV cleaner (use CSV Cleaner &amp; Deduplication Tool). You paste the list.</td><td>Not local-SEO scoring reports.</td><td>Does not scrape Maps or ATS boards.</td><td>Not CSV list scoring.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/csv-local-business-list-scoring-report</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Paste a small CSV of businesses you already have</li>
+      <li>lead_scoring_report first; keep the $15 gap report off</li>
+      <li>No Maps crawl</li>
+    </ul>
+
+    <h2>How is CSV Local Business List Scoring Report different from CSV Cleaner &amp; Deduplication Tool and Google Maps Lead Enrichment?</h2>
+    <p>CSV Local Business List Scoring Report (taroyamada/csv-local-business-list-scoring-report): This Actor turns pasted CSV business lists into CRM hygiene, local SEO gap, and prioritization reports without scraping Google Maps or extracting contacts. Does not scrape Google Maps. Does not extract emails/phones from the web. Not a CSV cleaner (use CSV Cleaner &amp; Deduplication Tool). You paste the list. CSV Cleaner &amp; Deduplication Tool is for Trim/dedupe/sort user CSV (input CSV text; User-supplied CSV; Cleaned CSV rows). Not local-SEO scoring reports. Google Maps Lead Enrichment is for Enrich existing leads (input business inputs; Enrichment APIs; Lead rows). Does not scrape Maps or ATS boards. Contact Page Audit is for Public contact-channel extract (input page URLs; Public contact pages; Channel rows). Not CSV list scoring.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: none listed (see live fields). Published exampleRunInput is shown below.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>csvText</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>CSV text. Paste CSV rows with businessName/name, city, category, rating, reviewCount, and website columns.</td>
+        </tr>
+        <tr>
+          <td><code>businesses</code></td>
+          <td>any[]</td>
+          <td><code>empty</code></td>
+          <td>Business rows. Optional structured business rows.</td>
+        </tr>
+        <tr>
+          <td><code>reportTier</code></td>
+          <td>string enum</td>
+          <td><code>entry</code></td>
+          <td>Report tier. Choose entry or premium. Watch/audit templates are proof-gated and not selectable during public launch; maxChargeUsd is only a safety cap. enum: entry, premium</td>
+        </tr>
+        <tr>
+          <td><code>maxChargeUsd</code></td>
+          <td>number</td>
+          <td><code>3</code></td>
+          <td>Max charge USD. Safety cap for this run. This cap always wins before charging any report group. minimum=0 maximum=100</td>
+        </tr>
+        <tr>
+          <td><code>demoMode</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Demo mode. Run a sample with no external fetch and no charge.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run. Set true to return a no-charge previewReport with nextRunInput and estimated cost.</td>
+        </tr>
+        <tr>
+          <td><code>maxReports</code></td>
+          <td>integer</td>
+          <td><code>1</code></td>
+          <td>Advanced max reports. Advanced. Maximum report groups to charge; maxChargeUsd is still checked first. minimum=1 maximum=25</td>
+        </tr>
+        <tr>
+          <td><code>sourceDatasetId</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Advanced source dataset ID. Advanced only. Optional Apify dataset ID for prepared input rows. Not needed for the first run.</td>
+        </tr>
+        <tr>
+          <td><code>webhookUrl</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Advanced webhook URL. Advanced. Optional URL to receive results outside Apify.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  "csvText": "businessName,city,category,rating,reviewCount,website\nNorthside Dental,Austin,Dentist,4.7,145,https://example-dental.test\nAustin Smile Studio,Austin,Dentist,4.3,52,\nLone Star Dental,Austin,Dentist,4.8,210,https://example-smiles.test\nCapital Dental,Austin,Dentist,3.9,18,\nRiver City Dental,Austin,Dentist,4.5,84,https://example-river.test",
+  "reportTier": "entry",
+  "maxChargeUsd": 3,
+  "maxReports": 1,
+  "demoMode": false,
+  "dryRun": true
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/csv-local-business-list-scoring-report">Run CSV Local Business List Scoring Report on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>Dataset output is the billable surface when rows are written. See live PPE for which events bill. webhookUrl is on the live schema for optional POST delivery. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is CSV Local Business List Scoring Report priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>$3.00 per Lead scoring report (lead_scoring_report); $15 per Agency lead gap report. $0.00005 Actor Start.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>apify-actor-start</code> (Actor Start)</td>
+          <td>$0.00005</td>
+          <td>Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).</td>
+        </tr>
+        <tr>
+          <td><code>lead_scoring_report</code> (Lead scoring report)</td>
+          <td>$3.00</td>
+          <td>CSV lead scoring report with priority buckets and basic local SEO/list hygiene gaps.</td>
+        </tr>
+        <tr>
+          <td><code>agency_lead_gap_report</code> (Agency lead gap report)</td>
+          <td>$15</td>
+          <td>Agency-ready segment comparison with list quality, SEO gaps, and suggested client/audience buckets.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="price">$3.00 per Lead scoring report (lead_scoring_report); $15 per Agency lead gap report. $0.00005 Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/csv-local-business-list-scoring-report/pricing">See CSV Local Business List Scoring Report pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>You supply the CSV/list</li>
+      <li>No Maps scrape</li>
+      <li>No contact extraction</li>
+      <li>reportTier selects billed reports</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/csv-local-business-list-scoring-report">Open CSV Local Business List Scoring Report on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/csv-data-cleaner/">CSV Cleaner &amp; Deduplication Tool</a> — Not local-SEO scoring reports.</li>
+      <li><a href="/google-maps-lead-enrichment/">Google Maps Lead Enrichment</a> — Does not scrape Maps or ATS boards.</li>
+      <li><a href="/contact-details-extractor/">Contact Page Audit</a> — Not CSV list scoring.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>
