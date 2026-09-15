@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NIH Grant Publication Linkage &amp; Output Report — NIH RePORTER awards linked to public publication output</title>
+  <meta name="description" content="taroyamada/nih-grant-publication-output-report. from $8.00 / 1,000 NIH grant-publication link row ($0.008 per delivered nih-grant-publication-link-row); $…">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/nih-grant-publication-output-report/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is NIH Grant Publication Linkage & Output Report different from NIH RePORTER Funding Landscape Report and PubMed Literature Watch & Research Report?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "NIH Grant Publication Linkage & Output Report (taroyamada/nih-grant-publication-output-report): Monitor NIH RePORTER awards and linked public publication output for watches you configure. Generate source-linked change alerts, output reports, and optional exports. Not an NIH RePORTER funding-landscape pack without publication linkage (use NIH RePORTER Funding Landscape Report). Not a PubMed literature watch. Not a biomedical evidence-gap report. NIH RePORTER Funding Landscape Report is for NIH award landscape (input org / terms; NIH RePORTER; Award report). Not publication-output linkage. PubMed Literature Watch & Research Report is for PubMed query watch (input terms; PubMed; Paper rows). Not NIH RePORTER award linkage. PubMed & Clinical Trials Evidence Gap Report is for PubMed vs trials gap (input query terms; PubMed + ClinicalTrials.gov; Evidence-gap report). Not NIH grant publication output."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: watches. Live schema fields: watches, monitorKey, initialRunMode, generateReport, emitRawRows, emitExport, emitUnchanged, includePubMedMetadata, ncbiEmail, maxProjectsPerWatch, maxPublicationsPerProject, maxChargeUsd, dryRun. Monitor NIH RePORTER awards and linked public publication output for watches you configure. Generate source-linked change alerts, output reports, and optional exports. exampleRunInput keys: watches, monitorKey, initialRunMode, generateReport, emitRawRows, emitExport, emitUnchanged, includePubMedMetadata, maxProjectsPerWatch, maxPublicationsPerProject, maxChargeUsd, dryRun. additionalProperties is false on the live schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: watches, monitorKey, initialRunMode, generateReport, emitRawRows, emitExport, emitUnchanged, includePubMedMetadata, maxProjectsPerWatch, maxPublicationsPerProject, maxChargeUsd, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Published README Output Example / Sample Output JSON. Illustration: {   \"rowType\": \"nih_grant_publication_output_report\",   \"billingEventName\": \"nih-grant-publication-output-report\",   \"report\": {     \"reportType\": \"grant_publication_output_change_report\",     \"selectedProjectCount\": 2,     \"selectedPublicationLinkCount\": 7,     \"newLinkCount\": 7,     \"metadataChangeCount\": 0,     \"byPublicationYear\": [       {         \"key\": \"2026\",         \"count\": 4       },       {         \"key\": \"2025\",         \"count\": 3       }     ],     \"interpretation\": \"Descriptive public link and citation metadata only.\"   },   \"sourceUrl\": \"https://api.reporter.nih.gov/?urls.primaryName=V2.0\" }  Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is NIH Grant Publication Linkage & Output Report priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $8.00 / 1,000 NIH grant-publication link row ($0.008 per delivered nih-grant-publication-link-row); $0.25 per NIH publication output change alert; $15.00 per NIH grant publication output report; $10.00 per NIH grant publication export. No Actor Start. NIH grant-publication link row (nih-grant-publication-link-row) $0.008: Charged only when a nih grant-publication link row is delivered. NIH publication output change alert (nih-publication-output-change-alert) $0.25: Charged only when a nih publication output change alert is delivered. NIH grant publication output report (nih-grant-publication-output-report) $15.00: Charged only when a nih grant publication output report is delivered. NIH grant publication export (nih-grant-publication-export) $10.00: Charged only when a nih grant publication export is delivered. Platform usage is listed as included on the Store pricing tab."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / NIH Grant Publication Linkage &amp; Output Report</nav>
+    <h1>NIH RePORTER awards linked to public publication output</h1>
+    <p>Monitor NIH RePORTER awards and linked public publication output for watches you configure. Generate source-linked change alerts, output reports, and optional exports.</p>
+    <p>Not an NIH RePORTER funding-landscape pack without publication linkage (use NIH RePORTER Funding Landscape Report). Not a PubMed literature watch. Not a biomedical evidence-gap report.</p>
+    <p class="price">from $8.00 / 1,000 NIH grant-publication link row ($0.008 per delivered nih-grant-publication-link-row); $0.25 per NIH publication output change alert; $15.00 per NIH grant publication output report; $10.00 per NIH grant publication export. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/nih-grant-publication-output-report">Open NIH Grant Publication Linkage &amp; Output Report on Apify</a></p>
+
+    <h2>NIH Grant Publication Linkage &amp; Output Report, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/nih-research-funding-landscape-report/">NIH RePORTER Funding Landscape Report</a> for NIH award landscape; Use <a href="/pubmed-literature-watch/">PubMed Literature Watch &amp; Research Report</a> for PubMed query watch; Use <a href="/biomedical-trial-literature-evidence-report/">PubMed &amp; Clinical Trials Evidence Gap Report</a> for PubMed vs trials gap.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>NIH RePORTER Funding Landscape Report</th><th>PubMed Literature Watch &amp; Research Report</th><th>PubMed &amp; Clinical Trials Evidence Gap Report</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td><td>NIH award-to-publication output watches</td><td>NIH award landscape</td><td>PubMed query watch</td><td>PubMed vs trials gap</td>
+        </tr>
+        <tr>
+          <td>Primary input</td><td>watches</td><td>org / terms</td><td>terms</td><td>query terms</td>
+        </tr>
+        <tr>
+          <td>What it reads</td><td>NIH RePORTER and linked public publication records</td><td>NIH RePORTER</td><td>PubMed</td><td>PubMed + ClinicalTrials.gov</td>
+        </tr>
+        <tr>
+          <td>Primary output</td><td>Record, alert, report, and export events</td><td>Award report</td><td>Paper rows</td><td>Evidence-gap report</td>
+        </tr>
+        <tr>
+          <td>Not this job</td><td>Not an NIH RePORTER funding-landscape pack without publication linkage (use NIH RePORTER Funding Landscape Report). Not a PubMed literature watch. Not a biomedical evidence-gap report.</td><td>Not publication-output linkage.</td><td>Not NIH RePORTER award linkage.</td><td>Not NIH grant publication output.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/nih-grant-publication-output-report</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>One org/PI watch with generateReport off first</li>
+      <li>Use initialRunMode baseline_only to seed state</li>
+      <li>Turn report/export on after the watch is stable</li>
+    </ul>
+
+    <h2>How is NIH Grant Publication Linkage &amp; Output Report different from NIH RePORTER Funding Landscape Report and PubMed Literature Watch &amp; Research Report?</h2>
+    <p>NIH Grant Publication Linkage &amp; Output Report (taroyamada/nih-grant-publication-output-report): Monitor NIH RePORTER awards and linked public publication output for watches you configure. Generate source-linked change alerts, output reports, and optional exports. Not an NIH RePORTER funding-landscape pack without publication linkage (use NIH RePORTER Funding Landscape Report). Not a PubMed literature watch. Not a biomedical evidence-gap report. NIH RePORTER Funding Landscape Report is for NIH award landscape (input org / terms; NIH RePORTER; Award report). Not publication-output linkage. PubMed Literature Watch &amp; Research Report is for PubMed query watch (input terms; PubMed; Paper rows). Not NIH RePORTER award linkage. PubMed &amp; Clinical Trials Evidence Gap Report is for PubMed vs trials gap (input query terms; PubMed + ClinicalTrials.gov; Evidence-gap report). Not NIH grant publication output.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: watches. Published exampleRunInput is shown below.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>watches</code></td>
+          <td>any[]</td>
+          <td><code>[]</code></td>
+          <td>Grant publication watches. Use project numbers directly or a bounded NIH project search. Required.</td>
+        </tr>
+        <tr>
+          <td><code>monitorKey</code></td>
+          <td>string</td>
+          <td><code>&quot;nih-publication-output-watch&quot;</code></td>
+          <td>Monitor key. Stable isolated state namespace for this recurring portfolio.</td>
+        </tr>
+        <tr>
+          <td><code>initialRunMode</code></td>
+          <td>string enum</td>
+          <td><code>&quot;baseline_only&quot;</code></td>
+          <td>Initial run mode. baseline_only stores the first observation with zero rows. emit_backfill delivers the current linked publications. enum: baseline_only, emit_backfill</td>
+        </tr>
+        <tr>
+          <td><code>generateReport</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Generate portfolio report. Generate one descriptive publication-output report when new or changed links are delivered.</td>
+        </tr>
+        <tr>
+          <td><code>emitRawRows</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit grant-publication link rows. Add one low-priced normalized row for each selected grant-publication link.</td>
+        </tr>
+        <tr>
+          <td><code>emitExport</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Generate portfolio export. Generate a compact JSON-ready export when selected links are delivered.</td>
+        </tr>
+        <tr>
+          <td><code>emitUnchanged</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit unchanged links. Accepted for compatibility. Unchanged monitoring runs always remain zero rows and zero charge.</td>
+        </tr>
+        <tr>
+          <td><code>includePubMedMetadata</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Add PubMed citation metadata. Use official NCBI ESummary to add title, journal, publication date, and publication types for linked PMIDs.</td>
+        </tr>
+        <tr>
+          <td><code>ncbiEmail</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>NCBI contact email. Optional valid email sent to NCBI with the tool parameter. No NCBI API key is required at this Actor&#x27;s conservative request rate.</td>
+        </tr>
+        <tr>
+          <td><code>maxProjectsPerWatch</code></td>
+          <td>integer</td>
+          <td><code>10</code></td>
+          <td>Maximum projects per watch. Bounded project portfolio size. Keep this small for fast scheduled checks. minimum=1 maximum=25</td>
+        </tr>
+        <tr>
+          <td><code>maxPublicationsPerProject</code></td>
+          <td>integer</td>
+          <td><code>100</code></td>
+          <td>Maximum publications per project. Maximum linked publication records retained for each core project. minimum=1 maximum=500</td>
+        </tr>
+        <tr>
+          <td><code>maxChargeUsd</code></td>
+          <td>number</td>
+          <td><code>35</code></td>
+          <td>Maximum charge USD. Fail closed before pushing any row when the planned PPE charge exceeds this cap. minimum=0.008 maximum=500</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run. Return representative rows without calling NIH or NCBI, saving state, or charging events.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  &quot;watches&quot;: [
+    {
+      &quot;id&quot;: &quot;nih-linked-publications&quot;,
+      &quot;coreProjectNumbers&quot;: [
+        &quot;UG1HD078437&quot;
+      ]
+    }
+  ],
+  &quot;monitorKey&quot;: &quot;nih-publication-output-watch&quot;,
+  &quot;initialRunMode&quot;: &quot;baseline_only&quot;,
+  &quot;generateReport&quot;: false,
+  &quot;emitRawRows&quot;: false,
+  &quot;emitExport&quot;: false,
+  &quot;emitUnchanged&quot;: false,
+  &quot;includePubMedMetadata&quot;: true,
+  &quot;maxProjectsPerWatch&quot;: 10,
+  &quot;maxPublicationsPerProject&quot;: 100,
+  &quot;maxChargeUsd&quot;: 15,
+  &quot;dryRun&quot;: false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/nih-grant-publication-output-report">Run NIH Grant Publication Linkage &amp; Output Report on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON. Illustration:
+{
+  &quot;rowType&quot;: &quot;nih_grant_publication_output_report&quot;,
+  &quot;billingEventName&quot;: &quot;nih-grant-publication-output-report&quot;,
+  &quot;report&quot;: {
+    &quot;reportType&quot;: &quot;grant_publication_output_change_report&quot;,
+    &quot;selectedProjectCount&quot;: 2,
+    &quot;selectedPublicationLinkCount&quot;: 7,
+    &quot;newLinkCount&quot;: 7,
+    &quot;metadataChangeCount&quot;: 0,
+    &quot;byPublicationYear&quot;: [
+      {
+        &quot;key&quot;: &quot;2026&quot;,
+        &quot;count&quot;: 4
+      },
+      {
+        &quot;key&quot;: &quot;2025&quot;,
+        &quot;count&quot;: 3
+      }
+    ],
+    &quot;interpretation&quot;: &quot;Descriptive public link and citation metadata only.&quot;
+  },
+  &quot;sourceUrl&quot;: &quot;https://api.reporter.nih.gov/?urls.primaryName=V2.0&quot;
+}
+ Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is NIH Grant Publication Linkage &amp; Output Report priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $8.00 / 1,000 NIH grant-publication link row ($0.008 per delivered nih-grant-publication-link-row); $0.25 per NIH publication output change alert; $15.00 per NIH grant publication output report; $10.00 per NIH grant publication export. No Actor Start.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>nih-grant-publication-link-row</code> (NIH grant-publication link row)</td>
+          <td>$0.008</td>
+          <td>Charged only when a nih grant-publication link row is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>nih-publication-output-change-alert</code> (NIH publication output change alert)</td>
+          <td>$0.25</td>
+          <td>Charged only when a nih publication output change alert is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>nih-grant-publication-output-report</code> (NIH grant publication output report)</td>
+          <td>$15.00</td>
+          <td>Charged only when a nih grant publication output report is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>nih-grant-publication-export</code> (NIH grant publication export)</td>
+          <td>$10.00</td>
+          <td>Charged only when a nih grant publication export is delivered.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="price">from $8.00 / 1,000 NIH grant-publication link row ($0.008 per delivered nih-grant-publication-link-row); $0.25 per NIH publication output change alert; $15.00 per NIH grant publication output report; $10.00 per NIH grant publication export. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/nih-grant-publication-output-report/pricing">See NIH Grant Publication Linkage &amp; Output Report pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>See live required fields</li>
+      <li>Public NIH RePORTER only</li>
+      <li>Report and export are opt-in</li>
+      <li>Not a full PubMed query Actor</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/nih-grant-publication-output-report">Open NIH Grant Publication Linkage &amp; Output Report on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/nih-research-funding-landscape-report/">NIH RePORTER Funding Landscape Report</a> — Not publication-output linkage.</li>
+      <li><a href="/pubmed-literature-watch/">PubMed Literature Watch &amp; Research Report</a> — Not NIH RePORTER award linkage.</li>
+      <li><a href="/biomedical-trial-literature-evidence-report/">PubMed &amp; Clinical Trials Evidence Gap Report</a> — Not NIH grant publication output.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

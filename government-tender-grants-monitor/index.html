@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Government Tender &amp; Grants Alert Report — TED, Grants.gov, UK Contracts Finder, World Bank, optional SAM.gov</title>
+  <meta name="description" content="taroyamada/government-tender-grants-monitor. from $6.00 / 1,000 Raw opportunity row ($0.006 per delivered raw-opportunity-row); $0.10 per Tender opportuni…">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/government-tender-grants-monitor/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is Government Tender & Grants Alert Report different from TED, SAM.gov & Grants Bid Alerts Scraper and Grants.gov Scraper?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Government Tender & Grants Alert Report (taroyamada/government-tender-grants-monitor): Monitor public TED, Grants.gov, UK Contracts Finder, World Bank, and optional SAM.gov opportunities and generate source-linked tender, grant, deadline, report, and export rows. Not a SAM.gov + TED bid-alert Actor focused on federal/EU tenders you already run (use TED, SAM.gov & Grants Bid Alerts). Not a Grants.gov-only digest. Not an RFP rebid watch on URLs you paste. You supply watches. SAM.gov needs samApiKey when that source is enabled. TED, SAM.gov & Grants Bid Alerts Scraper is for SAM.gov + TED bid alerts (input keywords / notices; SAM.gov / TED; Bid-alert rows). Not a multi-source UK/World Bank watch pack. Grants.gov Scraper is for Federal funding notices (input keywords; Grants.gov; Notice rows). Not TED/Contracts Finder/World Bank alerts. Public RFP Rebid Watch Report is for Public RFP pages you supply (input urls / watches; User-supplied RFP pages; Rebid report). Not TED/Grants.gov opportunity APIs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: watches. Live schema fields: dryRun, watches, sources, monitorKey, initialRunMode, emitUnchanged, generateReport, emitExport, emitRawRows, maxOpportunitiesPerWatch, maxChargeUsd, samApiKey. Monitor public TED, Grants.gov, UK Contracts Finder, World Bank, and optional SAM.gov opportunities and generate source-linked tender, grant, deadline, report, and export rows. exampleRunInput keys: watches, dryRun, sources, monitorKey, initialRunMode, emitUnchanged, generateReport, emitExport, emitRawRows, maxOpportunitiesPerWatch, maxChargeUsd. additionalProperties is not set to false on this schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: watches, dryRun, sources, monitorKey, initialRunMode, emitUnchanged, generateReport, emitExport, emitRawRows, maxOpportunitiesPerWatch, maxChargeUsd. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Published README Output Example / Sample Output JSON. Illustration: {   \"rowType\": \"tender_opportunity_alert\",   \"billingEventName\": \"tender-opportunity-alert\",   \"watchId\": \"cloud-modernization\",   \"changeType\": \"new_opportunity\",   \"opportunity\": {     \"source\": \"ted\",     \"opportunityType\": \"tender\",     \"title\": \"Cloud modernization services\",     \"buyer\": \"Example Ministry\",     \"deadline\": \"2026-08-15\",     \"status\": \"published\",     \"url\": \"https://ted.europa.eu/en/notice/-/detail/123456-2026\"   },   \"limitations\": [     \"Rows summarize public tender and grants data for human review.\"   ],   \"prohibitedInterpretations\": [     \"No bid-selection, legal, protest, or capture-strategy guidance.\"   ] }  Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is Government Tender & Grants Alert Report priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $6.00 / 1,000 Raw opportunity row ($0.006 per delivered raw-opportunity-row); $0.10 per Tender opportunity alert; $0.10 per Grant opportunity alert; $0.08 per Deadline or status change alert; $5.00 per Bid watch report; $7.00 per Tender export generated. No Actor Start. Raw opportunity row (raw-opportunity-row) $0.006: Charged for an optional raw public tender or grant opportunity row. Tender opportunity alert (tender-opportunity-alert) $0.10: Charged for a source-linked public tender opportunity matched to a watch. Grant opportunity alert (grant-opportunity-alert) $0.10: Charged for a source-linked public grants opportunity matched to a watch. Deadline or status change alert (deadline-change-alert) $0.08: Charged for a changed deadline or status on a previously tracked opportunity. Bid watch report (buyer-watch-report) $5.00: Charged for a generated source-linked tender and grants watch report. Tender export generated (tender-export-generated) $7.00: Charged for a generated export bundle for matching opportunities. Platform usage is listed as included on the Store pricing tab."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Government Tender &amp; Grants Alert Report</nav>
+    <h1>TED, Grants.gov, UK Contracts Finder, World Bank, optional SAM.gov</h1>
+    <p>Monitor public TED, Grants.gov, UK Contracts Finder, World Bank, and optional SAM.gov opportunities and generate source-linked tender, grant, deadline, report, and export rows.</p>
+    <p>Not a SAM.gov + TED bid-alert Actor focused on federal/EU tenders you already run (use TED, SAM.gov &amp; Grants Bid Alerts). Not a Grants.gov-only digest. Not an RFP rebid watch on URLs you paste. You supply watches. SAM.gov needs samApiKey when that source is enabled.</p>
+    <p class="price">from $6.00 / 1,000 Raw opportunity row ($0.006 per delivered raw-opportunity-row); $0.10 per Tender opportunity alert; $0.10 per Grant opportunity alert; $0.08 per Deadline or status change alert; $5.00 per Bid watch report; $7.00 per Tender export generated. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/government-tender-grants-monitor">Open Government Tender &amp; Grants Alert Report on Apify</a></p>
+
+    <h2>Government Tender &amp; Grants Alert Report, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/ted-sam-grants-bid-alerts/">TED, SAM.gov &amp; Grants Bid Alerts Scraper</a> for SAM.gov + TED bid alerts; Use <a href="/grants-gov-funding-digest/">Grants.gov Scraper</a> for Federal funding notices; Use <a href="/public-rfp-rebid-watch-report/">Public RFP Rebid Watch Report</a> for Public RFP pages you supply.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>TED, SAM.gov &amp; Grants Bid Alerts Scraper</th><th>Grants.gov Scraper</th><th>Public RFP Rebid Watch Report</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td><td>Multi-source tender/grant alerts for configured watches</td><td>SAM.gov + TED bid alerts</td><td>Federal funding notices</td><td>Public RFP pages you supply</td>
+        </tr>
+        <tr>
+          <td>Primary input</td><td>watches</td><td>keywords / notices</td><td>keywords</td><td>urls / watches</td>
+        </tr>
+        <tr>
+          <td>What it reads</td><td>Public TED, Grants.gov, Contracts Finder, World Bank; optional SAM.gov</td><td>SAM.gov / TED</td><td>Grants.gov</td><td>User-supplied RFP pages</td>
+        </tr>
+        <tr>
+          <td>Primary output</td><td>Alert, report, and export events</td><td>Bid-alert rows</td><td>Notice rows</td><td>Rebid report</td>
+        </tr>
+        <tr>
+          <td>Not this job</td><td>Not a SAM.gov + TED bid-alert Actor focused on federal/EU tenders you already run (use TED, SAM.gov &amp; Grants Bid Alerts). Not a Grants.gov-only digest. Not an RFP rebid watch on URLs you paste. You supply watches. SAM.gov needs samApiKey when that source is enabled.</td><td>Not a multi-source UK/World Bank watch pack.</td><td>Not TED/Contracts Finder/World Bank alerts.</td><td>Not TED/Grants.gov opportunity APIs.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/government-tender-grants-monitor</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>One keyword watch with generateReport/emitExport off at first</li>
+      <li>Use initialRunMode baseline_only to seed state</li>
+      <li>Add samApiKey only when the watches enable SAM.gov</li>
+    </ul>
+
+    <h2>How is Government Tender &amp; Grants Alert Report different from TED, SAM.gov &amp; Grants Bid Alerts Scraper and Grants.gov Scraper?</h2>
+    <p>Government Tender &amp; Grants Alert Report (taroyamada/government-tender-grants-monitor): Monitor public TED, Grants.gov, UK Contracts Finder, World Bank, and optional SAM.gov opportunities and generate source-linked tender, grant, deadline, report, and export rows. Not a SAM.gov + TED bid-alert Actor focused on federal/EU tenders you already run (use TED, SAM.gov &amp; Grants Bid Alerts). Not a Grants.gov-only digest. Not an RFP rebid watch on URLs you paste. You supply watches. SAM.gov needs samApiKey when that source is enabled. TED, SAM.gov &amp; Grants Bid Alerts Scraper is for SAM.gov + TED bid alerts (input keywords / notices; SAM.gov / TED; Bid-alert rows). Not a multi-source UK/World Bank watch pack. Grants.gov Scraper is for Federal funding notices (input keywords; Grants.gov; Notice rows). Not TED/Contracts Finder/World Bank alerts. Public RFP Rebid Watch Report is for Public RFP pages you supply (input urls / watches; User-supplied RFP pages; Rebid report). Not TED/Grants.gov opportunity APIs.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: watches. Published exampleRunInput is shown below.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run. Return sample value-event rows without fetching live sources.</td>
+        </tr>
+        <tr>
+          <td><code>watches</code></td>
+          <td>any[]</td>
+          <td><code>[{&quot;id&quot;: &quot;cloud-modernization&quot;, &quot;keywords&quot;: [&quot;cloud&quot;, &quot;cybersecurity&quot;], &quot;naicsCodes&quot;: [&quot;541512&quot;], &quot;cpvCodes&quot;: [&quot;72000000&quot;], &quot;deadlineWithinDays&quot;: 180}]</code></td>
+          <td>Watches. Keyword, CPV/NAICS, country, and source watches. Required for non-dry runs. Required.</td>
+        </tr>
+        <tr>
+          <td><code>sources</code></td>
+          <td>string[]</td>
+          <td><code>[&quot;ted&quot;, &quot;grants&quot;, &quot;uk&quot;, &quot;worldbank&quot;]</code></td>
+          <td>Sources. Public sources to query. SAM.gov is optional and requires samApiKey.</td>
+        </tr>
+        <tr>
+          <td><code>monitorKey</code></td>
+          <td>string</td>
+          <td><code>&quot;my-govcon-bid-watch&quot;</code></td>
+          <td>Monitor key. Stable key for stateful no-change monitoring.</td>
+        </tr>
+        <tr>
+          <td><code>initialRunMode</code></td>
+          <td>string enum</td>
+          <td><code>&quot;baseline_only&quot;</code></td>
+          <td>Initial run mode. baseline_only saves state and emits no billable rows. emit_backfill emits current matches for charged proof or first reports. enum: baseline_only, emit_backfill</td>
+        </tr>
+        <tr>
+          <td><code>emitUnchanged</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit unchanged rows. Keep false for recurring monitoring so unchanged runs write zero dataset rows and charge zero.</td>
+        </tr>
+        <tr>
+          <td><code>generateReport</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Generate watch report ($5). Opt-in: generate a source-linked buyer watch report row when alerts are found.</td>
+        </tr>
+        <tr>
+          <td><code>emitExport</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Generate export row ($7). Opt-in: generate a tender export row when alerts are found.</td>
+        </tr>
+        <tr>
+          <td><code>emitRawRows</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit raw opportunity rows. Optional low-priced raw rows. Main value is alert/report/export rows.</td>
+        </tr>
+        <tr>
+          <td><code>maxOpportunitiesPerWatch</code></td>
+          <td>integer</td>
+          <td><code>50</code></td>
+          <td>Max opportunities per watch. Maximum source records to normalize per watch before dedupe and alert/report generation. minimum=1 maximum=250</td>
+        </tr>
+        <tr>
+          <td><code>maxChargeUsd</code></td>
+          <td>number</td>
+          <td><code>25</code></td>
+          <td>Max charge USD. Fail closed before delivery if the estimated PPE charge would exceed this amount. minimum=0.1 maximum=250</td>
+        </tr>
+        <tr>
+          <td><code>samApiKey</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>SAM.gov API key. Optional user-supplied official SAM.gov API key. Leave empty to use TED, Grants.gov, UK Contracts Finder, and World Bank sources only.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  &quot;watches&quot;: [
+    {
+      &quot;id&quot;: &quot;cloud-modernization&quot;,
+      &quot;keywords&quot;: [
+        &quot;cloud&quot;,
+        &quot;cybersecurity&quot;
+      ],
+      &quot;naicsCodes&quot;: [
+        &quot;541512&quot;
+      ],
+      &quot;cpvCodes&quot;: [
+        &quot;72000000&quot;
+      ],
+      &quot;deadlineWithinDays&quot;: 180
+    }
+  ],
+  &quot;dryRun&quot;: false,
+  &quot;sources&quot;: [
+    &quot;ted&quot;,
+    &quot;grants&quot;,
+    &quot;uk&quot;,
+    &quot;worldbank&quot;
+  ],
+  &quot;monitorKey&quot;: &quot;my-govcon-bid-watch&quot;,
+  &quot;initialRunMode&quot;: &quot;baseline_only&quot;,
+  &quot;emitUnchanged&quot;: false,
+  &quot;generateReport&quot;: false,
+  &quot;emitExport&quot;: false,
+  &quot;emitRawRows&quot;: false,
+  &quot;maxOpportunitiesPerWatch&quot;: 50,
+  &quot;maxChargeUsd&quot;: 15
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/government-tender-grants-monitor">Run Government Tender &amp; Grants Alert Report on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON. Illustration:
+{
+  &quot;rowType&quot;: &quot;tender_opportunity_alert&quot;,
+  &quot;billingEventName&quot;: &quot;tender-opportunity-alert&quot;,
+  &quot;watchId&quot;: &quot;cloud-modernization&quot;,
+  &quot;changeType&quot;: &quot;new_opportunity&quot;,
+  &quot;opportunity&quot;: {
+    &quot;source&quot;: &quot;ted&quot;,
+    &quot;opportunityType&quot;: &quot;tender&quot;,
+    &quot;title&quot;: &quot;Cloud modernization services&quot;,
+    &quot;buyer&quot;: &quot;Example Ministry&quot;,
+    &quot;deadline&quot;: &quot;2026-08-15&quot;,
+    &quot;status&quot;: &quot;published&quot;,
+    &quot;url&quot;: &quot;https://ted.europa.eu/en/notice/-/detail/123456-2026&quot;
+  },
+  &quot;limitations&quot;: [
+    &quot;Rows summarize public tender and grants data for human review.&quot;
+  ],
+  &quot;prohibitedInterpretations&quot;: [
+    &quot;No bid-selection, legal, protest, or capture-strategy guidance.&quot;
+  ]
+}
+ Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is Government Tender &amp; Grants Alert Report priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $6.00 / 1,000 Raw opportunity row ($0.006 per delivered raw-opportunity-row); $0.10 per Tender opportunity alert; $0.10 per Grant opportunity alert; $0.08 per Deadline or status change alert; $5.00 per Bid watch report; $7.00 per Tender export generated. No Actor Start.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>raw-opportunity-row</code> (Raw opportunity row)</td>
+          <td>$0.006</td>
+          <td>Charged for an optional raw public tender or grant opportunity row.</td>
+        </tr>
+        <tr>
+          <td><code>tender-opportunity-alert</code> (Tender opportunity alert)</td>
+          <td>$0.10</td>
+          <td>Charged for a source-linked public tender opportunity matched to a watch.</td>
+        </tr>
+        <tr>
+          <td><code>grant-opportunity-alert</code> (Grant opportunity alert)</td>
+          <td>$0.10</td>
+          <td>Charged for a source-linked public grants opportunity matched to a watch.</td>
+        </tr>
+        <tr>
+          <td><code>deadline-change-alert</code> (Deadline or status change alert)</td>
+          <td>$0.08</td>
+          <td>Charged for a changed deadline or status on a previously tracked opportunity.</td>
+        </tr>
+        <tr>
+          <td><code>buyer-watch-report</code> (Bid watch report)</td>
+          <td>$5.00</td>
+          <td>Charged for a generated source-linked tender and grants watch report.</td>
+        </tr>
+        <tr>
+          <td><code>tender-export-generated</code> (Tender export generated)</td>
+          <td>$7.00</td>
+          <td>Charged for a generated export bundle for matching opportunities.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="price">from $6.00 / 1,000 Raw opportunity row ($0.006 per delivered raw-opportunity-row); $0.10 per Tender opportunity alert; $0.10 per Grant opportunity alert; $0.08 per Deadline or status change alert; $5.00 per Bid watch report; $7.00 per Tender export generated. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/government-tender-grants-monitor/pricing">See Government Tender &amp; Grants Alert Report pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>watches required</li>
+      <li>samApiKey only for SAM.gov source</li>
+      <li>Report and export are opt-in billed events</li>
+      <li>Not a full SAM entity graph</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/government-tender-grants-monitor">Open Government Tender &amp; Grants Alert Report on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/ted-sam-grants-bid-alerts/">TED, SAM.gov &amp; Grants Bid Alerts Scraper</a> — Not a multi-source UK/World Bank watch pack.</li>
+      <li><a href="/grants-gov-funding-digest/">Grants.gov Scraper</a> — Not TED/Contracts Finder/World Bank alerts.</li>
+      <li><a href="/public-rfp-rebid-watch-report/">Public RFP Rebid Watch Report</a> — Not TED/Grants.gov opportunity APIs.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

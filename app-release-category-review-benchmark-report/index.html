@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>App Store Release &amp; Review Benchmark — App Store and Google Play release and review regressions</title>
+  <meta name="description" content="taroyamada/app-release-category-review-benchmark-report. from $15.00 / 1,000 App benchmarked ($0.01 per delivered app-benchmarked); $0.10 per App review r…">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/app-release-category-review-benchmark-report/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is App Store Release & Review Benchmark different from App Review Regression & Release Report and App Release Review Regression Report?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "App Store Release & Review Benchmark (taroyamada/app-release-category-review-benchmark-report): Benchmark Apple App Store and Google Play releases, ratings, and review regressions. Deliver source-linked app comparisons, alerts, reports, and optional exports. Not a single-app release-regression monitor (use App Review Regression & Release Report). Not an ASO keyword/review scrape of listings you already know. You supply Apple App IDs and/or Google Play IDs. App Review Regression & Release Report is for One-app release vs review regression (input app IDs; Store listing + reviews; Regression report). Not a multi-app category benchmark pack. App Release Review Regression Report is for Release-linked review regression report (input app IDs; Store reviews; Regression report). Not a category benchmark export. App Store & Google Play Reviews & ASO Scraper is for Reviews and ASO fields (input app IDs; Store listing + reviews; Review/ASO rows). Not a category benchmark report."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: none (see live fields). Live schema fields: appleAppIds, appleCountries, googlePlayIds, language, reviewLimit, lookbackDays, releaseWindowDays, ratingRegressionThreshold, negativeShareThresholdPct, minRegressionReviews, runMode, monitorKey, initialRunMode, emitRawReviews, generateReport, maxChargeUsd, dryRun, watchlists, emitRawRows, emitUnchanged, generateExport. Benchmark Apple App Store and Google Play releases, ratings, and review regressions. Deliver source-linked app comparisons, alerts, reports, and optional exports. exampleRunInput keys: appleAppIds, appleCountries, language, reviewLimit, lookbackDays, releaseWindowDays, ratingRegressionThreshold, negativeShareThresholdPct. additionalProperties is false on the live schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: appleAppIds, appleCountries, language, reviewLimit, lookbackDays, releaseWindowDays, ratingRegressionThreshold, negativeShareThresholdPct. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Published README Output Example / Sample Output JSON. Illustration: {   \"rowType\": \"app_release_review_report\",   \"billingEventName\": \"app-category-benchmark-report\",   \"productKey\": \"app-store:us:284882215\",   \"productName\": \"Sample App\",   \"status\": \"urgent\",   \"summary\": \"A likely post-release review regression was detected.\",   \"reviewsAnalyzed\": 30,   \"releaseRegression\": {     \"status\": \"urgent\",     \"regressionPlatforms\": [       \"appStore\"     ]   },   \"recommendedActions\": [     \"Inspect crash complaints introduced after the latest release.\"   ],   \"sourceUrl\": \"https://apps.apple.com/us/app/id284882215\" }  Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is App Store Release & Review Benchmark priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $15.00 / 1,000 App benchmarked ($0.01 per delivered app-benchmarked); $0.10 per App review regression; $3.00 per App category benchmark report; $2.00 per App benchmark export. No Actor Start. App benchmarked (app-benchmarked) $0.01: Charged only when a app benchmarked row is delivered. App review regression (app-review-regression) $0.10: Charged only when a app review regression row is delivered. App category benchmark report (app-category-benchmark-report) $3.00: Charged only when a app category benchmark report row is delivered. App benchmark export (app-benchmark-export) $2.00: Charged only when a app benchmark export row is delivered. Platform usage is listed as included on the Store pricing tab."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / App Store Release &amp; Review Benchmark</nav>
+    <h1>App Store and Google Play release and review regressions</h1>
+    <p>Benchmark Apple App Store and Google Play releases, ratings, and review regressions. Deliver source-linked app comparisons, alerts, reports, and optional exports.</p>
+    <p>Not a single-app release-regression monitor (use App Review Regression &amp; Release Report). Not an ASO keyword/review scrape of listings you already know. You supply Apple App IDs and/or Google Play IDs.</p>
+    <p class="price">from $15.00 / 1,000 App benchmarked ($0.01 per delivered app-benchmarked); $0.10 per App review regression; $3.00 per App category benchmark report; $2.00 per App benchmark export. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/app-release-category-review-benchmark-report">Open App Store Release &amp; Review Benchmark on Apify</a></p>
+
+    <h2>App Store Release &amp; Review Benchmark, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/app-release-review-regression-monitor/">App Review Regression &amp; Release Report</a> for One-app release vs review regression; Use <a href="/app-release-review-regression-report/">App Release Review Regression Report</a> for Release-linked review regression report; Use <a href="/app-store-review-aso-scraper/">App Store &amp; Google Play Reviews &amp; ASO Scraper</a> for Reviews and ASO fields.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>App Review Regression &amp; Release Report</th><th>App Release Review Regression Report</th><th>App Store &amp; Google Play Reviews &amp; ASO Scraper</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td><td>Category release/review benchmark and regression alerts</td><td>One-app release vs review regression</td><td>Release-linked review regression report</td><td>Reviews and ASO fields</td>
+        </tr>
+        <tr>
+          <td>Primary input</td><td>appleAppIds</td><td>app IDs</td><td>app IDs</td><td>app IDs</td>
+        </tr>
+        <tr>
+          <td>What it reads</td><td>Public App Store and Google Play listing/review pages</td><td>Store listing + reviews</td><td>Store reviews</td><td>Store listing + reviews</td>
+        </tr>
+        <tr>
+          <td>Primary output</td><td>Benchmark, regression, report, and export events</td><td>Regression report</td><td>Regression report</td><td>Review/ASO rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td><td>Not a single-app release-regression monitor (use App Review Regression &amp; Release Report). Not an ASO keyword/review scrape of listings you already know. You supply Apple App IDs and/or Google Play IDs.</td><td>Not a multi-app category benchmark pack.</td><td>Not a category benchmark export.</td><td>Not a category benchmark report.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/app-release-category-review-benchmark-report</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>One Apple App ID with generateReport off and dryRun true first</li>
+      <li>Keep emitRawReviews off unless you need review rows</li>
+      <li>Raise reviewLimit only after the first live run</li>
+    </ul>
+
+    <h2>How is App Store Release &amp; Review Benchmark different from App Review Regression &amp; Release Report and App Release Review Regression Report?</h2>
+    <p>App Store Release &amp; Review Benchmark (taroyamada/app-release-category-review-benchmark-report): Benchmark Apple App Store and Google Play releases, ratings, and review regressions. Deliver source-linked app comparisons, alerts, reports, and optional exports. Not a single-app release-regression monitor (use App Review Regression &amp; Release Report). Not an ASO keyword/review scrape of listings you already know. You supply Apple App IDs and/or Google Play IDs. App Review Regression &amp; Release Report is for One-app release vs review regression (input app IDs; Store listing + reviews; Regression report). Not a multi-app category benchmark pack. App Release Review Regression Report is for Release-linked review regression report (input app IDs; Store reviews; Regression report). Not a category benchmark export. App Store &amp; Google Play Reviews &amp; ASO Scraper is for Reviews and ASO fields (input app IDs; Store listing + reviews; Review/ASO rows). Not a category benchmark report.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: none (see live fields). Published exampleRunInput is shown below.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>appleAppIds</code></td>
+          <td>string[]</td>
+          <td><code>[&quot;284882215&quot;]</code></td>
+          <td>Apple App IDs. Numeric Apple App Store IDs to analyze.</td>
+        </tr>
+        <tr>
+          <td><code>appleCountries</code></td>
+          <td>string[]</td>
+          <td><code>[&quot;us&quot;]</code></td>
+          <td>Apple storefront countries. Two-letter Apple storefront codes.</td>
+        </tr>
+        <tr>
+          <td><code>googlePlayIds</code></td>
+          <td>string[]</td>
+          <td><code>[]</code></td>
+          <td>Google Play package IDs. Google Play package names to analyze.</td>
+        </tr>
+        <tr>
+          <td><code>language</code></td>
+          <td>string</td>
+          <td><code>&quot;en_US&quot;</code></td>
+          <td>Google Play language. Locale used for Google Play listing requests.</td>
+        </tr>
+        <tr>
+          <td><code>reviewLimit</code></td>
+          <td>integer</td>
+          <td><code>5</code></td>
+          <td>Review samples per app. Maximum recent review samples analyzed per app and storefront. minimum=1 maximum=100</td>
+        </tr>
+        <tr>
+          <td><code>lookbackDays</code></td>
+          <td>integer</td>
+          <td><code>60</code></td>
+          <td>Review lookback days. Ignore sampled reviews older than this window. minimum=7 maximum=365</td>
+        </tr>
+        <tr>
+          <td><code>releaseWindowDays</code></td>
+          <td>integer</td>
+          <td><code>21</code></td>
+          <td>Release regression window. Days after a release treated as the regression window. minimum=3 maximum=90</td>
+        </tr>
+        <tr>
+          <td><code>ratingRegressionThreshold</code></td>
+          <td>number</td>
+          <td><code>0.35</code></td>
+          <td>Rating-drop threshold. Minimum average-rating drop that contributes to a regression signal. minimum=0.1 maximum=2</td>
+        </tr>
+        <tr>
+          <td><code>negativeShareThresholdPct</code></td>
+          <td>integer</td>
+          <td><code>35</code></td>
+          <td>Negative-review threshold (%). Negative review share that contributes to a regression signal. minimum=5 maximum=95</td>
+        </tr>
+        <tr>
+          <td><code>minRegressionReviews</code></td>
+          <td>integer</td>
+          <td><code>3</code></td>
+          <td>Minimum regression sample. Minimum post-release review sample before classifying a regression. minimum=1 maximum=20</td>
+        </tr>
+        <tr>
+          <td><code>runMode</code></td>
+          <td>string enum</td>
+          <td><code>&quot;monitor&quot;</code></td>
+          <td>Run mode. Audit generates a current report; monitor stores state and emits changes. enum: audit, monitor</td>
+        </tr>
+        <tr>
+          <td><code>monitorKey</code></td>
+          <td>string</td>
+          <td><code>&quot;starter-app-release-benchmark&quot;</code></td>
+          <td>Monitor key. Stable private state namespace for scheduled monitoring.</td>
+        </tr>
+        <tr>
+          <td><code>initialRunMode</code></td>
+          <td>string enum</td>
+          <td><code>&quot;emit_backfill&quot;</code></td>
+          <td>Initial run mode. Initial run mode for this run. enum: baseline_only, emit_backfill</td>
+        </tr>
+        <tr>
+          <td><code>emitRawReviews</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Include raw review samples. Emit optional review-level rows in addition to report rows.</td>
+        </tr>
+        <tr>
+          <td><code>generateReport</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Generate report. Generate one source-linked report for each analyzed app and storefront.</td>
+        </tr>
+        <tr>
+          <td><code>maxChargeUsd</code></td>
+          <td>number</td>
+          <td><code>0</code></td>
+          <td>Maximum charge (USD). Optional Actor-side spending cap; zero uses only the Apify run limit. minimum=0 maximum=1000</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Dry run. Return illustrative rows without live requests or billing.</td>
+        </tr>
+        <tr>
+          <td><code>watchlists</code></td>
+          <td>any[]</td>
+          <td><code>[]</code></td>
+          <td>Portfolio watchlists. Named portfolio watch definitions.</td>
+        </tr>
+        <tr>
+          <td><code>emitRawRows</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Emit raw rows. Emit optional review-level rows in addition to report rows.</td>
+        </tr>
+        <tr>
+          <td><code>emitUnchanged</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit unchanged. Emit unchanged for this run.</td>
+        </tr>
+        <tr>
+          <td><code>generateExport</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Generate benchmark export. Generate benchmark export for this run.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  &quot;appleAppIds&quot;: [
+    &quot;284882215&quot;
+  ],
+  &quot;appleCountries&quot;: [
+    &quot;us&quot;
+  ],
+  &quot;language&quot;: &quot;en_US&quot;,
+  &quot;reviewLimit&quot;: 5,
+  &quot;lookbackDays&quot;: 60,
+  &quot;releaseWindowDays&quot;: 21,
+  &quot;ratingRegressionThreshold&quot;: 0.35,
+  &quot;negativeShareThresholdPct&quot;: 35
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/app-release-category-review-benchmark-report">Run App Store Release &amp; Review Benchmark on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON. Illustration:
+{
+  &quot;rowType&quot;: &quot;app_release_review_report&quot;,
+  &quot;billingEventName&quot;: &quot;app-category-benchmark-report&quot;,
+  &quot;productKey&quot;: &quot;app-store:us:284882215&quot;,
+  &quot;productName&quot;: &quot;Sample App&quot;,
+  &quot;status&quot;: &quot;urgent&quot;,
+  &quot;summary&quot;: &quot;A likely post-release review regression was detected.&quot;,
+  &quot;reviewsAnalyzed&quot;: 30,
+  &quot;releaseRegression&quot;: {
+    &quot;status&quot;: &quot;urgent&quot;,
+    &quot;regressionPlatforms&quot;: [
+      &quot;appStore&quot;
+    ]
+  },
+  &quot;recommendedActions&quot;: [
+    &quot;Inspect crash complaints introduced after the latest release.&quot;
+  ],
+  &quot;sourceUrl&quot;: &quot;https://apps.apple.com/us/app/id284882215&quot;
+}
+ Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is App Store Release &amp; Review Benchmark priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $15.00 / 1,000 App benchmarked ($0.01 per delivered app-benchmarked); $0.10 per App review regression; $3.00 per App category benchmark report; $2.00 per App benchmark export. No Actor Start.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>app-benchmarked</code> (App benchmarked)</td>
+          <td>$0.01</td>
+          <td>Charged only when a app benchmarked row is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>app-review-regression</code> (App review regression)</td>
+          <td>$0.10</td>
+          <td>Charged only when a app review regression row is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>app-category-benchmark-report</code> (App category benchmark report)</td>
+          <td>$3.00</td>
+          <td>Charged only when a app category benchmark report row is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>app-benchmark-export</code> (App benchmark export)</td>
+          <td>$2.00</td>
+          <td>Charged only when a app benchmark export row is delivered.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="price">from $15.00 / 1,000 App benchmarked ($0.01 per delivered app-benchmarked); $0.10 per App review regression; $3.00 per App category benchmark report; $2.00 per App benchmark export. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/app-release-category-review-benchmark-report/pricing">See App Store Release &amp; Review Benchmark pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>No required array; supply appleAppIds and/or googlePlayIds</li>
+      <li>Public storefront pages only</li>
+      <li>Report and export are separate billed events</li>
+      <li>Not a private App Store Connect dump</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/app-release-category-review-benchmark-report">Open App Store Release &amp; Review Benchmark on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/app-release-review-regression-monitor/">App Review Regression &amp; Release Report</a> — Not a multi-app category benchmark pack.</li>
+      <li><a href="/app-release-review-regression-report/">App Release Review Regression Report</a> — Not a category benchmark export.</li>
+      <li><a href="/app-store-review-aso-scraper/">App Store &amp; Google Play Reviews &amp; ASO Scraper</a> — Not a category benchmark report.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

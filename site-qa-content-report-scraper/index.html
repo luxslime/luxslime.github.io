@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Site QA Content Report — Public pages audited for content-quality issues</title>
+  <meta name="description" content="taroyamada/site-qa-content-report-scraper. from $10.00 / 1,000 Site page extracted ($0.01 per delivered site-page-extracted); $0.08 per Site QA issue dete…">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/site-qa-content-report-scraper/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is Site QA Content Report different from Website Content Extractor and Article Content Extractor?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Site QA Content Report (taroyamada/site-qa-content-report-scraper): Audit public web pages for content quality issues and generate source-linked QA report rows. Not a page-to-markdown dump (use Website Content Extractor). Not article boilerplate cleanup (use Article Content Extractor). Not a RAG readiness scoring pack. You supply the URLs. Website Content Extractor is for One-shot page-to-markdown (input urls; Page HTML; Markdown/text). Not content-quality issue reports. Article Content Extractor is for News/blog HTML cleanup (input urls; Article HTML; Headline/byline/body). Not site QA content reports. Website RAG Readiness Audit is for RAG coverage and chunking risk (input urls / domain; Public pages; RAG snapshot/readiness reports). Not generic content-quality issue rows."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: urls. Live schema fields: urls, maxPages, maxLinksPerPage, emitPageRows, generateReport, emitExport, emitUnchanged, dryRun. Audit public web pages for content quality issues and generate source-linked QA report rows. exampleRunInput keys: urls, maxPages, maxLinksPerPage, dryRun. additionalProperties is not set to false on this schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: urls, maxPages, maxLinksPerPage, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Published README Output Example / Sample Output JSON. Illustration: {   \"rowType\": \"site_qa_report\",   \"billingEventName\": \"site-qa-report-generated\",   \"sourceUrl\": \"https://example.com/?siteQaCanary=content-v2\",   \"checkedUrlCount\": 1,   \"issueCount\": 2,   \"reportStatus\": \"action_needed\" }  Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is Site QA Content Report priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $10.00 / 1,000 Site page extracted ($0.01 per delivered site-page-extracted); $0.08 per Site QA issue detected; $5.00 per Site QA report generated; $7.00 per Site export generated. No Actor Start. Site page extracted (site-page-extracted) $0.01: Charged for each optional raw public page snapshot row. Site QA issue detected (site-qa-issue-detected) $0.08: Charged for each source-linked page QA issue row. Site QA report generated (site-qa-report-generated) $5.00: Charged for each site-level QA report row. Site export generated (site-export-generated) $7.00: Charged for each generated QA export row. Platform usage is listed as included on the Store pricing tab."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Site QA Content Report</nav>
+    <h1>Public pages audited for content-quality issues</h1>
+    <p>Audit public web pages for content quality issues and generate source-linked QA report rows.</p>
+    <p>Not a page-to-markdown dump (use Website Content Extractor). Not article boilerplate cleanup (use Article Content Extractor). Not a RAG readiness scoring pack. You supply the URLs.</p>
+    <p class="price">from $10.00 / 1,000 Site page extracted ($0.01 per delivered site-page-extracted); $0.08 per Site QA issue detected; $5.00 per Site QA report generated; $7.00 per Site export generated. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/site-qa-content-report-scraper">Open Site QA Content Report on Apify</a></p>
+
+    <h2>Site QA Content Report, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/website-content-extractor/">Website Content Extractor</a> for One-shot page-to-markdown; Use <a href="/article-content-extractor/">Article Content Extractor</a> for News/blog HTML cleanup; Use <a href="/website-rag-readiness-audit/">Website RAG Readiness Audit</a> for RAG coverage and chunking risk.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>Website Content Extractor</th><th>Article Content Extractor</th><th>Website RAG Readiness Audit</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td><td>Content-quality issues, report, and export on supplied pages</td><td>One-shot page-to-markdown</td><td>News/blog HTML cleanup</td><td>RAG coverage and chunking risk</td>
+        </tr>
+        <tr>
+          <td>Primary input</td><td>urls</td><td>urls</td><td>urls</td><td>urls / domain</td>
+        </tr>
+        <tr>
+          <td>What it reads</td><td>User-supplied public page HTML</td><td>Page HTML</td><td>Article HTML</td><td>Public pages</td>
+        </tr>
+        <tr>
+          <td>Primary output</td><td>Issue, report, and export events</td><td>Markdown/text</td><td>Headline/byline/body</td><td>RAG snapshot/readiness reports</td>
+        </tr>
+        <tr>
+          <td>Not this job</td><td>Not a page-to-markdown dump (use Website Content Extractor). Not article boilerplate cleanup (use Article Content Extractor). Not a RAG readiness scoring pack. You supply the URLs.</td><td>Not content-quality issue reports.</td><td>Not site QA content reports.</td><td>Not generic content-quality issue rows.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/site-qa-content-report-scraper</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Known public URLs with generateReport on and emitPageRows off</li>
+      <li>Keep emitExport off on a first live run</li>
+      <li>Repeat with emitUnchanged false so unchanged polls write zero rows</li>
+    </ul>
+
+    <h2>How is Site QA Content Report different from Website Content Extractor and Article Content Extractor?</h2>
+    <p>Site QA Content Report (taroyamada/site-qa-content-report-scraper): Audit public web pages for content quality issues and generate source-linked QA report rows. Not a page-to-markdown dump (use Website Content Extractor). Not article boilerplate cleanup (use Article Content Extractor). Not a RAG readiness scoring pack. You supply the URLs. Website Content Extractor is for One-shot page-to-markdown (input urls; Page HTML; Markdown/text). Not content-quality issue reports. Article Content Extractor is for News/blog HTML cleanup (input urls; Article HTML; Headline/byline/body). Not site QA content reports. Website RAG Readiness Audit is for RAG coverage and chunking risk (input urls / domain; Public pages; RAG snapshot/readiness reports). Not generic content-quality issue rows.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: urls. Published exampleRunInput is shown below.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>urls</code></td>
+          <td>any[]</td>
+          <td><code>[&quot;https://example.com/?siteQaCanary=content-v2&quot;]</code></td>
+          <td>Public page URLs. Public URLs that you are allowed to audit. Required.</td>
+        </tr>
+        <tr>
+          <td><code>maxPages</code></td>
+          <td>integer</td>
+          <td><code>10</code></td>
+          <td>Max pages. Maximum number of input pages to check. minimum=1 maximum=100</td>
+        </tr>
+        <tr>
+          <td><code>maxLinksPerPage</code></td>
+          <td>integer</td>
+          <td><code>25</code></td>
+          <td>Max links per page. Maximum links to check per page for URL health workflows. minimum=1 maximum=250</td>
+        </tr>
+        <tr>
+          <td><code>emitPageRows</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit raw page rows. Emit optional raw page snapshot rows in addition to value-event issue/report rows.</td>
+        </tr>
+        <tr>
+          <td><code>generateReport</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Generate report row. Generate a site-level report row.</td>
+        </tr>
+        <tr>
+          <td><code>emitExport</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Generate export row. Generate an export row for handoff workflows.</td>
+        </tr>
+        <tr>
+          <td><code>emitUnchanged</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit unchanged rows. When false, repeated unchanged runs emit zero rows and zero charges.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run. Emit local sample rows without charging.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  &quot;urls&quot;: [
+    &quot;https://example.com/?siteQaCanary=content-v2&quot;
+  ],
+  &quot;maxPages&quot;: 1,
+  &quot;maxLinksPerPage&quot;: 1,
+  &quot;dryRun&quot;: false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/site-qa-content-report-scraper">Run Site QA Content Report on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON. Illustration:
+{
+  &quot;rowType&quot;: &quot;site_qa_report&quot;,
+  &quot;billingEventName&quot;: &quot;site-qa-report-generated&quot;,
+  &quot;sourceUrl&quot;: &quot;https://example.com/?siteQaCanary=content-v2&quot;,
+  &quot;checkedUrlCount&quot;: 1,
+  &quot;issueCount&quot;: 2,
+  &quot;reportStatus&quot;: &quot;action_needed&quot;
+}
+ Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is Site QA Content Report priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $10.00 / 1,000 Site page extracted ($0.01 per delivered site-page-extracted); $0.08 per Site QA issue detected; $5.00 per Site QA report generated; $7.00 per Site export generated. No Actor Start.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>site-page-extracted</code> (Site page extracted)</td>
+          <td>$0.01</td>
+          <td>Charged for each optional raw public page snapshot row.</td>
+        </tr>
+        <tr>
+          <td><code>site-qa-issue-detected</code> (Site QA issue detected)</td>
+          <td>$0.08</td>
+          <td>Charged for each source-linked page QA issue row.</td>
+        </tr>
+        <tr>
+          <td><code>site-qa-report-generated</code> (Site QA report generated)</td>
+          <td>$5.00</td>
+          <td>Charged for each site-level QA report row.</td>
+        </tr>
+        <tr>
+          <td><code>site-export-generated</code> (Site export generated)</td>
+          <td>$7.00</td>
+          <td>Charged for each generated QA export row.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="price">from $10.00 / 1,000 Site page extracted ($0.01 per delivered site-page-extracted); $0.08 per Site QA issue detected; $5.00 per Site QA report generated; $7.00 per Site export generated. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/site-qa-content-report-scraper/pricing">See Site QA Content Report pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>You supply urls</li>
+      <li>urls required</li>
+      <li>Report and export are separate billed events</li>
+      <li>Not a full-site crawler beyond maxPages</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/site-qa-content-report-scraper">Open Site QA Content Report on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/website-content-extractor/">Website Content Extractor</a> — Not content-quality issue reports.</li>
+      <li><a href="/article-content-extractor/">Article Content Extractor</a> — Not site QA content reports.</li>
+      <li><a href="/website-rag-readiness-audit/">Website RAG Readiness Audit</a> — Not generic content-quality issue rows.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

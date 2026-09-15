@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FTC Enforcement Case Delta &amp; Report — Public FTC Cases and Proceedings changes you filter</title>
+  <meta name="description" content="taroyamada/ftc-enforcement-case-delta-report. from $6.00 / 1,000 FTC case row ($0.006 per delivered ftc-case-row); $0.20 per FTC case change alert; $12.00…">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/ftc-enforcement-case-delta-report/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is FTC Enforcement Case Delta & Report different from EPA ECHO Enforcement Scraper and Regulatory Alerts Scraper?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "FTC Enforcement Case Delta & Report (taroyamada/ftc-enforcement-case-delta-report): Track source-linked changes on the FTC public Cases and Proceedings page and receive structured case alerts, evidence summaries, and exports. Not EPA ECHO facility enforcement. Not a Federal Register digest. Not a general regulatory-alert scraper. No actor-start event on live PPE. EPA ECHO Enforcement Scraper is for EPA ECHO enforcement (input facilities / terms; ECHO public data; Enforcement rows). Not FTC case dockets. Regulatory Alerts Scraper is for Regulatory alert pages (input urls / terms; Public regulatory pages; Alert rows). Not FTC Cases and Proceedings. Federal Register Scraper is for Federal Register documents (input terms; Federal Register; Document rows). Not FTC enforcement cases."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: none (see live fields). Live schema fields: searchTerms, actionTypes, caseStatuses, updatedSince, maxPages, maxCases, monitorKey, initialRunMode, emitUnchanged, emitRawRows, generateReport, emitExport, maxChargeUsd, dryRun. Track source-linked changes on the FTC public Cases and Proceedings page and receive structured case alerts, evidence summaries, and exports. exampleRunInput keys: maxPages, maxCases, monitorKey, initialRunMode, emitUnchanged, emitRawRows, generateReport, emitExport. additionalProperties is false on the live schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: maxPages, maxCases, monitorKey, initialRunMode, emitUnchanged, emitRawRows, generateReport, emitExport. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is FTC Enforcement Case Delta & Report priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $6.00 / 1,000 FTC case row ($0.006 per delivered ftc-case-row); $0.20 per FTC case change alert; $12.00 per FTC enforcement evidence report; $8.00 per FTC case export. No Actor Start. FTC case row (ftc-case-row) $0.006: Charged for an optional source-linked changed FTC case row. FTC case change alert (ftc-case-change-alert) $0.20: Charged for each new or changed public FTC case alert. FTC enforcement evidence report (ftc-enforcement-report) $12.00: Charged for each source-linked FTC case change evidence report. FTC case export (ftc-export-generated) $8.00: Charged for each structured export of changed FTC case records and source links. Platform usage is listed as included on the Store pricing tab."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / FTC Enforcement Case Delta &amp; Report</nav>
+    <h1>Public FTC Cases and Proceedings changes you filter</h1>
+    <p>Track source-linked changes on the FTC public Cases and Proceedings page and receive structured case alerts, evidence summaries, and exports.</p>
+    <p>Not EPA ECHO facility enforcement. Not a Federal Register digest. Not a general regulatory-alert scraper. No actor-start event on live PPE.</p>
+    <p class="price">from $6.00 / 1,000 FTC case row ($0.006 per delivered ftc-case-row); $0.20 per FTC case change alert; $12.00 per FTC enforcement evidence report; $8.00 per FTC case export. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/ftc-enforcement-case-delta-report">Open FTC Enforcement Case Delta &amp; Report on Apify</a></p>
+
+    <h2>FTC Enforcement Case Delta &amp; Report, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/epa-enforcement-digest/">EPA ECHO Enforcement Scraper</a> for EPA ECHO enforcement; Use <a href="/regulatory-change-monitor/">Regulatory Alerts Scraper</a> for Regulatory alert pages; Use <a href="/federal-register-digest/">Federal Register Scraper</a> for Federal Register documents.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>EPA ECHO Enforcement Scraper</th><th>Regulatory Alerts Scraper</th><th>Federal Register Scraper</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td><td>FTC public case new/changed alerts and evidence reports</td><td>EPA ECHO enforcement</td><td>Regulatory alert pages</td><td>Federal Register documents</td>
+        </tr>
+        <tr>
+          <td>Primary input</td><td>searchTerms</td><td>facilities / terms</td><td>urls / terms</td><td>terms</td>
+        </tr>
+        <tr>
+          <td>What it reads</td><td>FTC Cases and Proceedings public list</td><td>ECHO public data</td><td>Public regulatory pages</td><td>Federal Register</td>
+        </tr>
+        <tr>
+          <td>Primary output</td><td>Case-row, change-alert, report, and export events</td><td>Enforcement rows</td><td>Alert rows</td><td>Document rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td><td>Not EPA ECHO facility enforcement. Not a Federal Register digest. Not a general regulatory-alert scraper. No actor-start event on live PPE.</td><td>Not FTC case dockets.</td><td>Not FTC Cases and Proceedings.</td><td>Not FTC enforcement cases.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/ftc-enforcement-case-delta-report</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>maxPages 1 and maxCases 3 with generateReport false first</li>
+      <li>Use initialRunMode baseline_only to seed state</li>
+      <li>README states the Actor never charges an actor-start event — live PPE matches (no start event)</li>
+    </ul>
+
+    <h2>How is FTC Enforcement Case Delta &amp; Report different from EPA ECHO Enforcement Scraper and Regulatory Alerts Scraper?</h2>
+    <p>FTC Enforcement Case Delta &amp; Report (taroyamada/ftc-enforcement-case-delta-report): Track source-linked changes on the FTC public Cases and Proceedings page and receive structured case alerts, evidence summaries, and exports. Not EPA ECHO facility enforcement. Not a Federal Register digest. Not a general regulatory-alert scraper. No actor-start event on live PPE. EPA ECHO Enforcement Scraper is for EPA ECHO enforcement (input facilities / terms; ECHO public data; Enforcement rows). Not FTC case dockets. Regulatory Alerts Scraper is for Regulatory alert pages (input urls / terms; Public regulatory pages; Alert rows). Not FTC Cases and Proceedings. Federal Register Scraper is for Federal Register documents (input terms; Federal Register; Document rows). Not FTC enforcement cases.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: none (see live fields). Published exampleRunInput is shown below.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>searchTerms</code></td>
+          <td>string[]</td>
+          <td><code>[]</code></td>
+          <td>Search terms. Match any term against the case title, summary, matter number, docket number, or case key.</td>
+        </tr>
+        <tr>
+          <td><code>actionTypes</code></td>
+          <td>string[]</td>
+          <td><code>[]</code></td>
+          <td>Action types. Exact case action types such as Federal or Administrative.</td>
+        </tr>
+        <tr>
+          <td><code>caseStatuses</code></td>
+          <td>string[]</td>
+          <td><code>[]</code></td>
+          <td>Case statuses. Exact case statuses such as Pending, Closed, or Under Order.</td>
+        </tr>
+        <tr>
+          <td><code>updatedSince</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Updated since. Optional ISO date. Only records with a source last-updated date on or after this value are watched.</td>
+        </tr>
+        <tr>
+          <td><code>maxPages</code></td>
+          <td>integer</td>
+          <td><code>1</code></td>
+          <td>Maximum pages. Number of public FTC list pages to fetch, from 1 to 10. minimum=1 maximum=10</td>
+        </tr>
+        <tr>
+          <td><code>maxCases</code></td>
+          <td>integer</td>
+          <td><code>50</code></td>
+          <td>Maximum cases. Maximum number of matched case records retained in one run. minimum=1 maximum=1000</td>
+        </tr>
+        <tr>
+          <td><code>monitorKey</code></td>
+          <td>string</td>
+          <td><code>&quot;default&quot;</code></td>
+          <td>Monitor key. Isolates state for a watchlist. Use a stable key for recurring runs.</td>
+        </tr>
+        <tr>
+          <td><code>initialRunMode</code></td>
+          <td>string enum</td>
+          <td><code>&quot;baseline_only&quot;</code></td>
+          <td>Initial run mode. baseline_only stores the snapshot for free; emit_backfill emits current matches as changes. enum: baseline_only, emit_backfill</td>
+        </tr>
+        <tr>
+          <td><code>emitUnchanged</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit unchanged. Retained for input compatibility. Unchanged monitoring remains zero-row and zero-charge.</td>
+        </tr>
+        <tr>
+          <td><code>emitRawRows</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit raw case rows. Add low-cost rows for changed cases in addition to alerts. Disabled by default.</td>
+        </tr>
+        <tr>
+          <td><code>generateReport</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Generate evidence report. Add one source-linked evidence summary when changes are detected.</td>
+        </tr>
+        <tr>
+          <td><code>emitExport</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Generate export event. Add one structured JSON export event when changes are detected.</td>
+        </tr>
+        <tr>
+          <td><code>maxChargeUsd</code></td>
+          <td>number</td>
+          <td><code>0</code></td>
+          <td>Maximum charge USD. The run emits no billable rows and does not commit state when its estimated price exceeds this cap. minimum=0</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run. Emit deterministic local examples without source requests, state changes, or billing.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  &quot;maxPages&quot;: 1,
+  &quot;maxCases&quot;: 3,
+  &quot;monitorKey&quot;: &quot;default&quot;,
+  &quot;initialRunMode&quot;: &quot;baseline_only&quot;,
+  &quot;emitUnchanged&quot;: false,
+  &quot;emitRawRows&quot;: false,
+  &quot;generateReport&quot;: false,
+  &quot;emitExport&quot;: false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/ftc-enforcement-case-delta-report">Run FTC Enforcement Case Delta &amp; Report on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is FTC Enforcement Case Delta &amp; Report priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $6.00 / 1,000 FTC case row ($0.006 per delivered ftc-case-row); $0.20 per FTC case change alert; $12.00 per FTC enforcement evidence report; $8.00 per FTC case export. No Actor Start.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>ftc-case-row</code> (FTC case row)</td>
+          <td>$0.006</td>
+          <td>Charged for an optional source-linked changed FTC case row.</td>
+        </tr>
+        <tr>
+          <td><code>ftc-case-change-alert</code> (FTC case change alert)</td>
+          <td>$0.20</td>
+          <td>Charged for each new or changed public FTC case alert.</td>
+        </tr>
+        <tr>
+          <td><code>ftc-enforcement-report</code> (FTC enforcement evidence report)</td>
+          <td>$12.00</td>
+          <td>Charged for each source-linked FTC case change evidence report.</td>
+        </tr>
+        <tr>
+          <td><code>ftc-export-generated</code> (FTC case export)</td>
+          <td>$8.00</td>
+          <td>Charged for each structured export of changed FTC case records and source links.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="price">from $6.00 / 1,000 FTC case row ($0.006 per delivered ftc-case-row); $0.20 per FTC case change alert; $12.00 per FTC enforcement evidence report; $8.00 per FTC case export. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/ftc-enforcement-case-delta-report/pricing">See FTC Enforcement Case Delta &amp; Report pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Live required array is empty</li>
+      <li>Public FTC list only</li>
+      <li>No Actor Start on live PPE</li>
+      <li>Unchanged polls write zero rows when emitUnchanged is false</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/ftc-enforcement-case-delta-report">Open FTC Enforcement Case Delta &amp; Report on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/epa-enforcement-digest/">EPA ECHO Enforcement Scraper</a> — Not FTC case dockets.</li>
+      <li><a href="/regulatory-change-monitor/">Regulatory Alerts Scraper</a> — Not FTC Cases and Proceedings.</li>
+      <li><a href="/federal-register-digest/">Federal Register Scraper</a> — Not FTC enforcement cases.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

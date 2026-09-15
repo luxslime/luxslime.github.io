@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LEI Entity Lifecycle Watch Report — GLEIF public LEI records for entities you name</title>
+  <meta name="description" content="taroyamada/lei-entity-lifecycle-watch-report. from $5.00 / 1,000 LEI entity row ($0.005 per delivered lei-entity-row); $0.20 per LEI lifecycle change aler…">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/lei-entity-lifecycle-watch-report/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is LEI Entity Lifecycle Watch Report different from RDAP Domain Expiry & Whois Scraper and SEC EDGAR Scraper?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "LEI Entity Lifecycle Watch Report (taroyamada/lei-entity-lifecycle-watch-report): Monitor GLEIF public LEI records for source-linked entity status, registration, renewal, and legal-name changes, then produce portfolio reports and optional exports. Not RDAP/whois domain expiry. Not SEC EDGAR filings. Not a vendor-registry pack. You supply LEIs or legal names. RDAP Domain Expiry & Whois Scraper is for RDAP registration records (input domains; RDAP; Expiry rows). Not GLEIF LEI lifecycle. SEC EDGAR Scraper is for 8-K and S-1 filing alerts (input tickers / CIKs; EDGAR; Filing rows). Not LEI registration status. Public Vendor Registry Intelligence is for Public vendor registries (input names / ids; Public registries; Vendor rows). Not GLEIF LEI records."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: none (see live fields). Live schema fields: leis, legalNames, countries, entityStatuses, registrationStatuses, pageSize, monitorKey, initialRunMode, generateReport, generateExport, emitRawRows, emitUnchanged, maxChargeUsd, dryRun. Monitor GLEIF public LEI records for source-linked entity status, registration, renewal, and legal-name changes, then produce portfolio reports and optional exports. exampleRunInput keys: leis, pageSize, monitorKey, initialRunMode, generateReport, generateExport, emitRawRows, emitUnchanged. additionalProperties is false on the live schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: leis, pageSize, monitorKey, initialRunMode, generateReport, generateExport, emitRawRows, emitUnchanged. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is LEI Entity Lifecycle Watch Report priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $5.00 / 1,000 LEI entity row ($0.005 per delivered lei-entity-row); $0.20 per LEI lifecycle change alert; $10.00 per LEI portfolio report; $6.00 per LEI export. No Actor Start. LEI entity row (lei-entity-row) $0.005: Charged only when a lei entity row row is delivered. LEI lifecycle change alert (lei-lifecycle-change-alert) $0.20: Charged only when a lei lifecycle change alert row is delivered. LEI portfolio report (lei-portfolio-report) $10.00: Charged only when a lei portfolio report row is delivered. LEI export (lei-export) $6.00: Charged only when a lei export row is delivered. Platform usage is listed as included on the Store pricing tab."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / LEI Entity Lifecycle Watch Report</nav>
+    <h1>GLEIF public LEI records for entities you name</h1>
+    <p>Monitor GLEIF public LEI records for source-linked entity status, registration, renewal, and legal-name changes, then produce portfolio reports and optional exports.</p>
+    <p>Not RDAP/whois domain expiry. Not SEC EDGAR filings. Not a vendor-registry pack. You supply LEIs or legal names.</p>
+    <p class="price">from $5.00 / 1,000 LEI entity row ($0.005 per delivered lei-entity-row); $0.20 per LEI lifecycle change alert; $10.00 per LEI portfolio report; $6.00 per LEI export. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/lei-entity-lifecycle-watch-report">Open LEI Entity Lifecycle Watch Report on Apify</a></p>
+
+    <h2>LEI Entity Lifecycle Watch Report, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/rdap-domain-monitor/">RDAP Domain Expiry &amp; Whois Scraper</a> for RDAP registration records; Use <a href="/sec-edgar-filings-monitor/">SEC EDGAR Scraper</a> for 8-K and S-1 filing alerts; Use <a href="/public-vendor-registry-intelligence/">Public Vendor Registry Intelligence</a> for Public vendor registries.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>RDAP Domain Expiry &amp; Whois Scraper</th><th>SEC EDGAR Scraper</th><th>Public Vendor Registry Intelligence</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td><td>LEI status/registration/name lifecycle alerts</td><td>RDAP registration records</td><td>8-K and S-1 filing alerts</td><td>Public vendor registries</td>
+        </tr>
+        <tr>
+          <td>Primary input</td><td>leis</td><td>domains</td><td>tickers / CIKs</td><td>names / ids</td>
+        </tr>
+        <tr>
+          <td>What it reads</td><td>GLEIF public LEI records</td><td>RDAP</td><td>EDGAR</td><td>Public registries</td>
+        </tr>
+        <tr>
+          <td>Primary output</td><td>Entity-row, lifecycle-alert, report, and export events</td><td>Expiry rows</td><td>Filing rows</td><td>Vendor rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td><td>Not RDAP/whois domain expiry. Not SEC EDGAR filings. Not a vendor-registry pack. You supply LEIs or legal names.</td><td>Not GLEIF LEI lifecycle.</td><td>Not LEI registration status.</td><td>Not GLEIF LEI records.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/lei-entity-lifecycle-watch-report</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>One LEI with generateReport/generateExport false first</li>
+      <li>Use initialRunMode baseline_only to seed state</li>
+      <li>Add legalNames only after a single-LEI path works</li>
+    </ul>
+
+    <h2>How is LEI Entity Lifecycle Watch Report different from RDAP Domain Expiry &amp; Whois Scraper and SEC EDGAR Scraper?</h2>
+    <p>LEI Entity Lifecycle Watch Report (taroyamada/lei-entity-lifecycle-watch-report): Monitor GLEIF public LEI records for source-linked entity status, registration, renewal, and legal-name changes, then produce portfolio reports and optional exports. Not RDAP/whois domain expiry. Not SEC EDGAR filings. Not a vendor-registry pack. You supply LEIs or legal names. RDAP Domain Expiry &amp; Whois Scraper is for RDAP registration records (input domains; RDAP; Expiry rows). Not GLEIF LEI lifecycle. SEC EDGAR Scraper is for 8-K and S-1 filing alerts (input tickers / CIKs; EDGAR; Filing rows). Not LEI registration status. Public Vendor Registry Intelligence is for Public vendor registries (input names / ids; Public registries; Vendor rows). Not GLEIF LEI records.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: none (see live fields). Published exampleRunInput is shown below.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>leis</code></td>
+          <td>string[]</td>
+          <td><code>[&quot;INR2EJN1ERAN0W5ZP974&quot;]</code></td>
+          <td>LEI codes. Up to 200 20-character LEI codes to monitor directly.</td>
+        </tr>
+        <tr>
+          <td><code>legalNames</code></td>
+          <td>string[]</td>
+          <td><code>[]</code></td>
+          <td>Legal names. Optional legal-name filters sent to the GLEIF search endpoint.</td>
+        </tr>
+        <tr>
+          <td><code>countries</code></td>
+          <td>string[]</td>
+          <td><code>[]</code></td>
+          <td>Countries. Optional two-letter country filters for legal addresses.</td>
+        </tr>
+        <tr>
+          <td><code>entityStatuses</code></td>
+          <td>string[]</td>
+          <td><code>[]</code></td>
+          <td>Entity statuses. Optional entity status filters such as ACTIVE or INACTIVE.</td>
+        </tr>
+        <tr>
+          <td><code>registrationStatuses</code></td>
+          <td>string[]</td>
+          <td><code>[]</code></td>
+          <td>Registration statuses. Optional LEI registration status filters such as ISSUED, LAPSED, or RETIRED.</td>
+        </tr>
+        <tr>
+          <td><code>pageSize</code></td>
+          <td>integer</td>
+          <td><code>25</code></td>
+          <td>Page size. Maximum records returned for each name or country search. minimum=1 maximum=100</td>
+        </tr>
+        <tr>
+          <td><code>monitorKey</code></td>
+          <td>string</td>
+          <td><code>&quot;default-lei-portfolio&quot;</code></td>
+          <td>Monitor key. Stable name for this portfolio. Keep it unchanged for recurring no-change detection.</td>
+        </tr>
+        <tr>
+          <td><code>initialRunMode</code></td>
+          <td>string enum</td>
+          <td><code>&quot;baseline_only&quot;</code></td>
+          <td>Initial run mode. baseline_only stores the first snapshot with zero rows; emit_backfill emits the initial portfolio. enum: baseline_only, emit_backfill</td>
+        </tr>
+        <tr>
+          <td><code>generateReport</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Generate portfolio report. Emit the report row first when a baseline or lifecycle change is available.</td>
+        </tr>
+        <tr>
+          <td><code>generateExport</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Generate export manifest. Emit a normalized export manifest on a changed run. No file is created outside the actor output.</td>
+        </tr>
+        <tr>
+          <td><code>emitRawRows</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit entity rows for changed records. Emit the normalized entity row alongside lifecycle alerts. Report output remains first.</td>
+        </tr>
+        <tr>
+          <td><code>emitUnchanged</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit unchanged rows. Leave false for recurring monitoring so an unchanged run has zero rows and zero charges.</td>
+        </tr>
+        <tr>
+          <td><code>maxChargeUsd</code></td>
+          <td>number</td>
+          <td><code>25</code></td>
+          <td>Maximum run charge. The actor refuses delivery before any row is pushed if the configured event prices exceed this amount. minimum=0.005 maximum=500</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run. Emit one sample of every billable event without external calls, state writes, or charges.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  &quot;leis&quot;: [
+    &quot;INR2EJN1ERAN0W5ZP974&quot;
+  ],
+  &quot;pageSize&quot;: 1,
+  &quot;monitorKey&quot;: &quot;default-lei-portfolio&quot;,
+  &quot;initialRunMode&quot;: &quot;baseline_only&quot;,
+  &quot;generateReport&quot;: false,
+  &quot;generateExport&quot;: false,
+  &quot;emitRawRows&quot;: false,
+  &quot;emitUnchanged&quot;: false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/lei-entity-lifecycle-watch-report">Run LEI Entity Lifecycle Watch Report on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is LEI Entity Lifecycle Watch Report priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $5.00 / 1,000 LEI entity row ($0.005 per delivered lei-entity-row); $0.20 per LEI lifecycle change alert; $10.00 per LEI portfolio report; $6.00 per LEI export. No Actor Start.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>lei-entity-row</code> (LEI entity row)</td>
+          <td>$0.005</td>
+          <td>Charged only when a lei entity row row is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>lei-lifecycle-change-alert</code> (LEI lifecycle change alert)</td>
+          <td>$0.20</td>
+          <td>Charged only when a lei lifecycle change alert row is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>lei-portfolio-report</code> (LEI portfolio report)</td>
+          <td>$10.00</td>
+          <td>Charged only when a lei portfolio report row is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>lei-export</code> (LEI export)</td>
+          <td>$6.00</td>
+          <td>Charged only when a lei export row is delivered.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="price">from $5.00 / 1,000 LEI entity row ($0.005 per delivered lei-entity-row); $0.20 per LEI lifecycle change alert; $10.00 per LEI portfolio report; $6.00 per LEI export. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/lei-entity-lifecycle-watch-report/pricing">See LEI Entity Lifecycle Watch Report pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>Live required array is empty; supply leis or legalNames</li>
+      <li>Public GLEIF only</li>
+      <li>Report and export are opt-in</li>
+      <li>Not a company-house filing scrape</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/lei-entity-lifecycle-watch-report">Open LEI Entity Lifecycle Watch Report on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/rdap-domain-monitor/">RDAP Domain Expiry &amp; Whois Scraper</a> — Not GLEIF LEI lifecycle.</li>
+      <li><a href="/sec-edgar-filings-monitor/">SEC EDGAR Scraper</a> — Not LEI registration status.</li>
+      <li><a href="/public-vendor-registry-intelligence/">Public Vendor Registry Intelligence</a> — Not GLEIF LEI records.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Multi-Cloud Pricing Cost Impact Report — Normalized AWS and Azure public prices for scenarios you define</title>
+  <meta name="description" content="taroyamada/multi-cloud-pricing-cost-impact-report. from $6.00 / 1,000 Multi-cloud price row ($0.006 per delivered multi-cloud-price-row); $0.20 per Multi-…">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/multi-cloud-pricing-cost-impact-report/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is Multi-Cloud Pricing Cost Impact Report different from AWS Cloud Pricing Cost Impact Report and Azure Retail Price Cost Impact Report?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Multi-Cloud Pricing Cost Impact Report (taroyamada/multi-cloud-pricing-cost-impact-report): Compare official AWS public price-list and Azure Retail Prices data for explicitly normalized workload scenarios. Get source-linked cross-provider cost comparison reports and optional exports. Not an AWS-only SKU watch. Not an Azure-only retail watch. Not AI API token prices. You supply normalized scenarios. AWS Cloud Pricing Cost Impact Report is for AWS public offer files (input scopes; AWS price list; SKU change / cost-impact rows). Not a cross-cloud scenario compare. Azure Retail Price Cost Impact Report is for Azure Retail Prices public API (input scopes; Azure Retail Prices; Price-change / cost-impact rows). Not a cross-cloud scenario compare. AI API Pricing & Model Lifecycle Report is for OpenAI/Anthropic/Gemini public pages (input providers; Official API pricing pages; Model price / lifecycle rows). Not AWS/Azure IaaS SKUs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: scenarios. Live schema fields: scenarios, monitorKey, initialRunMode, generateReport, emitRawRows, emitExport, emitUnchanged, maxPagesPerScope, maxItemsPerProvider, maxChargeUsd, dryRun. Compare official AWS public price-list and Azure Retail Prices data for explicitly normalized workload scenarios. Get source-linked cross-provider cost comparison reports and optional exports. exampleRunInput keys: scenarios, maxPagesPerScope, maxItemsPerProvider, maxChargeUsd, dryRun. additionalProperties is false on the live schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: scenarios, maxPagesPerScope, maxItemsPerProvider, maxChargeUsd, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is Multi-Cloud Pricing Cost Impact Report priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $6.00 / 1,000 Multi-cloud price row ($0.006 per delivered multi-cloud-price-row); $0.20 per Multi-cloud price change alert; $12.00 per Multi-cloud cost comparison report; $8.00 per Multi-cloud pricing export. No Actor Start. Multi-cloud price row (multi-cloud-price-row) $0.006: Charged only when a multi-cloud price row row is delivered. Multi-cloud price change alert (multi-cloud-price-change-alert) $0.20: Charged only when a multi-cloud price change alert row is delivered. Multi-cloud cost comparison report (multi-cloud-cost-comparison-report) $12.00: Charged only when a multi-cloud cost comparison report row is delivered. Multi-cloud pricing export (multi-cloud-pricing-export) $8.00: Charged only when a multi-cloud pricing export row is delivered. Platform usage is listed as included on the Store pricing tab."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Multi-Cloud Pricing Cost Impact Report</nav>
+    <h1>Normalized AWS and Azure public prices for scenarios you define</h1>
+    <p>Compare official AWS public price-list and Azure Retail Prices data for explicitly normalized workload scenarios. Get source-linked cross-provider cost comparison reports and optional exports.</p>
+    <p>Not an AWS-only SKU watch. Not an Azure-only retail watch. Not AI API token prices. You supply normalized scenarios.</p>
+    <p class="price">from $6.00 / 1,000 Multi-cloud price row ($0.006 per delivered multi-cloud-price-row); $0.20 per Multi-cloud price change alert; $12.00 per Multi-cloud cost comparison report; $8.00 per Multi-cloud pricing export. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/multi-cloud-pricing-cost-impact-report">Open Multi-Cloud Pricing Cost Impact Report on Apify</a></p>
+
+    <h2>Multi-Cloud Pricing Cost Impact Report, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/aws-cloud-pricing-cost-impact-report/">AWS Cloud Pricing Cost Impact Report</a> for AWS public offer files; Use <a href="/azure-retail-price-cost-impact-report/">Azure Retail Price Cost Impact Report</a> for Azure Retail Prices public API; Use <a href="/ai-api-pricing-model-lifecycle-report/">AI API Pricing &amp; Model Lifecycle Report</a> for OpenAI/Anthropic/Gemini public pages.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>AWS Cloud Pricing Cost Impact Report</th><th>Azure Retail Price Cost Impact Report</th><th>AI API Pricing &amp; Model Lifecycle Report</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td><td>Cross-cloud public price comparison for named scenarios</td><td>AWS public offer files</td><td>Azure Retail Prices public API</td><td>OpenAI/Anthropic/Gemini public pages</td>
+        </tr>
+        <tr>
+          <td>Primary input</td><td>scenarios</td><td>scopes</td><td>scopes</td><td>providers</td>
+        </tr>
+        <tr>
+          <td>What it reads</td><td>AWS public price-list and Azure Retail Prices</td><td>AWS price list</td><td>Azure Retail Prices</td><td>Official API pricing pages</td>
+        </tr>
+        <tr>
+          <td>Primary output</td><td>Price-row, change-alert, comparison report, and export events</td><td>SKU change / cost-impact rows</td><td>Price-change / cost-impact rows</td><td>Model price / lifecycle rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td><td>Not an AWS-only SKU watch. Not an Azure-only retail watch. Not AI API token prices. You supply normalized scenarios.</td><td>Not a cross-cloud scenario compare.</td><td>Not a cross-cloud scenario compare.</td><td>Not AWS/Azure IaaS SKUs.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/multi-cloud-pricing-cost-impact-report</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>One object-storage scenario with generateReport off first</li>
+      <li>Keep maxItemsPerProvider bounded</li>
+      <li>Use initialRunMode baseline_only to seed state</li>
+    </ul>
+
+    <h2>How is Multi-Cloud Pricing Cost Impact Report different from AWS Cloud Pricing Cost Impact Report and Azure Retail Price Cost Impact Report?</h2>
+    <p>Multi-Cloud Pricing Cost Impact Report (taroyamada/multi-cloud-pricing-cost-impact-report): Compare official AWS public price-list and Azure Retail Prices data for explicitly normalized workload scenarios. Get source-linked cross-provider cost comparison reports and optional exports. Not an AWS-only SKU watch. Not an Azure-only retail watch. Not AI API token prices. You supply normalized scenarios. AWS Cloud Pricing Cost Impact Report is for AWS public offer files (input scopes; AWS price list; SKU change / cost-impact rows). Not a cross-cloud scenario compare. Azure Retail Price Cost Impact Report is for Azure Retail Prices public API (input scopes; Azure Retail Prices; Price-change / cost-impact rows). Not a cross-cloud scenario compare. AI API Pricing &amp; Model Lifecycle Report is for OpenAI/Anthropic/Gemini public pages (input providers; Official API pricing pages; Model price / lifecycle rows). Not AWS/Azure IaaS SKUs.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: scenarios. Published exampleRunInput is shown below.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>scenarios</code></td>
+          <td>any[]</td>
+          <td><code>[]</code></td>
+          <td>Comparable workload scenarios. Each scenario must define one AWS selector, one Azure selector, the provider quantities, a shared normalized unit/quantity, and explicit comparison assumptions. Required.</td>
+        </tr>
+        <tr>
+          <td><code>monitorKey</code></td>
+          <td>string</td>
+          <td><code>&quot;multi-cloud-finops-watch&quot;</code></td>
+          <td>Monitor key. Stable state namespace for the same scenario portfolio.</td>
+        </tr>
+        <tr>
+          <td><code>initialRunMode</code></td>
+          <td>string enum</td>
+          <td><code>&quot;baseline_only&quot;</code></td>
+          <td>Initial run mode. Store a free baseline or emit the current comparison. enum: baseline_only, emit_current</td>
+        </tr>
+        <tr>
+          <td><code>generateReport</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Generate comparison report. Generate one source-linked comparison report when current or changed prices are emitted.</td>
+        </tr>
+        <tr>
+          <td><code>emitRawRows</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit provider price rows. Optional low-cost provider rows. Reports and alerts remain the primary output.</td>
+        </tr>
+        <tr>
+          <td><code>emitExport</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Generate pricing export. Generate a compact JSON export with the comparison.</td>
+        </tr>
+        <tr>
+          <td><code>emitUnchanged</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit unchanged rows. Accepted for compatibility; unchanged runs always emit zero rows and zero charges.</td>
+        </tr>
+        <tr>
+          <td><code>maxPagesPerScope</code></td>
+          <td>integer</td>
+          <td><code>2</code></td>
+          <td>Maximum Azure pages per scenario. Maximum official Azure continuation pages fetched per scenario. minimum=1 maximum=5</td>
+        </tr>
+        <tr>
+          <td><code>maxItemsPerProvider</code></td>
+          <td>integer</td>
+          <td><code>20</code></td>
+          <td>Maximum matched rows per provider. Maximum exact public price matches retained per provider. minimum=1 maximum=100</td>
+        </tr>
+        <tr>
+          <td><code>maxChargeUsd</code></td>
+          <td>number</td>
+          <td><code>25</code></td>
+          <td>Maximum run charge USD. Fail closed before delivery if planned PAY_PER_EVENT charges exceed this cap. minimum=0 maximum=250</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run. Return representative rows for all event types without network, state, delivery, or charges.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  &quot;scenarios&quot;: [
+    {
+      &quot;id&quot;: &quot;object-storage-monthly&quot;,
+      &quot;workloadLabel&quot;: &quot;Object storage monthly capacity&quot;,
+      &quot;comparisonAssumptions&quot;: &quot;Compare the first public storage tier for the same monthly capacity. Requests, retrieval, replication, egress, discounts, tax, support, credits, and free tiers are excluded.&quot;,
+      &quot;normalizedUsage&quot;: {
+        &quot;unit&quot;: &quot;storage-gb-month&quot;,
+        &quot;quantity&quot;: 1000
+      },
+      &quot;aws&quot;: {
+        &quot;serviceCode&quot;: &quot;AmazonS3&quot;,
+        &quot;region&quot;: &quot;us-east-1&quot;,
+        &quot;selectors&quot;: {
+          &quot;productFamily&quot;: &quot;Storage&quot;,
+          &quot;unit&quot;: &quot;GB-Mo&quot;,
+          &quot;descriptionIncludes&quot;: [
+            &quot;first 50 TB&quot;
+          ],
+          &quot;attributes&quot;: {
+            &quot;storageClass&quot;: &quot;General Purpose&quot;,
+            &quot;volumeType&quot;: &quot;Standard&quot;
+          }
+        },
+        &quot;usage&quot;: {
+          &quot;quantity&quot;: 1000,
+          &quot;unit&quot;: &quot;GB-Mo&quot;,
+          &quot;mappingNote&quot;: &quot;One thousand GB-months is the normalized monthly capacity for this example.&quot;
+        }
+      },
+      &quot;azure&quot;: {
+        &quot;serviceName&quot;: &quot;Storage&quot;,
+        &quot;armRegionName&quot;: &quot;eastus&quot;,
+        &quot;selectors&quot;: {
+          &quot;meterName&quot;: &quot;Hot LRS Data Stored&quot;,
+          &quot;productName&quot;: &quot;Blob Storage&quot;,
+          &quot;priceType&quot;: &quot;Consumption&quot;,
+          &quot;tierMinimumUnits&quot;: 0
+        },
+        &quot;usage&quot;: {
+          &quot;quantity&quot;: 1000,
+          &quot;unit&quot;: &quot;1 GB/Month&quot;,
+          &quot;mappingNote&quot;: &quot;The Azure first storage tier is mapped to the same one thousand storage GB-months.&quot;
+        }
+      }
+    }
+  ],
+  &quot;maxPagesPerScope&quot;: 2,
+  &quot;maxItemsPerProvider&quot;: 3,
+  &quot;maxChargeUsd&quot;: 3,
+  &quot;dryRun&quot;: false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/multi-cloud-pricing-cost-impact-report">Run Multi-Cloud Pricing Cost Impact Report on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is Multi-Cloud Pricing Cost Impact Report priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $6.00 / 1,000 Multi-cloud price row ($0.006 per delivered multi-cloud-price-row); $0.20 per Multi-cloud price change alert; $12.00 per Multi-cloud cost comparison report; $8.00 per Multi-cloud pricing export. No Actor Start.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>multi-cloud-price-row</code> (Multi-cloud price row)</td>
+          <td>$0.006</td>
+          <td>Charged only when a multi-cloud price row row is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>multi-cloud-price-change-alert</code> (Multi-cloud price change alert)</td>
+          <td>$0.20</td>
+          <td>Charged only when a multi-cloud price change alert row is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>multi-cloud-cost-comparison-report</code> (Multi-cloud cost comparison report)</td>
+          <td>$12.00</td>
+          <td>Charged only when a multi-cloud cost comparison report row is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>multi-cloud-pricing-export</code> (Multi-cloud pricing export)</td>
+          <td>$8.00</td>
+          <td>Charged only when a multi-cloud pricing export row is delivered.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="price">from $6.00 / 1,000 Multi-cloud price row ($0.006 per delivered multi-cloud-price-row); $0.20 per Multi-cloud price change alert; $12.00 per Multi-cloud cost comparison report; $8.00 per Multi-cloud pricing export. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/multi-cloud-pricing-cost-impact-report/pricing">See Multi-Cloud Pricing Cost Impact Report pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>scenarios required</li>
+      <li>Public AWS + Azure prices only</li>
+      <li>Report and export are opt-in</li>
+      <li>Not GCP or private quotes</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/multi-cloud-pricing-cost-impact-report">Open Multi-Cloud Pricing Cost Impact Report on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/aws-cloud-pricing-cost-impact-report/">AWS Cloud Pricing Cost Impact Report</a> — Not a cross-cloud scenario compare.</li>
+      <li><a href="/azure-retail-price-cost-impact-report/">Azure Retail Price Cost Impact Report</a> — Not a cross-cloud scenario compare.</li>
+      <li><a href="/ai-api-pricing-model-lifecycle-report/">AI API Pricing &amp; Model Lifecycle Report</a> — Not AWS/Azure IaaS SKUs.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>

@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FDA 510(k) Device Clearance Landscape Report — Official FDA 510(k) clearances matching watches you set</title>
+  <meta name="description" content="taroyamada/fda-510k-device-clearance-landscape-report. from $4.00 / 1,000 FDA 510(k) row ($0.004 per delivered fda-510k-row); $0.20 per FDA clearance chan…">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/fda-510k-device-clearance-landscape-report/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is FDA 510(k) Device Clearance Landscape Report different from FDA Warning Letters Scraper and USPTO Patent Search Scraper?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "FDA 510(k) Device Clearance Landscape Report (taroyamada/fda-510k-device-clearance-landscape-report): Monitor official FDA 510(k) device clearance records. Generate source-linked change alerts, landscape reports, and optional exports. Not FDA warning letters. Not USPTO patents. Not a ClinicalTrials.gov pipeline. You supply watches against public 510(k) data. FDA Warning Letters Scraper is for FDA warning-letter pages (input search terms; FDA warning letters; Letter rows). Not 510(k) clearance landscape. USPTO Patent Search Scraper is for USPTO patent search (input queries; USPTO public search; Patent rows). Not FDA device clearances. ClinicalTrials.gov Sponsor Pipeline Scraper is for Sponsor study inventory (input sponsors / conditions; ClinicalTrials.gov; Study rows). Not 510(k) device clearances."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What input is required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live required fields: watches. Live schema fields: watches, monitorKey, initialRunMode, generateReport, emitRawRows, emitExport, emitUnchanged, maxRecordsPerWatch, maxChargeUsd, openfdaApiKey, dryRun. Monitor official FDA 510(k) device clearance records. Generate source-linked change alerts, landscape reports, and optional exports. exampleRunInput keys: watches, maxRecordsPerWatch, maxChargeUsd, dryRun. additionalProperties is false on the live schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best first run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the published Store example run input below. exampleRunInput keys: watches, maxRecordsPerWatch, maxChargeUsd, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a result contain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do dataset, webhook, and dry-run delivery work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is FDA 510(k) Device Clearance Landscape Report priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Billing is pay per event. Live Store card: from $4.00 / 1,000 FDA 510(k) row ($0.004 per delivered fda-510k-row); $0.20 per FDA clearance change alert; $10.00 per FDA clearance landscape report; $6.00 per FDA clearance export. No Actor Start. FDA 510(k) row (fda-510k-row) $0.004: Charged only when a fda 510(k) row row is delivered. FDA clearance change alert (fda-clearance-change-alert) $0.20: Charged only when a fda clearance change alert row is delivered. FDA clearance landscape report (fda-clearance-landscape-report) $10.00: Charged only when a fda clearance landscape report row is delivered. FDA clearance export (fda-clearance-export) $6.00: Charged only when a fda clearance export row is delivered. Platform usage is listed as included on the Store pricing tab."
+      }
+    }
+  ]
+}
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / FDA 510(k) Device Clearance Landscape Report</nav>
+    <h1>Official FDA 510(k) clearances matching watches you set</h1>
+    <p>Monitor official FDA 510(k) device clearance records. Generate source-linked change alerts, landscape reports, and optional exports.</p>
+    <p>Not FDA warning letters. Not USPTO patents. Not a ClinicalTrials.gov pipeline. You supply watches against public 510(k) data.</p>
+    <p class="price">from $4.00 / 1,000 FDA 510(k) row ($0.004 per delivered fda-510k-row); $0.20 per FDA clearance change alert; $10.00 per FDA clearance landscape report; $6.00 per FDA clearance export. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/fda-510k-device-clearance-landscape-report">Open FDA 510(k) Device Clearance Landscape Report on Apify</a></p>
+
+    <h2>FDA 510(k) Device Clearance Landscape Report, not a neighboring Actor</h2>
+    <p>Use this page for this Actor’s job. Use <a href="/fda-warning-letter-digest/">FDA Warning Letters Scraper</a> for FDA warning-letter pages; Use <a href="/uspto-patent-scraper/">USPTO Patent Search Scraper</a> for USPTO patent search; Use <a href="/clinical-trials-pipeline-monitor/">ClinicalTrials.gov Sponsor Pipeline Scraper</a> for Sponsor study inventory.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>This Actor</th><th>FDA Warning Letters Scraper</th><th>USPTO Patent Search Scraper</th><th>ClinicalTrials.gov Sponsor Pipeline Scraper</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intent</td><td>510(k) clearance landscape and change alerts</td><td>FDA warning-letter pages</td><td>USPTO patent search</td><td>Sponsor study inventory</td>
+        </tr>
+        <tr>
+          <td>Primary input</td><td>watches</td><td>search terms</td><td>queries</td><td>sponsors / conditions</td>
+        </tr>
+        <tr>
+          <td>What it reads</td><td>Official FDA 510(k) public records</td><td>FDA warning letters</td><td>USPTO public search</td><td>ClinicalTrials.gov</td>
+        </tr>
+        <tr>
+          <td>Primary output</td><td>Record, alert, report, and export events</td><td>Letter rows</td><td>Patent rows</td><td>Study rows</td>
+        </tr>
+        <tr>
+          <td>Not this job</td><td>Not FDA warning letters. Not USPTO patents. Not a ClinicalTrials.gov pipeline. You supply watches against public 510(k) data.</td><td>Not 510(k) clearance landscape.</td><td>Not FDA device clearances.</td><td>Not 510(k) device clearances.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Store ID: <code>taroyamada/fda-510k-device-clearance-landscape-report</code>. Respect source terms, robots.txt, and rate limits.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>One product/applicant watch with generateReport off first</li>
+      <li>Use initialRunMode baseline_only to seed state</li>
+      <li>Turn report/export on after the watch is stable</li>
+    </ul>
+
+    <h2>How is FDA 510(k) Device Clearance Landscape Report different from FDA Warning Letters Scraper and USPTO Patent Search Scraper?</h2>
+    <p>FDA 510(k) Device Clearance Landscape Report (taroyamada/fda-510k-device-clearance-landscape-report): Monitor official FDA 510(k) device clearance records. Generate source-linked change alerts, landscape reports, and optional exports. Not FDA warning letters. Not USPTO patents. Not a ClinicalTrials.gov pipeline. You supply watches against public 510(k) data. FDA Warning Letters Scraper is for FDA warning-letter pages (input search terms; FDA warning letters; Letter rows). Not 510(k) clearance landscape. USPTO Patent Search Scraper is for USPTO patent search (input queries; USPTO public search; Patent rows). Not FDA device clearances. ClinicalTrials.gov Sponsor Pipeline Scraper is for Sponsor study inventory (input sponsors / conditions; ClinicalTrials.gov; Study rows). Not 510(k) device clearances.</p>
+
+    <h2>What input is required?</h2>
+    <p>Live required fields: watches. Published exampleRunInput is shown below.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>watches</code></td>
+          <td>any[]</td>
+          <td><code>[]</code></td>
+          <td>510(k) watches. Bounded saved searches by applicant, product code, device name, medical specialty, review panel, clearance type, decision code, regulation number, or decision date. Required.</td>
+        </tr>
+        <tr>
+          <td><code>monitorKey</code></td>
+          <td>string</td>
+          <td><code>&quot;fda-510k-clearance-watch&quot;</code></td>
+          <td>Monitor key. Stable isolated state namespace for a recurring saved clearance watch.</td>
+        </tr>
+        <tr>
+          <td><code>initialRunMode</code></td>
+          <td>string enum</td>
+          <td><code>&quot;baseline_only&quot;</code></td>
+          <td>Initial run mode. baseline_only stores the first observation with zero rows; emit_backfill emits current matches for an explicit first report. enum: baseline_only, emit_backfill</td>
+        </tr>
+        <tr>
+          <td><code>generateReport</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Generate clearance landscape report. Generate one aggregate applicant/product-code/specialty landscape report when new or changed observations are emitted.</td>
+        </tr>
+        <tr>
+          <td><code>emitRawRows</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit 510(k) rows. Emit one normalized public 510(k) row for each new or changed record. This is the low-priced row event.</td>
+        </tr>
+        <tr>
+          <td><code>emitExport</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Generate clearance export. Generate a compact JSON-ready export when new or changed observations are emitted.</td>
+        </tr>
+        <tr>
+          <td><code>emitUnchanged</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Emit unchanged observations. Accepted for compatibility, but unchanged observations always remain zero rows and zero charge for billing safety.</td>
+        </tr>
+        <tr>
+          <td><code>maxRecordsPerWatch</code></td>
+          <td>integer</td>
+          <td><code>100</code></td>
+          <td>Maximum records per watch. Maximum records requested from openFDA per watch. The official API maximum is 1000. minimum=1 maximum=1000</td>
+        </tr>
+        <tr>
+          <td><code>maxChargeUsd</code></td>
+          <td>number</td>
+          <td><code>25</code></td>
+          <td>Maximum charge USD. Fail closed before pushing any row if planned PPE charges exceed this cap. minimum=0.004 maximum=250</td>
+        </tr>
+        <tr>
+          <td><code>openfdaApiKey</code></td>
+          <td>string</td>
+          <td><code>empty</code></td>
+          <td>Optional openFDA API key. Optional user-supplied free openFDA key. Leave blank: normal use does not require a key. The key is never written to output or state.</td>
+        </tr>
+        <tr>
+          <td><code>dryRun</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>Dry run. Return representative event rows without calling openFDA, saving state, or charging PPE events.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Published Store example run input (omitted fields take schema defaults):</p>
+<pre><code>{
+  &quot;watches&quot;: [
+    {
+      &quot;id&quot;: &quot;diagnostic-imaging-2026&quot;,
+      &quot;productCodes&quot;: [
+        &quot;LLZ&quot;
+      ],
+      &quot;decisionDateFrom&quot;: &quot;2026-01-01&quot;,
+      &quot;decisionDateTo&quot;: &quot;2026-12-31&quot;
+    }
+  ],
+  &quot;maxRecordsPerWatch&quot;: 3,
+  &quot;maxChargeUsd&quot;: 3,
+  &quot;dryRun&quot;: false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/fda-510k-device-clearance-landscape-report">Run FDA 510(k) Device Clearance Landscape Report on Apify</a></p>
+
+    <h2>How do dataset, webhook, and dry-run delivery work?</h2>
+    <p>Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE.</p>
+
+    <h2>What does a result contain?</h2>
+    <p>Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page.</p>
+
+    <h2>How is FDA 510(k) Device Clearance Landscape Report priced?</h2>
+    <p>Billing is pay per event. The live Store card is <strong>from $4.00 / 1,000 FDA 510(k) row ($0.004 per delivered fda-510k-row); $0.20 per FDA clearance change alert; $10.00 per FDA clearance landscape report; $6.00 per FDA clearance export. No Actor Start.</strong> Current PPE:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Price</th>
+          <th>Emitted when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>fda-510k-row</code> (FDA 510(k) row)</td>
+          <td>$0.004</td>
+          <td>Charged only when a fda 510(k) row row is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>fda-clearance-change-alert</code> (FDA clearance change alert)</td>
+          <td>$0.20</td>
+          <td>Charged only when a fda clearance change alert row is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>fda-clearance-landscape-report</code> (FDA clearance landscape report)</td>
+          <td>$10.00</td>
+          <td>Charged only when a fda clearance landscape report row is delivered.</td>
+        </tr>
+        <tr>
+          <td><code>fda-clearance-export</code> (FDA clearance export)</td>
+          <td>$6.00</td>
+          <td>Charged only when a fda clearance export row is delivered.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="price">from $4.00 / 1,000 FDA 510(k) row ($0.004 per delivered fda-510k-row); $0.20 per FDA clearance change alert; $10.00 per FDA clearance landscape report; $6.00 per FDA clearance export. No Actor Start.</p>
+    <p><a href="https://apify.com/taroyamada/fda-510k-device-clearance-landscape-report/pricing">See FDA 510(k) Device Clearance Landscape Report pricing on Apify</a></p>
+
+    <h2>Limits to keep in mind</h2>
+    <ul>
+      <li>watches required</li>
+      <li>Public FDA 510(k) only</li>
+      <li>Report and export are opt-in</li>
+      <li>Not PMA or De Novo full-text dumps unless the live schema says so</li>
+      <li>Respect source terms, robots.txt, and rate limits.</li>
+    </ul>
+    <p><a href="https://apify.com/taroyamada/fda-510k-device-clearance-landscape-report">Open FDA 510(k) Device Clearance Landscape Report on Apify</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/fda-warning-letter-digest/">FDA Warning Letters Scraper</a> — Not 510(k) clearance landscape.</li>
+      <li><a href="/uspto-patent-scraper/">USPTO Patent Search Scraper</a> — Not FDA device clearances.</li>
+      <li><a href="/clinical-trials-pipeline-monitor/">ClinicalTrials.gov Sponsor Pipeline Scraper</a> — Not 510(k) device clearances.</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+  </main>
+</body>
+</html>
