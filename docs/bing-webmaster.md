@@ -1,6 +1,6 @@
 # Bing and IndexNow
 
-This repo does **not** include an IndexNow key file (`/{uuid}.txt`). Do not invent a key.
+IndexNow host verification key: [`/e2ef17c5-a13e-4514-a855-7edb33baa8d6.txt`](https://apify.momiji-space.com/e2ef17c5-a13e-4514-a855-7edb33baa8d6.txt) (same value in [`/indexnow-key.txt`](https://apify.momiji-space.com/indexnow-key.txt)).
 
 ## Public URL lists
 
@@ -17,7 +17,7 @@ After a Pages deploy, ping Bing with the sitemap URL:
 https://www.bing.com/ping?sitemap=https://apify.momiji-space.com/sitemap.xml
 ```
 
-Also submit `sitemap.xml` and `bing-urls.txt` in Bing Webmaster Tools. If an IndexNow key is added later, place the key file at `/{key}.txt` on this host and POST changed URLs to `https://api.indexnow.org/indexnow`.
+Also submit `sitemap.xml` and `bing-urls.txt` in Bing Webmaster Tools. To notify IndexNow of changed URLs, POST to `https://api.indexnow.org/indexnow` with `host` `apify.momiji-space.com`, `key` from the verification file, and `keyLocation` `https://apify.momiji-space.com/e2ef17c5-a13e-4514-a855-7edb33baa8d6.txt`.
 
 Priority landings for Article / G2 / SAM.gov head queries:
 
