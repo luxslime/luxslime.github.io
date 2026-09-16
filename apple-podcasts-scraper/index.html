@@ -145,6 +145,8 @@
     tr:last-child td { border-bottom: 0; }
     img.sample { max-width: 100%; height: auto; display: block; margin: 0 0 16px; border: 1px solid #d9dde5; background: #fff; }
     .price { color: #202223; }
+    .demo-embed { position: relative; width: 100%; height: 0; padding-bottom: 56.25%; margin: 0 0 16px; overflow: hidden; border: 1px solid #d9dde5; background: #000; }
+    .demo-embed iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
   </style>
 </head>
 <body>
@@ -156,6 +158,19 @@
     <p class="price">Try Input: search + limit 3 ≈ $0.0125 total (incl. Start $0.005). From $2.50/1k. No API key. CSV/JSON.</p>
     <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Try the cheapest first paid Apple Podcasts / iTunes search on Apify Input</a></p>
     <p><a href="https://apify.com/taroyamada/apple-podcast-scraper">Open taroyamada/apple-podcast-scraper on the Apify Store</a></p>
+
+    <h2>Demo</h2>
+    <p>Watch a short walkthrough of a search run on Apify. Then follow <a href="#how-to-start-a-run">How to start a run</a> with the search + limit 3 input below.</p>
+    <div class="demo-embed">
+      <iframe
+        src="https://www.youtube.com/embed/Nk4Q2r9Jl7A"
+        title="Apple Podcasts Scraper demo on YouTube"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen
+        loading="lazy"
+        referrerpolicy="strict-origin-when-cross-origin"></iframe>
+    </div>
+    <p><a href="https://www.youtube.com/watch?v=Nk4Q2r9Jl7A">Open the demo on YouTube</a></p>
 
     <h2>Search versus charts and reviews</h2>
     <p>Use this page when the job is finding shows by keyword, snapshotting a <code>chartRequests</code> ranking, refreshing known collection IDs, or attaching recent episode titles. Use <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> for Top Podcasts ranks and optional movement reports. Use <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> for public ratings and review text on IDs you already have.</p>
@@ -383,7 +398,7 @@
     <h2>What should I do with collection IDs after a search run?</h2>
     <p>Pass collection IDs into <code>lookupIds</code> for a watchlist refresh through the iTunes Lookup API. You can take an ID from an Apple Podcasts URL (<code>id290783428</code> → <code>290783428</code>). Use those IDs as <code>podcastIds</code> on <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> if you need public ratings. This Actor does not emit review rows or rank-movement reports from a search run.</p>
 
-    <h2>How to start a run</h2>
+    <h2 id="how-to-start-a-run">How to start a run</h2>
     <ol>
       <li>Open <a href="https://apify.com/taroyamada/apple-podcast-scraper/input">taroyamada/apple-podcast-scraper Input</a> on the Apify Store.</li>
       <li>Paste the search JSON above: <code>searchTerm</code> <code>technology</code>, <code>country</code> <code>us</code>, <code>limit</code> 3, <code>includeEpisodes</code> false.</li>
