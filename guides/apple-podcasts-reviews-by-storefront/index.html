@@ -60,7 +60,7 @@
         "name": "Does this export chart ranks or a keyword search?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "No. additionalProperties is false: searchTerm, chartRequests, and lookupIds are rejected. Get collection IDs first from Apple Podcasts search (live default limit 3, not 50). Chart rank movement belongs on the chart-rank movement guide. This page is reviews RSS by storefront."
+          "text": "No. additionalProperties is false: searchTerm, chartRequests, and lookupIds are rejected. Get collection IDs first from Apple Podcasts search Input at apify.com/taroyamada/apple-podcast-scraper/input (live default limit 3, not 50). Chart rank movement belongs on the chart-rank movement guide. This page is reviews RSS by storefront."
         }
       },
       {
@@ -153,13 +153,13 @@
         </tr>
       </tbody>
     </table>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor/pricing">See live pricing on the Store card</a></p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor/input">Open Input → Start (podcastIds)</a></p>
 
     <h2>What empty vs billed looks like</h2>
     <ul>
       <li><code>sourceUrl</code> on each row is the official RSS URL for that <code>podcastId</code> + <code>country</code> + <code>page</code>.</li>
       <li>A failed show/country pair is reported in <code>meta.warnings</code>; other pairs still deliver.</li>
-      <li>Need collection IDs first? Keyword search on <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> uses live default <code>limit</code> <strong>3</strong> (not 50). Search CSV: <a href="/guides/export-apple-podcasts-search-csv/">export search results to CSV</a>.</li>
+      <li>Need collection IDs first? Open <a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Apple Podcasts search Input</a> (live default <code>limit</code> <strong>3</strong>, not 50). Search CSV: <a href="/guides/export-apple-podcasts-search-csv/">export search results to CSV</a>.</li>
     </ul>
 
     <h2>What this page is not</h2>
@@ -186,7 +186,7 @@
     <p>No. The Actor reads public Customer Reviews RSS JSON only. No Apple ID, cookie, or private dashboard. You do need an account on the run platform to click Start. It is not affiliated with or endorsed by Apple. Review text is public source material; do not use it to target individual reviewers.</p>
 
     <h2>Does this export chart ranks or a keyword search?</h2>
-    <p>No. <code>additionalProperties</code> is false: <code>searchTerm</code>, <code>chartRequests</code>, and <code>lookupIds</code> are rejected. Get collection IDs first from Apple Podcasts search (live default <code>limit</code> <strong>3</strong>, not 50). Chart rank movement belongs on the <a href="/guides/apple-podcasts-chart-rank-movement/">chart-rank movement guide</a>. This page is reviews RSS by storefront.</p>
+    <p>No. <code>additionalProperties</code> is false: <code>searchTerm</code>, <code>chartRequests</code>, and <code>lookupIds</code> are rejected. Get collection IDs first from <a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Apple Podcasts search Input</a> (live default <code>limit</code> <strong>3</strong>, not 50). Chart rank movement belongs on the <a href="/guides/apple-podcasts-chart-rank-movement/">chart-rank movement guide</a>. This page is reviews RSS by storefront.</p>
 
     <h2>What columns are on a review row after CSV export?</h2>
     <p><code>rowType</code> <code>podcast_review</code>. Fields include <code>podcastId</code>, <code>country</code>, <code>page</code>, <code>reviewerName</code>, <code>rating</code>, <code>title</code>, <code>content</code>, <code>version</code>, <code>voteCount</code>, <code>updated</code>, <code>reviewId</code>, <code>sourceUrl</code> (the RSS URL used for that row), and <code>fetchedAt</code>. <code>country</code> is the storefront you requested. Empty storefronts simply omit rows.</p>
