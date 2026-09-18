@@ -61,7 +61,11 @@
     <p><a href="https://apify.com/taroyamada/procurement-intel-actor/input">Try the cheapest first paid SAM.gov / TED / grants run on Apify Input</a></p>
     <p><a href="https://apify.com/taroyamada/procurement-intel-actor">Open taroyamada/procurement-intel-actor on the Apify Store</a>
       ·
-      <a href="/guides/sam-gov-grants-scraper-first-paid-run/">Cheapest first paid run</a></p>
+      <a href="/guides/sam-gov-grants-scraper-first-paid-run/">Cheapest first paid run</a>
+      ·
+      <a href="/guides/sam-gov-naics-bid-alerts-csv/">NAICS CSV</a>
+      ·
+      <a href="/guides/ted-sam-bid-desk-deadlines/">TED + SAM desk</a></p>
 
     <h2>What the bid-alert queue returns</h2>
     <p>A normal run returns four published surfaces: <code>meta.executiveSummary</code> (queue size, top buyers, review urgency, source mix, and <code>overallStatus</code> <code>stable</code>, <code>watch</code>, or <code>action_needed</code>), <code>notices[]</code> (normalized rows with <code>source</code>, <code>noticeId</code>, <code>title</code>, <code>buyer</code>, <code>deadlineAt</code>, <code>estimatedValue</code>, <code>signalTags</code>, <code>lanePriority</code>, and <code>recommendedAction</code>), <code>alerts[]</code> (deadline, status, closing-soon, award-watch, or rebid when enabled), and <code>warnings[]</code> / <code>errors[]</code> when a source is missing, throttled, or degraded. A partial source response is never presented as complete coverage.</p>
@@ -97,6 +101,8 @@
     <ul>
       <li><a href="/ted-sam-grants-bid-alerts/">SAM.gov Scraper Apify</a> — product landing for the sam.gov scraper apify query</li>
       <li><a href="/guides/sam-gov-grants-scraper-first-paid-run/">SAM.gov scraper &amp; grants scraper: cheapest first paid run</a></li>
+      <li><a href="/guides/sam-gov-naics-bid-alerts-csv/">Get SAM.gov NAICS bid alerts as CSV without building the API</a></li>
+      <li><a href="/guides/ted-sam-bid-desk-deadlines/">TED and SAM bid desk deadlines and CPV alerts in one CSV queue</a></li>
       <li><a href="/google-news-scraper/">Google News Scraper Apify</a> — news RSS, not procurement notice APIs</li>
       <li><a href="/pubmed-literature-watch/">PubMed Literature Watch &amp; Research Report</a> — citation watch, not bid queues</li>
       <li><a href="/hhs-healthcare-data-breach-scraper/">HHS Healthcare Data Breach Change Scraper</a> — HHS OCR disclosures</li>
