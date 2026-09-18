@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TED and SAM bid desk deadlines and CPV alerts in one CSV queue</title>
+  <meta name="description" content="One CSV queue for TED and SAM bid-desk deadlines and CPV alerts. Start TED-only, then add us with a SAM.gov key. Open Input → Start. maxItemsPerSource 1 ≈ $0.008 per delivered row.">
+  <meta name="robots" content="index,follow">
+  <meta property="og:title" content="TED and SAM bid desk deadlines and CPV alerts in one CSV queue">
+  <meta property="og:description" content="TED CPV tenders and SAM.gov opportunities in one deadline queue as CSV. First proof: TED-only, maxItemsPerSource 1 ≈ $0.008. Empty queues are $0.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/ted-sam-bid-desk-deadlines/">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/ted-sam-bid-desk-deadlines/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Can TED and SAM deadlines sit in one CSV queue?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. jurisdictions is a comma-separated source list: eu for TED, us for SAM.gov, grants for Grants.gov. A combined desk uses eu,us plus a SAM.gov API key. Each notice row carries deadlineAt. daysAhead keeps notices closing inside that window (live default 7). Recurring alerts include deadline_changed, status_changed, and closing_soon. Export the default dataset as CSV."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need API keys for both TED and SAM?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "TED-only (jurisdictions eu) needs no external key. The US lane needs samApiKey from SAM.gov Account Details. If us is present without a key, the run warns and skips SAM.gov instead of failing the whole queue — TED rows can still deliver. grantsApiKey is optional for Grants.gov."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do CPV filters differ from NAICS filters?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "cpvCodes (live default 72000000,72220000) are optional TED CPV filters. naicsCodes (live default 541512,541519) are optional SAM.gov NAICS filters. keywords go to TED titles, SAM.gov titles, and Grants.gov queries. watchTerms highlight buyers or incumbents in summaries without changing upstream queries."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What deadline fields are in the CSV?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Notice rows include source, noticeId, title, buyer, deadlineAt, estimatedValue, signalTags, lanePriority, and recommendedAction. meta.executiveSummary reports queue size, top buyers, and overallStatus (stable, watch, or action_needed). Starter samples still return alerts: [] on a first queue; recurring runs add deadline and closing-soon events."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does a first combined queue cost?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Live PPE is $0.008 per delivered procurement opportunity or alert row ($8.00 / 1,000). No live start charge. First proof: TED-only, maxItemsPerSource 1 ≈ $0.008 if one row delivers. Empty queues are $0. A later eu,us run still bills per delivered row. The published Store Quickstart is TED-only with maxItemsPerSource 40 (40 × $0.008 = $0.32 if all 40 deliver)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Should I turn on the $5 report on the first desk run?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Leave generateReport and emitExport false. Live value events are procurement summary report $5 and opportunity export $7. The cheapest desk proof is raw opportunity rows only. Raise maxItemsPerSource after the first CSV looks like a bid desk."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is this a scrape of TED or SAM.gov HTML?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Schema-default endpoints are TED api.ted.europa.eu/v3/notices/search and SAM.gov api.sam.gov/opportunities/v2/search. It is not Google News RSS, not PubMed, and not page-HTML cleanup. A partial source response is never presented as complete coverage."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+    .note { font-size: 13px; color: #666; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Guides / TED and SAM bid-desk deadlines</nav>
+    <h1>TED and SAM bid desk deadlines and CPV alerts in one CSV queue</h1>
+    <p>Job: one spreadsheet for bid-desk deadlines — TED tenders (CPV) and SAM.gov opportunities — instead of two API clients. Start TED-only with no key. Add <code>us</code> when you have a SAM.gov API key. <code>deadlineAt</code> is on each notice row. Export the default dataset as CSV.</p>
+    <p>This page is the combined desk / deadline path, not a Store mirror. Product overview lives on <a href="/ted-sam-grants-bid-alerts/">TED, SAM.gov &amp; Grants Bid Alerts Scraper</a> (<code>taroyamada/procurement-intel-actor</code>). Official notice APIs only. Not an HTML scrape.</p>
+    <p class="price">Open Input → Start. TED-only × maxItemsPerSource 1 ≈ $0.008 if a row delivers. From $8.00 / 1,000 rows. No live start charge. Empty queues are $0.</p>
+    <p><a href="https://apify.com/taroyamada/procurement-intel-actor/input">Open SAM.gov / TED / grants Input → Start</a></p>
+
+    <h2>Start path: TED first, then SAM on the same desk</h2>
+    <ol>
+      <li>Open <a href="https://apify.com/taroyamada/procurement-intel-actor/input"><code>taroyamada/procurement-intel-actor</code> Input</a>. Sign in (an account is required to run).</li>
+      <li>First paid proof: <code>jurisdictions</code> <code>eu</code>, live <code>cpvCodes</code>, <code>daysAhead</code> 7, <code>maxItemsPerSource</code> <strong>1</strong>, report/export off. Click <strong>Start</strong> and inspect <code>deadlineAt</code>.</li>
+      <li>When TED rows look like a desk, set <code>jurisdictions</code> to <code>eu,us</code>, add <code>samApiKey</code>, keep <code>naicsCodes</code> or replace them. Leave <code>maxItemsPerSource</code> at 1 until the mixed CSV is useful.</li>
+      <li>Export <strong>CSV</strong> from the default dataset. Recurring runs can add deadline and closing-soon alerts.</li>
+    </ol>
+    <p>If <code>us</code> is present without a key, SAM.gov is skipped with a warning. TED can still deliver. That is a partial desk, not “full US coverage.”</p>
+    <p><a href="https://apify.com/taroyamada/procurement-intel-actor/input">Open Input → Start</a></p>
+
+    <h2>Cheapest TED proof, then a combined desk</h2>
+    <p>TED-only (no external key):</p>
+<pre><code>{
+  "jurisdictions": "eu",
+  "keywords": "cybersecurity",
+  "cpvCodes": "72000000,72220000",
+  "daysAhead": 7,
+  "maxItemsPerSource": 1,
+  "generateReport": false,
+  "emitExport": false,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p>Then, with a real SAM.gov key, the same desk plus the US lane:</p>
+<pre><code>{
+  "jurisdictions": "eu,us",
+  "keywords": "cybersecurity",
+  "cpvCodes": "72000000,72220000",
+  "naicsCodes": "541512,541519",
+  "daysAhead": 7,
+  "maxItemsPerSource": 1,
+  "samApiKey": "YOUR_SAM_GOV_API_KEY",
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p>Live PPE (copy only; Store prices unchanged): opportunity or alert row <strong>$0.008</strong>. No live start charge. Store card: From <strong>$8.00 / 1,000</strong> rows. Report <strong>$5</strong> and export <strong>$7</strong> stay off on the first desk run.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>TED (eu)</th>
+          <th>SAM.gov (us)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Filter field</td>
+          <td><code>cpvCodes</code> (default <code>72000000,72220000</code>)</td>
+          <td><code>naicsCodes</code> (default <code>541512,541519</code>)</td>
+        </tr>
+        <tr>
+          <td>API key</td>
+          <td>Not required</td>
+          <td><code>samApiKey</code> required; missing key skips US</td>
+        </tr>
+        <tr>
+          <td>Official endpoint</td>
+          <td><code>api.ted.europa.eu/v3/notices/search</code></td>
+          <td><code>api.sam.gov/opportunities/v2/search</code></td>
+        </tr>
+        <tr>
+          <td>Deadline</td>
+          <td colspan="2"><code>deadlineAt</code> on each notice; <code>daysAhead</code> window (default 7)</td>
+        </tr>
+        <tr>
+          <td>First paid cap</td>
+          <td colspan="2"><code>maxItemsPerSource</code> 1 ≈ $0.008 per delivered row</td>
+        </tr>
+      </tbody>
+    </table>
+    <p><code>minValue</code> defaults to 100000 and can empty the first queue — lower it or widen CPV before raising <code>maxItemsPerSource</code>. The published Store Quickstart is TED-only with <code>maxItemsPerSource</code> 40 (same rate; more row events if all 40 deliver).</p>
+    <p><a href="https://apify.com/taroyamada/procurement-intel-actor/input">Open Input → Start</a></p>
+
+    <h2>What this page is not</h2>
+    <ul>
+      <li>Not a Store mirror. Actor overview: <a href="/ted-sam-grants-bid-alerts/">TED, SAM.gov &amp; Grants Bid Alerts Scraper</a>.</li>
+      <li>Not a NAICS-only US CSV. That job is <a href="/guides/sam-gov-naics-bid-alerts-csv/">SAM.gov NAICS bid alerts as CSV</a>.</li>
+      <li>Not the grants-only cheapest cap. That path is <a href="/guides/sam-gov-grants-scraper-first-paid-run/">first paid run</a>.</li>
+      <li>Not post-award spend. That job is <a href="/government-contract-award-monitor/">Government Contract Award Change Report</a>.</li>
+    </ul>
+
+    <h2>Can TED and SAM deadlines sit in one CSV queue?</h2>
+    <p>Yes. <code>jurisdictions</code> is a comma-separated source list: <code>eu</code> for TED, <code>us</code> for SAM.gov, <code>grants</code> for Grants.gov. A combined desk uses <code>eu,us</code> plus a SAM.gov API key. Each notice row carries <code>deadlineAt</code>. <code>daysAhead</code> keeps notices closing inside that window (live default 7). Recurring alerts include <code>deadline_changed</code>, <code>status_changed</code>, and <code>closing_soon</code>. Export the default dataset as CSV.</p>
+
+    <h2>Do I need API keys for both TED and SAM?</h2>
+    <p>TED-only (<code>jurisdictions</code> <code>eu</code>) needs no external key. The US lane needs <code>samApiKey</code> from SAM.gov Account Details. If <code>us</code> is present without a key, the run warns and skips SAM.gov instead of failing the whole queue — TED rows can still deliver. <code>grantsApiKey</code> is optional for Grants.gov.</p>
+
+    <h2>How do CPV filters differ from NAICS filters?</h2>
+    <p><code>cpvCodes</code> (live default <code>72000000,72220000</code>) are optional TED CPV filters. <code>naicsCodes</code> (live default <code>541512,541519</code>) are optional SAM.gov NAICS filters. <code>keywords</code> go to TED titles, SAM.gov titles, and Grants.gov queries. <code>watchTerms</code> highlight buyers or incumbents in summaries without changing upstream queries. NAICS-only CSV: <a href="/guides/sam-gov-naics-bid-alerts-csv/">SAM.gov NAICS bid alerts</a>.</p>
+
+    <h2>What deadline fields are in the CSV?</h2>
+    <p>Notice rows include <code>source</code>, <code>noticeId</code>, <code>title</code>, <code>buyer</code>, <code>deadlineAt</code>, <code>estimatedValue</code>, <code>signalTags</code>, <code>lanePriority</code>, and <code>recommendedAction</code>. <code>meta.executiveSummary</code> reports queue size, top buyers, and <code>overallStatus</code> (<code>stable</code>, <code>watch</code>, or <code>action_needed</code>). Starter samples still return <code>alerts: []</code> on a first queue; recurring runs add deadline and closing-soon events.</p>
+
+    <h2>What does a first combined queue cost?</h2>
+    <p>Live PPE is $0.008 per delivered procurement opportunity or alert row ($8.00 / 1,000). No live start charge. First proof: TED-only, <code>maxItemsPerSource</code> 1 ≈ $0.008 if one row delivers. Empty queues are $0. A later <code>eu,us</code> run still bills per delivered row. The published Store Quickstart is TED-only with <code>maxItemsPerSource</code> 40 (40 × $0.008 = $0.32 if all 40 deliver).</p>
+
+    <h2>Should I turn on the $5 report on the first desk run?</h2>
+    <p>No. Leave <code>generateReport</code> and <code>emitExport</code> false. Live value events are procurement summary report $5 and opportunity export $7. The cheapest desk proof is raw opportunity rows only. Raise <code>maxItemsPerSource</code> after the first CSV looks like a bid desk.</p>
+
+    <h2>Is this a scrape of TED or SAM.gov HTML?</h2>
+    <p>No. Schema-default endpoints are TED <code>api.ted.europa.eu/v3/notices/search</code> and SAM.gov <code>api.sam.gov/opportunities/v2/search</code>. It is not Google News RSS, not PubMed, and not page-HTML cleanup. A partial source response is never presented as complete coverage.</p>
+
+    <p class="price">Open Input → Start. TED-only × maxItemsPerSource 1 ≈ $0.008 if a row delivers. From $8.00 / 1,000 rows. No live start charge. Empty queues are $0.</p>
+    <p><a href="https://apify.com/taroyamada/procurement-intel-actor/input">Open SAM.gov / TED / grants Input → Start</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/ted-sam-grants-bid-alerts/">TED, SAM.gov &amp; Grants Bid Alerts Scraper</a> — product landing</li>
+      <li><a href="/guides/sam-gov-naics-bid-alerts-csv/">SAM.gov NAICS bid alerts as CSV</a> — US lane only</li>
+      <li><a href="/guides/sam-gov-grants-scraper-first-paid-run/">Cheapest first paid run</a></li>
+      <li><a href="/use-cases/sam-gov-bid-alerts/">SAM.gov and TED bid-alert queue</a></li>
+      <li><a href="/government-tender-grants-monitor/">Government Tender &amp; Grants Alert Report</a> — multi-source watches</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+    <p class="note">Official TED and SAM.gov notice APIs only. Not an HTML scrape. Missing SAM.gov key skips US with a warning. Empty queues are not billed. Store prices unchanged on this page.</p>
+  </main>
+</body>
+</html>

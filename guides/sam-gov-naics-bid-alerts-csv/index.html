@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Get SAM.gov NAICS bid alerts as CSV without building the API</title>
+  <meta name="description" content="SAM.gov NAICS bid alerts as CSV without writing the opportunities API yourself. Open Input → Start. One US source × maxItemsPerSource 1 ≈ $0.008 if a row delivers. Empty queues are $0.">
+  <meta name="robots" content="index,follow">
+  <meta property="og:title" content="Get SAM.gov NAICS bid alerts as CSV without building the API">
+  <meta property="og:description" content="NAICS-filtered SAM.gov opportunities as CSV. Official notice API, not an HTML scrape. First run: us + maxItemsPerSource 1. Empty queues are $0.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/sam-gov-naics-bid-alerts-csv/">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/sam-gov-naics-bid-alerts-csv/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Can I get SAM.gov NAICS bid alerts as CSV without writing the API client?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. The US lane calls the official SAM.gov opportunities search API (api.sam.gov/opportunities/v2/search). You pass naicsCodes (comma-separated; live default 541512,541519), jurisdictions us, and a SAM.gov API key from Account Details. After Start, export the default dataset as CSV. You do not build or host that HTTP client yourself."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need a SAM.gov API key for NAICS alerts?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. samApiKey is required for the US lane. If us is present without a key, the run warns and skips SAM.gov instead of failing the whole job, which can emit zero rows and zero charges. The key comes from SAM.gov Account Details. This page is not a Grants.gov-only or TED-only first run."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which NAICS codes does the first run use?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Live schema default for naicsCodes is 541512,541519 (optional SAM.gov NAICS filters). Replace those codes with the codes you actually bid. keywords still go to SAM.gov titles. minValue defaults to 100000 and can empty a first queue — lower it or widen NAICS before raising maxItemsPerSource."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does a first NAICS CSV run cost?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Live pay-per-event is $0.008 per delivered procurement opportunity or alert row ($8.00 / 1,000). There is no live start charge. One US source × maxItemsPerSource 1 ≈ $0.008 if one row delivers. An empty queue emits zero rows and zero charges. Leave generateReport and emitExport false ($5 report / $7 export)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does this scrape the SAM.gov website?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. It searches the official opportunities API. It is not a scrape of SAM.gov HTML, not a custom REST client you maintain, and not Google News RSS. NAICS filters apply to the US federal opportunity lane only. TED CPV filters are a different field (cpvCodes)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Are empty NAICS queues billed?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. An empty result emits zero rows and zero charges. A missing SAM.gov key skips the US lane with a warning. Keep maxItemsPerSource at 1 until a source-linked row looks useful, then raise the cap."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does this CSV include TED CPV tenders?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Not on this page’s US-only first input (jurisdictions us). CPV codes filter TED. Combined TED + SAM deadlines in one queue belong on the TED and SAM bid-desk guide. Grants.gov is an additive lane (jurisdictions grants), not a NAICS filter."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+    .note { font-size: 13px; color: #666; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Guides / SAM.gov NAICS bid alerts CSV</nav>
+    <h1>Get SAM.gov NAICS bid alerts as CSV without building the API</h1>
+    <p>Job: filter public SAM.gov opportunities by NAICS and download them as a spreadsheet — without writing a client for <code>api.sam.gov/opportunities/v2/search</code>. Pass comma-separated <code>naicsCodes</code>, keep the first fetch at <code>maxItemsPerSource</code> 1, then export the default dataset as CSV.</p>
+    <p>This page is the NAICS-to-CSV path, not a Store mirror. Product overview lives on <a href="/ted-sam-grants-bid-alerts/">TED, SAM.gov &amp; Grants Bid Alerts Scraper</a> (<code>taroyamada/procurement-intel-actor</code>). It searches official notice APIs. It is not a SAM.gov HTML scrape.</p>
+    <p class="price">Open Input → Start. One US source × maxItemsPerSource 1 ≈ $0.008 if a row delivers. From $8.00 / 1,000 rows. No live start charge. Empty queues are $0.</p>
+    <p><a href="https://apify.com/taroyamada/procurement-intel-actor/input">Open SAM.gov / TED / grants Input → Start</a></p>
+
+    <h2>Start path: NAICS filter to CSV</h2>
+    <ol>
+      <li>Open <a href="https://apify.com/taroyamada/procurement-intel-actor/input"><code>taroyamada/procurement-intel-actor</code> Input</a>. Sign in (an account is required to run).</li>
+      <li>Set <code>jurisdictions</code> <code>us</code>, paste your SAM.gov API key into <code>samApiKey</code>, keep live <code>naicsCodes</code> or replace them with codes you bid, <code>maxItemsPerSource</code> <strong>1</strong>, <code>delivery</code> <code>dataset</code>, <code>dryRun</code> false.</li>
+      <li>Click <strong>Start</strong>. When the run succeeds, export <strong>CSV</strong> from the default dataset.</li>
+      <li>Raise <code>maxItemsPerSource</code> only after those columns look useful. Leave <code>generateReport</code> and <code>emitExport</code> false.</li>
+    </ol>
+    <p>Without a SAM.gov key, the US lane is skipped with a warning. That can be an empty, unbilled queue — not a NAICS CSV.</p>
+    <p><a href="https://apify.com/taroyamada/procurement-intel-actor/input">Open Input → Start, then export CSV</a></p>
+
+    <h2>Cheapest first NAICS CSV (maxItemsPerSource 1)</h2>
+    <p>Paste this JSON if the form is empty. Replace the placeholder key. Swap <code>naicsCodes</code> for the codes you actually chase. Do not turn on report/export until raw rows are useful.</p>
+<pre><code>{
+  "jurisdictions": "us",
+  "keywords": "cybersecurity",
+  "naicsCodes": "541512,541519",
+  "maxItemsPerSource": 1,
+  "samApiKey": "YOUR_SAM_GOV_API_KEY",
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p>Live PPE (copy only; Store prices unchanged): opportunity or alert row <strong>$0.008</strong>. No live start charge. One delivered row ≈ <strong>$0.008</strong>. Store card: From <strong>$8.00 / 1,000</strong> rows. Report <strong>$5</strong> and export <strong>$7</strong> stay off.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>First NAICS CSV</th>
+          <th>Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>jurisdictions</code></td>
+          <td><code>us</code> (SAM.gov lane)</td>
+        </tr>
+        <tr>
+          <td><code>naicsCodes</code></td>
+          <td>Comma-separated. Live default <code>541512,541519</code></td>
+        </tr>
+        <tr>
+          <td><code>samApiKey</code></td>
+          <td>Required. Missing key skips US with a warning</td>
+        </tr>
+        <tr>
+          <td><code>maxItemsPerSource</code></td>
+          <td>1 (live default; Store Quickstart TED path uses 40)</td>
+        </tr>
+        <tr>
+          <td>If 1 opportunity row</td>
+          <td><strong>$0.008</strong> (empty queue = $0)</td>
+        </tr>
+      </tbody>
+    </table>
+    <p><code>minValue</code> defaults to 100000 and can empty the first queue — lower it or widen NAICS before raising the fetch cap. Official endpoint: <code>https://api.sam.gov/opportunities/v2/search</code>.</p>
+    <p><a href="https://apify.com/taroyamada/procurement-intel-actor/input">Open Input → Start (NAICS / us)</a></p>
+
+    <h2>What the CSV contains</h2>
+    <p>Normalized notice rows include <code>source</code>, <code>noticeId</code>, <code>title</code>, <code>buyer</code>, <code>deadlineAt</code>, <code>estimatedValue</code>, <code>signalTags</code>, <code>lanePriority</code>, and <code>recommendedAction</code>. Recurring runs can add <code>alerts[]</code> (deadline, status, closing-soon). A skipped US lane shows up in warnings, not as fake coverage.</p>
+
+    <h2>What this page is not</h2>
+    <ul>
+      <li>Not a Store mirror. Actor overview: <a href="/ted-sam-grants-bid-alerts/">TED, SAM.gov &amp; Grants Bid Alerts Scraper</a>.</li>
+      <li>Not a TED + SAM combined desk. That job is <a href="/guides/ted-sam-bid-desk-deadlines/">TED and SAM bid-desk deadlines</a>.</li>
+      <li>Not the cheapest grants-only proof. That path is <a href="/guides/sam-gov-grants-scraper-first-paid-run/">SAM.gov scraper &amp; grants scraper first paid run</a>.</li>
+      <li>Not a page-HTML extractor. Article bodies for RAG: <a href="/guides/article-url-to-markdown-rag/">URL to Markdown</a>.</li>
+    </ul>
+
+    <h2>Can I get SAM.gov NAICS bid alerts as CSV without writing the API client?</h2>
+    <p>Yes. The US lane calls the official SAM.gov opportunities search API (<code>api.sam.gov/opportunities/v2/search</code>). You pass <code>naicsCodes</code> (comma-separated; live default <code>541512,541519</code>), <code>jurisdictions</code> <code>us</code>, and a SAM.gov API key from Account Details. After Start, export the default dataset as CSV. You do not build or host that HTTP client yourself.</p>
+
+    <h2>Do I need a SAM.gov API key for NAICS alerts?</h2>
+    <p>Yes. <code>samApiKey</code> is required for the US lane. If <code>us</code> is present without a key, the run warns and skips SAM.gov instead of failing the whole job, which can emit zero rows and zero charges. The key comes from SAM.gov Account Details. This page is not a Grants.gov-only or TED-only first run.</p>
+
+    <h2>Which NAICS codes does the first run use?</h2>
+    <p>Live schema default for <code>naicsCodes</code> is <code>541512,541519</code> (optional SAM.gov NAICS filters). Replace those codes with the codes you actually bid. <code>keywords</code> still go to SAM.gov titles. <code>minValue</code> defaults to 100000 and can empty a first queue — lower it or widen NAICS before raising <code>maxItemsPerSource</code>.</p>
+
+    <h2>What does a first NAICS CSV run cost?</h2>
+    <p>Live pay-per-event is $0.008 per delivered procurement opportunity or alert row ($8.00 / 1,000). There is no live start charge. One US source × <code>maxItemsPerSource</code> 1 ≈ $0.008 if one row delivers. An empty queue emits zero rows and zero charges. Leave <code>generateReport</code> and <code>emitExport</code> false ($5 report / $7 export).</p>
+
+    <h2>Does this scrape the SAM.gov website?</h2>
+    <p>No. It searches the official opportunities API. It is not a scrape of SAM.gov HTML, not a custom REST client you maintain, and not Google News RSS. NAICS filters apply to the US federal opportunity lane only. TED CPV filters are a different field (<code>cpvCodes</code>).</p>
+
+    <h2>Are empty NAICS queues billed?</h2>
+    <p>No. An empty result emits zero rows and zero charges. A missing SAM.gov key skips the US lane with a warning. Keep <code>maxItemsPerSource</code> at 1 until a source-linked row looks useful, then raise the cap.</p>
+
+    <h2>Does this CSV include TED CPV tenders?</h2>
+    <p>Not on this page’s US-only first input (<code>jurisdictions</code> <code>us</code>). CPV codes filter TED. Combined TED + SAM deadlines in one queue belong on the <a href="/guides/ted-sam-bid-desk-deadlines/">TED and SAM bid-desk guide</a>. Grants.gov is an additive lane (<code>jurisdictions</code> <code>grants</code>), not a NAICS filter.</p>
+
+    <p class="price">Open Input → Start. One US source × maxItemsPerSource 1 ≈ $0.008 if a row delivers. From $8.00 / 1,000 rows. No live start charge. Empty queues are $0.</p>
+    <p><a href="https://apify.com/taroyamada/procurement-intel-actor/input">Open SAM.gov / TED / grants Input → Start</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/ted-sam-grants-bid-alerts/">TED, SAM.gov &amp; Grants Bid Alerts Scraper</a> — product landing</li>
+      <li><a href="/guides/ted-sam-bid-desk-deadlines/">TED and SAM bid-desk deadlines in one CSV queue</a></li>
+      <li><a href="/guides/sam-gov-grants-scraper-first-paid-run/">Cheapest first paid run</a> — 1 source × maxItemsPerSource 1</li>
+      <li><a href="/use-cases/sam-gov-bid-alerts/">SAM.gov and TED bid-alert queue</a></li>
+      <li><a href="/grants-gov-funding-digest/">Grants.gov Scraper</a> — Grants.gov-only notices, not NAICS</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+    <p class="note">Official SAM.gov opportunities API only. Not an HTML scrape. SAM.gov API key required for the US lane. Empty queues are not billed. Store prices unchanged on this page.</p>
+  </main>
+</body>
+</html>
