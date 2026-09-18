@@ -24,7 +24,7 @@
         "name": "When should I use the iTunes Search API instead of RSS?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Use keyword search when you have a topic, not a feed URL. Apple Podcasts Scraper sets searchTerm against the official iTunes Search API. At least one of searchTerm, chartRequests, or lookupIds is required. country is the ISO storefront (default us). limit is 1–200 (default 50)."
+          "text": "Use keyword search when you have a topic, not a feed URL. Apple Podcasts Scraper sets searchTerm against the official iTunes Search API. At least one of searchTerm, chartRequests, or lookupIds is required. country is the ISO storefront (default us). limit is 1–200 (live default 3)."
         }
       },
       {
@@ -174,7 +174,7 @@
     <p>Use RSS to watch cadence and new episodes on shows you already track. A feed does not search Apple’s directory. It does not return Apple collection IDs for other shows. It does not include chart rank. The Actor’s published input does not expose a full-catalog dump; for a known show’s complete history, read that show’s public RSS feed. When you have many publisher feeds to turn into URL lists, see <a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a>.</p>
 
     <h2>When the iTunes Search API is the right source</h2>
-    <p>Keyword search is the lowest-friction way to find public shows in Apple Podcasts. Set <code>searchTerm</code>. At least one of <code>searchTerm</code>, <code>chartRequests</code>, or <code>lookupIds</code> is required. <code>country</code> is the ISO storefront for the search (default <code>us</code>). <code>limit</code> is the maximum number of podcasts returned (1–200; schema default 50, Store prefill 3). Start with <code>limit</code> 3. See <a href="/guides/itunes-podcast-scraper-first-run/">the cheapest Apple Podcasts first paid run</a>.</p>
+    <p>Keyword search is the lowest-friction way to find public shows in Apple Podcasts. Set <code>searchTerm</code>. At least one of <code>searchTerm</code>, <code>chartRequests</code>, or <code>lookupIds</code> is required. <code>country</code> is the ISO storefront for the search (default <code>us</code>). <code>limit</code> is the maximum number of podcasts returned (1–200; live default and Store prefill 3). Start with <code>limit</code> 3. See <a href="/guides/itunes-podcast-scraper-first-run/">the cheapest Apple Podcasts first paid run</a>.</p>
 <pre><code>{
   "searchTerm": "technology",
   "country": "us",
@@ -226,7 +226,7 @@
     <p>If you already have a public feed URL, RSS is the direct source for that show’s published catalog: episode titles, descriptions, publish dates, audio enclosures, and publisher-declared metadata. A feed does not search Apple’s directory, return collection IDs for other shows, or include chart rank.</p>
 
     <h2>When should I use the iTunes Search API instead of RSS?</h2>
-    <p>Use keyword search when you have a topic, not a feed URL. <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> sets <code>searchTerm</code> against the official iTunes Search API. At least one of <code>searchTerm</code>, <code>chartRequests</code>, or <code>lookupIds</code> is required. <code>country</code> is the ISO storefront (default <code>us</code>). <code>limit</code> is 1–200 (default 50).</p>
+    <p>Use keyword search when you have a topic, not a feed URL. <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> sets <code>searchTerm</code> against the official iTunes Search API. At least one of <code>searchTerm</code>, <code>chartRequests</code>, or <code>lookupIds</code> is required. <code>country</code> is the ISO storefront (default <code>us</code>). <code>limit</code> is 1–200 (live default 3).</p>
 
     <h2>Does Apple Podcasts Scraper parse RSS feeds?</h2>
     <p>No. The published input does not expose a full-catalog dump. Optional <code>includeEpisodes</code> is a short look at what a resolved show is publishing; that path is slower and is not a full feed archive. For a known show’s complete history, read that show’s public RSS feed.</p>

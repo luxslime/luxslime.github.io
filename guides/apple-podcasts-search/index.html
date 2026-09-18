@@ -48,7 +48,7 @@
         "name": "What input does a search run need?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Set searchTerm. At least one of searchTerm, chartRequests, or lookupIds is required. country is the ISO storefront (default us). limit is the maximum number of podcasts returned (1–200; default 50, Store prefill 3). The cheapest useful first paid run uses limit 3."
+          "text": "Set searchTerm. At least one of searchTerm, chartRequests, or lookupIds is required. country is the ISO storefront (default us). limit is the maximum number of podcasts returned (1–200; live default and Store prefill 3). The cheapest useful first paid run uses limit 3."
         }
       },
       {
@@ -64,7 +64,7 @@
         "name": "What is the maximum Apple Podcasts search limit?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "limit is 1–200 (default 50). Pagination beyond limit is not documented. Keep the first run small, then raise limit after the output is useful."
+          "text": "limit is 1–200 (live default 3). Pagination beyond limit is not documented. Keep the first run small, then raise limit after the output is useful."
         }
       },
       {
@@ -165,7 +165,7 @@
     <p>This Actor does not document genre filters, review text, or pagination beyond <code>limit</code>.</p>
 
     <h2>Search input</h2>
-    <p>Set <code>searchTerm</code>. At least one of <code>searchTerm</code>, <code>chartRequests</code>, or <code>lookupIds</code> is required. <code>country</code> is the ISO storefront for the search (default <code>us</code>). <code>limit</code> is the maximum number of podcasts returned (1–200; schema default 50, Store prefill 3). The cheapest useful first paid run uses <code>limit</code> 3. See <a href="/guides/itunes-podcast-scraper-first-run/">the cheapest Apple Podcasts first paid run</a>.</p>
+    <p>Set <code>searchTerm</code>. At least one of <code>searchTerm</code>, <code>chartRequests</code>, or <code>lookupIds</code> is required. <code>country</code> is the ISO storefront for the search (default <code>us</code>). <code>limit</code> is the maximum number of podcasts returned (1–200; live default and Store prefill 3). The cheapest useful first paid run uses <code>limit</code> 3. See <a href="/guides/itunes-podcast-scraper-first-run/">the cheapest Apple Podcasts first paid run</a>.</p>
 <pre><code>{
   "searchTerm": "technology",
   "country": "us",
@@ -188,13 +188,13 @@
     <p>Pass collection IDs into a watchlist refresh (<code>lookupIds</code>) for recurring lookups. Use those IDs as <code>podcastIds</code> on Reviews Scraper if you need public ratings. A public RSS feed does not search the Apple directory; search is for discovery when you have a topic, not a feed URL.</p>
 
     <h2>What input does a search run need?</h2>
-    <p>Set <code>searchTerm</code>. At least one of <code>searchTerm</code>, <code>chartRequests</code>, or <code>lookupIds</code> is required. <code>country</code> is the ISO storefront (default <code>us</code>). <code>limit</code> is the maximum number of podcasts returned (1–200; default 50). Keep the first run small.</p>
+    <p>Set <code>searchTerm</code>. At least one of <code>searchTerm</code>, <code>chartRequests</code>, or <code>lookupIds</code> is required. <code>country</code> is the ISO storefront (default <code>us</code>). <code>limit</code> is the maximum number of podcasts returned (1–200; live default 3). Keep the first run small.</p>
 
     <h2>Is searchTerm an Apple Podcasts URL or a keyword?</h2>
     <p>Published <code>searchTerm</code> is a keyword for the iTunes Search API. Collection IDs belong on <code>lookupIds</code>. You can take an ID from an Apple Podcasts URL (<code>id290783428</code> → <code>290783428</code>) after you already know the show.</p>
 
     <h2>What is the maximum Apple Podcasts search limit?</h2>
-    <p><code>limit</code> is 1–200 (default 50). Pagination beyond <code>limit</code> is not documented. Keep the first run small, then raise <code>limit</code> after the output is useful.</p>
+    <p><code>limit</code> is 1–200 (live default 3). Pagination beyond <code>limit</code> is not documented. Keep the first run small, then raise <code>limit</code> after the output is useful.</p>
 
     <h2>Can I combine searchTerm and chartRequests in one run?</h2>
     <p>Yes. Runtime requires at least one of <code>searchTerm</code>, <code>chartRequests</code>, or <code>lookupIds</code>, not exactly one. A run can search and snapshot charts together. Rank remains null on search rows; chart rows carry rank.</p>
