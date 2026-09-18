@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Apple Podcasts chart rank movement and previous rank CSV</title>
+  <meta name="description" content="Today’s Top Podcasts rank is a snapshot. Rank-movement CSV needs previous rank, current rank, and rank delta from a saved monitor — not a one-day list. First snapshot: US + limit 1, movement off.">
+  <meta name="robots" content="index,follow">
+  <meta property="og:title" content="Apple Podcasts chart rank movement and previous rank CSV">
+  <meta property="og:description" content="Export previousRank, currentRank, and rankDelta from a saved Top Podcasts monitor. A single day’s rank CSV has no previous rank. First run: US + limit 1, movement off.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/apple-podcasts-chart-rank-movement/">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/apple-podcasts-chart-rank-movement/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Does today’s chart CSV include previous rank?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. A raw chart_rank snapshot has country, rank, show identity, sourceUrl, and fetchedAt. There is no previousRank on that row. Previous rank exists only on a podcast_chart_movement_report after a saved monitor compares two polls. Joining two snapshot CSVs yourself is a different job (chartRequests on the search actor; that path does not emit movement reports)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I get previousRank, currentRank, and rankDelta as CSV?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Open Chart Scraper Input. First paid run: countries [\"us\"], limit 1, generateMovementReport false ≈ $0.003 (from $3.00 / 1,000 rows). Then set a stable monitorKey, generateMovementReport true, raise maxChargeUsd above $2.50 (default cap is $0.05 so an accidental report fails closed). A baseline_only first monitor stores state with zero rows. A later poll that sees new, changed, or dropped positions emits at most one report row. Export that dataset as CSV."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is on the movement-report CSV?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "One rowType podcast_chart_movement_report per emitting poll: monitorKey, changedCount, newCount, droppedCount, and a changes list with changeType, country, show identity, previousRank, currentRank, rankDelta, and sourceUrl. Unchanged polls with emitRawRows false emit zero rows and zero charge. A failed storefront is not treated as a mass drop."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is Chart Scraper limit 3 by default?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. This Actor’s live default and prefill for limit is 1 (chart depth per country, cap 200). Limit 3 is the search-actor default (Apple Podcasts Scraper searchTerm), not Chart Scraper. Do not copy search limit 3 onto a Top Podcasts movement run unless you want depth 3."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does a chartRequests snapshot on the search actor give previous rank?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. chartRequests is a rank snapshot only. It does not emit previousRank or a movement report. Use this Chart Scraper for source-linked movement. For keyword search (default limit 3), lookupIds, or episode charts (feedType podcast-episodes), open Apple Podcasts search Input at apify.com/taroyamada/apple-podcast-scraper/input."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does rank movement equal downloads or audience?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Rank movement is descriptive evidence from public Top Podcasts JSON. It is not a forecast, listener count, advertising guarantee, or provider approval. The Actor is not affiliated with or endorsed by Apple."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need an Apple API key?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Public chart JSON only. No proxy, Apple ID, or private dashboard. You do need an account on the run platform to click Start."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+    .note { font-size: 13px; color: #666; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Guides / Apple Podcasts chart rank movement</nav>
+    <h1>Apple Podcasts chart rank movement and previous rank CSV</h1>
+    <p>Job: get a spreadsheet that includes <strong>previous rank</strong>, not only today’s Top Podcasts position. A one-run <code>chart_rank</code> CSV has <code>rank</code> for that fetch. It does not have <code>previousRank</code>. Previous rank is on a <code>podcast_chart_movement_report</code> after a saved monitor compares two polls.</p>
+    <p>This page is the movement / previous-rank path, not a Store mirror. Product overview lives on <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> (<code>taroyamada/apple-podcast-chart-tracker</code>). Snapshot-only <code>chartRequests</code> on the search actor is a different guide.</p>
+    <p class="price">Open Input → Start. First snapshot: US + limit 1, movement OFF ≈ $0.003. From $3.00 / 1,000 rows. Movement report $2.50 after you raise the $0.05 cap.</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-chart-tracker/input">Open Apple Podcasts chart Input → Start</a></p>
+
+    <h2>Start path: snapshot first, then previous-rank CSV</h2>
+    <ol>
+      <li>Open <a href="https://apify.com/taroyamada/apple-podcast-chart-tracker/input"><code>taroyamada/apple-podcast-chart-tracker</code> Input</a>. Sign in (an account is required to run).</li>
+      <li>Cheapest first paid run: <code>countries</code> <code>["us"]</code>, <code>limit</code> <strong>1</strong> (this Actor’s default is 1, not the search-actor default of 3), <code>generateMovementReport</code> false. Click <strong>Start</strong> and inspect the snapshot.</li>
+      <li>For movement: set a stable <code>monitorKey</code>, <code>generateMovementReport</code> true, <code>initialRunMode</code> <code>baseline_only</code>, <code>emitRawRows</code> false. Raise <code>maxChargeUsd</code> above <strong>$2.50</strong> (live default cap $0.05 blocks the report on purpose).</li>
+      <li>Run once to store baseline (zero rows). On a later poll that sees new, changed, or dropped ranks, export the one report row as <strong>CSV</strong>.</li>
+    </ol>
+    <p>You do not need an Apple API key. Unchanged later polls with <code>emitRawRows</code> false stay zero rows and zero charge.</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-chart-tracker/input">Open Input → Start</a></p>
+
+    <h2>Cheapest first snapshot (not the movement report)</h2>
+    <p>Paste this JSON if the form is empty. Do not turn movement on until the snapshot columns look right.</p>
+<pre><code>{
+  "countries": ["us"],
+  "limit": 1,
+  "generateMovementReport": false,
+  "delivery": "dataset"
+}</code></pre>
+    <p>Then, after you raise the cap, a movement monitor looks like:</p>
+<pre><code>{
+  "countries": ["us"],
+  "limit": 1,
+  "monitorKey": "us-top-podcasts",
+  "generateMovementReport": true,
+  "initialRunMode": "baseline_only",
+  "emitRawRows": false,
+  "maxChargeUsd": 3,
+  "delivery": "dataset"
+}</code></pre>
+    <p>Live PPE (copy only; Store prices unchanged): raw row <strong>$0.003</strong>; movement report <strong>$2.50</strong>. US + limit 1, movement OFF ≈ <strong>$0.003</strong>. Store card: From <strong>$3.00 / 1,000</strong>.</p>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Today’s snapshot CSV</th>
+          <th>Movement CSV</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>rowType</code></td>
+          <td><code>chart_rank</code></td>
+          <td><code>podcast_chart_movement_report</code></td>
+        </tr>
+        <tr>
+          <td>Previous rank</td>
+          <td>Not present</td>
+          <td><code>previousRank</code>, <code>currentRank</code>, <code>rankDelta</code></td>
+        </tr>
+        <tr>
+          <td>First useful paid run</td>
+          <td>US + limit 1 ≈ $0.003</td>
+          <td>Baseline is $0; later change emits one $2.50 row</td>
+        </tr>
+        <tr>
+          <td><code>limit</code> default</td>
+          <td>1 (not search-actor 3)</td>
+          <td>Same depth as the monitor</td>
+        </tr>
+      </tbody>
+    </table>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-chart-tracker/input">Open Input → Start</a></p>
+
+    <h2>What the movement CSV contains</h2>
+    <p>Sample change object (placeholder show data):</p>
+<pre><code>{
+  "changeType": "changed",
+  "country": "us",
+  "showId": "123456",
+  "showName": "Example Podcast",
+  "previousRank": 18,
+  "currentRank": 12,
+  "rankDelta": 6,
+  "sourceUrl": "https://podcasts.apple.com/us/podcast/id123456"
+}</code></pre>
+    <p>Counts on the parent row: <code>changedCount</code>, <code>newCount</code>, <code>droppedCount</code>. Rank movement is descriptive evidence, not a forecast or audience estimate.</p>
+
+    <h2>What this page is not</h2>
+    <ul>
+      <li>Not a Store mirror. Actor overview: <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a>.</li>
+      <li>Not a <code>chartRequests</code> snapshot. That path has no previous rank: <a href="/guides/apple-podcasts-charts/">chart metadata from Apple/iTunes endpoints</a>.</li>
+      <li>Not review text. Empty RSS pages by storefront: <a href="/guides/apple-podcasts-reviews-by-storefront/">skip empty review pages</a>.</li>
+      <li>Not keyword search. Search default <code>limit</code> is <strong>3</strong> on the search actor, not here.</li>
+    </ul>
+
+    <h2>Does today’s chart CSV include previous rank?</h2>
+    <p>No. A raw <code>chart_rank</code> snapshot has <code>country</code>, <code>rank</code>, show identity, <code>sourceUrl</code>, and <code>fetchedAt</code>. There is no <code>previousRank</code> on that row. Previous rank exists only on a <code>podcast_chart_movement_report</code> after a saved monitor compares two polls. Joining two snapshot CSVs yourself is a different job (<code>chartRequests</code> on the search actor; that path does not emit movement reports).</p>
+
+    <h2>How do I get previousRank, currentRank, and rankDelta as CSV?</h2>
+    <p>Open Chart Scraper Input. First paid run: <code>countries</code> <code>["us"]</code>, <code>limit</code> 1, <code>generateMovementReport</code> false ≈ $0.003 (from $3.00 / 1,000 rows). Then set a stable <code>monitorKey</code>, <code>generateMovementReport</code> true, raise <code>maxChargeUsd</code> above $2.50 (default cap is $0.05 so an accidental report fails closed). A <code>baseline_only</code> first monitor stores state with zero rows. A later poll that sees new, changed, or dropped positions emits at most one report row. Export that dataset as CSV.</p>
+
+    <h2>What is on the movement-report CSV?</h2>
+    <p>One <code>rowType</code> <code>podcast_chart_movement_report</code> per emitting poll: <code>monitorKey</code>, <code>changedCount</code>, <code>newCount</code>, <code>droppedCount</code>, and a <code>changes</code> list with <code>changeType</code>, country, show identity, <code>previousRank</code>, <code>currentRank</code>, <code>rankDelta</code>, and <code>sourceUrl</code>. Unchanged polls with <code>emitRawRows</code> false emit zero rows and zero charge. A failed storefront is not treated as a mass drop.</p>
+
+    <h2>Is Chart Scraper limit 3 by default?</h2>
+    <p>No. This Actor’s live default and prefill for <code>limit</code> is <strong>1</strong> (chart depth per country, cap 200). Limit <strong>3</strong> is the search-actor default (<code>searchTerm</code>), not Chart Scraper. Do not copy search limit 3 onto a Top Podcasts movement run unless you want depth 3.</p>
+
+    <h2>Does a chartRequests snapshot on the search actor give previous rank?</h2>
+    <p>No. <code>chartRequests</code> is a rank snapshot only. It does not emit <code>previousRank</code> or a movement report. Use this Chart Scraper for source-linked movement. For keyword search (default limit 3), <code>lookupIds</code>, or episode charts (<code>feedType</code> <code>podcast-episodes</code>), open <a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Apple Podcasts search Input</a>.</p>
+
+    <h2>Does rank movement equal downloads or audience?</h2>
+    <p>No. Rank movement is descriptive evidence from public Top Podcasts JSON. It is not a forecast, listener count, advertising guarantee, or provider approval. The Actor is not affiliated with or endorsed by Apple.</p>
+
+    <h2>Do I need an Apple API key?</h2>
+    <p>No. Public chart JSON only. No proxy, Apple ID, or private dashboard. You do need an account on the run platform to click Start.</p>
+
+    <p class="price">Open Input → Start. First snapshot: US + limit 1, movement OFF ≈ $0.003. From $3.00 / 1,000 rows. Movement report $2.50 after you raise the $0.05 cap.</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-chart-tracker/input">Open Apple Podcasts chart Input → Start</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> — product landing</li>
+      <li><a href="/use-cases/apple-podcast-chart/">Chart scraper use case</a></li>
+      <li><a href="/guides/apple-podcasts-charts/">chartRequests snapshots</a> — no previous rank</li>
+      <li><a href="/use-cases/podcast-market-tracking/">Join chart snapshots yourself</a></li>
+      <li><a href="/guides/apple-podcasts-reviews-by-storefront/">Reviews by storefront — skip empty RSS pages</a></li>
+      <li><a href="/guides/export-apple-podcasts-search-csv/">Export search results to CSV</a> — search + limit 3</li>
+      <li><a href="/guides/apple-podcasts-countries/">Charts and search by country</a></li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+    <p class="note">Public Top Podcasts JSON only. No Apple API key. Account required to run. Rank movement is not a forecast. Not affiliated with or endorsed by Apple. Store prices unchanged on this page.</p>
+  </main>
+</body>
+</html>
