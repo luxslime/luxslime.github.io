@@ -17,13 +17,15 @@ Paste the first-paid Input JSON into the Actor **Input** tab, then Start. Store 
 Store ID: `taroyamada/apple-podcast-scraper`
 
 - **Run on Apify:** [Open Store](https://apify.com/taroyamada/apple-podcast-scraper) · [Open Input](https://apify.com/taroyamada/apple-podcast-scraper/input)
-- **Landing page:** [Apple Podcasts Scraper](https://apify.momiji-space.com/apple-podcasts-scraper/)
+- **Landing page:** [Apple Podcast Scraper Apify](https://apify.momiji-space.com/apple-podcasts-scraper/)
 - **First-paid guide:** [iTunes podcast scraper first paid run](https://apify.momiji-space.com/guides/itunes-podcast-scraper-first-run/)
 
-First-paid Input:
+Live PPE (notation only; do not change Store prices): Actor Start **$0.005**, result **$0.0025**. Search + limit 3 ≈ **$0.0125**. From $2.50 / 1,000 results.
+
+First-paid Input (live Store prefill):
 
 ```json
-{"searchTerm":"technology","country":"us","limit":3,"includeEpisodes":false}
+{"searchTerm":"founder podcast","country":"us","limit":3,"includeEpisodes":false}
 ```
 
 ### Article Content Extractor

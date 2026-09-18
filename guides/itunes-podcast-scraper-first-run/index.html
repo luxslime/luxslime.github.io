@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>iTunes podcast scraper: cheapest Apple Podcasts first paid run</title>
-  <meta name="description" content="Cheapest useful first paid run for an iTunes podcast scraper on Apple Podcasts: searchTerm technology, country us, limit 3, includeEpisodes false. Cost math from $2.50 / 1,000 results plus $0.005 Actor Start.">
+  <title>Apple Podcast Scraper Apify: cheapest first paid run (search + limit 3)</title>
+  <meta name="description" content="Cheapest first paid run for Apple Podcast Scraper Apify: searchTerm founder podcast, country us, limit 3. Live PPE: Start $0.005 + result $0.0025. Estimate ≈ $0.0125. From $2.50 / 1,000.">
   <link rel="canonical" href="https://apify.momiji-space.com/guides/itunes-podcast-scraper-first-run/">
   <script type="application/ld+json">
   {
@@ -16,7 +16,7 @@
         "name": "What is the cheapest useful first paid run for this iTunes podcast scraper?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Use Apple Podcasts / iTunes Scraper: Search, Charts, Episodes with searchTerm technology, country us, limit 3, and includeEpisodes false. That is the cheapest useful input on the live schema. Do not set maxEpisodesPerShow; it is not in the live schema."
+          "text": "Use Apple Podcast Scraper Apify (taroyamada/apple-podcast-scraper): searchTerm founder podcast, country us, limit 3, and includeEpisodes false. Live Input default for limit is 3. That is the cheapest useful input on the live schema. Do not set maxEpisodesPerShow; it is not in the live schema."
         }
       },
       {
@@ -32,7 +32,7 @@
         "name": "Does the Store README still show a costlier example?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "No. The live Store Quickstart uses the same input (searchTerm technology, country us, limit 3, includeEpisodes false). If that run writes 3 result rows and charges one Actor Start event, the estimate is $0.005 + (3 × $0.0025) = $0.0125. Same PPE as the Store pricing tab."
+          "text": "No. The live Store Quickstart uses the same input (searchTerm founder podcast, country us, limit 3, includeEpisodes false). If that run writes 3 result rows and charges one Actor Start event, the estimate is $0.005 + (3 × $0.0025) = $0.0125. Same PPE as the Store pricing tab."
         }
       },
       {
@@ -92,21 +92,21 @@
 <body>
   <main>
     <nav><a href="/">Home</a> / Guides / iTunes podcast scraper first run</nav>
-    <h1>iTunes podcast scraper: cheapest Apple Podcasts first paid run</h1>
-    <p>This page is the cheapest useful first paid run for <a href="https://apify.com/taroyamada/apple-podcast-scraper">Apple Podcasts / iTunes Scraper: Search, Charts, Episodes</a> (<code>taroyamada/apple-podcast-scraper</code>). It uses the official iTunes Search API. No proxy is required. It is not affiliated with or endorsed by Apple.</p>
-    <p>The live Store Quickstart uses the same input below. Published PPE is result $2.50 per 1,000 dataset items ($0.0025 per row) plus Actor Start $0.005. If that run writes 3 result rows and charges one Actor Start event, the estimate is about $0.0125.</p>
-    <p class="price">Try Input: search + limit 3 ≈ $0.0125 total (incl. Start $0.005). From $2.50/1k. No API key. CSV/JSON.</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Try this cheapest first paid run on Apify Input</a></p>
+    <h1>Apple Podcast Scraper Apify: cheapest first paid run</h1>
+    <p>This page is the cheapest useful first paid run for <a href="/apple-podcasts-scraper/">Apple Podcast Scraper Apify</a> (<a href="https://apify.com/taroyamada/apple-podcast-scraper"><code>taroyamada/apple-podcast-scraper</code></a>). It uses the official iTunes Search API. No proxy is required. It is not affiliated with or endorsed by Apple.</p>
+    <p>The live Store Quickstart uses the same input below. Live PPE is result $0.0025 per default-dataset item ($2.50 / 1,000) plus Actor Start $0.005. If that run writes 3 result rows and charges one Actor Start event, the estimate is $0.005 + (3 × $0.0025) = $0.0125.</p>
+    <p class="price">Open Input → Start. Search + limit 3 ≈ $0.0125 (Start $0.005 + result $0.0025 × 3). From $2.50 / 1,000. No API key.</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Open Apple Podcast Scraper Apify Input → Start</a></p>
 
     <h2>Cheapest useful input</h2>
     <p>Paste this JSON. Leave <code>chartRequests</code> and <code>lookupIds</code> empty. Do not add <code>maxEpisodesPerShow</code>; it is not in the live schema.</p>
 <pre><code>{
-  "searchTerm": "technology",
+  "searchTerm": "founder podcast",
   "country": "us",
   "limit": 3,
   "includeEpisodes": false
 }</code></pre>
-    <p>At least one of <code>searchTerm</code>, <code>chartRequests</code>, or <code>lookupIds</code> is required. A first paid run only needs <code>searchTerm</code>. <code>country</code> is the ISO storefront (default <code>us</code>). <code>limit</code> is the maximum number of podcasts returned (1–200; schema default 50, prefill 3). <code>includeEpisodes</code> default is false.</p>
+    <p>At least one of <code>searchTerm</code>, <code>chartRequests</code>, or <code>lookupIds</code> is required. A first paid run only needs <code>searchTerm</code>. <code>country</code> is the ISO storefront (default <code>us</code>). <code>limit</code> is the maximum number of podcasts returned (1–200; live default and Store prefill 3). <code>includeEpisodes</code> default is false.</p>
 
     <h2>Estimated cost from published PPE only</h2>
     <p>Billing is pay-per-event. You are not charged for Apify platform usage, only the fixed event price. Published events:</p>
@@ -124,7 +124,7 @@
       <tbody>
         <tr>
           <td><code>searchTerm</code></td>
-          <td><code>technology</code></td>
+          <td><code>founder podcast</code></td>
         </tr>
         <tr>
           <td><code>country</code></td>
@@ -161,13 +161,13 @@
     </ul>
 
     <h2>What is the cheapest useful first paid run for this iTunes podcast scraper?</h2>
-    <p>Use <a href="/apple-podcasts-scraper/">Apple Podcasts / iTunes Scraper: Search, Charts, Episodes</a> with <code>searchTerm</code> <code>technology</code>, <code>country</code> <code>us</code>, <code>limit</code> 3, and <code>includeEpisodes</code> false. That is the cheapest useful input on the live schema. Do not set <code>maxEpisodesPerShow</code>; it is not in the live schema.</p>
+    <p>Use <a href="/apple-podcasts-scraper/">Apple Podcast Scraper Apify</a> with <code>searchTerm</code> <code>founder podcast</code>, <code>country</code> <code>us</code>, <code>limit</code> 3, and <code>includeEpisodes</code> false. Live Input default for <code>limit</code> is 3. That is the cheapest useful input on the live schema. Do not set <code>maxEpisodesPerShow</code>; it is not in the live schema.</p>
 
     <h2>How much does that Apple Podcasts first run cost?</h2>
     <p>Billing is pay-per-event. Published events are Actor Start at $0.005 (charged when the Actor starts; number of events charged depends on Actor memory, one event per GB, minimum one event) and result at $0.0025 per default-dataset item ($2.50 per 1,000 results). If the run writes 3 result rows and charges one Actor Start event, the estimate is $0.005 + (3 × $0.0025) = $0.0125. Actual row count can be fewer than <code>limit</code>.</p>
 
     <h2>Does the Store README still show a costlier example?</h2>
-    <p>No. The live Store Quickstart uses the same input (<code>searchTerm</code> <code>technology</code>, <code>country</code> <code>us</code>, <code>limit</code> 3, <code>includeEpisodes</code> false). If that run writes 3 result rows and charges one Actor Start event, the estimate is $0.005 + (3 × $0.0025) = $0.0125. Same PPE as the Store pricing tab.</p>
+    <p>No. The live Store Quickstart uses the same input (<code>searchTerm</code> <code>founder podcast</code>, <code>country</code> <code>us</code>, <code>limit</code> 3, <code>includeEpisodes</code> false). If that run writes 3 result rows and charges one Actor Start event, the estimate is $0.005 + (3 × $0.0025) = $0.0125. Same PPE as the Store pricing tab.</p>
 
     <h2>Why leave includeEpisodes false on the first run?</h2>
     <p><code>includeEpisodes</code> fetches recent episode context for each resolved podcast and is slower. Leave it false until the show list is useful. The first paid run is a search-only check of collection IDs, show names, publishers, and source URLs.</p>
@@ -183,18 +183,18 @@
 
     <h2>How to run it</h2>
     <ol>
-      <li>Open <a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Apple Podcasts / iTunes Scraper Input on Apify</a>.</li>
-      <li>Paste the JSON above: <code>searchTerm</code> <code>technology</code>, <code>country</code> <code>us</code>, <code>limit</code> 3, <code>includeEpisodes</code> false.</li>
+      <li>Open <a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Apple Podcast Scraper Apify Input</a>.</li>
+      <li>Paste the JSON above: <code>searchTerm</code> <code>founder podcast</code>, <code>country</code> <code>us</code>, <code>limit</code> 3, <code>includeEpisodes</code> false.</li>
       <li>Leave <code>delivery</code> on <code>dataset</code>. Do not add fields that are not in the live schema.</li>
       <li>Start the run. Review the default dataset (JSON or CSV from the dataset view). Then raise <code>limit</code> or add charts / watchlists.</li>
     </ol>
     <p>If you are comparing this Actor with a Store episode scraper that ranks first for the query <code>apple podcast</code>, see <a href="/compare/apple-podcasts-vs-cheaper-store-episode-scraper/">Apple Podcasts / iTunes Scraper vs a Store episode scraper</a>. Differentiation is iTunes endpoints, charts, and watchlist — not result PPE.</p>
-    <p class="price">Try Input: search + limit 3 ≈ $0.0125 total (incl. Start $0.005). From $2.50/1k.</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Run the cheapest first paid search on Apify Input</a></p>
+    <p class="price">Open Input → Start. Search + limit 3 ≈ $0.0125 (Start $0.005 + result $0.0025 × 3). From $2.50 / 1,000.</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Open Apple Podcast Scraper Apify Input → Start</a></p>
 
     <h2>Related pages</h2>
     <ul>
-      <li><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> — iTunes search, episodes, and watchlists</li>
+      <li><a href="/apple-podcasts-scraper/">Apple Podcast Scraper Apify</a> — iTunes search, episodes, and watchlists</li>
       <li><a href="/compare/apple-podcasts-vs-cheaper-store-episode-scraper/">vs a Store episode scraper</a></li>
       <li><a href="/guides/apple-podcasts-search/">Apple Podcasts search discovery (iTunes Search API)</a></li>
       <li><a href="/faq/apple-podcasts-scraper/">Apple Podcasts Scraper FAQ</a></li>

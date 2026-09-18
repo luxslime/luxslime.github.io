@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SAM.gov Scraper Apify — TED tenders, Grants.gov notices, and bid alerts</title>
-  <meta name="description" content="SAM.gov Scraper Apify queues TED tenders, SAM.gov opportunities, and Grants.gov notices into source-linked bid alerts. Store: taroyamada/procurement-intel-actor. Live PPE: $8.00 / 1,000 opportunity or alert rows. Not Google News RSS and not PubMed citation watch.">
+  <title>SAM.gov Scraper — TED tenders, Grants.gov notices, and bid alerts</title>
+  <meta name="description" content="SAM.gov / TED / Grants.gov bid-alert scraper. Open Input → Start. 1 TED opportunity, report OFF ≈ $0.008 if one row delivers. From $8.00 / 1,000 rows. No API key for TED.">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://apify.momiji-space.com/ted-sam-grants-bid-alerts/">
   <script type="application/ld+json">
@@ -57,7 +57,7 @@
         "name": "What is the TED-only first run for a bid-alert queue?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Start TED-only. The published Store quickstart needs no external key: jurisdictions eu, keywords cloud,cybersecurity,IT services, cpvCodes 72000000,72220000, daysAhead 21, maxItemsPerSource 40, minValue 100000, and delivery dataset. If all 40 fetched items are delivered, 40 × $0.008 = $0.32. The cheapest first paid cap is maxItemsPerSource 1 on one source ($0.008 if one row is delivered; empty queues are $0). There is no live start charge. Add grants next, then us once a SAM.gov API key is available."
+          "text": "Start TED-only. Live Input defaults need no external key: jurisdictions eu, keywords cybersecurity, daysAhead 7, maxItemsPerSource 1, generateReport and emitExport false. If one TED row delivers, 1 × $0.008 = $0.008. Empty queues are $0. There is no live start charge. Raise maxItemsPerSource after the first proof. Add grants next, then us once a SAM.gov API key is available."
         }
       },
       {
@@ -105,7 +105,7 @@
         "name": "How is TED, SAM.gov & Grants Bid Alerts Scraper priced on the live Store PPE tab?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Billing is pay-per-event. The live Store card is $8.00 / 1,000 procurement opportunity or alert rows. The current billed event is Procurement opportunity or alert row (apify-default-dataset-item) at $0.008 for one delivered source-linked procurement opportunity or stateful alert row. There is no live start charge. The live pricing tab lists Platform usage as included. An empty result emits zero rows and zero charges. Unchanged changes_only polls emit zero rows and zero charge. maxChargeUsd fails closed before delivery when the planned charge would exceed the cap; zero means no cap."
+          "text": "Billing is pay-per-event. The live Store card is $8.00 / 1,000 procurement opportunity or alert rows. Live events: opportunity or alert row $0.008, procurement summary report $5.00 when generateReport is true, opportunity export $7.00 when emitExport is true. There is no live start charge. The cheapest first paid proof is maxItemsPerSource 1 with report and export off ≈ $0.008 if one row is delivered. Empty queues and unchanged changes_only polls emit zero rows and zero charge."
         }
       },
       {
@@ -121,7 +121,7 @@
         "name": "Do generateReport and emitExport create live billed events today?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Those flags are live schema opt-ins for one source-linked executive procurement report and/or one source-linked JSON opportunity export when matched notices or alerts exist. The live Store PPE tab currently bills only the opportunity or alert row event (apify-default-dataset-item at $0.008). The published README also names other report and export event titles; check the live pricing tab before treating those names as current billed events. Set emitRawRows false when the report/export bundle is the only required deliverable. An empty result emits zero rows and zero charges."
+          "text": "Those flags are live schema opt-ins. generateReport true charges one procurement summary report at $5.00 when matched notices or alerts exist. emitExport true charges one opportunity export at $7.00. Leave both false for the first paid proof (~$0.008 per delivered row). The live Store card is from $8.00 / 1,000 opportunity or alert rows. An empty result emits zero rows and zero charges."
         }
       },
       {
@@ -129,7 +129,7 @@
         "name": "Which live input fields does the schema accept?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "The live input schema has an empty required list and additionalProperties false. Buyer fields include jurisdictions (default eu), keywords (default cloud,cybersecurity,IT services), watchTerms, cpvCodes (default 72000000,72220000), naicsCodes (default 541512,541519), tedFields, minValue (default 100000), daysAhead (default 21), maxItemsPerSource (default 40), delivery (dataset or webhook, default dataset), datasetMode (all or changes_only, default all), generateReport (default false), emitExport (default false), emitRawRows (default true), maxChargeUsd (default 0), webhookUrl, includeAwarded (default false), samApiKey, samApiUrl, tedApiUrl, grantsApiKey, grantsApiUrl, grantsApplicantTypes, grantsFundingInstruments, grantsOpportunityStatuses (default posted,forecasted), grantsAlertClosingSoonDays (default 7), grantsAlertStateStoreName (default procurement-intel-grants-state), grantsAlertStateKey, and dryRun (default false). Fixture and nowIso fields are testing overrides. Send only published field names."
+          "text": "The live input schema has an empty required list and additionalProperties false. Buyer fields include jurisdictions (default eu), keywords (default cybersecurity), watchTerms, cpvCodes (default 72000000,72220000), naicsCodes (default 541512,541519), tedFields, minValue (default 100000), daysAhead (default 7), maxItemsPerSource (default 1), delivery (dataset or webhook, default dataset), datasetMode (all or changes_only, default all), generateReport (default false), emitExport (default false), emitRawRows (default true), maxChargeUsd (default 0), webhookUrl, includeAwarded (default false), samApiKey, samApiUrl, tedApiUrl, grantsApiKey, grantsApiUrl, grantsApplicantTypes, grantsFundingInstruments, grantsOpportunityStatuses (default posted,forecasted), grantsAlertClosingSoonDays (default 7), grantsAlertStateStoreName (default procurement-intel-grants-state), grantsAlertStateKey, and dryRun (default false). Fixture and nowIso fields are testing overrides. Send only published field names."
         }
       },
       {
@@ -177,22 +177,22 @@
     th { background: #f3f3f3; font-weight: 600; color: #202223; }
     tr:last-child td { border-bottom: 0; }
     .price { color: #202223; }
+    .cta-row { margin: 0 0 16px; }
+    a.cta { display: inline-block; padding: 10px 16px; background: #202223; color: #fff; text-decoration: none; font-size: 16px; line-height: 1.3; }
+    a.cta-secondary { margin-left: 8px; font-size: 16px; }
   </style>
 </head>
 <body>
   <main>
     <nav><a href="/">Home</a> / TED, SAM.gov &amp; Grants Bid Alerts Scraper</nav>
-    <h1>SAM.gov Scraper Apify — TED tenders, Grants.gov notices, and bid alerts</h1>
-    <p>SAM.gov Scraper Apify (Store actor <a href="https://apify.com/taroyamada/procurement-intel-actor"><code>taroyamada/procurement-intel-actor</code></a>) is the TED SAM.gov scraper for Grants.gov notices as well. The Actor title is TED, SAM.gov &amp; Grants Bid Alerts Scraper. It searches official TED, SAM.gov, and Grants.gov / Simpler.Grants.gov notice APIs.</p>
-    <p>Start with a TED-only quickstart, then turn TED tenders, SAM.gov opportunities, and Grants.gov notices into source-linked bid queues, report bundles, export files, deadlines, award watch, and rebid watch signals. This Actor is a public-sector bid-alert queue — not Google News RSS, not PubMed citation watch, and not a website or article HTML extractor. If the job is cleaning page URLs for RAG, see <a href="/compare/article-vs-website-content-extractor/">Article Content Extractor vs Website Content Extractor for RAG</a>. B2B software review pages belong on <a href="/compare/g2-capterra-dual-source-vs-single-source/">G2 + Capterra dual-source vs single-source</a>, not this bid queue.</p>
-    <p>Source availability and rate limits are reported in <code>warnings[]</code> and <code>errors[]</code>. A partial source response is never presented as complete coverage.</p>
-    <p class="price">Try Input: 1 source × maxItemsPerSource 1 = $0.008 if one row is delivered. Store Quickstart TED-only 40 can be $0.32. No live start charge. $8.00 / 1,000 rows.</p>
-    <p><a href="https://apify.com/taroyamada/procurement-intel-actor/input">Try the cheapest first paid SAM.gov / TED / grants run on Apify Input</a></p>
-    <p><a href="https://apify.com/taroyamada/procurement-intel-actor">Open taroyamada/procurement-intel-actor on the Apify Store</a>
+    <h1>SAM.gov scraper — TED tenders, Grants.gov notices, and bid alerts</h1>
+    <p>SAM.gov Scraper (Store actor <a href="https://apify.com/taroyamada/procurement-intel-actor"><code>taroyamada/procurement-intel-actor</code></a>) is the TED / SAM.gov / Grants.gov bid-alert queue. It searches official TED, SAM.gov, and Grants.gov / Simpler.Grants.gov notice APIs.</p>
+    <p>Start TED-only with no API key, then add Grants.gov, then the US lane once a SAM.gov key is available. This Actor is a public-sector bid-alert queue — not Google News RSS, not PubMed citation watch, and not a website or article HTML extractor. If the job is cleaning page URLs for RAG, see <a href="/compare/article-vs-website-content-extractor/">Article Content Extractor vs Website Content Extractor for RAG</a>.</p>
+    <p class="price">Open Input → Start. 1 TED opportunity + report/export OFF ≈ $0.008 if one row delivers. From $8.00 / 1,000 rows. No live start charge.</p>
+    <p class="cta-row"><a class="cta" href="https://apify.com/taroyamada/procurement-intel-actor/input">Open Input → Start</a> <a class="cta-secondary" href="https://apify.com/taroyamada/procurement-intel-actor">Store listing</a></p>
+    <p><a href="/guides/sam-gov-grants-scraper-first-paid-run/">Cheapest first paid run</a>
       ·
-      <a href="/guides/sam-gov-grants-scraper-first-paid-run/">Cheapest first paid run</a>
-      ·
-      <a href="/compare/article-vs-website-content-extractor/">Not HTML cleanup? Article vs Website for RAG</a></p>
+      <a href="/article-content-extractor/">Need article HTML instead?</a></p>
 
     <h2>What is SAM.gov Scraper Apify?</h2>
     <p>SAM.gov Scraper Apify is the taroyamada Store actor <code>procurement-intel-actor</code> (TED, SAM.gov &amp; Grants Bid Alerts Scraper). It searches official TED, SAM.gov, and Grants.gov / Simpler.Grants.gov notice APIs and returns source-linked bid alerts. The live listing is <a href="https://apify.com/taroyamada/procurement-intel-actor">https://apify.com/taroyamada/procurement-intel-actor</a>.</p>
@@ -261,24 +261,25 @@
     <p>This Actor is a public-sector procurement queue. It searches official TED, SAM.gov, and Grants.gov / Simpler.Grants.gov notice APIs and returns normalized TED tenders, SAM.gov opportunities, Grants.gov notices, deadline/status alerts, and optional award-watch or rebid signals. <a href="/google-news-scraper/">Google News Scraper</a> is query-based Google News RSS discovery of headlines and article URLs; it does not read procurement notice APIs and it does not clean HTML. <a href="/pubmed-literature-watch/">PubMed Literature Watch &amp; Research Report</a> queries NCBI E-utilities for citation metadata, literature-update reports, and new-PMID alerts; it is not a bid queue. This page is TED/SAM.gov/Grants.gov bid alerts, not news RSS and not PubMed. Page-URL HTML cleanup: <a href="/compare/article-vs-website-content-extractor/">Article vs Website Content Extractor for RAG</a>.</p>
 
     <h2>What is the TED-only first run for a bid-alert queue?</h2>
-    <p>Start TED-only. The published Store quickstart needs no external key:</p>
+    <p>Start TED-only. Live Input needs no external key:</p>
 <pre><code>{
   "jurisdictions": "eu",
-  "keywords": "cloud,cybersecurity,IT services",
-  "cpvCodes": "72000000,72220000",
-  "daysAhead": 21,
-  "maxItemsPerSource": 40,
-  "minValue": 100000,
-  "delivery": "dataset"
+  "keywords": "cybersecurity",
+  "daysAhead": 7,
+  "maxItemsPerSource": 1,
+  "generateReport": false,
+  "emitExport": false,
+  "delivery": "dataset",
+  "dryRun": false
 }</code></pre>
     <ul>
       <li><code>jurisdictions</code> default is <code>eu</code> (TED tenders). Add <code>grants</code> for Grants.gov notices, then <code>us</code> for SAM.gov opportunities when you have a SAM.gov API key.</li>
-      <li><code>keywords</code> default is <code>cloud,cybersecurity,IT services</code>. Keep terms narrow enough that the first queue feels reviewable.</li>
-      <li><code>cpvCodes</code> default is <code>72000000,72220000</code> (software / IT services on TED). <code>naicsCodes</code> default is <code>541512,541519</code> for the optional SAM.gov lane.</li>
-      <li><code>daysAhead</code> default is 21 so the dataset reads like a current bid-alert queue. <code>minValue</code> default is 100000 and hides smaller notices when an estimated value is present. <code>maxItemsPerSource</code> default is 40.</li>
+      <li><code>keywords</code> default is <code>cybersecurity</code>. Keep terms narrow enough that the first queue feels reviewable.</li>
+      <li><code>daysAhead</code> default is 7. <code>minValue</code> default is 100000 and can empty the first queue — lower it or widen CPV before raising <code>maxItemsPerSource</code>.</li>
+      <li><code>maxItemsPerSource</code> default is 1 (≈ $0.008 if one row delivers). Raise it only after the first proof is useful.</li>
     </ul>
-    <p>If <code>us</code> is present without a SAM.gov key, the actor warns and skips that source instead of failing the whole run. If all 40 fetched items are delivered, 40 × $0.008 = <strong>$0.32</strong>. For the smallest useful cap (<code>maxItemsPerSource</code> 1 = <strong>$0.008</strong> if one row is delivered), see <a href="/guides/sam-gov-grants-scraper-first-paid-run/">SAM.gov scraper &amp; grants scraper: cheapest first paid run</a>.</p>
-    <p><a href="https://apify.com/taroyamada/procurement-intel-actor/input">Run the TED-only quickstart on Apify Input</a></p>
+    <p>If <code>us</code> is present without a SAM.gov key, the actor warns and skips that source instead of failing the whole run. Leave <code>generateReport</code> and <code>emitExport</code> off on the first paid run ($5 and $7 events). See <a href="/guides/sam-gov-grants-scraper-first-paid-run/">SAM.gov scraper &amp; grants scraper: cheapest first paid run</a>.</p>
+    <p><a href="https://apify.com/taroyamada/procurement-intel-actor/input">Run this TED-only first paid input on Apify</a></p>
 
     <h2>What bid-alert payload surfaces does a procurement run emit?</h2>
     <p>A normal run returns four surfaces:</p>
@@ -350,17 +351,27 @@
           <td>$0.008</td>
           <td>One delivered source-linked procurement opportunity or stateful alert row</td>
         </tr>
+        <tr>
+          <td>Procurement summary report</td>
+          <td>$5.00</td>
+          <td>One source-linked executive report when <code>generateReport</code> is true and matched notices exist</td>
+        </tr>
+        <tr>
+          <td>Procurement opportunity export</td>
+          <td>$7.00</td>
+          <td>One source-linked export when <code>emitExport</code> is true and matched notices exist</td>
+        </tr>
       </tbody>
     </table>
-    <p>There is no live start charge. The live pricing tab lists Platform usage as included. An empty result emits zero rows and zero charges. Unchanged <code>changes_only</code> polls emit zero rows and zero charge. <code>maxChargeUsd</code> fails closed before delivery when the planned charge would exceed the cap; zero means no cap. The cheapest first paid cap is one source × <code>maxItemsPerSource</code> 1 = <strong>$0.008</strong> if one row is delivered. Store Quickstart TED-only 40 can be $0.32 at the same rate.</p>
-    <p class="price">Try Input: 1 source × maxItemsPerSource 1 = $0.008 if one row is delivered. $8.00 / 1,000 rows. No live start charge.</p>
+    <p>There is no live start charge. The live pricing tab lists Platform usage as included. An empty result emits zero rows and zero charges. Unchanged <code>changes_only</code> polls emit zero rows and zero charge. <code>maxChargeUsd</code> fails closed before delivery when the planned charge would exceed the cap; zero means no cap. The cheapest first paid cap is one source × <code>maxItemsPerSource</code> 1 = <strong>$0.008</strong> if one row is delivered. Leave <code>generateReport</code> and <code>emitExport</code> off until that proof is useful.</p>
+    <p class="price">Open Input → Start. 1 TED opportunity + report/export OFF ≈ $0.008 if one row delivers. From $8.00 / 1,000 rows.</p>
     <p><a href="https://apify.com/taroyamada/procurement-intel-actor/pricing">See TED, SAM.gov &amp; Grants Bid Alerts Scraper pricing on Apify</a></p>
 
     <h2>How do dataset, webhook, and dry-run delivery bill procurement rows?</h2>
     <p><code>delivery</code> defaults to <code>dataset</code> and writes billed output. Webhook mode first writes and bills the same canonical dataset/value rows through <code>Actor.pushData</code>, verifies <code>chargedCount</code>, then forwards the run payload. Webhook delivery never replaces dataset billing and does not create a free webhook-only path. Downstream webhook failure is treated as a warning without rebilling on retry. <code>dryRun</code> skips dataset writes and webhook delivery side effects while validating inputs. Runtime is Node.js 20+.</p>
 
     <h2>Do generateReport and emitExport create live billed events today?</h2>
-    <p>Use the report/export path only after the narrow TED queue is useful. <code>generateReport</code> and <code>emitExport</code> are live schema opt-ins for one source-linked executive procurement report and/or one source-linked JSON opportunity export when matched notices or alerts exist. The live Store PPE tab currently bills only the opportunity or alert row event (<code>apify-default-dataset-item</code> at $0.008). The published README also names other report and export event titles; check the live pricing tab before treating those names as current billed events.</p>
+    <p>Use the report/export path only after the narrow TED queue is useful. <code>generateReport</code> true charges one procurement summary report at <strong>$5.00</strong> when matched notices exist. <code>emitExport</code> true charges one opportunity export at <strong>$7.00</strong>. Leave both false for the first paid proof (~$0.008 per delivered row).</p>
 <pre><code>{
   "jurisdictions": "eu",
   "keywords": "cloud,cybersecurity",
@@ -400,7 +411,7 @@
         <tr>
           <td><code>keywords</code></td>
           <td>string</td>
-          <td><code>cloud,cybersecurity,IT services</code></td>
+          <td><code>cybersecurity</code></td>
           <td>Themes sent to TED titles, SAM.gov titles, and Grants.gov queries.</td>
         </tr>
         <tr>
@@ -430,14 +441,14 @@
         <tr>
           <td><code>daysAhead</code></td>
           <td>integer</td>
-          <td>21</td>
-          <td>Keep notices closing within this window.</td>
+          <td>7</td>
+          <td>Keep notices closing within this window. Live default is 7.</td>
         </tr>
         <tr>
           <td><code>maxItemsPerSource</code></td>
           <td>integer</td>
-          <td>40</td>
-          <td>Upper bound fetched per source request.</td>
+          <td>1</td>
+          <td>Upper bound fetched per source request. Live default is 1 (≈ $0.008 if one row delivers).</td>
         </tr>
         <tr>
           <td><code>delivery</code></td>
