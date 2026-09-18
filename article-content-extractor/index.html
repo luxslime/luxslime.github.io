@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Article Content Extractor Apify — extract headline, byline, and body from news and blog URLs</title>
-  <meta name="description" content="Article Content Extractor Apify extracts headline, byline, publish date, body, excerpt, and hero image from public news, blog, newsroom, and press URLs. Store: taroyamada/article-content-extractor. Live PPE: $0.008 per useful article row; $2.50 per audit report.">
+  <title>Article Content Extractor — clean news and blog text for RAG</title>
+  <meta name="description" content="Extract headline, byline, and body from public news and blog URLs. Open Input → Start. 1 URL ≈ $0.008. From $8.00 / 1,000 useful rows. Paste a URL and Start.">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://apify.momiji-space.com/article-content-extractor/">
   <script type="application/ld+json">
@@ -13,9 +13,9 @@
     "@graph": [
       {
         "@type": "WebPage",
-        "name": "Article Content Extractor Apify",
+        "name": "Article Content Extractor",
         "url": "https://apify.momiji-space.com/article-content-extractor/",
-        "description": "Article Content Extractor Apify extracts headline, byline, and body from public news, blog, and press URLs. Store actor taroyamada/article-content-extractor."
+        "description": "Extract headline, byline, and body from public news and blog URLs. Try Input: 1 URL ≈ $0.008. From $8.00 / 1,000 useful rows."
       },
       {
         "@type": "FAQPage",
@@ -33,7 +33,7 @@
         "name": "How do I use Article Content Extractor Apify?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Open the Store listing, pass a urls list of article-shaped HTTP(S) pages (maximum 300), keep includeImages false for the cheapest first paid run, and leave generateReport and emitExport off. See the cheapest first paid run guide on this site."
+          "text": "Open the Store Input tab, pass a urls list of article-shaped HTTP(S) pages (maximum 300), keep includeImages false for the cheapest first paid run, and leave generateReport and emitExport off. The live prefill is one Wikipedia URL. See the cheapest first paid run guide on this site."
         }
       },
       {
@@ -65,7 +65,7 @@
         "name": "Which public article URLs can I pass, and what is rejected?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Pass public HTTP(S) news, blog, newsroom, or press URLs you own or are authorized to fetch. Maximum 300 URLs per run. Loopback, private, link-local, metadata, reserved, and DNS-resolved private targets are rejected, as are non-HTML responses, excessive redirects, and oversized responses. Default bounds are 3 redirects and 5 MiB per HTML response; the runtime never permits more than 10 redirects or 10 MiB. Schema prefill is three blog.google article URLs."
+          "text": "Pass public HTTP(S) news, blog, newsroom, or press URLs you own or are authorized to fetch. Maximum 300 URLs per run. Loopback, private, link-local, metadata, reserved, and DNS-resolved private targets are rejected, as are non-HTML responses, excessive redirects, and oversized responses. Default bounds are 3 redirects and 5 MiB per HTML response; the runtime never permits more than 10 redirects or 10 MiB. Schema prefill is one Wikipedia Web scraping URL."
         }
       },
       {
@@ -81,7 +81,7 @@
         "name": "What published input starts an Article Content Extractor run?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "urls is required (maximum 300). Published fields are outputFormat (markdown default, or text), includeImages (default true), concurrency (default 5, range 1–10), timeoutMs (default 15000), maxResponseBytes (default 5242880), maxRedirects (default 3), delivery (dataset default, or webhook), webhookUrl, generateReport (default false), emitExport (default false), and dryRun (default false). The Store Quickstart keeps includeImages false for a low-cost first run. Do not send Website fields such as includeMetadata or maxChargeUsd, Google News queries, RSS feedUrls, or Site QA-only fields such as authorizedUseConfirmed and emitUnchanged."
+          "text": "urls is required (maximum 300). Published fields are outputFormat (markdown default, or text), includeImages (default false), concurrency (default 5, range 1–10), timeoutMs (default 15000), maxResponseBytes (default 5242880), maxRedirects (default 3), delivery (dataset default, or webhook), webhookUrl, generateReport (default false), emitExport (default false), and dryRun (default false). The Store Quickstart keeps includeImages false for a low-cost first run. Do not send Website fields such as includeMetadata or maxChargeUsd, Google News queries, RSS feedUrls, or Site QA-only fields such as authorizedUseConfirmed and emitUnchanged."
         }
       },
       {
@@ -97,7 +97,7 @@
         "name": "How is Article Content Extractor priced?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Billing is pay-per-event. The live Store card is from $2,500.00 / 1,000 article content audit reports because the primary event is article-content-audit-report at $2.50. Live events: useful article row (apify-default-dataset-item) $0.008 ($8.00 / 1,000) for one successfully extracted or partially extracted public article row; article-content-audit-report $2.50 for one explicitly requested source-linked batch audit report; article-batch-export $5.00 for one explicitly requested export-ready article batch handoff; Actor Start (apify-actor-start) $0.00005, one event per GB with a minimum of one event. Platform usage is included. You are not charged for Apify platform usage, only the fixed event prices. Failed or no-content rows stay out of the default dataset."
+          "text": "Billing is pay-per-event. The live Store card is from $8.00 / 1,000 useful article rows because the billed useful-row event is $0.008. Live events: useful article row (apify-default-dataset-item) $0.008 ($8.00 / 1,000) for one successfully extracted or partially extracted public article row; article-content-audit-report $2.50 for one explicitly requested source-linked batch audit report; article-batch-export $5.00 for one explicitly requested export-ready article batch handoff; Actor Start (apify-actor-start) $0.00005, one event per GB with a minimum of one event. Platform usage is included. You are not charged for Apify platform usage, only the fixed event prices. Failed or no-content rows stay out of the default dataset. The cheapest first paid path is 1 URL with report and export off ≈ $0.008."
         }
       },
       {
@@ -121,7 +121,7 @@
         "name": "Does includeImages replace heroImage or add an inline images array?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "includeImages defaults to true and includes the inline images array in the result. The heroImage field can still be returned separately when available. The Store Quickstart sets includeImages false for a low-cost first run. heroImage is in the published README field list either way."
+          "text": "includeImages defaults to false and, when true, includes the inline images array in the result. The heroImage field can still be returned separately when available. The Store Quickstart leaves includeImages false for a low-cost first run. heroImage is in the published README field list either way."
         }
       },
       {
@@ -177,17 +177,19 @@
     th { background: #f3f3f3; font-weight: 600; color: #202223; }
     tr:last-child td { border-bottom: 0; }
     .price { color: #202223; }
+    .cta-row { margin: 0 0 16px; }
+    a.cta { display: inline-block; padding: 10px 16px; background: #202223; color: #fff; text-decoration: none; font-size: 16px; line-height: 1.3; }
+    a.cta-secondary { margin-left: 8px; font-size: 16px; }
   </style>
 </head>
 <body>
   <main>
     <nav><a href="/">Home</a> / Article Content Extractor</nav>
-    <h1>Article Content Extractor Apify — extract headline, byline, and body from news and blog URLs</h1>
-    <p>Article Content Extractor Apify fetches public news, blog, newsroom, and press pages you already have and returns structured article rows: headline, byline, publish date, body, excerpt, and hero image. Store actor <code>taroyamada/article-content-extractor</code>. It is a bounded HTML cleanup step for research, content QA, and RAG ingestion — not a ranking tool, a full-site crawler, or a Google News search. For docs, pricing, policy, product, and help-center pages, use <a href="/website-content-extractor/">Website Content Extractor Apify</a>. For the RAG split, see <a href="/compare/article-vs-website-content-extractor/">Article Content Extractor vs Website Content Extractor for RAG</a>. For query-based headline discovery, use <a href="/google-news-scraper/">Google News Scraper Apify</a>.</p>
-    <p class="price">From $2,500.00 / 1,000 article content audit reports ($2.50 per report). Useful article row $0.008 ($8.00 / 1,000). Batch export $5.00. Actor Start $0.00005. Cheapest first paid path leaves both value events off.</p>
-    <p><a href="https://apify.com/taroyamada/article-content-extractor">Open Article Content Extractor on Apify</a>
-      ·
-      <a href="/guides/article-extractor-first-paid-run/">Cheapest first paid run</a>
+    <h1>Article Content Extractor — extract headline, byline, and body from news and blog URLs</h1>
+    <p>Article Content Extractor fetches public news, blog, newsroom, and press pages you already have and returns structured article rows: headline, byline, publish date, body, excerpt, and hero image. Store actor <code>taroyamada/article-content-extractor</code>. It is a bounded HTML cleanup step for research, content QA, and RAG ingestion — not a ranking tool, a full-site crawler, or a Google News search. For docs, pricing, policy, product, and help-center pages, use <a href="/website-content-extractor/">Website Content Extractor</a>. For the RAG split, see <a href="/compare/article-vs-website-content-extractor/">Article Content Extractor vs Website Content Extractor for RAG</a>. For query-based headline discovery, use <a href="/google-news-scraper/">Google News Scraper</a>.</p>
+    <p class="price">Open Input → Start. 1 URL ≈ $0.008. From $8.00 / 1,000 useful rows. Leave the $2.50 audit report and $5.00 batch export off.</p>
+    <p class="cta-row"><a class="cta" href="https://apify.com/taroyamada/article-content-extractor/input">Open Input → Start</a> <a class="cta-secondary" href="https://apify.com/taroyamada/article-content-extractor">Store listing</a></p>
+    <p><a href="/guides/article-extractor-first-paid-run/">Cheapest first paid run</a>
       ·
       <a href="/compare/article-vs-website-content-extractor/">Compare with Website Content Extractor</a></p>
 
@@ -265,17 +267,19 @@
     <p>Route docs, pricing, policy, product, and help-center pages to <a href="/website-content-extractor/">Website Content Extractor</a>. Discover URLs first with <a href="/google-news-scraper/">Google News Scraper</a> or <a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a>. This Actor is for article-shaped pages (max 300 URLs).</p>
 
     <h2>Low-cost article extraction</h2>
-    <p>The default path keeps raw article rows. <code>generateReport</code> and <code>emitExport</code> stay false unless you need those value events. <code>outputFormat</code> defaults to markdown. The Store Quickstart sets <code>includeImages</code> false for a low-cost first run; the schema default is true.</p>
+    <p>The default path keeps raw article rows. <code>generateReport</code> and <code>emitExport</code> stay false unless you need those value events. <code>outputFormat</code> defaults to markdown. Live Input leaves <code>includeImages</code> false for a low-cost first run.</p>
 <pre><code>{
   "urls": [
-    "https://example.com/news/example"
+    "https://en.wikipedia.org/wiki/Web_scraping"
   ],
   "outputFormat": "markdown",
   "includeImages": false,
+  "generateReport": false,
+  "emitExport": false,
   "delivery": "dataset",
   "dryRun": false
 }</code></pre>
-    <p>That is the cheapest first paid extractor input. Leave <code>generateReport</code> and <code>emitExport</code> off. If one Actor Start event and one useful article row charge, documented PPE is $0.00005 + $0.008 = $0.00805. For the event table, see <a href="/guides/article-extractor-first-paid-run/">Cheapest first paid run for Article Extractor</a>.</p>
+    <p>That is the cheapest first paid extractor input. Leave <code>generateReport</code> and <code>emitExport</code> off. If one Actor Start event and one useful article row charge, documented PPE is $0.00005 + $0.008 ≈ <strong>$0.008</strong>. For the event table, see <a href="/guides/article-extractor-first-paid-run/">Cheapest first paid run for Article Extractor</a>.</p>
     <p>Published output fields: <code>rowType</code>, <code>url</code>, <code>headline</code>, <code>author</code>, <code>publishedAt</code>, <code>articleText</code>, <code>excerpt</code>, <code>heroImage</code>, and <code>sourceUrl</code>. Sample <code>rowType</code> is <code>article</code>. README sample (placeholder article data, not a live coverage guarantee):</p>
 <pre><code>{
   "meta": {
@@ -301,7 +305,7 @@
   "warnings": []
 }</code></pre>
     <p>Rows also include fetch timestamps, warnings for partial or changed content, and stable IDs when the workflow supports recurring change detection. Optional inline images when <code>includeImages</code> is true; <code>heroImage</code> can still be returned separately when available. There is no separate output schema on the Store page.</p>
-    <p><a href="https://apify.com/taroyamada/article-content-extractor">Run an article extraction on Apify</a>
+    <p><a href="https://apify.com/taroyamada/article-content-extractor/input">Run this 1-URL extraction on Apify Input</a>
       ·
       <a href="/guides/article-extractor-first-paid-run/">Cheapest first paid run</a></p>
 
@@ -317,7 +321,7 @@
   "dryRun": false
 }</code></pre>
     <p>Live PPE for those value events is $2.50 per content audit report and $5.00 per batch export. Request limits are bounded at 300 URLs, 3 redirects, and 5 MiB per HTML response by default. <code>maxRedirects</code> and <code>maxResponseBytes</code> can be lowered; the runtime never permits more than 10 redirects or 10 MiB.</p>
-    <p><a href="https://apify.com/taroyamada/article-content-extractor">Generate an article report on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/article-content-extractor/input">Generate an article report on Apify Input</a></p>
 
     <h2>How is Article Content Extractor different from Website Content Extractor?</h2>
     <p>This Actor parses public news, blog, newsroom, and press pages into article rows: headline, author, <code>publishedAt</code>, <code>articleText</code>, excerpt, and <code>heroImage</code>. Maximum 300 URLs per run. <code>outputFormat</code> is markdown (default) or text — it does not emit HTML. <a href="/website-content-extractor/">Website Content Extractor</a> cleans docs, product, pricing, policy, and help-center pages that are not article-shaped (maximum 200 URLs) and can emit markdown, text, or HTML. Route broad site pages there. Side-by-side: <a href="/compare/article-vs-website-content-extractor/">Article Content Extractor vs Website Content Extractor for RAG</a>.</p>
@@ -326,7 +330,7 @@
     <p>This Actor is HTML cleanup for article-shaped URLs you already have. It is not a search surface. <a href="/google-news-scraper/">Google News Scraper</a> is query-based Google News RSS discovery (<code>queries</code>, maximum 50) and returns headlines and article URLs without full article text. <a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a> parses known-publisher feed XML (<code>feedUrls</code>, maximum 50) and does not crawl page HTML. Discover URLs first, then send news, blog, and press links here.</p>
 
     <h2>Which public article URLs can I pass, and what is rejected?</h2>
-    <p>Pass public HTTP(S) news, blog, newsroom, or press URLs you own or are authorized to fetch. Maximum 300 URLs per run. Loopback, private, link-local, metadata, reserved, and DNS-resolved private targets are rejected, as are non-HTML responses, excessive redirects, and oversized responses. Default bounds are 3 redirects and 5 MiB per HTML response; the runtime never permits more than 10 redirects or 10 MiB. Schema prefill is three <code>blog.google</code> article URLs.</p>
+    <p>Pass public HTTP(S) news, blog, newsroom, or press URLs you own or are authorized to fetch. Maximum 300 URLs per run. Loopback, private, link-local, metadata, reserved, and DNS-resolved private targets are rejected, as are non-HTML responses, excessive redirects, and oversized responses. Default bounds are 3 redirects and 5 MiB per HTML response; the runtime never permits more than 10 redirects or 10 MiB. Schema prefill is one Wikipedia <code>Web_scraping</code> URL.</p>
 
     <h2>What fields does a useful article row include?</h2>
     <p>The published README field list is <code>rowType</code>, <code>url</code>, <code>headline</code>, <code>author</code>, <code>publishedAt</code>, <code>articleText</code>, <code>excerpt</code>, <code>heroImage</code>, and <code>sourceUrl</code>. Sample <code>rowType</code> is <code>article</code>. Rows also include fetch timestamps, warnings when a source is partial or changed, and stable IDs when the workflow supports recurring change detection. Optional inline images when <code>includeImages</code> is true; <code>heroImage</code> can still be returned separately. The README sample is placeholder article data, not a live coverage guarantee. There is no separate output schema on the Store page.</p>
@@ -347,7 +351,7 @@
           <td><code>urls</code></td>
           <td>string[]</td>
           <td>required</td>
-          <td>Public article, news, blog, newsroom, or press URLs (max 300). Schema prefill is three <code>blog.google</code> article URLs.</td>
+          <td>Public article, news, blog, newsroom, or press URLs (max 300). Schema prefill is one Wikipedia Web scraping URL.</td>
         </tr>
         <tr>
           <td><code>outputFormat</code></td>
@@ -358,8 +362,8 @@
         <tr>
           <td><code>includeImages</code></td>
           <td>boolean</td>
-          <td>true</td>
-          <td>Include the inline images array. <code>heroImage</code> can still be returned separately. Store Quickstart uses false.</td>
+          <td>false</td>
+          <td>Include the inline images array. <code>heroImage</code> can still be returned separately. Leave false for the cheapest first paid run.</td>
         </tr>
         <tr>
           <td><code>concurrency</code></td>
@@ -418,13 +422,13 @@
       </tbody>
     </table>
     <p>Do not send unpublished aliases such as <code>includeMetadata</code>, <code>maxChargeUsd</code>, <code>html</code> as <code>outputFormat</code>, Google News <code>queries</code>, RSS <code>feedUrls</code>, <code>authorizedUseConfirmed</code>, or <code>emitUnchanged</code>. Those belong on other Actors.</p>
-    <p><a href="https://apify.com/taroyamada/article-content-extractor">Start a run on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/article-content-extractor/input">Start a run on Apify Input</a></p>
 
     <h2>When do article-content-audit-report and article-batch-export emit?</h2>
     <p>Set <code>generateReport</code> to true to emit one <code>article-content-audit-report</code> row when at least one article is usable ($2.50). Set <code>emitExport</code> to true to emit one <code>article-batch-export</code> row when at least one article is usable ($5.00). These are this Actor’s published value events. Raw article rows remain source context. The default path leaves both flags false.</p>
 
     <h2>How is Article Content Extractor priced?</h2>
-    <p>Billing is pay-per-event. The live Store card is <strong>from $2,500.00 / 1,000 article content audit reports</strong> because the primary event is <code>article-content-audit-report</code> at <strong>$2.50</strong>. Live events:</p>
+    <p>Billing is pay-per-event. The live Store card is <strong>from $8.00 / 1,000 useful article rows</strong> because the billed useful-row event is <strong>$0.008</strong>. Live events:</p>
     <ul>
       <li><strong>Useful article row</strong> (<code>apify-default-dataset-item</code>): <strong>$0.008</strong> ($8.00 / 1,000) for one successfully extracted or partially extracted public article row</li>
       <li><strong>Article content audit report</strong> (<code>article-content-audit-report</code>): <strong>$2.50</strong> for one explicitly requested source-linked batch audit report</li>
@@ -432,7 +436,7 @@
       <li><strong>Actor Start</strong> (<code>apify-actor-start</code>): <strong>$0.00005</strong>, one event per GB with a minimum of one event</li>
     </ul>
     <p>Platform usage is included. You are not charged for Apify platform usage, only the fixed event prices. Failed or no-content rows stay out of the default dataset. Dry runs, validation-only runs, error-only runs, and no-usable-row recurring polls do not write payable rows. The default dataset is the canonical billable surface.</p>
-    <p class="price">From $2,500.00 / 1,000 article content audit reports ($2.50 per report). Useful article row $0.008 ($8.00 / 1,000). Batch export $5.00. Actor Start $0.00005.</p>
+    <p class="price">Open Input → Start. 1 URL ≈ $0.008. From $8.00 / 1,000 useful rows. Audit report $2.50. Batch export $5.00.</p>
     <p><a href="https://apify.com/taroyamada/article-content-extractor/pricing">See Article Content Extractor pricing on Apify</a></p>
 
     <h2>How does Article Content Extractor deliver dataset, webhook, and dry-run output?</h2>
@@ -442,11 +446,11 @@
     <p>No. The published <code>outputFormat</code> enum is <code>markdown</code> (default) or <code>text</code>. This Actor does not emit HTML. <a href="/website-content-extractor/">Website Content Extractor</a> is the sibling that can return <code>html</code> as well as markdown or text.</p>
 
     <h2>Does includeImages replace heroImage or add an inline images array?</h2>
-    <p><code>includeImages</code> defaults to true and includes the inline images array in the result. The <code>heroImage</code> field can still be returned separately when available. The Store Quickstart sets <code>includeImages</code> false for a low-cost first run. <code>heroImage</code> is in the published README field list either way.</p>
+    <p><code>includeImages</code> defaults to false and, when true, includes the inline images array in the result. The <code>heroImage</code> field can still be returned separately when available. Leave <code>includeImages</code> false for a low-cost first run. <code>heroImage</code> is in the published README field list either way.</p>
 
     <h2>Does Article Content Extractor crawl a full site or rank pages?</h2>
     <p>No. You supply the URL list. Maximum 300 URLs per run. It is a bounded source extractor for research, content QA, and RAG ingestion — not a ranking tool, a full-site crawler, or a claim of publisher endorsement. It does not imply content ownership transfer. Only fetch public HTTP(S) URLs that you own or are authorized to audit.</p>
-    <p><a href="https://apify.com/taroyamada/article-content-extractor">Open Article Content Extractor on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/article-content-extractor/input">Open Article Content Extractor Input on Apify</a></p>
 
     <h2>Are failed or empty article fetches billed as useful article rows?</h2>
     <p>No. Failed or no-content rows stay out of the default dataset. The billed useful-article-row event is for one successfully extracted or partially extracted public article row ($0.008). Dry runs, validation-only runs, error-only runs, and no-usable-row recurring polls do not write payable rows. The default dataset is the canonical billable surface.</p>
@@ -456,7 +460,7 @@
 
     <h2>Can I send Google News queries or RSS feed URLs into Article Content Extractor?</h2>
     <p>No. Required input is a <code>urls</code> list of article-shaped HTTP(S) pages. For query-based Google News RSS discovery use <a href="/google-news-scraper/">Google News Scraper</a> (<code>queries</code>). For known-publisher feed XML use <a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a> (<code>feedUrls</code>). After those discovery runs, send news, blog, and press page URLs here and docs, pricing, policy, or product URLs to <a href="/website-content-extractor/">Website Content Extractor</a>.</p>
-    <p><a href="https://apify.com/taroyamada/article-content-extractor">Open Article Content Extractor on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/article-content-extractor/input">Open Article Content Extractor Input on Apify</a></p>
 
     <h2>Related actors</h2>
     <ul>
