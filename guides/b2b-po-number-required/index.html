@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>B2B checkout can skip a purchase-order number unless a validation rule requires it</title>
+  <meta name="description" content="Native B2B terms do not check PO number format, prefix, regex, or uniqueness. Require a valid purchase-order number on company checkout, then preview the rule before you publish.">
+  <meta name="robots" content="index,follow">
+  <meta property="og:title" content="B2B checkout can skip a purchase-order number unless a validation rule requires it">
+  <meta property="og:description" content="Require PO number format, prefix, and uniqueness on B2B checkout. Native Net Terms do not check that. Preview a sample number before you publish.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/b2b-po-number-required/">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/b2b-po-number-required/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Does native B2B Net Terms require a valid purchase-order number?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Native company payment terms control how the company pays. They do not validate PO number format, prefix, regex, length, or uniqueness. A buyer can leave the box empty, type junk, or reuse a number unless a checkout validation rule rejects that input."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Will a required PO number also hit D2C checkouts?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "It should not. The job on this page is company / B2B checkout only. D2C and no-company carts stay on ordinary checkout. If a retail buyer sees a wholesale PO rule, the rule is on the wrong surface."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is a purchase-order number the same as a PO Box address?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. A PO number is a buyer’s order reference on a B2B invoice. A PO Box is a postal address type. Blocking PO Box on billing is a different checkout job. Do not copy address rules onto the PO-number field."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I preview a PO rule before it blocks live checkouts?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Preview format, prefix, regex, length, and uniqueness against a sample number before you publish. Then place a company checkout with a bad number (must error) and a matching number (must pass). Roll back if the live rule is wrong."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do deposit guardrails and order review replace a required PO number?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Deposit percentage limits and “hold orders above a threshold for approval” are separate controls. They can sit next to a required PO number. Hiding unpaid-deposit payment methods at checkout is a Plus B2B path; PO validation and review routing are described as working on every plan."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does requiring a PO number guarantee the buyer will pay?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. It only rejects numbers that fail the published rule. It is not credit insurance, not a chargeback guarantee, and not legal advice. Pair it with the Net Terms and review process you already use."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I require a PO number on B2B checkout?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Publish checkout validation that reads the company purchase-order field and returns an error when the number is missing or fails format, prefix, regex, length, or uniqueness. B2B Terms & PO Guard is the App Store listing this site already uses for that job. Open the listing, set rules, preview a sample number, then publish and test a blocked and an allowed checkout."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+    .note { font-size: 13px; color: #666; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Guides / Require PO number on B2B checkout</nav>
+    <h1>B2B checkout can skip a purchase-order number unless a validation rule requires it</h1>
+    <p>Job: reject a company checkout when the <strong>purchase-order number</strong> is missing or fails the format you publish. Native B2B Net Terms do not check that field. Wholesale buyers then skip the box, type junk, or reuse a number.</p>
+    <p>This page is the B2B PO-number job, not a listing mirror. It is not a postal PO Box block. D2C and no-company checkouts stay out of the way.</p>
+    <p class="price">Set PO format rules, preview a sample number, then test a blocked and an allowed company checkout.</p>
+    <p><a href="https://apps.shopify.com/b2b-terms-guard">Open B2B Terms &amp; PO Guard on the App Store</a></p>
+
+    <h2>Start path: required PO number on company checkout</h2>
+    <ol>
+      <li>Open the <a href="https://apps.shopify.com/b2b-terms-guard">B2B Terms &amp; PO Guard listing</a> (<code>apps.shopify.com/b2b-terms-guard</code>) and install it.</li>
+      <li>Set PO rules: required, format, prefix, regex, length, uniqueness. Preview against a sample number before you publish.</li>
+      <li>Optionally set deposit percentage guardrails and a review threshold for oversized orders. Those are extra controls, not a substitute for a required PO.</li>
+      <li>Place two company checkouts: a missing or junk PO (must error) and a matching number (must pass). Confirm a D2C cart is untouched. Roll back if the live rule is wrong.</li>
+    </ol>
+    <p>The app validates the number you configure. It does not underwrite the buyer’s credit.</p>
+    <p><a href="https://apps.shopify.com/b2b-terms-guard">Install, then require a valid PO number</a></p>
+
+    <h2>Native terms vs a required PO number</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Control</th>
+          <th>What it sees</th>
+          <th>Required valid PO?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Native B2B Net Terms</td>
+          <td>How the company is allowed to pay</td>
+          <td>No format, prefix, or uniqueness check</td>
+        </tr>
+        <tr>
+          <td>Optional PO field with no rule</td>
+          <td>Whatever the buyer types, including blank</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>Deposit / review thresholds</td>
+          <td>Order size or unpaid-deposit methods</td>
+          <td>Separate job; does not parse the PO string</td>
+        </tr>
+        <tr>
+          <td>Checkout validation on the PO field</td>
+          <td>Company purchase-order number at checkout</td>
+          <td>Yes, if the published rule requires a match</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Example rule you preview before publish (paraphrase, not a live regex):</p>
+<pre><code>required: yes
+prefix: PO-
+length: 8–16
+unique per company
+sample: PO-48219  → pass
+sample: (blank)    → error
+sample: TEST       → error</code></pre>
+    <p>Checkout enforcement that hides unpaid-deposit methods is described on the listing as a Plus B2B path. PO validation, review, and approval are described as working on every plan. Confirm the live listing, not this page.</p>
+
+    <h2>What this page is not</h2>
+    <ul>
+      <li>Not a postal PO Box block. That job is <a href="/guides/block-po-box-billing-address/">block PO Box on billing</a>.</li>
+      <li>Not D2C checkout validation.</li>
+      <li>Not credit insurance or a chargeback guarantee.</li>
+      <li>Not a staff access audit. That path is <a href="/guides/access-audit-shopify-admin/">permission drift after the last review</a>.</li>
+    </ul>
+
+    <h2>Does native B2B Net Terms require a valid purchase-order number?</h2>
+    <p>No. Native company payment terms control how the company pays. They do not validate PO number format, prefix, regex, length, or uniqueness. A buyer can leave the box empty, type junk, or reuse a number unless a checkout validation rule rejects that input.</p>
+
+    <h2>Will a required PO number also hit D2C checkouts?</h2>
+    <p>It should not. The job on this page is company / B2B checkout only. D2C and no-company carts stay on ordinary checkout. If a retail buyer sees a wholesale PO rule, the rule is on the wrong surface.</p>
+
+    <h2>Is a purchase-order number the same as a PO Box address?</h2>
+    <p>No. A PO number is a buyer’s order reference on a B2B invoice. A PO Box is a postal address type. Blocking PO Box on billing is a different checkout job. Do not copy address rules onto the PO-number field.</p>
+
+    <h2>Can I preview a PO rule before it blocks live checkouts?</h2>
+    <p>Yes. Preview format, prefix, regex, length, and uniqueness against a sample number before you publish. Then place a company checkout with a bad number (must error) and a matching number (must pass). Roll back if the live rule is wrong.</p>
+
+    <h2>Do deposit guardrails and order review replace a required PO number?</h2>
+    <p>No. Deposit percentage limits and “hold orders above a threshold for approval” are separate controls. They can sit next to a required PO number. Hiding unpaid-deposit payment methods at checkout is a Plus B2B path; PO validation and review routing are described as working on every plan.</p>
+
+    <h2>Does requiring a PO number guarantee the buyer will pay?</h2>
+    <p>No. It only rejects numbers that fail the published rule. It is not credit insurance, not a chargeback guarantee, and not legal advice. Pair it with the Net Terms and review process you already use.</p>
+
+    <h2>How do I require a PO number on B2B checkout?</h2>
+    <p>Publish checkout validation that reads the company purchase-order field and returns an error when the number is missing or fails format, prefix, regex, length, or uniqueness. <a href="https://apps.shopify.com/b2b-terms-guard">B2B Terms &amp; PO Guard</a> is the App Store listing this site already uses for that job. Open the listing, set rules, preview a sample number, then publish and test a blocked and an allowed checkout.</p>
+
+    <p class="price">Set PO format rules, preview a sample number, then test a blocked and an allowed company checkout.</p>
+    <p><a href="https://apps.shopify.com/b2b-terms-guard">Open B2B Terms &amp; PO Guard on the App Store</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="https://apps.shopify.com/b2b-terms-guard">B2B Terms &amp; PO Guard</a> — live App Store listing</li>
+      <li><a href="/b2b-po-terms/">B2B purchase-order terms install page</a></li>
+      <li><a href="/guides/block-po-box-billing-address/">Block PO Box on billing address</a> — postal address, not PO numbers</li>
+      <li><a href="/guides/access-audit-shopify-admin/">Staff permission drift access audit</a></li>
+      <li><a href="/review/">Shopify apps hub</a></li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+    <p class="note">Not credit insurance. Not a PO Box shipping rule. Native Net Terms do not validate PO format. Preview a sample number before you leave a rule published.</p>
+  </main>
+</body>
+</html>

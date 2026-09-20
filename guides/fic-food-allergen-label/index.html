@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Food allergen labelling has to appear before purchase, not only on delivery</title>
+  <meta name="description" content="EU FIC (Reg 1169/2011) requires allergen, nutrition, and origin info before purchase in distance selling. Detect Annex II allergens from ingredient text and show them on the product page. Not legal advice.">
+  <meta name="robots" content="index,follow">
+  <meta property="og:title" content="Food allergen labelling has to appear before purchase, not only on delivery">
+  <meta property="og:description" content="Show the 14 Annex II allergens on the product page before checkout. Flag an allergen the ingredients mention but the declared list omits. Not legal advice.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/fic-food-allergen-label/">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/fic-food-allergen-label/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Does EU FIC require allergen labelling before purchase in distance selling?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Mandatory food information — including substances or products causing allergies or intolerances in Annex II — has to be available before the purchase is concluded for distance selling, and still appear at delivery. Nutrition and origin sit in the same pre-purchase set. This page is not legal advice. Confirm Regulation (EU) No 1169/2011, especially Articles 9 and 14, not this paraphrase."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What are the 14 Annex II allergens?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Annex II lists cereals containing gluten, crustaceans, eggs, fish, peanuts, soybeans, milk, nuts, celery, mustard, sesame, sulphur dioxide and sulphites above the stated threshold, lupin, and molluscs, plus products thereof, with the exceptions written in that annex. Use the live annex, not a nickname list from this page."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What if ingredient text mentions an allergen the declared list omits?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "That mismatch is the detection job: flag the allergen the ingredients mention but the declared list does not. Fix the declared list (or the ingredient text) before you leave the product page live. Detection is a hint from text, not a lab assay."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I put allergens only in a delivery note or on the parcel?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No for the pre-purchase duty. Delivery-only notes are a different surface. Distance selling still has to show the mandatory particulars before checkout. Keep delivery notes apart from the product-page facts."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Did honey origin rules change in 2026?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Honey origin labelling rules changed 14 June 2026. Origin remains a pre-purchase fact alongside allergens and nutrition when it is required. This page’s main job is allergen labelling; origin is the neighbouring field on the same product page. Confirm the live honey-origin text, not this page."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does an app make the product page FIC compliant?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. The app organizes merchant data, detects Annex II names from ingredient text, and can sync a theme block. It does not determine legal compliance, calculate recipes, or print official labels. Not legal advice."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Where do I put FIC allergen info on the product page?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Detect the 14 Annex II allergens from ingredient text, separate pre-purchase facts from delivery-only notes, and sync a storefront theme block via an app-owned metafield. EU Food Info Guard is the App Store listing this site already uses for that job. Open the listing, install, then confirm the live product page."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+    .note { font-size: 13px; color: #666; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Guides / EU FIC food allergen labelling</nav>
+    <h1>Food allergen labelling has to appear before purchase, not only on delivery</h1>
+    <p>Job: show <strong>EU FIC allergen information</strong> on the product page before checkout — the Annex II list, including any allergen the ingredient text mentions but the declared list omits. A sticker on the parcel is too late for distance selling.</p>
+    <p>This page is the pre-purchase allergen job, not a listing mirror and not legal advice. Regulation (EU) No 1169/2011 is the food-information rule. UK PPDS is a neighbouring regime, not a substitute. Confirm the live text before you ship copy.</p>
+    <p class="price">Detect Annex II allergens from ingredient text, then check the live product page before purchase.</p>
+    <p><a href="https://apps.shopify.com/fic-food-info-guard">Open EU Food Info Guard on the App Store</a></p>
+
+    <h2>Start path: allergens on the product page, not the parcel</h2>
+    <ol>
+      <li>Open the <a href="https://apps.shopify.com/fic-food-info-guard">EU Food Info Guard listing</a> (<code>apps.shopify.com/fic-food-info-guard</code>) and install it on the store that distance-sells food.</li>
+      <li>Paste or import ingredient text and detect the 14 Annex II allergens. Fix any allergen the ingredients mention but the declared list omits.</li>
+      <li>Keep nutrition and origin with the pre-purchase block. Separate delivery-only notes from those facts.</li>
+      <li>Sync the theme block via the app-owned metafield (no template edits). Open a live product page and confirm shoppers see the allergens before they buy.</li>
+    </ol>
+    <p>The app organizes merchant data. It does not determine legal compliance or calculate recipes.</p>
+    <p><a href="https://apps.shopify.com/fic-food-info-guard">Install, then detect Annex II allergens</a></p>
+
+    <h2>Pre-purchase facts vs delivery-only notes</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Surface</th>
+          <th>Allergen consequence</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Product page (distance selling)</td>
+          <td>Mandatory particulars, including Annex II allergens, before purchase</td>
+        </tr>
+        <tr>
+          <td>Nutrition / origin</td>
+          <td>Same pre-purchase set; honey origin rules changed 14 June 2026</td>
+        </tr>
+        <tr>
+          <td>Delivery note / parcel label only</td>
+          <td>Too late for the before-purchase duty</td>
+        </tr>
+        <tr>
+          <td>Ingredient text vs declared list</td>
+          <td>Flag when the text names an allergen the declared list omits</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Annex II groups (paraphrase; use the live annex for exceptions):</p>
+<pre><code>cereals containing gluten
+crustaceans, eggs, fish
+peanuts, soybeans, milk, nuts
+celery, mustard, sesame
+sulphur dioxide / sulphites (threshold applies)
+lupin, molluscs
++ products thereof</code></pre>
+
+    <h2>What this page is not</h2>
+    <ul>
+      <li>Not legal advice, a lab test, a recipe calculator, or an official label printer.</li>
+      <li>Not CLP/GHS hazard pictograms. That job is <a href="/guides/clp-hazard-product-page/">hazard display on the product page</a>.</li>
+      <li>Not EU textile fibre names. That path is <a href="/guides/textile-fibre-label-eu/">Annex I composition</a>.</li>
+      <li>Not a California Prop 65 warning. That job is <a href="/guides/prop-65-product-page-warning-2028/">2028 product-page short-form warnings</a>.</li>
+    </ul>
+
+    <h2>Does EU FIC require allergen labelling before purchase in distance selling?</h2>
+    <p>Mandatory food information — including substances or products causing allergies or intolerances in Annex II — has to be available before the purchase is concluded for distance selling, and still appear at delivery. Nutrition and origin sit in the same pre-purchase set. This page is not legal advice. Confirm <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32011R1169">Regulation (EU) No 1169/2011</a>, especially Articles 9 and 14, not this paraphrase.</p>
+
+    <h2>What are the 14 Annex II allergens?</h2>
+    <p>Annex II lists cereals containing gluten, crustaceans, eggs, fish, peanuts, soybeans, milk, nuts, celery, mustard, sesame, sulphur dioxide and sulphites above the stated threshold, lupin, and molluscs, plus products thereof, with the exceptions written in that annex. Use the live annex, not a nickname list from this page.</p>
+
+    <h2>What if ingredient text mentions an allergen the declared list omits?</h2>
+    <p>That mismatch is the detection job: flag the allergen the ingredients mention but the declared list does not. Fix the declared list (or the ingredient text) before you leave the product page live. Detection is a hint from text, not a lab assay.</p>
+
+    <h2>Can I put allergens only in a delivery note or on the parcel?</h2>
+    <p>No for the pre-purchase duty. Delivery-only notes are a different surface. Distance selling still has to show the mandatory particulars before checkout. Keep delivery notes apart from the product-page facts.</p>
+
+    <h2>Did honey origin rules change in 2026?</h2>
+    <p>Honey origin labelling rules changed 14 June 2026. Origin remains a pre-purchase fact alongside allergens and nutrition when it is required. This page’s main job is allergen labelling; origin is the neighbouring field on the same product page. Confirm the live honey-origin text, not this page.</p>
+
+    <h2>Does an app make the product page FIC compliant?</h2>
+    <p>No. The app organizes merchant data, detects Annex II names from ingredient text, and can sync a theme block. It does not determine legal compliance, calculate recipes, or print official labels. Not legal advice.</p>
+
+    <h2>Where do I put FIC allergen info on the product page?</h2>
+    <p>Detect the 14 Annex II allergens from ingredient text, separate pre-purchase facts from delivery-only notes, and sync a storefront theme block via an app-owned metafield. <a href="https://apps.shopify.com/fic-food-info-guard">EU Food Info Guard</a> is the App Store listing this site already uses for that job. Open the listing, install, then confirm the live product page.</p>
+
+    <p class="price">Detect Annex II allergens from ingredient text, then check the live product page before purchase.</p>
+    <p><a href="https://apps.shopify.com/fic-food-info-guard">Open EU Food Info Guard on the App Store</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="https://apps.shopify.com/fic-food-info-guard">EU Food Info Guard</a> — live App Store listing</li>
+      <li><a href="/eu-food-labelling/">EU food labelling install page</a></li>
+      <li><a href="/guides/clp-hazard-product-page/">CLP hazard pictograms on the product page</a></li>
+      <li><a href="/guides/textile-fibre-label-eu/">EU textile fibre composition label</a></li>
+      <li><a href="/review/">Shopify apps hub</a></li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+    <p class="note">Not legal advice. Not a lab assay. Confirm Regulation (EU) No 1169/2011 before you publish food copy. The app organizes allergen and origin data you enter.</p>
+  </main>
+</body>
+</html>
