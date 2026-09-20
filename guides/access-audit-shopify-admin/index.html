@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Staff permission drift after the last review is not caught by a one-time user list</title>
+  <meta name="description" content="Admin user lists are a snapshot. Staff, collaborators, and installed-app scopes drift after the last review unless you re-audit and keep a permission log. Not a security attestation.">
+  <meta name="robots" content="index,follow">
+  <meta property="og:title" content="Staff permission drift after the last review is not caught by a one-time user list">
+  <meta property="og:description" content="Re-audit staff, collaborator, and installed-app scopes. Flag customer-data access and export evidence. Not a security attestation.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/access-audit-shopify-admin/">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/access-audit-shopify-admin/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Does a one-time admin user list catch staff permission drift?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Users and permissions show who currently has access. They do not keep a review cadence, overdue flags, or a log of what changed since the last check. Collaborators, staff roles, and installed-app scopes can all move after you last opened that screen. A later audit is a different record from a screenshot of today’s list."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do installed apps, including AI assistants, show up on the staff list?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Not as a scored access review. Installed apps request scopes, including apps that can read customer or order data. The staff list is people. Scope risk is a separate inventory: which app was granted protected customer-data or broad-write access, and whether that set drifted after the last audit."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What counts as permission drift?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A change after the last scheduled audit: granted scopes, app owners, or recorded costs. Staff and collaborator reviews that go past a 30- or 90-day reminder are overdue, not merely “still installed.” Duplicate paid categories are a cost-drift signal, not a permission grant by themselves."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does an access audit remediate risky staff or apps?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. An audit scores and flags. It does not revoke staff, uninstall apps, or attest that the store is secure. You still review findings before you change access. It is not attorney advice, a SOC report, or employee monitoring."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does the audit read customer or order bodies?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The listing’s job is store-level audit metadata, app scope findings, a manual access register, and report history. It does not store customer data bodies, order contents, screen recordings, or employee-monitoring events. Confirm the live privacy text, not this page."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I keep evidence of an access audit?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Run the audit, review staff and collaborator reminders, and export CSV or PDF evidence on the plans that include those exports. A first audit can run on install; you can run another at any time. Keep the export with the date you reviewed it."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Where do I run a staff and app-scope access audit?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use an access audit that scores installed-app scopes (including AI apps), flags customer-data access, tracks staff and collaborator reviews, and alerts on scope, owner, or cost drift. Access Audit Guard is the App Store listing this site already uses for that job. Open the listing, install, wait for the first audit, then export evidence if you need a file."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
+    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
+    p, li { font-size: 16px; line-height: 1.5; color: #444; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
+    th { background: #f3f3f3; font-weight: 600; color: #202223; }
+    tr:last-child td { border-bottom: 0; }
+    .price { color: #202223; }
+    .note { font-size: 13px; color: #666; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="/">Home</a> / Guides / Staff permission drift access audit</nav>
+    <h1>Staff permission drift after the last review is not caught by a one-time user list</h1>
+    <p>Job: re-audit <strong>staff, collaborators, and installed-app scopes</strong> after the last review, including AI apps that can read customer or order data. Opening Users and permissions today is a snapshot. It is not a drift log.</p>
+    <p>This page is the admin access-audit job, not a listing mirror and not a security attestation. Scopes, owners, and recorded costs can move after you last checked. Confirm findings before you change anyone’s access.</p>
+    <p class="price">Run an access audit, review overdue staff flags, then export evidence if you need a file.</p>
+    <p><a href="https://apps.shopify.com/momiji-access-audit">Open Access Audit Guard on the App Store</a></p>
+
+    <h2>Start path: audit, then re-check drift</h2>
+    <ol>
+      <li>Open the <a href="https://apps.shopify.com/momiji-access-audit">Access Audit Guard listing</a> (<code>apps.shopify.com/momiji-access-audit</code>) and install it on the store that needs a staff access audit.</li>
+      <li>Wait for the first audit — the listing states it runs automatically on install. You can run another at any time.</li>
+      <li>Review staff and collaborator access (30/90-day reminders), and check which apps — including AI apps — can read or write customer data.</li>
+      <li>Export CSV or PDF evidence on the plans that include those exports. Re-run when owners, scopes, or costs change.</li>
+    </ol>
+    <p>The app scores and flags access. It does not revoke staff, uninstall apps, or attest that the store is secure.</p>
+    <p><a href="https://apps.shopify.com/momiji-access-audit">Install, then run the first access audit</a></p>
+
+    <h2>Snapshot vs a recurring access audit</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Control</th>
+          <th>What it sees</th>
+          <th>Permission drift?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Users and permissions screen</td>
+          <td>Who currently has staff or collaborator access</td>
+          <td>No history, no overdue review flags</td>
+        </tr>
+        <tr>
+          <td>Installed-app list</td>
+          <td>Which apps are installed</td>
+          <td>No scored scope risk, no customer-data flag</td>
+        </tr>
+        <tr>
+          <td>One screenshotted user list</td>
+          <td>That day’s snapshot</td>
+          <td>Stale the next time a role or scope changes</td>
+        </tr>
+        <tr>
+          <td>Access audit with drift alerts</td>
+          <td>Scopes, owners, costs, staff review cadence</td>
+          <td>Yes, if you re-run and keep the evidence</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Example fields you keep against a review (paraphrase, not a form):</p>
+<pre><code>staff / collaborator
+last review date
+overdue? (30 / 90 day)
+installed app
+granted scopes
+customer-data or broad-write flag
+risk score
+owner / cost drift since last audit</code></pre>
+
+    <h2>What this page is not</h2>
+    <ul>
+      <li>Not a security attestation, SOC report, or automatic remediation.</li>
+      <li>Not employee monitoring or a customer-data export.</li>
+      <li>Not a B2B purchase-order rule. That job is <a href="/guides/b2b-po-number-required/">require a PO number on B2B checkout</a>.</li>
+      <li>Not catalog readiness for AI shopping agents. That path is <a href="/guides/agentic-catalog-readiness/">llms.txt, crawler rules, and product JSON-LD</a>.</li>
+    </ul>
+
+    <h2>Does a one-time admin user list catch staff permission drift?</h2>
+    <p>No. Users and permissions show who currently has access. They do not keep a review cadence, overdue flags, or a log of what changed since the last check. Collaborators, staff roles, and installed-app scopes can all move after you last opened that screen. A later audit is a different record from a screenshot of today’s list.</p>
+
+    <h2>Do installed apps, including AI assistants, show up on the staff list?</h2>
+    <p>Not as a scored access review. Installed apps request scopes, including apps that can read customer or order data. The staff list is people. Scope risk is a separate inventory: which app was granted protected customer-data or broad-write access, and whether that set drifted after the last audit.</p>
+
+    <h2>What counts as permission drift?</h2>
+    <p>A change after the last scheduled audit: granted scopes, app owners, or recorded costs. Staff and collaborator reviews that go past a 30- or 90-day reminder are overdue, not merely “still installed.” Duplicate paid categories are a cost-drift signal, not a permission grant by themselves.</p>
+
+    <h2>Does an access audit remediate risky staff or apps?</h2>
+    <p>No. An audit scores and flags. It does not revoke staff, uninstall apps, or attest that the store is secure. You still review findings before you change access. It is not attorney advice, a SOC report, or employee monitoring.</p>
+
+    <h2>Does the audit read customer or order bodies?</h2>
+    <p>The listing’s job is store-level audit metadata, app scope findings, a manual access register, and report history. It does not store customer data bodies, order contents, screen recordings, or employee-monitoring events. Confirm the live privacy text, not this page.</p>
+
+    <h2>How do I keep evidence of an access audit?</h2>
+    <p>Run the audit, review staff and collaborator reminders, and export CSV or PDF evidence on the plans that include those exports. A first audit can run on install; you can run another at any time. Keep the export with the date you reviewed it.</p>
+
+    <h2>Where do I run a staff and app-scope access audit?</h2>
+    <p>Use an access audit that scores installed-app scopes (including AI apps), flags customer-data access, tracks staff and collaborator reviews, and alerts on scope, owner, or cost drift. <a href="https://apps.shopify.com/momiji-access-audit">Access Audit Guard</a> is the App Store listing this site already uses for that job. Open the listing, install, wait for the first audit, then export evidence if you need a file.</p>
+
+    <p class="price">Run an access audit, review overdue staff flags, then export evidence if you need a file.</p>
+    <p><a href="https://apps.shopify.com/momiji-access-audit">Open Access Audit Guard on the App Store</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="https://apps.shopify.com/momiji-access-audit">Access Audit Guard</a> — live App Store listing</li>
+      <li><a href="/access-audit/">Staff access audit install page</a></li>
+      <li><a href="/guides/agentic-catalog-readiness/">Catalog readiness for AI shopping agents</a> — crawler rules, not staff scopes</li>
+      <li><a href="/guides/b2b-po-number-required/">Require a PO number on B2B checkout</a></li>
+      <li><a href="/review/">Shopify apps hub</a></li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+    <p class="note">Not a security attestation. Not attorney advice. Not employee monitoring. The app scores and flags access you already granted; you choose what to change.</p>
+  </main>
+</body>
+</html>
