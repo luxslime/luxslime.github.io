@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Export Apple Podcasts search results to CSV (no API key)</title>
-  <meta name="description" content="Export Apple Podcasts search results to CSV without an Apple API key. Open Input → Start, keep limit 3, then download CSV. Search + limit 3 ≈ $0.0125 (Start $0.005 / result $0.0025). From $2.50/1k.">
+  <meta name="description" content="Export Apple Podcasts search results to CSV without an Apple API key. Start → Dataset → Download CSV. Keep Store prefill searchTerm technology, country us, limit 3, includeEpisodes false. Search + limit 3 ≈ $0.0125 (Start $0.005 / result $0.0025). From $2.50/1k.">
   <meta name="robots" content="index,follow">
   <meta property="og:title" content="Export Apple Podcasts search results to CSV (no API key)">
-  <meta property="og:description" content="Get Apple Podcasts keyword search as CSV. No Apple API key. Open Input → Start. Search + limit 3 ≈ $0.0125. From $2.50/1k.">
+  <meta property="og:description" content="Export Apple Podcasts search results to CSV. Dataset → Download CSV. No Apple API key. Store prefill searchTerm technology, limit 3. Search + limit 3 ≈ $0.0125. From $2.50/1k.">
   <meta property="og:url" content="https://apify.momiji-space.com/guides/export-apple-podcasts-search-csv/">
   <link rel="canonical" href="https://apify.momiji-space.com/guides/export-apple-podcasts-search-csv/">
   <script type="application/ld+json">
@@ -44,7 +44,7 @@
         "name": "How do I download the CSV after Start?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Leave delivery on dataset. When the run succeeds, open the default dataset and export CSV (JSON is also available in the same view). Do not switch to webhook until you have reviewed the CSV columns."
+          "text": "After Start succeeds, open the default Dataset and choose Download CSV (JSON is also available in the same view). Leave delivery on dataset. Do not switch to webhook until you have reviewed the CSV columns."
         }
       },
       {
@@ -97,17 +97,17 @@
   <main>
     <nav><a href="/">Home</a> / Guides / Export Apple Podcasts search CSV</nav>
     <h1>Export Apple Podcasts search results to CSV (no API key)</h1>
-    <p>You need a spreadsheet of public Apple Podcasts shows that match a keyword, and you do not have (and do not want) an Apple developer API key. This page is that path: open Input, keep <code>searchTerm</code> + <code>limit</code> 3 with episodes off, Start, then download CSV from the default dataset. Search uses the public iTunes Search API.</p>
+    <p>Export Apple Podcasts search results to CSV without an Apple developer API key. Open Input (Try for free), keep Store live defaults, Start, then open the default <strong>Dataset</strong> and choose <strong>Download CSV</strong>. Search uses the public iTunes Search API.</p>
     <p>What you get in that first run is a small catalog sample — show name, publisher, country, Apple collection ID, and the Apple Podcasts page URL — not chart ranks, not review text, and not audio files. Product overview and other modes live on the <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> hub (<code>taroyamada/apple-podcast-scraper</code>).</p>
     <p class="price">Try for free → Input → Start. Search + limit 3 ≈ $0.0125 (Start $0.005 / result $0.0025). From $2.50/1k. No Apple API key.</p>
     <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Try for free → open Input and Start</a></p>
 
-    <h2>Start path: keyword search to CSV</h2>
+    <h2>Dataset → Download CSV</h2>
     <ol>
-      <li>Open <a href="https://apify.com/taroyamada/apple-podcast-scraper/input"><code>taroyamada/apple-podcast-scraper</code> Input</a>. Sign in to Apify (an Apify account is required to run).</li>
-      <li>Keep the live prefill: <code>searchTerm</code>, <code>country</code> <code>us</code>, <code>limit</code> <strong>3</strong> (default is 3, not 50), <code>includeEpisodes</code> false. Leave <code>delivery</code> on <code>dataset</code>.</li>
+      <li>Open <a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Try for free → open Input and Start</a>. Sign in to Apify (an Apify account is required to run).</li>
+      <li>Keep the Store live prefill: <code>searchTerm</code> <code>technology</code>, <code>country</code> <code>us</code>, <code>limit</code> <strong>3</strong> (default is 3, not 50), <code>includeEpisodes</code> false. Leave <code>delivery</code> on <code>dataset</code>.</li>
       <li>Click <strong>Start</strong>.</li>
-      <li>When the run succeeds, open the default dataset and export <strong>CSV</strong> from the dataset view.</li>
+      <li>When the run succeeds, open the default <strong>Dataset</strong> and choose <strong>Download CSV</strong> (JSON is in the same view).</li>
     </ol>
     <p>You do not need an Apple API key, Apple ID, or proxy. You do need an Apify account to Start the run and download the file.</p>
     <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Try for free → Input → Start, then export CSV</a></p>
@@ -115,7 +115,7 @@
     <h2>Cheapest first CSV (limit 3)</h2>
     <p>Paste this JSON if the form is empty. Do not raise <code>limit</code> until three rows look right. Do not set <code>includeEpisodes</code> true on the first export; that path is slower and is not required for a show list.</p>
 <pre><code>{
-  "searchTerm": "founder podcast",
+  "searchTerm": "technology",
   "country": "us",
   "limit": 3,
   "includeEpisodes": false
@@ -131,7 +131,7 @@
       <tbody>
         <tr>
           <td><code>searchTerm</code></td>
-          <td>Keyword (prefill <code>founder podcast</code>)</td>
+          <td>Keyword (Store live prefill <code>technology</code>)</td>
         </tr>
         <tr>
           <td><code>limit</code></td>
@@ -154,7 +154,7 @@
     <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/pricing">See live pricing on the Store card</a></p>
 
     <h2>What the CSV contains</h2>
-    <p>Each search row is a public catalog hit (<code>rowType</code> sample: <code>podcast_search_result</code>), not a chart position and not a review. After Start succeeds, open the default dataset in Apify Console and use <strong>Export → CSV</strong> (JSON is in the same view). Leave <code>delivery</code> on <code>dataset</code> for this path.</p>
+    <p>Each search row is a public catalog hit (<code>rowType</code> sample: <code>podcast_search_result</code>), not a chart position and not a review. After Start succeeds, open the default <strong>Dataset</strong> and choose <strong>Download CSV</strong> (JSON is in the same view). Leave <code>delivery</code> on <code>dataset</code> for this path.</p>
     <table>
       <thead>
         <tr>
@@ -209,7 +209,7 @@
 
     <h2>How this path differs from other Apple Podcasts Actors on Apify</h2>
     <p>On Google (live check 2026-09-19, <code>gl=us</code> <code>hl=en</code>), page-1 results for queries such as <code>apple podcast scraper apify</code> and nearby scraper variants were dominated by <strong>other</strong> Apify Store Actors (examples observed on page 1: automation-lab, jupri/cat-family listings, and similar Store cards). Our Store detail and this guide were <strong>not</strong> on organic page 1 in that snapshot. Treat that as a traffic fact, not a feature scoreboard.</p>
-    <p>This page does not claim a Google rank. It owns one job: cheapest documented search → CSV with no Apple API key — Input prefill <code>searchTerm</code> + <code>limit</code> 3, episodes off, export dataset CSV. Actors that lead with all-in-one rental, episode MP3/RSS harvest, or directory/email enrichment are different jobs; use them when that is the deliverable. When the deliverable is a small keyword show list as CSV, use the Input link on this page.</p>
+    <p>This page does not claim a Google rank. It owns one job: export Apple Podcasts search results to CSV with no Apple API key — Input prefill <code>searchTerm</code> <code>technology</code> + <code>limit</code> 3, episodes off, then Dataset → Download CSV. Actors that lead with all-in-one rental, episode MP3/RSS harvest, or directory/email enrichment are different jobs; use them when that is the deliverable. When the deliverable is a small keyword show list as CSV, use the Input link on this page.</p>
 
     <h2>Is the default Apple Podcasts search limit 3 or 50?</h2>
     <p>The live default and Store prefill for <code>limit</code> is <strong>3, not 50</strong>. Empty or omitted <code>limit</code> falls back to 3. The allowed range is 1–200. Keep the first CSV export at 3, then raise <code>limit</code> after those rows are useful.</p>
@@ -221,7 +221,7 @@
     <p>Yes. The run happens on Apify. Open the Actor Input, sign in or create an Apify account, then Start. After the run finishes, export the default dataset as CSV from the dataset view.</p>
 
     <h2>How do I download the CSV after Start?</h2>
-    <p>Leave <code>delivery</code> on <code>dataset</code>. When the run succeeds, open the default dataset and export CSV (JSON is also available in the same view). Do not switch to webhook until you have reviewed the CSV columns. See <a href="/guides/apple-podcasts-webhooks/">webhooks</a> only after the file looks right.</p>
+    <p>Leave <code>delivery</code> on <code>dataset</code>. When the run succeeds, open the default <strong>Dataset</strong> and choose <strong>Download CSV</strong> (JSON is also available in the same view). Do not switch to webhook until you have reviewed the CSV columns. See <a href="/guides/apple-podcasts-webhooks/">webhooks</a> only after the file looks right.</p>
 
     <h2>What does a first search-to-CSV run cost?</h2>
     <p>Live pay-per-event prices are Actor Start $0.005 and result $0.0025 per default-dataset item ($2.50 per 1,000 results). Search + limit 3 ≈ $0.0125 if the run writes 3 rows and charges one Start event. Actual row count can be fewer than <code>limit</code>.</p>

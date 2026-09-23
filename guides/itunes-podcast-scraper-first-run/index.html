@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Apple Podcast Scraper Apify: cheapest first paid run (search + limit 3)</title>
-  <meta name="description" content="Cheapest first paid run for Apple Podcast Scraper Apify: searchTerm founder podcast, country us, limit 3. Live PPE: Start $0.005 + result $0.0025. Estimate ≈ $0.0125. From $2.50 / 1,000.">
+  <meta name="description" content="Cheapest first paid run for Apple Podcast Scraper Apify: searchTerm technology, country us, limit 3. Live PPE: Start $0.005 + result $0.0025. Estimate ≈ $0.0125. From $2.50 / 1,000.">
   <link rel="canonical" href="https://apify.momiji-space.com/guides/itunes-podcast-scraper-first-run/">
   <script type="application/ld+json">
   {
@@ -16,7 +16,7 @@
         "name": "What is the cheapest useful first paid run for this iTunes podcast scraper?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Use Apple Podcast Scraper Apify (taroyamada/apple-podcast-scraper): searchTerm founder podcast, country us, limit 3, and includeEpisodes false. Live Input default for limit is 3. That is the cheapest useful input on the live schema. Do not set maxEpisodesPerShow; it is not in the live schema."
+          "text": "Use Apple Podcast Scraper Apify (taroyamada/apple-podcast-scraper): searchTerm technology, country us, limit 3, and includeEpisodes false. Live Input default for limit is 3. That is the cheapest useful input on the live schema. Do not set maxEpisodesPerShow; it is not in the live schema."
         }
       },
       {
@@ -32,7 +32,7 @@
         "name": "Does the Store README still show a costlier example?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "No. The live Store Quickstart uses the same input (searchTerm founder podcast, country us, limit 3, includeEpisodes false). If that run writes 3 result rows and charges one Actor Start event, the estimate is $0.005 + (3 × $0.0025) = $0.0125. Same PPE as the Store pricing tab."
+          "text": "No. The live Store Quickstart uses the same input (searchTerm technology, country us, limit 3, includeEpisodes false). If that run writes 3 result rows and charges one Actor Start event, the estimate is $0.005 + (3 × $0.0025) = $0.0125. Same PPE as the Store pricing tab."
         }
       },
       {
@@ -101,7 +101,7 @@
     <h2>Cheapest useful input</h2>
     <p>Paste this JSON. Leave <code>chartRequests</code> and <code>lookupIds</code> empty. Do not add <code>maxEpisodesPerShow</code>; it is not in the live schema.</p>
 <pre><code>{
-  "searchTerm": "founder podcast",
+  "searchTerm": "technology",
   "country": "us",
   "limit": 3,
   "includeEpisodes": false
@@ -124,7 +124,7 @@
       <tbody>
         <tr>
           <td><code>searchTerm</code></td>
-          <td><code>founder podcast</code></td>
+          <td><code>technology</code></td>
         </tr>
         <tr>
           <td><code>country</code></td>
@@ -161,13 +161,13 @@
     </ul>
 
     <h2>What is the cheapest useful first paid run for this iTunes podcast scraper?</h2>
-    <p>Use <a href="/apple-podcasts-scraper/">Apple Podcast Scraper Apify</a> with <code>searchTerm</code> <code>founder podcast</code>, <code>country</code> <code>us</code>, <code>limit</code> 3, and <code>includeEpisodes</code> false. Live Input default for <code>limit</code> is 3. That is the cheapest useful input on the live schema. Do not set <code>maxEpisodesPerShow</code>; it is not in the live schema.</p>
+    <p>Use <a href="/apple-podcasts-scraper/">Apple Podcast Scraper Apify</a> with <code>searchTerm</code> <code>technology</code>, <code>country</code> <code>us</code>, <code>limit</code> 3, and <code>includeEpisodes</code> false. Live Input default for <code>limit</code> is 3. That is the cheapest useful input on the live schema. Do not set <code>maxEpisodesPerShow</code>; it is not in the live schema.</p>
 
     <h2>How much does that Apple Podcasts first run cost?</h2>
     <p>Billing is pay-per-event. Published events are Actor Start at $0.005 (charged when the Actor starts; number of events charged depends on Actor memory, one event per GB, minimum one event) and result at $0.0025 per default-dataset item ($2.50 per 1,000 results). If the run writes 3 result rows and charges one Actor Start event, the estimate is $0.005 + (3 × $0.0025) = $0.0125. Actual row count can be fewer than <code>limit</code>.</p>
 
     <h2>Does the Store README still show a costlier example?</h2>
-    <p>No. The live Store Quickstart uses the same input (<code>searchTerm</code> <code>founder podcast</code>, <code>country</code> <code>us</code>, <code>limit</code> 3, <code>includeEpisodes</code> false). If that run writes 3 result rows and charges one Actor Start event, the estimate is $0.005 + (3 × $0.0025) = $0.0125. Same PPE as the Store pricing tab.</p>
+    <p>No. The live Store Quickstart uses the same input (<code>searchTerm</code> <code>technology</code>, <code>country</code> <code>us</code>, <code>limit</code> 3, <code>includeEpisodes</code> false). If that run writes 3 result rows and charges one Actor Start event, the estimate is $0.005 + (3 × $0.0025) = $0.0125. Same PPE as the Store pricing tab.</p>
 
     <h2>Why leave includeEpisodes false on the first run?</h2>
     <p><code>includeEpisodes</code> fetches recent episode context for each resolved podcast and is slower. Leave it false until the show list is useful. The first paid run is a search-only check of collection IDs, show names, publishers, and source URLs.</p>
@@ -184,7 +184,7 @@
     <h2>How to run it</h2>
     <ol>
       <li>Open <a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Apple Podcast Scraper Apify Input</a>.</li>
-      <li>Paste the JSON above: <code>searchTerm</code> <code>founder podcast</code>, <code>country</code> <code>us</code>, <code>limit</code> 3, <code>includeEpisodes</code> false.</li>
+      <li>Paste the JSON above: <code>searchTerm</code> <code>technology</code>, <code>country</code> <code>us</code>, <code>limit</code> 3, <code>includeEpisodes</code> false.</li>
       <li>Leave <code>delivery</code> on <code>dataset</code>. Do not add fields that are not in the live schema.</li>
       <li>Start the run. Review the default dataset (JSON or CSV from the dataset view). Then raise <code>limit</code> or add charts / watchlists.</li>
     </ol>
