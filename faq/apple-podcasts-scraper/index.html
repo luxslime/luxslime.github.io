@@ -197,7 +197,7 @@
 
     <h2>What does Apple Podcasts Scraper do?</h2>
     <p>It finds public Apple Podcasts shows and metadata through official Apple/iTunes endpoints. You can search by keyword, snapshot chart rankings, look up known collection IDs, and optionally include recent episode context. Output is source-linked dataset rows with fields such as <code>collectionId</code>, <code>showName</code>, <code>publisher</code>, <code>country</code>, <code>rank</code>, <code>episodeTitle</code>, <code>sourceUrl</code>, and <code>fetchedAt</code>.</p>
-    <p>Published first-run path: start with <code>searchTerm</code> <code>founder podcast</code>, <code>country</code> <code>us</code>, <code>limit</code> 3, and <code>includeEpisodes</code> false. Live Input default for <code>limit</code> is 3. If 3 result rows and one Actor Start event charge, the estimate is $0.005 + (3 × $0.0025) = $0.0125. Then raise <code>limit</code> or switch to <code>lookupIds</code> / <code>chartRequests</code> after the payload is useful. See <a href="/guides/itunes-podcast-scraper-first-run/">the cheapest Apple Podcasts first paid run</a>.</p>
+    <p>Published first-run path: start with <code>searchTerm</code> <code>technology</code>, <code>country</code> <code>us</code>, <code>limit</code> 3, and <code>includeEpisodes</code> false. Live Input default for <code>limit</code> is 3. If 3 result rows and one Actor Start event charge, the estimate is $0.005 + (3 × $0.0025) = $0.0125. Then raise <code>limit</code> or switch to <code>lookupIds</code> / <code>chartRequests</code> after the payload is useful. See <a href="/guides/itunes-podcast-scraper-first-run/">the cheapest Apple Podcasts first paid run</a>.</p>
     <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Try this search + limit 3 input on Apify</a></p>
 
     <h2>How is Apple Podcasts Scraper different from Chart Scraper and Reviews Scraper?</h2>
@@ -215,7 +215,7 @@
     <h2>What input is required to start a run?</h2>
     <p>The published input schema has no required array. At least one of <code>searchTerm</code>, <code>chartRequests</code>, or <code>lookupIds</code> is required. <code>searchTerm</code> uses the iTunes Search API. <code>chartRequests</code> snapshot Apple rankings (<code>feedType</code> <code>podcasts</code> or <code>podcast-episodes</code>). <code>lookupIds</code> resolve known collection IDs through the iTunes Lookup API. Live <code>limit</code> default is 3 (range 1–200). Keep the first run at <code>limit</code> 3, then raise it after the output is useful.</p>
 <pre><code>{
-  "searchTerm": "founder podcast",
+  "searchTerm": "technology",
   "country": "us",
   "limit": 3,
   "includeEpisodes": false
@@ -261,7 +261,7 @@
     <h2>How to start a run</h2>
     <ol>
       <li>Open <a href="https://apify.com/taroyamada/apple-podcast-scraper/input">taroyamada/apple-podcast-scraper Input</a>.</li>
-      <li>Paste <code>searchTerm</code> <code>founder podcast</code>, <code>country</code> <code>us</code>, <code>limit</code> 3, <code>includeEpisodes</code> false.</li>
+      <li>Paste <code>searchTerm</code> <code>technology</code>, <code>country</code> <code>us</code>, <code>limit</code> 3, <code>includeEpisodes</code> false.</li>
       <li>Leave <code>includeEpisodes</code> false unless recent episode titles are required.</li>
       <li>Leave <code>delivery</code> on <code>dataset</code>. Switch to <code>webhook</code> only after the payload shape is approved. Use <code>dryRun</code> to test without saving results or sending webhooks.</li>
     </ol>

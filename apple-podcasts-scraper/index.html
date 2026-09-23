@@ -240,12 +240,12 @@
     <h2>Search quickstart</h2>
     <p>Keyword search is the lowest-friction first paid run. Set <code>searchTerm</code>. At least one of <code>searchTerm</code>, <code>chartRequests</code>, or <code>lookupIds</code> is required. <code>country</code> is the ISO storefront for the search (default <code>us</code>). <code>limit</code> is the maximum number of podcasts returned (1–200; live default and Store prefill 3). Keep the first run at <code>limit</code> 3. Leave <code>chartRequests</code> empty and <code>includeEpisodes</code> false until search output is useful. Full cheapest-run math: <a href="/guides/itunes-podcast-scraper-first-run/">iTunes podcast scraper: cheapest Apple Podcasts first paid run</a>.</p>
 <pre><code>{
-  "searchTerm": "founder podcast",
+  "searchTerm": "technology",
   "country": "us",
   "limit": 3,
   "includeEpisodes": false
 }</code></pre>
-    <p><img class="sample" src="/assets/apple-podcasts-input.json.svg" width="720" height="88" alt="Apple Podcasts / iTunes Scraper Input JSON: searchTerm founder podcast, country us, limit 3, includeEpisodes false"></p>
+    <p><img class="sample" src="/assets/apple-podcasts-input.json.svg" width="720" height="88" alt="Apple Podcasts / iTunes Scraper Input JSON: searchTerm technology, country us, limit 3, includeEpisodes false"></p>
     <p>Sample <code>rowType</code> is <code>podcast_search_result</code>. Published fields include <code>collectionId</code>, <code>showName</code>, <code>publisher</code>, <code>country</code>, <code>sourceUrl</code>, and <code>fetchedAt</code>. <code>rank</code> is null on search rows. README discovery-row example (placeholder show data):</p>
 <pre><code>{
   "meta": {
@@ -314,7 +314,7 @@
           <td><code>searchTerm</code></td>
           <td>string</td>
           <td>—</td>
-          <td>iTunes Search API keyword. Schema prefill is <code>founder podcast</code>.</td>
+          <td>iTunes Search API keyword. Schema prefill is <code>technology</code>.</td>
         </tr>
         <tr>
           <td><code>chartRequests</code></td>
@@ -416,7 +416,7 @@
     <h2 id="how-to-start-a-run">How to start a run</h2>
     <ol>
       <li>Open <a href="https://apify.com/taroyamada/apple-podcast-scraper/input">taroyamada/apple-podcast-scraper Input</a> on the Apify Store.</li>
-      <li>Paste the search JSON above: <code>searchTerm</code> <code>founder podcast</code>, <code>country</code> <code>us</code>, <code>limit</code> 3, <code>includeEpisodes</code> false.</li>
+      <li>Paste the search JSON above: <code>searchTerm</code> <code>technology</code>, <code>country</code> <code>us</code>, <code>limit</code> 3, <code>includeEpisodes</code> false.</li>
       <li>Leave <code>chartRequests</code> empty on the first paid run. Leave <code>delivery</code> on <code>dataset</code>.</li>
       <li>Start the run. Review the default dataset (JSON or CSV). Then raise <code>limit</code>, add charts, episodes, or a watchlist.</li>
     </ol>

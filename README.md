@@ -25,7 +25,7 @@ Live PPE (notation only; do not change Store prices): Actor Start **$0.005**, re
 First-paid Input (live Store prefill):
 
 ```json
-{"searchTerm":"founder podcast","country":"us","limit":3,"includeEpisodes":false}
+{"searchTerm":"technology","country":"us","limit":3,"includeEpisodes":false}
 ```
 
 ### Article Content Extractor
