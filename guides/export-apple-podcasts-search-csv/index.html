@@ -20,7 +20,7 @@
         "name": "Is the default Apple Podcasts search limit 3 or 50?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "The live default and Store prefill for limit is 3, not 50. Empty or omitted limit falls back to 3. The allowed range is 1–200. Keep the first CSV export at 3, then raise limit after those rows are useful."
+          "text": "The live default and Store prefill for limit is 3, not 50. Empty or omitted limit falls back to 3. The allowed range is 1–200. Keep the first CSV export at 3, then raise limit after those rows are useful. On search, limit is a max podcast count, not a guaranteed row count."
         }
       },
       {
@@ -28,7 +28,7 @@
         "name": "Do I need an Apple API key to export Apple Podcasts search results to CSV?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "No. Keyword search uses the public iTunes Search API. You do not need an Apple developer key, Apple ID, proxy, or private podcast dashboard. The Actor is not affiliated with or endorsed by Apple."
+          "text": "No. Keyword search uses the public iTunes Search API. You do not need an Apple developer key, Apple ID, proxy, or private podcast dashboard. An Apify account is still required to Start the Actor. The Actor is not affiliated with or endorsed by Apple."
         }
       },
       {
@@ -68,7 +68,7 @@
         "name": "What columns are in the search CSV?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Search results are source-linked dataset items. Sample rowType is podcast_search_result. Documented fields include collectionId, showName, publisher, country, sourceUrl, and fetchedAt. rank is null on search rows."
+          "text": "Search results are source-linked dataset items. Sample rowType is podcast_search_result. README fields include rowType, collectionId, showName, publisher, country, rank, episodeTitle, sourceUrl, and fetchedAt. rank is null on search rows. episodeTitle appears only when includeEpisodes is true. There is no separate output schema on the Store page."
         }
       }
     ]
@@ -98,7 +98,7 @@
     <nav><a href="/">Home</a> / Guides / Export Apple Podcasts search CSV</nav>
     <h1>Export Apple Podcasts search results to CSV (no API key)</h1>
     <p>Job: type a topic, get matching public Apple Podcasts shows as a spreadsheet. You do not need an Apple developer API key. Search uses the public iTunes Search API. After Start, export the default dataset as CSV.</p>
-    <p>This page is the search-to-CSV path, not a copy of the Store listing. Product overview, charts, watchlists, and episodes live on the <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> landing page (<code>taroyamada/apple-podcast-scraper</code>).</p>
+    <p>This page is the search-to-CSV path, not a copy of the Store listing. Product overview, charts, watchlists, and episodes live on the <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> landing page (<code>taroyamada/apple-podcast-scraper</code>). Keyword discovery notes (countries, combining charts) live on <a href="/guides/apple-podcasts-search/">Apple Podcasts search</a>.</p>
     <p class="price">Open Input → Start. Search + limit 3 ≈ $0.0125 (Start $0.005 / result $0.0025). From $2.50/1k. No API key.</p>
     <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Open Apple Podcasts search Input → Start</a></p>
 
@@ -110,10 +110,9 @@
       <li>When the run succeeds, open the default dataset and export <strong>CSV</strong> from the dataset view.</li>
     </ol>
     <p>You do not need an Apple API key, Apple ID, or proxy. You do need an Apify account to Start the run and download the file.</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Open Input → Start, then export CSV</a></p>
 
     <h2>Cheapest first CSV (limit 3)</h2>
-    <p>Paste this JSON if the form is empty. Do not raise <code>limit</code> until three rows look right. Do not set <code>includeEpisodes</code> true on the first export; that path is slower and is not required for a show list.</p>
+    <p>Paste this JSON if the form is empty. Do not raise <code>limit</code> until three rows look right. Do not set <code>includeEpisodes</code> true on the first export; that path is slower and is not required for a show list. At least one of <code>searchTerm</code>, <code>chartRequests</code>, or <code>lookupIds</code> is required — a first CSV run only needs <code>searchTerm</code>.</p>
 <pre><code>{
   "searchTerm": "founder podcast",
   "country": "us",
@@ -121,77 +120,80 @@
   "includeEpisodes": false
 }</code></pre>
     <p>Live PPE (copy only; Store prices unchanged): Actor Start <strong>$0.005</strong> + result <strong>$0.0025</strong> per default-dataset row. Search + limit 3 ≈ <strong>$0.0125</strong> if 3 rows and one Start event charge. Store card: From <strong>$2.50 / 1,000</strong>.</p>
+    <p>That math uses only the published PPE numbers. Actual result events equal rows written to the default dataset, which can be fewer than <code>limit</code> if iTunes Search returns fewer shows. Extra Actor Start events apply if memory is above 1 GB. See <a href="/guides/itunes-podcast-scraper-first-run/">cheapest first paid run</a> for the same Input shape without the CSV download steps.</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/pricing">See live pricing on the Store card</a></p>
+
+    <h2>Columns in the search CSV</h2>
+    <p>Each search row is a public catalog hit, not a rank or a review. Sample <code>rowType</code> is <code>podcast_search_result</code>. The Actor README lists these output fields. There is no separate output schema on the Store page. CSV columns are the flattened dataset keys after you export from Console.</p>
     <table>
       <thead>
         <tr>
-          <th>First CSV export</th>
-          <th>Value</th>
+          <th>Column</th>
+          <th>On a search CSV row</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td><code>searchTerm</code></td>
-          <td>Keyword (prefill <code>founder podcast</code>)</td>
+          <td><code>rowType</code></td>
+          <td>Sample value <code>podcast_search_result</code>. Filter on this if a later run also writes chart or lookup rows.</td>
         </tr>
         <tr>
-          <td><code>limit</code></td>
-          <td>3 (live default; not 50)</td>
+          <td><code>collectionId</code></td>
+          <td>Apple Podcasts collection ID. Use it for watchlists (<code>lookupIds</code>) or as <code>podcastIds</code> on Reviews Scraper.</td>
         </tr>
         <tr>
-          <td>Apple API key</td>
-          <td>Not required</td>
+          <td><code>showName</code></td>
+          <td>Show title from the public catalog.</td>
         </tr>
         <tr>
-          <td>Apify account</td>
-          <td>Required to Start</td>
+          <td><code>publisher</code></td>
+          <td>Publisher / artist string on the catalog hit.</td>
         </tr>
         <tr>
-          <td>If 1 Start + 3 result rows</td>
-          <td>$0.005 + (3 × $0.0025) = <strong>$0.0125</strong></td>
+          <td><code>country</code></td>
+          <td>ISO storefront used for that search (default <code>us</code>). Search uses one country per run.</td>
+        </tr>
+        <tr>
+          <td><code>rank</code></td>
+          <td>Null on search rows. Rank belongs to chart requests, not keyword search.</td>
+        </tr>
+        <tr>
+          <td><code>episodeTitle</code></td>
+          <td>Present only when <code>includeEpisodes</code> is true. Leave it false for a show list; this is not a full episode catalog or audio download.</td>
+        </tr>
+        <tr>
+          <td><code>sourceUrl</code></td>
+          <td>Apple Podcasts page for the show.</td>
+        </tr>
+        <tr>
+          <td><code>fetchedAt</code></td>
+          <td>Fetch timestamp for that row.</td>
         </tr>
       </tbody>
     </table>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/pricing">See live pricing on the Store card</a></p>
+    <p>Rows can include warnings when a source is partial. The README discovery sample wraps <code>meta</code> plus <code>rows[]</code>; treat that as a docs envelope. Console CSV export is one row per dataset item. This Actor does not document contact emails, audience size, or download counts. Full field notes: <a href="/guides/apple-podcasts-dataset-fields/">Apple Podcasts dataset fields</a>.</p>
 
-    <h2>What the CSV contains</h2>
-    <p>Each search row is a public catalog hit, not a rank or a review. Sample <code>rowType</code> is <code>podcast_search_result</code>. Typical columns:</p>
-    <ul>
-      <li><code>collectionId</code> — Apple Podcasts collection ID</li>
-      <li><code>showName</code>, <code>publisher</code>, <code>country</code></li>
-      <li><code>sourceUrl</code> — Apple Podcasts page</li>
-      <li><code>fetchedAt</code> — fetch timestamp</li>
-      <li><code>rank</code> — null on search rows</li>
-    </ul>
-    <p>Field list and export notes: <a href="/guides/apple-podcasts-dataset-fields/">Apple Podcasts dataset fields</a>. Search discovery (countries, combining charts): <a href="/guides/apple-podcasts-search/">Apple Podcasts search discovery</a>.</p>
+    <h2>What “no Apple API key” means</h2>
+    <p>Keyword search reads the public iTunes Search API. You do not register an Apple developer app, paste an Apple key into Input, sign in with an Apple ID, or open a private podcast dashboard. No proxy is required. The Actor is not affiliated with or endorsed by Apple.</p>
+    <p>That constraint is about <em>Apple</em> credentials. The run still executes on Apify, so you sign in or create an Apify account before Start. Public search is catalog metadata only: show IDs, names, publishers, and source URLs. It is not private Apple analytics, listener counts, or paid Apple Podcasts Connect reports.</p>
+
+    <h2>What <code>limit</code> actually caps</h2>
+    <p>The live default and Store prefill for <code>limit</code> is <strong>3, not 50</strong>. Empty or omitted <code>limit</code> falls back to 3. The documented range is 1–200. On a search-only run, <code>limit</code> is the <strong>maximum number of podcasts</strong> requested from iTunes Search. It is not a guaranteed row count: iTunes can return fewer hits than <code>limit</code>, and result billing follows rows written to the default dataset.</p>
+    <p>The same top-level <code>limit</code> is also the default for <code>chartRequests</code> items that omit their own <code>limit</code>. Leave charts empty on this CSV path so the cap applies only to search. Pagination beyond <code>limit</code> is not documented. Keep the first export at 3, confirm the columns, then raise <code>limit</code> if you need a wider keyword list.</p>
+
+    <h2>Download CSV in Console</h2>
+    <p>Leave <code>delivery</code> on <code>dataset</code>. When the run succeeds, open the default dataset in the run view and export <strong>CSV</strong> (JSON is in the same view). Do not switch to webhook until you have reviewed those columns. See <a href="/guides/apple-podcasts-webhooks/">webhooks</a> only after the file looks right. <code>dryRun</code> true runs without saving results, so there is no CSV to download.</p>
+
+    <h2>When to leave this search CSV for Chart or Reviews</h2>
+    <p>Stay on this Actor when the job is a keyword list of public shows. If the job is storefront Top Podcasts ranks or rank movement, leave the search CSV and use <a href="/guides/apple-podcasts-charts/">Apple Podcasts charts</a> (or <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> for movement reports). If the job is public review text or ratings, take <code>collectionId</code> from this CSV and open <a href="/guides/apple-podcasts-reviews-by-storefront/">reviews by storefront</a> / <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a>. Search rows will not fill <code>rank</code> or review content for you.</p>
 
     <h2>What this page is not</h2>
     <ul>
       <li>Not a Store mirror. Actor overview: <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a>.</li>
-      <li>Not chart ranks. Storefront Top Podcasts belong on <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a>.</li>
-      <li>Not review text. Public ratings belong on <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> after you have collection IDs.</li>
-      <li>Not a full episode catalog. Recent episode titles use <code>includeEpisodes</code>; see <a href="/guides/apple-podcasts-episodes/">episode metadata export</a>.</li>
+      <li>Not episode audio download. Recent episode <em>titles</em> use <code>includeEpisodes</code>; see <a href="/guides/apple-podcasts-episodes/">episode metadata export</a>.</li>
+      <li>Not private Apple metrics or Podcasts Connect.</li>
     </ul>
-
-    <h2>Is the default Apple Podcasts search limit 3 or 50?</h2>
-    <p>The live default and Store prefill for <code>limit</code> is <strong>3, not 50</strong>. Empty or omitted <code>limit</code> falls back to 3. The allowed range is 1–200. Keep the first CSV export at 3, then raise <code>limit</code> after those rows are useful.</p>
-
-    <h2>Do I need an Apple API key to export Apple Podcasts search results to CSV?</h2>
-    <p>No. Keyword search uses the public iTunes Search API. You do not need an Apple developer key, Apple ID, proxy, or private podcast dashboard. The Actor is not affiliated with or endorsed by Apple.</p>
-
-    <h2>Do I need an Apify account to run this export?</h2>
-    <p>Yes. The run happens on Apify. Open the Actor Input, sign in or create an Apify account, then Start. After the run finishes, export the default dataset as CSV from the dataset view.</p>
-
-    <h2>How do I download the CSV after Start?</h2>
-    <p>Leave <code>delivery</code> on <code>dataset</code>. When the run succeeds, open the default dataset and export CSV (JSON is also available in the same view). Do not switch to webhook until you have reviewed the CSV columns. See <a href="/guides/apple-podcasts-webhooks/">webhooks</a> only after the file looks right.</p>
-
-    <h2>What does a first search-to-CSV run cost?</h2>
-    <p>Live pay-per-event prices are Actor Start $0.005 and result $0.0025 per default-dataset item ($2.50 per 1,000 results). Search + limit 3 ≈ $0.0125 if the run writes 3 rows and charges one Start event. Actual row count can be fewer than <code>limit</code>.</p>
-
-    <h2>Does this CSV include chart ranks or review text?</h2>
-    <p>No. Search rows have <code>rank</code> null and do not include review text. This page is keyword search to CSV. Chart ranks belong on <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a>. Public ratings belong on <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> after you already have collection IDs.</p>
-
-    <h2>What columns are in the search CSV?</h2>
-    <p>Search results are source-linked dataset items. Sample <code>rowType</code> is <code>podcast_search_result</code>. Documented fields include <code>collectionId</code>, <code>showName</code>, <code>publisher</code>, <code>country</code>, <code>sourceUrl</code>, and <code>fetchedAt</code>. <code>rank</code> is null on search rows.</p>
+    <p>Other Apple Podcasts Actors exist on the Apify Store (all-in-one rentals, episode-oriented scrapers). This page does not rank them. The differentiator here is the live Input path: search + <code>limit</code> 3, episodes off, then Download CSV — not a feature-win list.</p>
 
     <p class="price">Open Input → Start. Search + limit 3 ≈ $0.0125 (Start $0.005 / result $0.0025). From $2.50/1k. No API key.</p>
     <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Open Apple Podcasts search Input → Start</a></p>
@@ -202,6 +204,8 @@
       <li><a href="/guides/itunes-podcast-scraper-first-run/">Cheapest first paid run</a> — search + limit 3 cost math</li>
       <li><a href="/guides/apple-podcasts-search/">Apple Podcasts search discovery</a> — iTunes Search API notes</li>
       <li><a href="/guides/apple-podcasts-dataset-fields/">Dataset fields</a> — columns after CSV export</li>
+      <li><a href="/guides/apple-podcasts-charts/">Apple Podcasts charts</a> — when ranks are the job</li>
+      <li><a href="/guides/apple-podcasts-reviews-by-storefront/">Reviews by storefront</a> — public ratings after you have IDs</li>
       <li><a href="/faq/apple-podcasts-scraper/">Apple Podcasts Scraper FAQ</a></li>
       <li><a href="/compare/rss-feed-vs-itunes-search/">RSS feed vs iTunes Search API</a></li>
       <li><a href="/tools/">Tools</a></li>
