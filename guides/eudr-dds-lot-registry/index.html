@@ -3,12 +3,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Supplier lots need an EUDR DDS reference number on file before 30 December 2026</title>
-  <meta name="description" content="EUDR applies from 30 December 2026. Operators file due diligence statements; ecommerce lots still need the DDS reference stored against the lot. Not a filing tool. Not legal advice.">
+  <title>Store EUDR DDS lot references by 30 December 2026</title>
+  <meta name="description" content="Store the EUDR DDS reference you received against each supplier lot. Not a filing tool. Application 30 December 2026. Not legal advice.">
   <meta name="robots" content="index,follow">
-  <meta property="og:title" content="Supplier lots need an EUDR DDS reference number on file before 30 December 2026">
-  <meta property="og:description" content="Link each supplier lot to the EUDR DDS reference you received. You are not filing the due diligence statement yourself. Not legal advice.">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Store EUDR DDS lot references by 30 December 2026">
+  <meta property="og:description" content="Store the EUDR DDS reference you received against each supplier lot. Not a filing tool. Application 30 December 2026. Not legal advice.">
   <meta property="og:url" content="https://apify.momiji-space.com/guides/eudr-dds-lot-registry/">
+  <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/6eb84e4af85790ce7a2dde5c9adee4f3/icon/CKf1oNyRk5UDEAE=.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Store EUDR DDS lot references by 30 December 2026">
+  <meta name="twitter:description" content="Store the EUDR DDS reference you received against each supplier lot. Not a filing tool. Application 30 December 2026. Not legal advice.">
+  <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/6eb84e4af85790ce7a2dde5c9adee4f3/icon/CKf1oNyRk5UDEAE=.png">
   <link rel="canonical" href="https://apify.momiji-space.com/guides/eudr-dds-lot-registry/">
   <script type="application/ld+json">
   {
@@ -74,6 +81,37 @@
     ]
   }
   </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://apify.momiji-space.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "EUDR DDS lot registry",
+        "item": "https://apify.momiji-space.com/guides/eudr-dds-lot-registry/"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "EUDR Records Manager",
+    "url": "https://apps.shopify.com/eudr-records-manager",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Shopify",
+    "image": "https://cdn.shopify.com/app-store/listing_images/6eb84e4af85790ce7a2dde5c9adee4f3/icon/CKf1oNyRk5UDEAE=.png"
+  }
+  </script>
   <style>
     body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
     main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
@@ -89,8 +127,15 @@
     th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
     th { background: #f3f3f3; font-weight: 600; color: #202223; }
     tr:last-child td { border-bottom: 0; }
-    .price { color: #202223; }
+    table caption { text-align: left; font-size: 14px; color: #666; padding: 8px 12px 0; caption-side: top; }
     .note { font-size: 13px; color: #666; }
+    .cta { display: inline-block; padding: 12px 16px; background: #202223; color: #fff; text-decoration: none; border-radius: 8px; font-weight: 600; }
+    a:focus-visible, button:focus-visible { outline: 2px solid #005bd3; outline-offset: 2px; }
+    .demo-embed { position: relative; width: 100%; height: 0; padding-bottom: 56.25%; margin: 0 0 16px; overflow: hidden; border: 1px solid #d9dde5; background: #000; }
+    .demo-embed iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+    .demo-embed button.yt-facade { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; padding: 0; border: 0; background: #000; color: #fff; cursor: pointer; }
+    .demo-embed button.yt-facade img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .demo-embed button.yt-facade span { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); background: #202223; color: #fff; padding: 10px 16px; border-radius: 8px; font-weight: 600; font-size: 16px; }
   </style>
 </head>
 <body>
@@ -100,15 +145,26 @@
     <p>Job: link each <strong>supplier lot</strong> (and the catalog SKU it feeds) to the EUDR <strong>due diligence statement reference number</strong> you received - or to a simplified-declaration identifier - so a later check can retrieve it.</p>
     <p>You are <strong>not</strong> filing the due diligence statement in this app. Operators submit that statement in the EU information system; this page is the ecommerce <strong>lot registry</strong>. Application is <strong>30 December 2026</strong> in general (later for certain micro or small operators). Confirm the live regulation before you treat a SKU as in scope.</p>
     <p>Record lot → supplier → country → DDS reference, then run a gap review for missing fields.</p>
-    <p class="price"><a href="https://apps.shopify.com/eudr-records-manager">Install EUDR Records Manager, record lot-to-DDS references per product, then run a gap review for missing fields.</a></p>
+    <p><a class="cta" href="https://apps.shopify.com/eudr-records-manager">Install EUDR Records Manager, record lot-to-DDS references per product, then run a gap review for missing fields.</a></p>
+
+    <h2>Demo</h2>
+    <p>Short walkthrough of the app flow. Then follow the start path below.</p>
+    <div class="demo-embed">
+      <button type="button" class="yt-facade" data-yt="b3W12Nj6GTM">
+        <img src="https://i.ytimg.com/vi/b3W12Nj6GTM/hqdefault.jpg" alt="" width="480" height="360">
+        <span>Play demo</span>
+      </button>
+    </div>
+    <p><a href="https://www.youtube.com/watch?v=b3W12Nj6GTM">Open the demo on YouTube</a></p>
 
     <h2>The registry stores the number you received - it does not file the DDS</h2>
     <table>
+      <caption>Filing versus storing the DDS reference</caption>
       <thead>
         <tr>
-          <th>Act</th>
-          <th>Who / where</th>
-          <th>This page's job?</th>
+          <th scope="col">Act</th>
+          <th scope="col">Who / where</th>
+          <th scope="col">This page's job?</th>
         </tr>
       </thead>
       <tbody>
@@ -151,14 +207,15 @@
       <li>Keep the audit trail and any hashed document pack or CSV export so a later review matches back to the source records. Repeat when lots change.</li>
     </ol>
     <p>The app stores and reviews records you enter. It does not submit a due diligence statement to the EU information system.</p>
-    <p><a href="https://apps.shopify.com/eudr-records-manager">Install EUDR Records Manager, record lot-to-DDS references per product, then run a gap review for missing fields.</a></p>
+    <p><a class="cta" href="https://apps.shopify.com/eudr-records-manager">Install EUDR Records Manager, record lot-to-DDS references per product, then run a gap review for missing fields.</a></p>
 
     <h2>What the lot registry holds vs what operators file</h2>
     <table>
+      <caption>What the lot registry holds vs what operators file</caption>
       <thead>
         <tr>
-          <th>Record</th>
-          <th>Ecommerce consequence</th>
+          <th scope="col">Record</th>
+          <th scope="col">Ecommerce consequence</th>
         </tr>
       </thead>
       <tbody>
@@ -222,7 +279,7 @@ DDS reference number
     <h2>Where do I keep lot-to-DDS records for the catalog?</h2>
     <p>Use a supplier and commodity-lot registry that stores a DDS reference number per product, then run a gap review for missing supplier, country, or DDS fields. <a href="https://apps.shopify.com/eudr-records-manager">EUDR Records Manager</a> is the App Store listing this site already uses for that job. Open the listing, install, record lots and the references you received, then export or review the audit trail. You still do not file the due diligence statement in that app.</p>
 
-    <p class="price"><a href="https://apps.shopify.com/eudr-records-manager">Install EUDR Records Manager, record lot-to-DDS references per product, then run a gap review for missing fields.</a></p>
+    <p><a class="cta" href="https://apps.shopify.com/eudr-records-manager">Install EUDR Records Manager, record lot-to-DDS references per product, then run a gap review for missing fields.</a></p>
 
     <h2>Related pages</h2>
     <ul>
@@ -234,6 +291,22 @@ DDS reference number
     </ul>
     <p class="note">Not legal advice. Not a compliance guarantee. Not a DDS filing. Confirm Regulation (EU) 2023/1115 as amended by Regulation (EU) 2025/2650 before you treat a lot as in or out of scope. The app stores lot and DDS records you enter; you choose what to record.</p>
   </main>
+  <script>
+    (function () {
+      document.querySelectorAll("button.yt-facade").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var id = btn.getAttribute("data-yt");
+          var iframe = document.createElement("iframe");
+          iframe.src = "https://www.youtube.com/embed/" + id + "?autoplay=1";
+          iframe.title = "EUDR Records Manager demo on YouTube";
+          iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+          iframe.setAttribute("allowfullscreen", "");
+          iframe.referrerPolicy = "strict-origin-when-cross-origin";
+          btn.replaceWith(iframe);
+        });
+      });
+    })();
+  </script>
   <script src="/assets/js/shopify-guide-youtube-demos.js" defer></script>
 </body>
 </html>
