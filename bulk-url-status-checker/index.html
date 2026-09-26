@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Bulk URL Status Checker — HTTP status, redirect chains, and broken-URL QA</title>
-  <meta name="description" content="Check a known URL list for HTTP status codes, redirect chains, response timing, and broken URL findings. Does not crawl pages, query DNS, expand short links, or look up Internet Archive snapshots.">
+  <meta name="description" content="Live HTTP QA on a known URL list: status codes, redirect chains, timing, and severity. Not DNS, not short-link expansion, not a Wayback archive lookup, and not an HTML crawl. Try Input: 1 URL ≈ $0.009. From $8.00 / 1,000 results.">
   <link rel="canonical" href="https://apify.momiji-space.com/bulk-url-status-checker/">
   <script type="application/ld+json">
   {
@@ -24,7 +24,7 @@
         "name": "Does this Actor crawl pages to find broken links?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "No. The live input schema states this Actor does not crawl pages. Pass known URLs in urls. For crawl or page-level broken-link discovery from source HTML, the schema points to Broken Link Checker. README handoff names for the same URL set are Site QA Broken Link Report Scraper, Site QA Content Report Scraper, and Site QA Indexability AI Crawler Report Scraper. Those are downstream report paths, not this Actor and not extra landings on this site."
+          "text": "No. Pass known URLs in urls (maximum 1000). This Actor does not crawl pages to find broken links. For crawl discovery, use Broken Link Checker. README handoff names for the same URL set are Site QA Broken Link Report, Site QA Content Report, and Site QA Indexability AI Crawler Report. Those are existing hub pages, not this Actor. Do not send includeHealthyRows, maxChargeUsd, or maxRedirects. Those fields are not in the live schema. The README migration example that sets includeHealthyRows is stale."
         }
       },
       {
@@ -56,7 +56,7 @@
         "name": "How is Bulk URL Status Checker priced?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Billing is pay per event. The published Store card is from $8.00 per 1,000 results. Live Store events are Actor Start at $0.001 (charged when the Actor starts; number of events depends on Actor memory, one event per GB, minimum one event) and result at $0.008 (single result in the default dataset). The README pricing section matches those figures: $0.001 actor start and $0.008 per emitted URL finding row. You are not charged extra for Apify platform usage beyond the included platform usage on the pricing page. Platform usage is listed as included."
+          "text": "Billing is pay per event. Try Input: 1 URL ≈ $0.009. From $8.00 / 1,000 results (Start $0.001 + result $0.008). Live Store events are Actor Start at $0.001 (charged when the Actor starts; number of events depends on Actor memory, one event per GB, minimum one event) and result at $0.008 (single result in the default dataset). The README pricing section matches those figures: $0.001 actor start and $0.008 per emitted URL finding row. You are not charged extra for Apify platform usage beyond the included platform usage on the pricing page. Platform usage is listed as included."
         }
       }
     ]
@@ -84,9 +84,20 @@
   <main>
     <nav><a href="/">Home</a> / Bulk URL Status Checker</nav>
     <h1>Check HTTP status, redirect chains, and response timing on a known URL list</h1>
-    <p>Bulk URL Status Checker processes lists of URLs you already have and records HTTP status codes, redirect chains, final destinations, response times, and severity flags. It is live HTTP QA for migration, SEO, and site operations — not a DNS lookup, not short-link expansion, and not an Internet Archive availability check.</p>
-    <p class="price">From $8.00 per 1,000 results</p>
-    <p><a href="https://apify.com/taroyamada/bulk-url-health-checker">Open Bulk URL Status Checker on Apify</a></p>
+    <p>Live HTTP QA on URLs you already have: status codes, redirect chains, response timing, and severity. Not DNS, not short-link expansion, not a Wayback archive lookup, and not an HTML crawl.</p>
+    <p class="price">Try Input: 1 URL ≈ $0.009. From $8.00 / 1,000 results (Start $0.001 + result $0.008).</p>
+    <p><a href="https://apify.com/taroyamada/bulk-url-health-checker">Open Bulk URL Health Checker → paste a small known URL list → Start (1 URL ≈ $0.009). Does not crawl.</a></p>
+
+    <h2>This Actor does not crawl pages to find broken links</h2>
+    <p>Pass known URLs in <code>urls</code> (maximum 1000). This Actor checks that list. It does not crawl HTML to discover links. For crawl discovery, use the broken-link siblings already on this hub: <a href="/broken-link-checker/">Broken Link Checker</a>, <a href="/site-qa-broken-link-report-scraper/">Site QA Broken Link Report</a>, <a href="/site-qa-content-report-scraper/">Site QA Content Report</a>, and <a href="/site-qa-indexability-ai-crawler-report-scraper/">Site QA Indexability AI Crawler Report</a>.</p>
+    <p>Do not send <code>includeHealthyRows</code>, <code>maxChargeUsd</code>, or <code>maxRedirects</code>. Those fields are not in the live schema. The README migration example that sets <code>includeHealthyRows</code> is stale.</p>
+    <p>Small first batch:</p>
+<pre><code>{
+  "urls": ["https://example.com", "https://example.com/docs"],
+  "followRedirects": true,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
 
     <h2>Live HTTP status QA, not DNS, short-link expansion, or archive lookup</h2>
     <p>Use this page when you already have URLs and need status codes, redirect chains, timing, and broken-URL findings. Use <a href="/dns-propagation-checker/">DNS Propagation Checker</a> for public A/MX/NS records on hostnames. Use <a href="/short-url-resolver-scraper/">Short URL Resolver &amp; Scraper</a> to expand bit.ly, t.co, and custom shorteners. Use <a href="/wayback-machine-bulk-checker/">Wayback Machine Bulk Checker</a> to check Internet Archive cache availability.</p>
@@ -144,9 +155,9 @@
     <ul>
       <li>Migration QA for validating URL status and redirects during site migrations.</li>
       <li>SEO audits and ongoing monitoring of HTTP status, redirects, and response timing.</li>
-      <li>Broken-link detection handoff to a broken-link report scraper for remediation workflows.</li>
-      <li>Content-issue reporting handoff to a content report scraper for content QA.</li>
-      <li>Indexability and crawler-access analysis handoff to an indexability/crawler-access report scraper.</li>
+      <li>Broken-link detection handoff to <a href="/site-qa-broken-link-report-scraper/">Site QA Broken Link Report</a> for remediation workflows. Crawl discovery stays on <a href="/broken-link-checker/">Broken Link Checker</a>.</li>
+      <li>Content-issue reporting handoff to <a href="/site-qa-content-report-scraper/">Site QA Content Report</a> for content QA.</li>
+      <li>Indexability and crawler-access analysis handoff to <a href="/site-qa-indexability-ai-crawler-report-scraper/">Site QA Indexability AI Crawler Report</a>.</li>
       <li>Site operations and web operations monitoring of URL health and severity trends.</li>
       <li>Webhook-based status reporting for integration with external tooling and automated workflows.</li>
     </ul>
@@ -157,7 +168,7 @@
     <p>This Actor checks a known URL list for HTTP status, redirect chains, response timing, and broken URL findings. Required input is <code>urls</code> (maximum 1000). It does not crawl pages to discover links. <a href="/dns-propagation-checker/">DNS Propagation Checker</a> queries public DNS for hostnames in <code>domains</code> (maximum 200) and does not fetch HTTP(S) HTML. <a href="/short-url-resolver-scraper/">Short URL Resolver &amp; Scraper</a> expands shortened or obfuscated links and logs the hop path; it is unshortening, not a status-QA pass over a known list. <a href="/wayback-machine-bulk-checker/">Wayback Machine Bulk Checker</a> queries the Internet Archive <code>available</code> endpoint for historical cache availability (maximum 500 URLs) and does not check live HTTP status. Use this Actor for live HTTP QA on URLs you already have.</p>
 
     <h2>Does this Actor crawl pages to find broken links?</h2>
-    <p>No. The live input schema states this Actor does not crawl pages. Pass known URLs in <code>urls</code>. For crawl or page-level broken-link discovery from source HTML, the schema points to <a href="/broken-link-checker/">Broken Link Checker</a>. README handoff names for the same URL set are Site QA Broken Link Report Scraper, Site QA Content Report Scraper, and Site QA Indexability AI Crawler Report Scraper. Those are downstream report paths, not this Actor and not extra landings on this site.</p>
+    <p>No. Pass known URLs in <code>urls</code> (maximum 1000). This Actor does not crawl pages to find broken links. For crawl discovery from source HTML, the schema points to <a href="/broken-link-checker/">Broken Link Checker</a>. README handoff names for the same URL set are <a href="/site-qa-broken-link-report-scraper/">Site QA Broken Link Report</a>, <a href="/site-qa-content-report-scraper/">Site QA Content Report</a>, and <a href="/site-qa-indexability-ai-crawler-report-scraper/">Site QA Indexability AI Crawler Report</a>. Those are existing hub pages, not this Actor. Do not send <code>includeHealthyRows</code>, <code>maxChargeUsd</code>, or <code>maxRedirects</code>. Those fields are not in the live schema. The README migration example that sets <code>includeHealthyRows</code> is stale.</p>
     <p>The README “Run the next report” section treats this Actor as the source step. A paid report/export handoff is produced by those linked report actors, not by adding more raw status rows here.</p>
 
     <h2>What input is required?</h2>
@@ -252,7 +263,7 @@
   "dryRun": false
 }</code></pre>
     <p>Keep the first run small. Raise concurrency only with reasonable settings against infrastructure you are allowed to check. The README compliance notes: use for migration QA, SEO, and site operations; do not use aggressive settings against third-party infrastructure; do not use provider emblems or wording that implies approval by an upstream data provider.</p>
-    <p><a href="https://apify.com/taroyamada/bulk-url-health-checker">Run Bulk URL Status Checker on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/bulk-url-health-checker">Open Bulk URL Health Checker → paste a small known URL list → Start (1 URL ≈ $0.009). Does not crawl.</a></p>
 
     <h2>What does a result row contain?</h2>
     <p>The published README output field list is <code>rowType</code>, <code>url</code>, <code>statusCode</code>, <code>finalUrl</code>, <code>redirectChain</code>, <code>responseMs</code>, <code>severity</code>, <code>warnings</code>, and <code>fetchedAt</code>. The published raw status sample wraps rows in a <code>meta</code> object (<code>actorName</code>, <code>actorTitle</code>, <code>bundle</code>, <code>fetchedAt</code>, <code>totalRows</code>). The sample row is <code>rowType</code> <code>url_health_finding</code> with <code>url</code>, <code>statusCode</code>, <code>finalUrl</code>, <code>responseMs</code>, <code>severity</code>, <code>fetchedAt</code>, and <code>actorName</code>; <code>redirectChain</code> is in the field list and not shown on that sample row. <code>warnings</code> appears on the sample as a top-level array. The sample is a README illustration, not a live coverage guarantee.</p>
@@ -286,8 +297,8 @@
     <p>The README states healthy no-issue batches can be held out of the default dataset when configured. The live input schema does not publish an <code>includeHealthyRows</code> field.</p>
 
     <h2>How is Bulk URL Status Checker priced?</h2>
-    <p>Billing is pay per event. The published Store card is <strong>from $8.00 per 1,000 results</strong>. Live Store events are <strong>Actor Start</strong> at <strong>$0.001</strong> (charged when the Actor starts; number of events depends on Actor memory, one event per GB, minimum one event) and <strong>result</strong> at <strong>$0.008</strong> (single result in the default dataset). The README pricing section matches those figures: $0.001 actor start and $0.008 per emitted URL finding row. You are not charged extra for Apify platform usage beyond the included platform usage on the pricing page. Platform usage is listed as included.</p>
-    <p class="price">From $8.00 per 1,000 results ($0.001 Actor Start + $0.008 per default-dataset result)</p>
+    <p>Billing is pay per event. Try Input: 1 URL ≈ $0.009. From $8.00 / 1,000 results (Start $0.001 + result $0.008). Live Store events are <strong>Actor Start</strong> at <strong>$0.001</strong> (charged when the Actor starts; number of events depends on Actor memory, one event per GB, minimum one event) and <strong>result</strong> at <strong>$0.008</strong> (single result in the default dataset). The README pricing section matches those figures: $0.001 actor start and $0.008 per emitted URL finding row. You are not charged extra for Apify platform usage beyond the included platform usage on the pricing page. Platform usage is listed as included.</p>
+    <p class="price">Try Input: 1 URL ≈ $0.009. From $8.00 / 1,000 results (Start $0.001 + result $0.008).</p>
     <p><a href="https://apify.com/taroyamada/bulk-url-health-checker/pricing">See Bulk URL Status Checker pricing on Apify</a></p>
 
     <h2>Limits to keep in mind</h2>
@@ -299,7 +310,7 @@
       <li>Not DNS, not short-link expansion, and not Wayback archive lookup.</li>
       <li>Keep the first run small. Expand after the output shape is useful.</li>
     </ul>
-    <p><a href="https://apify.com/taroyamada/bulk-url-health-checker">Open Bulk URL Status Checker on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/bulk-url-health-checker">Open Bulk URL Health Checker → paste a small known URL list → Start (1 URL ≈ $0.009). Does not crawl.</a></p>
 
     <h2>Related pages</h2>
     <ul>
@@ -322,6 +333,8 @@
       <li><a href="/review-intelligence/">Review Intelligence pack</a></li>
       <li><a href="/security-headers-checker/">Security Headers Checker</a> — OWASP header grades, not HTTP status-only</li>
       <li><a href="/site-qa-broken-link-report-scraper/">Site QA Broken Link Report</a> — HTML link health report, not a known-URL status list.</li>
+      <li><a href="/site-qa-content-report-scraper/">Site QA Content Report</a> — content-quality issues on public pages, not a known-URL status list.</li>
+      <li><a href="/site-qa-indexability-ai-crawler-report-scraper/">Site QA Indexability AI Crawler Report</a> — robots.txt and llms.txt indexability, not a known-URL status list.</li>
       <li><a href="/tools/">Tools</a></li>
     </ul>
   </main>

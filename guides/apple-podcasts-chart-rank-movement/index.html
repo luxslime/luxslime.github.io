@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Apple Podcasts chart rank movement and previous rank CSV</title>
-  <meta name="description" content="Today’s Top Podcasts rank is a snapshot. Rank-movement CSV needs previous rank, current rank, and rank delta from a saved monitor — not a one-day list. First snapshot: US + limit 1, movement off.">
+  <meta name="description" content="Get a spreadsheet with previous rank, not only today’s Top Podcasts position. A chart_rank CSV has no previousRank. First snapshot: US + limit 1 ≈ $0.003. From $3.00 / 1,000 rows. Movement report $2.50 after the $0.05 cap. No Apple API key.">
   <meta name="robots" content="index,follow">
   <meta property="og:title" content="Apple Podcasts chart rank movement and previous rank CSV">
-  <meta property="og:description" content="Export previousRank, currentRank, and rankDelta from a saved Top Podcasts monitor. A single day’s rank CSV has no previous rank. First run: US + limit 1, movement off.">
+  <meta property="og:description" content="A one-run chart_rank CSV has rank, not previousRank. Previous rank is on a movement report after a saved monitor compares two polls. US + limit 1 ≈ $0.003. From $3.00 / 1,000 rows. Movement report $2.50 after the $0.05 cap.">
   <meta property="og:url" content="https://apify.momiji-space.com/guides/apple-podcasts-chart-rank-movement/">
   <link rel="canonical" href="https://apify.momiji-space.com/guides/apple-podcasts-chart-rank-movement/">
   <script type="application/ld+json">
@@ -97,47 +97,20 @@
   <main>
     <nav><a href="/">Home</a> / Guides / Apple Podcasts chart rank movement</nav>
     <h1>Apple Podcasts chart rank movement and previous rank CSV</h1>
-    <p>Job: get a spreadsheet that includes <strong>previous rank</strong>, not only today’s Top Podcasts position. A one-run <code>chart_rank</code> CSV has <code>rank</code> for that fetch. It does not have <code>previousRank</code>. Previous rank is on a <code>podcast_chart_movement_report</code> after a saved monitor compares two polls.</p>
-    <p>This page is the movement / previous-rank path, not a Store mirror. Product overview lives on <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> (<code>taroyamada/apple-podcast-chart-tracker</code>). Snapshot-only <code>chartRequests</code> on the search actor is a different guide.</p>
-    <p class="price">Open Input → Start. First snapshot: US + limit 1, movement OFF ≈ $0.003. From $3.00 / 1,000 rows. Movement report $2.50 after you raise the $0.05 cap.</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-chart-tracker/input">Open Apple Podcasts chart Input → Start</a></p>
+    <p>Job: get a spreadsheet that includes <strong>previous rank</strong>, not only today’s Top Podcasts position.</p>
+    <p>A one-run <code>chart_rank</code> CSV has <code>rank</code> for that fetch. It does <strong>not</strong> have <code>previousRank</code>. Previous rank is on a <code>podcast_chart_movement_report</code> after a saved monitor compares two polls.</p>
+    <p class="price">Open Input → Start. First snapshot: US + limit <strong>1</strong>, movement OFF ≈ <strong>$0.003</strong>. From <strong>$3.00 / 1,000 rows</strong>. Movement report <strong>$2.50</strong> after you raise the <strong>$0.05</strong> cap. No Apple API key.</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-chart-tracker">Open Chart Tracker Input → countries ["us"], limit 1, generateMovementReport false → Start (~$0.003). For previous rank: set monitorKey, turn movement ON, raise maxChargeUsd above $2.50.</a></p>
 
-    <h2>Start path: snapshot first, then previous-rank CSV</h2>
-    <ol>
-      <li>Open <a href="https://apify.com/taroyamada/apple-podcast-chart-tracker/input"><code>taroyamada/apple-podcast-chart-tracker</code> Input</a>. Sign in (an account is required to run).</li>
-      <li>Cheapest first paid run: <code>countries</code> <code>["us"]</code>, <code>limit</code> <strong>1</strong> (this Actor’s default is 1, not the search-actor default of 3), <code>generateMovementReport</code> false. Click <strong>Start</strong> and inspect the snapshot.</li>
-      <li>For movement: set a stable <code>monitorKey</code>, <code>generateMovementReport</code> true, <code>initialRunMode</code> <code>baseline_only</code>, <code>emitRawRows</code> false. Raise <code>maxChargeUsd</code> above <strong>$2.50</strong> (live default cap $0.05 blocks the report on purpose).</li>
-      <li>Run once to store baseline (zero rows). On a later poll that sees new, changed, or dropped ranks, export the one report row as <strong>CSV</strong>.</li>
-    </ol>
-    <p>You do not need an Apple API key. Unchanged later polls with <code>emitRawRows</code> false stay zero rows and zero charge.</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-chart-tracker/input">Open Input → Start</a></p>
-
-    <h2>Cheapest first snapshot (not the movement report)</h2>
-    <p>Paste this JSON if the form is empty. Do not turn movement on until the snapshot columns look right.</p>
-<pre><code>{
-  "countries": ["us"],
-  "limit": 1,
-  "generateMovementReport": false,
-  "delivery": "dataset"
-}</code></pre>
-    <p>Then, after you raise the cap, a movement monitor looks like:</p>
-<pre><code>{
-  "countries": ["us"],
-  "limit": 1,
-  "monitorKey": "us-top-podcasts",
-  "generateMovementReport": true,
-  "initialRunMode": "baseline_only",
-  "emitRawRows": false,
-  "maxChargeUsd": 3,
-  "delivery": "dataset"
-}</code></pre>
-    <p>Live PPE (copy only; Store prices unchanged): raw row <strong>$0.003</strong>; movement report <strong>$2.50</strong>. US + limit 1, movement OFF ≈ <strong>$0.003</strong>. Store card: From <strong>$3.00 / 1,000</strong>.</p>
+    <h2>Today’s chart CSV does not include previousRank</h2>
+    <p>One Start writes today’s position and stops there. The dataset row is <code>rowType</code> <code>chart_rank</code>. Export it as CSV and the columns are that fetch: <code>country</code>, <code>rank</code>, show identity, <code>sourceUrl</code>, and <code>fetchedAt</code>. There is no <code>previousRank</code> column to map. Choosing CSV does not compare this poll with an earlier chart.</p>
+    <p>Previous rank is a second file. Save a monitor under a stable <code>monitorKey</code>, then poll again. The first monitor run only stores the baseline and writes zero rows, so there is still nothing to put in a previous-rank column. A later poll that sees a new, changed, or dropped position emits one <code>podcast_chart_movement_report</code>. That row is where <code>previousRank</code>, <code>currentRank</code>, and <code>rankDelta</code> live. Export that dataset as CSV when the spreadsheet has to show where the show sat last time.</p>
     <table>
       <thead>
         <tr>
           <th></th>
-          <th>Today’s snapshot CSV</th>
-          <th>Movement CSV</th>
+          <th>Today’s snapshot</th>
+          <th>Movement report</th>
         </tr>
       </thead>
       <tbody>
@@ -154,18 +127,48 @@
         <tr>
           <td>First useful paid run</td>
           <td>US + limit 1 ≈ $0.003</td>
-          <td>Baseline is $0; later change emits one $2.50 row</td>
+          <td>Baseline $0; later change emits one $2.50 row</td>
         </tr>
         <tr>
           <td><code>limit</code> default</td>
-          <td>1 (not search-actor 3)</td>
+          <td><strong>1</strong> (not search-actor 3)</td>
           <td>Same depth as the monitor</td>
         </tr>
       </tbody>
     </table>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-chart-tracker/input">Open Input → Start</a></p>
+    <p>Apple Podcasts Scraper <code>chartRequests</code> is a snapshot only - no previous rank. Search default limit 3 belongs on the search actor, not here.</p>
+    <p>Cheapest snapshot. Paste this JSON if Input is empty. Leave movement off. Start, open the dataset, and download CSV. Confirm <code>rowType</code> is <code>chart_rank</code> and that <code>previousRank</code> is absent before you ask for a report.</p>
+<pre><code>{
+  "countries": ["us"],
+  "limit": 1,
+  "generateMovementReport": false,
+  "delivery": "dataset"
+}</code></pre>
+    <p>Then movement. Raise the cap first. The default <code>maxChargeUsd</code> of $0.05 lets the US + limit 1 snapshot bill and blocks the $2.50 report until you raise it. Set <code>monitorKey</code>, turn <code>generateMovementReport</code> on, set <code>initialRunMode</code> to <code>baseline_only</code>, and leave <code>emitRawRows</code> false. The baseline run stores state and writes zero rows. A later poll that sees a change emits one report row. That is the CSV with previous rank.</p>
+<pre><code>{
+  "countries": ["us"],
+  "limit": 1,
+  "monitorKey": "us-top-podcasts",
+  "generateMovementReport": true,
+  "initialRunMode": "baseline_only",
+  "emitRawRows": false,
+  "maxChargeUsd": 3,
+  "delivery": "dataset"
+}</code></pre>
+    <p>Rank movement is descriptive evidence - not downloads, audience, or an advertising guarantee.</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-chart-tracker">Open Chart Tracker Input → countries ["us"], limit 1, generateMovementReport false → Start (~$0.003). For previous rank: set monitorKey, turn movement ON, raise maxChargeUsd above $2.50.</a></p>
+
+    <h2>Start path: snapshot first, then previous-rank CSV</h2>
+    <ol>
+      <li>Open <a href="https://apify.com/taroyamada/apple-podcast-chart-tracker">Chart Tracker Input</a>. Sign in (an account is required to run). Product overview stays on <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> (<code>taroyamada/apple-podcast-chart-tracker</code>).</li>
+      <li>Cheapest first paid run: <code>countries</code> <code>["us"]</code>, <code>limit</code> <strong>1</strong> (this Actor’s default is 1, not the search-actor default of 3), <code>generateMovementReport</code> false. Click <strong>Start</strong>. Download the dataset as CSV and check that the row is <code>chart_rank</code> with <code>rank</code> and without <code>previousRank</code>.</li>
+      <li>For previous rank: set a stable <code>monitorKey</code>, <code>generateMovementReport</code> true, <code>initialRunMode</code> <code>baseline_only</code>, <code>emitRawRows</code> false. Raise <code>maxChargeUsd</code> above <strong>$2.50</strong> (the $0.05 cap blocks the report on purpose).</li>
+      <li>Run once to store the baseline (zero rows, so there is still no previous rank to export). On a later poll that sees new, changed, or dropped ranks, export the one report row as <strong>CSV</strong>. That file has <code>previousRank</code>, <code>currentRank</code>, and <code>rankDelta</code>.</li>
+    </ol>
+    <p>You do not need an Apple API key. Unchanged later polls with <code>emitRawRows</code> false stay zero rows and zero charge.</p>
 
     <h2>What the movement CSV contains</h2>
+    <p>Read the report’s <code>changes</code> list, not the snapshot <code>rank</code> column. In the placeholder below, the show was 18 on the prior poll (<code>previousRank</code>) and 12 on this poll (<code>currentRank</code>). <code>rankDelta</code> is 6 and <code>changeType</code> is <code>changed</code>. The parent row’s <code>changedCount</code>, <code>newCount</code>, and <code>droppedCount</code> say how many of each landed in that one report. Show name, id, and URL here are placeholders, not a live chart. Rank movement is descriptive evidence, not a forecast or audience estimate.</p>
     <p>Sample change object (placeholder show data):</p>
 <pre><code>{
   "changeType": "changed",
@@ -177,7 +180,7 @@
   "rankDelta": 6,
   "sourceUrl": "https://podcasts.apple.com/us/podcast/id123456"
 }</code></pre>
-    <p>Counts on the parent row: <code>changedCount</code>, <code>newCount</code>, <code>droppedCount</code>. Rank movement is descriptive evidence, not a forecast or audience estimate.</p>
+    <p>Unchanged polls with <code>emitRawRows</code> false do not add a row, so the CSV stays empty until a position actually moves. A failed storefront is not a mass drop.</p>
 
     <h2>What this page is not</h2>
     <ul>
@@ -208,8 +211,8 @@
     <h2>Do I need an Apple API key?</h2>
     <p>No. Public chart JSON only. No proxy, Apple ID, or private dashboard. You do need an account on the run platform to click Start.</p>
 
-    <p class="price">Open Input → Start. First snapshot: US + limit 1, movement OFF ≈ $0.003. From $3.00 / 1,000 rows. Movement report $2.50 after you raise the $0.05 cap.</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-chart-tracker/input">Open Apple Podcasts chart Input → Start</a></p>
+    <p class="price">Open Input → Start. First snapshot: US + limit <strong>1</strong>, movement OFF ≈ <strong>$0.003</strong>. From <strong>$3.00 / 1,000 rows</strong>. Movement report <strong>$2.50</strong> after you raise the <strong>$0.05</strong> cap. No Apple API key.</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-chart-tracker">Open Chart Tracker Input → countries ["us"], limit 1, generateMovementReport false → Start (~$0.003). For previous rank: set monitorKey, turn movement ON, raise maxChargeUsd above $2.50.</a></p>
 
     <h2>Related pages</h2>
     <ul>
