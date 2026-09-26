@@ -97,10 +97,47 @@
   <main>
     <nav><a href="/">Home</a> / Guides / Catalog readiness for AI shopping agents</nav>
     <h1>AI shopping agents skip catalogs without crawler rules and complete product JSON-LD</h1>
-    <p>Job: make the catalog <strong>machine-readable</strong> before an AI shopping agent tries to discover it: publish <code>llms.txt</code>, allow or deny GPTBot / ClaudeBot / PerplexityBot in <code>robots.txt</code> on purpose, and put complete Product JSON-LD (and Open Graph) on live product pages.</p>
-    <p>This page is the readiness-score job, not a listing mirror and not an inclusion promise. A high score is a checklist. It does not enroll the store in any agent storefront.</p>
-    <p class="price">Scan llms.txt, AI-crawler robots rules, and product JSON-LD, then fix the gaps the score cites.</p>
-    <p><a href="https://apps.shopify.com/agentic-catalog-readiness">Open Agentic Catalog Readiness on the App Store</a></p>
+    <p>Job: make the catalog <strong>machine-readable</strong> before an AI shopping agent tries to discover it: publish <code>llms.txt</code>, set GPTBot / ClaudeBot / PerplexityBot in <code>robots.txt</code> <strong>on purpose</strong>, and put complete <strong>Product JSON-LD</strong> (and Open Graph) on live product pages.</p>
+    <p>A readiness score is a checklist. It does <strong>not</strong> enroll the store in any agent storefront, and it is not a ranking or inclusion promise.</p>
+    <p>Scan those three surfaces, fix the gaps the score cites, then re-scan when theme or feed changes drop structured data.</p>
+
+    <h2>llms.txt, robots.txt, and Product JSON-LD are separate gaps</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Check</th>
+          <th>What “ready” means here</th>
+          <th>Common miss</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>llms.txt</code></td>
+          <td>Public hint of which URLs an LLM-facing agent should prefer</td>
+          <td>Missing file</td>
+        </tr>
+        <tr>
+          <td><code>robots.txt</code> for GPTBot / ClaudeBot / PerplexityBot</td>
+          <td>Allow or deny those crawlers deliberately</td>
+          <td>Accidental block or accidental open with no policy</td>
+        </tr>
+        <tr>
+          <td>Product JSON-LD + Open Graph</td>
+          <td>Complete Product structured data on the live PDP</td>
+          <td>Incomplete offers / identifiers; gallery-only pages</td>
+        </tr>
+      </tbody>
+    </table>
+    <p><code>robots.txt</code> allow is not the same as <code>llms.txt</code>. Missing either is a readiness gap. Complete JSON-LD alone does not make the catalog “agentic.”</p>
+    <p>Do not confuse this with an <strong>access audit</strong> of AI apps that can read customer data (<a href="/guides/access-audit-shopify-admin/">different guide</a>). A crawler allow is not permission for an installed app to read orders.</p>
+    <p>Suggested path:</p>
+    <ol>
+      <li>Install <a href="https://apps.shopify.com/agentic-catalog-readiness">Agentic Catalog Readiness</a>.</li>
+      <li>Scan <code>llms.txt</code>, AI-crawler robots rules, and Product JSON-LD / OG on live PDPs.</li>
+      <li>Repair barcode/GTIN where the listing marks that path live. Treat preview-only fields as preview until unlocked on the live listing.</li>
+      <li>Schedule scans if you need alerts when the score moves. Export per-product evidence on plans that include it.</li>
+    </ol>
+    <p><a href="https://apps.shopify.com/agentic-catalog-readiness">Install Agentic Catalog Readiness, run a catalog readiness scan, then fix llms.txt, AI-crawler robots rules, and Product JSON-LD gaps the score cites.</a></p>
 
     <h2>Start path: score, then repair identifiers</h2>
     <ol>
@@ -110,7 +147,7 @@
       <li>Schedule daily or weekly scans if you need email alerts when the score changes. Export CSV evidence per product on the plans that include it.</li>
     </ol>
     <p>The app scores public crawler and structured-data hygiene. It does not submit the catalog to any agent network.</p>
-    <p><a href="https://apps.shopify.com/agentic-catalog-readiness">Install, then run a catalog readiness scan</a></p>
+    <p><a href="https://apps.shopify.com/agentic-catalog-readiness">Install Agentic Catalog Readiness, run a catalog readiness scan, then fix llms.txt, AI-crawler robots rules, and Product JSON-LD gaps the score cites.</a></p>
 
     <h2>What a readiness score checks vs what it does not</h2>
     <table>
@@ -178,8 +215,7 @@ product page  JSON-LD @type Product
     <h2>Where do I score crawler rules and product JSON-LD?</h2>
     <p>Use a readiness scan that checks <code>llms.txt</code>, AI-crawler <code>robots.txt</code>, and Product JSON-LD / Open Graph on live product pages, then exports per-product evidence. <a href="https://apps.shopify.com/agentic-catalog-readiness">Agentic Catalog Readiness</a> is the App Store listing this site already uses for that job. Open the listing, install, run a scan, then fix the gaps the score cites.</p>
 
-    <p class="price">Scan llms.txt, AI-crawler robots rules, and product JSON-LD, then fix the gaps the score cites.</p>
-    <p><a href="https://apps.shopify.com/agentic-catalog-readiness">Open Agentic Catalog Readiness on the App Store</a></p>
+    <p><a href="https://apps.shopify.com/agentic-catalog-readiness">Install Agentic Catalog Readiness, run a catalog readiness scan, then fix llms.txt, AI-crawler robots rules, and Product JSON-LD gaps the score cites.</a></p>
 
     <h2>Related pages</h2>
     <ul>
