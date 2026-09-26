@@ -84,10 +84,60 @@
   <main>
     <nav><a href="/">Home</a> / PubMed Literature Watch &amp; Research Report</nav>
     <h1>Watch PubMed literature via NCBI E-utilities and generate citation reports</h1>
-    <p>PubMed Literature Watch &amp; Research Report queries PubMed through official NCBI E-utilities. Biomedical research, evidence, and research-operations teams enter PubMed queries or PMIDs. The first-run value path returns a source-linked literature report and optional citation export, with recurring new-publication alerts afterward. Outputs are descriptive citation metadata, not medical conclusions or treatment guidance.</p>
-    <p>This is official NCBI/PubMed E-utilities literature watch. It is not a TED/SAM.gov/Grants.gov procurement queue and not Google News RSS.</p>
-    <p class="price">from $4.00 / 1,000 pubmed metadata rows ($0.004 per delivered citation, author, or journal metadata row)</p>
-    <p><a href="https://apify.com/taroyamada/pubmed-research-intelligence">Open PubMed Literature Watch &amp; Research Report on Apify</a></p>
+    <p>Job: PubMed citation metadata, literature-update reports, and new-PMID alerts through <strong>official NCBI E-utilities</strong> - not procurement bids and not Google News RSS.</p>
+    <p>Outputs are descriptive citation metadata. <strong>No abstracts / no full text.</strong> Not medical advice. Not affiliated with NCBI or PubMed.</p>
+    <p class="price">From <strong>$4.00 / 1,000</strong> pubmed metadata rows ($0.004 per metadata row). Schema defaults report/export <strong>ON</strong> - set a cap so you do not surprise-charge.</p>
+
+    <h2>Cheap monitor signal vs report+export audit</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Path</th>
+          <th>Mode</th>
+          <th>Report/export</th>
+          <th>Cap hint</th>
+          <th>What you get</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Cheap signal</td>
+          <td><code>runMode</code> <code>monitor</code></td>
+          <td>OFF</td>
+          <td>$0.30</td>
+          <td>Up to 10 × $0.03 new-publication alerts</td>
+        </tr>
+        <tr>
+          <td>Literature update</td>
+          <td><code>runMode</code> <code>audit</code></td>
+          <td>ON</td>
+          <td>$7</td>
+          <td>$2 report + $5 export when non-empty</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Monitor baseline / unchanged poll = $0. No matches = no report/export charge.</p>
+    <p>Cheap signal sample:</p>
+<pre><code>{
+  "searchTerms": ["machine learning healthcare"],
+  "runMode": "monitor",
+  "monitorKey": "starter-machine-learning-healthcare",
+  "emitRawRows": false,
+  "generateReport": false,
+  "generateExport": false,
+  "maxChargeUsd": 0.30
+}</code></pre>
+    <p>Audit sample (prefill theme):</p>
+<pre><code>{
+  "searchTerms": ["cancer immunotherapy"],
+  "fromDate": "2026",
+  "runMode": "audit",
+  "emitRawRows": false,
+  "generateReport": true,
+  "generateExport": true,
+  "maxChargeUsd": 7
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/pubmed-research-intelligence">Open PubMed Literature Watch → for a cheap signal use monitor + report/export OFF; for a literature update keep audit + report/export ON under a $7 cap. Citation metadata only — not full text.</a></p>
 
     <h2>Official PubMed E-utilities, not procurement bids and not news RSS</h2>
     <p>Use this page when the job is PubMed citation metadata, literature-update reports, systematic-review citation exports, or saved-query new-publication alerts. Use <a href="/ted-sam-grants-bid-alerts/">TED, SAM.gov &amp; Grants Bid Alerts Scraper</a> when the job is TED, SAM.gov, and Grants.gov bid queues. Use <a href="/google-news-scraper/">Google News Scraper</a> when the job is query-based Google News RSS headlines and article URLs.</p>
@@ -180,7 +230,7 @@
   "dryRun": false
 }</code></pre>
     <p>Schema prefill for <code>searchTerms</code> is <code>cancer immunotherapy</code>. Live schema <code>additionalProperties</code> is false; send only the published field names below.</p>
-    <p><a href="https://apify.com/taroyamada/pubmed-research-intelligence">Run PubMed Literature Watch on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/pubmed-research-intelligence">Open PubMed Literature Watch → for a cheap signal use monitor + report/export OFF; for a literature update keep audit + report/export ON under a $7 cap. Citation metadata only — not full text.</a></p>
 
     <h2>How do audit, monitor, and extract modes work?</h2>
     <p>Live schema <code>runMode</code> default is <code>audit</code>. The schema description: report-first audit generates the current report; monitor emits new PMIDs; extract is the compatibility path for raw metadata rows. Default <code>generateReport</code> and <code>generateExport</code> are true. <code>emitRawRows</code> default is false. Leave raw rows off for the report/export value path.</p>
@@ -451,7 +501,7 @@
       <li><a href="/openalex-research-intelligence/">OpenAlex Scholarly Works Scraper</a> — broader discovery, then confirm a focused PubMed query</li>
       <li><a href="/nih-research-funding-landscape-report/">NIH RePORTER Funding Landscape Report</a> — related award landscape</li>
     </ul>
-    <p><a href="https://apify.com/taroyamada/pubmed-research-intelligence">Open PubMed Literature Watch &amp; Research Report on Apify</a></p>
+    <p><a href="https://apify.com/taroyamada/pubmed-research-intelligence">Open PubMed Literature Watch → for a cheap signal use monitor + report/export OFF; for a literature update keep audit + report/export ON under a $7 cap. Citation metadata only — not full text.</a></p>
 
     <h2>Related pages</h2>
     <ul>
