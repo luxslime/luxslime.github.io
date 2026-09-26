@@ -102,6 +102,19 @@
     <p class="price">Open Input → Start. One US source × maxItemsPerSource 1 ≈ <strong>$0.008</strong> if a row delivers. From <strong>$8.00 / 1,000 rows</strong>. No live start charge. Empty queues are <strong>$0</strong>. Leave report ($5) and export ($7) off.</p>
     <p><a href="https://apify.com/taroyamada/procurement-intel-actor/input">Open procurement-intel-actor Input → jurisdictions us, paste samApiKey, keep/replace naicsCodes, maxItemsPerSource 1, report/export OFF → Start → export CSV (~$0.008 if one row delivers).</a></p>
 
+    <h2>Open Input for one US NAICS row - report and export stay off</h2>
+    <p>The paying proof here is <strong>one NAICS-filtered SAM.gov opportunity as CSV</strong>, not a TED desk and not a grants-only run.</p>
+    <p>Before Start:</p>
+    <ol>
+      <li>Set <code>jurisdictions</code> to <code>us</code>.</li>
+      <li>Paste a valid <code>samApiKey</code>. Without the key, the US lane skips and an empty queue is <strong>$0</strong> - that is not a fake CSV.</li>
+      <li>Keep or replace <code>naicsCodes</code> with codes you already use.</li>
+      <li>Keep <code>maxItemsPerSource</code> at <strong>1</strong>. Leave report (<strong>$5</strong>) and opportunity export (<strong>$7</strong>) <strong>off</strong>.</li>
+    </ol>
+    <p>When a row delivers, export the default dataset as CSV. Raise the cap only after that row is useful.</p>
+    <p>One US source × maxItemsPerSource 1 ≈ <strong>$0.008</strong> if a row delivers. From <strong>$8.00 / 1,000 rows</strong>. No live start charge.</p>
+    <p><a href="https://apify.com/taroyamada/procurement-intel-actor/input">Try for free → Input (us + key + NAICS, maxItems 1) → Start → CSV</a></p>
+
     <h2>Missing samApiKey skips the US lane - empty is not a fake CSV</h2>
     <table>
       <thead>

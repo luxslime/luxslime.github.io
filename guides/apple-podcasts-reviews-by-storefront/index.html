@@ -102,6 +102,18 @@
     <p class="price">Open Input → Start. Prefill × 1 page, report OFF ≈ <strong>≤$0.15</strong>; cap <strong>$0.50</strong>. From <strong>$3.00 / 1,000 rows</strong>. Empty output does <strong>not</strong> POST billed rows. No Apple API key.</p>
     <p><a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor">Open Reviews Monitor Input → one Apple Podcasts URL/ID, countries ["us"], maxPagesPerPair 1, generateReport false → Start (prefill × 1 page ≈ ≤$0.15). Empty storefronts = no billed rows.</a></p>
 
+    <h2>Open Input with known collection IDs - one page, report off</h2>
+    <p>The paying proof is <strong>public review text for shows you already have IDs for</strong>, per storefront - not a keyword search and not a chart dump.</p>
+    <p>Before Start:</p>
+    <ol>
+      <li>Paste <code>collectionId</code> values you already hold (from search CSV or your own list). Do not invent a <code>searchTerm</code> path on this Actor.</li>
+      <li>Keep the first run at <strong>1 page</strong> on the storefronts you care about.</li>
+      <li>Leave the summary report <strong>OFF</strong> until the review rows look right.</li>
+    </ol>
+    <p>Empty GB/JP (or other) customer-review RSS pages must <strong>not</strong> become billed dataset rows. If a storefront is empty, you should see empty output - not fake reviews.</p>
+    <p>Prefill × 1 page, report OFF ≈ <strong>≤$0.15</strong>; cap <strong>$0.50</strong>. From <strong>$3.00 / 1,000 rows</strong>. Empty output does not POST billed rows. No Apple API key.</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor/input">Try for free → Input (known IDs, 1 page, report off) → Start</a></p>
+
     <h2>Start path: podcastIds, one storefront, skip empties</h2>
     <ol>
       <li>Open <a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor/input"><code>taroyamada/apple-podcast-reviews-monitor</code> Input</a>. Sign in (an account is required to run).</li>
