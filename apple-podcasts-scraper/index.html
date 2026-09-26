@@ -167,11 +167,19 @@
 <body>
   <main>
     <nav><a href="/">Home</a> / Apple Podcast Scraper Apify</nav>
-    <h1>Apple Podcast Scraper Apify — search Apple Podcasts / iTunes shows, charts, and episodes</h1>
-    <p>Apple Podcast Scraper Apify is the Store actor <a href="https://apify.com/taroyamada/apple-podcast-scraper"><code>taroyamada/apple-podcast-scraper</code></a> (Apple Podcasts Scraper: Search, Charts, Episodes &amp; Watchlists). Search uses the official iTunes Search API; collection-ID lookup uses the official iTunes Lookup API.</p>
-    <p>Find public Apple Podcasts shows by keyword, snapshot a <code>chartRequests</code> ranking, attach recent episode titles, and refresh known collection IDs. This Actor uses official Apple/iTunes endpoints. No proxy is required. It is not a storefront movement monitor or a review collector — those jobs belong on <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> and <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a>.</p>
-    <p class="price">Open Input → Start. Search + limit 3 ≈ $0.0125 (Start $0.005 + result $0.0025 × 3). From $2.50 / 1,000 results. No API key. CSV/JSON.</p>
-    <p class="cta-row"><a class="cta" href="https://apify.com/taroyamada/apple-podcast-scraper/input">Open Apple Podcast Scraper Apify Input → Start</a> <a class="cta-secondary" href="https://apify.com/taroyamada/apple-podcast-scraper">Store listing</a></p>
+    <h1>Apple Podcasts Scraper — Search, Charts &amp; Episodes to CSV (No API Key)</h1>
+    <p>Scrape Apple Podcasts charts, episodes, and search results through iTunes and RSS. Export CSV or JSON from the Dataset - no API key.</p>
+    <p class="price"><strong>First paid run:</strong> set <code>searchTerm</code>, keep <code>limit</code> at 3, leave episodes off. That try run is about <strong>$0.0125</strong>. From <strong>$2.50 / 1,000 results</strong>.</p>
+    <p>Actor: <code>taroyamada/apple-podcast-scraper</code>. Official iTunes Search / Lookup plus RSS for recent episodes when you turn them on. No proxy. No API key. Not a chart-movement monitor and not a reviews collector.</p>
+    <p class="cta-row"><a class="cta" href="https://apify.com/taroyamada/apple-podcast-scraper">Open Store → Try for free → Input (search + limit 3)</a></p>
+    <p>Suggested Input for the first run:</p>
+<pre><code>{
+  "searchTerm": "technology",
+  "country": "us",
+  "limit": 3,
+  "includeEpisodes": false
+}</code></pre>
+    <p>After the dataset writes three rows, export CSV from the default Dataset. Then raise <code>limit</code>, add <code>chartRequests</code>, or set <code>includeEpisodes</code> true.</p>
 
     <h2>Demo</h2>
     <p>Watch a short walkthrough of a search run on Apify. Then follow <a href="#how-to-start-a-run">How to start a run</a> with the search + limit 3 input below.</p>
