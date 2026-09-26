@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Ad Landing Page Offer Intelligence — CRO gap reports from URLs you paste</title>
-  <meta name="description" content="taroyamada/ad-landing-page-offer-intelligence. $3.00 per Landing offer report (landing_offer_report); $15 per CRO gap report pack. $0.00005 Actor Start. Not an ads-lib…">
+  <meta name="description" content="Landing-page offer, CTA, and proof gaps from URLs you already have. $3.00 landing_offer_report; $15 CRO pack; Actor Start $0.00005. Default maxChargeUsd 3.">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://apify.momiji-space.com/ad-landing-page-offer-intelligence/">
   <script type="application/ld+json">
@@ -85,10 +85,43 @@
   <main>
     <nav><a href="/">Home</a> / Ad Landing Page Offer Intelligence</nav>
     <h1>Landing-page offer, CTA, and proof gaps from URLs you already have</h1>
-    <p>This Actor analyzes user-provided landing pages and pasted ad copy for offer, CTA, proof, pricing, and CRO gaps without scraping ad libraries.</p>
-    <p>Not an ads-library crawler (use Ads Library Competitive Intelligence on URLs you supply). Not a website-to-markdown dump. Not authenticated ad-manager access.</p>
-    <p class="price">$3.00 per Landing offer report (landing_offer_report); $15 per CRO gap report pack. $0.00005 Actor Start.</p>
-    <p><a href="https://apify.com/taroyamada/ad-landing-page-offer-intelligence">Open Ad Landing Page Offer Intelligence on Apify</a></p>
+    <p>Analyze <strong>user-provided landing pages</strong> and optional pasted ad copy for offer, CTA, proof, pricing, and CRO gaps - <strong>without scraping ad libraries</strong>.</p>
+    <p>Not <a href="/website-content-extractor/">Website Content Extractor</a> (page-to-markdown). Not <a href="/article-content-extractor/">Article Content Extractor</a> (news/blog cleanup). Not authenticated ad-manager access.</p>
+    <p class="price">Live PPE: <strong>$3.00</strong> per Landing offer report (<code>landing_offer_report</code>); <strong>$15</strong> per CRO gap report pack; Actor Start <strong>$0.00005</strong>. Default <code>maxChargeUsd</code> <strong>3</strong> favors the entry offer report first.</p>
+
+    <h2>Start with landing_offer_report - keep the CRO pack off until needed</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Tier path</th>
+          <th>What bills</th>
+          <th>Cap tip</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>reportTier</code> <code>entry</code></td>
+          <td>Landing offer report $3</td>
+          <td>Keep <code>maxChargeUsd</code> 3</td>
+        </tr>
+        <tr>
+          <td>Premium CRO pack</td>
+          <td>CRO gap report pack $15</td>
+          <td>Raise cap before selecting premium</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>You supply <code>landingPageUrls</code>. Ad library URLs are blocked with no charge. Public HTML only.</p>
+    <p>Example (dryRun first if validating):</p>
+<pre><code>{
+  "landingPageUrls": ["https://example.com/landing"],
+  "adCopy": "Get a free trial today. Save 30% on annual plans.",
+  "reportTier": "entry",
+  "maxChargeUsd": 3,
+  "maxReports": 1,
+  "dryRun": false
+}</code></pre>
+    <p><a href="https://apify.com/taroyamada/ad-landing-page-offer-intelligence">Open Ad Landing Page Offer Intelligence</a> → paste known landing URLs → entry report under a $3 cap → turn CRO pack on only when you need the $15 pack.</p>
 
     <h2>Ad Landing Page Offer Intelligence, not a neighboring Actor</h2>
     <p>Use this page for this Actor’s job. Use <a href="/website-content-extractor/">Website Content Extractor</a> for One-shot page-to-markdown; Use <a href="/article-content-extractor/">Article Content Extractor</a> for News/blog HTML cleanup; Use <a href="/competitive-pricing-monitor/">B2B Pricing Scraper</a> for Public subscription-tier changes.</p>

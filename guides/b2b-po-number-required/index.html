@@ -3,12 +3,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>B2B checkout can skip a purchase-order number unless a validation rule requires it</title>
-  <meta name="description" content="Native B2B terms do not check PO number format, prefix, regex, or uniqueness. Require a valid purchase-order number on company checkout, then preview the rule before you publish.">
+  <title>B2B checkout can skip a PO number unless a rule requires it</title>
+  <meta name="description" content="Require PO number format, prefix, and uniqueness on B2B checkout. Native Net Terms do not check that. Preview a sample number before you publish.">
   <meta name="robots" content="index,follow">
-  <meta property="og:title" content="B2B checkout can skip a purchase-order number unless a validation rule requires it">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="B2B checkout can skip a PO number unless a rule requires it">
   <meta property="og:description" content="Require PO number format, prefix, and uniqueness on B2B checkout. Native Net Terms do not check that. Preview a sample number before you publish.">
   <meta property="og:url" content="https://apify.momiji-space.com/guides/b2b-po-number-required/">
+  <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/0d5bee841b158614f7a791277c9b589e/promotional_image/CJrF7JSn6JQDEAE=.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="B2B checkout can skip a PO number unless a rule requires it">
+  <meta name="twitter:description" content="Require PO number format, prefix, and uniqueness on B2B checkout. Native Net Terms do not check that. Preview a sample number before you publish.">
+  <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/0d5bee841b158614f7a791277c9b589e/promotional_image/CJrF7JSn6JQDEAE=.png">
   <link rel="canonical" href="https://apify.momiji-space.com/guides/b2b-po-number-required/">
   <script type="application/ld+json">
   {
@@ -74,6 +81,37 @@
     ]
   }
   </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://apify.momiji-space.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "B2B checkout can skip a purchase-order number unless a validation rule requires it",
+        "item": "https://apify.momiji-space.com/guides/b2b-po-number-required/"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "B2B Terms & PO Guard",
+    "url": "https://apps.shopify.com/b2b-terms-guard",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Shopify",
+    "image": "https://cdn.shopify.com/app-store/listing_images/0d5bee841b158614f7a791277c9b589e/icon/CMiBo7bN5JQDEAE=.png"
+  }
+  </script>
   <style>
     body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
     main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
@@ -89,9 +127,15 @@
     th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
     th { background: #f3f3f3; font-weight: 600; color: #202223; }
     tr:last-child td { border-bottom: 0; }
-    .price { color: #202223; }
+    table caption { text-align: left; font-size: 14px; color: #666; padding: 8px 12px 0; caption-side: top; }
     .note { font-size: 13px; color: #666; }
     .cta { display: inline-block; padding: 12px 16px; background: #202223; color: #fff; text-decoration: none; border-radius: 8px; font-weight: 600; }
+    a:focus-visible, button:focus-visible { outline: 2px solid #005bd3; outline-offset: 2px; }
+    .demo-embed { position: relative; width: 100%; height: 0; padding-bottom: 56.25%; margin: 0 0 16px; overflow: hidden; border: 1px solid #d9dde5; background: #000; }
+    .demo-embed iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+    .demo-embed button.yt-facade { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; padding: 0; border: 0; background: #000; color: #fff; cursor: pointer; }
+    .demo-embed button.yt-facade img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .demo-embed button.yt-facade span { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); background: #202223; color: #fff; padding: 10px 16px; border-radius: 8px; font-weight: 600; font-size: 16px; }
   </style>
 </head>
 <body>
@@ -102,13 +146,24 @@
     <p>Native B2B Net Terms control how the company pays. They do <strong>not</strong> check PO format, prefix, length, or uniqueness. Wholesale buyers can then skip the box, type junk, or reuse a number.</p>
     <p>This is the <strong>PO-number</strong> job, not a postal PO Box block. D2C and no-company checkouts stay out of the way. Preview a sample number, publish the rule, then test a blocked and an allowed company checkout.</p>
 
+    <h2>Demo</h2>
+    <p>Short walkthrough of the app flow. Then follow the start path below.</p>
+    <div class="demo-embed">
+      <button type="button" class="yt-facade" data-yt="qdqarxVWoS8">
+        <img src="https://i.ytimg.com/vi/qdqarxVWoS8/hqdefault.jpg" alt="" width="480" height="360">
+        <span>Play demo</span>
+      </button>
+    </div>
+    <p><a href="https://www.youtube.com/watch?v=qdqarxVWoS8">Open the demo on YouTube</a></p>
+
     <h2>Three different checkout jobs - do not mix them</h2>
     <table>
+      <caption>Three checkout jobs that must not be mixed</caption>
       <thead>
         <tr>
-          <th>Job</th>
-          <th>Field / surface</th>
-          <th>Native gap</th>
+          <th scope="col">Job</th>
+          <th scope="col">Field / surface</th>
+          <th scope="col">Native gap</th>
         </tr>
       </thead>
       <tbody>
@@ -153,11 +208,12 @@
 
     <h2>Native terms vs a required PO number</h2>
     <table>
+      <caption>Native terms vs a required PO number</caption>
       <thead>
         <tr>
-          <th>Control</th>
-          <th>What it sees</th>
-          <th>Required valid PO?</th>
+          <th scope="col">Control</th>
+          <th scope="col">What it sees</th>
+          <th scope="col">Required valid PO?</th>
         </tr>
       </thead>
       <tbody>
@@ -235,6 +291,22 @@ sample: TEST       → error</code></pre>
     </ul>
     <p class="note">Not credit insurance. Not a PO Box shipping rule. Native Net Terms do not validate PO format. Preview a sample number before you leave a rule published.</p>
   </main>
+  <script>
+    (function () {
+      document.querySelectorAll("button.yt-facade").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var id = btn.getAttribute("data-yt");
+          var iframe = document.createElement("iframe");
+          iframe.src = "https://www.youtube.com/embed/" + id + "?autoplay=1";
+          iframe.title = "B2B Terms and PO Guard demo on YouTube";
+          iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+          iframe.setAttribute("allowfullscreen", "");
+          iframe.referrerPolicy = "strict-origin-when-cross-origin";
+          btn.replaceWith(iframe);
+        });
+      });
+    })();
+  </script>
   <script src="/assets/js/shopify-guide-youtube-demos.js" defer></script>
 </body>
 </html>
