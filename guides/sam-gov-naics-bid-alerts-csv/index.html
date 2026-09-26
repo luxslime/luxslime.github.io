@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Get SAM.gov NAICS bid alerts as CSV without building the API</title>
-  <meta name="description" content="SAM.gov NAICS bid alerts as CSV without writing the opportunities API yourself. Open Input → Start. One US source × maxItemsPerSource 1 ≈ $0.008 if a row delivers. Empty queues are $0.">
+  <meta name="description" content="Filter public SAM.gov opportunities by NAICS and download CSV without writing api.sam.gov. Open Input → Start. One US source × maxItemsPerSource 1 ≈ $0.008 if a row delivers. From $8.00 / 1,000 rows. Empty queues are $0. Leave report ($5) and export ($7) off.">
   <meta name="robots" content="index,follow">
   <meta property="og:title" content="Get SAM.gov NAICS bid alerts as CSV without building the API">
-  <meta property="og:description" content="NAICS-filtered SAM.gov opportunities as CSV. Official notice API, not an HTML scrape. First run: us + maxItemsPerSource 1. Empty queues are $0.">
+  <meta property="og:description" content="NAICS-filtered SAM.gov opportunities as CSV. Official notice API, not an HTML scrape. One US source × maxItemsPerSource 1 ≈ $0.008. From $8.00 / 1,000 rows. Empty queues are $0. Leave report ($5) and export ($7) off.">
   <meta property="og:url" content="https://apify.momiji-space.com/guides/sam-gov-naics-bid-alerts-csv/">
   <link rel="canonical" href="https://apify.momiji-space.com/guides/sam-gov-naics-bid-alerts-csv/">
   <script type="application/ld+json">
@@ -97,10 +97,49 @@
   <main>
     <nav><a href="/">Home</a> / Guides / SAM.gov NAICS bid alerts CSV</nav>
     <h1>Get SAM.gov NAICS bid alerts as CSV without building the API</h1>
-    <p>Job: filter public SAM.gov opportunities by NAICS and download them as a spreadsheet — without writing a client for <code>api.sam.gov/opportunities/v2/search</code>. Pass comma-separated <code>naicsCodes</code>, keep the first fetch at <code>maxItemsPerSource</code> 1, then export the default dataset as CSV.</p>
-    <p>This page is the NAICS-to-CSV path, not a Store mirror. Product overview lives on <a href="/ted-sam-grants-bid-alerts/">TED, SAM.gov &amp; Grants Bid Alerts Scraper</a> (<code>taroyamada/procurement-intel-actor</code>). It searches official notice APIs. It is not a SAM.gov HTML scrape.</p>
-    <p class="price">Open Input → Start. One US source × maxItemsPerSource 1 ≈ $0.008 if a row delivers. From $8.00 / 1,000 rows. No live start charge. Empty queues are $0.</p>
-    <p><a href="https://apify.com/taroyamada/procurement-intel-actor/input">Open SAM.gov / TED / grants Input → Start</a></p>
+    <p>Job: filter public SAM.gov opportunities by <strong>NAICS</strong> and download them as a spreadsheet - without writing a client for <code>api.sam.gov/opportunities/v2/search</code>.</p>
+    <p>Pass comma-separated <code>naicsCodes</code>, keep the first fetch at <code>maxItemsPerSource</code> <strong>1</strong>, then export the default dataset as CSV. Official notice API - not a SAM.gov HTML scrape.</p>
+    <p class="price">Open Input → Start. One US source × maxItemsPerSource 1 ≈ <strong>$0.008</strong> if a row delivers. From <strong>$8.00 / 1,000 rows</strong>. No live start charge. Empty queues are <strong>$0</strong>. Leave report ($5) and export ($7) off.</p>
+    <p><a href="https://apify.com/taroyamada/procurement-intel-actor/input">Open procurement-intel-actor Input → jurisdictions us, paste samApiKey, keep/replace naicsCodes, maxItemsPerSource 1, report/export OFF → Start → export CSV (~$0.008 if one row delivers).</a></p>
+
+    <h2>Missing samApiKey skips the US lane - empty is not a fake CSV</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Condition</th>
+          <th>Result</th>
+          <th>Billed?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>jurisdictions</code> <code>us</code> + valid <code>samApiKey</code> + NAICS hit</td>
+          <td>Opportunity / alert row in dataset</td>
+          <td>$0.008 per delivered row</td>
+        </tr>
+        <tr>
+          <td><code>us</code> without <code>samApiKey</code></td>
+          <td>Warn + skip US lane</td>
+          <td>Empty queue = $0</td>
+        </tr>
+        <tr>
+          <td>No matching opportunities</td>
+          <td>Zero rows</td>
+          <td>$0</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Suggested first JSON (replace key; swap NAICS you bid):</p>
+<pre><code>{
+  "jurisdictions": "us",
+  "keywords": "cybersecurity",
+  "naicsCodes": "541512,541519",
+  "maxItemsPerSource": 1,
+  "samApiKey": "YOUR_SAM_GOV_API_KEY",
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p><code>minValue</code> defaults to 100000 and can empty the first queue - lower it or widen NAICS before raising the fetch cap. TED+SAM combined desk and grants-only first proof are sibling guides: <a href="/guides/ted-sam-bid-desk-deadlines/">TED and SAM bid-desk deadlines</a>, <a href="/guides/sam-gov-grants-scraper-first-paid-run/">SAM.gov scraper &amp; grants scraper first paid run</a>.</p>
 
     <h2>Start path: NAICS filter to CSV</h2>
     <ol>
@@ -110,7 +149,7 @@
       <li>Raise <code>maxItemsPerSource</code> only after those columns look useful. Leave <code>generateReport</code> and <code>emitExport</code> false.</li>
     </ol>
     <p>Without a SAM.gov key, the US lane is skipped with a warning. That can be an empty, unbilled queue — not a NAICS CSV.</p>
-    <p><a href="https://apify.com/taroyamada/procurement-intel-actor/input">Open Input → Start, then export CSV</a></p>
+    <p><a href="https://apify.com/taroyamada/procurement-intel-actor/input">Open procurement-intel-actor Input → jurisdictions us, paste samApiKey, keep/replace naicsCodes, maxItemsPerSource 1, report/export OFF → Start → export CSV (~$0.008 if one row delivers).</a></p>
 
     <h2>Cheapest first NAICS CSV (maxItemsPerSource 1)</h2>
     <p>Paste this JSON if the form is empty. Replace the placeholder key. Swap <code>naicsCodes</code> for the codes you actually chase. Do not turn on report/export until raw rows are useful.</p>
@@ -155,7 +194,7 @@
       </tbody>
     </table>
     <p><code>minValue</code> defaults to 100000 and can empty the first queue — lower it or widen NAICS before raising the fetch cap. Official endpoint: <code>https://api.sam.gov/opportunities/v2/search</code>.</p>
-    <p><a href="https://apify.com/taroyamada/procurement-intel-actor/input">Open Input → Start (NAICS / us)</a></p>
+    <p><a href="https://apify.com/taroyamada/procurement-intel-actor/input">Open procurement-intel-actor Input → jurisdictions us, paste samApiKey, keep/replace naicsCodes, maxItemsPerSource 1, report/export OFF → Start → export CSV (~$0.008 if one row delivers).</a></p>
 
     <h2>What the CSV contains</h2>
     <p>Normalized notice rows include <code>source</code>, <code>noticeId</code>, <code>title</code>, <code>buyer</code>, <code>deadlineAt</code>, <code>estimatedValue</code>, <code>signalTags</code>, <code>lanePriority</code>, and <code>recommendedAction</code>. Recurring runs can add <code>alerts[]</code> (deadline, status, closing-soon). A skipped US lane shows up in warnings, not as fake coverage.</p>
@@ -189,8 +228,8 @@
     <h2>Does this CSV include TED CPV tenders?</h2>
     <p>Not on this page’s US-only first input (<code>jurisdictions</code> <code>us</code>). CPV codes filter TED. Combined TED + SAM deadlines in one queue belong on the <a href="/guides/ted-sam-bid-desk-deadlines/">TED and SAM bid-desk guide</a>. Grants.gov is an additive lane (<code>jurisdictions</code> <code>grants</code>), not a NAICS filter.</p>
 
-    <p class="price">Open Input → Start. One US source × maxItemsPerSource 1 ≈ $0.008 if a row delivers. From $8.00 / 1,000 rows. No live start charge. Empty queues are $0.</p>
-    <p><a href="https://apify.com/taroyamada/procurement-intel-actor/input">Open SAM.gov / TED / grants Input → Start</a></p>
+    <p class="price">Open Input → Start. One US source × maxItemsPerSource 1 ≈ <strong>$0.008</strong> if a row delivers. From <strong>$8.00 / 1,000 rows</strong>. No live start charge. Empty queues are <strong>$0</strong>. Leave report ($5) and export ($7) off.</p>
+    <p><a href="https://apify.com/taroyamada/procurement-intel-actor/input">Open procurement-intel-actor Input → jurisdictions us, paste samApiKey, keep/replace naicsCodes, maxItemsPerSource 1, report/export OFF → Start → export CSV (~$0.008 if one row delivers).</a></p>
 
     <h2>Related pages</h2>
     <ul>
