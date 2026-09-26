@@ -4,11 +4,18 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Block PO Box on the billing address, not just shipping</title>
-  <meta name="description" content="Native checkout can block PO Boxes on shipping, but billing address fields are not covered by that rule. Card billing can still use a PO Box unless checkout validation targets billing.">
+  <meta name="description" content="Native checkout can block PO Boxes on shipping, not billing. Publish checkout validation that targets the billing address, then test blocked vs allowed.">
   <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <meta property="og:type" content="article">
   <meta property="og:title" content="Block PO Box on the billing address, not just shipping">
-  <meta property="og:description" content="Shipping-only PO Box blocks leave billing open. Use checkout validation that targets the billing address, then test a blocked and an allowed address.">
+  <meta property="og:description" content="Native checkout can block PO Boxes on shipping, not billing. Publish checkout validation that targets the billing address, then test blocked vs allowed.">
   <meta property="og:url" content="https://apify.momiji-space.com/guides/block-po-box-billing-address/">
+  <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/27f7c111c94acf4b22bfef9207351043/promotional_image/CLDLhsPS7ZQDEAE=.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Block PO Box on the billing address, not just shipping">
+  <meta name="twitter:description" content="Native checkout can block PO Boxes on shipping, not billing. Publish checkout validation that targets the billing address, then test blocked vs allowed.">
+  <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/27f7c111c94acf4b22bfef9207351043/promotional_image/CLDLhsPS7ZQDEAE=.png">
   <link rel="canonical" href="https://apify.momiji-space.com/guides/block-po-box-billing-address/">
   <script type="application/ld+json">
   {
@@ -74,6 +81,58 @@
     ]
   }
   </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://apify.momiji-space.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Block PO Box on the billing address, not just shipping",
+        "item": "https://apify.momiji-space.com/guides/block-po-box-billing-address/"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "AddressFence: PO Box Blocker",
+    "description": "Billing-address rules and street-number checks for Shopify checkout - the address rules built-in validation cannot apply.",
+    "url": "https://apps.shopify.com/address-guard",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Shopify",
+    "image": "https://cdn.shopify.com/app-store/listing_images/27f7c111c94acf4b22bfef9207351043/icon/CISg3YSo4pQDEAE=.png",
+    "offers": [
+      {
+        "@type": "Offer",
+        "name": "Free",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      {
+        "@type": "Offer",
+        "name": "Pro",
+        "price": "9.99",
+        "priceCurrency": "USD"
+      },
+      {
+        "@type": "Offer",
+        "name": "Plus",
+        "price": "19.99",
+        "priceCurrency": "USD"
+      }
+    ]
+  }
+  </script>
   <style>
     body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
     main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
@@ -89,31 +148,34 @@
     th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
     th { background: #f3f3f3; font-weight: 600; color: #202223; }
     tr:last-child td { border-bottom: 0; }
+    table caption { text-align: left; font-size: 14px; color: #666; padding: 8px 12px 0; caption-side: top; }
     .price { color: #202223; }
     .note { font-size: 13px; color: #666; }
+    .cta { display: inline-block; padding: 12px 16px; background: #202223; color: #fff; text-decoration: none; border-radius: 8px; font-weight: 600; }
+    a:focus-visible, button:focus-visible { outline: 2px solid #005bd3; outline-offset: 2px; }
     .demo-embed { position: relative; width: 100%; height: 0; padding-bottom: 56.25%; margin: 0 0 16px; overflow: hidden; border: 1px solid #d9dde5; background: #000; }
     .demo-embed iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+    .demo-embed button.yt-facade { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; padding: 0; border: 0; background: #000; color: #fff; cursor: pointer; }
+    .demo-embed button.yt-facade img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .demo-embed button.yt-facade span { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); background: #202223; color: #fff; padding: 10px 16px; border-radius: 8px; font-weight: 600; font-size: 16px; }
   </style>
 </head>
 <body>
   <main>
     <nav><a href="/">Home</a> / Guides / Block PO Box billing address</nav>
     <h1>Block PO Box on the billing address, not just shipping</h1>
-    <p>Job: reject a PO Box on the <strong>card billing</strong> address at checkout. Blocking PO Box on shipping is a different control. Native address format validation can stop a PO Box as the ship-to line and still leave billing open. A buyer then ships to a street address and bills a PO Box.</p>
-    <p>This page is the billing-address gap, not a listing mirror. Native Checkout Blocks “address format validation” is documented as shipping-only: billing fields are not validated by that rule. Carrier restrictions and delivery profiles also do not read billing.</p>
-    <p class="price">Publish checkout validation that targets billing, then test a blocked PO Box and an allowed street address.</p>
-    <p><a href="https://apps.shopify.com/address-guard">Open AddressFence (PO Box Guard) on the App Store</a></p>
+    <p>Job: reject a PO Box on the <strong>card billing address</strong> at checkout. Blocking a PO Box on <strong>shipping</strong> is a different control.</p>
+    <p>Native Checkout Blocks “address format validation” is documented as <strong>shipping-only</strong>. Billing fields are not validated by that rule, so a buyer can ship to a street address and still bill a PO Box.</p>
+    <p>If you also need a <strong>street number</strong> on the address line (a separate sibling rule), Free AddressFence covers <strong>billing PO-box</strong> and <strong>street-number</strong> checks. Publish checkout validation that targets billing, then test a blocked address and an allowed street address.</p>
+    <p><a class="cta" href="https://apps.shopify.com/address-guard">Open AddressFence (PO Box Blocker) on the App Store — configure billing PO Box and street-number rules, publish checkout validation, then test a blocked address vs an allowed street address.</a></p>
 
     <h2>Demo</h2>
     <p>Short walkthrough of the app flow. Then follow the start path below.</p>
     <div class="demo-embed">
-      <iframe
-        src="https://www.youtube.com/embed/7zwHWfp_UgM"
-        title="AddressFence PO Box billing demo on YouTube"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowfullscreen
-        loading="lazy"
-        referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      <button type="button" class="yt-facade" data-yt="7zwHWfp_UgM">
+        <img src="https://i.ytimg.com/vi/7zwHWfp_UgM/hqdefault.jpg" alt="" width="480" height="360">
+        <span>Play demo</span>
+      </button>
     </div>
     <p><a href="https://www.youtube.com/watch?v=7zwHWfp_UgM">Open the demo on YouTube</a></p>
 
@@ -127,13 +189,52 @@
     <p>The reviewer screencast on this site shows that same loop: rules → publish → blocked vs allowed → roll back → billing controls.</p>
     <p><a href="https://apps.shopify.com/address-guard">Install AddressFence, then publish a billing PO Box block</a></p>
 
-    <h2>Native gaps vs a billing-targeted rule</h2>
+    <h2>Street number is a sibling rule — still not shipping-only</h2>
+    <p>Blocking a PO Box answers “is this a PO Box?” Requiring a <strong>street number</strong> answers a different question: “does this street line include a house number?”</p>
+    <p>Shopify’s older <strong>Address Blocker / require street number</strong> rule was <strong>not migrated</strong> into the current Checkout Blocks address-format path. Merchants who still need “no bare street line without a number” need a separate check.</p>
+    <p>Treat street-number as a <strong>sibling</strong> of the billing PO Box job on this same page:</p>
     <table>
+      <caption>Billing PO Box rule and the street-number sibling</caption>
       <thead>
         <tr>
-          <th>Control</th>
-          <th>What it sees</th>
-          <th>PO Box on billing?</th>
+          <th scope="col">Rule</th>
+          <th scope="col">What it rejects</th>
+          <th scope="col">Billing vs shipping</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>PO Box on billing</td>
+          <td>PO Box (and similar patterns you enable) on the <strong>card billing</strong> address</td>
+          <td>Shipping-only native format validation does <strong>not</strong> cover billing</td>
+        </tr>
+        <tr>
+          <td>Street number</td>
+          <td>A street line with <strong>no house number</strong></td>
+          <td>Same gap: do not assume a shipping format rule fixes billing</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Do <strong>not</strong> copy every shipping address type onto billing unless that is the actual store policy. Turn street-number on only when bare lines without numbers are the problem you want to stop.</p>
+    <p>Suggested path:</p>
+    <ol>
+      <li>Install AddressFence from the <a href="https://apps.shopify.com/address-guard">App Store listing</a>.</li>
+      <li>Configure the <strong>billing</strong> PO Box rule; optionally enable the <strong>street-number</strong> check.</li>
+      <li>Use the <strong>simulator</strong> on sample addresses before you publish.</li>
+      <li>Publish to checkout validation.</li>
+      <li>Run two live tests: a PO Box (or number-less street) on billing must error; a normal street billing address must pass.</li>
+      <li>One-click <strong>rollback</strong> if the live function is wrong.</li>
+    </ol>
+    <p>This is checkout address validation, not fraud prevention, not AVS, and not legal advice.</p>
+
+    <h2>Native gaps vs a billing-targeted rule</h2>
+    <table>
+      <caption>Native controls vs billing-targeted validation</caption>
+      <thead>
+        <tr>
+          <th scope="col">Control</th>
+          <th scope="col">What it sees</th>
+          <th scope="col">PO Box on billing?</th>
         </tr>
       </thead>
       <tbody>
@@ -190,12 +291,11 @@
     <h2>What if the cart has no shipping address?</h2>
     <p>Digital or shipping-not-required carts still have a billing address. A shipping-only PO Box rule never runs on those checkouts. That is the case where a billing-targeted rule matters most. Confirm the function is published and that a test checkout with a PO Box billing line is rejected.</p>
 
-    <p class="price">Publish checkout validation that targets billing, then test a blocked PO Box and an allowed street address.</p>
-    <p><a href="https://apps.shopify.com/address-guard">Open AddressFence (PO Box Guard) on the App Store</a></p>
+    <p><a class="cta" href="https://apps.shopify.com/address-guard">Open AddressFence (PO Box Blocker) on the App Store — configure billing PO Box and street-number rules, publish checkout validation, then test a blocked address vs an allowed street address.</a></p>
 
     <h2>Related pages</h2>
     <ul>
-      <li><a href="https://apps.shopify.com/address-guard">AddressFence: PO Box Guard</a> — live App Store listing</li>
+      <li><a href="https://apps.shopify.com/address-guard">AddressFence: PO Box Blocker</a> — live App Store listing</li>
       <li><a href="/shopify-review/momiji-address-guard/">Reviewer screencast</a> — rules, publish, blocked vs allowed, billing controls</li>
       <li><a href="/b2b-po-terms/">B2B purchase-order terms at checkout</a> — PO numbers, not PO Boxes</li>
       <li><a href="/guides/prop-65-product-page-warning-2028/">Prop 65 2028 product-page warning</a></li>
@@ -204,6 +304,22 @@
     </ul>
     <p class="note">Not legal advice. Not a fraud or chargeback guarantee. Native shipping PO Box blocks do not validate billing. Test blocked and allowed addresses before you leave a function published.</p>
   </main>
+  <script>
+    (function () {
+      document.querySelectorAll("button.yt-facade").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var id = btn.getAttribute("data-yt");
+          var iframe = document.createElement("iframe");
+          iframe.src = "https://www.youtube.com/embed/" + id + "?autoplay=1";
+          iframe.title = "AddressFence PO Box billing demo on YouTube";
+          iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+          iframe.setAttribute("allowfullscreen", "");
+          iframe.referrerPolicy = "strict-origin-when-cross-origin";
+          btn.replaceWith(iframe);
+        });
+      });
+    })();
+  </script>
   <script src="/assets/js/shopify-guide-youtube-demos.js" defer></script>
 </body>
 </html>

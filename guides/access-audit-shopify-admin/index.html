@@ -3,12 +3,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Staff permission drift after the last review is not caught by a one-time user list</title>
-  <meta name="description" content="Admin user lists are a snapshot. Staff, collaborators, and installed-app scopes drift after the last review unless you re-audit and keep a permission log. Not a security attestation.">
+  <title>Staff permission drift is not caught by a one-time user list</title>
+  <meta name="description" content="Admin user lists are a snapshot. Re-audit staff, collaborators, and app scopes, flag customer-data access, and export evidence. Not a security attestation.">
   <meta name="robots" content="index,follow">
-  <meta property="og:title" content="Staff permission drift after the last review is not caught by a one-time user list">
-  <meta property="og:description" content="Re-audit staff, collaborator, and installed-app scopes. Flag customer-data access and export evidence. Not a security attestation.">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Staff permission drift is not caught by a one-time user list">
+  <meta property="og:description" content="Admin user lists are a snapshot. Re-audit staff, collaborators, and app scopes, flag customer-data access, and export evidence. Not a security attestation.">
   <meta property="og:url" content="https://apify.momiji-space.com/guides/access-audit-shopify-admin/">
+  <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/9ea3a49e539bec70dcd6abb7cc7f4746/promotional_image/CL_Eloyu9ZQDEAE=.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Staff permission drift is not caught by a one-time user list">
+  <meta name="twitter:description" content="Admin user lists are a snapshot. Re-audit staff, collaborators, and app scopes, flag customer-data access, and export evidence. Not a security attestation.">
+  <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/9ea3a49e539bec70dcd6abb7cc7f4746/promotional_image/CL_Eloyu9ZQDEAE=.png">
   <link rel="canonical" href="https://apify.momiji-space.com/guides/access-audit-shopify-admin/">
   <script type="application/ld+json">
   {
@@ -74,6 +81,61 @@
     ]
   }
   </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://apify.momiji-space.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Staff permission drift access audit",
+        "item": "https://apify.momiji-space.com/guides/access-audit-shopify-admin/"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Access Audit Guard",
+    "description": "Review installed app access, granted scopes, staff access records, and ownership evidence without reading customer or order data.",
+    "url": "https://apps.shopify.com/momiji-access-audit",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Shopify",
+    "image": "https://cdn.shopify.com/app-store/listing_images/9ea3a49e539bec70dcd6abb7cc7f4746/icon/CLqU3dXo9JQDEAE=.png",
+    "offers": [
+      {
+        "@type": "Offer",
+        "name": "Free",
+        "price": "0",
+        "priceCurrency": "USD",
+        "description": "Audit score + staff reminders."
+      },
+      {
+        "@type": "Offer",
+        "name": "Pro",
+        "price": "19",
+        "priceCurrency": "USD",
+        "description": "$19/month. Free + CSV export + drift alerts."
+      },
+      {
+        "@type": "Offer",
+        "name": "Business",
+        "price": "49",
+        "priceCurrency": "USD",
+        "description": "$49/month. Pro + PDF evidence packs."
+      }
+    ]
+  }
+  </script>
   <style>
     body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
     main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
@@ -89,18 +151,76 @@
     th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
     th { background: #f3f3f3; font-weight: 600; color: #202223; }
     tr:last-child td { border-bottom: 0; }
-    .price { color: #202223; }
+    table caption { text-align: left; font-size: 14px; color: #666; padding: 8px 12px 0; caption-side: top; }
     .note { font-size: 13px; color: #666; }
+    .cta { display: inline-block; max-width: 100%; box-sizing: border-box; padding: 12px 16px; background: #202223; color: #fff; text-decoration: none; border-radius: 8px; font-weight: 600; }
+    a:focus-visible, button:focus-visible { outline: 2px solid #005bd3; outline-offset: 2px; }
+    .demo-embed { position: relative; width: 100%; height: 0; padding-bottom: 56.25%; margin: 0 0 16px; overflow: hidden; border: 1px solid #d9dde5; background: #111; }
+    .demo-embed iframe, .yt-facade { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    .yt-facade { display: block; margin: 0; padding: 0; cursor: pointer; background: #111; font: inherit; }
+    .yt-facade img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .yt-play { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); background: #202223; color: #fff; padding: 10px 16px; border-radius: 8px; font-weight: 600; font-size: 16px; }
   </style>
 </head>
 <body>
   <main>
     <nav><a href="/">Home</a> / Guides / Staff permission drift access audit</nav>
     <h1>Staff permission drift after the last review is not caught by a one-time user list</h1>
-    <p>Job: re-audit <strong>staff, collaborators, and installed-app scopes</strong> after the last review, including AI apps that can read customer or order data. Opening Users and permissions today is a snapshot. It is not a drift log.</p>
-    <p>This page is the admin access-audit job, not a listing mirror and not a security attestation. Scopes, owners, and recorded costs can move after you last checked. Confirm findings before you change anyone’s access.</p>
-    <p class="price">Run an access audit, review overdue staff flags, then export evidence if you need a file.</p>
-    <p><a href="https://apps.shopify.com/momiji-access-audit">Open Access Audit Guard on the App Store</a></p>
+    <p>Job: re-audit <strong>staff</strong>, <strong>collaborators</strong>, and <strong>installed-app scopes</strong> after the last review - including AI apps that can read customer or order data.</p>
+    <p>Opening <strong>Users and permissions</strong> today is a snapshot. It is not a drift log. Scopes, owners, and recorded costs can move after you last checked.</p>
+    <p>Run an access audit, keep evidence, then re-check when roles or apps change. The app scores and flags access. It does not revoke staff, uninstall apps, or attest that the store is secure.</p>
+    <p><a class="cta" href="https://apps.shopify.com/momiji-access-audit">Install Access Audit Guard, run the first audit, review staff and app-scope findings, then export evidence before the next permission change.</a></p>
+
+    <h2 class="shopify-yt-demo">Demo</h2>
+    <p>Short walkthrough of the app flow. Then follow the start path below.</p>
+    <div class="demo-embed">
+      <button type="button" class="yt-facade" data-yt="3xlq4BLK0mw" aria-label="Play Access Audit Guard demo on YouTube">
+        <img src="https://i.ytimg.com/vi/3xlq4BLK0mw/hqdefault.jpg" alt="" width="480" height="360">
+        <span class="yt-play">Play demo</span>
+      </button>
+    </div>
+    <p><a href="https://www.youtube.com/watch?v=3xlq4BLK0mw">Open the demo on YouTube</a></p>
+
+    <h2>People on the staff list are not the same inventory as app scopes</h2>
+    <p>The staff and collaborator list answers “who can open Admin?” Installed-app scopes answer a different question: “which apps can read or write customer, order, or broad store data?”</p>
+    <p>A one-time screenshot of Users and permissions misses both problems after the next change:</p>
+    <table>
+      <caption>Staff list versus installed-app scope inventory</caption>
+      <thead>
+        <tr>
+          <th scope="col">Inventory</th>
+          <th scope="col">What moves after a review</th>
+          <th scope="col">Caught by a one-time user list?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Staff / collaborators</td>
+          <td>New invites, role edits, overdue 30/90-day reviews</td>
+          <td>No history, no overdue flag</td>
+        </tr>
+        <tr>
+          <td>Installed apps (including AI)</td>
+          <td>New installs, scope grants, owner or cost drift</td>
+          <td>No scored scope risk</td>
+        </tr>
+        <tr>
+          <td>Access audit with re-run</td>
+          <td>Scopes + owners + costs + review cadence</td>
+          <td>Yes, if you re-run and keep the export</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Treat AI assistants like any other installed app with protected customer-data or broad-write scopes. They will not appear as “staff.” Put them on the scope inventory, not on the people list.</p>
+    <p>Suggested path (unchanged job, sharper test):</p>
+    <ol>
+      <li>Install <a href="https://apps.shopify.com/momiji-access-audit">Access Audit Guard</a> from the App Store.</li>
+      <li>Wait for the first audit on install (or run another now).</li>
+      <li>Review staff/collaborator reminders and apps that can touch customer data.</li>
+      <li>Export CSV or PDF evidence on plans that include those exports.</li>
+      <li>Re-run when owners, scopes, or costs change.</li>
+    </ol>
+    <p>Free: Audit score + staff reminders. Pro ($19/month): Free + CSV export + drift alerts. Business ($49/month): Pro + PDF evidence packs.</p>
 
     <h2>Start path: audit, then re-check drift</h2>
     <ol>
@@ -110,15 +230,16 @@
       <li>Export CSV or PDF evidence on the plans that include those exports. Re-run when owners, scopes, or costs change.</li>
     </ol>
     <p>The app scores and flags access. It does not revoke staff, uninstall apps, or attest that the store is secure.</p>
-    <p><a href="https://apps.shopify.com/momiji-access-audit">Install, then run the first access audit</a></p>
+    <p><a class="cta" href="https://apps.shopify.com/momiji-access-audit">Install, then run the first access audit</a></p>
 
     <h2>Snapshot vs a recurring access audit</h2>
     <table>
+      <caption>Snapshot vs a recurring access audit</caption>
       <thead>
         <tr>
-          <th>Control</th>
-          <th>What it sees</th>
-          <th>Permission drift?</th>
+          <th scope="col">Control</th>
+          <th scope="col">What it sees</th>
+          <th scope="col">Permission drift?</th>
         </tr>
       </thead>
       <tbody>
@@ -183,8 +304,7 @@ owner / cost drift since last audit</code></pre>
     <h2>Where do I run a staff and app-scope access audit?</h2>
     <p>Use an access audit that scores installed-app scopes (including AI apps), flags customer-data access, tracks staff and collaborator reviews, and alerts on scope, owner, or cost drift. <a href="https://apps.shopify.com/momiji-access-audit">Access Audit Guard</a> is the App Store listing this site already uses for that job. Open the listing, install, wait for the first audit, then export evidence if you need a file.</p>
 
-    <p class="price">Run an access audit, review overdue staff flags, then export evidence if you need a file.</p>
-    <p><a href="https://apps.shopify.com/momiji-access-audit">Open Access Audit Guard on the App Store</a></p>
+    <p><a class="cta" href="https://apps.shopify.com/momiji-access-audit">Install Access Audit Guard, run the first audit, review staff and app-scope findings, then export evidence before the next permission change.</a></p>
 
     <h2>Related pages</h2>
     <ul>
@@ -197,6 +317,23 @@ owner / cost drift since last audit</code></pre>
     </ul>
     <p class="note">Not a security attestation. Not attorney advice. Not employee monitoring. The app scores and flags access you already granted; you choose what to change.</p>
   </main>
+  <script>
+    (function () {
+      var button = document.querySelector(".yt-facade");
+      if (!button) return;
+      button.addEventListener("click", function () {
+        var id = button.getAttribute("data-yt");
+        var frame = document.createElement("iframe");
+        frame.src = "https://www.youtube.com/embed/" + id + "?autoplay=1";
+        frame.title = "Access Audit Guard demo on YouTube";
+        frame.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+        frame.setAttribute("allowfullscreen", "");
+        frame.referrerPolicy = "strict-origin-when-cross-origin";
+        var box = button.parentNode;
+        box.replaceChildren(frame);
+      });
+    })();
+  </script>
   <script src="/assets/js/shopify-guide-youtube-demos.js" defer></script>
 </body>
 </html>

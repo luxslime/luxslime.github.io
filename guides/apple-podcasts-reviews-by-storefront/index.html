@@ -97,10 +97,10 @@
   <main>
     <nav><a href="/">Home</a> / Guides / Apple Podcasts reviews by storefront</nav>
     <h1>Skip empty iTunes customer-review RSS pages by storefront</h1>
-    <p>Job: pull public Apple Podcasts / iTunes customer reviews for shows you already have, per storefront, without turning empty RSS pages into billed rows. The Customer Reviews feed is <code>itunes.apple.com/{country}/rss/customerreviews/id=…</code>. A US-heavy show often has an empty GB or JP feed. Page 2–10 is empty once that storefront runs out of reviews.</p>
-    <p>This page is the empty-storefront / skip-empty-pages path, not a copy of the Store listing. Product overview lives on <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> (<code>taroyamada/apple-podcast-reviews-monitor</code>).</p>
-    <p class="price">Open Input → Start. Prefill × 1 page, report OFF ≈ ≤$0.15; cap $0.50. From $3.00 / 1,000 rows. Empty output does not POST billed rows.</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor/input">Open Apple Podcasts reviews Input → Start</a></p>
+    <p>Job: pull public Apple Podcasts / iTunes customer reviews for shows you already have, <strong>per storefront</strong>, without turning empty RSS pages into billed rows.</p>
+    <p>The Customer Reviews feed is <code>itunes.apple.com/{country}/rss/customerreviews/id=…</code>. A US-heavy show often has an empty GB or JP feed.</p>
+    <p class="price">Open Input → Start. Prefill × 1 page, report OFF ≈ <strong>≤$0.15</strong>; cap <strong>$0.50</strong>. From <strong>$3.00 / 1,000 rows</strong>. Empty output does <strong>not</strong> POST billed rows. No Apple API key.</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor">Open Reviews Monitor Input → one Apple Podcasts URL/ID, countries ["us"], maxPagesPerPair 1, generateReport false → Start (prefill × 1 page ≈ ≤$0.15). Empty storefronts = no billed rows.</a></p>
 
     <h2>Start path: podcastIds, one storefront, skip empties</h2>
     <ol>
@@ -110,10 +110,37 @@
       <li>Add another storefront only after page 1 for the first country has reviews. Do not jump to 10 pages to “fill” empty RSS.</li>
     </ol>
     <p>You do not need an Apple API key. Empty canonical output does not issue a dataset POST, so empty pages are not billed as review rows.</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor/input">Open Input → Start (podcastIds)</a></p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor">Open Reviews Monitor Input → one Apple Podcasts URL/ID, countries ["us"], maxPagesPerPair 1, generateReport false → Start (prefill × 1 page ≈ ≤$0.15). Empty storefronts = no billed rows.</a></p>
 
-    <h2>Cheapest first run (1 show × 1 page)</h2>
-    <p>Paste this JSON if the form is empty. Do not raise <code>maxPagesPerPair</code> or add countries until those rows are useful. Do not set <code>generateReport</code> true on the first run (that path is one $1.50 report row; raise the $0.50 cap first).</p>
+    <h2>Empty storefront pages do not create billed dataset rows</h2>
+    <p>A delivered <code>podcast_review</code> row is what gets billed. An empty Customer Reviews page for that show and storefront does not. A US-heavy show often still has an empty GB or JP feed; that pair is not a dataset item.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Outcome</th>
+          <th>Dataset</th>
+          <th>Billed</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Delivered <code>podcast_review</code> rows</td>
+          <td>Yes</td>
+          <td>$0.003 per raw review</td>
+        </tr>
+        <tr>
+          <td>Empty RSS / empty storefront</td>
+          <td>No dataset POST</td>
+          <td>$0 for that pair</td>
+        </tr>
+        <tr>
+          <td><code>generateReport</code> true (later)</td>
+          <td>One report row</td>
+          <td>$1.50 (raise $0.50 cap first)</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Cheapest first run. Paste this JSON if the form is empty. Do not raise <code>maxPagesPerPair</code> or add countries until those rows are useful. Leave <code>generateReport</code> false until you want the later report row.</p>
 <pre><code>{
   "podcastIds": ["https://podcasts.apple.com/us/podcast/id1535809341"],
   "countries": ["us"],
@@ -122,7 +149,7 @@
   "maxChargeUsd": 0.5,
   "delivery": "dataset"
 }</code></pre>
-    <p>Live PPE (copy only; Store prices unchanged): <code>apify-default-dataset-item</code> <strong>$0.003</strong> per delivered raw review; <code>podcast-review-report</code> <strong>$1.50</strong>. No Actor Start event on this pricing table. 1 show × 1 page, report OFF ≈ ≤<strong>$0.15</strong> (a full page is about 50 reviews). Store card: From <strong>$3.00 / 1,000</strong>.</p>
+    <p>Prefill × 1 page, report OFF ≈ ≤<strong>$0.15</strong>; cap <strong>$0.50</strong>. From <strong>$3.00 / 1,000 rows</strong>. A full page is about 50 reviews (50 × $0.003 = $0.15), at or under the cap. Empty output does not POST billed rows.</p>
     <table>
       <thead>
         <tr>
@@ -153,14 +180,10 @@
         </tr>
       </tbody>
     </table>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor/input">Open Input → Start (podcastIds)</a></p>
-
-    <h2>What empty vs billed looks like</h2>
-    <ul>
-      <li><code>sourceUrl</code> on each row is the official RSS URL for that <code>podcastId</code> + <code>country</code> + <code>page</code>.</li>
-      <li>A failed show/country pair is reported in <code>meta.warnings</code>; other pairs still deliver.</li>
-      <li>Need collection IDs first? Open <a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Apple Podcasts search Input</a> (live default <code>limit</code> <strong>3</strong>, not 50). Search CSV: <a href="/guides/export-apple-podcasts-search-csv/">export search results to CSV</a>.</li>
-    </ul>
+    <p>Add another storefront only after page 1 for the first country has reviews. Do not jump to 10 pages to “fill” empty RSS. Need collection IDs first? Use <a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Apple Podcasts search</a> (live default <code>limit</code> <strong>3</strong>, not 50) — not this Actor’s <code>searchTerm</code> (rejected). Search CSV: <a href="/guides/export-apple-podcasts-search-csv/">export search results to CSV</a>.</p>
+    <p><code>sourceUrl</code> on each delivered row is the official RSS URL for that <code>podcastId</code> + <code>country</code> + <code>page</code>. A failed show/country pair can show up in <code>meta.warnings</code>; successful pairs still deliver. Empty storefronts omit rows.</p>
+    <p>Do not use review text to target individual reviewers.</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor">Open Reviews Monitor Input → one Apple Podcasts URL/ID, countries ["us"], maxPagesPerPair 1, generateReport false → Start (prefill × 1 page ≈ ≤$0.15). Empty storefronts = no billed rows.</a></p>
 
     <h2>What this page is not</h2>
     <ul>
@@ -191,8 +214,8 @@
     <h2>What columns are on a review row after CSV export?</h2>
     <p><code>rowType</code> <code>podcast_review</code>. Fields include <code>podcastId</code>, <code>country</code>, <code>page</code>, <code>reviewerName</code>, <code>rating</code>, <code>title</code>, <code>content</code>, <code>version</code>, <code>voteCount</code>, <code>updated</code>, <code>reviewId</code>, <code>sourceUrl</code> (the RSS URL used for that row), and <code>fetchedAt</code>. <code>country</code> is the storefront you requested. Empty storefronts simply omit rows.</p>
 
-    <p class="price">Open Input → Start. Prefill × 1 page, report OFF ≈ ≤$0.15; cap $0.50. From $3.00 / 1,000 rows. Empty output does not POST billed rows.</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor/input">Open Apple Podcasts reviews Input → Start</a></p>
+    <p class="price">Open Input → Start. Prefill × 1 page, report OFF ≈ ≤$0.15; cap $0.50. From $3.00 / 1,000 rows. Empty output does not POST billed rows. No Apple API key.</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-reviews-monitor">Open Reviews Monitor Input → one Apple Podcasts URL/ID, countries ["us"], maxPagesPerPair 1, generateReport false → Start (prefill × 1 page ≈ ≤$0.15). Empty storefronts = no billed rows.</a></p>
 
     <h2>Related pages</h2>
     <ul>
@@ -205,7 +228,7 @@
       <li><a href="/review-intelligence/">Review Intelligence pack</a></li>
       <li><a href="/tools/">Tools</a></li>
     </ul>
-    <p class="note">Public Customer Reviews RSS only. No Apple API key. Account required to run. Empty pages are not billed as review rows. Not affiliated with or endorsed by Apple.</p>
+    <p class="note">Public Customer Reviews RSS only. No Apple API key. Account required to run. Empty pages are not billed as review rows. Do not use review text to target individual reviewers. Not affiliated with or endorsed by Apple.</p>
   </main>
 </body>
 </html>
