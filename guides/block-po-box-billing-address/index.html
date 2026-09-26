@@ -169,6 +169,16 @@
     <p>If you also need a <strong>street number</strong> on the address line (a separate sibling rule), Free AddressFence covers <strong>billing PO-box</strong> and <strong>street-number</strong> checks. Publish checkout validation that targets billing, then test a blocked address and an allowed street address.</p>
     <p><a class="cta" href="https://apps.shopify.com/address-guard">Open AddressFence (PO Box Blocker) on the App Store — configure billing PO Box and street-number rules, publish checkout validation, then test a blocked address vs an allowed street address.</a></p>
 
+    <h2>Install, publish the billing rule, then prove one block</h2>
+    <p>The paid path on this page is narrow: <strong>reject a PO Box on the card billing address</strong>, not a shipping-only format check.</p>
+    <ol>
+      <li>Install AddressFence from the App Store.</li>
+      <li>Open the app and publish checkout validation that targets <strong>billing</strong>.</li>
+      <li>Test once with a PO Box on billing (must block) and once with a normal street address (must pass).</li>
+    </ol>
+    <p>Native Checkout Blocks address-format validation is documented as shipping-only. If the rule only watches shipping, this guide’s job is not done. Street-number checks are a sibling rule on the same page - still not shipping-only.</p>
+    <p><a class="cta" href="https://apps.shopify.com/address-guard">Install AddressFence → publish billing PO-box validation → test one block</a></p>
+
     <h2>Demo</h2>
     <p>Short walkthrough of the app flow. Then follow the start path below.</p>
     <div class="demo-embed">
