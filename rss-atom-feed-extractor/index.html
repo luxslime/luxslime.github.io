@@ -156,12 +156,55 @@
   <main>
     <nav><a href="/">Home</a> / RSS &amp; Atom Feed Extractor</nav>
     <h1>Parse known-publisher RSS and Atom XML into filtered item URL lists</h1>
-    <p>RSS &amp; Atom Feed Extractor aggregates public RSS and Atom XML feeds you already have into structured JSON so you can discover fresh item URLs from blogs and newsrooms before a downstream scraper runs. It parses trusted feed XML, applies optional OR-based keyword filters, deduplicates links across sources, and returns item URLs with titles, dates, and summaries. It is not an HTML article extractor, not a Google News query surface, and it does not crawl a site to find new pages.</p>
-    <p class="price">Try Input: 1 feed × maxItemsPerFeed 1 = $0.001 if one item is parsed. Store Quickstart is 2 publisher feeds. $1.00 / 1,000 items. No Actor start event.</p>
-    <p><a href="https://apify.com/taroyamada/rss-feed-aggregator/input">Try the cheapest first paid RSS / Atom run on Apify Input</a></p>
+    <p>Job: parse <strong>public RSS/Atom XML you already have</strong> into filtered item URL lists (title, link, dates, summary) before a downstream extractor runs.</p>
+    <p>Not Google News queries. Not article HTML cleanup. Not a site crawl / <code>sitemap.xml</code> inventory.</p>
+    <p class="price">Try Input: 1 feed × <code>maxItemsPerFeed</code> <strong>1</strong> = <strong>$0.001</strong> if one item is parsed. <strong>$1.00 / 1,000 items</strong>. No Actor start event. Store Quickstart is 2 publisher feeds.</p>
+    <p><a href="https://apify.com/taroyamada/rss-feed-aggregator">Open RSS &amp; Atom Feed Extractor → one public feed URL, maxItemsPerFeed 1 → Start ($0.001 if one item parses) → send useful links to Article or Website Content Extractor.</a></p>
     <p><a href="https://apify.com/taroyamada/rss-feed-aggregator">Open taroyamada/rss-feed-aggregator on the Apify Store</a>
       ·
       <a href="/use-cases/rss-newsroom-monitoring/">Newsroom RSS first paid path</a></p>
+
+    <h2>Discover item URLs here - clean page bodies elsewhere</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Step</th>
+          <th>Actor</th>
+          <th>Input</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1. Known feeds</td>
+          <td>This hub / <a href="https://apify.com/taroyamada/rss-feed-aggregator">RSS &amp; Atom Feed Extractor</a></td>
+          <td><code>feedUrls</code> (max 50)</td>
+        </tr>
+        <tr>
+          <td>2a. News/blog bodies</td>
+          <td><a href="/article-content-extractor/">Article Content Extractor</a></td>
+          <td>returned article URLs</td>
+        </tr>
+        <tr>
+          <td>2b. Docs/policy pages</td>
+          <td><a href="/website-content-extractor/">Website Content Extractor</a></td>
+          <td>returned non-article URLs</td>
+        </tr>
+        <tr>
+          <td>Discovery without feeds</td>
+          <td><a href="/google-news-scraper/">Google News Scraper</a></td>
+          <td><code>queries</code> - different job</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Cheapest first paid:</p>
+<pre><code>{
+  "feedUrls": ["https://blog.google/rss/"],
+  "maxItemsPerFeed": 1,
+  "deduplicate": true,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p>Live required field is <code>feedUrls</code>. Do not send <code>feeds</code>, <code>onlyNewSinceLastRun</code>, or <code>snapshotKey</code> (not live schema). Unsuccessful fetches are not billed as items.</p>
 
     <h2>Feed XML you already have, not Google News queries and not article HTML</h2>
     <p>Use this page when you already have public RSS or Atom feed URLs and need a filtered list of new item links. Use <a href="/google-news-scraper/">Google News Scraper</a> when you search Google News by keyword and do not yet have publisher feed URLs. Use <a href="/article-content-extractor/">Article Content Extractor</a> to clean discovered article, news, and blog pages. Use <a href="/website-content-extractor/">Website Content Extractor</a> to clean discovered docs, pricing, policy, or product pages. Those extractors fetch page HTML. This Actor reads feed XML.</p>
