@@ -91,16 +91,55 @@
     tr:last-child td { border-bottom: 0; }
     .price { color: #202223; }
     .note { font-size: 13px; color: #666; }
+    .cta { display: inline-block; padding: 12px 16px; background: #202223; color: #fff; text-decoration: none; border-radius: 8px; font-weight: 600; }
   </style>
 </head>
 <body>
   <main>
     <nav><a href="/">Home</a> / Guides / Require PO number on B2B checkout</nav>
     <h1>B2B checkout can skip a purchase-order number unless a validation rule requires it</h1>
-    <p>Job: reject a company checkout when the <strong>purchase-order number</strong> is missing or fails the format you publish. Native B2B Net Terms do not check that field. Wholesale buyers then skip the box, type junk, or reuse a number.</p>
-    <p>This page is the B2B PO-number job, not a listing mirror. It is not a postal PO Box block. D2C and no-company checkouts stay out of the way.</p>
-    <p class="price">Set PO format rules, preview a sample number, then test a blocked and an allowed company checkout.</p>
-    <p><a href="https://apps.shopify.com/b2b-terms-guard">Open B2B Terms &amp; PO Guard on the App Store</a></p>
+    <p>Job: reject a <strong>company checkout</strong> when the purchase-order number is missing or fails the format you publish.</p>
+    <p>Native B2B Net Terms control how the company pays. They do <strong>not</strong> check PO format, prefix, length, or uniqueness. Wholesale buyers can then skip the box, type junk, or reuse a number.</p>
+    <p>This is the <strong>PO-number</strong> job, not a postal PO Box block. D2C and no-company checkouts stay out of the way. Preview a sample number, publish the rule, then test a blocked and an allowed company checkout.</p>
+
+    <h2>Three different checkout jobs - do not mix them</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Job</th>
+          <th>Field / surface</th>
+          <th>Native gap</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Required valid <strong>PO number</strong> (this page)</td>
+          <td>Company purchase-order string at B2B checkout</td>
+          <td>Net Terms do not validate format/prefix/uniqueness</td>
+        </tr>
+        <tr>
+          <td>Block <strong>PO Box</strong> on billing</td>
+          <td>Card billing address</td>
+          <td>Shipping-only address format rules do not cover billing</td>
+        </tr>
+        <tr>
+          <td>Net Terms / deposit / review</td>
+          <td>How the company pays; order size holds</td>
+          <td>Separate controls - they do not parse the PO string</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>A purchase-order number is a buyer’s order reference on a B2B invoice. A PO Box is a postal address type. Blocking PO Box on billing is a different app path (<code>address-guard</code>). Do not copy address rules onto the PO field.</p>
+    <p>Suggested path:</p>
+    <ol>
+      <li>Install B2B Terms &amp; PO Guard.</li>
+      <li>Set required / format / prefix / regex / length / uniqueness. Preview against a sample number.</li>
+      <li>Optionally add deposit or review thresholds (extra controls, not a PO substitute).</li>
+      <li>Two company tests: missing or junk PO must error; matching number must pass. Confirm a D2C cart is untouched.</li>
+      <li>Roll back if the live rule is wrong.</li>
+    </ol>
+    <p>The app validates the number you configure. It does not underwrite credit.</p>
+    <p><a class="cta" href="https://apps.shopify.com/b2b-terms-guard">Open B2B Terms &amp; PO Guard - set PO format rules, preview a sample number, publish, then test a blocked and an allowed company checkout.</a></p>
 
     <h2>Start path: required PO number on company checkout</h2>
     <ol>
@@ -183,8 +222,7 @@ sample: TEST       → error</code></pre>
     <h2>How do I require a PO number on B2B checkout?</h2>
     <p>Publish checkout validation that reads the company purchase-order field and returns an error when the number is missing or fails format, prefix, regex, length, or uniqueness. <a href="https://apps.shopify.com/b2b-terms-guard">B2B Terms &amp; PO Guard</a> is the App Store listing this site already uses for that job. Open the listing, set rules, preview a sample number, then publish and test a blocked and an allowed checkout.</p>
 
-    <p class="price">Set PO format rules, preview a sample number, then test a blocked and an allowed company checkout.</p>
-    <p><a href="https://apps.shopify.com/b2b-terms-guard">Open B2B Terms &amp; PO Guard on the App Store</a></p>
+    <p><a class="cta" href="https://apps.shopify.com/b2b-terms-guard">Open B2B Terms &amp; PO Guard - set PO format rules, preview a sample number, publish, then test a blocked and an allowed company checkout.</a></p>
 
     <h2>Related pages</h2>
     <ul>
