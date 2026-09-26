@@ -97,10 +97,47 @@
   <main>
     <nav><a href="/">Home</a> / Guides / Article URL to Markdown for RAG</nav>
     <h1>Extract main article text to Markdown for RAG from a URL</h1>
-    <p>Job: paste a public article URL, get the main body as Markdown you can ingest — headline, byline, date, and text, not the chrome around the story. <code>outputFormat</code> defaults to markdown. After Start, export the default dataset as CSV or JSON.</p>
-    <p>This page is the URL-to-Markdown path, not a Store mirror. Product overview lives on <a href="/article-content-extractor/">Article Content Extractor</a> (<code>taroyamada/article-content-extractor</code>). You already have the URL. It is not Google News search and not a full-site crawler.</p>
-    <p class="price">Open Input → Start. 1 URL ≈ $0.008. From $8.00 / 1,000 useful rows. Leave the $2.50 audit report and $5.00 batch export off.</p>
-    <p><a href="https://apify.com/taroyamada/article-content-extractor/input">Open Article Content Extractor Input → Start</a></p>
+    <p>Job: paste a <strong>public article URL</strong>, get the main body as <strong>Markdown</strong> you can ingest - headline, byline, date, and text, not the chrome around the story.</p>
+    <p><code>outputFormat</code> defaults to markdown. After Start, export the default dataset as CSV or JSON (<code>articleText</code> = Markdown body).</p>
+    <p class="price">Open Input → Start. <strong>1 URL ≈ $0.008</strong>. <strong>From $8.00 / 1,000 useful rows</strong>. Leave the <strong>$2.50</strong> audit report and <strong>$5.00</strong> batch export off. You already have the URL - this is not Google News search and not a full-site crawler.</p>
+    <p><a href="https://apify.com/taroyamada/article-content-extractor/input">Open Input → Start on Article Content Extractor - one public article URL, markdown default, report/export off (~$0.008), then Download CSV or JSON from the Dataset.</a></p>
+
+    <h2>Discover URLs first - then extract the body here</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Path</th>
+          <th>What you get</th>
+          <th>Next step</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><a href="/google-news-scraper/">Google News</a> / <a href="/rss-atom-feed-extractor/">RSS</a> discovery</td>
+          <td>Headlines + article URLs (or feed items)</td>
+          <td>Not full RAG body</td>
+        </tr>
+        <tr>
+          <td>This guide / <a href="/article-content-extractor/">Actor</a></td>
+          <td><code>headline</code>, <code>author</code>, <code>publishedAt</code>, <code>articleText</code> (Markdown), <code>sourceUrl</code></td>
+          <td>Export dataset CSV/JSON</td>
+        </tr>
+        <tr>
+          <td><a href="/website-content-extractor/">Website Content Extractor</a></td>
+          <td>Docs / help-center / policy pages</td>
+          <td>Different shape - not article chrome stripping</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Suggested first run:</p>
+<pre><code>{
+  "urls": ["https://en.wikipedia.org/wiki/Web_scraping"],
+  "outputFormat": "markdown",
+  "includeImages": false,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p>Raise URL count only after that row is usable. Failed or no-content fetches stay out of the default dataset.</p>
 
     <h2>Start path: one URL to Markdown</h2>
     <ol>
@@ -187,7 +224,7 @@
     <p><code>rowType</code> <code>article</code>. Documented fields include <code>url</code>, <code>headline</code>, <code>author</code>, <code>publishedAt</code>, <code>articleText</code>, <code>excerpt</code>, <code>heroImage</code>, and <code>sourceUrl</code>. Markdown is in <code>articleText</code> when <code>outputFormat</code> is markdown. After Start, export the default dataset as CSV or JSON from the dataset view.</p>
 
     <p class="price">Open Input → Start. 1 URL ≈ $0.008. From $8.00 / 1,000 useful rows. Leave the $2.50 audit report and $5.00 batch export off.</p>
-    <p><a href="https://apify.com/taroyamada/article-content-extractor/input">Open Article Content Extractor Input → Start</a></p>
+    <p><a href="https://apify.com/taroyamada/article-content-extractor/input">Open Input → Start on Article Content Extractor - one public article URL, markdown default, report/export off (~$0.008), then Download CSV or JSON from the Dataset.</a></p>
 
     <h2>Related pages</h2>
     <ul>
