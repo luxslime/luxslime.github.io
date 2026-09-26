@@ -102,6 +102,18 @@
     <p class="price">Open Input → Start. First snapshot: US + limit <strong>1</strong>, movement OFF ≈ <strong>$0.003</strong>. From <strong>$3.00 / 1,000 rows</strong>. Movement report <strong>$2.50</strong> after you raise the <strong>$0.05</strong> cap. No Apple API key.</p>
     <p><a href="https://apify.com/taroyamada/apple-podcast-chart-tracker">Open Chart Tracker Input → countries ["us"], limit 1, generateMovementReport false → Start (~$0.003). For previous rank: set monitorKey, turn movement ON, raise maxChargeUsd above $2.50.</a></p>
 
+    <h2>First paid run is a snapshot - movement comes after two polls</h2>
+    <p>The paying proof starts with a <strong>cheap chart snapshot</strong>, not a movement report on run one.</p>
+    <p>Before Start:</p>
+    <ol>
+      <li>Open Chart Scraper Input (not Apple Podcasts Scraper <code>chartRequests</code>, and not Reviews).</li>
+      <li>Use US storefront and keep limit at <strong>1</strong> for the first snapshot.</li>
+      <li>Leave movement <strong>OFF</strong> until you have a saved monitor and a second poll.</li>
+    </ol>
+    <p>A one-run <code>chart_rank</code> CSV has today’s <code>rank</code>. It does <strong>not</strong> have <code>previousRank</code>. Previous rank appears on a <code>podcast_chart_movement_report</code> after two polls compare.</p>
+    <p>First snapshot: US + limit <strong>1</strong>, movement OFF ≈ <strong>$0.003</strong>. From <strong>$3.00 / 1,000 rows</strong>. Movement report <strong>$2.50</strong> after you raise the <strong>$0.05</strong> cap. No Apple API key.</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-chart-tracker">Try for free → Input (US, limit 1, movement off) → Start</a></p>
+
     <h2>Today’s chart CSV does not include previousRank</h2>
     <p>One Start writes today’s position and stops there. The dataset row is <code>rowType</code> <code>chart_rank</code>. Export it as CSV and the columns are that fetch: <code>country</code>, <code>rank</code>, show identity, <code>sourceUrl</code>, and <code>fetchedAt</code>. There is no <code>previousRank</code> column to map. Choosing CSV does not compare this poll with an earlier chart.</p>
     <p>Previous rank is a second file. Save a monitor under a stable <code>monitorKey</code>, then poll again. The first monitor run only stores the baseline and writes zero rows, so there is still nothing to put in a previous-rank column. A later poll that sees a new, changed, or dropped position emits one <code>podcast_chart_movement_report</code>. That row is where <code>previousRank</code>, <code>currentRank</code>, and <code>rankDelta</code> live. Export that dataset as CSV when the spreadsheet has to show where the show sat last time.</p>
