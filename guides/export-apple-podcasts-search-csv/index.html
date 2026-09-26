@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Export Apple Podcasts Search Results to CSV (Apify) — No API Key</title>
-  <meta name="description" content="Step-by-step: run taroyamada/apple-podcast-scraper, set searchTerm+country+small limit, Dataset→CSV. Covers search, optional chartRequests, ~$0.0125 for 3-row first run.">
+  <meta name="description" content="Paste a keyword, keep limit at 3, Start, then Dataset → Download CSV. No Apple API key. Search + limit 3 ≈ $0.0125. From $2.50 / 1,000 results.">
   <meta name="robots" content="index,follow">
   <meta property="og:title" content="Export Apple Podcasts Search Results to CSV (Apify) — No API Key">
-  <meta property="og:description" content="Step-by-step: run taroyamada/apple-podcast-scraper, set searchTerm+country+small limit, Dataset→CSV. Covers search, optional chartRequests, ~$0.0125 for 3-row first run.">
+  <meta property="og:description" content="Paste a keyword, keep limit at 3, Start, then Dataset → Download CSV. No Apple API key. Search + limit 3 ≈ $0.0125. From $2.50 / 1,000 results.">
   <meta property="og:url" content="https://apify.momiji-space.com/guides/export-apple-podcasts-search-csv/">
   <link rel="canonical" href="https://apify.momiji-space.com/guides/export-apple-podcasts-search-csv/">
   <script type="application/ld+json">
@@ -97,20 +97,20 @@
   <main>
     <nav><a href="/">Home</a> / Guides / Export Apple Podcasts search CSV</nav>
     <h1>Export Apple Podcasts search results to CSV (no API key)</h1>
-    <p>Need Apple Podcasts search hits in a spreadsheet? Use <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper — Search, Charts &amp; Episodes to CSV</a> (<code>taroyamada/apple-podcast-scraper</code>). Paste a keyword, keep limit at 3, Start, Dataset→Download→CSV.</p>
-    <p>No Apple API key. Optional <code>chartRequests</code> / Chart Tracker. How-to for research; not affiliated with Apple.</p>
-    <p class="price">Try for free → Input → Start. Search + limit 3 ≈ $0.0125 (Start $0.005 / result $0.0025). From $2.50/1k. No Apple API key.</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Try for free → open Input and Start</a></p>
+    <p>Need Apple Podcasts <strong>search hits in a spreadsheet</strong>? Use <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> (<code>taroyamada/apple-podcast-scraper</code>).</p>
+    <p>Paste a keyword, keep <strong><code>limit</code> at 3</strong>, Start, then <strong>Dataset → Download → CSV</strong>. No Apple API key. Search + limit 3 ≈ <strong>$0.0125</strong>. From <strong>$2.50 / 1,000 results</strong>.</p>
+    <p>This page is keyword → show list → CSV. Chart ranks and review text are sibling Actors — not this export.</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Open Store → Try for free → Input → leave search + limit 3 → Start → Dataset → Download CSV.</a></p>
 
     <h2>Dataset → Download CSV</h2>
     <ol>
-      <li>Open <a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Try for free → open Input and Start</a>. Sign in to Apify (an Apify account is required to run).</li>
+      <li>Open <a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Store → Try for free → Input</a>. Sign in to Apify (an Apify account is required to run).</li>
       <li>Keep the Store live prefill: <code>searchTerm</code> <code>technology</code>, <code>country</code> <code>us</code>, <code>limit</code> <strong>3</strong> (default is 3, not 50), <code>includeEpisodes</code> false. Leave <code>delivery</code> on <code>dataset</code>.</li>
       <li>Click <strong>Start</strong>.</li>
       <li>When the run succeeds, open the default <strong>Dataset</strong> and choose <strong>Download CSV</strong> (JSON is in the same view).</li>
     </ol>
     <p>You do not need an Apple API key, Apple ID, or proxy. You do need an Apify account to Start the run and download the file.</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Try for free → Input → Start, then export CSV</a></p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Open Store → Try for free → Input → leave search + limit 3 → Start → Dataset → Download CSV.</a></p>
 
     <h2>Cheapest first CSV (limit 3)</h2>
     <p>Paste this JSON if the form is empty. Do not raise <code>limit</code> until three rows look right. Do not set <code>includeEpisodes</code> true on the first export; that path is slower and is not required for a show list.</p>
@@ -203,9 +203,46 @@
       <li>Not a full episode catalog. Recent episode titles use <code>includeEpisodes</code>; see <a href="/guides/apple-podcasts-episodes/">episode metadata export</a>.</li>
     </ul>
 
-    <h2>When to leave search-to-CSV for Chart or Reviews</h2>
-    <p>Stay on this page when the job is “keyword → show list → spreadsheet.” Move only after you already have <code>collectionId</code> values (or you need storefront Top Podcasts instead of search hits).</p>
-    <p>Use <a href="/guides/apple-podcasts-charts/">Apple Podcasts charts</a> and <a href="/guides/apple-podcasts-chart-rank-movement/">Apple Podcasts chart rank movement</a> when you need Top Podcasts / rank movement by storefront — not keyword search. Use <a href="/guides/apple-podcasts-reviews-by-storefront/">Apple Podcasts reviews by storefront</a> when you need public rating text for IDs you already collected. Hub overview: <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a>.</p>
+    <h2>When to leave this page for Chart or Reviews</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Job</th>
+          <th>Stay here?</th>
+          <th>Move to</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Keyword → show list → CSV</td>
+          <td>Yes</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>Top Podcasts / rank movement</td>
+          <td>No</td>
+          <td><a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a></td>
+        </tr>
+        <tr>
+          <td>Public rating text for known IDs</td>
+          <td>No</td>
+          <td><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> (after <code>collectionId</code>)</td>
+        </tr>
+        <tr>
+          <td>Recent episode titles</td>
+          <td>Later</td>
+          <td><code>includeEpisodes</code> true after search rows look right</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Prefill for first CSV:</p>
+<pre><code>{
+  "searchTerm": "technology",
+  "country": "us",
+  "limit": 3,
+  "includeEpisodes": false
+}</code></pre>
+    <p>Live default <code>limit</code> is <strong>3</strong>, not 50. Empty limit falls back to 3.</p>
 
     <h2>How this path differs from other Apple Podcasts Actors on Apify</h2>
     <p>On Google (live check 2026-09-19, <code>gl=us</code> <code>hl=en</code>), page-1 results for queries such as <code>apple podcast scraper apify</code> and nearby scraper variants were dominated by <strong>other</strong> Apify Store Actors (examples observed on page 1: automation-lab, jupri/cat-family listings, and similar Store cards). Our Store detail and this guide were <strong>not</strong> on organic page 1 in that snapshot. Treat that as a traffic fact, not a feature scoreboard.</p>
@@ -232,8 +269,8 @@
     <h2>What columns are in the search CSV?</h2>
     <p>Search results are source-linked dataset items. Sample <code>rowType</code> is <code>podcast_search_result</code>. Documented fields include <code>collectionId</code>, <code>showName</code>, <code>publisher</code>, <code>country</code>, <code>sourceUrl</code>, and <code>fetchedAt</code>. <code>rank</code> is null on search rows.</p>
 
-    <p class="price">Try for free → Input → Start. Search + limit 3 ≈ $0.0125 (Start $0.005 / result $0.0025). From $2.50/1k. No Apple API key.</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Try for free → open Input and Start</a></p>
+    <p class="price">Search + limit 3 ≈ $0.0125. From $2.50 / 1,000 results.</p>
+    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Open Store → Try for free → Input → leave search + limit 3 → Start → Dataset → Download CSV.</a></p>
 
     <h2>Related pages</h2>
     <ul>
