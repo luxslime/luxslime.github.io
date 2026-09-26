@@ -91,6 +91,7 @@
     tr:last-child td { border-bottom: 0; }
     .price { color: #202223; }
     .note { font-size: 13px; color: #666; }
+    .cta { display: inline-block; padding: 12px 16px; background: #202223; color: #fff; text-decoration: none; border-radius: 8px; font-weight: 600; }
   </style>
 </head>
 <body>
@@ -100,7 +101,19 @@
     <p>Need Apple Podcasts <strong>search hits in a spreadsheet</strong>? Use <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> (<code>taroyamada/apple-podcast-scraper</code>).</p>
     <p>Paste a keyword, keep <strong><code>limit</code> at 3</strong>, Start, then <strong>Dataset → Download → CSV</strong>. No Apple API key. Search + limit 3 ≈ <strong>$0.0125</strong>. From <strong>$2.50 / 1,000 results</strong>.</p>
     <p>This page is keyword → show list → CSV. Chart ranks and review text are sibling Actors — not this export.</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Open Store → Try for free → Input → leave search + limit 3 → Start → Dataset → Download CSV.</a></p>
+    <p><a class="cta" href="https://apify.com/taroyamada/apple-podcast-scraper/input">Try for free → open Input (search + limit 3) → Start</a></p>
+
+    <h2>Open Input with the prefill intact - do not clear Limit</h2>
+    <p>The paying proof on this page is one path: <strong>Try for free → Input → leave the prefill → Start → Dataset → Download CSV</strong>.</p>
+    <p>Do these three things on Input before you click Start:</p>
+    <ol>
+      <li>Leave <code>searchTerm</code> as <code>technology</code> (or swap one keyword you care about).</li>
+      <li>Leave <code>limit</code> at <strong>3</strong>. Empty Limit still falls back to 3, but clearing it to hunt for “50” only delays the first useful CSV.</li>
+      <li>Leave <code>includeEpisodes</code> <strong>false</strong>. Episodes are a later, slower path - not required for a show list.</li>
+    </ol>
+    <p>Sign in is required to Start. You do <strong>not</strong> need an Apple API key. When the run finishes, open the default Dataset and choose <strong>Download CSV</strong>.</p>
+    <p>Search + limit 3 ≈ <strong>$0.0125</strong> if three rows and one Start event charge. From <strong>$2.50 / 1,000 results</strong>. Raise <code>limit</code> only after those three rows look right.</p>
+    <p><a class="cta" href="https://apify.com/taroyamada/apple-podcast-scraper/input">Try for free → open Input (search + limit 3) → Start</a></p>
 
     <h2>Dataset → Download CSV</h2>
     <ol>
