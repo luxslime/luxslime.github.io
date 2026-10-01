@@ -6,7 +6,9 @@
   <title>B2B purchase orders and PO terms at checkout — B2B Terms &amp; PO Guard</title>
   <meta name="description" content="Require valid B2B purchase-order numbers at checkout, set deposit guardrails, and review wholesale orders — without touching D2C. Install the live B2B Terms &amp; PO Guard listing.">
   <link rel="canonical" href="https://apify.momiji-space.com/b2b-po-terms/">
+  <link rel="preload" href="/assets/fonts/fraunces-latin-700.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="/assets/css/shopify-lp.css">
   <meta property="og:type" content="website">
   <meta property="og:title" content="B2B purchase orders and PO terms at checkout">
   <meta property="og:description" content="Validate PO number format, prefix, regex, and uniqueness. Gate deposits. Route oversized B2B orders for review. Install from the live App Store listing.">
@@ -43,10 +45,11 @@
   }
   </script>
 </head>
-<body>
+<body class="shopify-lp">
+  <a class="skip" href="#main">Skip to content</a>
   <header class="site">
     <div class="wrap wide bar">
-      <a class="logo" href="./">B2B Terms &amp; PO Guard</a>
+      <a class="logo" href="./"><span class="mark" aria-hidden="true">M</span>B2B Terms &amp; PO Guard</a>
       <nav>
         <a href="./" aria-current="page">PO &amp; B2B terms</a>
         <a href="https://apps.shopify.com/b2b-terms-guard">App Store listing</a>
@@ -55,16 +58,31 @@
     </div>
   </header>
 
-  <main class="wrap wide">
-    <p class="eyebrow">Existing app · English merchants</p>
-    <h1>B2B purchase orders and PO terms at checkout</h1>
-    <p class="subtitle">Wholesale buyers skip the PO number box, type a junk number, or check out on the wrong terms. Native B2B Net Terms do not check format. This app does — then gates deposits and holds oversized orders for review.</p>
-    <div class="cta-row">
-      <a class="cta" href="https://apps.shopify.com/b2b-terms-guard">Install on the live App Store listing</a>
-    </div>
-    <p class="note">This is an install funnel for the published listing. It is not a new app.</p>
+  <main id="main" class="wrap wide">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <svg class="hero-mark" viewBox="0 0 80 88" aria-hidden="true" focusable="false">
+          <path fill="currentColor" d="M10.2 57.1 22.8 51.3 27.9 49.8 22.8 44.4 15.5 30.4 29.8 37.1 34.2 40.4 34 31.6 40 14 46 31.6 45.8 40.4 50.2 37.1 64.5 30.4 57.2 44.4 52.1 49.8 57.2 51.3 69.8 57.1 56.2 60.2 40 62 23.8 60.2Z"/>
+          <path fill="currentColor" d="M37.8 60h4.4V84h-4.4z"/>
+        </svg>
+        <p class="folio"><span>Existing app · English merchants</span><i aria-hidden="true"></i><span>Checkout</span></p>
+        <h1 id="hero-title">B2B purchase orders <span class="and">and</span> PO terms at checkout</h1>
+        <p class="subtitle">Wholesale buyers skip the PO number box, type a junk number, or check out on the wrong terms. Native B2B Net Terms do not check format. This app does — then gates deposits and holds oversized orders for review.</p>
+        <div class="cta-row">
+          <a class="cta" href="https://apps.shopify.com/b2b-terms-guard">Install on the live App Store listing</a>
+        </div>
+        <p class="note">This is an install funnel for the published listing. It is not a new app.</p>
+        <p class="jump-kicker">On this page</p>
+        <p class="jump" aria-label="On this page">
+          <a href="#checkout">Checkout</a>
+          <a href="#rules">Rules</a>
+          <a href="#install">Install</a>
+          <a href="#plans">Plans</a>
+        </p>
+      </div>
+    </section>
 
-    <div class="checkout" aria-label="Checkout example for a B2B company buyer">
+    <div class="checkout" id="checkout" aria-label="Checkout example for a B2B company buyer">
       <p class="label">Company checkout · purchase-order box</p>
       <div class="field">PO-48219</div>
       <p class="ok">Format, prefix, length, and uniqueness can be previewed against a sample number before you publish.</p>
@@ -74,12 +92,22 @@
       </div>
     </div>
 
-    <section class="card">
-      <h2>What native B2B terms do not check</h2>
+    <section class="section card" id="native">
+      <header class="section-head">
+        <p class="section-num" aria-hidden="true">01</p>
+        <p class="eyebrow">Native gap</p>
+        <h2>What native B2B terms do not check</h2>
+      </header>
       <p class="lede">Purpose-built for what native B2B terms do not check: PO number format, prefix, regex, and uniqueness rules, previewed live before you publish.</p>
       <p>Set deposit percentage guardrails and route orders above a threshold for manual review and approval, with approver email alerts. Works alongside native Net Terms.</p>
     </section>
 
+    <section class="section" id="rules">
+      <header class="section-head">
+        <p class="section-num" aria-hidden="true">02</p>
+        <p class="eyebrow">Guardrails</p>
+        <h2>PO number, deposit, review, D2C</h2>
+      </header>
     <div class="grid">
       <article>
         <h3>PO number rules</h3>
@@ -98,9 +126,14 @@
         <p>Works alongside native Net Terms. D2C and no-company checkouts stay untouched so retail buyers do not see wholesale PO rules.</p>
       </article>
     </div>
+    </section>
 
-    <section class="card install-path">
-      <h2>Install from the live listing</h2>
+    <section class="section card install-path" id="install">
+      <header class="section-head">
+        <p class="section-num" aria-hidden="true">03</p>
+        <p class="eyebrow">First run</p>
+        <h2>Install from the live listing</h2>
+      </header>
       <ol>
         <li>Open the published listing: <a href="https://apps.shopify.com/b2b-terms-guard">apps.shopify.com/b2b-terms-guard</a>.</li>
         <li>Install B2B Terms &amp; PO Guard from that page — do not look for a second, similarly named app.</li>
@@ -110,8 +143,12 @@
       <p>Problem-query guide: <a href="/guides/b2b-po-number-required/">B2B checkout can skip a purchase-order number unless a validation rule requires it</a>.</p>
     </section>
 
-    <section class="card pay-on-install">
-      <h2>Plans on the listing</h2>
+    <section class="section card pay-on-install" id="plans">
+      <header class="section-head">
+        <p class="section-num" aria-hidden="true">04</p>
+        <p class="eyebrow">Listing prices</p>
+        <h2>Plans on the listing</h2>
+      </header>
       <ul class="plans">
         <li>
           <span class="plan-name">Free plan</span>
