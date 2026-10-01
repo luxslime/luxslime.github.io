@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Staff permission drift is not caught by a one-time user list</title>
-  <meta name="description" content="Admin user lists are a snapshot. Re-audit staff, collaborators, and app scopes, flag customer-data access, and export evidence. Not a security attestation.">
+  <title>Staff access audit: permission drift is not a one-time user list</title>
+  <meta name="description" content="Staff access audit for Shopify. Admin user lists are a snapshot. Re-audit staff, collaborators, and app scopes, flag customer-data access, and export evidence. Not a security attestation.">
   <meta name="robots" content="index,follow">
   <link rel="icon" href="/favicon.ico" sizes="any">
   <meta property="og:type" content="article">
-  <meta property="og:title" content="Staff permission drift is not caught by a one-time user list">
-  <meta property="og:description" content="Admin user lists are a snapshot. Re-audit staff, collaborators, and app scopes, flag customer-data access, and export evidence. Not a security attestation.">
+  <meta property="og:title" content="Staff access audit: permission drift is not a one-time user list">
+  <meta property="og:description" content="Staff access audit for Shopify. Admin user lists are a snapshot. Re-audit staff, collaborators, and app scopes, flag customer-data access, and export evidence. Not a security attestation.">
   <meta property="og:url" content="https://apify.momiji-space.com/guides/access-audit-shopify-admin/">
   <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/9ea3a49e539bec70dcd6abb7cc7f4746/promotional_image/CL_Eloyu9ZQDEAE=.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Staff permission drift is not caught by a one-time user list">
-  <meta name="twitter:description" content="Admin user lists are a snapshot. Re-audit staff, collaborators, and app scopes, flag customer-data access, and export evidence. Not a security attestation.">
+  <meta name="twitter:title" content="Staff access audit: permission drift is not a one-time user list">
+  <meta name="twitter:description" content="Staff access audit for Shopify. Admin user lists are a snapshot. Re-audit staff, collaborators, and app scopes, flag customer-data access, and export evidence. Not a security attestation.">
   <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/9ea3a49e539bec70dcd6abb7cc7f4746/promotional_image/CL_Eloyu9ZQDEAE=.png">
   <link rel="canonical" href="https://apify.momiji-space.com/guides/access-audit-shopify-admin/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
@@ -107,6 +107,7 @@
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": "Access Audit Guard",
+    "alternateName": "staff access audit",
     "description": "Review installed app access, granted scopes, staff access records, and ownership evidence without reading customer or order data.",
     "url": "https://apps.shopify.com/momiji-access-audit",
     "applicationCategory": "BusinessApplication",
@@ -144,18 +145,20 @@
       <a class="logo" href="/">momiji-space</a>
       <nav>
         <a href="/review/">Shopify apps</a>
-        <a href="/guides/access-audit-shopify-admin/" aria-current="page">Access audit</a>
+        <a href="/guides/access-audit-shopify-admin/" aria-current="page">Staff access audit</a>
+        <a href="https://apps.shopify.com/momiji-access-audit">Install</a>
       </nav>
     </div>
   </header>
   <main class="wrap">
     <nav><a href="/">Home</a> / Guides / Staff permission drift access audit</nav>
-    <p class="eyebrow">Staff permission drift access audit</p>
-    <h1>Staff permission drift after the last review is not caught by a one-time user list</h1>
-    <p class="lede">Job: re-audit <strong>staff</strong>, <strong>collaborators</strong>, and <strong>installed-app scopes</strong> after the last review - including AI apps that can read customer or order data.</p>
+    <p class="eyebrow">Staff access audit</p>
+    <h1>Staff access audit: permission drift is not a one-time user list</h1>
+    <p class="lede">A staff access audit re-checks <strong>staff</strong>, <strong>collaborators</strong>, and <strong>installed-app scopes</strong> after the last review — including AI apps that can read customer or order data. Users and permissions is only a snapshot.</p>
+    <p><a class="cta" href="https://apps.shopify.com/momiji-access-audit">Install staff access audit</a></p>
+    <p class="note">Live listing: <a href="https://apps.shopify.com/momiji-access-audit">apps.shopify.com/momiji-access-audit</a>. The first audit runs on install. The app scores and flags. It does not revoke staff or attest that the store is secure.</p>
+    <p>Adjacent jobs: <a href="/guides/block-po-box-billing-address/">PO box blocker</a> · <a href="/b2b-po-terms/">B2B purchase order</a> · <a href="/guides/cra-duty-records-eu/">CRA duty records</a>.</p>
     <p>Opening <strong>Users and permissions</strong> today is a snapshot. It is not a drift log. Scopes, owners, and recorded costs can move after you last checked.</p>
-    <p>Run an access audit, keep evidence, then re-check when roles or apps change. The app scores and flags access. It does not revoke staff, uninstall apps, or attest that the store is secure.</p>
-    <p><a class="cta" href="https://apps.shopify.com/momiji-access-audit">Install Access Audit Guard, run the first audit, review staff and app-scope findings, then export evidence before the next permission change.</a></p>
 
     <h2>Install, run the first audit, then keep the evidence</h2>
     <p>Opening Users and permissions today is a snapshot. The paid path is a scored audit you can re-run when staff, collaborators, or installed-app scopes move.</p>
@@ -167,7 +170,7 @@
       <li>Re-run when owners, scopes, or costs change.</li>
     </ol>
     <p>The app scores and flags access. It does not revoke staff, uninstall apps, or attest that the store is secure.</p>
-    <p><a class="cta" href="https://apps.shopify.com/momiji-access-audit">Install Access Audit Guard → first audit → review scopes → export evidence</a></p>
+    <p><a class="cta" href="https://apps.shopify.com/momiji-access-audit">Install staff access audit</a></p>
 
     <h2 class="shopify-yt-demo">Demo</h2>
     <p>Short walkthrough of the app flow. Then follow the start path below.</p>
@@ -230,7 +233,7 @@
       <li>Export CSV or PDF evidence on the plans that include those exports. Re-run when owners, scopes, or costs change.</li>
     </ol>
     <p>The app scores and flags access. It does not revoke staff, uninstall apps, or attest that the store is secure.</p>
-    <p><a class="cta" href="https://apps.shopify.com/momiji-access-audit">Install, then run the first access audit</a></p>
+    <p><a class="cta" href="https://apps.shopify.com/momiji-access-audit">Install staff access audit</a></p>
 
     <h2>Snapshot vs a recurring access audit</h2>
     <div class="card">
@@ -307,7 +310,7 @@ owner / cost drift since last audit</code></pre>
     <h2>Where do I run a staff and app-scope access audit?</h2>
     <p>Use an access audit that scores installed-app scopes (including AI apps), flags customer-data access, tracks staff and collaborator reviews, and alerts on scope, owner, or cost drift. <a href="https://apps.shopify.com/momiji-access-audit">Access Audit Guard</a> is the App Store listing this site already uses for that job. Open the listing, install, wait for the first audit, then export evidence if you need a file.</p>
 
-    <p><a class="cta" href="https://apps.shopify.com/momiji-access-audit">Install Access Audit Guard, run the first audit, review staff and app-scope findings, then export evidence before the next permission change.</a></p>
+    <p><a class="cta" href="https://apps.shopify.com/momiji-access-audit">Install staff access audit</a></p>
 
     <h2>Related pages</h2>
     <ul>
