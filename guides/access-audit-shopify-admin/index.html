@@ -17,6 +17,7 @@
   <meta name="twitter:description" content="Admin user lists are a snapshot. Re-audit staff, collaborators, and app scopes, flag customer-data access, and export evidence. Not a security attestation.">
   <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/9ea3a49e539bec70dcd6abb7cc7f4746/promotional_image/CL_Eloyu9ZQDEAE=.png">
   <link rel="canonical" href="https://apify.momiji-space.com/guides/access-audit-shopify-admin/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -136,37 +137,22 @@
     ]
   }
   </script>
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
-    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
-    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
-    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
-    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
-    p, li { font-size: 16px; line-height: 1.5; color: #444; }
-    p { margin: 0 0 16px; }
-    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
-    li { margin: 0 0 8px; }
-    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
-    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
-    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
-    th { background: #f3f3f3; font-weight: 600; color: #202223; }
-    tr:last-child td { border-bottom: 0; }
-    table caption { text-align: left; font-size: 14px; color: #666; padding: 8px 12px 0; caption-side: top; }
-    .note { font-size: 13px; color: #666; }
-    .cta { display: inline-block; max-width: 100%; box-sizing: border-box; padding: 12px 16px; background: #202223; color: #fff; text-decoration: none; border-radius: 8px; font-weight: 600; }
-    a:focus-visible, button:focus-visible { outline: 2px solid #005bd3; outline-offset: 2px; }
-    .demo-embed { position: relative; width: 100%; height: 0; padding-bottom: 56.25%; margin: 0 0 16px; overflow: hidden; border: 1px solid #d9dde5; background: #111; }
-    .demo-embed iframe, .yt-facade { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-    .yt-facade { display: block; margin: 0; padding: 0; cursor: pointer; background: #111; font: inherit; }
-    .yt-facade img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .yt-play { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); background: #202223; color: #fff; padding: 10px 16px; border-radius: 8px; font-weight: 600; font-size: 16px; }
-  </style>
 </head>
 <body>
-  <main>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/review/">Shopify apps</a>
+        <a href="/guides/access-audit-shopify-admin/" aria-current="page">Access audit</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
     <nav><a href="/">Home</a> / Guides / Staff permission drift access audit</nav>
+    <p class="eyebrow">Staff permission drift access audit</p>
     <h1>Staff permission drift after the last review is not caught by a one-time user list</h1>
-    <p>Job: re-audit <strong>staff</strong>, <strong>collaborators</strong>, and <strong>installed-app scopes</strong> after the last review - including AI apps that can read customer or order data.</p>
+    <p class="lede">Job: re-audit <strong>staff</strong>, <strong>collaborators</strong>, and <strong>installed-app scopes</strong> after the last review - including AI apps that can read customer or order data.</p>
     <p>Opening <strong>Users and permissions</strong> today is a snapshot. It is not a drift log. Scopes, owners, and recorded costs can move after you last checked.</p>
     <p>Run an access audit, keep evidence, then re-check when roles or apps change. The app scores and flags access. It does not revoke staff, uninstall apps, or attest that the store is secure.</p>
     <p><a class="cta" href="https://apps.shopify.com/momiji-access-audit">Install Access Audit Guard, run the first audit, review staff and app-scope findings, then export evidence before the next permission change.</a></p>
@@ -196,6 +182,7 @@
     <h2>People on the staff list are not the same inventory as app scopes</h2>
     <p>The staff and collaborator list answers “who can open Admin?” Installed-app scopes answer a different question: “which apps can read or write customer, order, or broad store data?”</p>
     <p>A one-time screenshot of Users and permissions misses both problems after the next change:</p>
+    <div class="card">
     <table>
       <caption>Staff list versus installed-app scope inventory</caption>
       <thead>
@@ -223,6 +210,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>Treat AI assistants like any other installed app with protected customer-data or broad-write scopes. They will not appear as “staff.” Put them on the scope inventory, not on the people list.</p>
     <p>Suggested path (unchanged job, sharper test):</p>
     <ol>
@@ -245,6 +233,7 @@
     <p><a class="cta" href="https://apps.shopify.com/momiji-access-audit">Install, then run the first access audit</a></p>
 
     <h2>Snapshot vs a recurring access audit</h2>
+    <div class="card">
     <table>
       <caption>Snapshot vs a recurring access audit</caption>
       <thead>
@@ -277,6 +266,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>Example fields you keep against a review (paraphrase, not a form):</p>
 <pre><code>staff / collaborator
 last review date
@@ -331,6 +321,15 @@ owner / cost drift since last audit</code></pre>
     </ul>
     <p class="note">Not a security attestation. Not attorney advice. Not employee monitoring. The app scores and flags access you already granted; you choose what to change.</p>
   </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/review/">Shopify apps hub</a></li>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
   <script>
     (function () {
       var button = document.querySelector(".yt-facade");
