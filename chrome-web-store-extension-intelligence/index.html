@@ -6,6 +6,8 @@
   <title>Chrome Web Store Extension Intelligence — detail and search metadata</title>
   <meta name="description" content="Extract public Chrome Web Store extension metadata from listing and search pages: IDs, ratings, category, version, and permission hints. Not Shopify App Store or G2/Capterra reviews.">
   <link rel="canonical" href="https://apify.momiji-space.com/chrome-web-store-extension-intelligence/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <link rel="stylesheet" href="/assets/css/actor-landing.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -62,33 +64,27 @@
     ]
   }
   </script>
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
-    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
-    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
-    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
-    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
-    p, li { font-size: 16px; line-height: 1.5; color: #444; }
-    p { margin: 0 0 16px; }
-    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
-    li { margin: 0 0 8px; }
-    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
-    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
-    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
-    th { background: #f3f3f3; font-weight: 600; color: #202223; }
-    tr:last-child td { border-bottom: 0; }
-    .price { color: #202223; }
-  </style>
 </head>
 <body>
-  <main>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/chrome-web-store-extension-intelligence/" aria-current="page">Chrome Web Store Extension Intelligence</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
     <nav><a href="/">Home</a> / Chrome Web Store Extension Intelligence</nav>
+    <p class="eyebrow">Chrome Web Store</p>
     <h1>Extract Chrome Web Store extension detail and search metadata</h1>
-    <p>Normalize public Chrome Web Store listing and search HTML into structured extension rows: title, ID, publisher website, rating, review count, user count, category, version, manifest permission hints, and last-update hints. The Actor reads HTML that is publicly available without authentication on <code>chromewebstore.google.com</code>. It is not a Shopify App Store merchant-review tool and not a G2 or Capterra review-page tool — those jobs belong on <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a> and <a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a>.</p>
+    <p class="lede">Normalize public Chrome Web Store listing and search HTML into structured extension rows: title, ID, publisher website, rating, review count, user count, category, version, manifest permission hints, and last-update hints. The Actor reads HTML that is publicly available without authentication on <code>chromewebstore.google.com</code>. It is not a Shopify App Store merchant-review tool and not a G2 or Capterra review-page tool — those jobs belong on <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a> and <a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a>.</p>
     <p><a href="https://apify.com/taroyamada/chrome-web-store-extension-intelligence">Open Chrome Web Store Extension Intelligence on Apify</a></p>
 
     <h2>Chrome Web Store listings, not Shopify App Store or G2/Capterra reviews</h2>
     <p>Use this page when the source is a public Chrome Web Store detail URL or a Chrome Web Store search term. Use <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a> when the source is a merchant listing at <code>apps.shopify.com/{slug}</code>. Use <a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a> when the source is a public G2 or Capterra product review page. The <a href="/review-intelligence/">Review Intelligence pack</a> chooses among those review stores; this Actor is Chrome Web Store extension detail and search metadata, not those review stores.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -125,6 +121,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>This Actor does not accept Shopify slugs, G2 or Capterra review URLs, podcast IDs, or Apple show URLs. It does not scrape <code>apps.shopify.com</code>, G2, or Capterra.</p>
 
     <h2>What it returns</h2>
@@ -142,6 +139,7 @@
 
     <h2>What input is required?</h2>
     <p>The published input schema has an empty required list. Pass Chrome Web Store detail URLs, search terms, or both. Other published fields:</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -190,6 +188,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>The schema sets <code>additionalProperties</code> to false. The published input schema does not include <code>extensionIds</code>, <code>slugs</code>, <code>maxPages</code>, or <code>reviewLimit</code>.</p>
     <p>Published input example (matches the schema):</p>
 <pre><code>{
@@ -253,5 +252,13 @@
       <li><a href="/wayback-machine-bulk-checker/">Wayback Machine Bulk Checker</a></li>
     </ul>
   </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
 </body>
 </html>

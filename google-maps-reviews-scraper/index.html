@@ -7,6 +7,8 @@
   <meta name="description" content="Google Maps Reviews Scraper Apify reads public Google Maps place pages into ratings, review snippets, and place metadata. Store: taroyamada/google-maps-review-intelligence. Live PPE: $0.008 per result; Actor Start $0.001. Not lead-row enrichment. Snippets are whatever is embedded in public HTML.">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://apify.momiji-space.com/google-maps-reviews-scraper/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <link rel="stylesheet" href="/assets/css/actor-landing.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -105,29 +107,22 @@
     ]
   }
   </script>
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
-    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
-    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
-    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
-    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
-    p, li { font-size: 16px; line-height: 1.5; color: #444; }
-    p { margin: 0 0 16px; }
-    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
-    li { margin: 0 0 8px; }
-    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
-    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
-    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
-    th { background: #f3f3f3; font-weight: 600; color: #202223; }
-    tr:last-child td { border-bottom: 0; }
-    .price { color: #202223; }
-  </style>
 </head>
 <body>
-  <main>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/google-maps-reviews-scraper/" aria-current="page">Google Maps Reviews Scraper</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
     <nav><a href="/">Home</a> / Google Maps Reviews Scraper</nav>
+    <p class="eyebrow">Google Maps reviews</p>
     <h1>Google Maps Reviews Scraper Apify — ratings and review snippets from place URLs</h1>
-    <p>Google Maps Reviews Scraper Apify (Store id <code>taroyamada/google-maps-review-intelligence</code>) reads public Google Maps place pages you supply. Required input is <code>placeUrls</code>. The live Store description is: Google Maps reviews scraper: ratings, review text, place URL. The live schema notes that full review extraction requires the Places API; this Actor returns whatever review snippets are embedded in the public HTML. It is not <a href="/google-maps-lead-enrichment/">Google Maps Lead Enrichment</a>, which does <strong>not</strong> scrape Google Maps.</p>
+    <p class="lede">Google Maps Reviews Scraper Apify (Store id <code>taroyamada/google-maps-review-intelligence</code>) reads public Google Maps place pages you supply. Required input is <code>placeUrls</code>. The live Store description is: Google Maps reviews scraper: ratings, review text, place URL. The live schema notes that full review extraction requires the Places API; this Actor returns whatever review snippets are embedded in the public HTML. It is not <a href="/google-maps-lead-enrichment/">Google Maps Lead Enrichment</a>, which does <strong>not</strong> scrape Google Maps.</p>
     <p class="price">$0.008 per default-dataset result titled result; Actor Start $0.001. Check the live Store pricing card.</p>
     <p><a href="https://apify.com/taroyamada/google-maps-review-intelligence">Open Google Maps Review Scraper on Apify</a>
       ·
@@ -152,6 +147,7 @@
 
     <h2>Maps place HTML, not lead-row enrichment and not Trustpilot</h2>
     <p>Use this page when the job is public Maps place ratings and HTML-embedded review snippets. Use <a href="/google-maps-lead-enrichment/">Google Maps Lead Enrichment Scraper</a> when you already have lead rows and need website, email, phone, social, and health fields. Use <a href="/trustpilot-reviews-scraper/">Trustpilot Reviews Scraper Apify</a> for Trustpilot company profiles. Use <a href="/g2-capterra-review-scraper/">G2 Reviews Scraper Apify</a> for G2 and Capterra product pages.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -182,6 +178,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
 
     <h2>Which live input fields does Google Maps Review Scraper accept?</h2>
     <p><code>placeUrls</code> is required. Optional published fields are <code>reviewLimit</code> (default 200), <code>delivery</code> (<code>dataset</code> or <code>webhook</code>), <code>webhookUrl</code>, and <code>dryRun</code>. <code>additionalProperties</code> is false.</p>
@@ -224,5 +221,13 @@
       <li><a href="/">Home</a></li>
     </ul>
   </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
 </body>
 </html>

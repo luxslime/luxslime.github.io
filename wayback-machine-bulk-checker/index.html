@@ -6,6 +6,8 @@
   <title>Wayback Machine Bulk Checker — Internet Archive closest-snapshot availability</title>
   <meta name="description" content="Query the Wayback Machine available endpoint for up to 500 known URLs. Try Input: 1 URL = $0.008 if one lookup row is delivered. Store Quickstart is 3 URLs. $8.00 / 1,000 wayback archive results. No Actor Start.">
   <link rel="canonical" href="https://apify.momiji-space.com/wayback-machine-bulk-checker/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <link rel="stylesheet" href="/assets/css/actor-landing.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -102,29 +104,22 @@
     ]
   }
   </script>
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
-    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
-    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
-    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
-    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
-    p, li { font-size: 16px; line-height: 1.5; color: #444; }
-    p { margin: 0 0 16px; }
-    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
-    li { margin: 0 0 8px; }
-    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
-    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
-    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
-    th { background: #f3f3f3; font-weight: 600; color: #202223; }
-    tr:last-child td { border-bottom: 0; }
-    .price { color: #202223; }
-  </style>
 </head>
 <body>
-  <main>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/wayback-machine-bulk-checker/" aria-current="page">Wayback Machine Bulk Checker</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
     <nav><a href="/">Home</a> / Wayback Machine Bulk Checker</nav>
+    <p class="eyebrow">Wayback Machine</p>
     <h1>Look up Internet Archive snapshot availability and closest cache URLs for up to 500 known URLs</h1>
-    <p>Wayback Machine Bulk Checker queries the Internet Archive Wayback Machine <code>available</code> endpoint for URL lists you already have (maximum 500 per run). It reports whether a URL was archived and, when present, the closest snapshot URL and timestamp. It is a read-only archive lookup — not live HTTP status QA, not nested sitemap XML discovery, and not a tool that saves new snapshots.</p>
+    <p class="lede">Wayback Machine Bulk Checker queries the Internet Archive Wayback Machine <code>available</code> endpoint for URL lists you already have (maximum 500 per run). It reports whether a URL was archived and, when present, the closest snapshot URL and timestamp. It is a read-only archive lookup — not live HTTP status QA, not nested sitemap XML discovery, and not a tool that saves new snapshots.</p>
     <p class="price">Try Input: 1 URL = $0.008 if one lookup row is delivered. Store Quickstart 3 URLs can be $0.024. $8.00 / 1,000 results. No Actor Start.</p>
     <p><a href="https://apify.com/taroyamada/wayback-machine-checker/input">Try the cheapest first paid Wayback lookup on Apify Input</a></p>
     <p><a href="https://apify.com/taroyamada/wayback-machine-checker">Open taroyamada/wayback-machine-checker on the Apify Store</a>
@@ -133,6 +128,7 @@
 
     <h2>Archive availability lookups, not live HTTP status and not sitemap XML</h2>
     <p>Use this page when you already have URLs and need to know whether the Internet Archive cached them. Use <a href="/bulk-url-status-checker/">Bulk URL Status Checker</a> when you need live HTTP status, redirect chains, and timing on a known list. Use <a href="/sitemap-scraper-analyzer/">Sitemap Scraper &amp; Analyzer</a> when the job is to parse nested <code>sitemap.xml</code> files and invent URL lists. Use <a href="/website-content-extractor/">Website Content Extractor</a> to clean live docs, pricing, policy, or product pages. Use <a href="/article-content-extractor/">Article Content Extractor</a> to clean live news, blog, or press pages.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -175,6 +171,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>No Internet Archive API key is required. The published README positions the Actor as a bulk alternative to loading the archive UI for every broken link. The live Store description is: Check bulk lists of URLs against the Internet Archive database to instantly verify cache availability. Automate historical web page discovery for large sites.</p>
 
     <h2>Use cases</h2>
@@ -192,6 +189,7 @@
 
     <h2>What input is required for Wayback Machine Bulk Checker?</h2>
     <p><code>urls</code> is required: URLs to check in the Wayback Machine (maximum 500). Schema editor is <code>stringList</code>. Schema prefill is <code>https://example.com</code> and <code>https://google.com</code>. Optional live schema fields are <code>closest</code> (<code>YYYYMMDD</code>; leave empty for the latest snapshot), <code>concurrency</code> (integer, default 3, minimum 1, maximum 5), <code>maxChargeUsd</code> (number, default 1, minimum 0, maximum 100), <code>delivery</code> (<code>dataset</code> or <code>webhook</code>, default <code>dataset</code>), <code>webhookUrl</code> (when delivery is webhook), and <code>dryRun</code> (boolean, default false). <code>additionalProperties</code> is false. The live schema description for <code>urls</code> is: URLs to check in the Wayback Machine (max 500). The live schema description for <code>closest</code> is: Find snapshot closest to this date (YYYYMMDD format). Leave empty for latest.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -246,6 +244,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>Published input example (matches the schema):</p>
 <pre><code>{
   "urls": ["https://example.com", "https://google.com"],
@@ -349,5 +348,13 @@
       <li><a href="/tools/">Tools</a></li>
     </ul>
   </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
 </body>
 </html>

@@ -6,6 +6,8 @@
   <title>Bulk URL Status Checker — HTTP status, redirect chains, and broken-URL QA</title>
   <meta name="description" content="Live HTTP QA on a known URL list: status codes, redirect chains, timing, and severity. Not DNS, not short-link expansion, not a Wayback archive lookup, and not an HTML crawl. Try Input: 1 URL ≈ $0.009. From $8.00 / 1,000 results.">
   <link rel="canonical" href="https://apify.momiji-space.com/bulk-url-status-checker/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <link rel="stylesheet" href="/assets/css/actor-landing.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -62,29 +64,22 @@
     ]
   }
   </script>
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
-    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
-    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
-    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
-    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
-    p, li { font-size: 16px; line-height: 1.5; color: #444; }
-    p { margin: 0 0 16px; }
-    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
-    li { margin: 0 0 8px; }
-    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
-    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
-    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
-    th { background: #f3f3f3; font-weight: 600; color: #202223; }
-    tr:last-child td { border-bottom: 0; }
-    .price { color: #202223; }
-  </style>
 </head>
 <body>
-  <main>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/bulk-url-status-checker/" aria-current="page">Bulk URL Status Checker</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
     <nav><a href="/">Home</a> / Bulk URL Status Checker</nav>
+    <p class="eyebrow">Bulk URL status</p>
     <h1>Check HTTP status, redirect chains, and response timing on a known URL list</h1>
-    <p>Live HTTP QA on URLs you already have: status codes, redirect chains, response timing, and severity. Not DNS, not short-link expansion, not a Wayback archive lookup, and not an HTML crawl.</p>
+    <p class="lede">Live HTTP QA on URLs you already have: status codes, redirect chains, response timing, and severity. Not DNS, not short-link expansion, not a Wayback archive lookup, and not an HTML crawl.</p>
     <p class="price">Try Input: 1 URL ≈ $0.009. From $8.00 / 1,000 results (Start $0.001 + result $0.008).</p>
     <p><a href="https://apify.com/taroyamada/bulk-url-health-checker">Open Bulk URL Health Checker → paste a small known URL list → Start (1 URL ≈ $0.009). Does not crawl.</a></p>
 
@@ -101,6 +96,7 @@
 
     <h2>Live HTTP status QA, not DNS, short-link expansion, or archive lookup</h2>
     <p>Use this page when you already have URLs and need status codes, redirect chains, timing, and broken-URL findings. Use <a href="/dns-propagation-checker/">DNS Propagation Checker</a> for public A/MX/NS records on hostnames. Use <a href="/short-url-resolver-scraper/">Short URL Resolver &amp; Scraper</a> to expand bit.ly, t.co, and custom shorteners. Use <a href="/wayback-machine-bulk-checker/">Wayback Machine Bulk Checker</a> to check Internet Archive cache availability.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -149,6 +145,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>The live schema description also names content type and SSL validity as check surfaces. The published README output field list does not include those names. Treat content type and SSL as schema-described checks, not as documented dataset columns.</p>
 
     <h2>Use cases</h2>
@@ -173,6 +170,7 @@
 
     <h2>What input is required?</h2>
     <p><code>urls</code> is required: known URLs to check (maximum 1000 per run). Optional live schema fields are <code>concurrency</code> (integer, default 10), <code>timeoutMs</code> (integer, default 10000), <code>followRedirects</code> (boolean, default true), <code>delivery</code> (<code>dataset</code> or <code>webhook</code>, default <code>dataset</code>), <code>webhookUrl</code> (required when delivery is webhook), and <code>dryRun</code> (boolean, default false). <code>additionalProperties</code> is false. The published input schema does not include <code>includeHealthyRows</code>, <code>maxChargeUsd</code>, <code>maxRedirects</code>, or crawl-related aliases.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -227,6 +225,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>The README Migration QA example sends <code>includeHealthyRows: false</code>. That field is not in the live schema. Do not send it.</p>
     <p>Published Store Quickstart / small URL batch (schema-valid):</p>
 <pre><code>{
@@ -338,5 +337,13 @@
       <li><a href="/tools/">Tools</a></li>
     </ul>
   </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
 </body>
 </html>

@@ -6,6 +6,8 @@
   <title>PubMed Literature Watch &amp; Research Report — NCBI E-utilities citation monitors and reports</title>
   <meta name="description" content="Search PubMed through official NCBI E-utilities, monitor new publications, and generate citation-metadata literature reports and exports. Not TED/SAM.gov/Grants.gov bid alerts and not Google News RSS.">
   <link rel="canonical" href="https://apify.momiji-space.com/pubmed-literature-watch/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <link rel="stylesheet" href="/assets/css/actor-landing.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -62,33 +64,27 @@
     ]
   }
   </script>
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
-    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
-    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
-    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
-    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
-    p, li { font-size: 16px; line-height: 1.5; color: #444; }
-    p { margin: 0 0 16px; }
-    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
-    li { margin: 0 0 8px; }
-    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
-    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
-    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
-    th { background: #f3f3f3; font-weight: 600; color: #202223; }
-    tr:last-child td { border-bottom: 0; }
-    .price { color: #202223; }
-  </style>
 </head>
 <body>
-  <main>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/pubmed-literature-watch/" aria-current="page">PubMed Literature Watch & Research Report</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
     <nav><a href="/">Home</a> / PubMed Literature Watch &amp; Research Report</nav>
+    <p class="eyebrow">PubMed literature</p>
     <h1>Watch PubMed literature via NCBI E-utilities and generate citation reports</h1>
-    <p>Job: PubMed citation metadata, literature-update reports, and new-PMID alerts through <strong>official NCBI E-utilities</strong> - not procurement bids and not Google News RSS.</p>
+    <p class="lede">Job: PubMed citation metadata, literature-update reports, and new-PMID alerts through <strong>official NCBI E-utilities</strong> - not procurement bids and not Google News RSS.</p>
     <p>Outputs are descriptive citation metadata. <strong>No abstracts / no full text.</strong> Not medical advice. Not affiliated with NCBI or PubMed.</p>
     <p class="price">From <strong>$4.00 / 1,000</strong> pubmed metadata rows ($0.004 per metadata row). Schema defaults report/export <strong>ON</strong> - set a cap so you do not surprise-charge.</p>
 
     <h2>Cheap monitor signal vs report+export audit</h2>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -116,6 +112,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>Monitor baseline / unchanged poll = $0. No matches = no report/export charge.</p>
     <p>Cheap signal sample:</p>
 <pre><code>{
@@ -141,6 +138,7 @@
 
     <h2>Official PubMed E-utilities, not procurement bids and not news RSS</h2>
     <p>Use this page when the job is PubMed citation metadata, literature-update reports, systematic-review citation exports, or saved-query new-publication alerts. Use <a href="/ted-sam-grants-bid-alerts/">TED, SAM.gov &amp; Grants Bid Alerts Scraper</a> when the job is TED, SAM.gov, and Grants.gov bid queues. Use <a href="/google-news-scraper/">Google News Scraper</a> when the job is query-based Google News RSS headlines and article URLs.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -183,6 +181,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>This independent Actor is not affiliated with, sponsored by, or endorsed by NCBI or PubMed. PubMed and NCBI are public data sources used by the Actor; they do not sponsor, approve, or endorse it.</p>
 
     <h2>Use cases</h2>
@@ -268,6 +267,7 @@
   "generateExport": false,
   "dryRun": false
 }</code></pre>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -406,6 +406,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>The live schema has no <code>required</code> array. <code>additionalProperties</code> is false. Published Store example run input (schema-valid; omitted fields take schema defaults, including <code>runMode</code> <code>audit</code>, <code>generateReport</code> true, and <code>generateExport</code> true):</p>
 <pre><code>{
   "searchTerms": [
@@ -450,6 +451,7 @@
 
     <h2>How is PubMed Literature Watch &amp; Research Report priced?</h2>
     <p>Billing is pay per event. The live Store card is <strong>from $4.00 / 1,000 pubmed metadata rows</strong>. Current PPE:</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -481,6 +483,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>There is no start charge. The default input is report-first (<code>audit</code>, raw rows off, report and export on). Use <code>maxChargeUsd</code> to cap the complete planned delivery: if the cap is too low, no rows are delivered and monitor state is not committed. A monitor baseline-only run and an unchanged monitor poll both cost $0.00. The live pricing tab lists Platform usage as included.</p>
     <p class="price">from $4.00 per 1,000 pubmed metadata rows; $0.03 per new-publication alert; $2.00 per literature-update report; $5.00 per systematic-review export</p>
     <p><a href="https://apify.com/taroyamada/pubmed-research-intelligence/pricing">See PubMed Literature Watch &amp; Research Report pricing on Apify</a></p>
@@ -520,5 +523,13 @@
       <li><a href="/tools/">Tools</a></li>
     </ul>
   </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
 </body>
 </html>

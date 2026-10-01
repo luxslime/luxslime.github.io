@@ -6,6 +6,8 @@
   <title>DMARC &amp; Email Security Checker — SPF, DMARC, MX, and optional DKIM grades</title>
   <meta name="description" content="Audit public SPF, DMARC, and MX on domains you supply. Optional DKIM selector checks and an A–F grade. Max 500 domains. From $7.00 per 1,000 results. Not A/NS/SOA propagation and not phone-string validation.">
   <link rel="canonical" href="https://apify.momiji-space.com/dmarc-email-security-checker/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <link rel="stylesheet" href="/assets/css/actor-landing.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -62,34 +64,28 @@
     ]
   }
   </script>
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
-    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
-    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
-    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
-    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
-    p, li { font-size: 16px; line-height: 1.5; color: #444; }
-    p { margin: 0 0 16px; }
-    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
-    li { margin: 0 0 8px; }
-    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
-    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
-    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
-    th { background: #f3f3f3; font-weight: 600; color: #202223; }
-    tr:last-child td { border-bottom: 0; }
-    .price { color: #202223; }
-  </style>
 </head>
 <body>
-  <main>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/dmarc-email-security-checker/" aria-current="page">DMARC & Email Security Checker</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
     <nav><a href="/">Home</a> / DMARC &amp; Email Security Checker</nav>
+    <p class="eyebrow">DMARC · email security</p>
     <h1>Grade SPF, DMARC, and MX on up to 500 supplied domains (optional DKIM)</h1>
-    <p>DMARC &amp; Email Security Checker audits public SPF, DKIM, DMARC, MX, and related DNS records on domains you provide. Each run returns source-linked configuration evidence, issue classifications, remediation guidance, and a numerical security score with a letter grade. It does not log in to any mailbox or ESP. It is not multi-resolver A/NS/SOA propagation — that job is <a href="/dns-propagation-checker/">DNS Propagation Checker</a> — and it is not phone-string formatting (<a href="/bulk-phone-format-validator/">Bulk Phone Format Validator</a>).</p>
+    <p class="lede">DMARC &amp; Email Security Checker audits public SPF, DKIM, DMARC, MX, and related DNS records on domains you provide. Each run returns source-linked configuration evidence, issue classifications, remediation guidance, and a numerical security score with a letter grade. It does not log in to any mailbox or ESP. It is not multi-resolver A/NS/SOA propagation — that job is <a href="/dns-propagation-checker/">DNS Propagation Checker</a> — and it is not phone-string formatting (<a href="/bulk-phone-format-validator/">Bulk Phone Format Validator</a>).</p>
     <p class="price">From $7.00 per 1,000 results</p>
     <p><a href="https://apify.com/taroyamada/dns-dmarc-security-checker">Open DMARC &amp; Email Security Checker on Apify</a></p>
 
     <h2>Email-auth DNS on supplied domains, not A/NS/SOA propagation or phone strings</h2>
     <p>Use this page when the job is email deliverability posture: parse SPF policy, DMARC enforcement, MX topology, and optional DKIM selectors, then grade the domain. Use <a href="/dns-propagation-checker/">DNS Propagation Checker</a> when the job is whether A, NS, SOA, or other records agree across eight public resolvers after a change. Use <a href="/bulk-phone-format-validator/">Bulk Phone Format Validator</a> when the job is E.164 normalization of phone strings you already hold.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -138,6 +134,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>The Store description is: validate domain infrastructure in bulk to boost email deliverability; extract DMARC policies, SPF records, and MX configurations to keep outreach out of spam. The README adjacent-actor note sends global resolver checks after a DMARC / SPF / DKIM change to <a href="/dns-propagation-checker/">DNS Propagation Checker</a>.</p>
 
     <h2>Use cases</h2>
@@ -155,6 +152,7 @@
 
     <h2>What input is required?</h2>
     <p><code>domains</code> is required. The live schema description is “List of domains to check email security for. Maximum 500 per run.” Other live schema fields:</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -215,6 +213,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>The schema sets <code>additionalProperties</code> to false. README examples that include <code>includeDkimSelectors</code> or <code>resolver</code> are not live input fields. The README Input markdown table omits <code>maxChargeUsd</code>; the live schema and Actor input object example include it (default 1).</p>
     <p>Published README input example:</p>
 <pre><code>{
@@ -315,5 +314,13 @@
       <li><a href="/tools/">Tools</a></li>
     </ul>
   </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
 </body>
 </html>
