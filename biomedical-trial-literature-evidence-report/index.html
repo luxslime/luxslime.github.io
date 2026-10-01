@@ -7,6 +7,8 @@
   <meta name="description" content="Compare ClinicalTrials.gov studies with PubMed citation metadata for source-linked evidence gaps, alerts, reports, and exports. Store: taroyamada/biomedical-trial-literature-evidence-report. From $8.00 / 1,000 biomedical evidence rows. Default dryRun is true. Not medical advice.">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://apify.momiji-space.com/biomedical-trial-literature-evidence-report/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <link rel="stylesheet" href="/assets/css/actor-landing.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -63,29 +65,22 @@
     ]
   }
   </script>
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
-    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
-    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
-    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
-    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
-    p, li { font-size: 16px; line-height: 1.5; color: #444; }
-    p { margin: 0 0 16px; }
-    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
-    li { margin: 0 0 8px; }
-    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
-    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
-    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
-    th { background: #f3f3f3; font-weight: 600; color: #202223; }
-    tr:last-child td { border-bottom: 0; }
-    .price { color: #202223; }
-  </style>
 </head>
 <body>
-  <main>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/biomedical-trial-literature-evidence-report/" aria-current="page">PubMed &amp; Clinical Trials Evidence Gap Report</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
     <nav><a href="/">Home</a> / PubMed &amp; Clinical Trials Evidence Gap Report</nav>
+    <p class="eyebrow">Trials · literature</p>
     <h1>Compare ClinicalTrials.gov studies with PubMed citations for evidence gaps</h1>
-    <p>PubMed &amp; Clinical Trials Evidence Gap Report compares ClinicalTrials.gov records with PubMed citation metadata. Biomedical research, medical affairs, and evidence teams enter watchlists, NCT IDs, and PubMed queries. Outputs are source-linked evidence rows, gap alerts, reports, and exports. They are descriptive citation metadata — not medical conclusions, treatment guidance, article full text, or abstracts.</p>
+    <p class="lede">PubMed &amp; Clinical Trials Evidence Gap Report compares ClinicalTrials.gov records with PubMed citation metadata. Biomedical research, medical affairs, and evidence teams enter watchlists, NCT IDs, and PubMed queries. Outputs are source-linked evidence rows, gap alerts, reports, and exports. They are descriptive citation metadata — not medical conclusions, treatment guidance, article full text, or abstracts.</p>
     <p>Live schema default <code>dryRun</code> is <strong>true</strong>: Start with defaults returns illustrative rows, does not call NCBI, and does not bill. Set <code>dryRun</code> false for a capped live run after preview.</p>
     <p>This independent Actor is not affiliated with, sponsored by, or endorsed by NCBI, PubMed, or ClinicalTrials.gov.</p>
     <p class="price">from $8.00 / 1,000 biomedical evidence rows ($0.008 per evidence row; $0.15 per gap alert; $5.00 per report; $3.00 per export)</p>
@@ -93,6 +88,7 @@
 
     <h2>Trial↔PubMed evidence gaps, not PubMed-only watch and not news RSS</h2>
     <p>Use this page when the job is matching ClinicalTrials.gov studies to PubMed citations and emitting gap alerts or reports. Use <a href="/pubmed-literature-watch/">PubMed Literature Watch &amp; Research Report</a> for PubMed-only citation monitors and literature-update reports. Use <a href="/openalex-research-intelligence/">OpenAlex Scholarly Works Scraper</a> for broader OpenAlex discovery. Use <a href="/nih-research-funding-landscape-report/">NIH RePORTER Funding Landscape Report</a> for NIH awards. Use <a href="/google-news-scraper/">Google News Scraper</a> for news headlines.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -129,6 +125,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
 
     <h2>Use cases</h2>
     <ul>
@@ -200,6 +197,7 @@
 
     <h2>What input is required?</h2>
     <p>The live schema has no required array. <code>additionalProperties</code> is false. README Quickstart JSON that sends watchlist <code>conditions</code>, <code>interventions</code>, and <code>pubmedQuery</code> is README documentation; the live items schema is not fully expanded. Prefer <code>nctIds</code> as in the paid-trial JSON above.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -284,6 +282,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
 
     <h2>What does a result contain?</h2>
     <p>The published README sample is a <code>literature_update_report</code> row. It is a README illustration, not a live coverage guarantee:</p>
@@ -306,6 +305,7 @@
 
     <h2>How is PubMed &amp; Clinical Trials Evidence Gap Report priced?</h2>
     <p>Billing is pay per event. The live Store card is <strong>from $8.00 / 1,000 biomedical evidence rows</strong>. Current PPE:</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -337,6 +337,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>There is no start charge. A <code>baseline_only</code> or unchanged monitor emits zero rows and zero event charge. Default <code>dryRun</code> true means a default Start does not bill. Do not run the $5.00 report under a cap that cannot cover it.</p>
     <p class="price">from $8.00 per 1,000 biomedical evidence rows; $0.15 per gap alert; $5.00 per report; $3.00 per export</p>
     <p><a href="https://apify.com/taroyamada/biomedical-trial-literature-evidence-report/pricing">See PubMed &amp; Clinical Trials Evidence Gap Report pricing on Apify</a></p>
@@ -364,5 +365,13 @@
       <li><a href="/tools/">Tools</a></li>
     </ul>
   </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
 </body>
 </html>

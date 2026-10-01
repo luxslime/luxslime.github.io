@@ -7,6 +7,8 @@
   <meta name="description" content="taroyamada/uspto-patent-scraper. From $11.00 / 1,000 results + $0.001 start. Not legal advice or a patent attorney.">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://apify.momiji-space.com/uspto-patent-scraper/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <link rel="stylesheet" href="/assets/css/actor-landing.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -63,35 +65,29 @@
     ]
   }
   </script>
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
-    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
-    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
-    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
-    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
-    p, li { font-size: 16px; line-height: 1.5; color: #444; }
-    p { margin: 0 0 16px; }
-    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
-    li { margin: 0 0 8px; }
-    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
-    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
-    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
-    th { background: #f3f3f3; font-weight: 600; color: #202223; }
-    tr:last-child td { border-bottom: 0; }
-    .price { color: #202223; }
-  </style>
 </head>
 <body>
-  <main>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/uspto-patent-scraper/" aria-current="page">USPTO Patent Search Scraper</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
     <nav><a href="/">Home</a> / USPTO Patent Search Scraper</nav>
+    <p class="eyebrow">USPTO patents</p>
     <h1>USPTO patent keyword watches with docket IDs and source URLs</h1>
-    <p>This Actor searches public USPTO / PatentsView surfaces for patents matching a query (optional assignee and grant-date window) and returns structured rows with identifiers and source URLs. Optional apiKey uses PatentsView first; otherwise the Actor still runs on public sources.</p>
+    <p class="lede">This Actor searches public USPTO / PatentsView surfaces for patents matching a query (optional assignee and grant-date window) and returns structured rows with identifiers and source URLs. Optional apiKey uses PatentsView first; otherwise the Actor still runs on public sources.</p>
     <p>Not legal advice, prior-art clearance, or a full-text claims analytics suite. demoMode masks fields and caps output at 3.</p>
     <p class="price">from $11.00 / 1,000 results ($0.011 per apify-default-dataset-item result) plus Actor Start $0.001 (one event per GB memory, minimum one).</p>
     <p><a href="https://apify.com/taroyamada/uspto-patent-scraper">Open USPTO Patent Search Scraper on Apify</a></p>
 
     <h2>USPTO Patent Search Scraper, not a neighboring Actor</h2>
     <p>Use this page for this Actor’s job. Use <a href="/pubmed-literature-watch/">PubMed Literature Watch</a> for Scientific papers; Use <a href="/nih-research-funding-landscape-report/">NIH Research Funding Landscape Report</a> for NIH awards.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -134,6 +130,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>Store ID: <code>taroyamada/uspto-patent-scraper</code>. Respect source terms, robots.txt, and rate limits.</p>
 
     <h2>Use cases</h2>
@@ -148,6 +145,7 @@
 
     <h2>What input is required?</h2>
     <p>Live required fields: <code>query</code>. exampleRunInput is query=artificial intelligence, maxResults 10, dryRun false, demoMode false. Optional PatentsView apiKey from patentsview.org/apis/keyrequest.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -220,6 +218,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>Published Store example run input (omitted fields take schema defaults):</p>
 <pre><code>{
   "query": "artificial intelligence",
@@ -238,6 +237,7 @@
 
     <h2>How is USPTO Patent Search Scraper priced?</h2>
     <p>Billing is pay per event. The live Store card is <strong>from $11.00 / 1,000 results ($0.011 per apify-default-dataset-item result) plus Actor Start $0.001 (one event per GB memory, minimum one).</strong> Current PPE:</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -259,6 +259,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>The published README Cost block is stale versus the live Store pricing tab. README Cost quotes actor-start $0.01 + dataset-item $0.003. Live: Actor Start $0.001 + result $0.011. This page quotes live PPE only.</p>
     <p class="price">from $11.00 / 1,000 results ($0.011 per apify-default-dataset-item result) plus Actor Start $0.001 (one event per GB memory, minimum one).</p>
     <p><a href="https://apify.com/taroyamada/uspto-patent-scraper/pricing">See USPTO Patent Search Scraper pricing on Apify</a></p>
@@ -284,5 +285,13 @@
       <li><a href="/tools/">Tools</a></li>
     </ul>
   </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
 </body>
 </html>

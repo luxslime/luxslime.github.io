@@ -7,6 +7,8 @@
   <meta name="description" content="taroyamada/google-play-intelligence. From $3.00 / 1,000 results + $0.00005 start. Not App Store or Chrome Web Store.">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://apify.momiji-space.com/google-play-intelligence/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <link rel="stylesheet" href="/assets/css/actor-landing.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -63,35 +65,29 @@
     ]
   }
   </script>
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
-    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
-    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
-    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
-    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
-    p, li { font-size: 16px; line-height: 1.5; color: #444; }
-    p { margin: 0 0 16px; }
-    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
-    li { margin: 0 0 8px; }
-    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
-    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
-    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
-    th { background: #f3f3f3; font-weight: 600; color: #202223; }
-    tr:last-child td { border-bottom: 0; }
-    .price { color: #202223; }
-  </style>
 </head>
 <body>
-  <main>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/google-play-intelligence/" aria-current="page">Google Play App Scraper</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
     <nav><a href="/">Home</a> / Google Play App Scraper</nav>
+    <p class="eyebrow">Google Play</p>
     <h1>Google Play app metadata, install ranges, and public review samples</h1>
-    <p>This Actor reads public Google Play listing HTML/storefront data for package IDs or Play URLs and returns metadata, install ranges, pricing flags, and optional embedded review snippets. Review samples are limited to cards in the initial HTML.</p>
+    <p class="lede">This Actor reads public Google Play listing HTML/storefront data for package IDs or Play URLs and returns metadata, install ranges, pricing flags, and optional embedded review snippets. Review samples are limited to cards in the initial HTML.</p>
     <p>Not Apple App Store, Chrome Web Store, or a full Play review-pagination crawler. Not ranking/ASO keyword volume.</p>
     <p class="price">from $3.00 / 1,000 results ($0.003 per Result) plus Actor Start $0.00005. Cheapest one-app paid path ≈ $0.00305 if one start + one result.</p>
     <p><a href="https://apify.com/taroyamada/google-play-intelligence">Open Google Play App Scraper on Apify</a></p>
 
     <h2>Google Play App Scraper, not a neighboring Actor</h2>
     <p>Use this page for this Actor’s job. Use <a href="/chrome-web-store-extension-intelligence/">Chrome Web Store Extension Intelligence</a> for Chrome extensions; Use <a href="/website-content-extractor/">Website Content Extractor</a> for Generic page markdown.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -134,6 +130,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>Store ID: <code>taroyamada/google-play-intelligence</code>. Respect source terms, robots.txt, and rate limits.</p>
 
     <h2>Use cases</h2>
@@ -148,6 +145,7 @@
 
     <h2>What input is required?</h2>
     <p>Live required fields: <code>appUrls</code>. exampleRunInput uses com.spotify.music plus a Duolingo Play URL, reviewLimit 5. Schema default reviewLimit 20; set 0 to skip samples. country/language default us/en.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -208,6 +206,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>Published Store example run input (omitted fields take schema defaults):</p>
 <pre><code>{
   "appUrls": [
@@ -269,6 +268,7 @@
 
     <h2>How is Google Play App Scraper priced?</h2>
     <p>Billing is pay per event. The live Store card is <strong>from $3.00 / 1,000 results ($0.003 per Result) plus Actor Start $0.00005. Cheapest one-app paid path ≈ $0.00305 if one start + one result.</strong> Current PPE:</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -290,6 +290,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>The published README Cost block is stale versus the live Store pricing tab. README does not quote this Actor’s live PPE. It advertises follow-on listing-gap $9/$29. Live card: Actor Start $0.00005 + Result $0.003 (apify-actor-start, apify-default-dataset-item). This page quotes live PPE only.</p>
     <p class="price">from $3.00 / 1,000 results ($0.003 per Result) plus Actor Start $0.00005. Cheapest one-app paid path ≈ $0.00305 if one start + one result.</p>
     <p><a href="https://apify.com/taroyamada/google-play-intelligence/pricing">See Google Play App Scraper pricing on Apify</a></p>
@@ -315,5 +316,13 @@
       <li><a href="/tools/">Tools</a></li>
     </ul>
   </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
 </body>
 </html>
