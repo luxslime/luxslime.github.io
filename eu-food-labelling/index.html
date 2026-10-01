@@ -6,7 +6,9 @@
   <title>EU food labelling before purchase — EU Food Info Guard</title>
   <meta name="description" content="EU food labelling (Reg 1169/2011) requires allergen, nutrition, and origin info before purchase. Install the live EU Food Info Guard listing to show it on product pages.">
   <link rel="canonical" href="https://apify.momiji-space.com/eu-food-labelling/">
+  <link rel="preload" href="/assets/fonts/fraunces-latin-700.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="/assets/css/shopify-lp.css">
   <meta property="og:type" content="website">
   <meta property="og:title" content="EU food labelling before purchase">
   <meta property="og:description" content="Show allergens, origin, and nutrition on product pages before checkout. Honey origin rules changed 14 Jun 2026. Install from the live App Store listing.">
@@ -44,10 +46,11 @@
   }
   </script>
 </head>
-<body>
+<body class="shopify-lp">
+  <a class="skip" href="#main">Skip to content</a>
   <header class="site">
     <div class="wrap wide bar">
-      <a class="logo" href="./">EU Food Info Guard</a>
+      <a class="logo" href="./"><span class="mark" aria-hidden="true">M</span>EU Food Info Guard</a>
       <nav>
         <a href="./" aria-current="page">EU food labelling</a>
         <a href="https://apps.shopify.com/fic-food-info-guard">App Store listing</a>
@@ -56,16 +59,32 @@
     </div>
   </header>
 
-  <main class="wrap wide">
-    <p class="eyebrow">Existing app · English merchants</p>
-    <h1>EU food labelling before purchase — not only on the parcel</h1>
-    <p class="subtitle">EU food labelling law (Reg 1169/2011) requires allergen, nutrition, and origin info before purchase; UK PPDS mirrors this. Honey origin rules changed 14 Jun 2026. Show those facts on the product page, then install from the live listing.</p>
-    <div class="cta-row">
-      <a class="cta" href="https://apps.shopify.com/fic-food-info-guard">Install on the live App Store listing</a>
-    </div>
-    <p class="note">This is an install funnel for the published listing. It is not a new app.</p>
+  <main id="main" class="wrap wide">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <svg class="hero-mark" viewBox="0 0 80 88" aria-hidden="true" focusable="false">
+          <path fill="currentColor" d="M10.2 57.1 22.8 51.3 27.9 49.8 22.8 44.4 15.5 30.4 29.8 37.1 34.2 40.4 34 31.6 40 14 46 31.6 45.8 40.4 50.2 37.1 64.5 30.4 57.2 44.4 52.1 49.8 57.2 51.3 69.8 57.1 56.2 60.2 40 62 23.8 60.2Z"/>
+          <path fill="currentColor" d="M37.8 60h4.4V84h-4.4z"/>
+        </svg>
+        <p class="folio"><span>Existing app · English merchants</span><i aria-hidden="true"></i><span>Product page</span></p>
+        <h1 id="hero-title">EU food labelling before purchase — <span class="and">not only</span> on the parcel</h1>
+        <p class="subtitle">EU food labelling law (Reg 1169/2011) requires allergen, nutrition, and origin info before purchase; UK PPDS mirrors this. Honey origin rules changed 14 Jun 2026. Show those facts on the product page, then install from the live listing.</p>
+        <div class="cta-row">
+          <a class="cta" href="https://apps.shopify.com/fic-food-info-guard">Install on the live App Store listing</a>
+        </div>
+        <p class="note">This is an install funnel for the published listing. It is not a new app.</p>
+        <p class="jump-kicker">On this page</p>
+        <p class="jump" aria-label="On this page">
+          <a href="#preview">Product page</a>
+          <a href="#listing">Listing</a>
+          <a href="#facts">Facts</a>
+          <a href="#install">Install</a>
+          <a href="#plans">Plans</a>
+        </p>
+      </div>
+    </section>
 
-    <div class="preview" aria-label="Product page example for pre-purchase food information">
+    <div class="preview" id="preview" aria-label="Product page example for pre-purchase food information">
       <p class="label">Product page · food info before purchase</p>
       <p class="product">Food product · distance selling</p>
       <div class="facts">
@@ -77,12 +96,22 @@
       <p class="ok">Syncs to a storefront theme block via an app-owned metafield. No template edits.</p>
     </div>
 
-    <section class="card">
-      <h2>What the listing is for</h2>
+    <section class="section card" id="listing">
+      <header class="section-head">
+        <p class="section-num" aria-hidden="true">01</p>
+        <p class="eyebrow">Live listing</p>
+        <h2>What the listing is for</h2>
+      </header>
       <p class="lede">EU law requires food info before purchase, not just on delivery. Show allergens, origin, nutrition.</p>
       <p>EU food labelling law (Reg 1169/2011) requires allergen, nutrition, origin info pre-purchase; UK PPDS mirrors this. Honey origin rules changed 14 Jun 2026. The app organizes merchant data; it does not determine legal compliance.</p>
     </section>
 
+    <section class="section" id="facts">
+      <header class="section-head">
+        <p class="section-num" aria-hidden="true">02</p>
+        <p class="eyebrow">Storefront</p>
+        <h2>Allergens, origin, theme block, reviews</h2>
+      </header>
     <div class="grid">
       <article>
         <h3>14 Annex II allergens</h3>
@@ -101,9 +130,14 @@
         <p>Weekly scheduled completeness reviews plus a full audit trail of every change. CSV import/export is listed with those reviews.</p>
       </article>
     </div>
+    </section>
 
-    <section class="card install-path">
-      <h2>Install from the live listing</h2>
+    <section class="section card install-path" id="install">
+      <header class="section-head">
+        <p class="section-num" aria-hidden="true">03</p>
+        <p class="eyebrow">First run</p>
+        <h2>Install from the live listing</h2>
+      </header>
       <ol>
         <li>Open the published listing: <a href="https://apps.shopify.com/fic-food-info-guard">apps.shopify.com/fic-food-info-guard</a>.</li>
         <li>Install EU Food Info Guard from that page — do not look for a second, similarly named app.</li>
@@ -113,8 +147,12 @@
       <p>Problem-query guide: <a href="/guides/fic-food-allergen-label/">Food allergen labelling has to appear before purchase, not only on delivery</a>.</p>
     </section>
 
-    <section class="card pay-on-install">
-      <h2>Plans on the listing</h2>
+    <section class="section card pay-on-install" id="plans">
+      <header class="section-head">
+        <p class="section-num" aria-hidden="true">04</p>
+        <p class="eyebrow">Listing prices</p>
+        <h2>Plans on the listing</h2>
+      </header>
       <ul class="plans">
         <li>
           <span class="plan-name">Free</span>
