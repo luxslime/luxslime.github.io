@@ -7,6 +7,8 @@
   <meta name="description" content="SAM.gov / TED / Grants.gov bid-alert scraper. Open Input → Start. 1 TED opportunity, report OFF ≈ $0.008 if one row delivers. From $8.00 / 1,000 rows. No API key for TED.">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://apify.momiji-space.com/ted-sam-grants-bid-alerts/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <link rel="stylesheet" href="/assets/css/actor-landing.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -161,32 +163,22 @@
     ]
   }
   </script>
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
-    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
-    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
-    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
-    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
-    p, li { font-size: 16px; line-height: 1.5; color: #444; }
-    p { margin: 0 0 16px; }
-    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
-    li { margin: 0 0 8px; }
-    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
-    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
-    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
-    th { background: #f3f3f3; font-weight: 600; color: #202223; }
-    tr:last-child td { border-bottom: 0; }
-    .price { color: #202223; }
-    .cta-row { margin: 0 0 16px; }
-    a.cta { display: inline-block; padding: 10px 16px; background: #202223; color: #fff; text-decoration: none; font-size: 16px; line-height: 1.3; }
-    a.cta-secondary { margin-left: 8px; font-size: 16px; }
-  </style>
 </head>
 <body>
-  <main>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/ted-sam-grants-bid-alerts/" aria-current="page">TED, SAM.gov &amp; Grants Bid Alerts</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
     <nav><a href="/">Home</a> / TED, SAM.gov &amp; Grants Bid Alerts Scraper</nav>
+    <p class="eyebrow">TED · SAM.gov · Grants.gov</p>
     <h1>SAM.gov scraper — TED tenders, Grants.gov notices, and bid alerts</h1>
-    <p>SAM.gov Scraper (Store actor <a href="https://apify.com/taroyamada/procurement-intel-actor"><code>taroyamada/procurement-intel-actor</code></a>) is the TED / SAM.gov / Grants.gov bid-alert queue. It searches official TED, SAM.gov, and Grants.gov / Simpler.Grants.gov notice APIs.</p>
+    <p class="lede">SAM.gov Scraper (Store actor <a href="https://apify.com/taroyamada/procurement-intel-actor"><code>taroyamada/procurement-intel-actor</code></a>) is the TED / SAM.gov / Grants.gov bid-alert queue. It searches official TED, SAM.gov, and Grants.gov / Simpler.Grants.gov notice APIs.</p>
     <p>Start TED-only with no API key, then add Grants.gov, then the US lane once a SAM.gov key is available. This Actor is a public-sector bid-alert queue — not Google News RSS, not PubMed citation watch, and not a website or article HTML extractor. If the job is cleaning page URLs for RAG, see <a href="/compare/article-vs-website-content-extractor/">Article Content Extractor vs Website Content Extractor for RAG</a>.</p>
     <p class="price">Open Input → Start. 1 TED opportunity + report/export OFF ≈ $0.008 if one row delivers. From $8.00 / 1,000 rows. No live start charge.</p>
     <p class="cta-row"><a class="cta" href="https://apify.com/taroyamada/procurement-intel-actor/input">Open Input → Start</a> <a class="cta-secondary" href="https://apify.com/taroyamada/procurement-intel-actor">Store listing</a></p>
@@ -209,6 +201,7 @@
 
     <h2>Public-sector bid alerts, not Google News RSS and not PubMed literature</h2>
     <p>Use this page when the job is monitoring official TED, SAM.gov, and Grants.gov / Simpler.Grants.gov notice feeds into one reviewable queue. Use <a href="/google-news-scraper/">Google News Scraper</a> when the job is query-based Google News RSS headlines and article URLs. Use <a href="/pubmed-literature-watch/">PubMed Literature Watch &amp; Research Report</a> when the job is NCBI E-utilities citation metadata. Use <a href="/article-content-extractor/">Article Content Extractor</a> or <a href="/website-content-extractor/">Website Content Extractor</a> when the input is a list of page URLs to clean — <a href="/compare/article-vs-website-content-extractor/">Article vs Website Content Extractor for RAG</a>. G2 or Capterra review pages are a different source: <a href="/compare/g2-capterra-dual-source-vs-single-source/">G2 + Capterra dual-source vs single-source</a>.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -251,6 +244,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
 
     <h2>Use cases</h2>
     <ul>
@@ -341,6 +335,7 @@
 
     <h2>How is TED, SAM.gov &amp; Grants Bid Alerts Scraper priced on the live Store PPE tab?</h2>
     <p>Billing is pay-per-event. The live Store card is <strong>$8.00 / 1,000 procurement opportunity or alert rows</strong>. Current live PPE:</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -367,6 +362,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>There is no live start charge. The live pricing tab lists Platform usage as included. An empty result emits zero rows and zero charges. Unchanged <code>changes_only</code> polls emit zero rows and zero charge. <code>maxChargeUsd</code> fails closed before delivery when the planned charge would exceed the cap; zero means no cap. The cheapest first paid cap is one source × <code>maxItemsPerSource</code> 1 = <strong>$0.008</strong> if one row is delivered. Leave <code>generateReport</code> and <code>emitExport</code> off until that proof is useful.</p>
     <p class="price">Open Input → Start. 1 TED opportunity + report/export OFF ≈ $0.008 if one row delivers. From $8.00 / 1,000 rows.</p>
     <p><a href="https://apify.com/taroyamada/procurement-intel-actor/pricing">See TED, SAM.gov &amp; Grants Bid Alerts Scraper pricing on Apify</a></p>
@@ -396,6 +392,7 @@
 
     <h2>Which live input fields does the schema accept?</h2>
     <p>The live input schema has an empty required list. <code>additionalProperties</code> is false; send only the published field names.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -528,6 +525,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>Other live fields: <code>tedFields</code>, <code>webhookUrl</code>, <code>samApiUrl</code>, <code>tedApiUrl</code>, <code>grantsApiKey</code>, <code>grantsApiUrl</code>, <code>grantsApplicantTypes</code>, <code>grantsFundingInstruments</code>, <code>grantsAlertStateKey</code>, plus testing fixture paths and <code>nowIso</code>.</p>
 
     <h2>Which official notice APIs does this Actor call?</h2>
@@ -588,5 +586,13 @@
       <li><a href="/tools/">Tools</a></li>
     </ul>
   </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
 </body>
 </html>

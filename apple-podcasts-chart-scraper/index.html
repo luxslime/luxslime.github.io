@@ -6,6 +6,8 @@
   <title>Apple Podcasts Chart Scraper — iTunes Top Podcasts ranks and movement</title>
   <meta name="description" content="Scrape Apple Podcasts / iTunes Top Podcasts charts by storefront. Open Input → Start. Defaults: US + limit 1, movement OFF ≈ $0.003. From $3.00 / 1,000 rows.">
   <link rel="canonical" href="https://apify.momiji-space.com/apple-podcasts-chart-scraper/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <link rel="stylesheet" href="/assets/css/actor-landing.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -126,39 +128,29 @@
     ]
   }
   </script>
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
-    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
-    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
-    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
-    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
-    p, li { font-size: 16px; line-height: 1.5; color: #444; }
-    p { margin: 0 0 16px; }
-    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
-    li { margin: 0 0 8px; }
-    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
-    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
-    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
-    th { background: #f3f3f3; font-weight: 600; color: #202223; }
-    tr:last-child td { border-bottom: 0; }
-    img.sample { max-width: 100%; height: auto; display: block; margin: 0 0 16px; border: 1px solid #d9dde5; background: #fff; }
-    .price { color: #202223; }
-    .cta-row { margin: 0 0 16px; }
-    a.cta { display: inline-block; padding: 10px 16px; background: #202223; color: #fff; text-decoration: none; font-size: 16px; line-height: 1.3; }
-    a.cta-secondary { margin-left: 8px; font-size: 16px; }
-  </style>
 </head>
 <body>
-  <main>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/apple-podcasts-chart-scraper/" aria-current="page">Apple Podcasts Chart Scraper</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
     <nav><a href="/">Home</a> / Apple Podcasts Chart Scraper</nav>
+    <p class="eyebrow">Apple Podcasts charts</p>
     <h1>Scrape Apple Podcasts / iTunes charts — Top Podcasts ranks and movement</h1>
-    <p>Snapshot public Apple Podcasts Top Podcasts charts by storefront, then optionally emit one source-linked movement report when a saved monitor sees new, changed, or dropped ranks. This Actor reads public Apple Podcasts/iTunes chart JSON. It is not a keyword search, episode catalog, or collection-ID watchlist tool — that work belongs on <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a>. It is not a review collector — that job belongs on <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a>.</p>
+    <p class="lede">Snapshot public Apple Podcasts Top Podcasts charts by storefront, then optionally emit one source-linked movement report when a saved monitor sees new, changed, or dropped ranks. This Actor reads public Apple Podcasts/iTunes chart JSON. It is not a keyword search, episode catalog, or collection-ID watchlist tool — that work belongs on <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a>. It is not a review collector — that job belongs on <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a>.</p>
     <p class="price">Open Input → Start. Defaults: US + limit 1, movement OFF ≈ $0.003. From $3.00 / 1,000 rows ($0.003 per raw row; $2.50 per movement report).</p>
     <p>The live Input tab already has that cheap snapshot. Leave <code>generateMovementReport</code> off until a saved monitor needs it — the $2.50 report is blocked by the default $0.05 cap. For keyword search, episodes, or watchlists, start on <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> instead.</p>
     <p class="cta-row"><a class="cta" href="https://apify.com/taroyamada/apple-podcast-chart-tracker/input">Open Input → Start</a> <a class="cta-secondary" href="https://apify.com/taroyamada/apple-podcast-chart-tracker">Store listing</a></p>
 
     <h2>Charts versus show and episode scrape</h2>
     <p>Use this page when the job is storefront rank: who is on a Top Podcasts chart, at what position, and whether that position moved since the last poll. Use <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> when the job is finding shows by keyword, refreshing known collection IDs, or attaching recent episode titles. Use <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> for public ratings and review text on IDs you already have.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -201,6 +193,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>None of these Actors is affiliated with or endorsed by Apple. Rank movement is descriptive evidence, not a forecast, audience estimate, advertising guarantee, or provider approval.</p>
 
     <h2>Use cases</h2>
@@ -293,6 +286,7 @@
 
     <h2>How many countries and ranks can I request?</h2>
     <p>The published input schema has no required array. Runtime still fetches the default storefront when <code>countries</code> is omitted. <code>additionalProperties</code> is false. Live input schema fields:</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -371,6 +365,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>Do not send unpublished aliases such as <code>searchTerm</code>, <code>lookupIds</code>, <code>includeEpisodes</code>, <code>chartRequests</code>, <code>feedType</code>, <code>podcastIds</code>, or an RSS URL field. <code>countries</code> accepts at most 20 unique ISO-3166-1 alpha-2 codes per run (for example <code>us</code>, <code>gb</code>, <code>jp</code>, or <code>de</code>). Unsupported storefronts produce a warning and are never interpreted as a mass drop from the saved baseline. Storefronts differ: see <a href="/guides/apple-podcasts-countries/">charts and search by country</a> for why a US chart is not a GB or JP chart.</p>
     <p><a href="https://apify.com/taroyamada/apple-podcast-chart-tracker/input">Start a chart run on Apify Input</a></p>
 
@@ -437,5 +432,13 @@
       <li><a href="/tools/">Tools</a></li>
     </ul>
   </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
 </body>
 </html>

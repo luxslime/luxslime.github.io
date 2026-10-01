@@ -10,6 +10,8 @@
   <meta property="og:description" content="Apple Podcast Scraper Apify. Open Input → Start. Search + limit 3 ≈ $0.0125 (Start $0.005 + result $0.0025). From $2.50 / 1,000 results.">
   <meta property="og:url" content="https://apify.momiji-space.com/apple-podcasts-scraper/">
   <link rel="canonical" href="https://apify.momiji-space.com/apple-podcasts-scraper/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <link rel="stylesheet" href="/assets/css/actor-landing.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -140,35 +142,22 @@
     ]
   }
   </script>
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
-    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
-    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
-    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
-    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
-    p, li { font-size: 16px; line-height: 1.5; color: #444; }
-    p { margin: 0 0 16px; }
-    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
-    li { margin: 0 0 8px; }
-    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
-    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
-    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
-    th { background: #f3f3f3; font-weight: 600; color: #202223; }
-    tr:last-child td { border-bottom: 0; }
-    img.sample { max-width: 100%; height: auto; display: block; margin: 0 0 16px; border: 1px solid #d9dde5; background: #fff; }
-    .price { color: #202223; }
-    .cta-row { margin: 0 0 16px; }
-    a.cta { display: inline-block; padding: 10px 16px; background: #202223; color: #fff; text-decoration: none; font-size: 16px; line-height: 1.3; }
-    a.cta-secondary { margin-left: 8px; font-size: 16px; }
-    .demo-embed { position: relative; width: 100%; height: 0; padding-bottom: 56.25%; margin: 0 0 16px; overflow: hidden; border: 1px solid #d9dde5; background: #000; }
-    .demo-embed iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
-  </style>
 </head>
 <body>
-  <main>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/apple-podcasts-scraper/" aria-current="page">Apple Podcasts Scraper</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
     <nav><a href="/">Home</a> / Apple Podcast Scraper Apify</nav>
+    <p class="eyebrow">Apple Podcasts · iTunes search</p>
     <h1>Apple Podcasts Scraper — Search, Charts &amp; Episodes to CSV (No API Key)</h1>
-    <p>Scrape Apple Podcasts charts, episodes, and search results through iTunes and RSS. Export CSV or JSON from the Dataset - no API key.</p>
+    <p class="lede">Scrape Apple Podcasts charts, episodes, and search results through iTunes and RSS. Export CSV or JSON from the Dataset - no API key.</p>
     <p class="price"><strong>First paid run:</strong> set <code>searchTerm</code>, keep <code>limit</code> at 3, leave episodes off. That try run is about <strong>$0.0125</strong>. From <strong>$2.50 / 1,000 results</strong>.</p>
     <p>Actor: <code>taroyamada/apple-podcast-scraper</code>. Official iTunes Search / Lookup plus RSS for recent episodes when you turn them on. No proxy. No API key. Not a chart-movement monitor and not a reviews collector.</p>
     <p class="cta-row"><a class="cta" href="https://console.apify.com/actors/82cKuLhJJl9vLKVec?addFromActorId=82cKuLhJJl9vLKVec">Open Console → leave defaults → Start (limit 3 ≈ $0.0125)</a></p>
@@ -196,6 +185,7 @@
 
     <h2>Search versus charts and reviews</h2>
     <p>Use this page when the job is finding shows by keyword, snapshotting a <code>chartRequests</code> ranking, refreshing known collection IDs, or attaching recent episode titles. Use <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> for Top Podcasts ranks and optional movement reports. Use <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> for public ratings and review text on IDs you already have.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -232,6 +222,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>None of these Actors is affiliated with or endorsed by Apple. Rank and search results are public catalog metadata, not download counts, audience estimates, or advertising guarantees.</p>
 
     <h2>Use cases</h2>
@@ -308,6 +299,7 @@
 
     <h2>What input is required to start a run?</h2>
     <p>The published input schema has no required array. Runtime and schema description still require at least one of <code>searchTerm</code>, <code>chartRequests</code>, or <code>lookupIds</code>. <code>additionalProperties</code> is false. Live input schema fields:</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -374,6 +366,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>Do not send unpublished aliases such as an RSS feed URL field, <code>genreId</code>, <code>maxEpisodesPerShow</code>, or <code>webhook</code> as a <code>delivery</code> value. Keep the first run at <code>limit</code> 3, then raise <code>limit</code> after the output is useful.</p>
     <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Start a run on Apify Input</a></p>
 
@@ -471,5 +464,13 @@
       <li><a href="/tools/">Tools</a></li>
     </ul>
   </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
 </body>
 </html>

@@ -7,6 +7,8 @@
   <meta name="description" content="YouTube Transcript Scraper Apify extracts public YouTube captions to timed text, SRT, and VTT. Store: taroyamada/youtube-transcript-bulk-api. Try Input: 1 video URL ≈ $0.00255 total (incl. Start $0.00005). From $2.50 / 1,000 results. HTTP-first. No browser.">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://apify.momiji-space.com/youtube-transcript-scraper/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <link rel="stylesheet" href="/assets/css/actor-landing.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -119,29 +121,22 @@
     ]
   }
   </script>
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
-    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
-    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
-    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
-    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
-    p, li { font-size: 16px; line-height: 1.5; color: #444; }
-    p { margin: 0 0 16px; }
-    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
-    li { margin: 0 0 8px; }
-    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
-    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
-    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
-    th { background: #f3f3f3; font-weight: 600; color: #202223; }
-    tr:last-child td { border-bottom: 0; }
-    .price { color: #202223; }
-  </style>
 </head>
 <body>
-  <main>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/youtube-transcript-scraper/" aria-current="page">YouTube Transcript Scraper</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
     <nav><a href="/">Home</a> / YouTube Transcript Scraper</nav>
+    <p class="eyebrow">YouTube transcripts</p>
     <h1>YouTube Transcript Scraper Apify — bulk captions, timestamps, SRT, and VTT</h1>
-    <p>Extract transcripts from public YouTube videos in bulk. This Actor resolves video, playlist, and channel sources into visible video IDs, fetches public caption tracks, selects a matching language (with optional auto-generated captions and translation), and returns one dataset row per video: identifiers, title, channel, caption provenance, full text, timed segments, and formatted SRT, VTT, or plain text. It is HTTP-first and does not use browser automation. It does not fetch website HTML — for docs, pricing, or help-center pages use <a href="/website-content-extractor/">Website Content Extractor</a>.</p>
+    <p class="lede">Extract transcripts from public YouTube videos in bulk. This Actor resolves video, playlist, and channel sources into visible video IDs, fetches public caption tracks, selects a matching language (with optional auto-generated captions and translation), and returns one dataset row per video: identifiers, title, channel, caption provenance, full text, timed segments, and formatted SRT, VTT, or plain text. It is HTTP-first and does not use browser automation. It does not fetch website HTML — for docs, pricing, or help-center pages use <a href="/website-content-extractor/">Website Content Extractor</a>.</p>
     <p class="price">Try Input: 1 video URL ≈ $0.00255 total (incl. Start $0.00005). From $2.50/1k. HTTP-first. No browser.</p>
     <p><a href="https://apify.com/taroyamada/youtube-transcript-bulk-api/input">Try the cheapest first paid YouTube transcript run on Apify Input</a></p>
     <p><a href="https://apify.com/taroyamada/youtube-transcript-bulk-api">Open taroyamada/youtube-transcript-bulk-api on the Apify Store</a>
@@ -150,6 +145,7 @@
 
     <h2>YouTube captions, not website HTML</h2>
     <p>Use this page when the job is public YouTube transcripts for AI pipelines, RAG ingestion, subtitle export, research, or a searchable video archive. Use <a href="/website-content-extractor/">Website Content Extractor</a> when the job is cleaned markdown or text from public HTTP(S) pages. Use <a href="/article-content-extractor/">Article Content Extractor</a> when the URLs are article-shaped and you need headline, byline, and body.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -186,6 +182,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>This Actor is not a video-file or audio downloader. It does not scrape the YouTube watch UI with a browser. Only public videos with public caption tracks are supported.</p>
 
     <h2>Use cases</h2>
@@ -204,6 +201,7 @@
 
     <h2>What input is required?</h2>
     <p>The published schema does not mark a required array. The README says you provide YouTube video URLs, video IDs, playlist URLs, or channel URLs. Live input schema fields:</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -300,6 +298,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>Live schema names are the fields above. Do not send unpublished aliases such as <code>startUrls</code>, <code>captionsOnly</code>, or <code>webhook</code> as a <code>delivery</code> value. The live <code>delivery</code> enum is <code>dataset</code> and <code>dataset_and_webhook</code>.</p>
     <p>Cheapest first paid input: one public watch URL (schema prefill). Leave <code>playlistUrls</code> and <code>channelUrls</code> empty. Set <code>dryRun</code> false so a Result can bill.</p>
 <pre><code>{
@@ -416,5 +415,13 @@
       <li><a href="/tools/">Tools</a></li>
     </ul>
   </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
 </body>
 </html>
