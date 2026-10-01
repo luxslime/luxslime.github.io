@@ -10,6 +10,7 @@
   <meta property="og:description" content="TED CPV tenders and SAM.gov opportunities in one deadline queue as CSV. First proof: TED-only, maxItemsPerSource 1 ≈ $0.008. Empty queues are $0.">
   <meta property="og:url" content="https://apify.momiji-space.com/guides/ted-sam-bid-desk-deadlines/">
   <link rel="canonical" href="https://apify.momiji-space.com/guides/ted-sam-bid-desk-deadlines/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -74,33 +75,25 @@
     ]
   }
   </script>
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
-    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
-    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
-    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
-    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
-    p, li { font-size: 16px; line-height: 1.5; color: #444; }
-    p { margin: 0 0 16px; }
-    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
-    li { margin: 0 0 8px; }
-    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
-    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
-    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
-    th { background: #f3f3f3; font-weight: 600; color: #202223; }
-    tr:last-child td { border-bottom: 0; }
-    .price { color: #202223; }
-    .note { font-size: 13px; color: #666; }
-  </style>
 </head>
 <body>
-  <main>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/guides/ted-sam-bid-desk-deadlines/" aria-current="page">TED/SAM bid desk</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
     <nav><a href="/">Home</a> / Guides / TED and SAM bid-desk deadlines</nav>
+    <p class="eyebrow">TED and SAM bid-desk deadlines</p>
     <h1>TED and SAM bid desk deadlines and CPV alerts in one CSV queue</h1>
-    <p>Job: one spreadsheet for bid-desk deadlines — TED tenders (CPV) and SAM.gov opportunities — instead of two API clients. Start TED-only with no key. Add <code>us</code> when you have a SAM.gov API key. <code>deadlineAt</code> is on each notice row. Export the default dataset as CSV.</p>
+    <p class="lede">Job: one spreadsheet for bid-desk deadlines — TED tenders (CPV) and SAM.gov opportunities — instead of two API clients. Start TED-only with no key. Add <code>us</code> when you have a SAM.gov API key. <code>deadlineAt</code> is on each notice row. Export the default dataset as CSV.</p>
     <p>This page is the combined desk / deadline path, not a Store mirror. Product overview lives on <a href="/ted-sam-grants-bid-alerts/">TED, SAM.gov &amp; Grants Bid Alerts Scraper</a> (<code>taroyamada/procurement-intel-actor</code>). Official notice APIs only. Not an HTML scrape.</p>
     <p class="price">Open Input → Start. TED-only × maxItemsPerSource 1 ≈ $0.008 if a row delivers. From $8.00 / 1,000 rows. No live start charge. Empty queues are $0.</p>
-    <p><a href="https://apify.com/taroyamada/procurement-intel-actor/input">Open SAM.gov / TED / grants Input → Start</a></p>
+    <p><a class="cta" href="https://apify.com/taroyamada/procurement-intel-actor/input">Open SAM.gov / TED / grants Input → Start</a></p>
 
     <h2>Start path: TED first, then SAM on the same desk</h2>
     <ol>
@@ -110,7 +103,7 @@
       <li>Export <strong>CSV</strong> from the default dataset. Recurring runs can add deadline and closing-soon alerts.</li>
     </ol>
     <p>If <code>us</code> is present without a key, SAM.gov is skipped with a warning. TED can still deliver. That is a partial desk, not “full US coverage.”</p>
-    <p><a href="https://apify.com/taroyamada/procurement-intel-actor/input">Open Input → Start</a></p>
+    <p><a class="cta" href="https://apify.com/taroyamada/procurement-intel-actor/input">Open Input → Start</a></p>
 
     <h2>Cheapest TED proof, then a combined desk</h2>
     <p>TED-only (no external key):</p>
@@ -138,6 +131,7 @@
   "dryRun": false
 }</code></pre>
     <p>Live PPE (copy only; Store prices unchanged): opportunity or alert row <strong>$0.008</strong>. No live start charge. Store card: From <strong>$8.00 / 1,000</strong> rows. Report <strong>$5</strong> and export <strong>$7</strong> stay off on the first desk run.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -172,8 +166,9 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p><code>minValue</code> defaults to 100000 and can empty the first queue — lower it or widen CPV before raising <code>maxItemsPerSource</code>. The published Store Quickstart is TED-only with <code>maxItemsPerSource</code> 40 (same rate; more row events if all 40 deliver).</p>
-    <p><a href="https://apify.com/taroyamada/procurement-intel-actor/input">Open Input → Start</a></p>
+    <p><a class="cta" href="https://apify.com/taroyamada/procurement-intel-actor/input">Open Input → Start</a></p>
 
     <h2>What this page is not</h2>
     <ul>
@@ -205,7 +200,7 @@
     <p>No. Schema-default endpoints are TED <code>api.ted.europa.eu/v3/notices/search</code> and SAM.gov <code>api.sam.gov/opportunities/v2/search</code>. It is not Google News RSS, not PubMed, and not page-HTML cleanup. A partial source response is never presented as complete coverage.</p>
 
     <p class="price">Open Input → Start. TED-only × maxItemsPerSource 1 ≈ $0.008 if a row delivers. From $8.00 / 1,000 rows. No live start charge. Empty queues are $0.</p>
-    <p><a href="https://apify.com/taroyamada/procurement-intel-actor/input">Open SAM.gov / TED / grants Input → Start</a></p>
+    <p><a class="cta" href="https://apify.com/taroyamada/procurement-intel-actor/input">Open SAM.gov / TED / grants Input → Start</a></p>
 
     <h2>Related pages</h2>
     <ul>
@@ -218,5 +213,13 @@
     </ul>
     <p class="note">Official TED and SAM.gov notice APIs only. Not an HTML scrape. Missing SAM.gov key skips US with a warning. Empty queues are not billed. Store prices unchanged on this page.</p>
   </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
 </body>
 </html>

@@ -6,6 +6,7 @@
   <title>G2 reviews scraper: cheapest first paid run</title>
   <meta name="description" content="Cheapest useful first paid run for a G2 reviews scraper: one public G2 review-page URL, reviewLimit 1, dataset delivery. Live PPE: Actor Start $0.001 plus $0.003 per default-dataset result. Store card from $3.00 / 1,000 results.">
   <link rel="canonical" href="https://apify.momiji-space.com/guides/g2-reviews-scraper-first-paid-run/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -81,30 +82,22 @@
     ]
   }
   </script>
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
-    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
-    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
-    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
-    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
-    p, li { font-size: 16px; line-height: 1.5; color: #444; }
-    p { margin: 0 0 16px; }
-    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
-    li { margin: 0 0 8px; }
-    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
-    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
-    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
-    th { background: #f3f3f3; font-weight: 600; color: #202223; }
-    tr:last-child td { border-bottom: 0; }
-    .price { color: #202223; }
-    .note { font-size: 13px; color: #666; }
-  </style>
 </head>
 <body>
-  <main>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/guides/g2-reviews-scraper-first-paid-run/" aria-current="page">G2 first paid run</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
     <nav><a href="/">Home</a> / Guides / G2 reviews scraper first paid run</nav>
+    <p class="eyebrow">G2 reviews scraper first paid run</p>
     <h1>G2 reviews scraper: cheapest first paid run</h1>
-    <p>This page is the smallest useful paid run for a G2 reviews scraper on Apify: one public G2 product review page, <code>reviewLimit</code> 1, then the documented pay-per-event (PPE) add. It is not a full product FAQ. For field lists and routing, use the <a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a> landing.</p>
+    <p class="lede">This page is the smallest useful paid run for a G2 reviews scraper on Apify: one public G2 product review page, <code>reviewLimit</code> 1, then the documented pay-per-event (PPE) add. It is not a full product FAQ. For field lists and routing, use the <a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a> landing.</p>
     <p>Live Store listing: <strong>G2 &amp; Capterra Review Scraper</strong> (<code>taroyamada/g2-capterra-review-intelligence</code>). Store SEO title is G2 Reviews Scraper &amp; Capterra Reviews. Open the Actor: <a href="https://apify.com/taroyamada/g2-capterra-review-intelligence">https://apify.com/taroyamada/g2-capterra-review-intelligence</a>.</p>
     <p class="price">Documented first-paid PPE if one Actor Start event and one default-dataset result charge: $0.001 + $0.003 = $0.004. The live Store card is from $3.00 / 1,000 results. The published Store Quickstart line is First paid run (1 URL / <code>reviewLimit</code> 1) ≈ $0.01 at current PPE. This page does not suggest a price change.</p>
 
@@ -119,10 +112,11 @@
   "dryRun": false
 }</code></pre>
     <p>Do not add a Capterra URL on this first paid run. Mix G2 and Capterra only after this one-URL schema check. Do not send unpublished fields such as <code>products</code>, <code>source</code>, <code>slug</code>, <code>maxReviewsPerProduct</code>, or <code>emitDeltas</code>. There is no login, cookie, or private-review API field.</p>
-    <p><a href="https://apify.com/taroyamada/g2-capterra-review-intelligence">Run this G2 reviews scraper input on Apify</a></p>
+    <p><a class="cta" href="https://apify.com/taroyamada/g2-capterra-review-intelligence">Run this G2 reviews scraper input on Apify</a></p>
 
     <h2>Documented PPE cost math</h2>
     <p>Prices below are the live Store events. They are not invented rates. Published events are Actor Start at <strong>$0.001</strong> and result at <strong>$0.003</strong> per default-dataset item. The live Store card is <strong>from $3.00 / 1,000 results</strong>. Platform usage is free. You are not charged for Apify platform usage, only the fixed event price.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -159,6 +153,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>That math uses only the published PPE numbers. The live billed event title is <code>result</code> at $0.003 for a single result in the default dataset (<code>apify-default-dataset-item</code>). The published README output is a per-product object with nested <code>reviews[]</code>. There is no separate published per-review billing event. Extra Actor Start events apply if memory is above 1 GB (one event per GB). <code>dryRun</code> true is not a paid run. The Store Quickstart’s own first-paid line is ≈ $0.01; the event add is $0.004 when one Start event and one result row charge.</p>
     <p>Total cost mainly follows how many <code>reviewPageUrls</code> you process. Keep <code>reviewLimit</code> at 1 for the cheapest first success, then raise it. Lower <code>reviewLimit</code> is not a different billed event. This page does not suggest a price change.</p>
     <p class="price">From $3.00 / 1,000 results ($0.003 per result; Actor Start $0.001)</p>
@@ -201,8 +196,16 @@
     </ol>
     <p>G2, Capterra, and the other public-review Actors on this site are grouped on the <a href="/review-intelligence/">Review Intelligence pack</a> hub. For the G2 reviews scraper query intent, see <a href="/use-cases/g2-reviews-scraper/">G2 reviews scraper</a>.</p>
     <p class="price">From $3.00 / 1,000 results ($0.003 per result; Actor Start $0.001)</p>
-    <p><a href="https://apify.com/taroyamada/g2-capterra-review-intelligence">Run the cheapest first paid G2 reviews scraper on Apify</a></p>
+    <p><a class="cta" href="https://apify.com/taroyamada/g2-capterra-review-intelligence">Run the cheapest first paid G2 reviews scraper on Apify</a></p>
     <p class="note">Public G2 and Capterra review pages only. No account session. Not affiliated with or endorsed by G2 or Capterra.</p>
   </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
 </body>
 </html>

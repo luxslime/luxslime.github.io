@@ -6,6 +6,7 @@
   <title>SAM.gov scraper &amp; grants scraper: cheapest first paid run</title>
   <meta name="description" content="Cheapest first paid run for a SAM.gov scraper or grants scraper on SAM.gov, TED &amp; Grants Bid Alerts Scraper. One source, maxItemsPerSource 1, dryRun false. Documented PPE only: $0.008 per delivered opportunity or alert row; no live start charge.">
   <link rel="canonical" href="https://apify.momiji-space.com/guides/sam-gov-grants-scraper-first-paid-run/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -89,29 +90,22 @@
     ]
   }
   </script>
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
-    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
-    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
-    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
-    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
-    p, li { font-size: 16px; line-height: 1.5; color: #444; }
-    p { margin: 0 0 16px; }
-    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
-    li { margin: 0 0 8px; }
-    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
-    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
-    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
-    th { background: #f3f3f3; font-weight: 600; color: #202223; }
-    tr:last-child td { border-bottom: 0; }
-    .price { color: #202223; }
-  </style>
 </head>
 <body>
-  <main>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/guides/sam-gov-grants-scraper-first-paid-run/" aria-current="page">SAM/grants first run</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
     <nav><a href="/">Home</a> / Guides / SAM.gov scraper &amp; grants scraper first paid run</nav>
+    <p class="eyebrow">SAM.gov scraper &amp; grants scraper first paid run</p>
     <h1>SAM.gov scraper &amp; grants scraper: cheapest first paid run</h1>
-    <p>This page is the smallest useful paid run for people searching <strong>sam.gov scraper</strong> or <strong>grants scraper</strong>. It is not a full product FAQ. For field lists, TED-only Quickstart, and routing, use the <a href="/ted-sam-grants-bid-alerts/">TED, SAM.gov &amp; Grants Bid Alerts Scraper</a> landing.</p>
+    <p class="lede">This page is the smallest useful paid run for people searching <strong>sam.gov scraper</strong> or <strong>grants scraper</strong>. It is not a full product FAQ. For field lists, TED-only Quickstart, and routing, use the <a href="/ted-sam-grants-bid-alerts/">TED, SAM.gov &amp; Grants Bid Alerts Scraper</a> landing.</p>
     <p>Live Store SEO name: <strong>SAM.gov, TED &amp; Grants Bid Alerts Scraper</strong> (<code>taroyamada/procurement-intel-actor</code>). Actor URL: <a href="https://apify.com/taroyamada/procurement-intel-actor">https://apify.com/taroyamada/procurement-intel-actor</a>. It searches official TED, SAM.gov, and Grants.gov / Simpler.Grants.gov notice APIs. It is not a SAM.gov or Grants.gov HTML scraper.</p>
     <p class="price">Documented first-paid PPE if one opportunity or alert row is delivered: $0.008. No live start charge. Store card $8.00 / 1,000 rows. This page does not suggest a price change.</p>
 
@@ -134,10 +128,11 @@
   "dryRun": false
 }</code></pre>
     <p><code>keywords</code> is a documented theme sent to TED titles, SAM.gov titles, and Grants.gov queries; <code>cybersecurity</code> is one term from the schema default <code>cloud,cybersecurity,IT services</code>. If <code>us</code> is present without a SAM.gov key, the actor warns and skips that source instead of failing the whole run. <code>grantsApiKey</code> is optional. Do not send unpublished field names; live schema <code>additionalProperties</code> is false.</p>
-    <p><a href="https://apify.com/taroyamada/procurement-intel-actor/input">Run this SAM.gov or grants scraper input on Apify</a></p>
+    <p><a class="cta" href="https://apify.com/taroyamada/procurement-intel-actor/input">Run this SAM.gov or grants scraper input on Apify</a></p>
 
     <h2>Documented PPE cost math</h2>
     <p>Prices below are the live events already shown on this site’s TED, SAM.gov &amp; Grants Bid Alerts pages. They are not invented rates. The live Store card is <strong>$8.00 / 1,000 procurement opportunity or alert rows</strong>.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -159,6 +154,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>If this run writes one opportunity row:</p>
 <pre><code>$0.000  Actor Start (none on live PPE)
 $0.008  procurement opportunity or alert row × 1
@@ -196,7 +192,15 @@ $0.008  documented PPE total for this input</code></pre>
       <li>Start the run. Confirm the default dataset has a source-linked opportunity row before raising <code>maxItemsPerSource</code> or adding TED / award-watch flags.</li>
     </ol>
     <p>For the TED-first bid-alert queue and SAM.gov expansion, see <a href="/use-cases/sam-gov-bid-alerts/">SAM.gov and TED bid-alert queue</a>. NAICS-only CSV: <a href="/guides/sam-gov-naics-bid-alerts-csv/">SAM.gov NAICS bid alerts</a>. Combined desk deadlines: <a href="/guides/ted-sam-bid-desk-deadlines/">TED and SAM bid-desk deadlines</a>. Product listings for this Actor are grouped on the <a href="/tools/">Tools</a> hub.</p>
-    <p><a href="https://apify.com/taroyamada/procurement-intel-actor/input">Open the SAM.gov scraper &amp; grants scraper Input on Apify</a></p>
+    <p><a class="cta" href="https://apify.com/taroyamada/procurement-intel-actor/input">Open the SAM.gov scraper &amp; grants scraper Input on Apify</a></p>
   </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
 </body>
 </html>
