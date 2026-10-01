@@ -193,6 +193,7 @@ main.wrap {
   margin: 0 0 1rem;
   font-weight: 700;
   font-synthesis: none;
+  color: var(--ink);
 }
 
 .hero h1 .and {
@@ -403,27 +404,12 @@ button:focus-visible,
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .hero-copy {
-    animation: rise 0.7s ease both;
-  }
-
   .jump a {
     transition: border-color 0.16s ease, color 0.16s ease, background-color 0.16s ease, transform 0.16s ease;
   }
 
   .jump a:hover {
     transform: translateY(-1px);
-  }
-}
-
-@keyframes rise {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
   }
 }
 
@@ -478,7 +464,6 @@ button:focus-visible,
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-copy,
   .app-grid article,
   .card,
   .grid article,
