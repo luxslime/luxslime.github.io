@@ -7,6 +7,8 @@
   <meta name="description" content="taroyamada/domain-trust-monitor. From $10.00 / 1,000 result rows. Not a pentest; TLS+DNS+headers, not RDAP only.">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://apify.momiji-space.com/domain-trust-monitor/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <link rel="stylesheet" href="/assets/css/actor-landing.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -63,35 +65,29 @@
     ]
   }
   </script>
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
-    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
-    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
-    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
-    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
-    p, li { font-size: 16px; line-height: 1.5; color: #444; }
-    p { margin: 0 0 16px; }
-    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
-    li { margin: 0 0 8px; }
-    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
-    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
-    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
-    th { background: #f3f3f3; font-weight: 600; color: #202223; }
-    tr:last-child td { border-bottom: 0; }
-    .price { color: #202223; }
-  </style>
 </head>
 <body>
-  <main>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/domain-trust-monitor/" aria-current="page">Domain Trust Reputation Scraper</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
     <nav><a href="/">Home</a> / Domain Trust Reputation Scraper</nav>
+    <p class="eyebrow">Domain trust</p>
     <h1>Domain portfolio SSL, DMARC, and security-header remediation audits</h1>
-    <p>This Actor audits hostnames you supply for TLS expiry, DMARC/SPF (and optional DKIM selectors), redirect-aware security headers, and a remediation summary. Optional Google Web Risk is off by default and needs reputationApiKey.</p>
+    <p class="lede">This Actor audits hostnames you supply for TLS expiry, DMARC/SPF (and optional DKIM selectors), redirect-aware security headers, and a remediation summary. Optional Google Web Risk is off by default and needs reputationApiKey.</p>
     <p>Not a penetration test, RDAP registry dump, or HTTP broken-link crawl. Core checks use public TLS/DNS/headers; Web Risk is an add-on.</p>
     <p class="price">from $10.00 / 1,000 delivered monitoring result rows ($0.01 per new or changed row). No Actor Start. Unchanged runs with emitUnchanged false are free (0 rows / 0 charge). Max 200 domains.</p>
     <p><a href="https://apify.com/taroyamada/domain-trust-monitor">Open Domain Trust Reputation Scraper on Apify</a></p>
 
     <h2>Domain Trust Reputation Scraper, not a neighboring Actor</h2>
     <p>Use this page for this Actor’s job. Use <a href="/ssl-tls-certificate-scraper/">SSL/TLS Certificate Scraper</a> for TLS certs only; Use <a href="/dmarc-email-security-checker/">DMARC &amp; Email Security Checker</a> for Email-auth DNS only; Use <a href="/rdap-domain-monitor/">RDAP Domain Monitor</a> for RDAP registration/expiry.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -140,6 +136,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>Store ID: <code>taroyamada/domain-trust-monitor</code>. Respect source terms, robots.txt, and rate limits.</p>
 
     <h2>Use cases</h2>
@@ -155,6 +152,7 @@
 
     <h2>What input is required?</h2>
     <p>Live required fields: <code>domains</code>. exampleRunInput uses example.com + github.com, checkDkim true, snapshotKey domain-security-audit-quickstart, concurrency 2. Schema prefill adds cloudflare.com; snapshotKey default is domain-trust-monitor-snapshots; concurrency default 3. Keep emitUnchanged false on schedules.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -257,6 +255,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>Published Store example run input (omitted fields take schema defaults):</p>
 <pre><code>{
   "domains": [
@@ -353,6 +352,7 @@
 
     <h2>How is Domain Trust Reputation Scraper priced?</h2>
     <p>Billing is pay per event. The live Store card is <strong>from $10.00 / 1,000 delivered monitoring result rows ($0.01 per new or changed row). No Actor Start. Unchanged runs with emitUnchanged false are free (0 rows / 0 charge). Max 200 domains.</strong> Current PPE:</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -369,6 +369,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
 
     <p class="price">from $10.00 / 1,000 delivered monitoring result rows ($0.01 per new or changed row). No Actor Start. Unchanged runs with emitUnchanged false are free (0 rows / 0 charge). Max 200 domains.</p>
     <p><a href="https://apify.com/taroyamada/domain-trust-monitor/pricing">See Domain Trust Reputation Scraper pricing on Apify</a></p>
@@ -392,5 +393,13 @@
       <li><a href="/tools/">Tools</a></li>
     </ul>
   </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
 </body>
 </html>
