@@ -7,6 +7,8 @@
   <meta name="description" content="Crawl vendor security and trust pages for DPA and subprocessor changes. Store: taroyamada/trust-center-subprocessor-monitor. $10.00 / 1,000 delivered monitoring result rows. Unchanged runs are free. Not a pentest and not HHS OCR monitoring.">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://apify.momiji-space.com/trust-center-subprocessor-monitor/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <link rel="stylesheet" href="/assets/css/actor-landing.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -63,34 +65,28 @@
     ]
   }
   </script>
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
-    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
-    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
-    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
-    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
-    p, li { font-size: 16px; line-height: 1.5; color: #444; }
-    p { margin: 0 0 16px; }
-    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
-    li { margin: 0 0 8px; }
-    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
-    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
-    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
-    th { background: #f3f3f3; font-weight: 600; color: #202223; }
-    tr:last-child td { border-bottom: 0; }
-    .price { color: #202223; }
-  </style>
 </head>
 <body>
-  <main>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/trust-center-subprocessor-monitor/" aria-current="page">Subprocessor &amp; Trust Center Scraper</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
     <nav><a href="/">Home</a> / Subprocessor &amp; Trust Center Scraper</nav>
+    <p class="eyebrow">Trust centers</p>
     <h1>Watch vendor trust-center and subprocessor pages for DPA changes</h1>
-    <p>Subprocessor &amp; Trust Center Scraper fetches public vendor trust-center, subprocessor, security, and DPA pages you list and returns severity-scored JSON digests with change flags, delta summaries, and remediation guidance. Feed <code>changedSinceLastRun</code>-style flags into Jira or security dashboards. It is passive public-page monitoring — not a pentest, not an HHS OCR portal watch, and not a status-page incident digest.</p>
+    <p class="lede">Subprocessor &amp; Trust Center Scraper fetches public vendor trust-center, subprocessor, security, and DPA pages you list and returns severity-scored JSON digests with change flags, delta summaries, and remediation guidance. Feed <code>changedSinceLastRun</code>-style flags into Jira or security dashboards. It is passive public-page monitoring — not a pentest, not an HHS OCR portal watch, and not a status-page incident digest.</p>
     <p class="price">$10.00 / 1,000 delivered monitoring result rows (unchanged runs are free)</p>
     <p><a href="https://apify.com/taroyamada/trust-center-subprocessor-monitor">Open Subprocessor &amp; Trust Center Scraper on Apify</a></p>
 
     <h2>Trust-center diffs, not OCR breaches, status pages, or page-body RAG</h2>
     <p>Use this page when the job is DPA and subprocessor text changes on vendor security pages. Use <a href="/hhs-healthcare-data-breach-scraper/">HHS Healthcare Data Breach Change Scraper</a> for HHS OCR disclosures. Use <a href="/status-page-incident-digest-monitor/">SaaS Status Page &amp; Incident Scraper</a> for outage digests. Use <a href="/website-content-extractor/">Website Content Extractor</a> for cleaned policy HTML. Use <a href="/ssl-tls-certificate-scraper/">SSL/TLS Certificate Scraper</a> and <a href="/dmarc-email-security-checker/">DMARC &amp; Email Security Checker</a> for TLS and email-auth DNS.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -127,6 +123,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>Store ID: <code>taroyamada/trust-center-subprocessor-monitor</code>. Schema prefill uses Okta public trust/DPA/subprocessor URLs as a capability example, not an affiliation.</p>
 
     <h2>Use cases</h2>
@@ -142,6 +139,7 @@
 
     <h2>What input is required?</h2>
     <p><code>vendors</code> is required. README examples that send <code>urls[]</code>, <code>emitTextDiff</code>, or <code>emitChangedOnly</code> are not live schema fields. Use <code>vendors[]</code> plus <code>datasetMode</code>. <code>additionalProperties</code> is false.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -232,6 +230,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>Published Store example run input uses Okta public URLs plus <code>snapshotKey</code> <code>trust-center-quickstart</code>, <code>concurrency</code> 2, and <code>dryRun</code> false. Schema prefill: subprocessors + DPA + <code>https://trust.okta.com/</code>.</p>
     <p><a href="https://apify.com/taroyamada/trust-center-subprocessor-monitor">Run Subprocessor &amp; Trust Center Scraper on Apify</a></p>
 
@@ -272,5 +271,13 @@
       <li><a href="/tools/">Tools</a></li>
     </ul>
   </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
 </body>
 </html>
