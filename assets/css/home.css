@@ -1,5 +1,7 @@
 /* Homepage-only extras. Tokens stay in /assets/css/challenge-guide.css. Reversible: drop this sheet + restore index.html. */
 
+html { scroll-padding-top: 4.75rem; }
+
 @media (prefers-reduced-motion: no-preference) {
   html { scroll-behavior: smooth; }
 }
@@ -9,17 +11,29 @@
   left: 0.75rem;
   top: 0.75rem;
   z-index: 20;
-  transform: translateY(-160%);
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
   background: var(--primary);
   color: #fff !important;
   font-weight: 700;
   text-decoration: none;
-  border-radius: 9999px;
-  padding: 0.55rem 1rem;
 }
 
 .skip:focus {
-  transform: none;
+  width: auto;
+  height: auto;
+  padding: 0.55rem 1rem;
+  overflow: visible;
+  clip: auto;
+  clip-path: none;
+  white-space: normal;
+  border-radius: 9999px;
 }
 
 ::selection {
@@ -121,8 +135,9 @@ main.wrap.wide {
 .jump {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.45rem;
   margin: 1.35rem 0 0;
+  max-width: 34rem;
 }
 
 .jump a {
@@ -150,6 +165,7 @@ main.wrap.wide {
 .lane {
   background: var(--bg-raised);
   border: 1px solid var(--line);
+  border-left: 3px solid var(--primary);
   border-radius: 1.15rem;
   padding: 1.15rem 1.25rem 1.25rem;
   box-shadow: 0 1px 0 rgba(24, 34, 56, 0.03);
@@ -198,19 +214,19 @@ main.wrap.wide {
 .section-head {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
-  gap: 0.35rem 1.15rem;
-  align-items: end;
+  gap: 0.15rem 1.15rem;
+  align-items: start;
   margin: 0 0 1.35rem;
 }
 
 .section-num {
-  grid-row: 1 / span 3;
+  grid-row: 1 / span 4;
   font-size: clamp(2.1rem, 4vw, 3.15rem);
   font-weight: 800;
   letter-spacing: -0.05em;
-  line-height: 0.9;
+  line-height: 0.85;
   color: var(--primary);
-  padding-bottom: 0.15rem;
+  padding-top: 0.15rem;
 }
 
 .section-head .eyebrow {
