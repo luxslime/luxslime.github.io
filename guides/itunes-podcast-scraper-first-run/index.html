@@ -6,6 +6,7 @@
   <title>Apple Podcast Scraper Apify: cheapest first paid run (search + limit 3)</title>
   <meta name="description" content="Cheapest first paid run for Apple Podcast Scraper Apify: searchTerm technology, country us, limit 3. Live PPE: Start $0.005 + result $0.0025. Estimate ≈ $0.0125. From $2.50 / 1,000.">
   <link rel="canonical" href="https://apify.momiji-space.com/guides/itunes-podcast-scraper-first-run/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -70,33 +71,25 @@
     ]
   }
   </script>
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
-    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
-    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
-    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
-    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
-    p, li { font-size: 16px; line-height: 1.5; color: #444; }
-    p { margin: 0 0 16px; }
-    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
-    li { margin: 0 0 8px; }
-    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
-    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
-    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
-    th { background: #f3f3f3; font-weight: 600; color: #202223; }
-    tr:last-child td { border-bottom: 0; }
-    .price { color: #202223; }
-    .note { font-size: 13px; color: #666; }
-  </style>
 </head>
 <body>
-  <main>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/guides/itunes-podcast-scraper-first-run/" aria-current="page">iTunes first paid run</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
     <nav><a href="/">Home</a> / Guides / iTunes podcast scraper first run</nav>
+    <p class="eyebrow">iTunes podcast scraper first run</p>
     <h1>Apple Podcast Scraper Apify: cheapest first paid run</h1>
-    <p>This page is the cheapest useful first paid run for <a href="/apple-podcasts-scraper/">Apple Podcast Scraper Apify</a> (<a href="https://apify.com/taroyamada/apple-podcast-scraper"><code>taroyamada/apple-podcast-scraper</code></a>). It uses the official iTunes Search API. No proxy is required. It is not affiliated with or endorsed by Apple.</p>
+    <p class="lede">This page is the cheapest useful first paid run for <a href="/apple-podcasts-scraper/">Apple Podcast Scraper Apify</a> (<a href="https://apify.com/taroyamada/apple-podcast-scraper"><code>taroyamada/apple-podcast-scraper</code></a>). It uses the official iTunes Search API. No proxy is required. It is not affiliated with or endorsed by Apple.</p>
     <p>The live Store Quickstart uses the same input below. Live PPE is result $0.0025 per default-dataset item ($2.50 / 1,000) plus Actor Start $0.005. If that run writes 3 result rows and charges one Actor Start event, the estimate is $0.005 + (3 × $0.0025) = $0.0125.</p>
     <p class="price">Open Input → Start. Search + limit 3 ≈ $0.0125 (Start $0.005 + result $0.0025 × 3). From $2.50 / 1,000. No API key.</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Open Apple Podcast Scraper Apify Input → Start</a></p>
+    <p><a class="cta" href="https://apify.com/taroyamada/apple-podcast-scraper/input">Open Apple Podcast Scraper Apify Input → Start</a></p>
 
     <h2>Cheapest useful input</h2>
     <p>Paste this JSON. Leave <code>chartRequests</code> and <code>lookupIds</code> empty. Do not add <code>maxEpisodesPerShow</code>; it is not in the live schema.</p>
@@ -114,6 +107,7 @@
       <li><strong>Actor Start</strong> — $0.005 when the Actor starts. Number of events charged depends on Actor memory (one event per GB, minimum one event).</li>
       <li><strong>result</strong> — $0.0025 per default-dataset item ($2.50 per 1,000 results).</li>
     </ul>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -144,6 +138,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>That math uses only the published PPE numbers. Actual result events equal rows written to the default dataset, which can be fewer than <code>limit</code> if iTunes Search returns fewer shows. Extra Actor Start events apply if memory is above 1 GB. Dry runs do not save results or send webhooks, so they do not write payable result rows.</p>
     <p class="price">From $2.50 per 1,000 results ($0.0025 per result; Actor Start $0.005)</p>
     <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/pricing">See Apple Podcasts / iTunes Scraper pricing on Apify</a></p>
@@ -190,7 +185,7 @@
     </ol>
     <p>If you are comparing this Actor with a Store episode scraper that ranks first for the query <code>apple podcast</code>, see <a href="/compare/apple-podcasts-vs-cheaper-store-episode-scraper/">Apple Podcasts / iTunes Scraper vs a Store episode scraper</a>. Differentiation is iTunes endpoints, charts, and watchlist — not result PPE.</p>
     <p class="price">Open Input → Start. Search + limit 3 ≈ $0.0125 (Start $0.005 + result $0.0025 × 3). From $2.50 / 1,000.</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Open Apple Podcast Scraper Apify Input → Start</a></p>
+    <p><a class="cta" href="https://apify.com/taroyamada/apple-podcast-scraper/input">Open Apple Podcast Scraper Apify Input → Start</a></p>
 
     <h2>Related pages</h2>
     <ul>
@@ -205,5 +200,13 @@
     </ul>
     <p class="note">Public Apple and RSS endpoints only. No account session. Not affiliated with or endorsed by Apple.</p>
   </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
 </body>
 </html>

@@ -10,6 +10,7 @@
   <meta property="og:description" content="Paste a keyword, keep limit at 3, Start, then Dataset → Download CSV. No Apple API key. Search + limit 3 ≈ $0.0125. From $2.50 / 1,000 results.">
   <meta property="og:url" content="https://apify.momiji-space.com/guides/export-apple-podcasts-search-csv/">
   <link rel="canonical" href="https://apify.momiji-space.com/guides/export-apple-podcasts-search-csv/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -74,31 +75,22 @@
     ]
   }
   </script>
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
-    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
-    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
-    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
-    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
-    p, li { font-size: 16px; line-height: 1.5; color: #444; }
-    p { margin: 0 0 16px; }
-    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
-    li { margin: 0 0 8px; }
-    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
-    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
-    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
-    th { background: #f3f3f3; font-weight: 600; color: #202223; }
-    tr:last-child td { border-bottom: 0; }
-    .price { color: #202223; }
-    .note { font-size: 13px; color: #666; }
-    .cta { display: inline-block; padding: 12px 16px; background: #202223; color: #fff; text-decoration: none; border-radius: 8px; font-weight: 600; }
-  </style>
 </head>
 <body>
-  <main>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/guides/export-apple-podcasts-search-csv/" aria-current="page">Export search CSV</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
     <nav><a href="/">Home</a> / Guides / Export Apple Podcasts search CSV</nav>
+    <p class="eyebrow">Export Apple Podcasts search CSV</p>
     <h1>Export Apple Podcasts search results to CSV (no API key)</h1>
-    <p>Need Apple Podcasts <strong>search hits in a spreadsheet</strong>? Use <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> (<code>taroyamada/apple-podcast-scraper</code>).</p>
+    <p class="lede">Need Apple Podcasts <strong>search hits in a spreadsheet</strong>? Use <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> (<code>taroyamada/apple-podcast-scraper</code>).</p>
     <p>Paste a keyword, keep <strong><code>limit</code> at 3</strong>, Start, then <strong>Dataset → Download → CSV</strong>. No Apple API key. Search + limit 3 ≈ <strong>$0.0125</strong>. From <strong>$2.50 / 1,000 results</strong>.</p>
     <p>This page is keyword → show list → CSV. Chart ranks and review text are sibling Actors — not this export.</p>
     <p><a class="cta" href="https://apify.com/taroyamada/apple-podcast-scraper/input">Try for free → open Input (search + limit 3) → Start</a></p>
@@ -123,7 +115,7 @@
       <li>When the run succeeds, open the default <strong>Dataset</strong> and choose <strong>Download CSV</strong> (JSON is in the same view).</li>
     </ol>
     <p>You do not need an Apple API key, Apple ID, or proxy. You do need an Apify account to Start the run and download the file.</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Open Store → Try for free → Input → leave search + limit 3 → Start → Dataset → Download CSV.</a></p>
+    <p><a class="cta" href="https://apify.com/taroyamada/apple-podcast-scraper/input">Open Store → Try for free → Input → leave search + limit 3 → Start → Dataset → Download CSV.</a></p>
 
     <h2>Cheapest first CSV (limit 3)</h2>
     <p>Paste this JSON if the form is empty. Do not raise <code>limit</code> until three rows look right. Do not set <code>includeEpisodes</code> true on the first export; that path is slower and is not required for a show list.</p>
@@ -134,6 +126,7 @@
   "includeEpisodes": false
 }</code></pre>
     <p>Live PPE (copy only; Store prices unchanged): Actor Start <strong>$0.005</strong> + result <strong>$0.0025</strong> per default-dataset row. Search + limit 3 ≈ <strong>$0.0125</strong> if 3 rows and one Start event charge. Store card: From <strong>$2.50 / 1,000</strong>.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -164,10 +157,12 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/pricing">See live pricing on the Store card</a></p>
 
     <h2>What the CSV contains</h2>
     <p>Each search row is a public catalog hit (<code>rowType</code> sample: <code>podcast_search_result</code>), not a chart position and not a review. After Start succeeds, open the default <strong>Dataset</strong> and choose <strong>Download CSV</strong> (JSON is in the same view). Leave <code>delivery</code> on <code>dataset</code> for this path.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -206,6 +201,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>Full field notes: <a href="/guides/apple-podcasts-dataset-fields/">Apple Podcasts dataset fields</a>. Broader search discovery: <a href="/guides/apple-podcasts-search/">Apple Podcasts search discovery</a>.</p>
 
     <h2>What this page is not</h2>
@@ -217,6 +213,7 @@
     </ul>
 
     <h2>When to leave this page for Chart or Reviews</h2>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -248,6 +245,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>Prefill for first CSV:</p>
 <pre><code>{
   "searchTerm": "technology",
@@ -283,7 +281,7 @@
     <p>Search results are source-linked dataset items. Sample <code>rowType</code> is <code>podcast_search_result</code>. Documented fields include <code>collectionId</code>, <code>showName</code>, <code>publisher</code>, <code>country</code>, <code>sourceUrl</code>, and <code>fetchedAt</code>. <code>rank</code> is null on search rows.</p>
 
     <p class="price">Search + limit 3 ≈ $0.0125. From $2.50 / 1,000 results.</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Open Store → Try for free → Input → leave search + limit 3 → Start → Dataset → Download CSV.</a></p>
+    <p><a class="cta" href="https://apify.com/taroyamada/apple-podcast-scraper/input">Open Store → Try for free → Input → leave search + limit 3 → Start → Dataset → Download CSV.</a></p>
 
     <h2>Related pages</h2>
     <ul>
@@ -300,5 +298,13 @@
     </ul>
     <p class="note">Public Apple and RSS endpoints only. No Apple API key. Apify account required to run. Not affiliated with or endorsed by Apple.</p>
   </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
 </body>
 </html>

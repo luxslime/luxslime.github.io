@@ -6,6 +6,7 @@
   <title>Apple Podcasts dataset fields</title>
   <meta name="description" content="Key Apple Podcasts Scraper output fields from official Apple/iTunes endpoints: showName, collectionId, rank, sourceUrl, and fetchedAt. From $2.50 per 1,000 results.">
   <link rel="canonical" href="https://apify.momiji-space.com/guides/apple-podcasts-dataset-fields/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -94,33 +95,27 @@
     ]
   }
   </script>
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
-    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
-    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
-    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
-    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
-    p, li { font-size: 16px; line-height: 1.5; color: #444; }
-    p { margin: 0 0 16px; }
-    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
-    li { margin: 0 0 8px; }
-    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
-    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
-    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
-    th { background: #f3f3f3; font-weight: 600; color: #202223; }
-    tr:last-child td { border-bottom: 0; }
-    .price { color: #202223; }
-  </style>
 </head>
 <body>
-  <main>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/guides/apple-podcasts-dataset-fields/" aria-current="page">Dataset fields</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
     <nav><a href="/">Home</a> / Guides / Apple Podcasts dataset fields</nav>
+    <p class="eyebrow">Apple Podcasts dataset fields</p>
     <h1>Apple Podcasts dataset fields</h1>
-    <p><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> writes source-linked show, chart, and episode rows. Official Apple/iTunes endpoints. No proxy is required. The default dataset is the billable surface. This page lists the fields published in the Actor README. There is no separate output schema on the Store page.</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Open Apple Podcasts Scraper on Apify</a></p>
+    <p class="lede"><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> writes source-linked show, chart, and episode rows. Official Apple/iTunes endpoints. No proxy is required. The default dataset is the billable surface. This page lists the fields published in the Actor README. There is no separate output schema on the Store page.</p>
+    <p><a class="cta" href="https://apify.com/taroyamada/apple-podcast-scraper/input">Open Apple Podcasts Scraper on Apify</a></p>
 
     <h2>Scraper fields versus Chart and Reviews rows</h2>
     <p>Use this guide for Apple Podcasts Scraper output. <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> and <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> publish different <code>rowType</code> values and field lists. Do not join them as one schema.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -151,6 +146,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
 
     <h2>Key fields</h2>
     <p>These identifiers and timestamps are the ones most workflows join on:</p>
@@ -204,7 +200,7 @@
   "warnings": []
 }</code></pre>
     <p>Start with <code>delivery</code> set to <code>dataset</code> so you can review these fields. Switch to <a href="/guides/apple-podcasts-webhooks/">webhook delivery</a> only after the payload shape is approved. <code>dryRun</code> true runs without saving results or sending webhooks.</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Inspect dataset fields on Apify</a></p>
+    <p><a class="cta" href="https://apify.com/taroyamada/apple-podcast-scraper/input">Inspect dataset fields on Apify</a></p>
 
     <h2>What Apple Podcasts Scraper fields are documented?</h2>
     <p>The README output-field list is <code>rowType</code>, <code>collectionId</code>, <code>showName</code>, <code>publisher</code>, <code>country</code>, <code>rank</code>, <code>episodeTitle</code>, <code>sourceUrl</code>, and <code>fetchedAt</code>. There is no separate output schema on the Store page. Sample <code>rowType</code> for search is <code>podcast_search_result</code>.</p>
@@ -245,7 +241,7 @@
     </ol>
     <p>Billing is pay-per-event: Actor start plus one result event per default-dataset item. The published Store price is $0.005 per Actor start and $2.50 per 1,000 dataset results ($0.0025 per row).</p>
     <p class="price">From $2.50 per 1,000 results</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Open Apple Podcasts Scraper on Apify</a></p>
+    <p><a class="cta" href="https://apify.com/taroyamada/apple-podcast-scraper/input">Open Apple Podcasts Scraper on Apify</a></p>
 
     <h2>Related guides</h2>
     <ul>
@@ -269,5 +265,13 @@
       <li><a href="/tools/">Tools</a></li>
     </ul>
   </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
 </body>
 </html>

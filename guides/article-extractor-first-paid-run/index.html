@@ -6,6 +6,7 @@
   <title>Cheapest first paid run for Article Extractor — one news or blog URL</title>
   <meta name="description" content="Cheapest first paid run for the Article Extractor actor: one public news, blog, or press URL. Documented PPE math only — Actor Start $0.00005 plus $0.008 per useful article row. Leave the $2.50 audit report and $5.00 batch export off.">
   <link rel="canonical" href="https://apify.momiji-space.com/guides/article-extractor-first-paid-run/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -73,29 +74,22 @@
     ]
   }
   </script>
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
-    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
-    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
-    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
-    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
-    p, li { font-size: 16px; line-height: 1.5; color: #444; }
-    p { margin: 0 0 16px; }
-    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
-    li { margin: 0 0 8px; }
-    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
-    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
-    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
-    th { background: #f3f3f3; font-weight: 600; color: #202223; }
-    tr:last-child td { border-bottom: 0; }
-    .price { color: #202223; }
-  </style>
 </head>
 <body>
-  <main>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/guides/article-extractor-first-paid-run/" aria-current="page">Article first paid run</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
     <nav><a href="/">Home</a> / Guides / Article extractor first paid run</nav>
+    <p class="eyebrow">Article extractor first paid run</p>
     <h1>Cheapest first paid run for an article extractor</h1>
-    <p>This page is the smallest useful paid run for the Article Extractor actor on Apify: one public news, blog, newsroom, or press URL, then the documented pay-per-event (PPE) add. It is not a full product FAQ. For field lists and routing, use the <a href="/article-content-extractor/">Article Content Extractor</a> landing.</p>
+    <p class="lede">This page is the smallest useful paid run for the Article Extractor actor on Apify: one public news, blog, newsroom, or press URL, then the documented pay-per-event (PPE) add. It is not a full product FAQ. For field lists and routing, use the <a href="/article-content-extractor/">Article Content Extractor</a> landing.</p>
     <p>Live Store listing: <strong>Article Content Extractor &amp; Reader Scraper</strong> (<code>taroyamada/article-content-extractor</code>). This site’s landing name is Article Content Extractor. Open the Actor: <a href="https://apify.com/taroyamada/article-content-extractor">https://apify.com/taroyamada/article-content-extractor</a>.</p>
     <p class="price">Documented first-paid PPE if one Actor Start event and one useful article row charge: $0.00005 + $0.008 = $0.00805. Leave the $2.50 audit report and $5.00 batch export off.</p>
 
@@ -110,10 +104,11 @@
   "dryRun": false
 }</code></pre>
     <p>Replace the placeholder URL with a public HTTP(S) article-shaped page you own or are authorized to fetch. Schema prefill on the Store is three <code>blog.google</code> article URLs; one URL is enough for a first paid proof. Do not send Website fields such as <code>includeMetadata</code> or <code>maxChargeUsd</code>, Google News <code>queries</code>, or RSS <code>feedUrls</code>.</p>
-    <p><a href="https://apify.com/taroyamada/article-content-extractor">Run this article extractor input on Apify</a></p>
+    <p><a class="cta" href="https://apify.com/taroyamada/article-content-extractor">Run this article extractor input on Apify</a></p>
 
     <h2>Documented PPE cost math</h2>
     <p>Prices below are the live events already shown on this site’s Article Content Extractor pages. They are not invented rates. The live Store card is <strong>from $2,500.00 / 1,000 article content audit reports</strong> because the primary event is <code>article-content-audit-report</code> at <strong>$2.50</strong>. The cheapest first paid run does not request that event.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -145,6 +140,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>If the run charges the minimum one Actor Start event and writes one useful article row:</p>
 <pre><code>$0.00005  Actor Start (minimum one event)
 $0.008    useful article row × 1
@@ -174,7 +170,15 @@ $0.00805  documented PPE total for this input</code></pre>
       <li>Start the run. Confirm the default dataset has one <code>article</code> row before raising URL count or turning on value events.</li>
     </ol>
     <p>Discovery before extraction belongs on RSS or Google News, then this Actor. For news and blog RAG ingestion, see <a href="/use-cases/news-blog-rag/">article extractor for news and blog RAG</a>. For URL-to-Markdown, see <a href="/guides/article-url-to-markdown-rag/">extract main article text to Markdown for RAG from a URL</a>. For docs and help-center RAG, see <a href="/use-cases/docs-rag-markdown/">website content extractor for docs and help-center RAG</a>. The four extractors in that pipeline are grouped on the <a href="/packs/content-intelligence/">Content Intelligence pack</a> hub.</p>
-    <p><a href="https://apify.com/taroyamada/article-content-extractor">Open Article Extractor on Apify</a></p>
+    <p><a class="cta" href="https://apify.com/taroyamada/article-content-extractor">Open Article Extractor on Apify</a></p>
   </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
 </body>
 </html>

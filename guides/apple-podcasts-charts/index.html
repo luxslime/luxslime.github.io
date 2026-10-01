@@ -6,6 +6,7 @@
   <title>How to get Apple Podcasts chart metadata from Apple/iTunes endpoints</title>
   <meta name="description" content="Pull Apple Podcasts chart rankings by country from official Apple/iTunes endpoints. Snapshot show and episode ranks. From $2.50 per 1,000 results.">
   <link rel="canonical" href="https://apify.momiji-space.com/guides/apple-podcasts-charts/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -94,33 +95,27 @@
     ]
   }
   </script>
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
-    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
-    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
-    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
-    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
-    p, li { font-size: 16px; line-height: 1.5; color: #444; }
-    p { margin: 0 0 16px; }
-    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
-    li { margin: 0 0 8px; }
-    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
-    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
-    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
-    th { background: #f3f3f3; font-weight: 600; color: #202223; }
-    tr:last-child td { border-bottom: 0; }
-    .price { color: #202223; }
-  </style>
 </head>
 <body>
-  <main>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/guides/apple-podcasts-charts/" aria-current="page">Apple Podcasts charts</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
     <nav><a href="/">Home</a> / Guides / Apple Podcasts charts</nav>
+    <p class="eyebrow">Apple Podcasts charts</p>
     <h1>How to get Apple Podcasts chart metadata</h1>
-    <p>Apple publishes country-specific rankings for podcast shows and podcast episodes. <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> reads those rankings through official Apple/iTunes endpoints. No proxy is required. This is a chart snapshot: each row can include a <code>rank</code>, show identifiers, and a source URL. It does not compute rank movement between runs. For Top Podcasts movement reports, use <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a>.</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Open Apple Podcasts Scraper on Apify</a></p>
+    <p class="lede">Apple publishes country-specific rankings for podcast shows and podcast episodes. <a href="/apple-podcasts-scraper/">Apple Podcasts Scraper</a> reads those rankings through official Apple/iTunes endpoints. No proxy is required. This is a chart snapshot: each row can include a <code>rank</code>, show identifiers, and a source URL. It does not compute rank movement between runs. For Top Podcasts movement reports, use <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a>.</p>
+    <p><a class="cta" href="https://apify.com/taroyamada/apple-podcast-scraper/input">Open Apple Podcasts Scraper on Apify</a></p>
 
     <h2>chartRequests snapshot versus Chart Scraper</h2>
     <p>Use this guide when the job is a <code>chartRequests</code> snapshot on Apple Podcasts Scraper (optionally next to search or watchlists). Use Chart Scraper when the job is storefront Top Podcasts ranks and optional movement. Use <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> for public ratings, not ranks.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -152,6 +147,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
 
     <h2>What you get</h2>
     <p>Chart rows are source-linked dataset items. Documented fields include:</p>
@@ -174,7 +170,7 @@
   "includeEpisodes": false
 }</code></pre>
     <p>Keep the first run small, then raise <code>limit</code> after the output is useful. Rankings differ by storefront: a US chart is not a GB or JP chart. See <a href="/guides/apple-podcasts-countries/">charts and search by country</a>.</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Run a chart request on Apify</a></p>
+    <p><a class="cta" href="https://apify.com/taroyamada/apple-podcast-scraper/input">Run a chart request on Apify</a></p>
 
     <h2>How is chartRequests different from Apple Podcasts Chart Scraper?</h2>
     <p>Apple Podcasts Scraper <code>chartRequests</code> is a rank snapshot on the search, episode, and watchlist actor. It does not emit movement reports. <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a> is storefront Top Podcasts rankings only: raw <code>chart_rank</code> rows, or one movement report when a saved monitor sees new, changed, or dropped positions. Chart Scraper does not search by keyword, look up collection IDs, or attach episode catalogs.</p>
@@ -215,7 +211,7 @@
     </ol>
     <p>Billing is pay-per-event: Actor start plus one result event per default-dataset item. The published Store price is $0.005 per Actor start and $2.50 per 1,000 dataset results ($0.0025 per row).</p>
     <p class="price">From $2.50 per 1,000 results</p>
-    <p><a href="https://apify.com/taroyamada/apple-podcast-scraper/input">Open Apple Podcasts Scraper on Apify</a></p>
+    <p><a class="cta" href="https://apify.com/taroyamada/apple-podcast-scraper/input">Open Apple Podcasts Scraper on Apify</a></p>
 
     <h2>Related guides</h2>
     <ul>
@@ -241,5 +237,13 @@
       <li><a href="/tools/">Tools</a></li>
     </ul>
   </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
 </body>
 </html>
