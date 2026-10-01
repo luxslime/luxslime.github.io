@@ -7,6 +7,8 @@
   <meta name="description" content="Monitor vendor status pages and generate digests of outages, incidents, and component health. Store: taroyamada/status-page-incident-digest-monitor. $8.00 / 1,000 status incident digests. Not HHS OCR breaches and not Google News RSS.">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://apify.momiji-space.com/status-page-incident-digest-monitor/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <link rel="stylesheet" href="/assets/css/actor-landing.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -63,34 +65,28 @@
     ]
   }
   </script>
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
-    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
-    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
-    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
-    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
-    p, li { font-size: 16px; line-height: 1.5; color: #444; }
-    p { margin: 0 0 16px; }
-    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
-    li { margin: 0 0 8px; }
-    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
-    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
-    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
-    th { background: #f3f3f3; font-weight: 600; color: #202223; }
-    tr:last-child td { border-bottom: 0; }
-    .price { color: #202223; }
-  </style>
 </head>
 <body>
-  <main>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/status-page-incident-digest-monitor/" aria-current="page">SaaS Status Page &amp; Incident Scraper</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
     <nav><a href="/">Home</a> / SaaS Status Page &amp; Incident Scraper</nav>
+    <p class="eyebrow">Vendor status pages</p>
     <h1>Monitor vendor status pages and emit incident digests</h1>
-    <p>SaaS Status Page &amp; Incident Scraper fetches public vendor status pages and optional incident RSS/JSON feeds, then returns one executive digest per vendor: current state, incident counts, affected components, recommended actions, and evidence. It is third-party SaaS/cloud uptime monitoring — not HHS OCR breach disclosures, not Google News RSS, and not a login to internal portals.</p>
+    <p class="lede">SaaS Status Page &amp; Incident Scraper fetches public vendor status pages and optional incident RSS/JSON feeds, then returns one executive digest per vendor: current state, incident counts, affected components, recommended actions, and evidence. It is third-party SaaS/cloud uptime monitoring — not HHS OCR breach disclosures, not Google News RSS, and not a login to internal portals.</p>
     <p class="price">$8.00 / 1,000 status incident digests ($0.008 per delivered vendor baseline or changed digest)</p>
     <p><a href="https://apify.com/taroyamada/status-page-incident-digest-monitor">Open SaaS Status Page &amp; Incident Scraper on Apify</a></p>
 
     <h2>Public status-page digests, not OCR breaches or news RSS</h2>
     <p>Use this page when the job is vendor status pages and incident feeds you list. Use <a href="/hhs-healthcare-data-breach-scraper/">HHS Healthcare Data Breach Change Scraper</a> for public HHS OCR disclosures. Use <a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a> for known-publisher feed XML. Use <a href="/google-news-scraper/">Google News Scraper</a> for query-based headlines. Use <a href="/trust-center-subprocessor-monitor/">Subprocessor &amp; Trust Center Scraper</a> for DPA and subprocessor page diffs.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -127,6 +123,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>Store ID: <code>taroyamada/status-page-incident-digest-monitor</code>. HTTP plus JSON/RSS; no headless browser.</p>
 
     <h2>Use cases</h2>
@@ -142,6 +139,7 @@
 
     <h2>What input is required?</h2>
     <p><code>vendors</code> is required: an array of objects. Each vendor must have <code>statusPageUrl</code>. README examples that send <code>vendors</code> as strings, <code>incidentSinceDays</code>, or <code>emitChangedOnly</code> are not live schema fields. <code>additionalProperties</code> is false. Use <code>datasetMode</code> as the change filter.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -232,6 +230,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>Published schema prefill / starter vendor (Stripe is a capability example, not an affiliation):</p>
 <pre><code>{
   "vendors": [
@@ -287,5 +286,13 @@
       <li><a href="/tools/">Tools</a></li>
     </ul>
   </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
 </body>
 </html>

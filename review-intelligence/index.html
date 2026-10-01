@@ -6,6 +6,8 @@
   <title>Review Intelligence pack — Apple Podcasts, Shopify App Store, and G2/Capterra reviews</title>
   <meta name="description" content="Choose the public-review Actor that matches your source: Apple/iTunes podcast reviews, Shopify App Store merchant listings, or G2 and Capterra B2B software review pages.">
   <link rel="canonical" href="https://apify.momiji-space.com/review-intelligence/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <link rel="stylesheet" href="/assets/css/actor-landing.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -70,29 +72,22 @@
     ]
   }
   </script>
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
-    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
-    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
-    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
-    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
-    p, li { font-size: 16px; line-height: 1.5; color: #444; }
-    p { margin: 0 0 16px; }
-    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
-    li { margin: 0 0 8px; }
-    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
-    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
-    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
-    th { background: #f3f3f3; font-weight: 600; color: #202223; }
-    tr:last-child td { border-bottom: 0; }
-    .price { color: #202223; }
-  </style>
 </head>
 <body>
-  <main>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/review-intelligence/" aria-current="page">Review Intelligence pack</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
     <nav><a href="/">Home</a> / Review Intelligence pack</nav>
+    <p class="eyebrow">Review pack</p>
     <h1>Review Intelligence pack: Apple Podcasts, Shopify App Store, and G2/Capterra reviews</h1>
-    <p>Pick the public-review Actor that matches the catalog you already have. This pack is a hub, not a fourth scraper: it links the three review landings on this site and keeps their intents separate. Apple/iTunes podcast reviews, Shopify App Store merchant listings, and G2/Capterra B2B software review pages are different sources, different inputs, and different deliverables.</p>
+    <p class="lede">Pick the public-review Actor that matches the catalog you already have. This pack is a hub, not a fourth scraper: it links the three review landings on this site and keeps their intents separate. Apple/iTunes podcast reviews, Shopify App Store merchant listings, and G2/Capterra B2B software review pages are different sources, different inputs, and different deliverables.</p>
     <ul>
       <li><a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> — public Apple/iTunes Customer Reviews RSS for known collection IDs. Query intent: <a href="/use-cases/apple-podcast-reviews/">Apple Podcasts reviews scraper</a>. First paid path: one show, one page, report off.</li>
       <li><a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a> — public <code>apps.shopify.com/{slug}</code> listings, ratings, pricing hints, and merchant themes</li>
@@ -110,6 +105,7 @@
 
     <h2>Three review sources, three Actors</h2>
     <p>Use <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> when the job is reputation on known podcast shows. Use <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a> when the job is merchant feedback on a Shopify app listing. Use <a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a> when the job is B2B software reputation on G2 or Capterra.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -158,6 +154,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>None of these Actors is affiliated with or endorsed by Apple, Shopify, G2, or Capterra. Review text is public source material for reputation and market research. Do not use the output to target individual reviewers. The Apple reviews Actor does not infer private reviewer identity.</p>
 
     <h2>How to start a run</h2>
@@ -265,5 +262,13 @@
       <li><a href="/">Home</a></li>
     </ul>
   </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
 </body>
 </html>

@@ -7,6 +7,8 @@
   <meta name="description" content="Google Maps Lead Enrichment Apify appends website, email, phone, social, and health fields to existing local-business lead rows. Store: taroyamada/google-maps-lead-enrichment. Does not scrape Google Maps. For Maps place ratings and HTML snippets use Google Maps Reviews Scraper Apify.">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://apify.momiji-space.com/google-maps-lead-enrichment/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <link rel="stylesheet" href="/assets/css/actor-landing.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -71,34 +73,28 @@
     ]
   }
   </script>
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
-    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
-    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
-    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
-    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
-    p, li { font-size: 16px; line-height: 1.5; color: #444; }
-    p { margin: 0 0 16px; }
-    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
-    li { margin: 0 0 8px; }
-    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
-    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
-    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
-    th { background: #f3f3f3; font-weight: 600; color: #202223; }
-    tr:last-child td { border-bottom: 0; }
-    .price { color: #202223; }
-  </style>
 </head>
 <body>
-  <main>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/google-maps-lead-enrichment/" aria-current="page">Google Maps Lead Enrichment Scraper</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
     <nav><a href="/">Home</a> / Google Maps Lead Enrichment Scraper</nav>
+    <p class="eyebrow">Lead enrichment</p>
     <h1>Google Maps Lead Enrichment Apify — enrich existing leads (not a Maps reviews scraper)</h1>
-    <p>Google Maps Lead Enrichment Scraper appends public website, contact, social, health, and business-signal fields to Google Maps exports, place lists, or local business lead rows you already have. It does <strong>not</strong> scrape Google Maps itself. For public Maps place ratings and HTML-embedded review snippets, use <a href="/google-maps-reviews-scraper/">Google Maps Reviews Scraper Apify</a>. Contact-page channel inventory and HTTP status QA on a known URL list belong on <a href="/contact-details-extractor/">Contact Page Audit &amp; Business Channel Extractor</a> and <a href="/bulk-url-status-checker/">Bulk URL Status Checker</a>.</p>
+    <p class="lede">Google Maps Lead Enrichment Scraper appends public website, contact, social, health, and business-signal fields to Google Maps exports, place lists, or local business lead rows you already have. It does <strong>not</strong> scrape Google Maps itself. For public Maps place ratings and HTML-embedded review snippets, use <a href="/google-maps-reviews-scraper/">Google Maps Reviews Scraper Apify</a>. Contact-page channel inventory and HTTP status QA on a known URL list belong on <a href="/contact-details-extractor/">Contact Page Audit &amp; Business Channel Extractor</a> and <a href="/bulk-url-status-checker/">Bulk URL Status Checker</a>.</p>
     <p class="price">$25.00 per 1,000 lead_profile_enriched events; $10.00 per 1,000 lead_partial events</p>
     <p><a href="https://apify.com/taroyamada/google-maps-lead-enrichment">Open Google Maps Lead Enrichment Scraper on Apify</a></p>
 
     <h2>Lead-row enrichment, not Google Maps search and not a contact-page audit</h2>
     <p>Use this page when the job is enriching existing Maps/local-business lead rows with website, emails, phones, contact pages, social links, lightweight website signals, and optional HTTP health. Use <a href="/google-maps-reviews-scraper/">Google Maps Reviews Scraper Apify</a> when the job is public Maps place ratings and HTML-embedded review snippets. Use <a href="/contact-details-extractor/">Contact Page Audit &amp; Business Channel Extractor</a> when the job is a public business-channel inventory from contact, about, or support pages. Use <a href="/bulk-url-status-checker/">Bulk URL Status Checker</a> when the job is HTTP status, redirect chains, and timing on a known URL list.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -141,6 +137,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>The live Store description is: Enrich existing Google Maps or local business leads with websites, emails, phones, contact pages, social links, website content signals, health checks, confidence, PPE charged events, and no-charge invalid rows. This actor does not scrape Google Maps itself.</p>
 
     <h2>Use cases</h2>
@@ -156,6 +153,7 @@
 
     <h2>What input is required?</h2>
     <p>The live OpenAPI input schema has no required array. The README says use <code>leads</code> for direct rows or <code>sourceDatasetId</code> to read an existing Apify dataset. Live fields are <code>leads</code> (array; Existing Google Maps/local business leads; each item can include <code>businessName</code>/<code>name</code>/<code>title</code>, <code>address</code>, <code>website</code>/<code>url</code>/<code>domain</code>, <code>phone</code>, <code>email</code>, <code>placeUrl</code>, and <code>sourceUrl</code>; default/prefill is Example Cafe at 1 Market St, San Francisco, CA), <code>sourceDatasetId</code> (string, default empty; Optional Apify dataset ID containing lead rows to enrich. The actor reads this dataset; it does not scrape Google Maps.), <code>includeContacts</code> (boolean, default true; Fetch public website/contact pages to find public emails, phones, and social profile links.), <code>includeWebsiteContent</code> (boolean, default true; Capture lightweight website title, meta description, and business signal keywords.), <code>includeHealth</code> (boolean, default true; Record HTTP status and response time for the public website.), <code>maxLeads</code> (integer, default 50, minimum 1, maximum 1000; Maximum lead rows to enrich.), <code>delivery</code> (string enum <code>dataset</code> or <code>dataset_and_webhook</code>, default <code>dataset</code>), <code>webhookUrl</code> (string, default empty; Optional HTTPS endpoint when delivery is <code>dataset_and_webhook</code>.), and <code>dryRun</code> (boolean, default false; Validate input and produce preview rows without fetching websites, pushing dataset rows, charging PPE events, or sending webhooks.).</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -222,6 +220,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>Published README / live schema input-object example:</p>
 <pre><code>{
   "leads": [
@@ -309,5 +308,13 @@
       <li><a href="/tools/">Tools</a></li>
     </ul>
   </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
 </body>
 </html>

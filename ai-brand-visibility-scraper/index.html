@@ -6,6 +6,8 @@
   <title>AI Brand Visibility Scraper | ChatGPT Search Rank — Google SERP and Reddit ranks</title>
   <meta name="description" content="Track AI brand organic rankings on Google SERPs and Reddit. Rank deltas, competitor overlap, social mentions. $20.00 per 1,000 visibility result rows. Unchanged runs free.">
   <link rel="canonical" href="https://apify.momiji-space.com/ai-brand-visibility-scraper/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <link rel="stylesheet" href="/assets/css/actor-landing.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -62,34 +64,28 @@
     ]
   }
   </script>
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
-    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
-    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
-    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
-    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
-    p, li { font-size: 16px; line-height: 1.5; color: #444; }
-    p { margin: 0 0 16px; }
-    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
-    li { margin: 0 0 8px; }
-    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
-    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
-    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
-    th { background: #f3f3f3; font-weight: 600; color: #202223; }
-    tr:last-child td { border-bottom: 0; }
-    .price { color: #202223; }
-  </style>
 </head>
 <body>
-  <main>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/ai-brand-visibility-scraper/" aria-current="page">AI Brand Visibility Scraper</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
     <nav><a href="/">Home</a> / AI Brand Visibility Scraper</nav>
+    <p class="eyebrow">Google SERP · Reddit</p>
     <h1>Track brand organic ranks on Google SERPs and Reddit for AI-visibility monitoring</h1>
-    <p>AI Brand Visibility Scraper | ChatGPT Search Rank (Store id <code>taroyamada/ai-visibility-monitor-actor</code>) monitors a brand’s organic positions on Google search results and Reddit threads. The live Store description is: track your AI brand’s organic rankings across Google SERPs and Reddit threads; extract precise rank deltas, competitor overlap, and social mentions. It parses SERP and community HTML for ranking details, rank deltas, and visibility scores. It is not a Google News RSS discovery tool and not a review-page scraper.</p>
+    <p class="lede">AI Brand Visibility Scraper | ChatGPT Search Rank (Store id <code>taroyamada/ai-visibility-monitor-actor</code>) monitors a brand’s organic positions on Google search results and Reddit threads. The live Store description is: track your AI brand’s organic rankings across Google SERPs and Reddit threads; extract precise rank deltas, competitor overlap, and social mentions. It parses SERP and community HTML for ranking details, rank deltas, and visibility scores. It is not a Google News RSS discovery tool and not a review-page scraper.</p>
     <p class="price">$20.00 per 1,000 AI visibility result rows</p>
     <p><a href="https://apify.com/taroyamada/ai-visibility-monitor-actor">Open AI Brand Visibility Scraper on Apify</a></p>
 
     <h2>Google SERP and Reddit rank tracking, not Google News RSS or review pages</h2>
     <p>Use this page when the job is brand keyword rank on live Google SERPs and, after a Google-first run is reliable, Reddit threads. Use <a href="/google-news-scraper/">Google News Scraper</a> when the job is query-based Google News RSS headlines and article URLs. Use <a href="/g2-capterra-review-scraper/">G2 &amp; Capterra Review Scraper</a> or <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a> when the source is a public review page. Use <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> when the source is iTunes Customer Reviews RSS.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -132,6 +128,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>This Actor does not accept Google News queries, G2 or Capterra review URLs, Shopify slugs, or podcast IDs. README Key Features also mentions reviews, listings, catalogs, and iOS/Android/Shopify market data; those names are not in the live <code>searchSources</code> description, which only documents Google-first then Reddit.</p>
 
     <h2>Use cases</h2>
@@ -151,6 +148,7 @@
 
     <h2>What input is required?</h2>
     <p><code>brand</code> and <code>keywords</code> are required. The schema sets <code>additionalProperties</code> to false. Live schema fields:</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -259,6 +257,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>The published input schema does not include <code>queries</code>, <code>surfaces</code>, <code>extractAiOverviewCitations</code>, or <code>chatgpt</code>.</p>
     <p>Published README input example (matches the schema):</p>
 <pre><code>{
@@ -419,5 +418,13 @@
       <li><a href="/tools/">Tools</a></li>
     </ul>
   </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
 </body>
 </html>

@@ -7,6 +7,8 @@
   <meta name="description" content="taroyamada/privacy-cookie-compliance-scanner. From $12.00 / 1,000 results + $0.002 start. Not a pentest or CMP.">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://apify.momiji-space.com/privacy-cookie-compliance-scanner/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <link rel="stylesheet" href="/assets/css/actor-landing.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -63,35 +65,29 @@
     ]
   }
   </script>
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
-    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
-    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
-    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
-    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
-    p, li { font-size: 16px; line-height: 1.5; color: #444; }
-    p { margin: 0 0 16px; }
-    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
-    li { margin: 0 0 8px; }
-    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
-    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
-    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
-    th { background: #f3f3f3; font-weight: 600; color: #202223; }
-    tr:last-child td { border-bottom: 0; }
-    .price { color: #202223; }
-  </style>
 </head>
 <body>
-  <main>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/privacy-cookie-compliance-scanner/" aria-current="page">GDPR &amp; CCPA Cookie Compliance Scraper</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
     <nav><a href="/">Home</a> / GDPR &amp; CCPA Cookie Compliance Scraper</nav>
+    <p class="eyebrow">Cookie · privacy</p>
     <h1>Public homepage cookie-banner and privacy-policy compliance scans</h1>
-    <p>This Actor fetches public homepages (and optional privacy/cookie policy URLs) to look for cookie-banner and policy signals for compliance-audit evidence. Each sites[] item requires homepageUrl; policy URLs auto-discover if omitted. Maximum 100 sites per run.</p>
+    <p class="lede">This Actor fetches public homepages (and optional privacy/cookie policy URLs) to look for cookie-banner and policy signals for compliance-audit evidence. Each sites[] item requires homepageUrl; policy URLs auto-discover if omitted. Maximum 100 sites per run.</p>
     <p>Not a penetration test, consent-management platform, or legal opinion. Passive public-page scanning only. Not itself a SOC2 certification.</p>
     <p class="price">from $12.00 / 1,000 results ($0.012 per result) plus Actor Start $0.002. One-site cheapest path ≈ $0.014 if one start + one result.</p>
     <p><a href="https://apify.com/taroyamada/privacy-cookie-compliance-scanner">Open GDPR &amp; CCPA Cookie Compliance Scraper on Apify</a></p>
 
     <h2>GDPR &amp; CCPA Cookie Compliance Scraper, not a neighboring Actor</h2>
     <p>Use this page for this Actor’s job. Use <a href="/dmarc-email-security-checker/">DMARC &amp; Email Security Checker</a> for Email DNS posture; Use <a href="/trust-center-subprocessor-monitor/">Trust Center Subprocessor Monitor</a> for Trust-center vendor lists; Use <a href="/website-content-extractor/">Website Content Extractor</a> for Policy page markdown.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -140,6 +136,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>Store ID: <code>taroyamada/privacy-cookie-compliance-scanner</code>. Respect source terms, robots.txt, and rate limits.</p>
 
     <h2>Use cases</h2>
@@ -154,6 +151,7 @@
 
     <h2>What input is required?</h2>
     <p>Live required fields: <code>sites</code>. exampleRunInput scans vercel.com with privacyPolicyUrl, region EU, concurrency 1. Schema prefill matches Vercel. Max 100 sites. Only scan properties you are authorized to check.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -220,6 +218,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>Published Store example run input (omitted fields take schema defaults):</p>
 <pre><code>{
   "sites": [
@@ -249,6 +248,7 @@
 
     <h2>How is GDPR &amp; CCPA Cookie Compliance Scraper priced?</h2>
     <p>Billing is pay per event. The live Store card is <strong>from $12.00 / 1,000 results ($0.012 per result) plus Actor Start $0.002. One-site cheapest path ≈ $0.014 if one start + one result.</strong> Current PPE:</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -270,6 +270,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>The published README Cost block is stale versus the live Store pricing tab. README Cost quotes actor-start $0.01 + dataset-item $0.003. Live: Actor Start $0.002 + result $0.012. README examples that send urls/includeStorage/acceptConsent are not live schema (use sites[]). This page quotes live PPE only.</p>
     <p class="price">from $12.00 / 1,000 results ($0.012 per result) plus Actor Start $0.002. One-site cheapest path ≈ $0.014 if one start + one result.</p>
     <p><a href="https://apify.com/taroyamada/privacy-cookie-compliance-scanner/pricing">See GDPR &amp; CCPA Cookie Compliance Scraper pricing on Apify</a></p>
@@ -294,5 +295,13 @@
       <li><a href="/tools/">Tools</a></li>
     </ul>
   </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
 </body>
 </html>
