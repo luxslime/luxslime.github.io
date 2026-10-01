@@ -6,6 +6,8 @@
   <title>HHS Healthcare Data Breach Change Scraper — newly published OCR disclosures</title>
   <meta name="description" content="Track newly published HHS OCR healthcare breach disclosures, affected-entity counts, incident types, and source-linked changes. Not Google News RSS or article HTML cleanup.">
   <link rel="canonical" href="https://apify.momiji-space.com/hhs-healthcare-data-breach-scraper/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <link rel="stylesheet" href="/assets/css/actor-landing.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -62,35 +64,29 @@
     ]
   }
   </script>
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
-    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
-    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
-    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
-    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
-    p, li { font-size: 16px; line-height: 1.5; color: #444; }
-    p { margin: 0 0 16px; }
-    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
-    li { margin: 0 0 8px; }
-    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
-    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
-    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
-    th { background: #f3f3f3; font-weight: 600; color: #202223; }
-    tr:last-child td { border-bottom: 0; }
-    .price { color: #202223; }
-  </style>
 </head>
 <body>
-  <main>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/hhs-healthcare-data-breach-scraper/" aria-current="page">HHS Healthcare Data Breach Change Scraper</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
     <nav><a href="/">Home</a> / HHS Healthcare Data Breach Change Scraper</nav>
+    <p class="eyebrow">HHS data breach</p>
     <h1>Track newly published HHS OCR healthcare breach disclosures and source-linked changes</h1>
-    <p>Security researchers, healthcare risk teams, and compliance analysts use this Actor to monitor public HHS OCR breach disclosures. Provide a date window, optional state and entity filters, and watch terms; it returns source-linked disclosure digests with affected-entity counts, incident types, and change evidence. It tracks newly published portal disclosures — it does not query Google News RSS and it does not clean article HTML.</p>
+    <p class="lede">Security researchers, healthcare risk teams, and compliance analysts use this Actor to monitor public HHS OCR breach disclosures. Provide a date window, optional state and entity filters, and watch terms; it returns source-linked disclosure digests with affected-entity counts, incident types, and change evidence. It tracks newly published portal disclosures — it does not query Google News RSS and it does not clean article HTML.</p>
     <p>The output reports public disclosure facts as published and does not provide legal advice, security certification, or inferred culpability.</p>
     <p class="price">$10.00 / 1,000 healthcare breach change rows</p>
     <p><a href="https://apify.com/taroyamada/data-breach-disclosure-monitor">Open HHS Healthcare Data Breach Change Scraper on Apify</a></p>
 
     <h2>HHS OCR disclosure changes, not Google News RSS or article HTML cleanup</h2>
     <p>Use this page when the job is monitoring the public HHS OCR Breach Portal for new or changed HIPAA breach disclosures. Use <a href="/google-news-scraper/">Google News Scraper</a> to discover article URLs from Google News RSS queries. Use <a href="/article-content-extractor/">Article Content Extractor</a> to extract headline, byline, body, and hero image from news, blog, and press URLs you already have. Use <a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a> for known-publisher feed XML. Use <a href="/website-content-extractor/">Website Content Extractor</a> for docs, product, pricing, policy, or help-center HTML. The <a href="/packs/content-intelligence/">Content Intelligence pack</a> groups those discovery and cleanup Actors; this Actor is HHS OCR change detection, not that pack.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -133,6 +129,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>This Actor does not accept Google News queries, article URL lists, or feed URLs. It does not clean article HTML.</p>
 
     <h2>How is HHS Healthcare Data Breach Change Scraper different from Google News Scraper and Article Content Extractor?</h2>
@@ -150,6 +147,7 @@
 
     <h2>What input is required?</h2>
     <p>The published input schema has an empty required list. A starter run can use schema defaults. Schema starter path: default lookback and dataset delivery. Recurring path: add keyword filters and webhook after the first run proves value. Other live fields:</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -246,6 +244,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>The schema sets <code>additionalProperties</code> to false. README examples that send <code>states</code> or <code>sinceDays</code> (including <code>entityKeywords</code> as an array) are not live schema fields. Live names are <code>stateFilter</code> (comma-separated string) and <code>lookbackDays</code>.</p>
     <p>Published README input example (matches the live schema; uses <code>datasetMode</code> <code>all</code> for a first baseline):</p>
 <pre><code>{
@@ -355,5 +354,13 @@
       <li><a href="/dmarc-email-security-checker/">DMARC &amp; Email Security Checker</a> — SPF, DMARC, MX (optional DKIM) on domains, not HHS OCR disclosures</li>
     </ul>
   </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
 </body>
 </html>

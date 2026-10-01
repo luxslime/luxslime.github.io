@@ -6,6 +6,8 @@
   <title>Structured Data Scraper &amp; Validator — JSON-LD and Microdata schema audits</title>
   <meta name="description" content="Extract JSON-LD and Microdata, validate Schema.org syntax, and flag missing fields across up to 200 URLs. Per-page 0–100 score and A–F grade. From $9.00 per 1,000 results.">
   <link rel="canonical" href="https://apify.momiji-space.com/structured-data-scraper-validator/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <link rel="stylesheet" href="/assets/css/actor-landing.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -62,33 +64,27 @@
     ]
   }
   </script>
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
-    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
-    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
-    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
-    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
-    p, li { font-size: 16px; line-height: 1.5; color: #444; }
-    p { margin: 0 0 16px; }
-    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
-    li { margin: 0 0 8px; }
-    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
-    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
-    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
-    th { background: #f3f3f3; font-weight: 600; color: #202223; }
-    tr:last-child td { border-bottom: 0; }
-    .price { color: #202223; }
-  </style>
 </head>
 <body>
-  <main>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/structured-data-scraper-validator/" aria-current="page">Structured Data Scraper & Validator</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
     <nav><a href="/">Home</a> / Structured Data Scraper &amp; Validator</nav>
+    <p class="eyebrow">Structured data · JSON-LD</p>
     <h1>Extract JSON-LD and Microdata, then score Schema.org markup quality</h1>
-    <p>Structured Data Scraper &amp; Validator crawls a URL list and extracts Schema.org JSON-LD and Microdata, validates markup syntax, and flags missing fields. Each page gets a numeric quality score and letter grade plus errors and warnings. This is schema markup extract-and-validate, not a head Open Graph / Twitter / robots audit and not a page-body text extract.</p>
+    <p class="lede">Structured Data Scraper &amp; Validator crawls a URL list and extracts Schema.org JSON-LD and Microdata, validates markup syntax, and flags missing fields. Each page gets a numeric quality score and letter grade plus errors and warnings. This is schema markup extract-and-validate, not a head Open Graph / Twitter / robots audit and not a page-body text extract.</p>
     <p><a href="https://apify.com/taroyamada/structured-data-validator">Open Structured Data Scraper &amp; Validator on Apify</a></p>
 
     <h2>JSON-LD and Microdata validation, not head tags or body text</h2>
     <p>Use this page when the job is extracting and scoring Schema.org structured data. Use <a href="/meta-tag-opengraph-scraper/">Meta Tag &amp; OpenGraph Scraper</a> when the job is title, canonical, robots, Open Graph, Twitter Card, and hreflang in the HTML head. Use <a href="/website-content-extractor/">Website Content Extractor</a> when the job is cleaned docs, product, pricing, policy, or help-center body text.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -131,6 +127,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>The live schema description is: Validate JSON-LD and Microdata structured data across multiple pages. Detect missing or malformed Schema.org markup. The Store description is: Crawl websites to extract JSON-LD and Microdata, validate schema markup syntax, and flag missing fields across massive URL lists. Live input is a <code>urls</code> list, maximum 200 per run — not a sitemap URL field.</p>
 
     <h2>Use cases</h2>
@@ -150,6 +147,7 @@
 
     <h2>What input is required?</h2>
     <p><code>urls</code> is required: list of page URLs to check for Schema.org structured data (JSON-LD, Microdata). Max 200. Schema editor is <code>stringList</code>. Schema prefill is <code>https://www.google.com</code>, <code>https://github.com</code>. Optional live schema fields are <code>delivery</code> (<code>dataset</code> or <code>webhook</code>, default <code>dataset</code>), <code>webhookUrl</code> (used when delivery is webhook; Slack, Discord, or any HTTP endpoint), <code>concurrency</code> (integer, default 3, minimum 1, maximum 10), <code>dryRun</code> (boolean, default false), and <code>maxChargeUsd</code> (number, default 1, minimum 0). <code>additionalProperties</code> is false. README examples that send <code>includeWarnings</code>, <code>sitemapUrl</code>, <code>limit</code>, <code>vocabularies</code>, or <code>emitNullRateReport</code> are not live schema fields.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -198,6 +196,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>The schema sets <code>additionalProperties</code> to false. Live schema names are <code>urls</code>, <code>delivery</code>, <code>webhookUrl</code>, <code>concurrency</code>, <code>dryRun</code>, and <code>maxChargeUsd</code>.</p>
     <p>Published README Input Example (schema-valid <code>urls</code> plus <code>concurrency</code>):</p>
 <pre><code>{
@@ -274,5 +273,13 @@
       <li><a href="/tools/">Tools</a></li>
     </ul>
   </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
 </body>
 </html>

@@ -6,6 +6,8 @@
   <title>Meta Tag &amp; OpenGraph Scraper — Open Graph, JSON-LD, and robots audits</title>
   <meta name="description" content="Audit title, canonical, robots, Open Graph, Twitter Card, hreflang, and schema.org JSON-LD across up to 500 URLs. Metadata and issue rows, not full page content.">
   <link rel="canonical" href="https://apify.momiji-space.com/meta-tag-opengraph-scraper/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <link rel="stylesheet" href="/assets/css/actor-landing.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -62,33 +64,27 @@
     ]
   }
   </script>
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
-    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
-    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
-    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
-    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
-    p, li { font-size: 16px; line-height: 1.5; color: #444; }
-    p { margin: 0 0 16px; }
-    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
-    li { margin: 0 0 8px; }
-    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
-    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
-    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
-    th { background: #f3f3f3; font-weight: 600; color: #202223; }
-    tr:last-child td { border-bottom: 0; }
-    .price { color: #202223; }
-  </style>
 </head>
 <body>
-  <main>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/meta-tag-opengraph-scraper/" aria-current="page">Meta Tag & OpenGraph Scraper</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
     <nav><a href="/">Home</a> / Meta Tag &amp; OpenGraph Scraper</nav>
+    <p class="eyebrow">Meta tags · Open Graph</p>
     <h1>Audit Open Graph, JSON-LD, and robots metadata across URLs</h1>
-    <p>Meta Tag &amp; OpenGraph Scraper crawls a URL list and returns the head metadata a search crawler or social platform sees: title, description, canonical, robots, charset, viewport, Open Graph, Twitter Card, hreflang, and schema.org JSON-LD, plus issue flags. It is a technical SEO metadata audit, not a full-page content extract. For cleaned docs or help-center markdown, use <a href="/website-content-extractor/">Website Content Extractor</a>.</p>
+    <p class="lede">Meta Tag &amp; OpenGraph Scraper crawls a URL list and returns the head metadata a search crawler or social platform sees: title, description, canonical, robots, charset, viewport, Open Graph, Twitter Card, hreflang, and schema.org JSON-LD, plus issue flags. It is a technical SEO metadata audit, not a full-page content extract. For cleaned docs or help-center markdown, use <a href="/website-content-extractor/">Website Content Extractor</a>.</p>
     <p><a href="https://apify.com/taroyamada/meta-tag-analyzer">Open Meta Tag &amp; OpenGraph Scraper on Apify</a></p>
 
     <h2>Metadata and issue audit, not full content extract</h2>
     <p>Use this page when the job is bulk validation of tags, social previews, robots directives, and structured markup. Use <a href="/website-content-extractor/">Website Content Extractor</a> when the job is cleaned page body from docs, product, pricing, policy, or help-center URLs. Use <a href="/article-content-extractor/">Article Content Extractor</a> when the URLs are article-shaped and you need headline, byline, body, and hero image. The published README tip is to pair this Actor with Article Content Extractor when you want full content plus metadata analysis — they are separate steps.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -125,6 +121,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>This Actor is not a ranking tool and not a full-site crawler. Pass HTTP(S) URLs you own or are authorized to audit. Tags injected only after client-side JavaScript will not appear in the row.</p>
 
     <h2>Use cases</h2>
@@ -144,6 +141,7 @@
 
     <h2>How do I start a run?</h2>
     <p>Open the Actor on the Apify Store and supply <code>urls</code> (required, maximum 500). Live input schema fields:</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -192,6 +190,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>The schema sets <code>additionalProperties</code> to false. Do not send unpublished aliases from older README examples: <code>includeOpenGraph</code>, <code>emitSeoWarnings</code>, or <code>detectDuplicateTitles</code>.</p>
     <p>Store Quickstart starts with the 3-demo-URL template. SEO Audit is the published path for 50+ URLs. Open Graph Monitor is the published path for ongoing social sharing validation.</p>
     <p>Published input that matches the live schema (prefill URLs, schema defaults):</p>
@@ -273,5 +272,13 @@
       <li><a href="/tools/">Tools</a></li>
     </ul>
   </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
 </body>
 </html>

@@ -6,6 +6,8 @@
   <title>Tech Events &amp; CFP Calendar Scraper — developer conferences, meetups, and CFP deadlines</title>
   <meta name="description" content="Search topics to aggregate public developer conferences, local meetups, and Call for Papers deadlines into a dated event calendar. Not exhibitor booth pages and not Google News headlines.">
   <link rel="canonical" href="https://apify.momiji-space.com/tech-events-cfp-calendar/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <link rel="stylesheet" href="/assets/css/actor-landing.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -62,33 +64,27 @@
     ]
   }
   </script>
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
-    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
-    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
-    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
-    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
-    p, li { font-size: 16px; line-height: 1.5; color: #444; }
-    p { margin: 0 0 16px; }
-    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
-    li { margin: 0 0 8px; }
-    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
-    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
-    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
-    th { background: #f3f3f3; font-weight: 600; color: #202223; }
-    tr:last-child td { border-bottom: 0; }
-    .price { color: #202223; }
-  </style>
 </head>
 <body>
-  <main>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/tech-events-cfp-calendar/" aria-current="page">Tech Events & CFP Calendar Scraper</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
     <nav><a href="/">Home</a> / Tech Events &amp; CFP Calendar Scraper</nav>
+    <p class="eyebrow">Tech events · CFP</p>
     <h1>Aggregate developer conferences, meetups, and CFP deadlines into a dated event calendar</h1>
-    <p>Search technical topics and return a chronological calendar of public developer conferences, local meetups, and Call for Papers (CFP) listings: event title and link, dates, city/country plus an online flag, CFP URL and deadline, topic tags, and source attribution. This is the events-calendar Actor, not exhibitor booth extraction and not Google News headline discovery.</p>
+    <p class="lede">Search technical topics and return a chronological calendar of public developer conferences, local meetups, and Call for Papers (CFP) listings: event title and link, dates, city/country plus an online flag, CFP URL and deadline, topic tags, and source attribution. This is the events-calendar Actor, not exhibitor booth extraction and not Google News headline discovery.</p>
     <p><a href="https://apify.com/taroyamada/tech-events-intelligence">Open Tech Events &amp; CFP Calendar Scraper on Apify</a></p>
 
     <h2>Developer conferences and CFP deadlines, not exhibitor pages or news headlines</h2>
     <p>Use this page when the job is a speaking, sponsorship, or attendance calendar built from topic search. Use <a href="/google-news-scraper/">Google News Scraper</a> when the job is query-based Google News RSS headlines and article URLs. Trade Show Exhibitor Intelligence is a separate Store Actor for public exhibitor pages (company, booth, category, country/region, URLs, social links). This site does not publish an exhibitor landing; that Actor is not this calendar.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -131,6 +127,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>The live schema description is: Aggregate tech conferences from confs.tech. Search by topic (JavaScript, Python, AI, etc). Get dates, locations, and CFP deadlines. README Key Features add multi-topic search across JavaScript, Python, AI, DevOps, and 20+ topics; merge events that appear in multiple topics; global coverage including online events; CFP URLs and deadlines; sorted-by-date output; and topic tagging on each event.</p>
 
     <h2>Use cases</h2>
@@ -147,6 +144,7 @@
 
     <h2>What input is required?</h2>
     <p><code>topics</code> is required: topics to search for (for example <code>['javascript','ai','devops']</code>). Schema editor is <code>stringList</code>. Schema prefill is <code>javascript</code>, <code>python</code>, <code>ai</code>. Optional live schema fields are <code>year</code> (integer, default 2026), <code>delivery</code> (<code>dataset</code> or <code>webhook</code>, default <code>dataset</code>), <code>webhookUrl</code> (used when delivery is webhook; Slack, Discord, or any HTTP endpoint), and <code>dryRun</code> (boolean, default false). <code>additionalProperties</code> is false. The published input schema does not include <code>sources</code>, <code>urls</code>, <code>deadlineWithinDays</code>, <code>emitDeadlineAlerts</code>, or a region filter. The README opening line mentions topics, regions, and date filters; live date control is <code>year</code> only.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -189,6 +187,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>The schema sets <code>additionalProperties</code> to false. The published input schema does not include <code>sources</code>, <code>urls</code>, <code>deadlineWithinDays</code>, <code>emitDeadlineAlerts</code>, or a region filter. The README opening line mentions topics, regions, and date filters; live date control is <code>year</code> only.</p>
     <p>Published README Input Example (matches the schema):</p>
 <pre><code>{
@@ -263,5 +262,13 @@
       <li><a href="/tools/">Tools</a></li>
     </ul>
   </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
 </body>
 </html>

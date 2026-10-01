@@ -6,6 +6,8 @@
   <title>Bulk Email Syntax &amp; MX Validator — RFC syntax, DNS MX, disposable-domain checks</title>
   <meta name="description" content="Audit user-supplied email strings for RFC syntax, disposable domains, and missing MX. Max 1,000 emails. $3.00 per 1,000 email data-quality results. Does not send mail or discover addresses.">
   <link rel="canonical" href="https://apify.momiji-space.com/bulk-email-syntax-mx-validator/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <link rel="stylesheet" href="/assets/css/actor-landing.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -62,34 +64,28 @@
     ]
   }
   </script>
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
-    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
-    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
-    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
-    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
-    p, li { font-size: 16px; line-height: 1.5; color: #444; }
-    p { margin: 0 0 16px; }
-    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
-    li { margin: 0 0 8px; }
-    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
-    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
-    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
-    th { background: #f3f3f3; font-weight: 600; color: #202223; }
-    tr:last-child td { border-bottom: 0; }
-    .price { color: #202223; }
-  </style>
 </head>
 <body>
-  <main>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/bulk-email-syntax-mx-validator/" aria-current="page">Bulk Email Syntax & MX Validator</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
     <nav><a href="/">Home</a> / Bulk Email Syntax &amp; MX Validator</nav>
+    <p class="eyebrow">Email syntax · MX</p>
     <h1>Check RFC syntax, DNS MX, and disposable domains on up to 1,000 supplied emails</h1>
-    <p>Bulk Email Syntax &amp; MX Validator (Store README title: Email Deliverability Checker) audits email strings you already hold. It checks RFC syntax, live DNS MX, and known disposable-domain patterns, then returns per-address technical signals including a 0–100 score. It does not send mail and does not discover, enrich, or acquire addresses. Domain SPF/DMARC policy grades belong on <a href="/dmarc-email-security-checker/">DMARC &amp; Email Security Checker</a>. Phone-string E.164 formatting belongs on <a href="/bulk-phone-format-validator/">Bulk Phone Format Validator</a>.</p>
+    <p class="lede">Bulk Email Syntax &amp; MX Validator (Store README title: Email Deliverability Checker) audits email strings you already hold. It checks RFC syntax, live DNS MX, and known disposable-domain patterns, then returns per-address technical signals including a 0–100 score. It does not send mail and does not discover, enrich, or acquire addresses. Domain SPF/DMARC policy grades belong on <a href="/dmarc-email-security-checker/">DMARC &amp; Email Security Checker</a>. Phone-string E.164 formatting belongs on <a href="/bulk-phone-format-validator/">Bulk Phone Format Validator</a>.</p>
     <p class="price">$3.00 per 1,000 email data-quality results</p>
     <p><a href="https://apify.com/taroyamada/email-deliverability-checker">Open Bulk Email Syntax &amp; MX Validator on Apify</a></p>
 
     <h2>Syntax, MX, and disposable checks on email strings, not domain policy or phone numbers</h2>
     <p>Use this page when the job is list hygiene on a consented email export: syntax, MX presence, disposable-provider flags, and a composite score. Use <a href="/dmarc-email-security-checker/">DMARC &amp; Email Security Checker</a> when the job is SPF, DMARC, MX, and optional DKIM posture on domains you supply. Use <a href="/bulk-phone-format-validator/">Bulk Phone Format Validator</a> when the job is offline E.164 normalization of phone strings.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -138,6 +134,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>The Store description is: audit user-supplied email data using syntax, DNS MX, and disposable-domain checks. No messages are sent and no addresses are discovered or enriched. The README states a positive result is a technical signal only and does not prove mailbox ownership, consent, or permission to send messages. Pass an authorized CRM or customer-supplied list — not a harvest from public pages.</p>
 
     <h2>Use cases</h2>
@@ -156,6 +153,7 @@
 
     <h2>What input is required?</h2>
     <p><code>emails</code> is required. The live schema description is “Emails to validate (max 1000).” Other live schema fields:</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -204,6 +202,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>The schema sets <code>additionalProperties</code> to false. The README Input table lists only <code>emails</code>, <code>checkMx</code>, and <code>checkDisposable</code>. Live schema also includes <code>delivery</code>, <code>webhookUrl</code>, and <code>dryRun</code>. README examples that send <code>includeDisposable</code> or <code>mxOnly</code> are not live schema fields. Live schema names do not include <code>checkDkim</code> or <code>checkBimi</code>.</p>
     <p>Published Store example run input:</p>
 <pre><code>{
@@ -291,5 +290,13 @@
       <li><a href="/tools/">Tools</a></li>
     </ul>
   </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
 </body>
 </html>

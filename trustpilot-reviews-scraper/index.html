@@ -7,6 +7,8 @@
   <meta name="description" content="Trustpilot Reviews Scraper Apify reads public Trustpilot company review pages into ratings, review samples, and company-reply signals. Store: taroyamada/trustpilot-enterprise-review-aggregator. Live PPE: $0.01 per result; Actor Start $0.001. Not G2, not Shopify App Store, not Google Maps reviews.">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://apify.momiji-space.com/trustpilot-reviews-scraper/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <link rel="stylesheet" href="/assets/css/actor-landing.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -105,29 +107,22 @@
     ]
   }
   </script>
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
-    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
-    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
-    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
-    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
-    p, li { font-size: 16px; line-height: 1.5; color: #444; }
-    p { margin: 0 0 16px; }
-    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
-    li { margin: 0 0 8px; }
-    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
-    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
-    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
-    th { background: #f3f3f3; font-weight: 600; color: #202223; }
-    tr:last-child td { border-bottom: 0; }
-    .price { color: #202223; }
-  </style>
 </head>
 <body>
-  <main>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/trustpilot-reviews-scraper/" aria-current="page">Trustpilot Reviews Scraper</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
     <nav><a href="/">Home</a> / Trustpilot Reviews Scraper</nav>
+    <p class="eyebrow">Trustpilot reviews</p>
     <h1>Trustpilot Reviews Scraper Apify — ratings, review text, and company replies</h1>
-    <p>Trustpilot Reviews Scraper Apify (Store id <code>taroyamada/trustpilot-enterprise-review-aggregator</code>) reads public Trustpilot company review pages or company domains you supply. Required input is <code>companyUrls</code>. The live Store description is: scrape Trustpilot reviews: ratings, full text, company replies. It is not a G2/Capterra tool, not a Shopify App Store listing tool, and not a Google Maps reviews tool — those jobs belong on <a href="/g2-capterra-review-scraper/">G2 Reviews Scraper Apify</a>, <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper Apify</a>, and <a href="/google-maps-reviews-scraper/">Google Maps Review Scraper Apify</a>.</p>
+    <p class="lede">Trustpilot Reviews Scraper Apify (Store id <code>taroyamada/trustpilot-enterprise-review-aggregator</code>) reads public Trustpilot company review pages or company domains you supply. Required input is <code>companyUrls</code>. The live Store description is: scrape Trustpilot reviews: ratings, full text, company replies. It is not a G2/Capterra tool, not a Shopify App Store listing tool, and not a Google Maps reviews tool — those jobs belong on <a href="/g2-capterra-review-scraper/">G2 Reviews Scraper Apify</a>, <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper Apify</a>, and <a href="/google-maps-reviews-scraper/">Google Maps Review Scraper Apify</a>.</p>
     <p class="price">$0.01 per default-dataset result titled result; Actor Start $0.001. Check the live Store pricing card.</p>
     <p><a href="https://apify.com/taroyamada/trustpilot-enterprise-review-aggregator">Open Trustpilot Reviews Scraper on Apify</a>
       ·
@@ -152,6 +147,7 @@
 
     <h2>Trustpilot company pages, not G2, Shopify, podcasts, or Maps</h2>
     <p>Use this page when the source is a public Trustpilot company profile. Use <a href="/g2-capterra-review-scraper/">G2 Reviews Scraper Apify</a> for G2 and Capterra product review pages. Use <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper Apify</a> for <code>apps.shopify.com/{slug}</code>. Use <a href="/google-maps-reviews-scraper/">Google Maps Review Scraper Apify</a> for Maps place URLs. Use <a href="/google-maps-lead-enrichment/">Google Maps Lead Enrichment</a> when you already have lead rows and need website/contact enrichment — that Actor does not scrape Google Maps.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -182,6 +178,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
 
     <h2>Which live input fields does Trustpilot Reviews Scraper accept?</h2>
     <p><code>companyUrls</code> is required. Optional published fields are <code>reviewLimit</code> (default 50), <code>delivery</code> (<code>dataset</code> or <code>webhook</code>), <code>webhookUrl</code>, and <code>dryRun</code>. <code>additionalProperties</code> is false.</p>
@@ -221,5 +218,13 @@
       <li><a href="/">Home</a></li>
     </ul>
   </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
 </body>
 </html>
