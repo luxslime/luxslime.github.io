@@ -6,6 +6,8 @@
   <title>SSL/TLS Certificate Scraper — expiry, SHA-256 fingerprints, optional Web Risk</title>
   <meta name="description" content="Inspect TLS certificates on supplied domains: expiry, issuer, SHA-256 fingerprints, and optional Google Web Risk. Max 200 domains. $9.00 per 1,000 delivered monitoring result rows. No browser.">
   <link rel="canonical" href="https://apify.momiji-space.com/ssl-tls-certificate-scraper/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <link rel="stylesheet" href="/assets/css/actor-landing.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -62,34 +64,28 @@
     ]
   }
   </script>
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
-    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
-    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
-    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
-    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
-    p, li { font-size: 16px; line-height: 1.5; color: #444; }
-    p { margin: 0 0 16px; }
-    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
-    li { margin: 0 0 8px; }
-    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
-    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
-    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
-    th { background: #f3f3f3; font-weight: 600; color: #202223; }
-    tr:last-child td { border-bottom: 0; }
-    .price { color: #202223; }
-  </style>
 </head>
 <body>
-  <main>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/ssl-tls-certificate-scraper/" aria-current="page">SSL/TLS Certificate Scraper</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
     <nav><a href="/">Home</a> / SSL/TLS Certificate Scraper</nav>
+    <p class="eyebrow">TLS certificates</p>
     <h1>Inspect TLS certificate expiry and SHA-256 fingerprints on supplied domains without a browser</h1>
-    <p>SSL/TLS Certificate Scraper bulk-checks certificates on hostnames you already have. It connects at the TLS protocol level (default port 443), reports expiry and issuer details, tracks fingerprint and issuer changes between runs, and can optionally query Google Web Risk. It does not render a browser, does not fetch page HTML, and does not check HTTP status of known URLs or DNS record propagation.</p>
+    <p class="lede">SSL/TLS Certificate Scraper bulk-checks certificates on hostnames you already have. It connects at the TLS protocol level (default port 443), reports expiry and issuer details, tracks fingerprint and issuer changes between runs, and can optionally query Google Web Risk. It does not render a browser, does not fetch page HTML, and does not check HTTP status of known URLs or DNS record propagation.</p>
     <p class="price">$9.00 per 1,000 delivered monitoring result rows</p>
     <p><a href="https://apify.com/taroyamada/ssl-certificate-monitor">Open SSL/TLS Certificate Scraper on Apify</a></p>
 
     <h2>TLS certificate inspection, not HTTP status QA or DNS propagation</h2>
     <p>Use this page when the job is certificate expiry, SHA-256 fingerprints, issuer rotation, and optional reputation on supplied domains. Use <a href="/bulk-url-status-checker/">Bulk URL Status Checker</a> for live HTTP status, redirect chains, and response timing on a known URL list. Use <a href="/dns-propagation-checker/">DNS Propagation Checker</a> for public A/MX/NS (and other) records across eight resolvers.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -132,6 +128,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>README key features: direct TLS inspection (protocol level, not through HTTP); configurable expiry warnings (default 30 days); fingerprint-change tracking between runs; issuer-change alerts; optional commercially usable Google Web Risk with your own Google Cloud API key; detection of expired, self-signed, and misconfigured certificates.</p>
 
     <h2>Use cases</h2>
@@ -148,6 +145,7 @@
 
     <h2>What input is required?</h2>
     <p><code>domains</code> is required: List of domains to check SSL certificates for (maximum 200 per run; OpenAPI minItems 1). Schema prefill is <code>google.com</code>, <code>github.com</code>, <code>expired.badssl.com</code>. Optional live schema fields are <code>port</code> (integer, default 443, minimum 1, maximum 65535), <code>expiryWarningDays</code> (integer, default 30, minimum 1, maximum 365), <code>delivery</code> (<code>dataset</code> or <code>webhook</code>, default <code>dataset</code>), <code>webhookUrl</code> (required when delivery is webhook), <code>snapshotKey</code> (string, default <code>ssl-cert-snapshots</code>), <code>concurrency</code> (integer, default 5, minimum 1, maximum 10), <code>emitUnchanged</code> (boolean, default false), <code>dryRun</code> (boolean, default false), <code>enableReputationLookup</code> (boolean, default false), <code>reputationApiKey</code> (required only when Google Web Risk lookup is enabled), and <code>reputationThreatTypes</code> (array, maxItems 3; supported values <code>MALWARE</code>, <code>SOCIAL_ENGINEERING</code>, <code>UNWANTED_SOFTWARE</code>). <code>additionalProperties</code> is false. The README Input table omits <code>emitUnchanged</code> and the three reputation fields; those names are live schema fields.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -232,6 +230,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>Published README input example:</p>
 <pre><code>{
   "domains": ["google.com", "github.com", "expired.badssl.com"],
@@ -364,5 +363,13 @@
       <li><a href="/tools/">Tools</a></li>
     </ul>
   </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
 </body>
 </html>

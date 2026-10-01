@@ -7,6 +7,8 @@
   <meta name="description" content="Find broken links and 404s from a start URL: status codes, redirects, CSV/JSON. Store: taroyamada/broken-link-checker. From $8.00 / 1,000 results. Crawls pages; for a known URL list use Bulk URL Status Checker.">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://apify.momiji-space.com/broken-link-checker/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <link rel="stylesheet" href="/assets/css/actor-landing.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -63,34 +65,28 @@
     ]
   }
   </script>
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
-    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
-    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
-    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
-    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
-    p, li { font-size: 16px; line-height: 1.5; color: #444; }
-    p { margin: 0 0 16px; }
-    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
-    li { margin: 0 0 8px; }
-    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
-    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
-    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
-    th { background: #f3f3f3; font-weight: 600; color: #202223; }
-    tr:last-child td { border-bottom: 0; }
-    .price { color: #202223; }
-  </style>
 </head>
 <body>
-  <main>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/broken-link-checker/" aria-current="page">Broken Link Checker</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
     <nav><a href="/">Home</a> / Broken Link Checker</nav>
+    <p class="eyebrow">Broken links</p>
     <h1>Crawl start URLs for broken links, 404s, and redirect chains</h1>
-    <p>Broken Link Checker starts from public pages you supply, follows internal links up to a bounded depth, and reports broken links with HTTP status codes, redirect chains, anchor text, and internal/external class. It is crawl-based link QA — not a known URL-list status checker, not sitemap XML discovery, and not a robots.txt AI-crawler audit.</p>
+    <p class="lede">Broken Link Checker starts from public pages you supply, follows internal links up to a bounded depth, and reports broken links with HTTP status codes, redirect chains, anchor text, and internal/external class. It is crawl-based link QA — not a known URL-list status checker, not sitemap XML discovery, and not a robots.txt AI-crawler audit.</p>
     <p class="price">from $8.00 / 1,000 results ($0.001 Actor Start + $0.008 per default-dataset result)</p>
     <p><a href="https://apify.com/taroyamada/broken-link-checker">Open Broken Link Checker on Apify</a></p>
 
     <h2>HTML crawl for broken links, not a known URL list</h2>
     <p>Use this page when you have a start URL and need to discover broken links from source HTML. Use <a href="/bulk-url-status-checker/">Bulk URL Status Checker</a> when you already have the URL list. Use <a href="/sitemap-scraper-analyzer/">Sitemap Scraper &amp; Analyzer</a> to inventory sitemap.xml URLs. Use <a href="/robotstxt-ai-crawler-block-checker/">robots.txt Parser &amp; AI Crawler Block Checker</a> for GPTBot/ClaudeBot allow/disallow rules.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -133,6 +129,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>Store ID: <code>taroyamada/broken-link-checker</code>. Crawl only public sites you control or are authorized to check, with reasonable limits.</p>
 
     <h2>Use cases</h2>
@@ -149,6 +146,7 @@
 
     <h2>What input is required?</h2>
     <p><code>startUrls</code> is required: public start pages, maximum 10. Schema prefill is <code>https://example.com</code>. <code>additionalProperties</code> is false. README examples that send <code>includeExternalLinks</code>, <code>pages</code>, <code>maxLinksPerPage</code>, or <code>externalOnly</code> are not live schema fields. Do not send them.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -215,6 +213,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>Published Store example run input (dry run — schema default <code>dryRun</code> is false):</p>
 <pre><code>{
   "startUrls": ["https://example.com"],
@@ -276,5 +275,13 @@
       <li><a href="/tools/">Tools</a></li>
     </ul>
   </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
 </body>
 </html>

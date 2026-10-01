@@ -6,6 +6,8 @@
   <title>robots.txt Parser &amp; AI Crawler Block Checker — GPTBot and ClaudeBot disallow audits</title>
   <meta name="description" content="Parse robots.txt files to audit GPTBot, ClaudeBot, Google-Extended, and other AI crawler allow/disallow rules. Max 500 domains. Pay per event: $11.00 per 1,000 robots.txt AI policy rows.">
   <link rel="canonical" href="https://apify.momiji-space.com/robotstxt-ai-crawler-block-checker/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <link rel="stylesheet" href="/assets/css/actor-landing.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -62,34 +64,28 @@
     ]
   }
   </script>
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
-    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
-    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
-    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
-    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
-    p, li { font-size: 16px; line-height: 1.5; color: #444; }
-    p { margin: 0 0 16px; }
-    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
-    li { margin: 0 0 8px; }
-    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
-    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
-    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
-    th { background: #f3f3f3; font-weight: 600; color: #202223; }
-    tr:last-child td { border-bottom: 0; }
-    .price { color: #202223; }
-  </style>
 </head>
 <body>
-  <main>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/robotstxt-ai-crawler-block-checker/" aria-current="page">robots.txt Parser &amp; AI Crawler Block Checker</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
     <nav><a href="/">Home</a> / robots.txt Parser &amp; AI Crawler Block Checker</nav>
+    <p class="eyebrow">robots.txt · AI crawlers</p>
     <h1>Audit robots.txt GPTBot and ClaudeBot disallow rules across domains</h1>
-    <p>robots.txt Parser &amp; AI Crawler Block Checker fetches public <code>robots.txt</code> files and parses crawl rules for AI crawlers and LLM-training bots (examples: GPTBot, ClaudeBot, Google-Extended). It extracts per-user-agent allow/disallow rules, restricted paths, and crawl-delay directives, then reports per-bot dispositions (blocked, partially blocked, allowed). This is a robots.txt policy audit — not HTML head-tag extraction, and not sitemap.xml URL discovery.</p>
+    <p class="lede">robots.txt Parser &amp; AI Crawler Block Checker fetches public <code>robots.txt</code> files and parses crawl rules for AI crawlers and LLM-training bots (examples: GPTBot, ClaudeBot, Google-Extended). It extracts per-user-agent allow/disallow rules, restricted paths, and crawl-delay directives, then reports per-bot dispositions (blocked, partially blocked, allowed). This is a robots.txt policy audit — not HTML head-tag extraction, and not sitemap.xml URL discovery.</p>
     <p class="price">$11.00 per 1,000 robots.txt AI policy rows ($0.011 per delivered policy or missing-file row)</p>
     <p><a href="https://apify.com/taroyamada/robotstxt-ai-checker">Open robots.txt Parser &amp; AI Crawler Block Checker on Apify</a></p>
 
     <h2>robots.txt AI crawl policies, not page head tags and not sitemap XML</h2>
     <p>Use this page when the job is bulk parsing of <code>robots.txt</code> to see whether named AI crawlers are allowed, partially blocked, or disallowed. Use <a href="/meta-tag-opengraph-scraper/">Meta Tag &amp; OpenGraph Scraper</a> when the job is title, canonical, Open Graph, Twitter Card, hreflang, JSON-LD, and the HTML <code>robots</code> meta tag on known page URLs. Use <a href="/sitemap-scraper-analyzer/">Sitemap Scraper &amp; Analyzer</a> when the job is nested <code>sitemap.xml</code> URL inventories.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -132,6 +128,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>The live Store description is: Audit robots.txt files across thousands of websites to detect specific crawl policies, disallowed paths, and user-agents for GPTBot and ClaudeBot. The live schema description is: Analyze robots.txt files for AI crawler blocking policies. Track which sites block GPTBot, ClaudeBot, Google-Extended, and 13 more. Published README copy also names allow/disallow rules, restricted directory paths, crawl-delay directives, policy snapshots, change diffs, severity-scored findings with remediation guidance, and raw header/body evidence.</p>
     <p>Source requests allow only public HTTP(S) hosts. Local, private, link-local, metadata, credential-bearing, and non-HTTP(S) URLs are rejected. Redirects are rechecked and limited to 3 hops; responses are capped at 1 MiB and requests time out after 10 seconds. The published README says this is passive scanning of public signals, not a penetration test: no exploitation, fuzzing, or auth bypass. Only scan sites you have authorization for.</p>
 
@@ -153,6 +150,7 @@
 
     <h2>What input is required?</h2>
     <p>Open the Actor on the Apify Store and supply <code>domains</code> (required, maximum 500). Live input schema fields:</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -213,6 +211,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>The schema sets <code>additionalProperties</code> to false. Required field is <code>domains</code> only.</p>
     <p>Published Store Quickstart input that matches the live schema (prefill domains; this example sets <code>datasetMode</code> to <code>all</code> rather than the live default <code>changes_only</code>):</p>
 <pre><code>{
@@ -332,5 +331,13 @@
       <li><a href="/tools/">Tools</a></li>
     </ul>
   </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
 </body>
 </html>
