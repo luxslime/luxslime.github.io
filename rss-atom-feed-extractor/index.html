@@ -6,6 +6,8 @@
   <title>RSS &amp; Atom Feed Extractor — known-publisher feed XML to item URL lists</title>
   <meta name="description" content="Parse public RSS and Atom XML you already have into filtered item URLs. Try Input: 1 feed × maxItemsPerFeed 1 = $0.001 if one item is parsed. $1.00 / 1,000 RSS or Atom items. No Actor start event.">
   <link rel="canonical" href="https://apify.momiji-space.com/rss-atom-feed-extractor/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <link rel="stylesheet" href="/assets/css/actor-landing.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -134,29 +136,22 @@
     ]
   }
   </script>
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
-    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
-    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
-    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
-    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
-    p, li { font-size: 16px; line-height: 1.5; color: #444; }
-    p { margin: 0 0 16px; }
-    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
-    li { margin: 0 0 8px; }
-    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
-    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
-    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
-    th { background: #f3f3f3; font-weight: 600; color: #202223; }
-    tr:last-child td { border-bottom: 0; }
-    .price { color: #202223; }
-  </style>
 </head>
 <body>
-  <main>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/rss-atom-feed-extractor/" aria-current="page">RSS &amp; Atom Feed Extractor</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
     <nav><a href="/">Home</a> / RSS &amp; Atom Feed Extractor</nav>
+    <p class="eyebrow">RSS &amp; Atom feeds</p>
     <h1>Parse known-publisher RSS and Atom XML into filtered item URL lists</h1>
-    <p>Job: parse <strong>public RSS/Atom XML you already have</strong> into filtered item URL lists (title, link, dates, summary) before a downstream extractor runs.</p>
+    <p class="lede">Job: parse <strong>public RSS/Atom XML you already have</strong> into filtered item URL lists (title, link, dates, summary) before a downstream extractor runs.</p>
     <p>Not Google News queries. Not article HTML cleanup. Not a site crawl / <code>sitemap.xml</code> inventory.</p>
     <p class="price">Try Input: 1 feed × <code>maxItemsPerFeed</code> <strong>1</strong> = <strong>$0.001</strong> if one item is parsed. <strong>$1.00 / 1,000 items</strong>. No Actor start event. Store Quickstart is 2 publisher feeds.</p>
     <p><a href="https://apify.com/taroyamada/rss-feed-aggregator">Open RSS &amp; Atom Feed Extractor → one public feed URL, maxItemsPerFeed 1 → Start ($0.001 if one item parses) → send useful links to Article or Website Content Extractor.</a></p>
@@ -165,6 +160,7 @@
       <a href="/use-cases/rss-newsroom-monitoring/">Newsroom RSS first paid path</a></p>
 
     <h2>Discover item URLs here - clean page bodies elsewhere</h2>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -196,6 +192,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>Cheapest first paid:</p>
 <pre><code>{
   "feedUrls": ["https://blog.google/rss/"],
@@ -208,6 +205,7 @@
 
     <h2>Feed XML you already have, not Google News queries and not article HTML</h2>
     <p>Use this page when you already have public RSS or Atom feed URLs and need a filtered list of new item links. Use <a href="/google-news-scraper/">Google News Scraper</a> when you search Google News by keyword and do not yet have publisher feed URLs. Use <a href="/article-content-extractor/">Article Content Extractor</a> to clean discovered article, news, and blog pages. Use <a href="/website-content-extractor/">Website Content Extractor</a> to clean discovered docs, pricing, policy, or product pages. Those extractors fetch page HTML. This Actor reads feed XML.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -263,6 +261,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>This page is also not the podcast-RSS comparison. For show catalogs versus iTunes Search, see <a href="/compare/rss-feed-vs-itunes-search/">RSS feed vs iTunes Search API</a>. Feed XML here is RSS or Atom item feeds, not <code>sitemap.xml</code> URL inventories.</p>
 
     <h2>Use cases</h2>
@@ -282,6 +281,7 @@
 
     <h2>What live input does RSS &amp; Atom Feed Extractor require?</h2>
     <p>The live OpenAPI input schema requires <code>feedUrls</code>. Optional fields are <code>keywords</code>, <code>maxItemsPerFeed</code>, <code>deduplicate</code>, <code>timeoutMs</code>, <code>delivery</code>, <code>webhookUrl</code>, and <code>dryRun</code>.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -342,6 +342,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>Published README input illustration (schema-valid names):</p>
 <pre><code>{
   "feedUrls": [
@@ -430,6 +431,7 @@
 
     <h2>How is RSS &amp; Atom Feed Extractor priced on the live Store?</h2>
     <p>Billing is pay per event. The live Store card is <strong>$1.00 / 1,000 rss or atom items</strong>. Current PPE:</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -446,6 +448,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>There is no Actor start event on the current pricing tab. The live pricing tab lists Platform usage as Included. Align billing copy to this live PPE only. The cheapest first paid cap is one feed × <code>maxItemsPerFeed</code> 1 = <strong>$0.001</strong> if one item is parsed. The Store Quickstart is two publisher feeds at the same rate.</p>
     <p class="price">Try Input: 1 feed × maxItemsPerFeed 1 = $0.001 if one item is parsed. $1.00 / 1,000 items. No Actor start event.</p>
     <p><a href="https://apify.com/taroyamada/rss-feed-aggregator/pricing">See RSS &amp; Atom Feed Extractor pricing on Apify</a></p>
@@ -481,5 +484,13 @@
       <li><a href="/tools/">Tools</a></li>
     </ul>
   </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
 </body>
 </html>

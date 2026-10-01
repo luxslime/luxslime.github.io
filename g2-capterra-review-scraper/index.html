@@ -7,6 +7,8 @@
   <meta name="description" content="G2 Reviews Scraper Apify scrapes public G2 and Capterra review pages into ratings, pros, and cons. Store: taroyamada/g2-capterra-review-intelligence. Live PPE: from $3.00 / 1,000 results ($0.003 per result). Not Shopify App Store. Not Trustpilot. Not Apple Podcasts RSS.">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://apify.momiji-space.com/g2-capterra-review-scraper/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <link rel="stylesheet" href="/assets/css/actor-landing.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -161,29 +163,22 @@
     ]
   }
   </script>
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
-    main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
-    nav { font-size: 14px; margin: 0 0 20px; color: #666; }
-    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
-    h2 { margin: 28px 0 10px; font-size: 20px; line-height: 1.3; }
-    p, li { font-size: 16px; line-height: 1.5; color: #444; }
-    p { margin: 0 0 16px; }
-    ul, ol { margin: 0 0 16px; padding-left: 1.2em; }
-    li { margin: 0 0 8px; }
-    pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
-    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #d9dde5; font-size: 15px; margin: 8px 0 20px; }
-    th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d9dde5; }
-    th { background: #f3f3f3; font-weight: 600; color: #202223; }
-    tr:last-child td { border-bottom: 0; }
-    .price { color: #202223; }
-  </style>
 </head>
 <body>
-  <main>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/g2-capterra-review-scraper/" aria-current="page">G2 &amp; Capterra Review Scraper</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
     <nav><a href="/">Home</a> / G2 &amp; Capterra Review Scraper</nav>
+    <p class="eyebrow">G2 &amp; Capterra reviews</p>
     <h1>G2 Reviews Scraper Apify — G2 and Capterra ratings, pros, and cons</h1>
-    <p>G2 Reviews Scraper Apify is the G2 Capterra reviews scraper (Store id <a href="https://apify.com/taroyamada/g2-capterra-review-intelligence"><code>taroyamada/g2-capterra-review-intelligence</code></a>). It reads public G2 and Capterra product review pages you supply. The live Store description is: scrape B2B software reviews, pros and cons, ratings, and reviewer metadata from G2 and Capterra pages for SaaS competitor research. Required input is <code>reviewPageUrls</code>. The Actor auto-detects G2 versus Capterra and routes each URL to the matching parser. For one catalog versus mixed G2 and Capterra URLs in the same run, see <a href="/compare/g2-capterra-dual-source-vs-single-source/">G2 + Capterra dual-source vs single-source review scrape</a>. It is not a Shopify App Store listing tool, not Trustpilot, and not an Apple Podcasts review RSS tool — those jobs belong on <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper Apify</a>, <a href="/trustpilot-reviews-scraper/">Trustpilot Reviews Scraper Apify</a>, and <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a>.</p>
+    <p class="lede">G2 Reviews Scraper Apify is the G2 Capterra reviews scraper (Store id <a href="https://apify.com/taroyamada/g2-capterra-review-intelligence"><code>taroyamada/g2-capterra-review-intelligence</code></a>). It reads public G2 and Capterra product review pages you supply. The live Store description is: scrape B2B software reviews, pros and cons, ratings, and reviewer metadata from G2 and Capterra pages for SaaS competitor research. Required input is <code>reviewPageUrls</code>. The Actor auto-detects G2 versus Capterra and routes each URL to the matching parser. For one catalog versus mixed G2 and Capterra URLs in the same run, see <a href="/compare/g2-capterra-dual-source-vs-single-source/">G2 + Capterra dual-source vs single-source review scrape</a>. It is not a Shopify App Store listing tool, not Trustpilot, and not an Apple Podcasts review RSS tool — those jobs belong on <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper Apify</a>, <a href="/trustpilot-reviews-scraper/">Trustpilot Reviews Scraper Apify</a>, and <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a>.</p>
     <p class="price">from $3.00 / 1,000 results ($0.003 per default-dataset result titled result; Actor Start $0.001)</p>
     <p><a href="https://apify.com/taroyamada/g2-capterra-review-intelligence">Open G2 &amp; Capterra Review Scraper on Apify</a>
       ·
@@ -202,6 +197,7 @@
 
     <h2>G2 and Capterra software reviews, not Shopify apps or podcasts</h2>
     <p>Use this page when the job is B2B software reputation on G2 or Capterra: category benchmarks, competitor proof points, and a single schema across both sites. Dual-source versus one catalog: <a href="/compare/g2-capterra-dual-source-vs-single-source/">G2 + Capterra dual-source vs single-source review scrape</a>. Use <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a> when the source is a merchant listing at <code>apps.shopify.com/{slug}</code>. Use <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a> when the source is Apple/iTunes Customer Reviews RSS for podcast collection IDs.</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -244,6 +240,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>This Actor does not accept Shopify slugs, <code>podcastIds</code>, Apple show URLs, or episode feeds. None of these Actors is affiliated with or endorsed by G2, Capterra, Shopify, or Apple. Review text is public source material for reputation and market research. Do not use the output to target individual reviewers.</p>
     <p>Compare: for dual-source G2 and Capterra in one run versus a single-source review-page scrape, see <a href="/compare/g2-capterra-dual-source-vs-single-source/">G2 + Capterra dual-source vs single-source review scrape</a>.</p>
 
@@ -272,6 +269,7 @@
 
     <h2>Which reviewPageUrls formats does the published G2/Capterra schema accept?</h2>
     <p><code>reviewPageUrls</code> is required. The published schema accepts G2 or Capterra review page URLs. Other published fields:</p>
+    <div class="card">
     <table>
       <thead>
         <tr>
@@ -314,6 +312,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>The schema sets <code>additionalProperties</code> to false. Use <code>reviewPageUrls</code>, not unpublished aliases. The published input schema does not include <code>products</code>, <code>source</code>, <code>slug</code>, <code>maxReviewsPerProduct</code>, <code>emitDeltas</code>, <code>appUrls</code>, <code>podcastIds</code>, or <code>countries</code>.</p>
     <p>Live Store Quickstart (cheapest first paid run):</p>
 <pre><code>{
@@ -442,5 +441,13 @@
       <li><a href="/rss-atom-feed-extractor/">RSS &amp; Atom Feed Extractor</a></li>
     </ul>
   </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
 </body>
 </html>
