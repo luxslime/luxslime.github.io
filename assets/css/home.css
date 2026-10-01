@@ -1,5 +1,23 @@
 /* Homepage-only extras. Tokens stay in /assets/css/challenge-guide.css. Reversible: drop this sheet + restore index.html. */
 
+@font-face {
+  font-family: Fraunces;
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/assets/fonts/fraunces-latin-700.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: Fraunces;
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/assets/fonts/fraunces-latin-500italic.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 html { scroll-padding-top: 4.75rem; }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -42,6 +60,7 @@ html { scroll-padding-top: 4.75rem; }
 }
 
 body.home {
+  --display: Fraunces, "Times New Roman", Times, serif;
   background-color: var(--bg);
   background-image:
     radial-gradient(ellipse 72% 42% at 100% -8%, rgba(42, 74, 155, 0.07), transparent 58%),
@@ -112,6 +131,19 @@ main.wrap.wide {
   padding-bottom: 4.5rem;
 }
 
+.hero-copy {
+  position: relative;
+}
+
+.hero-mark {
+  display: block;
+  width: 1.85rem;
+  height: auto;
+  margin: 0 0 0.75rem;
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
 .hero {
   display: grid;
   gap: 1.85rem;
@@ -125,6 +157,23 @@ main.wrap.wide {
     align-items: end;
     gap: 2.5rem 3.25rem;
     padding-bottom: 2.85rem;
+  }
+
+  .hero-mark {
+    position: absolute;
+    margin: 0;
+    width: 11.25rem;
+    height: auto;
+    top: 2.35rem;
+    right: -0.85rem;
+    opacity: 0.14;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .hero-copy > :not(.hero-mark) {
+    position: relative;
+    z-index: 1;
   }
 }
 
@@ -148,20 +197,23 @@ main.wrap.wide {
 }
 
 .hero h1 {
+  font-family: var(--display);
   font-size: clamp(2.55rem, 7vw, 4.55rem);
-  line-height: 0.98;
-  letter-spacing: -0.05em;
+  line-height: 0.96;
+  letter-spacing: -0.03em;
   margin: 0 0 1.15rem;
-  font-weight: 800;
+  font-weight: 700;
+  font-synthesis: none;
 }
 
 .hero h1 .and {
+  font-family: var(--display);
   font-weight: 500;
   font-style: italic;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.02em;
   color: var(--primary);
-  font-size: 0.58em;
-  padding-right: 0.2em;
+  font-size: 0.62em;
+  padding-right: 0.18em;
 }
 
 .hero .lede {
@@ -230,7 +282,10 @@ main.wrap.wide {
 }
 
 .lane h2 {
-  font-size: 1.22rem;
+  font-family: var(--display);
+  font-size: 1.32rem;
+  letter-spacing: -0.02em;
+  font-weight: 700;
   margin: 0 0 0.4rem;
 }
 
@@ -274,9 +329,10 @@ main.wrap.wide {
 
 .section-num {
   grid-row: 1 / span 4;
+  font-family: var(--display);
   font-size: clamp(2.2rem, 4.2vw, 3.35rem);
-  font-weight: 800;
-  letter-spacing: -0.055em;
+  font-weight: 700;
+  letter-spacing: -0.035em;
   line-height: 0.82;
   color: var(--primary);
   padding-top: 0.2rem;
@@ -289,7 +345,11 @@ main.wrap.wide {
 
 .section-head h2 {
   margin: 0;
-  font-size: clamp(1.4rem, 2.5vw, 1.95rem);
+  font-family: var(--display);
+  font-size: clamp(1.5rem, 2.6vw, 2.15rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
 }
 
 .section-head .deck {
@@ -445,10 +505,12 @@ main.wrap.wide {
 }
 
 .flag h3 {
-  font-size: 1.28rem;
+  font-family: var(--display);
+  font-size: 1.38rem;
   letter-spacing: -0.025em;
+  font-weight: 700;
   margin: 0 0 0.45rem;
-  line-height: 1.25;
+  line-height: 1.2;
 }
 
 .flag p {
@@ -693,7 +755,8 @@ footer.site .cols {
 }
 
 footer.site .brand {
-  font-weight: 800;
+  font-family: var(--display);
+  font-weight: 700;
   color: var(--ink);
   letter-spacing: -0.02em;
   margin: 0 0 0.4rem;
