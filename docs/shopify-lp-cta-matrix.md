@@ -18,3 +18,12 @@ Interim problem-query guide LPs on `apify.momiji-space.com`. Full rewrite planne
 | RepairProof EU | `/guides/repair-proof-eu-right-to-repair/` | https://apps.shopify.com/repairproof-eu |
 
 Live guides (do not recreate): PO Box billing, Prop 65 2028, EU generic green claims, EUDR DDS lot registry. CTA handles on those four match this table.
+
+Related acquisition pages (same handles; do not invent new listing URLs):
+
+| Page | Slug |
+| --- | --- |
+| Leftover Admin access checklist | `/guides/staff-permissions-audit-checklist/` |
+| PO Box rate hide vs checkout validation vs AddressFence | `/guides/po-box-shipping-rate-vs-checkout-validation/` |
+| Prop 65 native disclosures vs approval + audit log | `/guides/prop-65-native-disclosures-vs-audit-log/` |
+| EUDR scope 30 Dec 2026 vs mid-2027 | `/guides/eudr-scope-2026-2027/` |

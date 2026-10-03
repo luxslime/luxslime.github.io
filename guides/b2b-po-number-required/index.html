@@ -28,7 +28,7 @@
         "name": "Does native B2B Net Terms require a valid purchase-order number?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "No. Native company payment terms control how the company pays. They do not validate PO number format, prefix, regex, length, or uniqueness. A buyer can leave the box empty, type junk, or reuse a number unless a checkout validation rule rejects that input."
+          "text": "No. Grow already includes catalogs, a PO number field, and Net Terms. There is no no-code required toggle. Native company payment terms control how the company pays. They do not validate PO number format, prefix, regex, length, or uniqueness. A buyer can leave the box empty, type junk, or reuse a number unless a checkout validation rule rejects that input."
         }
       },
       {
@@ -129,7 +129,8 @@
     <p class="eyebrow">Require PO number on B2B checkout</p>
     <h1>B2B checkout can skip a purchase-order number unless a validation rule requires it</h1>
     <p class="lede">Job: reject a <strong>company checkout</strong> when the purchase-order number is missing or fails the format you publish.</p>
-    <p>Native B2B Net Terms control how the company pays. They do <strong>not</strong> check PO format, prefix, length, or uniqueness. Wholesale buyers can then skip the box, type junk, or reuse a number.</p>
+    <p>Shopify B2B on Grow already includes <strong>catalogs</strong>, a <strong>PO number</strong> field, and <strong>Net Terms</strong>. There is no no-code “required PO” toggle. Purchase-order required is a checkout validation rule (Shopify Functions <code>cart.poNumber</code>, available since 1 April 2026). People still cite missing <strong>company-level catalog assignment</strong>, <strong>deposits</strong>, and <strong>buyer approval</strong> as native gaps.</p>
+    <p>Native Net Terms control how the company pays. They do <strong>not</strong> check PO format, prefix, length, or uniqueness. Wholesale buyers can then skip the box, type junk, or reuse a number.</p>
     <p>This is the <strong>PO-number</strong> job, not a postal PO Box block. D2C and no-company checkouts stay out of the way. Preview a sample number, publish the rule, then test a blocked and an allowed company checkout.</p>
 
     <h2>Install, turn on the PO rule, then prove one required checkout</h2>
@@ -217,9 +218,9 @@
       </thead>
       <tbody>
         <tr>
-          <td>Native B2B Net Terms</td>
-          <td>How the company is allowed to pay</td>
-          <td>No format, prefix, or uniqueness check</td>
+          <td>Grow catalogs / PO field / Net Terms</td>
+          <td>Catalogs, an optional PO box, how the company pays</td>
+          <td>No no-code required toggle. No format, prefix, or uniqueness check</td>
         </tr>
         <tr>
           <td>Optional PO field with no rule</td>
@@ -247,7 +248,7 @@ unique per company
 sample: PO-48219  → pass
 sample: (blank)    → error
 sample: TEST       → error</code></pre>
-    <p>Checkout enforcement that hides unpaid-deposit methods is described on the listing as a Plus B2B path. PO validation, review, and approval are described as working on every plan. Confirm the live listing, not this page.</p>
+    <p>People still cite native gaps beyond a required PO: <strong>company-level catalog assignment</strong>, <strong>deposits</strong>, and <strong>buyer approval</strong>. This page does not invent a no-code required toggle. Deposit and review controls on the listing are extra, and they do not replace a required PO string. Confirm the live listing, not this page.</p>
 
     <h2>What this page is not</h2>
     <ul>
@@ -258,7 +259,7 @@ sample: TEST       → error</code></pre>
     </ul>
 
     <h2>Does native B2B Net Terms require a valid purchase-order number?</h2>
-    <p>No. Native company payment terms control how the company pays. They do not validate PO number format, prefix, regex, length, or uniqueness. A buyer can leave the box empty, type junk, or reuse a number unless a checkout validation rule rejects that input.</p>
+    <p>No. Grow already includes catalogs, a PO number field, and Net Terms. There is no no-code required toggle. Native company payment terms control how the company pays. They do not validate PO number format, prefix, regex, length, or uniqueness. A buyer can leave the box empty, type junk, or reuse a number unless a checkout validation rule rejects that input.</p>
 
     <h2>Will a required PO number also hit D2C checkouts?</h2>
     <p>It should not. The job on this page is company / B2B checkout only. D2C and no-company carts stay on ordinary checkout. If a retail buyer sees a wholesale PO rule, the rule is on the wrong surface.</p>
