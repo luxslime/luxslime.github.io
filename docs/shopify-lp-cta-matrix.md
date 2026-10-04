@@ -27,3 +27,4 @@ Related acquisition pages (same handles; do not invent new listing URLs):
 | PO Box rate hide vs checkout validation vs AddressFence | `/guides/po-box-shipping-rate-vs-checkout-validation/` |
 | Prop 65 native disclosures vs approval + audit log | `/guides/prop-65-native-disclosures-vs-audit-log/` |
 | EUDR scope 30 Dec 2026 vs mid-2027 | `/guides/eudr-scope-2026-2027/` |
+| Stop retyping GPSR manufacturer and responsible-person fields | `/guides/gpsr-manufacturer-fields-vs-responsible-person/` |
