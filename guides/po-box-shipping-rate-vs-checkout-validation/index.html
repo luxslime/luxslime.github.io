@@ -3,69 +3,21 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Block PO boxes: shipping-rate hide vs checkout validation vs AddressFence</title>
-  <meta name="description" content="Since 17 June 2026 every merchant can block a non-compliant shipping address with Checkout Blocks. Billing is the documented AddressFence gap. Address Blocker sunset 31 August 2026. Do not block every PO Box. Not legal advice.">
+  <title>Block PO boxes: checkout validation vs AddressFence</title>
+  <meta name="description" content="Checkout can block a shipping PO Box since 17 June 2026. Billing is the AddressFence gap. Do not block every PO Box. Address Blocker sunset 31 August 2026.">
   <meta name="robots" content="index,follow">
   <link rel="icon" href="/favicon.ico" sizes="any">
   <meta property="og:type" content="article">
-  <meta property="og:title" content="Block PO boxes: shipping-rate hide vs checkout validation vs AddressFence">
-  <meta property="og:description" content="Since 17 June 2026 every merchant can block a non-compliant shipping address with Checkout Blocks. Billing is the documented AddressFence gap. Address Blocker sunset 31 August 2026. Do not block every PO Box. Not legal advice.">
+  <meta property="og:title" content="Block PO boxes: checkout validation vs AddressFence">
+  <meta property="og:description" content="Checkout can block a shipping PO Box since 17 June 2026. Billing is the AddressFence gap. Do not block every PO Box. Address Blocker sunset 31 August 2026.">
   <meta property="og:url" content="https://apify.momiji-space.com/guides/po-box-shipping-rate-vs-checkout-validation/">
   <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/27f7c111c94acf4b22bfef9207351043/promotional_image/CLDLhsPS7ZQDEAE=.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Block PO boxes: shipping-rate hide vs checkout validation vs AddressFence">
-  <meta name="twitter:description" content="Since 17 June 2026 every merchant can block a non-compliant shipping address with Checkout Blocks. Billing is the documented AddressFence gap. Address Blocker sunset 31 August 2026. Do not block every PO Box. Not legal advice.">
+  <meta name="twitter:title" content="Block PO boxes: checkout validation vs AddressFence">
+  <meta name="twitter:description" content="Checkout can block a shipping PO Box since 17 June 2026. Billing is the AddressFence gap. Do not block every PO Box. Address Blocker sunset 31 August 2026.">
   <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/27f7c111c94acf4b22bfef9207351043/promotional_image/CLDLhsPS7ZQDEAE=.png">
   <link rel="canonical" href="https://apify.momiji-space.com/guides/po-box-shipping-rate-vs-checkout-validation/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Can Shopify checkout already block a PO Box?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes, on shipping. Since 17 June 2026, Checkout Blocks address validation is available to all merchants and can block a PO Box on the shipping address. Billing address is not covered. Hiding carrier rates for a PO Box ship-to is a different control: it removes a rate, it does not attach a field error to billing. Native Shopify can block PO boxes on shipping. The remaining gap is billing and edge cases, not “Shopify cannot block PO boxes.”"
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Should I block every PO Box?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "No. Do not turn on every address type just because a shipping format list includes them. Leave PO Box shipping available when buyers legitimately receive parcels at a box, and do not copy locker, military, or diplomatic types onto billing unless that is the store policy. Gift checkouts also break if you force shipping and billing to match."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Where does AddressFence still differ from native shipping-rate hide and checkout validation?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Native checkout can block non-compliant shipping addresses for every merchant since 17 June 2026. AddressFence pages on this site document a billing-targeted rule and a sibling street-number check after Address Blocker sunset on 31 August 2026 (handle address-guard). Do not block every PO Box. This page does not invent address line 2 or country-level coverage."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Does hiding shipping rates stop a PO Box on the card billing address?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "No. Carrier rules and delivery customizations decide whether a rate is offered to a ship-to. Digital carts and “billing different from shipping” still collect a billing address. Rate hide does not validate billing fields."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Does this comparison guarantee fewer chargebacks?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "No. Rejecting an address pattern is not AVS, not a fraud guarantee, and not legal advice. False positives happen if a street line contains “PO Box” as extra text. Test a blocked address and an allowed street address before you leave a rule live."
-        }
-      }
-    ]
-  }
-  </script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
