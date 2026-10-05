@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Access Audit 30/90-day review reminders vs collaborator expiry</title>
+  <meta name="description" content="Shopify’s 90-day collaborator expiry is platform inactivity. Access Audit Guard’s 30/90-day reminders are a review cadence. Reminder overdue is not expiry. Not a security attestation.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Access Audit 30/90-day review reminders vs collaborator expiry">
+  <meta property="og:description" content="Shopify’s 90-day collaborator expiry is platform inactivity. Access Audit Guard’s 30/90-day reminders are a review cadence. Reminder overdue is not expiry. Not a security attestation.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/access-audit-30-90-day-review-reminders/">
+  <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/9ea3a49e539bec70dcd6abb7cc7f4746/promotional_image/CL_Eloyu9ZQDEAE=.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Access Audit 30/90-day review reminders vs collaborator expiry">
+  <meta name="twitter:description" content="Shopify’s 90-day collaborator expiry is platform inactivity. Access Audit Guard’s 30/90-day reminders are a review cadence. Reminder overdue is not expiry. Not a security attestation.">
+  <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/9ea3a49e539bec70dcd6abb7cc7f4746/promotional_image/CL_Eloyu9ZQDEAE=.png">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/access-audit-30-90-day-review-reminders/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://apify.momiji-space.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Staff permission drift access audit",
+        "item": "https://apify.momiji-space.com/guides/access-audit-admin/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Access Audit 30/90-day review reminders",
+        "item": "https://apify.momiji-space.com/guides/access-audit-30-90-day-review-reminders/"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Staff Access Audit Guard",
+    "alternateName": "staff access audit",
+    "description": "Review installed app access, granted scopes, staff access records, and ownership evidence without reading customer or order data. Tracks staff and collaborator access with 30/90-day review reminders. Classifies granted scopes including AI and agentic apps, flags protected customer-data and broad-write access, and scores the store Low to High (higher is safer). Does not Reactivate collaborators, rotate Shopify’s inactivity clock, revoke users, or uninstall apps.",
+    "url": "https://apps.shopify.com/momiji-access-audit",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Shopify",
+    "image": "https://cdn.shopify.com/app-store/listing_images/9ea3a49e539bec70dcd6abb7cc7f4746/icon/CLqU3dXo9JQDEAE=.png"
+  }
+  </script>
+</head>
+<body>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/review/">Shopify apps</a>
+        <a href="/guides/access-audit-admin/">Staff access audit</a>
+        <a href="https://apps.shopify.com/momiji-access-audit">Install</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / Guides / <a href="/guides/access-audit-admin/">Staff permission drift</a> / 30/90-day review reminders</nav>
+    <p class="eyebrow">30/90-day review reminders</p>
+    <h1>30/90-day access-review reminders are not Shopify’s 90-day collaborator expiry</h1>
+    <p class="lede"><strong>Staff Access Audit Guard</strong> (<a href="https://apps.shopify.com/momiji-access-audit">Shopify App Store</a>) is a Shopify app that reviews installed app access, granted scopes, staff access records, and ownership evidence without reading customer or order data. It tracks staff and collaborator access with 30/90-day review reminders, classifies granted scopes including AI and agentic apps, flags protected customer-data and broad-write access, and scores the store Low to High (higher is safer). It does not Reactivate collaborators, rotate Shopify’s inactivity clock, revoke users, or uninstall apps. Confirm live listing text rather than this page. This guide does not add prices. Not a security attestation.</p>
+
+    <h2>Two different clocks</h2>
+    <p>Partners and merchants often treat “90 days” as one control. Shopify Help Center and the Access Audit Guard listing document two different jobs.</p>
+    <div class="card">
+    <table>
+      <caption>Platform expiry versus app review reminders</caption>
+      <thead>
+        <tr>
+          <th scope="col">Clock</th>
+          <th scope="col">What it does</th>
+          <th scope="col">What it does not do</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Platform (Help Center)</td>
+          <td>If a collaborator has not logged in for 90 days, access can auto-expire. Restore on Users with Actions → <strong>Reactivate user</strong> — see <a href="/guides/shopify-collaborator-90-day-expiry-reactivate/">90-day collaborator expiry — Reactivate</a> and Shopify Help <a href="https://help.shopify.com/en/manual/your-account/users/security/collaborator-accounts">Collaborator accounts</a>.</td>
+          <td>Not staff <strong>Suspend</strong>. Not a reminder to re-check who should still have access.</td>
+        </tr>
+        <tr>
+          <td>App (listing)</td>
+          <td>Tracks staff and collaborator access with <strong>30/90-day review reminders</strong> — a cadence to re-open who still should have access.</td>
+          <td>Reminder overdue is not platform expiry. The app does not expire access, Reactivate users, or rotate Shopify’s inactivity clock.</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <p>An overdue 30/90-day reminder means the access inventory is due for another look. It does not mean Shopify already removed the collaborator.</p>
+    <p><a class="cta" href="https://apps.shopify.com/momiji-access-audit">Install staff access audit</a></p>
+
+    <h2>What the reminder is for</h2>
+    <p>Use the reminder to re-open the access inventory: <strong>staff</strong>, <strong>collaborators</strong>, and <strong>installed-app scopes</strong>.</p>
+    <p>Live listing (re-fetched at PR time, HTTP 200): “Review installed app access, granted scopes, staff access records, and ownership evidence without reading customer or order data.” Feature line: “Tracks staff and collaborator access with 30/90-day review reminders.”</p>
+    <p>The same listing also says: “Apps request scopes - including AI and agentic apps. This app classifies each granted scope, flags protected customer-data and broad-write access, and scores your store Low to High (higher is safer).”</p>
+    <p>That is a scored review of access you already granted. It is not a security attestation, and it is not employee monitoring.</p>
+
+    <h2>Native hygiene still required</h2>
+    <p>Reminders do not replace Settings → Users. Least privilege on Approve. <strong>Remove</strong> when the work ends. Rotate the collaborator request code so old Partners cannot re-request. Use <strong>Reactivate user</strong> only when restoring an expired collaborator — not Suspend, and not as a substitute for Remove when the relationship is over.</p>
+    <ul>
+      <li>Approve: grant only the permissions the job needs.</li>
+      <li>Work ended: <a href="/guides/shopify-cannot-suspend-collaborator-remove/">Remove collaborator account</a>, not staff Suspend.</li>
+      <li>Stop open requests: <a href="/guides/shopify-collaborator-request-code/">Generate new collaborator request code</a>.</li>
+      <li>Expired after 90 days without login: <a href="/guides/shopify-collaborator-90-day-expiry-reactivate/">Actions → Reactivate user</a> (or Remove + a new request).</li>
+    </ul>
+    <p><a class="cta" href="https://apps.shopify.com/momiji-access-audit">Install staff access audit</a></p>
+
+    <h2>Not the same as Suspend, the request code, or platform expiry</h2>
+    <ul>
+      <li>Not <a href="/guides/shopify-cannot-suspend-collaborator-remove/">Cannot suspend a collaborator — remove access instead</a>. Collaborators cannot use staff Suspend; Remove is the native off-store control.</li>
+      <li>Not <a href="/guides/shopify-collaborator-request-code/">Collaborator request code</a>. The code gates who can ask for access; it does not fire a 30/90-day review reminder and it does not expire a logged-out collaborator.</li>
+      <li>Not <a href="/guides/shopify-collaborator-90-day-expiry-reactivate/">Shopify’s 90-day collaborator expiry</a>. That is platform auto-expiry after 90 days without login, restored with Reactivate user.</li>
+      <li>Not employee monitoring, field-level edit logs, or a promise that the store is secure.</li>
+    </ul>
+
+    <h2>App path: install, first audit, then treat reminders as the re-review trigger</h2>
+    <p>Reactivate, Remove, and a new collaborator request stay in Settings → Users. After that native work — or instead of waiting for platform expiry — run an access and scope audit so staff, collaborators, and installed apps are still inventoried.</p>
+    <ol>
+      <li>Open the <a href="https://apps.shopify.com/momiji-access-audit">Access Audit Guard listing</a> (<code>apps.shopify.com/momiji-access-audit</code>) and install it on the store that needs the review cadence.</li>
+      <li>Wait for the first audit — the listing states it runs on install — or run another now.</li>
+      <li>Use the 30/90-day review reminders as the trigger to re-check staff, collaborators, granted scopes, and owners.</li>
+      <li>Re-check apps that requested scopes, including AI and agentic apps, and any protected customer-data or broad-write access the listing flags. Higher score is safer.</li>
+    </ol>
+    <p>The app scores and flags access you already granted. It does not Reactivate collaborators, rotate Shopify’s inactivity clock, revoke users, or uninstall apps. Confirm live listing text rather than this page.</p>
+    <p><a class="cta" href="https://apps.shopify.com/momiji-access-audit">Install staff access audit</a></p>
+
+    <h2>What this page is not</h2>
+    <ul>
+      <li>Not a security attestation, SOC report, or attorney advice.</li>
+      <li>Not employee monitoring or a customer-data export.</li>
+      <li>Not “the app expires collaborators after 90 days” and not “the app Reactivates them.”</li>
+    </ul>
+    <p><a class="cta" href="https://apps.shopify.com/momiji-access-audit">Install staff access audit</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/guides/access-audit-admin/">Staff permission drift access audit</a> — snapshot vs a recurring review</li>
+      <li><a href="/guides/shopify-collaborator-90-day-expiry-reactivate/">90-day collaborator expiry — Reactivate</a> — platform inactivity clock; Actions → Reactivate user</li>
+      <li><a href="/guides/shopify-cannot-suspend-collaborator-remove/">Cannot suspend a collaborator — remove access instead</a> — staff Suspend vs collaborator Remove</li>
+      <li><a href="/guides/shopify-collaborator-request-code/">Collaborator request code</a> — only Partners you share the code with can ask for access</li>
+      <li><a href="/guides/staff-permissions-audit-checklist/">Leftover Admin access checklist</a> — leavers with 2FA, collaborators vs the bill, preview vs publish</li>
+      <li><a href="https://help.shopify.com/en/manual/your-account/users/security/collaborator-accounts">Shopify Help Center — Collaborator accounts</a> — 90-day expiry and Reactivate user</li>
+      <li><a href="https://apps.shopify.com/momiji-access-audit">Access Audit Guard</a> — live App Store listing</li>
+      <li><a href="/access-audit/">Staff access audit install page</a></li>
+      <li><a href="/review/#access-audit">Shopify apps hub — Access Audit Guard</a></li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+    <p class="note">Not a security attestation. Not employee monitoring. Native Settings → Users is the Reactivate and Remove control. The app’s 30/90-day reminders are a review cadence; they do not expire or Reactivate collaborators.</p>
+  </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/review/">Shopify apps hub</a></li>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>
