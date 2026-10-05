@@ -8,7 +8,7 @@ Interim problem-query guide LPs on `apify.momiji-space.com`. Full rewrite planne
 | Prop 65 Warning Manager | `/guides/prop-65-product-page-warning-2028/` | https://apps.shopify.com/momiji-prop-65-warning-manager |
 | Green Claims Guard | `/guides/eu-generic-green-claims-ban/` | https://apps.shopify.com/green-claims-guard |
 | EUDR Records Manager | `/guides/eudr-dds-lot-registry/` | https://apps.shopify.com/eudr-records-manager |
-| Access Audit Guard | `/guides/access-audit-shopify-admin/` (Partner tutorialUrl: `/guides/access-audit-admin/`) | https://apps.shopify.com/momiji-access-audit |
+| Access Audit Guard | `/guides/access-audit-admin/` (alias `/guides/access-audit-shopify-admin/` redirects here) | https://apps.shopify.com/momiji-access-audit |
 | B2B Terms & PO Guard | `/guides/b2b-po-number-required/` | https://apps.shopify.com/b2b-terms-guard |
 | Agentic Catalog Readiness | `/guides/agentic-catalog-readiness/` | https://apps.shopify.com/agentic-catalog-readiness |
 | CLPLens: CLP Hazard Display | `/guides/clp-hazard-product-page/` | https://apps.shopify.com/clp-hazard-info-display |
