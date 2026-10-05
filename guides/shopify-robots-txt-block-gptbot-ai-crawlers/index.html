@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shopify robots.txt: GPTBot, ClaudeBot, PerplexityBot allow vs block</title>
+  <meta name="description" content="Check whether robots.txt disallows GPTBot, ClaudeBot, or PerplexityBot. agents.md cannot override a Disallow. Not a ranking or inclusion promise.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Shopify robots.txt: GPTBot, ClaudeBot, PerplexityBot allow vs block">
+  <meta property="og:description" content="Check whether robots.txt disallows GPTBot, ClaudeBot, or PerplexityBot. agents.md cannot override a Disallow. Not a ranking or inclusion promise.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/shopify-robots-txt-block-gptbot-ai-crawlers/">
+  <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/e390016f3b8dd309f00b480bdb35cc95/promotional_image/COPW_P3S7ZQDEAE=.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Shopify robots.txt: GPTBot, ClaudeBot, PerplexityBot allow vs block">
+  <meta name="twitter:description" content="Check whether robots.txt disallows GPTBot, ClaudeBot, or PerplexityBot. agents.md cannot override a Disallow. Not a ranking or inclusion promise.">
+  <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/e390016f3b8dd309f00b480bdb35cc95/promotional_image/COPW_P3S7ZQDEAE=.png">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/shopify-robots-txt-block-gptbot-ai-crawlers/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://apify.momiji-space.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Catalog readiness for AI shopping agents",
+        "item": "https://apify.momiji-space.com/guides/agentic-catalog-readiness/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Shopify robots.txt GPTBot allow vs block",
+        "item": "https://apify.momiji-space.com/guides/shopify-robots-txt-block-gptbot-ai-crawlers/"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Agentic Catalog by momiji",
+    "alternateName": "Agentic Catalog Readiness",
+    "description": "Checklist for llms.txt, AI-crawler robots.txt, and Product JSON-LD on live product pages. Not a ranking or inclusion promise. Does not edit robots.txt.",
+    "image": "https://cdn.shopify.com/app-store/listing_images/e390016f3b8dd309f00b480bdb35cc95/icon/CMHlurDN5JQDEAE=.png",
+    "operatingSystem": "Shopify",
+    "applicationCategory": "BusinessApplication",
+    "url": "https://apps.shopify.com/agentic-catalog-readiness"
+  }
+  </script>
+</head>
+<body>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/review/">Shopify apps</a>
+        <a href="/guides/agentic-catalog-readiness/">Agentic catalog</a>
+        <a href="/guides/shopify-robots-txt-block-gptbot-ai-crawlers/" aria-current="page">robots.txt AI crawlers</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / Guides / <a href="/guides/agentic-catalog-readiness/">Catalog readiness</a> / robots.txt AI crawlers</nav>
+    <p class="eyebrow">robots.txt GPTBot / ClaudeBot / PerplexityBot</p>
+    <h1>If robots.txt disallows AI crawlers, agents.md cannot save AI shopping visibility</h1>
+    <p class="lede"><strong>Agentic Catalog Readiness</strong> (<a href="https://apps.shopify.com/agentic-catalog-readiness">Shopify App Store</a>) is a Shopify app that scores readiness including <code>llms.txt</code> and <code>robots.txt</code> rules for GPTBot, ClaudeBot, and PerplexityBot, plus live Product JSON-LD and Open Graph checks, as listed. It does not edit <code>robots.txt</code>, does not write theme templates, does not guarantee AI recommendations or ChatGPT placement, and does not replace counsel. Confirm live listing text rather than this page. This guide does not add prices or a plan matrix.</p>
+    <p>Job: find out whether the live <code>/robots.txt</code> accidentally (or on purpose) blocks GPTBot, ClaudeBot, or PerplexityBot — and stop treating a default <code>agents.md</code> as a workaround. A <code>Disallow</code> is a crawler-access rule. It is not fixed by reviewing <code>llms.txt</code>.</p>
+
+    <h2>Three separate files — fixing one does not fix the others</h2>
+    <div class="card">
+    <table>
+      <caption>robots.txt, agents.md / llms.txt, and Product JSON-LD are different jobs</caption>
+      <thead>
+        <tr>
+          <th scope="col">File</th>
+          <th scope="col">What it does</th>
+          <th scope="col">What it cannot do</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>robots.txt</code></td>
+          <td>Allow or deny named crawlers (advisory)</td>
+          <td>Publish agent context, or add Product structured data</td>
+        </tr>
+        <tr>
+          <td><code>agents.md</code> / <code>llms.txt</code></td>
+          <td>Public hint of store context for agents</td>
+          <td>Override a <code>Disallow</code> in <code>robots.txt</code></td>
+        </tr>
+        <tr>
+          <td>Product JSON-LD on the live PDP</td>
+          <td>Machine-readable product facts on the page</td>
+          <td>Let a blocked crawler fetch the page</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <p>Shopify has served a default <code>/agents.md</code> since <strong>28 May 2026</strong>, and <code>/llms.txt</code> and <code>/llms-full.txt</code> point to that content unless you override the theme templates. That default does not rewrite <code>robots.txt</code>. See the <a href="https://shopify.dev/changelog/customize-llmstxt-llms-fulltxt-and-agentsmd">28 May 2026 Shopify changelog</a> and Help on <a href="https://help.shopify.com/en/manual/online-sales-channels/agentic-storefronts/products">Shopify Catalog and agentic storefront products</a>. Theme override steps live on <a href="/guides/shopify-customize-agents-md-llms-txt/">customize agents.md and llms.txt</a>.</p>
+    <p>Help Center is explicit: blocking AI crawlers at the <code>/robots.txt</code> layer affects <strong>open-web discoverability</strong>. It does not stop Shopify Catalog from sending product data to agentic storefronts you have activated. A blocked GPTBot is one failure mode. It is not automatically “why ChatGPT shopping cannot see the catalog.”</p>
+
+    <h2>How to check the live robots.txt</h2>
+    <p>Open <code>https://YOURSTORE/robots.txt</code> on the primary domain. Shopify Help documents that the file lives at the store’s primary-domain root (for example <code>example.com/robots.txt</code>). Also open the published theme’s <code>robots.txt.liquid</code> if that template exists — that is the customization surface, not an Admin toggle. Shopify does not document a settings switch that allow-lists GPTBot, ClaudeBot, or PerplexityBot. Confirm the live <a href="https://help.shopify.com/en/manual/promoting-marketing/seo/editing-robots-txt">Editing robots.txt.liquid</a> Help article and the developer <a href="https://shopify.dev/docs/storefronts/themes/seo/robots-txt">Customize robots.txt</a> page rather than inventing a checkbox.</p>
+    <p>Look for groups that name these tokens (and related tokens the operators publish) with a site-wide deny:</p>
+<pre><code>User-agent: GPTBot
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: PerplexityBot
+Disallow: /</code></pre>
+    <p>That pattern is what “accidentally blocked” looks like. Shopify’s documented default file is SEO-oriented (<code>Disallow</code> for <code>/admin</code>, cart, checkout, account, and some filtered collections) and is not an AI-crawler block list. An explicit AI <code>User-agent</code> group is almost always a <code>robots.txt.liquid</code> customization, an SEO snippet, or another layer in front of the store.</p>
+    <p>Related tokens, if you cite crawler names: OpenAI also documents <code>OAI-SearchBot</code> separately from <code>GPTBot</code> (<a href="https://developers.openai.com/api/docs/bots">OpenAI crawlers</a>). Anthropic documents <code>ClaudeBot</code> and related Claude crawlers (<a href="https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler">Anthropic crawler Help</a>). Perplexity documents <code>PerplexityBot</code> (<a href="https://docs.perplexity.ai/docs/resources/perplexity-crawlers">Perplexity crawlers</a>). The readiness listing scores GPTBot, ClaudeBot, and PerplexityBot. Match the token spelling you actually publish.</p>
+    <p><a class="cta" href="https://apps.shopify.com/agentic-catalog-readiness">Install Agentic Catalog Readiness → run check → fix first flagged gap</a></p>
+
+    <h2>Allow vs block is a merchant policy, not a ranking requirement</h2>
+    <p>Allowing crawlers is a deliberate choice: discovery and citation versus privacy, training-use, and crawl load. This page does not tell you to allow every bot. It explains the visibility tradeoff. A <code>Disallow: /</code> for GPTBot, ClaudeBot, or PerplexityBot is a valid policy if that is what you want. It is a readiness gap only when the block is accidental — or when you expected <code>agents.md</code> to keep open-web agents reading the catalog anyway.</p>
+    <p>Help Center also notes that <code>robots.txt</code> rules are directional and advisory. Not every crawler follows them. A network proxy in front of Shopify is a different layer; Shopify does not recommend that configuration and does not support it.</p>
+
+    <h2>Native path: edit robots.txt.liquid, publish, re-fetch</h2>
+    <p>Online Store serves <code>/robots.txt</code> from Shopify’s generated default, or from a theme template named <code>robots.txt.liquid</code>. The documented merchant path:</p>
+    <ol>
+      <li>From Shopify admin, go to <strong>Online Store</strong>.</li>
+      <li>On the published theme, open <strong>Edit code</strong>.</li>
+      <li>Add a new template and select <strong>robots</strong> (file name <code>robots.txt.liquid</code> in Templates). If the file already exists, open it — do not assume the default file is what the live URL returns.</li>
+      <li>Keep Shopify’s Liquid <code>robots.default_groups</code> loop when you can, then add or remove the AI-crawler group you actually intend. Developer docs show custom <code>User-agent</code> blocks for allow or deny. Replacing the whole file with plain text is documented but not recommended, because default SEO rules then stop receiving Shopify updates.</li>
+      <li>Save the published theme. Re-fetch <code>https://YOURSTORE/robots.txt</code> and confirm the live groups. Crawlers do not always re-read the file immediately.</li>
+      <li>Keep <code>agents.md</code> / <code>llms.txt</code> review on the <a href="/guides/shopify-customize-agents-md-llms-txt/">customize sibling</a>. That template does not write <code>robots.txt</code>.</li>
+    </ol>
+    <p>Help Center: this is an unsupported customization. Shopify Support will not edit <code>robots.txt.liquid</code> for you. Incorrect rules can hide URLs you still want crawled. If you want the generated default again, delete the custom template as the Help article describes.</p>
+
+    <h2>App path: score the crawler-rule gap after you change robots.txt</h2>
+    <p><a href="https://apps.shopify.com/agentic-catalog-readiness">Agentic Catalog Readiness</a> flags crawler-rule and JSON-LD gaps on a readiness score. Run it after you change <code>robots.txt</code> so the score matches the live file. The app does not write <code>robots.txt</code> or <code>robots.txt.liquid</code> for you. It does not publish theme templates, and it does not enroll the store in any agent network.</p>
+    <ol>
+      <li>Open the <a href="https://apps.shopify.com/agentic-catalog-readiness">Agentic Catalog Readiness listing</a> (<code>apps.shopify.com/agentic-catalog-readiness</code>) and install it.</li>
+      <li>Run a scan of <code>llms.txt</code>, <code>robots.txt</code> rules for GPTBot, ClaudeBot, and PerplexityBot, and Product JSON-LD / Open Graph on live product pages.</li>
+      <li>If the score flags a crawler <code>Disallow</code> you did not intend, edit <code>robots.txt.liquid</code> yourself, publish, re-fetch the live URL, then re-run the scan.</li>
+      <li>If the score flags JSON-LD or unreviewed <code>llms.txt</code> instead, those are the other two files — not a robots edit.</li>
+    </ol>
+    <p>A score is a checklist. It is not a ChatGPT ranking, inclusion, or sales promise.</p>
+    <p><a class="cta" href="https://apps.shopify.com/agentic-catalog-readiness">Install Agentic Catalog Readiness, run a catalog readiness scan, then fix llms.txt, AI-crawler robots rules, and Product JSON-LD gaps the score cites.</a></p>
+
+    <h2>Start path: confirm the live file, then score</h2>
+    <ol>
+      <li>Open <code>https://YOURSTORE/robots.txt</code> and search for <code>GPTBot</code>, <code>ClaudeBot</code>, and <code>PerplexityBot</code>.</li>
+      <li>If a <code>Disallow: /</code> is present, decide whether that is the policy you want. If it is accidental, edit the published theme’s <code>robots.txt.liquid</code> using the Help / developer steps above — then re-fetch the live URL.</li>
+      <li>Install <a href="https://apps.shopify.com/agentic-catalog-readiness">Agentic Catalog Readiness</a> and run the readiness check so crawler rules and Product JSON-LD are scored together.</li>
+      <li>Review or override <code>agents.md</code> only if the context file is the gap. That path is <a href="/guides/shopify-customize-agents-md-llms-txt/">customize agents.md and llms.txt</a>.</li>
+    </ol>
+    <p><a class="cta" href="https://apps.shopify.com/agentic-catalog-readiness">Install Agentic Catalog Readiness, run a catalog readiness scan, then fix llms.txt, AI-crawler robots rules, and Product JSON-LD gaps the score cites.</a></p>
+
+    <h2>What this page is not</h2>
+    <ul>
+      <li>Not the <code>agents.md.liquid</code> customize deep dive. That is <a href="/guides/shopify-customize-agents-md-llms-txt/">customize Shopify agents.md and llms.txt</a>.</li>
+      <li>Not a GTIN / Product JSON-LD deep dive. That checklist is <a href="/guides/agentic-catalog-readiness/">crawler rules and product JSON-LD</a>.</li>
+      <li>Not an access audit of AI apps with customer scopes. That job is <a href="/guides/access-audit-admin/">staff permission drift</a>.</li>
+      <li>Not a ranking, traffic, or “listed in ChatGPT shopping” guarantee.</li>
+      <li>Not a claim that Agentic Catalog Readiness edits <code>robots.txt</code>.</li>
+    </ul>
+    <p><a class="cta" href="https://apps.shopify.com/agentic-catalog-readiness">Install Agentic Catalog Readiness, run a catalog readiness scan, then fix llms.txt, AI-crawler robots rules, and Product JSON-LD gaps the score cites.</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/guides/agentic-catalog-readiness/">Catalog readiness for AI shopping agents</a> — llms.txt, robots rules, and Product JSON-LD in one score</li>
+      <li><a href="/guides/shopify-customize-agents-md-llms-txt/">Customize agents.md and llms.txt</a> — theme templates, not robots.txt</li>
+      <li><a href="https://apps.shopify.com/agentic-catalog-readiness">Agentic Catalog Readiness</a> — live App Store listing</li>
+      <li><a href="/review/#agentic">Shopify apps hub — Agentic Catalog Readiness</a></li>
+      <li><a href="https://help.shopify.com/en/manual/promoting-marketing/seo/editing-robots-txt">Shopify Help — Editing robots.txt.liquid</a></li>
+      <li><a href="https://shopify.dev/docs/storefronts/themes/seo/robots-txt">Customize robots.txt</a> — theme developer docs</li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+    <p class="note">Not an inclusion or ranking guarantee. Not legal advice. Confirm the live /robots.txt after you change robots.txt.liquid. The app scores public crawler and structured-data hygiene; it does not edit robots.txt.</p>
+  </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/review/">Shopify apps hub</a></li>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>
