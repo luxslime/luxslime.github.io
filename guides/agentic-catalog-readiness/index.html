@@ -36,7 +36,7 @@
         "name": "Is a robots.txt allow enough without llms.txt?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "No. robots.txt tells specific crawlers whether they may fetch. llms.txt is a separate, public hint about which URLs and context an LLM-facing agent should prefer. Missing either one is a readiness gap. Confirm what you actually publish at both paths."
+          "text": "No. robots.txt tells specific crawlers whether they may fetch. llms.txt is a separate, public hint about which URLs and context an LLM-facing agent should prefer. Shopify stores already serve llms.txt by default; the gap is whether that default content says what you want, not whether the file exists. Confirm what you actually publish at both paths."
         }
       },
       {
@@ -129,7 +129,10 @@
     <nav><a href="/">Home</a> / Guides / Catalog readiness for AI shopping agents</nav>
     <p class="eyebrow">Catalog readiness for AI shopping agents</p>
     <h1>AI shopping agents skip catalogs without crawler rules and complete product JSON-LD</h1>
-    <p class="lede">Job: make the catalog <strong>machine-readable</strong> before an AI shopping agent tries to discover it: publish <code>llms.txt</code>, set GPTBot / ClaudeBot / PerplexityBot in <code>robots.txt</code> <strong>on purpose</strong>, and put complete <strong>Product JSON-LD</strong> (and Open Graph) on live product pages.</p>
+    <p class="lede">Job: make the catalog <strong>machine-readable</strong> before an AI shopping agent tries to discover it: confirm the default <code>llms.txt</code> says what you want, set GPTBot / ClaudeBot / PerplexityBot in <code>robots.txt</code> <strong>on purpose</strong>, and put complete <strong>Product JSON-LD</strong> (and Open Graph) on live product pages.</p>
+    <h2>Does my Shopify store already have llms.txt?</h2>
+    <p>Yes. By default since 28 May 2026, every Shopify store includes <code>/agents.md</code>, and <code>/llms.txt</code> and <code>/llms-full.txt</code> point to that content. You do not need a third-party app to generate these files. Themes can override them with <code>agents.md.liquid</code>, <code>llms.txt.liquid</code>, or <code>llms-full.txt.liquid</code>. See the <a href="https://shopify.dev/changelog/customize-llmstxt-llms-fulltxt-and-agentsmd">28 May 2026 Shopify changelog</a> and the Help Center on <a href="https://help.shopify.com/en/manual/online-sales-channels/agentic-storefronts/products">Shopify Catalog and agentic storefront products</a>.</p>
+    <p>The readiness questions are whether that default content says what you want (customize via <code>agents.md.liquid</code>), whether your <code>robots.txt</code> AI-crawler lines are deliberate, and whether live Product JSON-LD and Open Graph are complete. <code>robots.txt</code> blocks do not stop Shopify Catalog from sending product data to activated agentic storefronts.</p>
     <p>A readiness score is a checklist. It does <strong>not</strong> enroll the store in any agent storefront, and it is not a ranking or inclusion promise.</p>
     <p>Scan those three surfaces, fix the gaps the score cites, then re-scan when theme or feed changes drop structured data.</p>
 
@@ -169,7 +172,7 @@
         <tr>
           <td><code>llms.txt</code></td>
           <td>Public hint of which URLs an LLM-facing agent should prefer</td>
-          <td>Missing file</td>
+          <td>Default content left unreviewed</td>
         </tr>
         <tr>
           <td><code>robots.txt</code> for GPTBot / ClaudeBot / PerplexityBot</td>
@@ -184,7 +187,7 @@
       </tbody>
     </table>
     </div>
-    <p><code>robots.txt</code> allow is not the same as <code>llms.txt</code>. Missing either is a readiness gap. Complete JSON-LD alone does not make the catalog “agentic.”</p>
+    <p><code>robots.txt</code> allow is not the same as <code>llms.txt</code>. Unreviewed default content at either path is still a readiness gap. Complete JSON-LD alone does not make the catalog “agentic.”</p>
     <p>Do not confuse this with an <strong>access audit</strong> of AI apps that can read customer data (<a href="/guides/access-audit-admin/">different guide</a>). A crawler allow is not permission for an installed app to read orders.</p>
     <p>Suggested path:</p>
     <ol>
@@ -257,7 +260,7 @@ product page  JSON-LD @type Product
     <p>It means a crawler can find the store’s machine-readable catalog rules and a product page exposes complete product structured data. The checklist on this page is <code>llms.txt</code>, <code>robots.txt</code> rules for GPTBot, ClaudeBot, and PerplexityBot, plus Product JSON-LD and Open Graph on live product pages. It is not a promise that any agent will recommend or buy the product.</p>
 
     <h2>Is a robots.txt allow enough without llms.txt?</h2>
-    <p>No. <code>robots.txt</code> tells specific crawlers whether they may fetch. <code>llms.txt</code> is a separate, public hint about which URLs and context an LLM-facing agent should prefer. Missing either one is a readiness gap. Confirm what you actually publish at both paths.</p>
+    <p>No. <code>robots.txt</code> tells specific crawlers whether they may fetch. <code>llms.txt</code> is a separate, public hint about which URLs and context an LLM-facing agent should prefer. Shopify stores already serve <code>llms.txt</code> by default; the gap is whether that default content says what you want, not whether the file exists. Confirm what you actually publish at both paths.</p>
 
     <h2>Does complete JSON-LD make the catalog “agentic”?</h2>
     <p>No. JSON-LD completeness (Product, offers, identifiers) is one input to a readiness score. Policy, shipping, tax, and domain checks sit beside it. Barcode/GTIN repair may be live while price, availability, or ProductGroup stay preview-only until a paid unlock. Preview is not a live catalog fix.</p>
