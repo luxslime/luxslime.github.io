@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Show a Prop 65 warning only for California (US-CA) on Shopify</title>
+  <meta name="description" content="California-only Prop 65 on Shopify is a US-CA jurisdiction on structured Disclosures, not an IP pop-up. Native path first. Not legal advice.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.ico">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Show a Prop 65 warning only for California (US-CA) on Shopify">
+  <meta property="og:description" content="California-only Prop 65 on Shopify is a US-CA jurisdiction on structured Disclosures, not an IP pop-up. Native path first. Not legal advice.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/prop-65-california-only-warning/">
+  <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/7183e1c7a7b5294555d8c97d981f8fbe/icon/CMLz0_2vgpUDEAE=.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Show a Prop 65 warning only for California (US-CA) on Shopify">
+  <meta name="twitter:description" content="California-only Prop 65 on Shopify is a US-CA jurisdiction on structured Disclosures, not an IP pop-up. Native path first. Not legal advice.">
+  <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/7183e1c7a7b5294555d8c97d981f8fbe/icon/CMLz0_2vgpUDEAE=.png">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/prop-65-california-only-warning/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://apify.momiji-space.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Show a Prop 65 warning only for California (US-CA) on Shopify",
+        "item": "https://apify.momiji-space.com/guides/prop-65-california-only-warning/"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Prop 65 Warning Manager",
+    "alternateName": "Prop 65 warning",
+    "description": "Attach a short-form Prop 65 warning that names a listed chemical, approve it before go-live, and keep an audit log. Not the only way to show a warning. Not legal advice.",
+    "url": "https://apps.shopify.com/momiji-prop-65-warning-manager",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Shopify",
+    "image": "https://cdn.shopify.com/app-store/listing_images/7183e1c7a7b5294555d8c97d981f8fbe/icon/CMLz0_2vgpUDEAE=.png"
+  }
+  </script>
+</head>
+<body>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/review/">Shopify apps</a>
+        <a href="/guides/prop-65-product-page-warning-2028/">Prop 65 warning</a>
+        <a href="https://apps.shopify.com/momiji-prop-65-warning-manager">Install</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / Guides / <a href="/guides/prop-65-product-page-warning-2028/">Prop 65 warning</a> / California-only US-CA</nav>
+    <p class="eyebrow">Prop 65 California-only</p>
+    <h1>Prop 65 on Shopify: California-only is a jurisdiction job, not an IP pop-up</h1>
+    <p class="lede"><strong>Prop 65 Warning Manager</strong> (<a href="https://apps.shopify.com/momiji-prop-65-warning-manager">Shopify App Store</a>) is a Shopify app that publishes Prop 65 product-page warnings from templates citing 27 CCR §§ 25601–25607, including 2028 short-form text that names a listed chemical, and requires merchant approval before any warning goes live, with an audit log of every pick, edit and activation. The live listing does not claim geo targeting, IP detection, “show only in California,” or a shipping-address trigger. It does not decide whether a product legally requires a warning. This page is not legal advice.</p>
+
+    <h2>Three different jobs — do not conflate them</h2>
+    <p>Merchants asking “show a Prop 65 warning only to California customers” are usually mixing three jobs. Only the first is a native jurisdiction field. The third is a checkout-extension / custom-logic problem.</p>
+    <div class="card">
+    <table>
+      <caption>Jurisdiction, render surface, and ship-to-CA are different jobs</caption>
+      <thead>
+        <tr>
+          <th scope="col">Job</th>
+          <th scope="col">What it actually is</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>A. Jurisdiction on structured Disclosures</td>
+          <td>Attach a Prop 65 disclosure whose required <code>jurisdictions</code> field includes <code>US-CA</code>. Shopify’s Prop 65 entry types already use the <code>us-ca-prop65-*</code> naming.</td>
+        </tr>
+        <tr>
+          <td>B. Where it renders</td>
+          <td><code>display_preferences.surfaces</code> may include <code>product_page</code>, <code>cart</code>, and <code>checkout</code>. Native Online Store rendering covers the product page and cart. Checkout needs a Checkout UI extension.</td>
+        </tr>
+        <tr>
+          <td>C. Ship-to-CA while the shopper’s market or IP is elsewhere</td>
+          <td>The classic Community case: browse from Wisconsin, enter a California shipping address. That is not the same as setting <code>US-CA</code> on the disclosure. Product-page market contextualization does not automatically mean “when the shipping address becomes California mid-checkout.”</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <p>Solving C is a checkout-extension / custom-logic problem. This page does not attribute C to Prop 65 Warning Manager: the live listing does not claim a geo, IP, or shipping-address trigger.</p>
+
+    <h2>Native path first: attach a US-CA disclosure</h2>
+    <p>Start with Shopify’s <a href="https://shopify.dev/docs/apps/build/product-merchandising/product-disclosures">product disclosures</a> documentation. Structured disclosures exist so Prop 65 (and other) notices live as data, not as theme-only copy. Shopify’s Help Center <a href="https://help.shopify.com/en/manual/compliance/legal/consumer-protection">consumer-protection</a> page covers adding customer-facing warnings with the Disclosures product metafield. The <a href="https://changelog.shopify.com/posts/product-listings-now-support-a-disclosures-field">17 June 2026 changelog</a> is the date product listings gained a disclosures field.</p>
+    <ul>
+      <li>Prop 65 entry types: <code>shopify--disclosure-us-ca-prop65-cancer</code>, <code>shopify--disclosure-us-ca-prop65-reproductive</code>, <code>shopify--disclosure-us-ca-prop65-cancer_reproductive</code>, and <code>shopify--disclosure-us-ca-prop65-alcohol</code>.</li>
+      <li>Required field <code>jurisdictions</code>, for example <code>["US-CA"]</code>.</li>
+      <li><code>display_preferences</code> surfaces: <code>product_page</code>, <code>cart</code>, <code>checkout</code>.</li>
+      <li>Disclosures render natively on the product details page and cart; to render in checkout, use a Checkout UI extension. Per shopify.dev, Checkout UI extensions are available only to Shopify Plus merchants.</li>
+      <li>The Storefront API returns all attached disclosures. Filter by <code>jurisdictions</code> against the buyer’s market if you want jurisdiction-aware display in a custom storefront.</li>
+    </ul>
+    <p>Setting <code>US-CA</code> on the disclosure is job A. It is not a promise that a Wisconsin IP plus a later California ship-to will flip the warning on at checkout.</p>
+
+    <h2>Admin steps (high level)</h2>
+    <ol>
+      <li>Go to <strong>Products</strong> and open the product.</li>
+      <li>Open <strong>disclosures</strong> / <strong>Product metafields</strong> → <strong>Disclosures</strong>.</li>
+      <li>Choose a Prop 65 chemical-exposure type (cancer, reproductive, cancer + reproductive, or alcohol).</li>
+      <li>Confirm <strong>jurisdictions</strong> include <code>US-CA</code>.</li>
+      <li>Set <strong>surfaces</strong> (<code>product_page</code>, <code>cart</code>, and <code>checkout</code> if you intend a checkout extension) and <strong>Save</strong>.</li>
+    </ol>
+    <p>On supported themes, add or keep the Disclosures section or block on the product template. Confirm what the theme actually shows in a California market / US-CA context and in a non-CA context. Do not treat the shopper’s IP as the jurisdiction. This page does not invent a guarantee that IP equals <code>US-CA</code>.</p>
+
+    <h2>When the app path fits</h2>
+    <p>Use <strong>Prop 65 Warning Manager</strong> when you also need chemical-name short-form templates, merchant approval before a warning goes live, and an audit trail of picks, edits, and go-live events — <strong>in addition to</strong> (not instead of) understanding native <code>US-CA</code> jurisdictions. Open the <a href="https://apps.shopify.com/momiji-prop-65-warning-manager">live App Store listing</a>. The listing does not claim California-only geo targeting.</p>
+    <p>The app helps display and document warning content the merchant chooses. It does not decide whether an exposure requires a warning. This page is not legal advice.</p>
+    <p><a class="cta" href="https://apps.shopify.com/momiji-prop-65-warning-manager">Install Prop 65 Warning Manager</a></p>
+    <p class="note">Live listing: <a href="https://apps.shopify.com/momiji-prop-65-warning-manager">apps.shopify.com/momiji-prop-65-warning-manager</a>. Attach a short-form template, approve it, then confirm the live product page. Not a geo-fence pitch. Not legal advice.</p>
+
+    <h2>What this page is not</h2>
+    <ul>
+      <li>Not legal advice, a compliance certification, or a decision that Prop 65 applies to a product.</li>
+      <li>Not the 2028 chemical-name short-form deep dive. That lives on <a href="/guides/prop-65-product-page-warning-2028/">Prop 65 warning on the product page</a>.</li>
+      <li>Not the native-vs-audit comparison. That lives on <a href="/guides/prop-65-native-disclosures-vs-audit-log/">native disclosures vs approval and audit log</a>.</li>
+      <li>Not a geo-fence app pitch. The listing does not claim IP detection or “show only in California.”</li>
+    </ul>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/guides/prop-65-product-page-warning-2028/">Prop 65 2028 product-page warning</a> — chemical-name short form and label dates</li>
+      <li><a href="/guides/prop-65-native-disclosures-vs-audit-log/">Native product disclosures vs approval and audit log</a></li>
+      <li><a href="https://apps.shopify.com/momiji-prop-65-warning-manager">Prop 65 Warning Manager</a> — live App Store listing</li>
+      <li><a href="/review/">Shopify apps hub</a></li>
+      <li><a href="/guides/clp-hazard-product-page/">CLP hazard product-page guide</a></li>
+    </ul>
+    <p class="note">Not legal advice. Not a compliance guarantee. Confirm 27 CCR Article 6 and the live OEHHA materials before you publish warning copy. Native Disclosures can carry a <code>US-CA</code> jurisdiction. That is not the same as detecting California from an IP address or a shipping field.</p>
+  </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/review/">Shopify apps hub</a></li>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>
