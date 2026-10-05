@@ -159,6 +159,49 @@
     <p>Native Checkout Blocks “address format validation” is documented as <strong>shipping-only</strong>. Billing fields are not validated by that rule.</p>
     <p>If you also need a <strong>street number</strong> on the address line (a separate sibling rule), Free AddressFence covers <strong>billing PO-box</strong> and <strong>street-number</strong> checks.</p>
 
+    <h2 id="address-blocker-sunset">Address Blocker sunset: what did not migrate</h2>
+    <p>On <a href="https://changelog.shopify.com/posts/checkout-blocks-block-non-compliant-shipping-addresses-at-checkout">17 June 2026</a>, Shopify made address format validation available to all merchants at Settings → Checkout → Checkout rules → Address format validation. Checkout Blocks Address Blocker was deprecated and sunset on <strong>31 August 2026</strong>; compatible settings moved automatically.</p>
+    <p>Shopify’s <a href="https://help.shopify.com/en/manual/checkout-settings/checkout-blocks/customizations/address-format-validation">address format validation</a> only validates <strong>shipping</strong> addresses. Billing address fields cannot be targeted. “Block non-ASCII characters” is not needed as a separate rule — checkout already prevents emojis, special symbols, HTML tags, and URLs. “Require street number” is not supported; Shopify points to <a href="https://help.shopify.com/en/manual/checkout-settings/address-collection-preferences">additional address fields</a> instead.</p>
+    <p>Those extra fields (Street name + Building number) appear only for Brazil, Kuwait, Panama, Peru, and the Philippines, plus an early-access list (Belgium, Chile, Colombia, Costa Rica, Germany, Indonesia, Israel, Mexico, Netherlands, Saudi Arabia, Spain, Taiwan, Turkey, UAE, Vietnam). Merchants cannot change which fields appear or which are required. Some accelerated checkouts such as PayPal do not require them. The fields are unavailable if address labels were renamed or an app reads or edits address data (Checkout Blocks excepted).</p>
+    <p>For stores in the US, UK, Canada, or Australia, there is no native “require a street number” after the sunset, and no native billing PO Box check. AddressFence’s <a href="https://apps.shopify.com/address-guard">Free plan</a> blocks billing PO boxes and missing street numbers.</p>
+    <p>Post-sunset checklist:</p>
+    <ol>
+      <li>Open Checkout rules and confirm the migrated address format validation rules exist.</li>
+      <li>Test a PO Box on shipping.</li>
+      <li>Test a street line with no number.</li>
+      <li>Test a PO Box on billing.</li>
+    </ol>
+    <div class="card">
+    <table>
+      <caption>Rule coverage after Address Blocker sunset</caption>
+      <thead>
+        <tr>
+          <th scope="col">Rule</th>
+          <th scope="col">Native after sunset</th>
+          <th scope="col">Where it is covered</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Block a non-compliant shipping address (including PO Box)</td>
+          <td>Yes — address format validation</td>
+          <td>Settings → Checkout → Checkout rules</td>
+        </tr>
+        <tr>
+          <td>Require a street number</td>
+          <td>No — not supported; additional address fields only in listed countries</td>
+          <td>AddressFence Free plan (missing street numbers)</td>
+        </tr>
+        <tr>
+          <td>Block a PO Box on billing</td>
+          <td>No — billing fields cannot be targeted</td>
+          <td>AddressFence Free plan (billing PO boxes)</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <p><a class="cta" href="https://apps.shopify.com/address-guard">Install AddressFence</a></p>
+
     <h2>Install, publish the billing rule, then prove one block</h2>
     <p>The paid path on this page is narrow: <strong>reject a PO Box on the card billing address</strong>, not a shipping-only format check.</p>
     <ol>
