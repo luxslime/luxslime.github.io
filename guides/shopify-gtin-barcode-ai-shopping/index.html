@@ -4,17 +4,17 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Shopify GTIN / barcode for AI shopping agents</title>
-  <meta name="description" content="Barcode is an AI-catalog input. Put the GS1 GTIN first when a variant has more than one barcode. Not a ranking or channel-approval promise.">
+  <meta name="description" content="Channels read the first barcode on a Shopify variant. Put the GS1 GTIN first when you store more than one. Barcode is an AI-catalog input, not a ranking promise.">
   <meta name="robots" content="index,follow">
   <link rel="icon" href="/favicon.ico" sizes="any">
   <meta property="og:type" content="article">
   <meta property="og:title" content="Shopify GTIN / barcode for AI shopping agents">
-  <meta property="og:description" content="Barcode is an AI-catalog input. Put the GS1 GTIN first when a variant has more than one barcode. Not a ranking or channel-approval promise.">
+  <meta property="og:description" content="Channels read the first barcode on a Shopify variant. Put the GS1 GTIN first when you store more than one. Barcode is an AI-catalog input, not a ranking promise.">
   <meta property="og:url" content="https://apify.momiji-space.com/guides/shopify-gtin-barcode-ai-shopping/">
   <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/e390016f3b8dd309f00b480bdb35cc95/promotional_image/COPW_P3S7ZQDEAE=.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Shopify GTIN / barcode for AI shopping agents">
-  <meta name="twitter:description" content="Barcode is an AI-catalog input. Put the GS1 GTIN first when a variant has more than one barcode. Not a ranking or channel-approval promise.">
+  <meta name="twitter:description" content="Channels read the first barcode on a Shopify variant. Put the GS1 GTIN first when you store more than one. Barcode is an AI-catalog input, not a ranking promise.">
   <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/e390016f3b8dd309f00b480bdb35cc95/promotional_image/COPW_P3S7ZQDEAE=.png">
   <link rel="canonical" href="https://apify.momiji-space.com/guides/shopify-gtin-barcode-ai-shopping/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
@@ -73,6 +73,7 @@
     <nav><a href="/">Home</a> / Guides / <a href="/guides/agentic-catalog-readiness/">Catalog readiness</a> / GTIN / barcode</nav>
     <p class="eyebrow">Shopify GTIN / barcode for AI shopping agents</p>
     <h1>GTIN is an AI-catalog input — put the GS1 barcode first when you store more than one</h1>
+    <p>When a Shopify variant stores more than one barcode, channels that still expect a single value read the <strong>first</strong> barcode. Put the manufacturer GS1 GTIN (8, 12, 13, or 14 digits) first, and keep private-label or internal codes after it. Barcode is one input to AI shopping channels, not a ranking or approval promise.</p>
     <p class="lede"><strong>Agentic Catalog by momiji</strong> / <strong>Agentic Catalog Readiness</strong> (<a href="https://apps.shopify.com/agentic-catalog-readiness">Shopify App Store</a>) is a Shopify app that scores readiness including <code>llms.txt</code> and <code>robots.txt</code> rules for GPTBot, ClaudeBot, and PerplexityBot, plus live Product JSON-LD and Open Graph checks, as listed. It does not edit Shopify Admin’s barcode field UX, does not guarantee Google Shopping or AI-agent approval, and does not mint GS1 numbers. Confirm live listing text rather than this page. This guide does not add prices or a plan matrix.</p>
     <p>Job: decide whether products need a GTIN / barcode for AI shopping agents, and which barcode a channel reads first when a variant stores more than one.</p>
 
@@ -84,7 +85,7 @@
     <p>Invalid short or custom strings often fail Shopping channels even when Admin accepted them historically. Typed UPC / EAN / ISBN / GTIN / ASIN values are now format-checked on entry. Custom is the untyped path (up to 255 characters) and is not a substitute for a GS1 GTIN on channels that require one.</p>
 
     <h2>Channels read the first barcode — put the GS1 GTIN first</h2>
-    <p>On 8 September 2026, Shopify’s changelog <a href="https://changelog.shopify.com/posts/multiple-barcodes-in-variants">Product variants now support multiple barcodes</a> recorded that a variant can hold up to 20 barcodes. Each can be typed UPC, EAN, ISBN, GTIN, ASIN, or Custom, and typed values are format-checked. <strong>“Channels continue to read the first barcode provided.”</strong> If you also store internal or Custom codes, put the real GS1 GTIN first.</p>
+    <p>When a Shopify variant stores more than one barcode, channels that still expect a single value read the first barcode. On 8 September 2026, Shopify’s changelog <a href="https://changelog.shopify.com/posts/multiple-barcodes-in-variants">Product variants now support multiple barcodes</a> recorded that a variant can hold up to 20 barcodes. Each can be typed UPC, EAN, ISBN, GTIN, ASIN, or Custom, and typed values are format-checked. <strong>“Channels continue to read the first barcode provided.”</strong> If you also store internal or Custom codes, put the real GS1 GTIN first.</p>
     <div class="card">
     <table>
       <caption>Barcode types on the product details page (Help Center)</caption>
