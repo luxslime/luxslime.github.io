@@ -46,8 +46,13 @@
     "alternateName": "PO box blocker",
     "description": "Billing-address rules and street-number checks for Shopify checkout - the address rules built-in validation cannot apply.",
     "url": "https://apps.shopify.com/address-guard",
-    "applicationCategory": "BusinessApplication",
+    "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Shopify",
+    "featureList": [
+      "Billing-address rules - built-in checkout rules cannot target billing at all.",
+      "Require a street number - the Address Blocker rule that was not migrated.",
+      "Test any address in the simulator before publishing, with one-click rollback."
+    ],
     "image": "https://cdn.shopify.com/app-store/listing_images/27f7c111c94acf4b22bfef9207351043/icon/CISg3YSo4pQDEAE=.png"
   }
   </script>
@@ -67,13 +72,13 @@
     <nav><a href="/">Home</a> / Guides / Street number at checkout</nav>
     <p class="eyebrow">Street number at checkout</p>
     <h1>Require a street number at Shopify checkout after the Address Blocker sunset</h1>
-    <p class="lede"><strong>AddressFence: PO Box Billing</strong> (<a href="https://apps.shopify.com/address-guard">Shopify App Store</a>) is a Shopify checkout-validation app that covers billing PO boxes and missing street numbers. Native Shopify blocks PO boxes, lockers and ZIP patterns on <strong>shipping</strong> only. The street-number rule applies to <strong>shipping</strong> addresses — “Require a street number - the Address Blocker rule that was not migrated.” Test any address in the simulator before publishing, with one-click rollback.</p>
+    <p class="lede"><strong>AddressFence: PO Box Billing</strong> (<a href="https://apps.shopify.com/address-guard">Shopify App Store</a>) is a Shopify checkout-validation app for billing-address rules and street-number checks — the address rules built-in validation cannot apply. Native Shopify blocks PO boxes, lockers and ZIP patterns on <strong>shipping</strong> only. AddressFence lists: “Require a street number - the Address Blocker rule that was not migrated.” Test any address in the simulator before publishing, with one-click rollback.</p>
     <p>Native address format validation cannot require a street number.</p>
     <p>Additional address fields only appear in listed countries, and merchants cannot change which fields appear or whether they are required.</p>
-    <p><a href="https://apps.shopify.com/address-guard">AddressFence</a> adds a checkout-validation rule that rejects a shipping street line with no house number.</p>
+    <p><a href="https://apps.shopify.com/address-guard">AddressFence</a> adds the street-number check back: “Require a street number - the Address Blocker rule that was not migrated.”</p>
     <h2>Can Shopify require a street number at checkout?</h2>
     <p>No. <a href="https://help.shopify.com/en/manual/checkout-settings/checkout-blocks/customizations/address-format-validation">Shopify Help</a> states that requiring a street number is not supported in address format validation. Additional address fields in checkout settings are a different, country-specific mechanism — merchants cannot choose which fields appear or whether they are required.</p>
-    <p>AddressFence adds the street-number rule back on the <strong>shipping</strong> address. Test any address in the simulator before publishing, with one-click rollback. This page is not legal advice and is not carrier certification.</p>
+    <p>AddressFence adds the street-number rule back — the Address Blocker rule that was not migrated. Test any address in the simulator before publishing, with one-click rollback. This page is not legal advice and is not carrier certification.</p>
 
     <h2>What happened to “Require street number”?</h2>
     <p>On <a href="https://changelog.shopify.com/posts/checkout-blocks-block-non-compliant-shipping-addresses-at-checkout">17 June 2026</a>, Shopify made address format validation available to all merchants at Settings → Checkout → Checkout rules → Address format validation. The Checkout Blocks Address Blocker is deprecated and sunsets on <strong>31 August 2026</strong>. Compatible settings migrate automatically.</p>
@@ -107,13 +112,11 @@
     <h2 id="add-the-rule-back">Add the street-number rule back with AddressFence</h2>
     <ol>
       <li>Install AddressFence from the App Store.</li>
-      <li>Turn on the street-number rule.</li>
-      <li>In the simulator, test a street line without a number (must error) and one with a number (must pass).</li>
+      <li>Turn on the street-number rule — the Address Blocker rule that was not migrated.</li>
       <li>Publish the rule to checkout validation.</li>
-      <li>Use one-click rollback if the live function is wrong.</li>
     </ol>
-    <p>The rule checks the <strong>shipping</strong> address: “Require a street/house number on the shipping address.” This page does not claim billing coverage for street number.</p>
-    <p>Which rules are on which plan is listed on the <a href="https://apps.shopify.com/address-guard">AddressFence App Store page</a>.</p>
+    <p>AddressFence lists that job as “Require a street number - the Address Blocker rule that was not migrated.” Test any address in the simulator before publishing, with one-click rollback. This page does not add billing coverage beyond the listing’s billing-address rules.</p>
+    <p>Current listing text is on the <a href="https://apps.shopify.com/address-guard">AddressFence App Store page</a>.</p>
     <p><a class="cta" href="https://apps.shopify.com/address-guard">Install AddressFence</a></p>
 
     <h2>Post-sunset checklist</h2>
