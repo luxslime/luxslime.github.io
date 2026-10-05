@@ -73,7 +73,7 @@
     <nav><a href="/">Home</a> / Guides / <a href="/guides/agentic-catalog-readiness/">Catalog readiness</a> / GTIN / barcode</nav>
     <p class="eyebrow">Shopify GTIN / barcode for AI shopping agents</p>
     <h1>GTIN is an AI-catalog input — put the GS1 barcode first when you store more than one</h1>
-    <p class="lede"><strong>Agentic Catalog by momiji</strong> / <strong>Agentic Catalog Readiness</strong> (<a href="https://apps.shopify.com/agentic-catalog-readiness">Shopify App Store</a>) is a Shopify app that scores readiness including <code>llms.txt</code> and <code>robots.txt</code> rules for GPTBot, ClaudeBot, and PerplexityBot, plus live Product JSON-LD and Open Graph checks, as listed. It does not edit Shopify Admin’s barcode field UX, does not guarantee Google Shopping or AI-agent approval, and does not mint GS1 numbers. Identifier gaps and barcode/GTIN repair apply only where the live listing marks that path. Confirm live listing text rather than this page. This guide does not add prices or a plan matrix.</p>
+    <p class="lede"><strong>Agentic Catalog by momiji</strong> / <strong>Agentic Catalog Readiness</strong> (<a href="https://apps.shopify.com/agentic-catalog-readiness">Shopify App Store</a>) is a Shopify app that scores readiness including <code>llms.txt</code> and <code>robots.txt</code> rules for GPTBot, ClaudeBot, and PerplexityBot, plus live Product JSON-LD and Open Graph checks, as listed. It does not edit Shopify Admin’s barcode field UX, does not guarantee Google Shopping or AI-agent approval, and does not mint GS1 numbers. Confirm live listing text rather than this page. This guide does not add prices or a plan matrix.</p>
     <p>Job: decide whether products need a GTIN / barcode for AI shopping agents, and which barcode a channel reads first when a variant stores more than one.</p>
 
     <h2>AI platforms treat barcode as an input, not a ranking promise</h2>
@@ -140,12 +140,12 @@
     </ul>
     <p>This page’s job is catalog identifiers for AI / agents plus the first-barcode rule.</p>
 
-    <h2>App path: score live identifiers, then repair only where the listing is live</h2>
-    <p><a href="https://apps.shopify.com/agentic-catalog-readiness">Agentic Catalog Readiness</a> scores crawler rules and live Product JSON-LD / Open Graph, as the listing states. Run a readiness check, then fix missing identifiers or barcode/GTIN repair <strong>only where the live listing marks that path</strong>. Treat preview-only fields as preview. The listing does not claim the app edits Admin barcode UX, guarantees channel approval, or mints GS1 numbers. Confirm the live listing rather than this page.</p>
+    <h2>App path: fix the first barcode in Admin, then re-check the listed surfaces</h2>
+    <p>Fix the first barcode natively in Shopify Admin (valid GS1 GTIN first). <a href="https://apps.shopify.com/agentic-catalog-readiness">Agentic Catalog Readiness</a> then re-checks <code>llms.txt</code>, AI-crawler robots rules, and whether live Product JSON-LD is present on product pages, as the listing states. The listing does not claim the app edits Admin barcode UX, guarantees channel approval, or mints GS1 numbers. Confirm the live listing rather than this page.</p>
     <ol>
+      <li>On the variant in Shopify Admin, put a valid GS1 GTIN first. Do not treat a Custom internal code as the first barcode when a channel needs a GTIN.</li>
       <li>Open the <a href="https://apps.shopify.com/agentic-catalog-readiness">Agentic Catalog Readiness listing</a> (<code>apps.shopify.com/agentic-catalog-readiness</code>) and install it.</li>
-      <li>Run a scan of <code>llms.txt</code>, <code>robots.txt</code> rules for GPTBot, ClaudeBot, and PerplexityBot, and Product JSON-LD / Open Graph on live product pages.</li>
-      <li>If the score flags identifier gaps, put a valid GS1 GTIN first on the variant, then re-scan. Do not treat a Custom internal code as the first barcode when a channel needs a GTIN.</li>
+      <li>Run a scan of <code>llms.txt</code>, <code>robots.txt</code> rules for GPTBot, ClaudeBot, and PerplexityBot, and whether live Product JSON-LD is present on product pages.</li>
       <li>If the score flags crawler rules or unreviewed <code>llms.txt</code> instead, those are sibling jobs — not a barcode edit.</li>
     </ol>
     <p>A score is a checklist. It is not a ChatGPT ranking, Google Shopping approval, or sales promise.</p>
@@ -155,7 +155,7 @@
     <ol>
       <li>On the variant, confirm the first barcode is the GS1 GTIN (8 / 12 / 13 / 14 digits), not an internal Custom code.</li>
       <li>View the live product-page source for <code>gtin</code> / <code>gtin13</code>. Do not assume the Liquid <code>structured_data</code> example is what your theme emits.</li>
-      <li>Install <a href="https://apps.shopify.com/agentic-catalog-readiness">Agentic Catalog Readiness</a> and run the readiness check so identifier gaps and crawler rules are scored together.</li>
+      <li>Install <a href="https://apps.shopify.com/agentic-catalog-readiness">Agentic Catalog Readiness</a> and run the readiness check so the app re-checks <code>llms.txt</code>, AI-crawler robots rules, and whether live Product JSON-LD is present on product pages, as the listing states.</li>
       <li>Keep robots.txt and agents.md / llms.txt on their sibling guides. Those files do not write barcodes.</li>
     </ol>
     <p><a class="cta" href="https://apps.shopify.com/agentic-catalog-readiness">Install Agentic Catalog Readiness, run a catalog readiness scan, then fix llms.txt, AI-crawler robots rules, and Product JSON-LD gaps the score cites.</a></p>
@@ -183,7 +183,7 @@
       <li><a href="/review/#agentic">Shopify apps hub — Agentic Catalog Readiness</a></li>
       <li><a href="/tools/">Tools</a></li>
     </ul>
-    <p class="note">Not an inclusion, ranking, or Google Shopping approval guarantee. Not legal advice. The app scores public crawler and structured-data hygiene; it does not edit Admin barcode UX and does not mint GS1 numbers. Confirm the live listing for which identifier repairs are live vs preview.</p>
+    <p class="note">Not an inclusion, ranking, or Google Shopping approval guarantee. Not legal advice. The app scores public crawler and structured-data hygiene; it does not edit Admin barcode UX and does not mint GS1 numbers.</p>
   </main>
   <footer class="site">
     <div class="wrap">
