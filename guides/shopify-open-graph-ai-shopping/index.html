@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shopify Open Graph tags for AI shopping agents</title>
+  <meta name="description" content="Open Graph share tags and Product JSON-LD are different live Shopify PDP surfaces. Completing one does not complete the other. Not a ranking or inclusion promise.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Shopify Open Graph tags for AI shopping agents">
+  <meta property="og:description" content="Open Graph share tags and Product JSON-LD are different live Shopify PDP surfaces. Completing one does not complete the other. Not a ranking or inclusion promise.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/shopify-open-graph-ai-shopping/">
+  <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/e390016f3b8dd309f00b480bdb35cc95/promotional_image/COPW_P3S7ZQDEAE=.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Shopify Open Graph tags for AI shopping agents">
+  <meta name="twitter:description" content="Open Graph share tags and Product JSON-LD are different live Shopify PDP surfaces. Completing one does not complete the other. Not a ranking or inclusion promise.">
+  <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/e390016f3b8dd309f00b480bdb35cc95/promotional_image/COPW_P3S7ZQDEAE=.png">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/shopify-open-graph-ai-shopping/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://apify.momiji-space.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Catalog readiness for AI shopping agents",
+        "item": "https://apify.momiji-space.com/guides/agentic-catalog-readiness/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Shopify Open Graph tags for AI shopping agents",
+        "item": "https://apify.momiji-space.com/guides/shopify-open-graph-ai-shopping/"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Agentic Catalog by momiji",
+    "alternateName": "Agentic Catalog Readiness",
+    "description": "Checks llms.txt and robots.txt rules for GPTBot, ClaudeBot, and PerplexityBot, and audits Product JSON-LD and Open Graph completeness on live product pages. Not a ranking or inclusion promise. Does not rewrite theme Liquid.",
+    "image": "https://cdn.shopify.com/app-store/listing_images/e390016f3b8dd309f00b480bdb35cc95/icon/CMHlurDN5JQDEAE=.png",
+    "operatingSystem": "Shopify",
+    "applicationCategory": "BusinessApplication",
+    "url": "https://apps.shopify.com/agentic-catalog-readiness"
+  }
+  </script>
+</head>
+<body>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/review/">Shopify apps</a>
+        <a href="/guides/agentic-catalog-readiness/">Agentic catalog</a>
+        <a href="/guides/shopify-open-graph-ai-shopping/" aria-current="page">Open Graph</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / Guides / <a href="/guides/agentic-catalog-readiness/">Catalog readiness</a> / Open Graph</nav>
+    <p class="eyebrow">Shopify Open Graph tags for AI shopping agents</p>
+    <h1>Open Graph is not Product JSON-LD — both can be incomplete on a live Shopify PDP</h1>
+    <p class="lede"><strong>Agentic Catalog by momiji</strong> / <strong>Agentic Catalog Readiness</strong> (<a href="https://apps.shopify.com/agentic-catalog-readiness">Shopify App Store</a>) is a Shopify app that scores readiness including <code>llms.txt</code> and <code>robots.txt</code> rules for GPTBot, ClaudeBot, and PerplexityBot, plus live Product JSON-LD and Open Graph completeness on product pages, as listed. It does not rewrite theme Liquid, does not guarantee AI recommendations or ChatGPT placement, and does not replace counsel. Confirm live listing text rather than this page. This guide does not add prices or a plan matrix.</p>
+    <p>Job: stop treating share/unfurl Open Graph tags as the same surface as Product JSON-LD. Agents and unfurlers may read different markup. Completing one does not auto-fix the others.</p>
+
+    <h2>llms.txt, Product JSON-LD, and Open Graph are three jobs</h2>
+    <div class="card">
+    <table>
+      <caption>Crawler policy, Product JSON-LD, and Open Graph are different live surfaces</caption>
+      <thead>
+        <tr>
+          <th scope="col">Surface</th>
+          <th scope="col">What it is</th>
+          <th scope="col">What completing it does not do</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>llms.txt</code> / <code>robots.txt</code></td>
+          <td>Crawler policy and a public hint of which URLs an LLM-facing agent should prefer</td>
+          <td>Put Product structured data or share meta into the PDP <code>&lt;head&gt;</code></td>
+        </tr>
+        <tr>
+          <td>Product JSON-LD</td>
+          <td>A structured Product graph in the page (often a JSON-LD <code>script</code>)</td>
+          <td>Emit Open Graph share tags, or rewrite <code>robots.txt</code></td>
+        </tr>
+        <tr>
+          <td>Open Graph</td>
+          <td>Share / unfurl meta in <code>&lt;head&gt;</code> (<code>property="og:…"</code>)</td>
+          <td>Complete Product JSON-LD identifiers or offers</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <p>A theme can emit basic <code>og:title</code> / <code>og:image</code> on a product page while Product JSON-LD is still missing identifiers or offers. The reverse is also true. View both surfaces on the live URL.</p>
+
+    <h2>Native theme path: View source, not a Facebook debugger alone</h2>
+    <p>Many Online Store themes emit some product Open Graph tags from the product object. Shopify’s Liquid <a href="https://shopify.github.io/liquid-code-examples/example/open-graph-tags/">Open Graph tags example</a> (HTTP 200) shows a <code>social-meta-tags.liquid</code> snippet that sets <code>og:site_name</code>, <code>og:url</code>, <code>og:title</code>, <code>og:type</code>, and <code>og:description</code>, and on product templates pulls title, type <code>product</code>, and product images from the product object. Shopify also documents that if a theme omits <code>og:image</code>, the platform can generate fallback <code>og:image</code>, <code>og:image:secure_url</code>, <code>og:image:width</code>, and <code>og:image:height</code> from the <a href="https://shopify.dev/docs/api/liquid/objects/page_image"><code>page_image</code></a> object (HTTP 200). Theme SEO metadata for title, description, and canonical URLs is separate: <a href="https://shopify.dev/docs/storefronts/themes/seo/metadata">Add SEO metadata to your theme</a>.</p>
+    <p>Those are share / unfurl properties Shopify theme docs support. They are <strong>not</strong> a “required for ChatGPT” property checklist — Shopify’s primary sources do not publish one. Do not treat a third-party blog’s OG key list as what any app scores.</p>
+    <p>Open a live product page (and the homepage if you care about store-level share tags). Use View source. Search for <code>og:</code> in <code>&lt;head&gt;</code> and for <code>application/ld+json</code> Product markup. Facebook’s sharing debugger checks how Facebook unfurls a URL. It does not prove agent readiness, and it does not prove JSON-LD completeness.</p>
+    <p><a class="cta" href="https://apps.shopify.com/agentic-catalog-readiness">Install Agentic Catalog Readiness → run check → fix first flagged gap</a></p>
+
+    <h2>JSON-LD is the sibling job: identifiers and offers live there</h2>
+    <p>This page’s job is the OG vs JSON-LD confusion. Identifiers, offers, and the rest of the Product graph belong on the JSON-LD sibling: <a href="/guides/agentic-catalog-readiness/">crawler rules and product JSON-LD</a>. First-barcode / GTIN Admin notes are <a href="/guides/shopify-gtin-barcode-ai-shopping/">Shopify GTIN / barcode for AI shopping agents</a>. Shopify’s Liquid <a href="https://shopify.dev/docs/api/liquid/filters/structured_data"><code>structured_data</code> filter</a> is a JSON-LD path, not an Open Graph path. Completing share tags does not put a GTIN into JSON-LD.</p>
+
+    <h2>Not the same as robots.txt, llms.txt, GTIN Admin, or a Merchant Center feed</h2>
+    <ul>
+      <li><strong>robots.txt allow vs block</strong> for GPTBot, ClaudeBot, or PerplexityBot is crawler policy. That path is <a href="/guides/shopify-robots-txt-block-gptbot-ai-crawlers/">GPTBot / ClaudeBot / PerplexityBot allow vs block</a>.</li>
+      <li><strong>agents.md / llms.txt customization</strong> is a theme-template context file. That path is <a href="/guides/shopify-customize-agents-md-llms-txt/">customize Shopify agents.md and llms.txt</a>.</li>
+      <li><strong>GTIN / first-barcode Admin fields</strong> are product identifiers. That path is the <a href="/guides/shopify-gtin-barcode-ai-shopping/">GTIN guide</a>. Open Graph does not write Admin barcodes.</li>
+      <li><strong>Google Merchant Center feed</strong> rows are a feed job. A feed fix does not, by itself, put Open Graph or Product JSON-LD on the live PDP.</li>
+    </ul>
+    <p>Fix the matching surface. Do not assume one of these jobs rewrites the others.</p>
+
+    <h2>App path: score listed completeness, then fix the live theme yourself</h2>
+    <p>The live <a href="https://apps.shopify.com/agentic-catalog-readiness">Agentic Catalog Readiness listing</a> (re-fetched HTTP 200) states that the app checks <code>llms.txt</code> and <code>robots.txt</code> rules for GPTBot, ClaudeBot, and PerplexityBot, and audits Product JSON-LD and Open Graph completeness on live product pages. Use that score for those named gaps. The listing does not claim the app rewrites theme Liquid, auto-repairs individual Open Graph properties, or edits Admin identifier fields. Confirm the live listing rather than this page.</p>
+    <ol>
+      <li>View source on a live PDP. Note whether <code>og:</code> tags and Product JSON-LD are both present.</li>
+      <li>Open the <a href="https://apps.shopify.com/agentic-catalog-readiness">Agentic Catalog Readiness listing</a> (<code>apps.shopify.com/agentic-catalog-readiness</code>) and install it.</li>
+      <li>Run a check of <code>llms.txt</code>, <code>robots.txt</code> rules for GPTBot, ClaudeBot, and PerplexityBot, and Product JSON-LD / Open Graph completeness on live product pages, as listed.</li>
+      <li>If the score flags Open Graph completeness, fix the live theme (or theme settings) yourself, then re-check. If it flags crawler rules or Product JSON-LD instead, those are sibling jobs.</li>
+    </ol>
+    <p>A score is a checklist. It is not a ChatGPT ranking, inclusion, or sales promise.</p>
+    <p><a class="cta" href="https://apps.shopify.com/agentic-catalog-readiness">Install Agentic Catalog Readiness, run a catalog readiness scan, then fix llms.txt, AI-crawler robots rules, and Product JSON-LD gaps the score cites.</a></p>
+
+    <h2>Start path: View source both surfaces, then score</h2>
+    <ol>
+      <li>Open a live product page. View source. Search for <code>property="og:</code> and for <code>application/ld+json</code>.</li>
+      <li>Treat missing OG tags and missing Product JSON-LD as separate gaps. Completing one does not auto-fix the other.</li>
+      <li>Install <a href="https://apps.shopify.com/agentic-catalog-readiness">Agentic Catalog Readiness</a> and run the readiness check so <code>llms.txt</code>, named-bot robots rules, Product JSON-LD, and Open Graph on live product pages are scored together, as the listing states.</li>
+      <li>Keep robots.txt, agents.md / llms.txt, and GTIN / first-barcode on their sibling guides. Those jobs do not rewrite Open Graph.</li>
+    </ol>
+    <p><a class="cta" href="https://apps.shopify.com/agentic-catalog-readiness">Install Agentic Catalog Readiness, run a catalog readiness scan, then fix llms.txt, AI-crawler robots rules, and Product JSON-LD gaps the score cites.</a></p>
+
+    <h2>What this page is not</h2>
+    <ul>
+      <li>Not a social-ads creative guide, and not Facebook / Instagram campaign setup.</li>
+      <li>Not a ranking, traffic, or “listed in ChatGPT shopping” guarantee.</li>
+      <li>Not GTIN / first-barcode Admin help. That is <a href="/guides/shopify-gtin-barcode-ai-shopping/">Shopify GTIN / barcode for AI shopping agents</a>.</li>
+      <li>Not legal advice.</li>
+      <li>Not a <code>robots.txt</code> deep dive. That is <a href="/guides/shopify-robots-txt-block-gptbot-ai-crawlers/">GPTBot / ClaudeBot / PerplexityBot allow vs block</a>.</li>
+      <li>Not an <code>agents.md</code> / <code>llms.txt</code> customize deep dive. That is <a href="/guides/shopify-customize-agents-md-llms-txt/">customize Shopify agents.md and llms.txt</a>.</li>
+      <li>Not a claim that Agentic Catalog Readiness rewrites theme Liquid or auto-repairs Open Graph properties.</li>
+    </ul>
+    <p><a class="cta" href="https://apps.shopify.com/agentic-catalog-readiness">Install Agentic Catalog Readiness, run a catalog readiness scan, then fix llms.txt, AI-crawler robots rules, and Product JSON-LD gaps the score cites.</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/guides/agentic-catalog-readiness/">Catalog readiness for AI shopping agents</a> — llms.txt, robots rules, Product JSON-LD, and Open Graph in one score</li>
+      <li><a href="/guides/shopify-gtin-barcode-ai-shopping/">Shopify GTIN / barcode for AI shopping agents</a> — first barcode when a variant stores more than one</li>
+      <li><a href="/guides/shopify-robots-txt-block-gptbot-ai-crawlers/">robots.txt GPTBot / ClaudeBot / PerplexityBot allow vs block</a></li>
+      <li><a href="/guides/shopify-customize-agents-md-llms-txt/">Customize agents.md and llms.txt</a> — theme templates, not Open Graph</li>
+      <li><a href="https://apps.shopify.com/agentic-catalog-readiness">Agentic Catalog Readiness</a> — live App Store listing</li>
+      <li><a href="https://shopify.github.io/liquid-code-examples/example/open-graph-tags/">Shopify Liquid — Open Graph tags example</a></li>
+      <li><a href="https://shopify.dev/docs/api/liquid/objects/page_image">Shopify Liquid — page_image (Open Graph fallback tags)</a></li>
+      <li><a href="/review/#agentic">Shopify apps hub — Agentic Catalog Readiness</a></li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+    <p class="note">Not an inclusion or ranking guarantee. Not legal advice. Confirm the live product-page source for both Open Graph and Product JSON-LD. The app scores listed crawler and completeness checks; it does not rewrite theme Liquid.</p>
+  </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/review/">Shopify apps hub</a></li>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>
