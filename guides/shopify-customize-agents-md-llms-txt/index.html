@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Customize Shopify agents.md and llms.txt (theme templates)</title>
+  <meta name="description" content="Since 28 May 2026 Shopify serves /agents.md by default. Review or override it with agents.md.liquid, not an app proxy. Not a ranking promise.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Customize Shopify agents.md and llms.txt (theme templates)">
+  <meta property="og:description" content="Since 28 May 2026 Shopify serves /agents.md by default. Review or override it with agents.md.liquid, not an app proxy. Not a ranking promise.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/shopify-customize-agents-md-llms-txt/">
+  <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/e390016f3b8dd309f00b480bdb35cc95/promotional_image/COPW_P3S7ZQDEAE=.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Customize Shopify agents.md and llms.txt (theme templates)">
+  <meta name="twitter:description" content="Since 28 May 2026 Shopify serves /agents.md by default. Review or override it with agents.md.liquid, not an app proxy. Not a ranking promise.">
+  <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/e390016f3b8dd309f00b480bdb35cc95/promotional_image/COPW_P3S7ZQDEAE=.png">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/shopify-customize-agents-md-llms-txt/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://apify.momiji-space.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Customize Shopify agents.md and llms.txt",
+        "item": "https://apify.momiji-space.com/guides/shopify-customize-agents-md-llms-txt/"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Agentic Catalog by momiji",
+    "description": "Checklist for llms.txt, AI-crawler robots.txt, and Product JSON-LD on live product pages. Not a ranking or inclusion promise.",
+    "image": "https://cdn.shopify.com/app-store/listing_images/e390016f3b8dd309f00b480bdb35cc95/icon/CMHlurDN5JQDEAE=.png",
+    "operatingSystem": "Shopify",
+    "applicationCategory": "BusinessApplication",
+    "url": "https://apps.shopify.com/agentic-catalog-readiness"
+  }
+  </script>
+</head>
+<body>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/review/">Shopify apps</a>
+        <a href="/guides/agentic-catalog-readiness/">Agentic catalog</a>
+        <a href="/guides/shopify-customize-agents-md-llms-txt/" aria-current="page">Customize agents.md</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / Guides / Customize agents.md and llms.txt</nav>
+    <p class="eyebrow">Customize Shopify agents.md / llms.txt</p>
+    <h1>Shopify already serves /agents.md — customize it with agents.md.liquid, not an app proxy</h1>
+    <p class="lede"><strong>Agentic Catalog by momiji</strong> (<a href="https://apps.shopify.com/agentic-catalog-readiness">Shopify App Store</a>) is a Shopify app that checks llms.txt and robots.txt rules for GPTBot, ClaudeBot and PerplexityBot, audits Product JSON-LD and Open Graph completeness on live product pages, and reviews policy, shipping, tax, domain and product data in one readiness score. It does not edit theme templates, does not publish agents.md for you, does not compare Admin values per variant, market or currency, and it cannot see what an AI assistant answered.</p>
+
+    <h2>The job is review or override, not create from scratch</h2>
+    <p>Since <strong>28 May 2026</strong>, every Shopify store gets a default <code>agents.md</code> at <code>/agents.md</code>. <code>/llms.txt</code> and <code>/llms-full.txt</code> <strong>mirror that content by default</strong>. You do not need an app proxy, a redirect, or a third-party file host to make those URLs exist. The merchant job is usually to confirm the managed file says what you want — then override it only if you need custom agent instructions. See the <a href="https://shopify.dev/changelog/customize-llmstxt-llms-fulltxt-and-agentsmd">28 May 2026 Shopify changelog</a>.</p>
+
+    <h2>Canonical file vs llms mirrors</h2>
+    <p><code>agents.md</code> is the canonical, agent-facing description of the store. The <code>llms</code> URLs are alternates that fall back to <code>agents.md.liquid</code>, then to the Shopify-generated default. Shopify’s <a href="https://shopify.dev/docs/storefronts/themes/architecture/templates/agents-md-liquid">agents.md.liquid</a> docs give this lookup order:</p>
+    <div class="card">
+    <table>
+      <caption>Theme template lookup order for agent-discovery URLs</caption>
+      <thead>
+        <tr>
+          <th scope="col">URL</th>
+          <th scope="col">First match Shopify uses</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>/agents.md</code></td>
+          <td><code>agents.md.liquid</code> → Shopify-generated default</td>
+        </tr>
+        <tr>
+          <td><code>/llms.txt</code></td>
+          <td><code>llms.txt.liquid</code> → <code>agents.md.liquid</code> → Shopify-generated default</td>
+        </tr>
+        <tr>
+          <td><code>/llms-full.txt</code></td>
+          <td><code>llms-full.txt.liquid</code> → <code>agents.md.liquid</code> → Shopify-generated default</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <p>Add only <code>templates/agents.md.liquid</code> if you want all three URLs to share one override. Add <a href="https://shopify.dev/docs/storefronts/themes/architecture/templates/llms-txt-liquid"><code>llms.txt.liquid</code></a> or <a href="https://shopify.dev/docs/storefronts/themes/architecture/templates/llms-full-txt-liquid"><code>llms-full.txt.liquid</code></a> only when that one URL must diverge.</p>
+
+    <h2>How to override with a theme template</h2>
+    <ol>
+      <li>Online Store → Themes → find the published theme → <strong>Edit code</strong>.</li>
+      <li>In <strong>Templates</strong>, add a new file named <code>agents.md.liquid</code> (not a JSON template).</li>
+      <li>Write Markdown plus Liquid. This template has a <strong>restricted Liquid context</strong>: only <code>request</code> and the <code>agents</code> object are available. Standard globals such as <code>shop</code>, <code>collections</code>, <code>pages</code>, and <code>linklists</code> are not injected and render blank.</li>
+      <li>Add <code>llms.txt.liquid</code> or <code>llms-full.txt.liquid</code> only if those URLs must differ from <code>agents.md</code>.</li>
+      <li>Open <code>https://your-store.myshopify.com/agents.md</code> (and the llms URLs) on the bare primary domain and confirm the file. These paths have no locale or Markets subfolder prefix.</li>
+    </ol>
+    <p>Documented <code>agents</code> properties include <code>store_name</code>, <code>store_url</code>, <code>ucp_discovery_url</code>, <code>mcp_endpoint_url</code>, <code>ucp_versions</code>, <code>currency</code>, and <code>sitemap_url</code>. Keep UCP/MCP discovery on the <code>agents</code> object rather than hardcoding URLs. Do not invent other objects. Shopify’s generated default omits contact details because the file is cached and served to every agent — do not add private merchant emails or phone numbers.</p>
+<pre><code># Agent instructions — {{ agents.store_name }}
+
+- Store: {{ agents.store_url }}
+- UCP discovery: {{ agents.ucp_discovery_url }}
+- MCP endpoint: {{ agents.mcp_endpoint_url }}
+- Sitemap: {{ agents.sitemap_url }}
+</code></pre>
+
+    <h2>When to leave the default</h2>
+    <p>For most stores the managed file is enough. It stays aligned with Shopify’s agent-discovery capabilities and the store’s commerce configuration without extra theme maintenance. Add a template only when you have advanced instructions the managed file does not cover. If you do customize, you are responsible for keeping that Liquid current.</p>
+
+    <h2>Theme switch and headless caveat</h2>
+    <p>These files live in the <strong>published Online Store theme</strong>. Switching themes drops a custom <code>agents.md.liquid</code> unless you copy it into the new theme. Shopify has no separate Admin setting that keeps a custom agent-discovery file across themes. If the new theme has no override, the Shopify-generated default serves again. A headless or Hydrogen storefront does not replace <code>/agents.md</code> on the primary domain — Shopify still serves that path from the published Online Store theme or the managed default. An app proxy or redirect is the wrong tool for this URL; native serving already occupies it.</p>
+
+    <h2>What the app does after the file exists</h2>
+    <p>After Shopify is already serving <code>/agents.md</code> (managed or overridden), <a href="https://apps.shopify.com/agentic-catalog-readiness">Agentic Catalog by momiji</a> scores crawler rules and live product-page structured data. It does not replace <code>agents.md.liquid</code>, does not write theme templates, and does not publish the file for you.</p>
+    <p><a class="cta" href="https://apps.shopify.com/agentic-catalog-readiness">Install Agentic Catalog by momiji</a></p>
+
+    <h2>What this page is not</h2>
+    <ul>
+      <li>Not an LLM ranking, inclusion, or “listed in ChatGPT shopping” promise.</li>
+      <li>Not a robots.txt training-bot policy deep dive. That checklist is <a href="/guides/agentic-catalog-readiness/">crawler rules and product JSON-LD</a>.</li>
+      <li>Not legal advice.</li>
+    </ul>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/guides/agentic-catalog-readiness/">Catalog readiness for AI shopping agents</a> — crawler rules and Product JSON-LD</li>
+      <li><a href="https://apps.shopify.com/agentic-catalog-readiness">Agentic Catalog by momiji</a> — live App Store listing</li>
+      <li><a href="https://shopify.dev/changelog/customize-llmstxt-llms-fulltxt-and-agentsmd">Customize /llms.txt, /llms-full.txt and /agents.md</a> — 28 May 2026 changelog</li>
+      <li><a href="https://shopify.dev/docs/storefronts/themes/architecture/templates/agents-md-liquid">agents.md.liquid</a> — theme template docs</li>
+      <li><a href="https://shopify.dev/docs/storefronts/themes/architecture/templates/llms-txt-liquid">llms.txt.liquid</a></li>
+      <li><a href="/review/">Shopify apps hub</a></li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+    <p class="note">Not a ranking or inclusion guarantee. Confirm the live theme templates and the Shopify-generated default at /agents.md after you change them. The app scores public crawler and structured-data hygiene; it does not edit agents.md.liquid.</p>
+  </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/review/">Shopify apps hub</a></li>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>
