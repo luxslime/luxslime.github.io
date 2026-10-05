@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shopify B2B deposit percentage at checkout (vs Net Terms and PO)</title>
+  <meta name="description" content="A deposit % on B2B checkout is not Net Terms and not a required PO number. Set listing deposit guardrails and optional order review. D2C stays untouched.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Shopify B2B deposit percentage at checkout (vs Net Terms and PO)">
+  <meta property="og:description" content="A deposit % on B2B checkout is not Net Terms and not a required PO number. Set listing deposit guardrails and optional order review. D2C stays untouched.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/b2b-deposit-percentage-checkout/">
+  <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/0d5bee841b158614f7a791277c9b589e/promotional_image/CJrF7JSn6JQDEAE=.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Shopify B2B deposit percentage at checkout (vs Net Terms and PO)">
+  <meta name="twitter:description" content="A deposit % on B2B checkout is not Net Terms and not a required PO number. Set listing deposit guardrails and optional order review. D2C stays untouched.">
+  <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/0d5bee841b158614f7a791277c9b589e/promotional_image/CJrF7JSn6JQDEAE=.png">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/b2b-deposit-percentage-checkout/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://apify.momiji-space.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "B2B deposit percentage at checkout",
+        "item": "https://apify.momiji-space.com/guides/b2b-deposit-percentage-checkout/"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "B2B Terms & PO Guard",
+    "alternateName": "B2B PO Guard — Require PO",
+    "description": "Validates PO number format, prefix, regex, length, and uniqueness with a live sample preview. Sets deposit percentage guardrails and routes oversized B2B orders for review. D2C and no-company checkouts stay untouched. Does not extend credit or collect card deposits as a payment gateway. PO rules and live previews work on every plan; checkout enforcement (PO, deposits, review) runs on Shopify Plus B2B.",
+    "url": "https://apps.shopify.com/b2b-terms-guard",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Shopify",
+    "image": "https://cdn.shopify.com/app-store/listing_images/0d5bee841b158614f7a791277c9b589e/icon/CMiBo7bN5JQDEAE=.png"
+  }
+  </script>
+</head>
+<body>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/review/">Shopify apps</a>
+        <a href="/guides/b2b-deposit-percentage-checkout/" aria-current="page">B2B deposit %</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / Guides / B2B deposit percentage at checkout</nav>
+    <p class="eyebrow">Deposit % on B2B checkout</p>
+    <h1>A deposit % is not Net Terms and not a required PO number — three different checkout jobs</h1>
+    <p class="lede"><strong>B2B Terms &amp; PO Guard</strong> (<a href="https://apps.shopify.com/b2b-terms-guard">Shopify App Store</a>) is a Shopify app that validates purchase-order numbers by format, prefix, regex, length, and uniqueness, previews a PO rule against a sample number before you publish, sets deposit percentage guardrails, and routes oversized B2B orders for review. D2C and no-company checkouts stay untouched. It does not extend credit, collect card deposits as a payment service, or replace native company payment terms. PO rules and live previews work on every plan; checkout enforcement (PO, deposits, review) runs on Shopify Plus B2B. Confirm the live listing and Shopify B2B docs for your store. This guide does not add prices.</p>
+
+    <h2>Three jobs: Net Terms, a required PO string, and a deposit %</h2>
+    <p>Merchants searching “require 20% deposit on company checkout” often land on Downpay / Depo threads or Help Center payment terms. Those answers mix three checkout jobs. Keep them separate.</p>
+    <div class="card">
+    <table>
+      <caption>Three B2B checkout jobs that must not be mixed</caption>
+      <thead>
+        <tr>
+          <th scope="col">Job</th>
+          <th scope="col">What it controls</th>
+          <th scope="col">What it does not do</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>A. Net Terms / company payment terms</strong></td>
+          <td>When the company pays. Shopify B2B (on Basic, Grow and Advanced since 2 April 2026, and on Plus) includes company catalogs and a PO number field; payment terms and order review are Plus features. Confirm <a href="https://help.shopify.com/en/manual/b2b/checkout-and-orders/payment-terms">Shopify Help — payment terms</a> for your store.</td>
+          <td>Does not validate a PO string. Does not, by itself, replace a listed deposit-% guardrail or order-review hold.</td>
+        </tr>
+        <tr>
+          <td><strong>B. Required PO string</strong></td>
+          <td>Format, prefix, regex, length, and uniqueness so the PO box cannot be empty or junk. That job is the sibling <a href="/guides/b2b-po-number-required/">require a PO number on B2B checkout</a>. The listing app reads cart attribute <code>po_guard_po_number</code>, not <code>cart.poNumber</code>.</td>
+          <td>Does not set when the invoice is due. Does not collect a percentage of this order.</td>
+        </tr>
+        <tr>
+          <td><strong>C. Deposit % guardrail</strong> (this page)</td>
+          <td>Require a percentage on the B2B order (listing: 1–99% style guardrails) and/or hold oversized orders for review. Reduces current-order risk.</td>
+          <td>Does not replace credit limits across unpaid invoices. Does not underwrite the balance. Does not become Net Terms.</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <p>A deposit % and an order-review hold can sit next to a required PO. They do not replace it. Native Net Terms can sit next to both. Do not copy a postal PO Box rule onto any of these fields.</p>
+    <p><a class="cta" href="https://apps.shopify.com/b2b-terms-guard">Install B2B Terms &amp; PO Guard → set a deposit % guardrail → test one company checkout</a></p>
+
+    <h2>Native path: payment terms and draft-order invoices — not a universal 20% toggle</h2>
+    <p>Use native <strong>company payment terms</strong> when the job is “this location pays on Net 30.” Shopify B2B (on Basic, Grow and Advanced since 2 April 2026, and on Plus) includes <strong>company catalogs</strong> and a <strong>PO number</strong> field; payment terms and order review are Plus features. Confirm <a href="https://help.shopify.com/en/manual/b2b/checkout-and-orders/payment-terms">Help Center — Setting up payment terms in B2B</a> for the terms your store actually shows.</p>
+    <p>For offline or trade-show capture, Shopify documents <strong>draft-order invoices</strong> so you can send an invoice instead of taking a full storefront checkout on the floor. That is a capture path. It is not a storefront rule that every company checkout must leave a 20% deposit.</p>
+    <p>Help Center also documents deposit collection on some B2B surfaces. There is still <strong>no single no-code “20% deposit on every company checkout” toggle</strong> that replaces a validation app’s deposit-% guardrail and optional review hold. Do not invent one from this page. Confirm Help Center and the live listing for your store. PO rules and live previews work on every plan; checkout enforcement (PO, deposits, review) runs on Shopify Plus B2B.</p>
+    <p><a class="cta" href="https://apps.shopify.com/b2b-terms-guard">Install B2B Terms &amp; PO Guard → set a deposit % guardrail → test one company checkout</a></p>
+
+    <h2>App path: set the deposit guardrail, publish only what you mean, prove one company checkout</h2>
+    <p>The listing job on this page is a <strong>deposit percentage guardrail</strong> (and optional order review) on company checkout — not a payment gateway and not native Net Terms.</p>
+    <ol>
+      <li>Open the <a href="https://apps.shopify.com/b2b-terms-guard">B2B Terms &amp; PO Guard listing</a> (<code>apps.shopify.com/b2b-terms-guard</code>) and install it. The App Store title is <strong>B2B PO Guard — Require PO</strong>. That is the same published app, not a second listing.</li>
+      <li>Set deposit percentage guardrails as the listing describes (1–99% style, per B2B order). Optionally set a review threshold so oversized orders wait for approval.</li>
+      <li>If you also need a required PO string, set format / prefix / regex / length / uniqueness and preview a sample number before you publish. The app reads <code>po_guard_po_number</code>. Preview and publish only the rules you mean.</li>
+      <li>Place one company test checkout that should hit the deposit or review rule you published. Confirm a D2C / no-company cart is untouched.</li>
+      <li>Roll back if the live rule is wrong. Keep that first successful company checkout as the operating example before you widen locations.</li>
+    </ol>
+    <p>The app applies the guardrails you publish. It does not collect the card deposit as a PSP, extend credit, or replace the company payment terms you already set in Admin. Confirm the live listing rather than this page.</p>
+    <p><a class="cta" href="https://apps.shopify.com/b2b-terms-guard">Install B2B Terms &amp; PO Guard — set deposit percentage guardrails, optional review, then prove one company test checkout.</a></p>
+
+    <h2>What this page is not</h2>
+    <ul>
+      <li>Not the full required-PO guide. That job is <a href="/guides/b2b-po-number-required/">B2B checkout can skip a purchase-order number unless a validation rule requires it</a>.</li>
+      <li>Not a postal PO Box address block. That job is <a href="/guides/block-po-box-billing-address/">block PO Box on billing</a>.</li>
+      <li>Not legal advice, credit insurance, or a chargeback guarantee.</li>
+      <li>Not “this guarantees the buyer pays the balance.” A deposit % reduces current-order risk. It does not close unpaid invoices across the account.</li>
+    </ul>
+    <p><a class="cta" href="https://apps.shopify.com/b2b-terms-guard">Install B2B Terms &amp; PO Guard — set deposit percentage guardrails, optional review, then prove one company test checkout.</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/guides/b2b-po-number-required/">Require a PO number on B2B checkout</a> — the PO-string job, not the deposit %</li>
+      <li><a href="/b2b-po-terms/">B2B purchase-order terms install page</a></li>
+      <li><a href="https://apps.shopify.com/b2b-terms-guard">B2B Terms &amp; PO Guard</a> — live App Store listing</li>
+      <li><a href="/review/#b2b-po">Shopify apps hub — B2B Terms &amp; PO Guard</a></li>
+      <li><a href="https://help.shopify.com/en/manual/b2b/checkout-and-orders/payment-terms">Shopify Help — B2B payment terms</a></li>
+      <li><a href="https://changelog.shopify.com/posts/key-b2b-features-now-available-on-non-plus-plans">Shopify changelog — B2B for all (2 April 2026)</a></li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+    <p class="note">Not a payment gateway. Not credit insurance. Not a required PO string. Native Net Terms set when the company pays. Confirm the live listing and Shopify B2B docs for your store.</p>
+  </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/review/">Shopify apps hub</a></li>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>
