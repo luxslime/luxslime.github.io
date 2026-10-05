@@ -139,6 +139,17 @@
     <p class="eyebrow">Prop 65 warning</p>
     <h1>Prop 65 warning on the product page needs a chemical name in 2028</h1>
     <p class="lede">A short-form <strong>Prop 65 warning</strong> on the product page has to name at least one listed chemical when goods are manufactured and labeled on or after 1 January 2028. The old chemical-free line is not that safe harbor for those new labels.</p>
+    <h2 id="how-do-i-add-a-prop-65-warning-to-a-shopify-product-page">How do I add a Prop 65 warning to a Shopify product page?</h2>
+    <p>Start with Shopify’s native Product Disclosures. Since <a href="https://changelog.shopify.com/posts/product-listings-now-support-a-disclosures-field">17 June 2026</a>, product listings support a Disclosures field. Shopify’s <a href="https://help.shopify.com/en/manual/compliance/legal/consumer-protection">consumer-protection help</a> covers adding customer-facing warnings with the Disclosures product metafield.</p>
+    <ol>
+      <li>Go to <strong>Products</strong> and open the product.</li>
+      <li>Open <strong>Product metafields</strong> → <strong>Disclosures</strong>.</li>
+      <li>Choose a Prop 65 chemical-exposure entry (types: cancer, reproductive, cancer + reproductive, alcohol) or a custom disclosure.</li>
+      <li>Set <strong>Display preferences</strong> (product page / cart) and <strong>Save</strong>.</li>
+    </ol>
+    <p>On supported Online Store themes the Disclosures section renders on the product page. Otherwise add it in the theme editor. Per <a href="https://shopify.dev/docs/apps/build/product-merchandising/product-disclosures">Shopify product disclosures</a>, native Disclosures render on the product page and cart; checkout needs a Checkout UI extension.</p>
+    <p>For products manufactured and labeled on or after 1 January 2028, the short-form safe harbor needs a listed chemical name. See <a href="#what-changes-on-1-january-2028">What changes on 1 January 2028</a>.</p>
+    <p>When you need chemical-name short-form templates, a go-live approval step, and an audit log, install Prop 65 Warning Manager. This page is not legal advice.</p>
     <p><a class="cta" href="https://apps.shopify.com/momiji-prop-65-warning-manager">Install Prop 65 Warning Manager</a></p>
     <p class="note">Live listing: <a href="https://apps.shopify.com/momiji-prop-65-warning-manager">apps.shopify.com/momiji-prop-65-warning-manager</a>. Attach a short-form template, approve it, then confirm the live product page. Not legal advice.</p>
     <p>Also on the product page: <a href="/eu-food-labelling/">EU food information</a> · <a href="/guides/clp-hazard-product-page/">CLP hazard display</a> · <a href="/guides/block-po-box-billing-address/">PO box blocker</a>.</p>
@@ -192,7 +203,7 @@
       </tbody>
     </table>
     </div>
-    <p>Use native Product Disclosures when a typed notice is enough. Since 17 June 2026 those native types are cancer, reproductive, both, and alcohol. Shopify can show a warning; the app is not the only way. Sources disagree on whether that text also appears at cart and checkout. The old OEHHA short-form remains a safe harbor for products manufactured before 1 January 2028. Chemical names did not become mandatory in January 2026. Use this path when you need a chemical name on the short-form for products manufactured on or after that date, a go-live approval step, and a record of what went live. Comparison: <a href="/guides/prop-65-native-disclosures-vs-audit-log/">native disclosures vs an approval and audit-log app</a>.</p>
+    <p>Use native Product Disclosures when a typed notice is enough. Since 17 June 2026 those native types are cancer, reproductive, both, and alcohol. Shopify can show a warning; the app is not the only way. Native Disclosures render on the product page and cart; checkout needs a Checkout UI extension (<a href="https://shopify.dev/docs/apps/build/product-merchandising/product-disclosures">Shopify product disclosures</a>). The old OEHHA short-form remains a safe harbor for products manufactured before 1 January 2028. Chemical names did not become mandatory in January 2026. Use this path when you need a chemical name on the short-form for products manufactured on or after that date, a go-live approval step, and a record of what went live. Comparison: <a href="/guides/prop-65-native-disclosures-vs-audit-log/">native disclosures vs an approval and audit-log app</a>.</p>
     <p>The app helps display and document warning content you choose. It does not decide whether an exposure requires a warning. This page is not legal advice.</p>
     <p><a class="cta" href="https://apps.shopify.com/momiji-prop-65-warning-manager">Install Prop 65 Warning Manager</a></p>
 
@@ -217,7 +228,7 @@
     </ol>
     <p><a href="https://apps.shopify.com/momiji-prop-65-warning-manager">Install, then run the one-product path</a></p>
 
-    <h2>What changes on 1 January 2028</h2>
+    <h2 id="what-changes-on-1-january-2028">What changes on 1 January 2028</h2>
     <div class="card">
     <table>
       <caption>Short-form safe harbor by label date (2028 transition)</caption>
