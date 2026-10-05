@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shopify GTIN / barcode for AI shopping agents</title>
+  <meta name="description" content="Barcode is an AI-catalog input. Put the GS1 GTIN first when a variant has more than one barcode. Not a ranking or channel-approval promise.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Shopify GTIN / barcode for AI shopping agents">
+  <meta property="og:description" content="Barcode is an AI-catalog input. Put the GS1 GTIN first when a variant has more than one barcode. Not a ranking or channel-approval promise.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/shopify-gtin-barcode-ai-shopping/">
+  <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/e390016f3b8dd309f00b480bdb35cc95/promotional_image/COPW_P3S7ZQDEAE=.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Shopify GTIN / barcode for AI shopping agents">
+  <meta name="twitter:description" content="Barcode is an AI-catalog input. Put the GS1 GTIN first when a variant has more than one barcode. Not a ranking or channel-approval promise.">
+  <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/e390016f3b8dd309f00b480bdb35cc95/promotional_image/COPW_P3S7ZQDEAE=.png">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/shopify-gtin-barcode-ai-shopping/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://apify.momiji-space.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Catalog readiness for AI shopping agents",
+        "item": "https://apify.momiji-space.com/guides/agentic-catalog-readiness/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Shopify GTIN / barcode for AI shopping agents",
+        "item": "https://apify.momiji-space.com/guides/shopify-gtin-barcode-ai-shopping/"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Agentic Catalog by momiji",
+    "alternateName": "Agentic Catalog Readiness",
+    "description": "Checklist for llms.txt, AI-crawler robots.txt, and Product JSON-LD on live product pages. Not a ranking or inclusion promise. Does not edit Admin barcode UX or mint GS1 numbers.",
+    "image": "https://cdn.shopify.com/app-store/listing_images/e390016f3b8dd309f00b480bdb35cc95/icon/CMHlurDN5JQDEAE=.png",
+    "operatingSystem": "Shopify",
+    "applicationCategory": "BusinessApplication",
+    "url": "https://apps.shopify.com/agentic-catalog-readiness"
+  }
+  </script>
+</head>
+<body>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/review/">Shopify apps</a>
+        <a href="/guides/agentic-catalog-readiness/">Agentic catalog</a>
+        <a href="/guides/shopify-gtin-barcode-ai-shopping/" aria-current="page">GTIN / barcode</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / Guides / <a href="/guides/agentic-catalog-readiness/">Catalog readiness</a> / GTIN / barcode</nav>
+    <p class="eyebrow">Shopify GTIN / barcode for AI shopping agents</p>
+    <h1>GTIN is an AI-catalog input — put the GS1 barcode first when you store more than one</h1>
+    <p class="lede"><strong>Agentic Catalog by momiji</strong> / <strong>Agentic Catalog Readiness</strong> (<a href="https://apps.shopify.com/agentic-catalog-readiness">Shopify App Store</a>) is a Shopify app that scores readiness including <code>llms.txt</code> and <code>robots.txt</code> rules for GPTBot, ClaudeBot, and PerplexityBot, plus live Product JSON-LD and Open Graph checks, as listed. It does not edit Shopify Admin’s barcode field UX, does not guarantee Google Shopping or AI-agent approval, and does not mint GS1 numbers. Identifier gaps and barcode/GTIN repair apply only where the live listing marks that path. Confirm live listing text rather than this page. This guide does not add prices or a plan matrix.</p>
+    <p>Job: decide whether products need a GTIN / barcode for AI shopping agents, and which barcode a channel reads first when a variant stores more than one.</p>
+
+    <h2>AI platforms treat barcode as an input, not a ranking promise</h2>
+    <p>Shopify Help on <a href="https://help.shopify.com/en/manual/shopify-catalog/optimizing-products">optimizing your products for AI platforms</a> lists the product details AI platforms or shopping sites consider: Title, Description, Images, product organization (Type, Vendor, Collections, and Tags), <strong>Barcode (ISBN, UPC, GTIN, etc.)</strong>, and Variants (including Option name). That list is an input checklist. It is not an eligibility guarantee and not a ranking promise. Help also notes that other factors specific to the AI agent or platform can influence results.</p>
+
+    <h2>GTIN length is 8, 12, 13, or 14 digits</h2>
+    <p>Help Center <a href="https://help.shopify.com/en/manual/products/details/product-details-page">product details</a> treats barcodes as identifiers for scanning and for product identification in online marketplaces. A GTIN (Global Trade Item Number) can be <strong>8, 12, 13, or 14 digits</strong>. Some sales channels require a GTIN before a product can be published on that channel. If you do not have one, request it from the manufacturer, or get one from GS1 if you manufacture the product. This page is not a GS1 reseller and does not invent numbers.</p>
+    <p>Invalid short or custom strings often fail Shopping channels even when Admin accepted them historically. Typed UPC / EAN / ISBN / GTIN / ASIN values are now format-checked on entry. Custom is the untyped path (up to 255 characters) and is not a substitute for a GS1 GTIN on channels that require one.</p>
+
+    <h2>Channels read the first barcode — put the GS1 GTIN first</h2>
+    <p>On 8 September 2026, Shopify’s changelog <a href="https://changelog.shopify.com/posts/multiple-barcodes-in-variants">Product variants now support multiple barcodes</a> recorded that a variant can hold up to 20 barcodes. Each can be typed UPC, EAN, ISBN, GTIN, ASIN, or Custom, and typed values are format-checked. <strong>“Channels continue to read the first barcode provided.”</strong> If you also store internal or Custom codes, put the real GS1 GTIN first.</p>
+    <div class="card">
+    <table>
+      <caption>Barcode types on the product details page (Help Center)</caption>
+      <thead>
+        <tr>
+          <th scope="col">Type</th>
+          <th scope="col">What Help documents</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>GTIN</td>
+          <td>8, 12, 13, or 14 digits</td>
+        </tr>
+        <tr>
+          <td>UPC</td>
+          <td>8 or 12 digits</td>
+        </tr>
+        <tr>
+          <td>EAN</td>
+          <td>8 or 13 digits</td>
+        </tr>
+        <tr>
+          <td>ISBN</td>
+          <td>10 or 13 characters; may include the letter X</td>
+        </tr>
+        <tr>
+          <td>ASIN</td>
+          <td>10 letters or digits</td>
+        </tr>
+        <tr>
+          <td>Custom</td>
+          <td>Any value up to 255 characters (default type)</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <p>The same barcode value cannot be used twice on the same product or variant. Existing barcodes stay in place; the first barcode is still the one used wherever a single barcode is expected (labels, sales-channel feeds, and apps that have not moved to the full set).</p>
+    <p><a class="cta" href="https://apps.shopify.com/agentic-catalog-readiness">Install Agentic Catalog Readiness → run check → fix first flagged gap</a></p>
+
+    <h2>API note: prefer <code>barcodes</code>; <code>barcode</code> is only the first entry</h2>
+    <p>The developer changelog <a href="https://shopify.dev/changelog/product-variant-barcode-is-being-replaced-by-barcodes">ProductVariant.barcode is being replaced by barcodes</a> (API version 2026-10) deprecates <code>ProductVariant.barcode</code>. Reading <code>barcode</code> returns only the first entry in the <code>barcodes</code> connection. Integrations that sync identifiers to an ERP, marketplace, POS, or supplier feed should read <code>barcodes</code>, or they silently miss every barcode after the first.</p>
+
+    <h2>Theme JSON-LD may omit <code>gtin</code> — view the live page source</h2>
+    <p>Shopify’s Liquid <a href="https://shopify.dev/docs/api/liquid/filters/structured_data"><code>structured_data</code> filter</a> outputs Product or ProductGroup. The documented example output contains no <code>gtin</code> or <code>gtin13</code> property. View the live product-page source and check whether those identifiers are present. Do not assume every theme emits them, and do not assume every theme omits them.</p>
+
+    <h2>Not the same job as GMC feeds, POS pack multipliers, or Admin bulk-edit UX</h2>
+    <p>Merchants hitting “barcode isn’t valid” or “multiple barcodes on a variant” threads are often mixing three other jobs with this one:</p>
+    <ul>
+      <li><strong>Google Merchant Center feed-only fixes</strong> change a feed row. They do not, by themselves, put a GTIN into live Product JSON-LD on the storefront.</li>
+      <li><strong>POS pack multipliers</strong> (case vs unit scans) are an inventory / POS job. They are not the AI-catalog first-barcode rule.</li>
+      <li><strong>Admin bulk-edit UX</strong> complaints about the new barcode editor are a different pain point. This page does not rewrite Admin barcode UX.</li>
+    </ul>
+    <p>This page’s job is catalog identifiers for AI / agents plus the first-barcode rule.</p>
+
+    <h2>App path: score live identifiers, then repair only where the listing is live</h2>
+    <p><a href="https://apps.shopify.com/agentic-catalog-readiness">Agentic Catalog Readiness</a> scores crawler rules and live Product JSON-LD / Open Graph, as the listing states. Run a readiness check, then fix missing identifiers or barcode/GTIN repair <strong>only where the live listing marks that path</strong>. Treat preview-only fields as preview. The listing does not claim the app edits Admin barcode UX, guarantees channel approval, or mints GS1 numbers. Confirm the live listing rather than this page.</p>
+    <ol>
+      <li>Open the <a href="https://apps.shopify.com/agentic-catalog-readiness">Agentic Catalog Readiness listing</a> (<code>apps.shopify.com/agentic-catalog-readiness</code>) and install it.</li>
+      <li>Run a scan of <code>llms.txt</code>, <code>robots.txt</code> rules for GPTBot, ClaudeBot, and PerplexityBot, and Product JSON-LD / Open Graph on live product pages.</li>
+      <li>If the score flags identifier gaps, put a valid GS1 GTIN first on the variant, then re-scan. Do not treat a Custom internal code as the first barcode when a channel needs a GTIN.</li>
+      <li>If the score flags crawler rules or unreviewed <code>llms.txt</code> instead, those are sibling jobs — not a barcode edit.</li>
+    </ol>
+    <p>A score is a checklist. It is not a ChatGPT ranking, Google Shopping approval, or sales promise.</p>
+    <p><a class="cta" href="https://apps.shopify.com/agentic-catalog-readiness">Install Agentic Catalog Readiness, run a catalog readiness scan, then fix llms.txt, AI-crawler robots rules, and Product JSON-LD gaps the score cites.</a></p>
+
+    <h2>Start path: first barcode, then score</h2>
+    <ol>
+      <li>On the variant, confirm the first barcode is the GS1 GTIN (8 / 12 / 13 / 14 digits), not an internal Custom code.</li>
+      <li>View the live product-page source for <code>gtin</code> / <code>gtin13</code>. Do not assume the Liquid <code>structured_data</code> example is what your theme emits.</li>
+      <li>Install <a href="https://apps.shopify.com/agentic-catalog-readiness">Agentic Catalog Readiness</a> and run the readiness check so identifier gaps and crawler rules are scored together.</li>
+      <li>Keep robots.txt and agents.md / llms.txt on their sibling guides. Those files do not write barcodes.</li>
+    </ol>
+    <p><a class="cta" href="https://apps.shopify.com/agentic-catalog-readiness">Install Agentic Catalog Readiness, run a catalog readiness scan, then fix llms.txt, AI-crawler robots rules, and Product JSON-LD gaps the score cites.</a></p>
+
+    <h2>What this page is not</h2>
+    <ul>
+      <li>Not Google Merchant Center support, and not a guarantee of Shopping-channel approval.</li>
+      <li>Not a GS1 reseller, and not a way to mint GTINs.</li>
+      <li>Not a <code>robots.txt</code> deep dive. That is <a href="/guides/shopify-robots-txt-block-gptbot-ai-crawlers/">GPTBot / ClaudeBot / PerplexityBot allow vs block</a>.</li>
+      <li>Not an <code>agents.md</code> / <code>llms.txt</code> deep dive. That is <a href="/guides/shopify-customize-agents-md-llms-txt/">customize Shopify agents.md and llms.txt</a>.</li>
+      <li>Not a ranking, traffic, or “listed in ChatGPT shopping” guarantee.</li>
+      <li>Not legal advice.</li>
+    </ul>
+    <p><a class="cta" href="https://apps.shopify.com/agentic-catalog-readiness">Install Agentic Catalog Readiness, run a catalog readiness scan, then fix llms.txt, AI-crawler robots rules, and Product JSON-LD gaps the score cites.</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/guides/agentic-catalog-readiness/">Catalog readiness for AI shopping agents</a> — llms.txt, robots rules, and Product JSON-LD in one score</li>
+      <li><a href="/guides/shopify-robots-txt-block-gptbot-ai-crawlers/">robots.txt GPTBot / ClaudeBot / PerplexityBot allow vs block</a></li>
+      <li><a href="/guides/shopify-customize-agents-md-llms-txt/">Customize agents.md and llms.txt</a> — theme templates, not barcodes</li>
+      <li><a href="https://apps.shopify.com/agentic-catalog-readiness">Agentic Catalog Readiness</a> — live App Store listing</li>
+      <li><a href="https://help.shopify.com/en/manual/shopify-catalog/optimizing-products">Shopify Help — Optimizing your products for AI platforms</a></li>
+      <li><a href="https://help.shopify.com/en/manual/products/details/product-details-page">Shopify Help — Product details page</a></li>
+      <li><a href="https://changelog.shopify.com/posts/multiple-barcodes-in-variants">Changelog — Product variants now support multiple barcodes</a></li>
+      <li><a href="/review/#agentic">Shopify apps hub — Agentic Catalog Readiness</a></li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+    <p class="note">Not an inclusion, ranking, or Google Shopping approval guarantee. Not legal advice. The app scores public crawler and structured-data hygiene; it does not edit Admin barcode UX and does not mint GS1 numbers. Confirm the live listing for which identifier repairs are live vs preview.</p>
+  </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/review/">Shopify apps hub</a></li>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>
