@@ -52,7 +52,7 @@
     "alternateName": "PO box blocker",
     "description": "Billing-address rules and street-number checks for Shopify checkout - the address rules built-in validation cannot apply.",
     "url": "https://apps.shopify.com/address-guard",
-    "applicationCategory": "BusinessApplication",
+    "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Shopify",
     "image": "https://cdn.shopify.com/app-store/listing_images/27f7c111c94acf4b22bfef9207351043/icon/CISg3YSo4pQDEAE=.png"
   }
@@ -127,12 +127,11 @@
       <li>Not postal vs purchase-order confusion. Blocking a postal PO Box on billing is not the same as requiring a buyer’s PO number.</li>
     </ul>
 
-    <h2>App path: billing PO and street-number rules, then prove one block</h2>
+    <h2>App path: billing-address rules and require a street number</h2>
     <ol>
       <li>Open the <a href="https://apps.shopify.com/address-guard">AddressFence listing</a> (<code>apps.shopify.com/address-guard</code>) and install it.</li>
-      <li>Enable billing PO Box and street-number rules as the listing describes: billing-address rules, and require a street number (the Address Blocker rule that was not migrated).</li>
+      <li>Enable billing-address rules and require a street number as the listing describes: built-in checkout rules cannot target billing at all, and require a street number (the Address Blocker rule that was not migrated).</li>
       <li>Publish to checkout validation.</li>
-      <li>Prove one blocked billing PO Box and one allowed street billing address.</li>
     </ol>
     <p>How-to for the broader billing job: <a href="/guides/block-po-box-billing-address/">PO box blocker for the billing address, not just shipping</a>. Street number after Address Blocker sunset: <a href="/guides/require-street-number-shopify-checkout/">require a street number at checkout</a>.</p>
     <p><a class="cta" href="https://apps.shopify.com/address-guard">Install AddressFence</a></p>
