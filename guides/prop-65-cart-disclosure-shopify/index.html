@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shopify Prop 65 on the cart vs product page</title>
+  <meta name="description" content="A Prop 65 product-page disclosure is a separate Display preference from the cart. Native Disclosures can target both. Approval and storefront-activation audit are a different job. Not legal advice.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.ico">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Shopify Prop 65 on the cart vs product page">
+  <meta property="og:description" content="A Prop 65 product-page disclosure is a separate Display preference from the cart. Native Disclosures can target both. Approval and storefront-activation audit are a different job. Not legal advice.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/prop-65-cart-disclosure-shopify/">
+  <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/7183e1c7a7b5294555d8c97d981f8fbe/icon/CMLz0_2vgpUDEAE=.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Shopify Prop 65 on the cart vs product page">
+  <meta name="twitter:description" content="A Prop 65 product-page disclosure is a separate Display preference from the cart. Native Disclosures can target both. Approval and storefront-activation audit are a different job. Not legal advice.">
+  <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/7183e1c7a7b5294555d8c97d981f8fbe/icon/CMLz0_2vgpUDEAE=.png">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/prop-65-cart-disclosure-shopify/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://apify.momiji-space.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Shopify Prop 65 on the cart vs product page",
+        "item": "https://apify.momiji-space.com/guides/prop-65-cart-disclosure-shopify/"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Prop 65 Warning Manager",
+    "alternateName": "Prop 65 warning",
+    "description": "Display California Prop 65 warnings on product pages and keep an audit trail of warning edits, assignments, and storefront activation events. Merchant approval is required before any warning goes live. Not legal advice.",
+    "url": "https://apps.shopify.com/momiji-prop-65-warning-manager",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Shopify",
+    "image": "https://cdn.shopify.com/app-store/listing_images/7183e1c7a7b5294555d8c97d981f8fbe/icon/CMLz0_2vgpUDEAE=.png"
+  }
+  </script>
+</head>
+<body>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/review/">Shopify apps</a>
+        <a href="/guides/prop-65-product-page-warning-2028/">Prop 65 warning</a>
+        <a href="https://apps.shopify.com/momiji-prop-65-warning-manager">Install</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / Guides / <a href="/guides/prop-65-product-page-warning-2028/">Prop 65 warning</a> / Cart vs product page</nav>
+    <p class="eyebrow">Prop 65 cart disclosure</p>
+    <h1>A Prop 65 product-page disclosure does not automatically appear on the cart — cart is a separate display surface</h1>
+    <p class="lede"><strong>Prop 65 Warning Manager</strong> (<a href="https://apps.shopify.com/momiji-prop-65-warning-manager">Shopify App Store</a>) displays California Prop 65 warnings on product pages and keeps an audit trail of warning edits, assignments, and storefront activation events. Every warning needs merchant approval before it goes live. Publish from templates citing 27 CCR §§ 25601–25607, including 2028 short-form text with chemical names. Cart display is a native Product Disclosures job — product page and cart are separate Display preferences. The app does not decide whether an exposure requires a warning. This page is not legal advice.</p>
+
+    <h2>Two native surfaces: product page and cart</h2>
+    <p>Shopify Product Disclosures can target the <strong>product page</strong> and the <strong>cart</strong> through Display preferences. Completing the product-page surface does not imply the cart. Shopify Help <a href="https://help.shopify.com/en/manual/products/product-disclosures">Adding product disclosures</a> documents options for displaying a disclosure on the online store’s product pages and cart page. <a href="https://shopify.dev/docs/apps/build/product-merchandising/product-disclosures">shopify.dev product disclosures</a> names the Display preferences surfaces as <code>product_page</code>, <code>cart</code>, and <code>checkout</code>, and states that disclosures render natively on the product details page and cart. Checkout is a third surface and needs a Checkout UI extension. Product listings gained a Disclosures field on <a href="https://changelog.shopify.com/posts/product-listings-now-support-a-disclosures-field">17 June 2026</a>.</p>
+    <p>In Admin, open the product → <strong>Disclosures</strong> → set <strong>Display preferences</strong> for the surfaces you need, then <strong>Save</strong>. Selecting product page alone leaves cart off unless you also select cart.</p>
+    <p><a class="cta" href="https://apps.shopify.com/momiji-prop-65-warning-manager">Install Prop 65 Warning Manager</a></p>
+
+    <h2>When cart display matters</h2>
+    <p>Shopify Help calls out cart display when a disclosure on the product page might not be viewed. Two cases Help names:</p>
+    <ul>
+      <li>A <strong>quick add</strong> button that adds a product straight to the cart from a collection page.</li>
+      <li><strong>Add-on products</strong> that need a disclosure, when the add-on product page may never be viewed because it is set to <strong>Unlisted</strong>.</li>
+    </ul>
+    <p>In those flows, select <strong>Cart</strong> in that disclosure’s Display preferences so the warning can show on the customer’s cart page. This page does not add extra legal checklists beyond that Help guidance.</p>
+
+    <h2>The theme still has to render cart disclosures</h2>
+    <p>Admin Display preferences and the theme have to agree. Selecting Cart in Admin is the storefront-location flag. The theme still has to render disclosures on the cart. Help notes that some sales channels, online store themes, or custom storefronts might not support certain display types. Confirm the live cart after Admin and the theme both include that surface.</p>
+    <p><a class="cta" href="https://apps.shopify.com/momiji-prop-65-warning-manager">Install Prop 65 Warning Manager</a></p>
+    <p class="note">Live listing: <a href="https://apps.shopify.com/momiji-prop-65-warning-manager">apps.shopify.com/momiji-prop-65-warning-manager</a>. Native Disclosures can put a warning on the product page and the cart. The listing is the approval and storefront-activation audit path. Not legal advice.</p>
+
+    <h2>Not the same as jurisdiction, checkout ship-to, 2028 copy, alcohol, or an approval desk</h2>
+    <ul>
+      <li><strong>California-only / US-CA jurisdiction</strong> — who the structured disclosure applies to, not which Online Store surface renders it. See <a href="/guides/prop-65-california-only-warning/">California-only / US-CA</a>.</li>
+      <li><strong>Ship-to-California at checkout</strong> — a checkout shipping-address job, not Display preferences on the cart. See <a href="/guides/prop-65-checkout-ship-to-california/">ship-to-California at checkout</a>.</li>
+      <li><strong>2028 chemical-name short form</strong> — warning content for goods labeled on or after 1 January 2028, not the cart-versus-PDP surface split. See <a href="/guides/prop-65-product-page-warning-2028/">Prop 65 warning on the product page</a>.</li>
+      <li><strong>Alcohol disclosure type</strong> — wine, beer, and spirits use the alcohol type, not the cart surface itself. See <a href="/guides/prop-65-alcohol-disclosure-shopify/">alcohol disclosure type</a>.</li>
+      <li><strong>Native disclosures vs approval and audit log</strong> — cart display is not an approval desk. Showing a warning on the cart and requiring merchant approval before go-live are different jobs. See <a href="/guides/prop-65-native-disclosures-vs-audit-log/">native disclosures vs approval and audit log</a>.</li>
+    </ul>
+
+    <h2>App path: approval and storefront-activation audit — optional for cart display</h2>
+    <p>Native Product Disclosures can cover product-page and cart surfaces without an app. Use <strong>Prop 65 Warning Manager</strong> when you also need the jobs the listing describes: merchant approval before any warning goes live, and an audit trail of warning edits, assignments, and storefront activation events, including 2028 short-form templates that name a listed chemical (27 CCR §§ 25601–25607).</p>
+    <ol>
+      <li>Set native Display preferences so the product page and, when Help’s cases apply, the cart are both selected. Confirm the live cart on your theme.</li>
+      <li>Open the <a href="https://apps.shopify.com/momiji-prop-65-warning-manager">Prop 65 Warning Manager listing</a> when several people can edit products and you need approve-before-go-live plus the activation audit trail.</li>
+      <li>Attach a cited template, review and approve before go-live, then keep the audit record of what published.</li>
+    </ol>
+    <p>The app helps display and document warning content the merchant chooses. It does not decide whether an exposure requires a warning. This page is not legal advice.</p>
+    <p><a class="cta" href="https://apps.shopify.com/momiji-prop-65-warning-manager">Install Prop 65 Warning Manager</a></p>
+
+    <h2>What this page is not</h2>
+    <ul>
+      <li>Not legal advice, a compliance certification, or a decision that Prop 65 applies to a product.</li>
+      <li>Not a Checkout UI extension tutorial. Checkout is a third surface in Shopify’s docs; this page is the cart-versus-product-page split.</li>
+      <li>Not a substitute for the sibling pages on US-CA jurisdiction, ship-to-California checkout, 2028 chemical-name short form, alcohol type, or approval-versus-native display.</li>
+    </ul>
+    <p><a class="cta" href="https://apps.shopify.com/momiji-prop-65-warning-manager">Install Prop 65 Warning Manager</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/guides/prop-65-native-disclosures-vs-audit-log/">Native product disclosures vs approval and audit log</a> — cart display is not the approval desk</li>
+      <li><a href="/guides/prop-65-product-page-warning-2028/">Prop 65 2028 product-page warning</a> — chemical-name short form and label dates</li>
+      <li><a href="/guides/prop-65-california-only-warning/">California-only / US-CA Prop 65</a> — jurisdiction on structured Disclosures</li>
+      <li><a href="/guides/prop-65-checkout-ship-to-california/">Prop 65 at checkout when shipping to California</a> — ship-to-CA is not the cart surface</li>
+      <li><a href="/guides/prop-65-alcohol-disclosure-shopify/">Prop 65 alcohol disclosure type</a> — wine, beer, spirits use the alcohol type</li>
+      <li><a href="https://help.shopify.com/en/manual/products/product-disclosures">Shopify Help: Adding product disclosures</a> — Display preferences for product pages and cart</li>
+      <li><a href="https://shopify.dev/docs/apps/build/product-merchandising/product-disclosures">shopify.dev: Product disclosures</a> — <code>product_page</code>, <code>cart</code>, and <code>checkout</code> surfaces</li>
+      <li><a href="https://apps.shopify.com/momiji-prop-65-warning-manager">Prop 65 Warning Manager</a> — live App Store listing</li>
+      <li><a href="/review/">Shopify apps hub</a></li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+    <p class="note">Not legal advice. Not a compliance guarantee. Confirm 27 CCR Article 6 and the live OEHHA materials before you publish warning copy. Native Disclosures can target the product page and the cart as separate Display preferences. Prop 65 Warning Manager is the approval and storefront-activation audit path.</p>
+  </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/review/">Shopify apps hub</a></li>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>
