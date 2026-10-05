@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shopify require billing match shipping is not a PO Box block</title>
+  <meta name="description" content="Requiring shipping and billing to match only forces identical addresses. It does not detect a PO Box. AddressFence adds billing-address rules and street-number checks at checkout.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Shopify require billing match shipping is not a PO Box block">
+  <meta property="og:description" content="Requiring shipping and billing to match only forces identical addresses. It does not detect a PO Box. AddressFence adds billing-address rules and street-number checks at checkout.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/addressfence-billing-match-not-po-box/">
+  <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/27f7c111c94acf4b22bfef9207351043/promotional_image/CLDLhsPS7ZQDEAE=.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Shopify require billing match shipping is not a PO Box block">
+  <meta name="twitter:description" content="Requiring shipping and billing to match only forces identical addresses. It does not detect a PO Box. AddressFence adds billing-address rules and street-number checks at checkout.">
+  <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/27f7c111c94acf4b22bfef9207351043/promotional_image/CLDLhsPS7ZQDEAE=.png">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/addressfence-billing-match-not-po-box/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://apify.momiji-space.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "PO box blocker for the billing address, not just shipping",
+        "item": "https://apify.momiji-space.com/guides/block-po-box-billing-address/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Shopify require billing match shipping is not a PO Box block",
+        "item": "https://apify.momiji-space.com/guides/addressfence-billing-match-not-po-box/"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "AddressFence: PO Box Billing",
+    "alternateName": "PO box blocker",
+    "description": "Billing-address rules and street-number checks for Shopify checkout - the address rules built-in validation cannot apply.",
+    "url": "https://apps.shopify.com/address-guard",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Shopify",
+    "image": "https://cdn.shopify.com/app-store/listing_images/27f7c111c94acf4b22bfef9207351043/icon/CISg3YSo4pQDEAE=.png"
+  }
+  </script>
+</head>
+<body>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/review/">Shopify apps</a>
+        <a href="/guides/block-po-box-billing-address/">PO box blocker</a>
+        <a href="https://apps.shopify.com/address-guard">Install</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / Guides / <a href="/guides/block-po-box-billing-address/">PO box blocker</a> / Billing match is not a PO Box block</nav>
+    <p class="eyebrow">Billing match is not a PO Box block</p>
+    <h1>Requiring shipping and billing to match does not detect PO Boxes — it only forces the two addresses to be identical</h1>
+    <p class="lede"><strong>AddressFence</strong> (<a href="https://apps.shopify.com/address-guard">Shopify App Store</a>) is a Shopify checkout-validation app for billing-address rules and street-number checks — the address rules built-in validation cannot apply. Built-in checkout rules cannot target billing at all. Test any address in the simulator before publishing, with one-click rollback.</p>
+    <p>Shopify’s “require shipping and billing address to match” preference is a fraud-control option. It makes the two addresses the same. It does not inspect either address for a PO Box. If the matched address is a PO Box, both sides remain a PO Box.</p>
+    <p><a class="cta" href="https://apps.shopify.com/address-guard">Install AddressFence</a></p>
+
+    <h2>Native match preference: identical addresses, not a PO Box detector</h2>
+    <p><a href="https://help.shopify.com/en/manual/checkout-settings/address-collection-preferences">Shopify Help: address collection preferences</a> documents the control at Settings → Checkout → Address collection: <strong>Require shipping and billing address to match</strong>. The job is identical addresses. Help recommends it for stores with a high amount of fraudulent orders, paired with an Address Verification System. A side effect is that customers cannot send gifts to a different shipping address.</p>
+    <p>That preference does not read address lines for “PO Box”. Copying shipping into billing, or forcing the two fields to be the same, still leaves a PO Box on both sides when the shared address is a PO Box.</p>
+
+    <h2>Native shipping format rules do not become a billing PO Box check</h2>
+    <p><a href="https://help.shopify.com/en/manual/checkout-settings/checkout-blocks/customizations/address-format-validation">Shopify Help: address format validation</a> in Checkout Blocks can block PO Box addresses on the <strong>shipping</strong> address. Help states that only shipping addresses are validated, and that billing address fields are not supported and cannot be targeted by those rules.</p>
+    <p>Requiring billing to match shipping does not add a billing PO Box detector. The format rule still watches shipping. The match preference still only asks whether the two addresses are identical. A buyer who bills and ships the same PO Box still checks out with a PO Box on the card billing address.</p>
+
+    <h2>Billing-targeted validation for a PO Box or missing street number</h2>
+    <p>To reject a PO Box — or a missing street number — on the <strong>card billing address</strong>, publish checkout validation that reads billing. AddressFence lists that job as billing-address rules: built-in checkout rules cannot target billing at all. The same listing covers “Require a street number - the Address Blocker rule that was not migrated.” Test any address in the simulator before publishing, with one-click rollback.</p>
+    <div class="card">
+    <table>
+      <caption>Match preference vs billing-targeted checkout validation</caption>
+      <thead>
+        <tr>
+          <th scope="col">Control</th>
+          <th scope="col">What it does</th>
+          <th scope="col">PO Box on billing?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Require shipping and billing to match</td>
+          <td>Forces the two addresses to be identical</td>
+          <td>No detector — a matched PO Box stays a PO Box on both sides</td>
+        </tr>
+        <tr>
+          <td>Checkout Blocks address format validation</td>
+          <td>Blocks non-compliant <strong>shipping</strong> formats, including PO Box</td>
+          <td>Billing fields are not validated by that rule</td>
+        </tr>
+        <tr>
+          <td>AddressFence billing-address rules</td>
+          <td>Checkout validation that can read the billing address</td>
+          <td>Rejects a PO Box on the card billing address when that rule is published</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <p><a class="cta" href="https://apps.shopify.com/address-guard">Install PO box blocker</a></p>
+
+    <h2>Not the same as AVS, risk scores, carriers, or a purchase-order number</h2>
+    <ul>
+      <li>Not AVS or card-issuer address checks. Help pairs the match preference with an Address Verification System; matching shipping to billing is not that issuer check.</li>
+      <li>Not a change to Shopify’s order-risk score. Identical addresses are a checkout collection preference, not a risk-score rule.</li>
+      <li>Not carrier delivery restrictions. Hiding rates for a ship-to does not inspect the card billing address.</li>
+      <li>Not B2B purchase-order number rules. A PO number on an invoice is a different job: <a href="/guides/b2b-po-number-required/">require a PO number at B2B checkout</a>.</li>
+      <li>Not postal vs purchase-order confusion. Blocking a postal PO Box on billing is not the same as requiring a buyer’s PO number.</li>
+    </ul>
+
+    <h2>App path: billing PO and street-number rules, then prove one block</h2>
+    <ol>
+      <li>Open the <a href="https://apps.shopify.com/address-guard">AddressFence listing</a> (<code>apps.shopify.com/address-guard</code>) and install it.</li>
+      <li>Enable billing PO Box and street-number rules as the listing describes: billing-address rules, and require a street number (the Address Blocker rule that was not migrated).</li>
+      <li>Test any address in the simulator before publishing.</li>
+      <li>Publish to checkout validation.</li>
+      <li>Prove one blocked billing PO Box and one allowed street billing address.</li>
+      <li>Use one-click rollback if the live function is wrong.</li>
+    </ol>
+    <p>How-to for the broader billing job: <a href="/guides/block-po-box-billing-address/">PO box blocker for the billing address, not just shipping</a>. Street number after Address Blocker sunset: <a href="/guides/require-street-number-shopify-checkout/">require a street number at checkout</a>.</p>
+    <p><a class="cta" href="https://apps.shopify.com/address-guard">Install AddressFence</a></p>
+
+    <h2>What this page is not</h2>
+    <ul>
+      <li>Not a gift-checkout how-to. The native match preference blocks many legitimate gift checkouts; turn it off when shipping and billing should differ.</li>
+      <li>Not a shipping-only PO Box how-to. Native address format validation may already cover ship-to PO Boxes.</li>
+      <li>Not a fraud guarantee, chargeback guarantee, or legal advice.</li>
+    </ul>
+    <p><a class="cta" href="https://apps.shopify.com/address-guard">Install PO box blocker</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/guides/block-po-box-billing-address/">PO box blocker for the billing address, not just shipping</a> — billing-targeted checkout validation</li>
+      <li><a href="/guides/require-street-number-shopify-checkout/">Require a street number at Shopify checkout</a> — the Address Blocker street-number rule</li>
+      <li><a href="/guides/po-box-blocker-apps-billing-vs-shipping/">PO box blocker apps: which ones check the billing address</a></li>
+      <li><a href="https://help.shopify.com/en/manual/checkout-settings/address-collection-preferences">Shopify Help: address collection preferences</a> — require shipping and billing to match</li>
+      <li><a href="https://help.shopify.com/en/manual/checkout-settings/checkout-blocks/customizations/address-format-validation">Shopify Help: address format validation</a> — shipping-only Checkout Blocks rules</li>
+      <li><a href="https://apps.shopify.com/address-guard">AddressFence: PO Box Billing</a> — live App Store listing</li>
+      <li><a href="/review/#address">Shopify apps hub — AddressFence</a></li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+    <p class="note">Not legal advice. Not a fraud or chargeback guarantee. Sources: <a href="https://help.shopify.com/en/manual/checkout-settings/address-collection-preferences">Help: address collection preferences</a> · <a href="https://help.shopify.com/en/manual/checkout-settings/checkout-blocks/customizations/address-format-validation">Help: address format validation</a> · <a href="https://apps.shopify.com/address-guard">AddressFence on the App Store</a>.</p>
+  </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/review/">Shopify apps hub</a></li>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>

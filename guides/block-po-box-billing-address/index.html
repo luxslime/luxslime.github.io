@@ -36,7 +36,7 @@
         "name": "Can I just require shipping and billing to match?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "That native preference forces the two addresses to be the same. It is a fraud-control option, not a PO Box detector. It also blocks legitimate gift checkouts where shipping and billing should differ. If the matched address is a PO Box, both sides stay a PO Box. Use a billing-targeted checkout validation rule when the job is “no PO Box on billing.”"
+          "text": "That native preference forces the two addresses to be the same. It is a fraud-control option, not a PO Box detector. It also blocks legitimate gift checkouts where shipping and billing should differ. If the matched address is a PO Box, both sides stay a PO Box. Use a billing-targeted checkout validation rule when the job is “no PO Box on billing.” Dedicated guide: https://apify.momiji-space.com/guides/addressfence-billing-match-not-po-box/"
         }
       },
       {
@@ -338,7 +338,7 @@
     <p>No. Native address format validation in Checkout Blocks can block PO Boxes and similar types on the shipping address. The Help Center states that billing address fields are not validated by that rule. A buyer can ship to a street address and still put a PO Box on the card billing address unless something else rejects billing.</p>
 
     <h2>Can I just require shipping and billing to match?</h2>
-    <p>That native preference forces the two addresses to be the same. It is a fraud-control option, not a PO Box detector. It also blocks legitimate gift checkouts where shipping and billing should differ. If the matched address is a PO Box, both sides stay a PO Box. Use a billing-targeted checkout validation rule when the job is “no PO Box on billing.”</p>
+    <p>That native preference forces the two addresses to be the same. It is a fraud-control option, not a PO Box detector. It also blocks legitimate gift checkouts where shipping and billing should differ. If the matched address is a PO Box, both sides stay a PO Box. Use a billing-targeted checkout validation rule when the job is “no PO Box on billing.” Dedicated walkthrough: <a href="/guides/addressfence-billing-match-not-po-box/">requiring billing to match shipping is not a PO Box block</a>.</p>
 
     <h2>Do carrier restrictions or delivery profiles cover billing?</h2>
     <p>No. Hiding rates for PO Box shipping (carrier rules, delivery customizations) only affects how the order ships. Digital carts and “billing different from shipping” still collect a billing address. Native shipping tools do not publish a first-class “block PO Box on billing” toggle.</p>
@@ -359,6 +359,7 @@
 
     <h2>Related pages</h2>
     <ul>
+      <li><a href="/guides/addressfence-billing-match-not-po-box/">Requiring shipping and billing to match does not detect PO Boxes</a></li>
       <li><a href="#require-street-number-after-address-blocker">Require street number after Address Blocker sunset</a></li>
       <li><a href="https://apps.shopify.com/address-guard">AddressFence: PO Box Blocker</a> — live App Store listing</li>
       <li><a href="/guides/po-box-shipping-rate-vs-checkout-validation/">Shipping-rate hide vs checkout validation vs AddressFence</a></li>
