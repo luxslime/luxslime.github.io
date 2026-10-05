@@ -4,17 +4,17 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Shopify robots.txt: GPTBot, ClaudeBot, PerplexityBot allow vs block</title>
-  <meta name="description" content="Check whether robots.txt disallows GPTBot, ClaudeBot, or PerplexityBot. agents.md cannot override a Disallow. Not a ranking or inclusion promise.">
+  <meta name="description" content="agents.md cannot override a robots.txt Disallow for GPTBot, ClaudeBot, or PerplexityBot. Check the live /robots.txt first. Not a ranking or inclusion promise.">
   <meta name="robots" content="index,follow">
   <link rel="icon" href="/favicon.ico" sizes="any">
   <meta property="og:type" content="article">
   <meta property="og:title" content="Shopify robots.txt: GPTBot, ClaudeBot, PerplexityBot allow vs block">
-  <meta property="og:description" content="Check whether robots.txt disallows GPTBot, ClaudeBot, or PerplexityBot. agents.md cannot override a Disallow. Not a ranking or inclusion promise.">
+  <meta property="og:description" content="agents.md cannot override a robots.txt Disallow for GPTBot, ClaudeBot, or PerplexityBot. Check the live /robots.txt first. Not a ranking or inclusion promise.">
   <meta property="og:url" content="https://apify.momiji-space.com/guides/shopify-robots-txt-block-gptbot-ai-crawlers/">
   <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/e390016f3b8dd309f00b480bdb35cc95/promotional_image/COPW_P3S7ZQDEAE=.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Shopify robots.txt: GPTBot, ClaudeBot, PerplexityBot allow vs block">
-  <meta name="twitter:description" content="Check whether robots.txt disallows GPTBot, ClaudeBot, or PerplexityBot. agents.md cannot override a Disallow. Not a ranking or inclusion promise.">
+  <meta name="twitter:description" content="agents.md cannot override a robots.txt Disallow for GPTBot, ClaudeBot, or PerplexityBot. Check the live /robots.txt first. Not a ranking or inclusion promise.">
   <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/e390016f3b8dd309f00b480bdb35cc95/promotional_image/COPW_P3S7ZQDEAE=.png">
   <link rel="canonical" href="https://apify.momiji-space.com/guides/shopify-robots-txt-block-gptbot-ai-crawlers/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
@@ -73,10 +73,12 @@
     <nav><a href="/">Home</a> / Guides / <a href="/guides/agentic-catalog-readiness/">Catalog readiness</a> / robots.txt AI crawlers</nav>
     <p class="eyebrow">robots.txt GPTBot / ClaudeBot / PerplexityBot</p>
     <h1>If robots.txt disallows AI crawlers, agents.md cannot save AI shopping visibility</h1>
+    <p>If <code>/robots.txt</code> Disallows GPTBot, ClaudeBot, or PerplexityBot, adding or polishing <code>agents.md</code> / <code>llms.txt</code> does <strong>not</strong> override that Disallow. Crawlers that honor robots.txt will stay blocked until you change and republish the live robots rules. Checking the live <code>/robots.txt</code> is the first step; allowing a bot is a merchant policy choice, not a ranking promise.</p>
     <p class="lede"><strong>Agentic Catalog Readiness</strong> (<a href="https://apps.shopify.com/agentic-catalog-readiness">Shopify App Store</a>) is a Shopify app that scores readiness including <code>llms.txt</code> and <code>robots.txt</code> rules for GPTBot, ClaudeBot, and PerplexityBot, plus live Product JSON-LD and Open Graph checks, as listed. It does not edit <code>robots.txt</code>, does not write theme templates, does not guarantee AI recommendations or ChatGPT placement, and does not replace counsel. Confirm live listing text rather than this page. This guide does not add prices or a plan matrix.</p>
     <p>Job: find out whether the live <code>/robots.txt</code> accidentally (or on purpose) blocks GPTBot, ClaudeBot, or PerplexityBot — and stop treating a default <code>agents.md</code> as a workaround. A <code>Disallow</code> is a crawler-access rule. It is not fixed by reviewing <code>llms.txt</code>.</p>
 
     <h2>Three separate files — fixing one does not fix the others</h2>
+    <p><code>agents.md</code> cannot override a <code>robots.txt</code> Disallow for GPTBot, ClaudeBot, or PerplexityBot.</p>
     <div class="card">
     <table>
       <caption>robots.txt, agents.md / llms.txt, and Product JSON-LD are different jobs</caption>
