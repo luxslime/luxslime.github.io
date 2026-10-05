@@ -76,7 +76,7 @@
         "name": "How do I require a PO number on B2B checkout?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Publish checkout validation that reads the company purchase-order field and returns an error when the number is missing or fails format, prefix, regex, length, or uniqueness. B2B Terms & PO Guard is the App Store listing this site already uses for that job. Open the listing, set rules, preview a sample number, then publish and test a blocked and an allowed checkout."
+          "text": "Publish checkout validation that reads the company purchase-order field and returns an error when the number is missing or fails format, prefix, regex, length, or uniqueness. B2B PO Guard is the App Store listing this site already uses for that job. Open the listing, set rules, preview a sample number, then publish and test a blocked and an allowed checkout."
         }
       }
     ]
@@ -106,7 +106,7 @@
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "B2B Terms & PO Guard",
+    "name": "B2B PO Guard — Require PO",
     "url": "https://apps.shopify.com/b2b-terms-guard",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Shopify",
@@ -128,16 +128,17 @@
     <nav><a href="/">Home</a> / Guides / Require PO number on B2B checkout</nav>
     <p class="eyebrow">Require PO number on B2B checkout</p>
     <h1>B2B checkout can skip a purchase-order number unless a validation rule requires it</h1>
-    <p class="lede">Job: reject a <strong>company checkout</strong> when the purchase-order number is missing or fails the format you publish.</p>
+    <p class="lede"><strong>B2B PO Guard — Require PO</strong> (<a href="https://apps.shopify.com/b2b-terms-guard">Shopify App Store</a>) is a Shopify app that validates purchase-order numbers by format, prefix, regex, length and uniqueness, and previews any PO rule live against a sample number before you publish. D2C and no-company checkouts stay untouched. Checkout enforcement runs on Shopify Plus B2B; PO rules work on every plan.</p>
+    <p>Job: reject a <strong>company checkout</strong> when the purchase-order number is missing or fails the format you publish.</p>
     <h2 id="require-po-number">Can I make the PO number required at Shopify B2B checkout?</h2>
     <p>Short answer: there is no native “required PO” toggle in Shopify B2B. Since Functions API 2026-04, a Cart and Checkout Validation function can read <code>cart.poNumber</code> and return an error on <code>$.cart.poNumber</code>. Shopify added those field targets in the <a href="https://shopify.dev/changelog/cart-and-checkout-validation-adds-billing-address-and-po-number-error-targets">1 April 2026 changelog</a>.</p>
     <p>Honest options:</p>
     <ul>
       <li>(a) A developer builds a validation function in a custom or public app.</li>
       <li>(b) Use an App Store app.</li>
-      <li>(c) For B2B Terms &amp; PO Guard, every plan previews PO format, prefix, length, and uniqueness against a sample number. PO rules and live previews work on every plan; checkout enforcement (PO, deposits, review) runs on Shopify Plus B2B.</li>
+      <li>(c) For B2B PO Guard, every plan previews PO format, prefix, length, and uniqueness against a sample number. PO rules and live previews work on every plan; checkout enforcement (PO, deposits, review) runs on Shopify Plus B2B.</li>
     </ul>
-    <p><a class="cta" href="https://apps.shopify.com/b2b-terms-guard">Install B2B Terms &amp; PO Guard → enable PO rule → test required vs allowed</a></p>
+    <p><a class="cta" href="https://apps.shopify.com/b2b-terms-guard">Install B2B PO Guard → enable PO rule → test required vs allowed</a></p>
     <p>Shopify B2B (on Basic, Grow and Advanced since 2 April 2026, and on Plus) includes <strong>company catalogs</strong> and a <strong>PO number</strong> field; payment terms and order review are Plus features. There is no no-code “required PO” toggle. Purchase-order required is a checkout validation rule (Shopify Functions <code>cart.poNumber</code>, available since 1 April 2026). People still cite missing <strong>company-level catalog assignment</strong>, <strong>deposits</strong>, and <strong>buyer approval</strong> as native gaps.</p>
     <p>Native Net Terms control how the company pays. They do <strong>not</strong> check PO format, prefix, length, or uniqueness. Wholesale buyers can then skip the box, type junk, or reuse a number.</p>
     <p>This is the <strong>PO-number</strong> job, not a postal PO Box block. D2C and no-company checkouts stay out of the way. Preview a sample number, publish the rule, then test a blocked and an allowed company checkout.</p>
@@ -145,12 +146,12 @@
     <h2>Install, turn on the PO rule, then prove one required checkout</h2>
     <p>The paid path is a <strong>B2B checkout that requires the PO / terms fields you chose</strong>, not a soft note on the order confirmation.</p>
     <ol>
-      <li>Install B2B Terms &amp; PO Guard from the App Store.</li>
+      <li>Install B2B PO Guard from the App Store.</li>
       <li>Open the app and enable the PO / terms requirement on the B2B path this guide documents.</li>
       <li>Test once without a PO (must block or hold) and once with a valid PO (must pass).</li>
     </ol>
     <p>If the rule never fires on a real B2B checkout, Install alone is not the proof. Keep the first successful required checkout as your operating example before you widen company locations or markets.</p>
-    <p><a class="cta" href="https://apps.shopify.com/b2b-terms-guard">Install B2B Terms &amp; PO Guard → enable PO rule → test required vs allowed</a></p>
+    <p><a class="cta" href="https://apps.shopify.com/b2b-terms-guard">Install B2B PO Guard → enable PO rule → test required vs allowed</a></p>
 
     <h2>Demo</h2>
     <p>Short walkthrough of the app flow. Then follow the start path below.</p>
@@ -195,18 +196,18 @@
     <p>A purchase-order number is a buyer’s order reference on a B2B invoice. A PO Box is a postal address type. Blocking PO Box on billing is a different app path (<code>address-guard</code>). Do not copy address rules onto the PO field.</p>
     <p>Suggested path:</p>
     <ol>
-      <li>Install B2B Terms &amp; PO Guard.</li>
+      <li>Install B2B PO Guard.</li>
       <li>Set required / format / prefix / regex / length / uniqueness. Preview against a sample number.</li>
       <li>Optionally add deposit or review thresholds (extra controls, not a PO substitute).</li>
       <li>Two company tests: missing or junk PO must error; matching number must pass. Confirm a D2C cart is untouched.</li>
       <li>Roll back if the live rule is wrong.</li>
     </ol>
     <p>The app validates the number you configure. It does not underwrite credit.</p>
-    <p><a class="cta" href="https://apps.shopify.com/b2b-terms-guard">Install B2B Terms &amp; PO Guard - set PO format rules, preview a sample number, publish, then test a blocked and an allowed company checkout.</a></p>
+    <p><a class="cta" href="https://apps.shopify.com/b2b-terms-guard">Install B2B PO Guard - set PO format rules, preview a sample number, publish, then test a blocked and an allowed company checkout.</a></p>
 
     <h2>Start path: required PO number on company checkout</h2>
     <ol>
-      <li>Open the <a href="https://apps.shopify.com/b2b-terms-guard">B2B Terms &amp; PO Guard listing</a> (<code>apps.shopify.com/b2b-terms-guard</code>) and install it.</li>
+      <li>Open the <a href="https://apps.shopify.com/b2b-terms-guard">B2B PO Guard listing</a> (<code>apps.shopify.com/b2b-terms-guard</code>) and install it.</li>
       <li>Set PO rules: required, format, prefix, regex, length, uniqueness. Preview against a sample number before you publish.</li>
       <li>Optionally set deposit percentage guardrails and a review threshold for oversized orders. Those are extra controls, not a substitute for a required PO.</li>
       <li>Place two company checkouts: a missing or junk PO (must error) and a matching number (must pass). Confirm a D2C cart is untouched. Roll back if the live rule is wrong.</li>
@@ -286,13 +287,13 @@ sample: TEST       → error</code></pre>
     <p>No. It only rejects numbers that fail the published rule. It is not credit insurance, not a chargeback guarantee, and not legal advice. Pair it with the Net Terms and review process you already use.</p>
 
     <h2>How do I require a PO number on B2B checkout?</h2>
-    <p>Publish checkout validation that reads the company purchase-order field and returns an error when the number is missing or fails format, prefix, regex, length, or uniqueness. <a href="https://apps.shopify.com/b2b-terms-guard">B2B Terms &amp; PO Guard</a> is the App Store listing this site already uses for that job. Open the listing, set rules, preview a sample number, then publish and test a blocked and an allowed checkout.</p>
+    <p>Publish checkout validation that reads the company purchase-order field and returns an error when the number is missing or fails format, prefix, regex, length, or uniqueness. <a href="https://apps.shopify.com/b2b-terms-guard">B2B PO Guard</a> is the App Store listing this site already uses for that job. Open the listing, set rules, preview a sample number, then publish and test a blocked and an allowed checkout.</p>
 
-    <p><a class="cta" href="https://apps.shopify.com/b2b-terms-guard">Install B2B Terms &amp; PO Guard - set PO format rules, preview a sample number, publish, then test a blocked and an allowed company checkout.</a></p>
+    <p><a class="cta" href="https://apps.shopify.com/b2b-terms-guard">Install B2B PO Guard - set PO format rules, preview a sample number, publish, then test a blocked and an allowed company checkout.</a></p>
 
     <h2>Related pages</h2>
     <ul>
-      <li><a href="https://apps.shopify.com/b2b-terms-guard">B2B Terms &amp; PO Guard</a> — live App Store listing</li>
+      <li><a href="https://apps.shopify.com/b2b-terms-guard">B2B PO Guard</a> — live App Store listing</li>
       <li><a href="/b2b-po-terms/">B2B purchase-order terms install page</a></li>
       <li><a href="/guides/block-po-box-billing-address/">Block PO Box on billing address</a> — postal address, not PO numbers</li>
       <li><a href="/guides/access-audit-admin/">Staff permission drift access audit</a></li>
