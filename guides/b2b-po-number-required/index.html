@@ -129,6 +129,15 @@
     <p class="eyebrow">Require PO number on B2B checkout</p>
     <h1>B2B checkout can skip a purchase-order number unless a validation rule requires it</h1>
     <p class="lede">Job: reject a <strong>company checkout</strong> when the purchase-order number is missing or fails the format you publish.</p>
+    <h2 id="require-po-number">Can I make the PO number required at Shopify B2B checkout?</h2>
+    <p>Short answer: there is no native “required PO” toggle in Shopify B2B. Since Functions API 2026-04, a Cart and Checkout Validation function can read <code>cart.poNumber</code> and return an error on <code>$.cart.poNumber</code>. Shopify added those field targets in the <a href="https://shopify.dev/changelog/cart-and-checkout-validation-adds-billing-address-and-po-number-error-targets">1 April 2026 changelog</a>.</p>
+    <p>Honest options:</p>
+    <ul>
+      <li>(a) A developer builds a validation function in a custom or public app.</li>
+      <li>(b) Use an App Store app.</li>
+      <li>(c) For B2B Terms &amp; PO Guard, every plan previews PO format, prefix, length, and uniqueness against a sample number. PO rules and live previews work on every plan; checkout enforcement (PO, deposits, review) runs on Shopify Plus B2B.</li>
+    </ul>
+    <p><a class="cta" href="https://apps.shopify.com/b2b-terms-guard">Install B2B Terms &amp; PO Guard → enable PO rule → test required vs allowed</a></p>
     <p>Shopify B2B (on Basic, Grow and Advanced since 2 April 2026, and on Plus) includes <strong>company catalogs</strong> and a <strong>PO number</strong> field; payment terms and order review are Plus features. There is no no-code “required PO” toggle. Purchase-order required is a checkout validation rule (Shopify Functions <code>cart.poNumber</code>, available since 1 April 2026). People still cite missing <strong>company-level catalog assignment</strong>, <strong>deposits</strong>, and <strong>buyer approval</strong> as native gaps.</p>
     <p>Native Net Terms control how the company pays. They do <strong>not</strong> check PO format, prefix, length, or uniqueness. Wholesale buyers can then skip the box, type junk, or reuse a number.</p>
     <p>This is the <strong>PO-number</strong> job, not a postal PO Box block. D2C and no-company checkouts stay out of the way. Preview a sample number, publish the rule, then test a blocked and an allowed company checkout.</p>
