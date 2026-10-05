@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shopify B2B order review threshold vs PO and Net Terms</title>
+  <meta name="description" content="Holding oversized B2B orders for approval is not a required PO and not Net Terms. Route company orders above a threshold for manual review. D2C stays untouched.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Shopify B2B order review threshold vs PO and Net Terms">
+  <meta property="og:description" content="Holding oversized B2B orders for approval is not a required PO and not Net Terms. Route company orders above a threshold for manual review. D2C stays untouched.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/b2b-order-review-threshold-checkout/">
+  <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/0d5bee841b158614f7a791277c9b589e/promotional_image/CJrF7JSn6JQDEAE=.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Shopify B2B order review threshold vs PO and Net Terms">
+  <meta name="twitter:description" content="Holding oversized B2B orders for approval is not a required PO and not Net Terms. Route company orders above a threshold for manual review. D2C stays untouched.">
+  <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/0d5bee841b158614f7a791277c9b589e/promotional_image/CJrF7JSn6JQDEAE=.png">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/b2b-order-review-threshold-checkout/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://apify.momiji-space.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "B2B order review threshold",
+        "item": "https://apify.momiji-space.com/guides/b2b-order-review-threshold-checkout/"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "B2B Terms & PO Guard",
+    "alternateName": "B2B PO Guard — Require PO",
+    "description": "Validates PO numbers, deposits, Net terms, order review, and D2C no-op behavior for Shopify native B2B checkout workflows. Routes orders above a threshold for manual review and approval. Validates PO numbers by format, prefix, regex, length, and uniqueness with a live sample preview. Sets deposit percentage guardrails. Works alongside native Net Terms. D2C and no-company checkouts stay untouched. PO rules and live previews work on every plan; checkout enforcement (PO, deposits, review) runs on Shopify Plus B2B.",
+    "url": "https://apps.shopify.com/b2b-terms-guard",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Shopify",
+    "image": "https://cdn.shopify.com/app-store/listing_images/0d5bee841b158614f7a791277c9b589e/icon/CMiBo7bN5JQDEAE=.png"
+  }
+  </script>
+</head>
+<body>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/review/">Shopify apps</a>
+        <a href="/guides/b2b-order-review-threshold-checkout/" aria-current="page">B2B order review</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / Guides / B2B order review threshold at checkout</nav>
+    <p class="eyebrow">Order review threshold on B2B checkout</p>
+    <h1>Holding oversized B2B orders for approval is not a required PO and not Net Terms</h1>
+    <p class="lede"><strong>B2B Terms &amp; PO Guard</strong> (App Store title <strong>B2B PO Guard — Require PO</strong>) (<a href="https://apps.shopify.com/b2b-terms-guard">Shopify App Store</a>) validates PO numbers, deposits, Net terms, order review, and D2C no-op behavior for Shopify native B2B checkout workflows. It routes orders above a threshold for manual review and approval, with approver email alerts, and works alongside native Net Terms. D2C and no-company checkouts stay untouched. PO rules and live previews work on every plan; checkout enforcement (PO, deposits, review) runs on Shopify Plus B2B.</p>
+
+    <h2>Four checkout jobs: Net Terms, a required PO, a deposit %, and order review</h2>
+    <p>A hold on an oversized company order is its own checkout control. Keep it next to Net Terms, a required PO string, and a deposit % — do not treat those four jobs as one toggle.</p>
+    <div class="card">
+    <table>
+      <caption>Four B2B checkout jobs that must not be mixed</caption>
+      <thead>
+        <tr>
+          <th scope="col">Job</th>
+          <th scope="col">What it controls</th>
+          <th scope="col">What it does not do</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Net Terms</strong></td>
+          <td>When the company pays. Native <a href="https://help.shopify.com/en/manual/b2b/checkout-and-orders/payment-terms">company payment terms</a> cover net periods, due on fulfillment, and related due dates on the location or a draft order.</td>
+          <td>Does not hold an oversized cart for approval. Does not validate a PO string.</td>
+        </tr>
+        <tr>
+          <td><strong>Required PO string</strong></td>
+          <td>Format, prefix, regex, length, and uniqueness so the PO box is not junk. Sibling guide: <a href="/guides/b2b-po-number-required/">require a PO number on B2B checkout</a>.</td>
+          <td>Does not set when the invoice is due. Does not route the order for review.</td>
+        </tr>
+        <tr>
+          <td><strong>Deposit %</strong></td>
+          <td>Money due now vs later. Listing guardrails are 1–99% per B2B order. Sibling: <a href="/guides/b2b-deposit-percentage-checkout/">deposit percentage at checkout</a>.</td>
+          <td>Does not become Net Terms. Does not replace a review hold.</td>
+        </tr>
+        <tr>
+          <td><strong>Order review</strong> (this page)</td>
+          <td>Route orders <strong>above a threshold</strong> for <strong>manual review and approval</strong>, with approver email alerts. The hold is the threshold you publish. It does not name an org-chart approver.</td>
+          <td>Does not replace Net Terms, a required PO, or a deposit %. Does not underwrite credit.</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <p>These controls can sit together on company checkout. A review threshold still leaves Net Terms, PO validation, and deposit guardrails as separate jobs.</p>
+    <p><a class="cta" href="https://apps.shopify.com/b2b-terms-guard">Install B2B Terms &amp; PO Guard → set a review threshold → test one oversized company order</a></p>
+
+    <h2>Native path: payment terms, draft-order invoices, and all-orders draft review</h2>
+    <p>Use native <strong>company payment terms</strong> when the job is when that location pays. Shopify Help documents net periods and related due dates on the company location and on draft orders. See <a href="https://help.shopify.com/en/manual/b2b/checkout-and-orders/payment-terms">Setting up payment terms in B2B</a>.</p>
+    <p>For phone, email, or trade-show capture, Help documents <strong>draft orders</strong> assigned to a company location, including sending an invoice. See <a href="https://help.shopify.com/en/manual/b2b/checkout-and-orders/draft-orders">Creating B2B orders using draft orders</a> and the B2B <a href="https://help.shopify.com/en/manual/b2b/checkout-and-orders">checkout, orders, and draft orders</a> overview.</p>
+    <p>For a location-wide hold, Help documents <strong>Submit all orders as drafts for review</strong> on the company location. Every order from that location is saved as a draft. The buyer sees a submit-for-approval path at checkout. Staff then create the order or send an invoice. See <a href="https://help.shopify.com/en/manual/b2b/checkout-and-orders/checkout-settings">Managing checkout settings in B2B</a>.</p>
+    <p>That native setting is all orders from the location. The job on this page is a <strong>threshold</strong>: route oversized company orders for manual review and approval, and let smaller company orders continue. Help also notes a Payment Customization Function when only some carts should become drafts (for example by order value). That is a developer function path, not a no-code approval desk.</p>
+    <p><a class="cta" href="https://apps.shopify.com/b2b-terms-guard">Install B2B Terms &amp; PO Guard → set a review threshold → test one oversized company order</a></p>
+
+    <h2>App path: set the review threshold on company checkout</h2>
+    <p>The listing job on this page is to <strong>route orders above a threshold for manual review and approval</strong> on company checkout, with approver email alerts — alongside native Net Terms.</p>
+    <ol>
+      <li>Open the <a href="https://apps.shopify.com/b2b-terms-guard">B2B Terms &amp; PO Guard listing</a> (<code>apps.shopify.com/b2b-terms-guard</code>) and install it. The App Store title is <strong>B2B PO Guard — Require PO</strong>. That is the same published app.</li>
+      <li>Set a review threshold so oversized company orders wait for approval.</li>
+      <li>Optionally keep sibling controls: PO validation by format, prefix, regex, length, and uniqueness, and deposit percentage guardrails (1–99% per B2B order). Live preview applies to PO rules: preview a sample number before you publish.</li>
+      <li>Place one company checkout above the threshold (must wait for review) and one below it if you use a cutoff. Confirm a D2C / no-company cart stays on ordinary checkout.</li>
+      <li>Roll back if the live rule is wrong. Keep that first oversized company hold as the operating example before you widen locations.</li>
+    </ol>
+    <p>The app applies the review threshold you publish. It works alongside native Net Terms. It does not extend credit or replace the company payment terms you already set in Admin.</p>
+    <p><a class="cta" href="https://apps.shopify.com/b2b-terms-guard">Install B2B Terms &amp; PO Guard — set a review threshold, optional PO and deposit rules, then prove one oversized company order waits for approval.</a></p>
+
+    <h2>D2C and no-company carts stay on ordinary checkout</h2>
+    <p>This job is company / B2B checkout only. D2C and no-company checkouts stay untouched. Shopify Help treats a visitor who is not associated with a company location, or who is not signed in as a company buyer, as a D2C customer. See <a href="https://help.shopify.com/en/manual/b2b/checkout">Sign-in and customer accounts in B2B</a>.</p>
+    <p>A retail cart should keep ordinary checkout. If a no-company buyer hits a wholesale review hold, the rule is on the wrong surface.</p>
+
+    <h2>What this page is not</h2>
+    <ul>
+      <li>Not a required PO string. That job is <a href="/guides/b2b-po-number-required/">B2B checkout can skip a purchase-order number unless a validation rule requires it</a>.</li>
+      <li>Not a deposit % guardrail. That job is <a href="/guides/b2b-deposit-percentage-checkout/">A deposit % is not Net Terms and not a required PO number</a>.</li>
+      <li>Not Net Terms accounts-receivable, aging, or reminder inboxes.</li>
+      <li>Not a postal PO Box block. That job is <a href="/guides/block-po-box-billing-address/">block PO Box on billing</a>.</li>
+      <li>Not an employee-to-admin multi-step org approval product, and not an org-chart workflow that names who must click approve.</li>
+      <li>Not credit insurance, collections, or a chargeback guarantee.</li>
+    </ul>
+    <p><a class="cta" href="https://apps.shopify.com/b2b-terms-guard">Install B2B Terms &amp; PO Guard — set a review threshold, optional PO and deposit rules, then prove one oversized company order waits for approval.</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/guides/b2b-po-number-required/">Require a PO number on B2B checkout</a> — the PO-string job, not the review hold</li>
+      <li><a href="/guides/b2b-deposit-percentage-checkout/">B2B deposit percentage at checkout</a> — deposit % vs Net Terms vs a required PO</li>
+      <li><a href="https://apps.shopify.com/b2b-terms-guard">B2B Terms &amp; PO Guard</a> — live App Store listing</li>
+      <li><a href="/review/#b2b-po">Shopify apps hub — B2B Terms &amp; PO Guard</a></li>
+      <li><a href="https://help.shopify.com/en/manual/b2b/checkout-and-orders/payment-terms">Shopify Help — B2B payment terms</a></li>
+      <li><a href="https://help.shopify.com/en/manual/b2b/checkout-and-orders">Shopify Help — B2B checkout, orders, and draft orders</a></li>
+      <li><a href="https://help.shopify.com/en/manual/b2b/checkout-and-orders/checkout-settings">Shopify Help — B2B checkout settings (draft review)</a></li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+    <p class="note">Not credit insurance. Not a required PO string. Not a deposit %. Native Net Terms set when the company pays. Native location review submits all orders as drafts. This page’s job is a threshold hold on oversized company orders.</p>
+  </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/review/">Shopify apps hub</a></li>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>
