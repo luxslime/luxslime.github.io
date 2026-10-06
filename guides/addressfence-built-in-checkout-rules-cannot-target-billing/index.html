@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shopify built-in checkout address rules cannot target billing</title>
+  <meta name="description" content="Shopify built-in, no-code checkout settings do not target billing. A validation function such as AddressFence can read billingAddress. Not legal advice.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.ico">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Shopify built-in checkout address rules cannot target billing">
+  <meta property="og:description" content="Shopify built-in, no-code checkout settings do not target billing. A validation function such as AddressFence can read billingAddress. Not legal advice.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/addressfence-built-in-checkout-rules-cannot-target-billing/">
+  <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/27f7c111c94acf4b22bfef9207351043/icon/CISg3YSo4pQDEAE=.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Shopify built-in checkout address rules cannot target billing">
+  <meta name="twitter:description" content="Shopify built-in, no-code checkout settings do not target billing. A validation function such as AddressFence can read billingAddress. Not legal advice.">
+  <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/27f7c111c94acf4b22bfef9207351043/icon/CISg3YSo4pQDEAE=.png">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/addressfence-built-in-checkout-rules-cannot-target-billing/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://apify.momiji-space.com/"},
+    {"@type":"ListItem","position":2,"name":"Built-in cannot target billing","item":"https://apify.momiji-space.com/guides/addressfence-built-in-checkout-rules-cannot-target-billing/"}
+  ]}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"AddressFence: PO Box Billing","description":"Billing-address rules and street-number checks for Shopify checkout via a Cart and Checkout Validation function — built-in, no-code checkout settings do not target billing.","url":"https://apps.shopify.com/address-guard","applicationCategory":"BusinessApplication","operatingSystem":"Shopify","image":"https://cdn.shopify.com/app-store/listing_images/27f7c111c94acf4b22bfef9207351043/icon/CISg3YSo4pQDEAE=.png"}
+  </script>
+</head>
+<body>
+  <header class="site"><div class="wrap bar"><a class="logo" href="/">momiji-space</a>
+    <nav><a href="/review/">Shopify apps</a><a href="https://apps.shopify.com/address-guard">Install</a></nav>
+  </div></header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / Guides / Built-in cannot target billing</nav>
+    <p class="eyebrow">Built-in vs billing rules</p>
+    <h1>Built-in Shopify checkout address rules cannot target the billing address</h1>
+    <p class="answer-first"><strong>Direct answer.</strong> Shopify’s built-in, no-code checkout settings — shipping zones and Checkout Blocks address validation for ship-to — do not target the billing address; they apply to shipping. A Cart and Checkout Validation function (such as AddressFence) is the way to read billingAddress and return field errors on it.</p>
+<p class="lede"><strong>AddressFence: PO Box Billing</strong> (<a href="https://apps.shopify.com/address-guard">Shopify App Store</a>) is a Shopify checkout-validation app for billing-address rules — Shopify’s built-in, no-code checkout settings do not target billing — and for require a street number, the Address Blocker rule that was not migrated. Test any address in the simulator before publishing, with one-click rollback. This page is not legal advice.</p>
+    <h2>Shipping rules are not billing rules</h2>
+    <p>Native ship-to validation and shipping-rate hides are built-in, no-code settings. They can stop a PO box on delivery addresses. Billing is a different checkout field. When the buyer pays with a card billed to a PO box while shipping to a street address, those shipping-only settings never see the billing line. Cart and Checkout Validation functions can read billingAddress and return field errors on it; AddressFence publishes to that function path.</p>
+    <p><a class="cta" href="https://apps.shopify.com/address-guard">Install AddressFence</a></p>
+    <h2>How to cover billing when built-in settings do not</h2>
+    <ol>
+      <li>Confirm your native / Checkout Blocks address rule is shipping-only.</li>
+      <li>Add billing-address rules in AddressFence for PO box (and street-number) checks.</li>
+      <li>Test sample billing addresses in the simulator before you publish.</li>
+      <li>Use one-click rollback if a published rule needs a quick reverse.</li>
+    </ol>
+    <p><a class="cta" href="https://apps.shopify.com/address-guard">Install PO box blocker</a></p>
+    <h2>Not the same as PO-box how-to, billing-match, simulator, or app comparison</h2>
+    <ul>
+      <li><strong>How to block PO box on billing</strong> — <a href="/guides/block-po-box-billing-address/">PO box blocker for billing</a>.</li>
+      <li><strong>Billing match ≠ PO box block</strong> — <a href="/guides/addressfence-billing-match-not-po-box/">billing match is not a PO Box block</a>.</li>
+      <li><strong>Simulator before publish</strong> — <a href="/guides/addressfence-address-simulator-before-publish/">address rule simulator</a>.</li>
+      <li><strong>Apps: billing vs shipping</strong> — <a href="/guides/po-box-blocker-apps-billing-vs-shipping/">which apps check billing</a>.</li>
+    </ul>
+    <p><a class="cta" href="https://apps.shopify.com/address-guard">Install AddressFence</a></p>
+    <h2>What this page is not</h2>
+    <ul>
+      <li>Not a substitute for the PO-box billing how-to, billing-match, or simulator siblings.</li>
+      <li>Not legal advice about card-network or carrier rules.</li>
+    </ul>
+    <p><a class="cta" href="https://apps.shopify.com/address-guard">Install PO box blocker</a></p>
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/guides/block-po-box-billing-address/">PO box blocker for the billing address</a></li>
+      <li><a href="/guides/addressfence-address-simulator-before-publish/">Address rule simulator before publish</a></li>
+      <li><a href="/guides/po-box-shipping-rate-vs-checkout-validation/">Shipping-rate hide vs checkout validation</a></li>
+      <li><a href="https://apps.shopify.com/address-guard">AddressFence: PO Box Billing</a></li>
+    </ul>
+    <p class="note">Not legal advice. Confirm the live App Store listing and applicable rules before you treat a product page or checkout rule as in or out of scope.</p>
+
+  </main>
+  <footer class="site"><div class="wrap"><ul><li><a href="/review/">Shopify apps hub</a></li><li><a href="/tools/">Tools</a></li><li><a href="/">Home</a></li></ul></div></footer>
+</body>
+</html>
