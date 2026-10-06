@@ -64,7 +64,7 @@
     <nav><a href="/">Home</a> / Guides / Require PO number on B2B checkout</nav>
     <p class="eyebrow">Require PO number on B2B checkout</p>
     <h1>B2B checkout can skip a purchase-order number unless a validation rule requires it</h1>
-    <p class="lede"><strong>B2B PO Guard — Require PO</strong> (<a href="https://apps.shopify.com/b2b-terms-guard">Shopify App Store</a>) is a Shopify app that validates purchase-order numbers by format, prefix, regex, length and uniqueness, and previews any PO rule live against a sample number before you publish. D2C and no-company checkouts stay untouched. Checkout enforcement runs on Shopify Plus B2B; PO rules work on every plan.</p>
+    <p class="lede"><strong>B2B PO Guard — Require PO</strong> (<a href="https://apps.shopify.com/b2b-terms-guard">Shopify App Store</a>) is a Shopify app that validates purchase-order numbers by format, prefix, regex, length and uniqueness, and previews any PO rule live against a sample number before you publish. D2C and no-company checkouts stay untouched. Checkout enforcement runs on Plus B2B; PO rules work on every plan.</p>
     <p>Job: reject a <strong>company checkout</strong> when the purchase-order number is missing or fails the format you publish.</p>
     <h2 id="require-po-number">Can I make the PO number required at Shopify B2B checkout?</h2>
     <p>Short answer: there is no native “required PO” toggle in Shopify B2B. Since Functions API 2026-04, a Cart and Checkout Validation function can read <code>cart.poNumber</code> and return an error on <code>$.cart.poNumber</code>. Shopify added those field targets in the <a href="https://shopify.dev/changelog/cart-and-checkout-validation-adds-billing-address-and-po-number-error-targets">1 April 2026 changelog</a>.</p>
@@ -72,10 +72,10 @@
     <ul>
       <li>(a) A developer builds a validation function in a custom or public app.</li>
       <li>(b) Use an App Store app.</li>
-      <li>(c) For B2B PO Guard, every plan previews PO format, prefix, length, and uniqueness against a sample number. PO rules and live previews work on every plan; checkout enforcement (PO, deposits, review) runs on Shopify Plus B2B.</li>
+      <li>(c) For B2B PO Guard, preview PO format, prefix, length, and uniqueness against a sample number. Checkout enforcement runs on Plus B2B; PO rules work on every plan.</li>
     </ul>
     <p><a class="cta" href="https://apps.shopify.com/b2b-terms-guard">Install B2B PO Guard → enable PO rule → test required vs allowed</a></p>
-    <p>Shopify B2B (on Basic, Grow and Advanced since 2 April 2026, and on Plus) includes <strong>company catalogs</strong> and a <strong>PO number</strong> field; payment terms and order review are Plus features. There is no no-code “required PO” toggle. Purchase-order required is a checkout validation rule (Shopify Functions <code>cart.poNumber</code>, available since 1 April 2026). People still cite missing <strong>company-level catalog assignment</strong>, <strong>deposits</strong>, and <strong>buyer approval</strong> as native gaps.</p>
+    <p>Shopify B2B includes <strong>company catalogs</strong> and a <strong>PO number</strong> field. There is no no-code “required PO” toggle. Purchase-order required is a checkout validation rule (Shopify Functions <code>cart.poNumber</code>, available since 1 April 2026 per the <a href="https://shopify.dev/changelog/cart-and-checkout-validation-adds-billing-address-and-po-number-error-targets">Functions changelog</a>). People still cite missing <strong>company-level catalog assignment</strong>, <strong>deposits</strong>, and <strong>buyer approval</strong> as native gaps.</p>
     <p>Native Net Terms control how the company pays. They do <strong>not</strong> check PO format, prefix, length, or uniqueness. Wholesale buyers can then skip the box, type junk, or reuse a number.</p>
     <p>This is the <strong>PO-number</strong> job, not a postal PO Box block. D2C and no-company checkouts stay out of the way. Preview a sample number, publish the rule, then test a blocked and an allowed company checkout.</p>
 
@@ -164,7 +164,7 @@
       </thead>
       <tbody>
         <tr>
-          <td>Grow catalogs / PO field / Net Terms</td>
+          <td>Native catalogs / PO field / Net Terms</td>
           <td>Catalogs, an optional PO box, how the company pays</td>
           <td>No no-code required toggle. No format, prefix, or uniqueness check</td>
         </tr>
@@ -194,7 +194,7 @@ unique per company
 sample: PO-48219  → pass
 sample: (blank)    → error
 sample: TEST       → error</code></pre>
-    <p>People still cite native gaps beyond a required PO: <strong>company-level catalog assignment</strong>, <strong>deposits</strong>, and <strong>buyer approval</strong>. This page does not invent a no-code required toggle. Deposit and review controls on the listing are extra, and they do not replace a required PO string. Confirm the live listing, not this page.</p>
+    <p>People still cite native gaps beyond a required PO: <strong>company-level catalog assignment</strong>, <strong>deposits</strong>, and <strong>buyer approval</strong>. This page does not invent a no-code required toggle. Deposit and review controls are extra, and they do not replace a required PO string.</p>
 
     <h2>What this page is not</h2>
     <ul>
@@ -205,7 +205,7 @@ sample: TEST       → error</code></pre>
     </ul>
 
     <h2>Does native B2B Net Terms require a valid purchase-order number?</h2>
-    <p>No. Shopify B2B (on Basic, Grow and Advanced since 2 April 2026, and on Plus) includes company catalogs and a PO number field; payment terms and order review are Plus features. There is no no-code required toggle. Native company payment terms control how the company pays. They do not validate PO number format, prefix, regex, length, or uniqueness. A buyer can leave the box empty, type junk, or reuse a number unless a checkout validation rule rejects that input.</p>
+    <p>No. Shopify B2B includes company catalogs and a PO number field. There is no no-code required toggle. Native company payment terms control how the company pays. They do not validate PO number format, prefix, regex, length, or uniqueness. A buyer can leave the box empty, type junk, or reuse a number unless a checkout validation rule rejects that input.</p>
 
     <h2>Will a required PO number also hit D2C checkouts?</h2>
     <p>It should not. The job on this page is company / B2B checkout only. D2C and no-company carts stay on ordinary checkout. If a retail buyer sees a wholesale PO rule, the rule is on the wrong surface.</p>
@@ -217,7 +217,7 @@ sample: TEST       → error</code></pre>
     <p>Yes. Preview format, prefix, regex, length, and uniqueness against a sample number before you publish. Then place a company checkout with a bad number (must error) and a matching number (must pass). Roll back if the live rule is wrong.</p>
 
     <h2>Do deposit guardrails and order review replace a required PO number?</h2>
-    <p>No. Deposit percentage limits and “hold orders above a threshold for approval” are separate controls. They can sit next to a required PO number. Hiding unpaid-deposit payment methods at checkout is a Plus B2B path; PO rules and live previews work on every plan; checkout enforcement (PO, deposits, review) runs on Plus B2B. Dedicated guide: <a href="/guides/b2b-deposit-percentage-checkout/">Shopify B2B deposit percentage at checkout (vs Net Terms and PO)</a>.</p>
+    <p>No. Deposit percentage limits and “hold orders above a threshold for approval” are separate controls. They can sit next to a required PO number. Checkout enforcement runs on Plus B2B; PO rules work on every plan. Dedicated guide: <a href="/guides/b2b-deposit-percentage-checkout/">Shopify B2B deposit percentage at checkout (vs Net Terms and PO)</a>.</p>
 
     <h2>Does requiring a PO number guarantee the buyer will pay?</h2>
     <p>No. It only rejects numbers that fail the published rule. It is not credit insurance, not a chargeback guarantee, and not legal advice. Pair it with the Net Terms and review process you already use.</p>
