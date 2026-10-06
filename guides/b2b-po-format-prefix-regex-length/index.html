@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Validate B2B PO format, prefix, regex, and length</title>
+  <meta name="description" content="Shopify has no built-in no-code PO format setting. A Cart and Checkout Validation function can read cart.poNumber. B2B Terms & PO Guard checks format, prefix, regex, length, and uniqueness. Not legal advice.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.ico">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Validate B2B PO format, prefix, regex, and length">
+  <meta property="og:description" content="Shopify has no built-in no-code PO format setting. A Cart and Checkout Validation function can read cart.poNumber. B2B Terms & PO Guard checks format, prefix, regex, length, and uniqueness. Not legal advice.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/b2b-po-format-prefix-regex-length/">
+  <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/0d5bee841b158614f7a791277c9b589e/icon/CMiBo7bN5JQDEAE=.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Validate B2B PO format, prefix, regex, and length">
+  <meta name="twitter:description" content="Shopify has no built-in no-code PO format setting. A Cart and Checkout Validation function can read cart.poNumber. B2B Terms & PO Guard checks format, prefix, regex, length, and uniqueness. Not legal advice.">
+  <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/0d5bee841b158614f7a791277c9b589e/icon/CMiBo7bN5JQDEAE=.png">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/b2b-po-format-prefix-regex-length/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://apify.momiji-space.com/"},
+    {"@type":"ListItem","position":2,"name":"PO format rules","item":"https://apify.momiji-space.com/guides/b2b-po-format-prefix-regex-length/"}
+  ]}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"B2B Terms & PO Guard","description":"Validates PO numbers by format, prefix, regex, length, and uniqueness; sets deposit percentage guardrails; routes orders above a threshold for manual review; and previews any PO rule live against a sample number before you publish.","url":"https://apps.shopify.com/b2b-terms-guard","applicationCategory":"BusinessApplication","operatingSystem":"Shopify","image":"https://cdn.shopify.com/app-store/listing_images/0d5bee841b158614f7a791277c9b589e/icon/CMiBo7bN5JQDEAE=.png"}
+  </script>
+</head>
+<body>
+  <header class="site"><div class="wrap bar"><a class="logo" href="/">momiji-space</a>
+    <nav><a href="/review/">Shopify apps</a><a href="https://apps.shopify.com/b2b-terms-guard">Install</a></nav>
+  </div></header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / Guides / PO format rules</nav>
+    <p class="eyebrow">PO format rules</p>
+    <h1>Requiring a PO number is not the same as checking format, prefix, regex, or length</h1>
+    <p class="answer-first"><strong>Direct answer.</strong> Shopify B2B lets company buyers enter a purchase-order number and lets you set Net payment terms on a company location, but Shopify has no built-in no-code setting for PO format, prefix, regex, or length — a Cart and Checkout Validation function can read cart.poNumber (API 2026-04) and return field errors on $.cart.poNumber. B2B Terms &amp; PO Guard is that validation function: it checks format, prefix, regex, length, and uniqueness, and previews any PO rule live against a sample number before you publish.</p>
+    <p class="lede"><strong>B2B Terms &amp; PO Guard</strong> (<a href="https://apps.shopify.com/b2b-terms-guard">Shopify App Store</a>) validates PO numbers by format, prefix, regex, length, and uniqueness, sets deposit percentage guardrails, routes orders above a threshold for manual review, and previews any PO rule live against a sample number before you publish. This page is the format / prefix / regex / length slice — not uniqueness, deposit, threshold, or D2C no-op. Checkout enforcement runs on Plus B2B; PO rules work on every plan. This page is not legal advice.</p>
+    <h2>Required is a boolean; format is a pattern</h2>
+    <p>A require-PO rule only asks whether the field is empty. Format, prefix, regex, and length decide whether the string matches your company convention. Uniqueness is yet another rule against previously used numbers.</p>
+    <p><a class="cta" href="https://apps.shopify.com/b2b-terms-guard">Install B2B Terms & PO Guard → set PO format rules → preview a sample</a></p>
+    <h2>How to validate PO format before publish</h2>
+    <ol>
+      <li>Decide which pattern you need (prefix, length, regex, or a combination).</li>
+      <li>Configure the PO format rule in B2B Terms &amp; PO Guard.</li>
+      <li>Preview the rule live against sample numbers (valid and invalid).</li>
+      <li>Publish only after the preview matches what company checkout should allow.</li>
+    </ol>
+    <p><a class="cta" href="https://apps.shopify.com/b2b-terms-guard">Install B2B Terms & PO Guard → set PO format rules → preview a sample</a></p>
+    <h2>Not the same as require-PO, uniqueness, live preview, deposit, or threshold</h2>
+    <ul>
+      <li><strong>Require PO</strong> — <a href="/guides/b2b-po-number-required/">require a purchase-order number</a>.</li>
+      <li><strong>Uniqueness</strong> — <a href="/guides/b2b-po-number-uniqueness-duplicate/">stop reused PO numbers</a>.</li>
+      <li><strong>Live preview</strong> — <a href="/guides/b2b-po-rule-live-preview/">preview a PO rule before publish</a>.</li>
+      <li><strong>Deposit %</strong> — <a href="/guides/b2b-deposit-percentage-checkout/">deposit percentage guardrails</a>.</li>
+    </ul>
+    <p><a class="cta" href="https://apps.shopify.com/b2b-terms-guard">Install B2B Terms & PO Guard — format, prefix, regex, length, then preview before publish.</a></p>
+    <h2>What this page is not</h2>
+    <ul>
+      <li>Not legal advice, and not a Net Terms configuration guide.</li>
+      <li>Not a substitute for the require-PO, uniqueness, preview, or deposit siblings.</li>
+    </ul>
+    <p><a class="cta" href="https://apps.shopify.com/b2b-terms-guard">Install B2B Terms & PO Guard — format, prefix, regex, length, then preview before publish.</a></p>
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/guides/b2b-po-number-required/">Require a B2B purchase-order number</a></li>
+      <li><a href="/guides/b2b-po-number-uniqueness-duplicate/">Stop reused PO numbers</a></li>
+      <li><a href="/guides/b2b-po-rule-live-preview/">Preview a PO rule before publish</a></li>
+      <li><a href="https://apps.shopify.com/b2b-terms-guard">B2B Terms & PO Guard</a></li>
+    </ul>
+    <p class="note">Not legal advice. Confirm applicable rules before you treat a product page or checkout rule as in or out of scope.</p>
+
+  </main>
+  <footer class="site"><div class="wrap"><ul><li><a href="/review/">Shopify apps hub</a></li><li><a href="/tools/">Tools</a></li><li><a href="/">Home</a></li></ul></div></footer>
+</body>
+</html>
