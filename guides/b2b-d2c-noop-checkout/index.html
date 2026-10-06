@@ -4,17 +4,17 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Shopify B2B PO rules should no-op on D2C checkout</title>
-  <meta name="description" content="Required PO and B2B checkout rules must no-op on D2C. Company checkout is a different surface. Preview PO rules; Plus B2B enforces at checkout. Not legal advice.">
+  <meta name="description" content="Required PO and B2B checkout rules must no-op on D2C. Company checkout is a different surface. Preview PO rules. Checkout enforcement runs on Plus B2B; PO rules work on every plan. Not legal advice.">
   <meta name="robots" content="index,follow">
   <link rel="icon" href="/favicon.ico">
   <meta property="og:type" content="article">
   <meta property="og:title" content="Shopify B2B PO rules should no-op on D2C checkout">
-  <meta property="og:description" content="Required PO and B2B checkout rules must no-op on D2C. Company checkout is a different surface. Preview PO rules; Plus B2B enforces at checkout. Not legal advice.">
+  <meta property="og:description" content="Required PO and B2B checkout rules must no-op on D2C. Company checkout is a different surface. Preview PO rules. Checkout enforcement runs on Plus B2B; PO rules work on every plan. Not legal advice.">
   <meta property="og:url" content="https://apify.momiji-space.com/guides/b2b-d2c-noop-checkout/">
   <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/0d5bee841b158614f7a791277c9b589e/promotional_image/CJrF7JSn6JQDEAE=.png">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Shopify B2B PO rules should no-op on D2C checkout">
-  <meta name="twitter:description" content="Required PO and B2B checkout rules must no-op on D2C. Company checkout is a different surface. Preview PO rules; Plus B2B enforces at checkout. Not legal advice.">
+  <meta name="twitter:description" content="Required PO and B2B checkout rules must no-op on D2C. Company checkout is a different surface. Preview PO rules. Checkout enforcement runs on Plus B2B; PO rules work on every plan. Not legal advice.">
   <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/0d5bee841b158614f7a791277c9b589e/promotional_image/CJrF7JSn6JQDEAE=.png">
   <link rel="canonical" href="https://apify.momiji-space.com/guides/b2b-d2c-noop-checkout/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
@@ -33,7 +33,7 @@
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": "B2B PO Guard — Require PO",
-    "description": "Validate PO numbers, deposits, Net terms, order review, and D2C no-op behavior for Shopify native B2B checkout workflows. Validates PO numbers by format, prefix, regex, length, and uniqueness. Previews any PO rule live against a sample number before you publish. PO rules and live previews work on every plan; checkout enforcement (PO, deposits, review) runs on Shopify Plus B2B.",
+    "description": "Validate PO numbers, deposits, Net terms, order review, and D2C no-op behavior for Shopify native B2B checkout workflows. Validates PO numbers by format, prefix, regex, length, and uniqueness. Previews any PO rule live against a sample number before you publish. Checkout enforcement runs on Plus B2B; PO rules work on every plan.",
     "url": "https://apps.shopify.com/b2b-terms-guard",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Shopify",
@@ -56,20 +56,19 @@
     <nav><a href="/">Home</a> / Guides / <a href="/guides/b2b-po-number-required/">B2B PO</a> / D2C no-op</nav>
     <p class="eyebrow">B2B D2C no-op</p>
     <h1>Required PO and B2B checkout rules must no-op on D2C — company checkout is a different surface</h1>
-    <p class="lede"><strong>B2B PO Guard — Require PO</strong> (<a href="https://apps.shopify.com/b2b-terms-guard">Shopify App Store</a>) validates purchase-order numbers by format, prefix, regex, length, and uniqueness, sets deposit percentage guardrails, routes orders above a threshold for review, and previews any PO rule live against a sample number before you publish. Listing jobs include D2C no-op behavior for native B2B checkout workflows. PO rules and live previews work on every plan; checkout enforcement (PO, deposits, review) runs on Shopify Plus B2B. This page is not legal advice.</p>
+    <p class="lede"><strong>B2B PO Guard — Require PO</strong> (<a href="https://apps.shopify.com/b2b-terms-guard">Shopify App Store</a>) validates purchase-order numbers by format, prefix, regex, length, and uniqueness, sets deposit percentage guardrails, routes orders above a threshold for review, and previews any PO rule live against a sample number before you publish. D2C no-op behavior keeps retail checkout on the ordinary path. Checkout enforcement runs on Plus B2B; PO rules work on every plan. This page is not legal advice.</p>
 
     <h2>D2C and no-company carts should stay on ordinary checkout</h2>
-    <p>A required PO string, a deposit percentage, or an order-review hold belongs on <strong>company / B2B checkout</strong>. Retail D2C and no-company carts should not see that wholesale PO field. If a retail buyer hits a PO rule, the rule is on the wrong surface — that is the D2C no-op job the listing names alongside PO validation.</p>
+    <p>A required PO string, a deposit percentage, or an order-review hold belongs on <strong>company / B2B checkout</strong>. Retail D2C and no-company carts should not see that wholesale PO field. If a retail buyer hits a PO rule, the rule is on the wrong surface — that is the D2C no-op job alongside PO validation.</p>
     <p><a class="cta" href="https://apps.shopify.com/b2b-terms-guard">Install B2B PO Guard → preview rule → confirm D2C untouched</a></p>
 
     <h2>Sequence: preview on a sample, publish, then test company vs D2C</h2>
     <ol>
       <li>Build the PO rule (format, prefix, regex, length, uniqueness as needed).</li>
       <li>Preview the rule live against a sample number before you publish.</li>
-      <li>On Shopify Plus B2B, confirm checkout enforcement for a company cart (junk PO errors; matching PO passes).</li>
+      <li>Confirm checkout enforcement for a company cart (junk PO errors; matching PO passes).</li>
       <li>Confirm a D2C / no-company cart stays on ordinary checkout with no PO block.</li>
     </ol>
-    <p>PO rules and live previews work on every plan; checkout enforcement (PO, deposits, review) runs on Shopify Plus B2B.</p>
     <p><a class="cta" href="https://apps.shopify.com/b2b-terms-guard">Install B2B PO Guard → preview rule → confirm D2C untouched</a></p>
 
     <h2>Not the same as require-PO how-to, deposit %, or order-review threshold</h2>
@@ -97,7 +96,7 @@
       <li><a href="/guides/b2b-order-review-threshold-checkout/">Order review threshold</a></li>
       <li><a href="https://apps.shopify.com/b2b-terms-guard">B2B PO Guard — Require PO</a> — live App Store listing</li>
     </ul>
-    <p class="note">PO rules and live previews work on every plan; checkout enforcement (PO, deposits, review) runs on Shopify Plus B2B. Confirm the live listing for your store.</p>
+    <p class="note">Checkout enforcement runs on Plus B2B; PO rules work on every plan.</p>
   </main>
   <footer class="site">
     <div class="wrap">
