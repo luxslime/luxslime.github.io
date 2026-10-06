@@ -4,17 +4,17 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Prevent duplicate PO numbers on Shopify B2B checkout</title>
-  <meta name="description" content="Native Net Terms do not check PO uniqueness. Validate purchase-order uniqueness (and format/prefix/regex) with a live sample preview before you publish. D2C stays untouched.">
+  <meta name="description" content="Stop reused PO numbers on Shopify B2B checkout: add uniqueness to the PO validation rule and preview it against a known duplicate before you publish.">
   <meta name="robots" content="index,follow">
   <link rel="icon" href="/favicon.ico">
   <meta property="og:type" content="article">
   <meta property="og:title" content="Prevent duplicate PO numbers on Shopify B2B checkout">
-  <meta property="og:description" content="Native Net Terms do not check PO uniqueness. Validate purchase-order uniqueness (and format/prefix/regex) with a live sample preview before you publish. D2C stays untouched.">
+  <meta property="og:description" content="Stop reused PO numbers on Shopify B2B checkout: add uniqueness to the PO validation rule and preview it against a known duplicate before you publish.">
   <meta property="og:url" content="https://apify.momiji-space.com/guides/b2b-po-number-uniqueness-duplicate/">
   <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/0d5bee841b158614f7a791277c9b589e/icon/CMiBo7bN5JQDEAE=.png">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Prevent duplicate PO numbers on Shopify B2B checkout">
-  <meta name="twitter:description" content="Native Net Terms do not check PO uniqueness. Validate purchase-order uniqueness (and format/prefix/regex) with a live sample preview before you publish. D2C stays untouched.">
+  <meta name="twitter:description" content="Stop reused PO numbers on Shopify B2B checkout: add uniqueness to the PO validation rule and preview it against a known duplicate before you publish.">
   <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/0d5bee841b158614f7a791277c9b589e/icon/CMiBo7bN5JQDEAE=.png">
   <link rel="canonical" href="https://apify.momiji-space.com/guides/b2b-po-number-uniqueness-duplicate/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
@@ -36,6 +36,7 @@
     <nav><a href="/">Home</a> / Guides / <a href="/guides/b2b-po-number-required/">Require PO</a> / PO uniqueness</nav>
     <p class="eyebrow">B2B PO uniqueness</p>
     <h1>Native Net Terms do not stop a reused PO number — uniqueness is a separate checkout rule</h1>
+    <p>Shopify's native Net Terms do not reject a PO number that was already used; you need a checkout validation rule that checks the PO number against previously used numbers and blocks the company checkout when it matches. B2B Terms &amp; PO Guard validates PO numbers by format, prefix, regex, length, and uniqueness, and previews any PO rule live against a sample number before you publish.</p>
     <p class="lede"><strong>B2B Terms &amp; PO Guard</strong> (<a href="https://apps.shopify.com/b2b-terms-guard">Shopify App Store</a>) validates purchase-order numbers by format, prefix, regex, length, and uniqueness, previews a PO rule against a sample number before you publish, sets deposit percentage guardrails, and routes oversized B2B orders for review. It works alongside native Net Terms. D2C and no-company checkouts stay untouched. Checkout enforcement runs on Plus B2B; PO rules work on every plan. This page is not legal advice.</p>
 
     <h2>Uniqueness is not the same job as “PO required” or Net Terms</h2>
