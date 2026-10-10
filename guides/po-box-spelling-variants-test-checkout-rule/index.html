@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PO box spellings and look-alike street names: test your Shopify billing rule first</title>
+  <meta name="description" content="A PO box rule can miss a spelling or block a real street like Boxwood Road. A test list for the AddressFence simulator before you publish a billing rule.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.ico">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="PO box spellings and look-alike street names: test your Shopify billing rule first">
+  <meta property="og:description" content="A PO box rule can miss a spelling or block a real street like Boxwood Road. A test list for the AddressFence simulator before you publish a billing rule.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/po-box-spelling-variants-test-checkout-rule/">
+  <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/27f7c111c94acf4b22bfef9207351043/icon/CISg3YSo4pQDEAE=.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="PO box spellings and look-alike street names: test your Shopify billing rule first">
+  <meta name="twitter:description" content="A PO box rule can miss a spelling or block a real street like Boxwood Road. A test list for the AddressFence simulator before you publish a billing rule.">
+  <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/27f7c111c94acf4b22bfef9207351043/icon/CISg3YSo4pQDEAE=.png">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/po-box-spelling-variants-test-checkout-rule/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://apify.momiji-space.com/"}, {"@type": "ListItem", "position": 2, "name": "Guides", "item": "https://apify.momiji-space.com/guides/"}, {"@type": "ListItem", "position": 3, "name": "PO box spellings and look-alike street names: test your Shopify billing rule first", "item": "https://apify.momiji-space.com/guides/po-box-spelling-variants-test-checkout-rule/"}]}
+  </script>
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "AddressFence: PO Box Billing", "description": "Billing-address rules for Shopify checkout: block a PO box on billing, require a street number, and test any address in the simulator before publishing, with one-click rollback.", "url": "https://apps.shopify.com/address-guard", "applicationCategory": "BusinessApplication", "operatingSystem": "Shopify", "image": "https://cdn.shopify.com/app-store/listing_images/27f7c111c94acf4b22bfef9207351043/icon/CISg3YSo4pQDEAE=.png"}
+  </script>
+</head>
+<body>
+  <header class="site"><div class="wrap bar"><a class="logo" href="/">momiji-space</a>
+    <nav><a href="/review/">Shopify apps</a><a href="/guides/block-po-box-billing-address/">PO box blocker</a><a href="https://apps.shopify.com/address-guard">Install</a></nav>
+  </div></header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / <a href="/guides/">Guides</a> / <a href="/guides/block-po-box-billing-address/">PO box blocker</a> / PO box rule test list</nav>
+    <p class="eyebrow">PO box rule test list</p>
+    <h1>PO box spellings and look-alike street names: test your Shopify billing rule before you publish</h1>
+    <p class="answer-first"><strong>Direct answer.</strong> A PO box rule fails in two ways: it misses a spelling such as Post Office Box or a bare “Box 12”, or it stops a real street such as Boxwood Road. Write a short list of both kinds, run each address through the AddressFence simulator before you publish, and use one-click rollback if a published rule stops a real customer.</p>
+    <p class="lede"><strong>AddressFence: PO Box Billing</strong> (<a href="https://apps.shopify.com/address-guard">Shopify App Store</a>) adds billing-address rules to Shopify checkout, including a PO box block and a required street number, and lets you test any address in the simulator before publishing. This page is a test list, not a description of every pattern the app recognises: the simulator result is what counts.</p>
+    <p><a class="cta" href="https://apps.shopify.com/address-guard">Install AddressFence: PO Box Billing</a></p>
+    <h2>Why test spellings and look-alikes</h2>
+    <p>Customers write a PO box many ways, and real streets can share the same letters. Shopify’s built-in, no-code checkout settings cover the shipping address only, so the billing line is where your own rule has to hold up. See <a href="/guides/addressfence-built-in-checkout-rules-cannot-target-billing/">why built-in rules do not reach billing</a>.</p>
+    <p><a class="cta" href="https://apps.shopify.com/address-guard">Install AddressFence → add a billing rule → test in the simulator</a></p>
+    <h2>A test list to paste into the simulator</h2>
+    <table><caption>Billing address test list (you decide the expected result)</caption><thead><tr><th scope="col">Address line 1</th><th scope="col">What you probably want</th></tr></thead><tbody><tr><td>PO Box 123</td><td>Block</td></tr><tr><td>P.O. Box 123</td><td>Block</td></tr><tr><td>P O Box 123</td><td>Block</td></tr><tr><td>Post Office Box 123</td><td>Block</td></tr><tr><td>POB 123</td><td>Block</td></tr><tr><td>Box 12</td><td>Block</td></tr><tr><td>123 Boxwood Road</td><td>Allow (real street)</td></tr><tr><td>45 Boxer Lane</td><td>Allow (real street)</td></tr><tr><td>1 Post Office Square</td><td>Allow (real street)</td></tr><tr><td>Rural Route 2 Box 14</td><td>Your call: a real rural address that contains “Box”</td></tr><tr><td>Main Street</td><td>Block if you require a street number</td></tr></tbody></table>
+    <p>Add the odd cases from your own order history: abbreviations, a PO box typed in the second address line, extra spaces, lower case.</p>
+    <p><a class="cta" href="https://apps.shopify.com/address-guard">Install the PO box blocker, then run the test list</a></p>
+    <h2>Run it</h2>
+    <ol><li>Write the expected result for each line before you test.</li><li>Run every line through the simulator for a billing address and mark any mismatch.</li><li>Adjust the rule, test again, and only then publish.</li><li>After publishing, place one test order for a blocked and an allowed address.</li><li>If a rule stops a real customer, roll it back with one click, fix it, and re-test.</li></ol>
+    <h2>Keep it short</h2>
+    <p>Ten to twenty lines catch most surprises. Keep the list in your store notes and re-run it after any rule change.</p>
+    <h2>What this page is not</h2>
+    <ul>
+      <li>Not a list of every pattern AddressFence matches; use the simulator for that.</li>
+      <li>Not legal advice or a statement about carrier or card-network rules.</li>
+    </ul>
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/guides/addressfence-address-simulator-before-publish/">Test a Shopify address rule in a simulator before you publish</a></li>
+      <li><a href="/guides/block-po-box-billing-address/">PO box blocker for the billing address</a></li>
+      <li><a href="/guides/require-street-number-shopify-checkout/">Require a street number at Shopify checkout</a></li>
+      <li><a href="/guides/po-box-blocker-apps-billing-vs-shipping/">PO box blocker apps: which ones check billing</a></li>
+      <li><a href="https://apps.shopify.com/address-guard">AddressFence: PO Box Billing</a></li>
+    </ul>
+    <p class="note">Not legal advice. Re-check the cited law and the current app page before you rely on this page.</p>
+    <p><a class="cta" href="https://apps.shopify.com/address-guard">Install AddressFence on the Shopify App Store</a></p>
+
+  </main>
+  <footer class="site"><div class="wrap"><ul><li><a href="/review/">Shopify apps hub</a></li><li><a href="/tools/">Tools</a></li><li><a href="/">Home</a></li></ul></div></footer>
+</body>
+</html>
