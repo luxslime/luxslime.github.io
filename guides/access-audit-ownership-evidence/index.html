@@ -67,11 +67,11 @@
     <nav><a href="/">Home</a> / <a href="/guides/">Guides</a> / <a href="/guides/access-audit-admin/">Access audit</a> / Ownership evidence</nav>
     <p class="eyebrow">App ownership evidence</p>
     <h1>Ownership evidence is the installed-app table (scopes + owner) — a staff user list is a different record</h1>
-    <p class="lede"><strong>Staff Access Audit Guard</strong> (<a href="https://apps.shopify.com/momiji-access-audit">Shopify App Store</a>) reviews installed app access, granted scopes, staff access records, and ownership evidence without reading customer or order data. It scores every installed app’s access risk, flags apps — including AI apps — that can read or write customer data, tracks staff and collaborator access with 30/90-day review reminders, and alerts on scope, owner, or cost drift. It does not revoke staff, uninstall apps, or attest that the store is secure. This page is not a security attestation.</p>
+    <p class="lede"><strong>Staff Access Audit Guard</strong> (<a href="https://apps.shopify.com/momiji-access-audit">Shopify App Store</a>) reviews installed app access, granted scopes, staff access records, and ownership evidence without reading customer or order data. It scores every installed app’s access risk, flags apps — including AI apps — that can read or write customer data, and tracks staff and collaborator access with 30/90-day review reminders. It does not revoke staff, uninstall apps, or attest that the store is secure. This page is not a security attestation.</p>
 
     <h2>Staff lists answer “who can log in”; ownership evidence answers “which app, which scopes, which owner”</h2>
     <p>Settings → Users shows people. Installed apps request scopes and have an owner on the install. Ownership evidence is the reviewable record of that app inventory — scopes and owner together — so a later audit can show what was granted and who owned the install. A screenshot of today’s staff list does not replace that table.</p>
-    <p>Shopify Admin can show app activity and data-privacy signals under Settings → Apps (see <a href="https://changelog.shopify.com/posts/track-app-activity-and-permissions-from-settings">track app activity and permissions from Settings</a>). That native view is useful context. A scored access table with owner, customer-data flags, and owner/scope drift alerts is the listing job on this page.</p>
+    <p>Shopify Admin can show app activity and data-privacy signals under Settings → Apps (see <a href="https://changelog.shopify.com/posts/track-app-activity-and-permissions-from-settings">track app activity and permissions from Settings</a>). That native view is useful context. A scored access table with owner and customer-data flags is the listing job on this page.</p>
     <p><a class="cta" href="https://apps.shopify.com/momiji-access-audit">Install staff access audit</a></p>
 
     <h2>Listing sequence: audit, scopes + owner table, flags, drift</h2>
@@ -80,7 +80,7 @@
       <li>Open the installed-app access table with scopes and owner — that is the ownership-evidence surface.</li>
       <li>Review apps flagged for customer-data read/write access, including AI apps, as the listing describes.</li>
       <li>Keep staff and collaborator access records alongside the app table when people access is also in scope.</li>
-      <li>Watch alerts when scope, owner, or cost drifts after a scheduled audit.</li>
+      <li>Re-run the audit after scope, owner, or cost changes.</li>
     </ol>
     <p><a class="cta" href="https://apps.shopify.com/momiji-access-audit">Install staff access audit</a></p>
 
