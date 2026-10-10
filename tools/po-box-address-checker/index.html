@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Free PO box and street number address checker for Shopify billing rules</title>
+  <meta name="description" content="Paste address lines and see which look like a PO box or have no street number. Runs in your browser; nothing is sent anywhere. Then build the rule for checkout.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.ico">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Free PO box and street number address checker">
+  <meta property="og:description" content="Paste address lines and see which look like a PO box or have no street number. Runs in your browser; nothing is sent anywhere.">
+  <meta property="og:url" content="https://apify.momiji-space.com/tools/po-box-address-checker/">
+  <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/27f7c111c94acf4b22bfef9207351043/icon/CISg3YSo4pQDEAE=.png">
+  <meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://apify.momiji-space.com/tools/po-box-address-checker/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <style>
+    .tool{border:1px solid #d0d5dd;border-radius:10px;padding:1rem;margin:1.25rem 0}
+    .tool textarea{width:100%;min-height:11rem;font:inherit;font-family:ui-monospace,Menlo,Consolas,monospace;padding:.6rem;box-sizing:border-box}
+    .tool button{font:inherit;padding:.55rem 1rem;border-radius:8px;border:1px solid #1a1a1a;background:#1a1a1a;color:#fff;cursor:pointer;margin:.5rem .5rem 0 0}
+    .tool button.alt{background:#fff;color:#1a1a1a}
+    .tool table{width:100%;border-collapse:collapse;margin-top:1rem}
+    .tool th,.tool td{border-bottom:1px solid #e4e7ec;text-align:left;padding:.4rem .5rem;vertical-align:top}
+    .tag{display:inline-block;padding:.1rem .5rem;border-radius:999px;font-size:.85em;font-weight:600}
+    .t-po{background:#fde8e8;color:#8a1c1c}.t-num{background:#fff3cd;color:#7a5a00}.t-rev{background:#e7eefc;color:#1d3f8a}.t-ok{background:#e3f6e8;color:#14532d}
+    #summary{margin-top:.75rem;font-weight:600}
+  </style>
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://apify.momiji-space.com/"}, {"@type": "ListItem", "position": 2, "name": "Tools", "item": "https://apify.momiji-space.com/tools/"}, {"@type": "ListItem", "position": 3, "name": "PO box and street number address checker", "item": "https://apify.momiji-space.com/tools/po-box-address-checker/"}]}
+  </script>
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "AddressFence: PO Box Billing", "description": "Billing-address rules for Shopify checkout: block a PO box on billing, require a street number, and test any address in the simulator before publishing, with one-click rollback.", "url": "https://apps.shopify.com/address-guard", "applicationCategory": "BusinessApplication", "operatingSystem": "Shopify", "image": "https://cdn.shopify.com/app-store/listing_images/27f7c111c94acf4b22bfef9207351043/icon/CISg3YSo4pQDEAE=.png"}
+  </script>
+</head>
+<body>
+  <header class="site"><div class="wrap bar"><a class="logo" href="/">momiji-space</a>
+    <nav><a href="/review/">Shopify apps</a><a href="/guides/block-po-box-billing-address/">PO box blocker</a><a href="https://apps.shopify.com/address-guard">Install</a></nav>
+  </div></header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / <a href="/tools/">Tools</a> / PO box address checker</nav>
+    <p class="eyebrow">Free tool</p>
+    <h1>PO box and street number address checker</h1>
+    <p class="answer-first"><strong>Direct answer.</strong> Paste one address line per row and this page marks the ones that look like a PO box, the ones with no street number, and the ones worth a manual look. It runs in your browser and sends nothing anywhere. Use it to build a test list before you write a billing rule at checkout.</p>
+    <p class="lede">The tool uses a short, generic pattern list. It does not show what any app matches: to see how a real checkout rule behaves, run your list through the <strong>AddressFence: PO Box Billing</strong> simulator (<a href="https://apps.shopify.com/address-guard">Shopify App Store</a>) before publishing a rule.</p>
+    <p><a class="cta" href="https://apps.shopify.com/address-guard">Install AddressFence: PO Box Billing</a></p>
+
+    <section class="tool" aria-labelledby="tool-h">
+      <h2 id="tool-h">Check your address lines</h2>
+      <label for="addr">Address line 1, one per row</label>
+      <textarea id="addr" spellcheck="false">PO Box 123
+P.O. Box 123
+Post Office Box 123
+Box 12
+123 Boxwood Road
+45 Boxer Lane
+1 Post Office Square
+Rural Route 2 Box 14
+Main Street
+Rose Cottage</textarea>
+      <div><button type="button" id="run">Check addresses</button><button type="button" id="clear" class="alt">Clear</button><button type="button" id="copy" class="alt">Copy results as text</button></div>
+      <p id="summary" role="status" aria-live="polite"></p>
+      <table id="out" hidden><thead><tr><th scope="col">Address line</th><th scope="col">Result</th><th scope="col">Why</th></tr></thead><tbody></tbody></table>
+    </section>
+
+    <p><a class="cta" href="https://apps.shopify.com/address-guard">Install AddressFence → turn your list into a billing rule</a></p>
+
+    <h2>What the checker flags</h2>
+    <ul>
+      <li><strong>Looks like a PO box:</strong> PO Box, P.O. Box, Post Office Box, POB or a bare “Box 12” followed by a number.</li>
+      <li><strong>No street number:</strong> the line has no digit at all, for example “Main Street” or a house name.</li>
+      <li><strong>Review:</strong> a rural route or similar line that contains a box number and may be a real delivery address.</li>
+      <li><strong>Looks OK:</strong> everything else, including real streets such as Boxwood Road.</li>
+    </ul>
+    <p>A house name with no number can be a real address in some countries. Decide your own rule for those, and see <a href="/guides/shopify-require-street-number-house-name-addresses/">house names and required street numbers</a>.</p>
+
+    <h2>From a test list to a checkout rule</h2>
+    <p>Shopify’s built-in, no-code checkout settings cover the shipping address only (<a href="/guides/addressfence-built-in-checkout-rules-cannot-target-billing/">why they do not reach billing</a>). A billing-address rule needs an app or a checkout validation function. Write the expected result for each line first, then test every line in the simulator, as in the <a href="/guides/po-box-spelling-variants-test-checkout-rule/">PO box spelling test list</a>.</p>
+    <p><a class="cta" href="https://apps.shopify.com/address-guard">Install the PO box blocker on the Shopify App Store</a></p>
+
+    <h2>What this page is not</h2>
+    <ul>
+      <li>Not a list of every pattern AddressFence matches; the simulator result is what counts.</li>
+      <li>Not legal advice or a statement about carrier or card-network rules.</li>
+      <li>Not a data collector: addresses you paste stay in this browser tab.</li>
+    </ul>
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/guides/block-po-box-billing-address/">PO box blocker for the billing address</a></li>
+      <li><a href="/guides/require-street-number-shopify-checkout/">Require a street number at Shopify checkout</a></li>
+      <li><a href="/guides/po-box-blocker-apps-billing-vs-shipping/">PO box blocker apps: which ones check billing</a></li>
+      <li><a href="https://apps.shopify.com/address-guard">AddressFence: PO Box Billing</a></li>
+    </ul>
+    <p><a class="cta" href="https://apps.shopify.com/address-guard">Install AddressFence: PO Box Billing</a></p>
+  </main>
+  <footer class="site"><div class="wrap"><ul><li><a href="/review/">Shopify apps hub</a></li><li><a href="/tools/">Tools</a></li><li><a href="/">Home</a></li></ul></div></footer>
+  <script>
+  (function () {
+    function classify(raw) {
+      var s = String(raw).replace(/\s+/g, ' ').trim();
+      if (!s) return null;
+      if (/\b(?:p\.?\s?o\.?\s?box|post\s+office\s+box|p\.?\s?o\.?\s?b)\b\.?\s*#?\s*\d/i.test(s) || /^box\s*#?\s*\d/i.test(s)) {
+        return { key: 'po', label: 'Looks like a PO box', why: 'Matches a PO box spelling followed by a number.' };
+      }
+      if (/\b(?:rr|rural\s+route|hc|highway\s+contract)\b[^\n]*\bbox\s*#?\s*\d/i.test(s)) {
+        return { key: 'rev', label: 'Review', why: 'Rural route with a box number; may be a real delivery address.' };
+      }
+      if (!/\d/.test(s)) {
+        return { key: 'num', label: 'No street number', why: 'No digit found; could be a street name only or a house name.' };
+      }
+      return { key: 'ok', label: 'Looks OK', why: 'No PO box pattern and a number is present.' };
+    }
+    var cls = { po: 't-po', num: 't-num', rev: 't-rev', ok: 't-ok' };
+    var ta = document.getElementById('addr'), out = document.getElementById('out'), body = out.querySelector('tbody'), sum = document.getElementById('summary');
+    var last = [];
+    function run() {
+      body.textContent = ''; last = [];
+      var counts = { po: 0, num: 0, rev: 0, ok: 0 }, n = 0;
+      ta.value.split(/\r?\n/).forEach(function (line) {
+        var r = classify(line); if (!r) return;
+        n++; counts[r.key]++; last.push(line.trim() + '\t' + r.label);
+        var tr = document.createElement('tr'), a = document.createElement('td'), b = document.createElement('td'), c = document.createElement('td'), t = document.createElement('span');
+        a.textContent = line.trim(); t.className = 'tag ' + cls[r.key]; t.textContent = r.label; b.appendChild(t); c.textContent = r.why;
+        tr.appendChild(a); tr.appendChild(b); tr.appendChild(c); body.appendChild(tr);
+      });
+      out.hidden = n === 0;
+      sum.textContent = n ? n + ' lines: ' + counts.po + ' look like a PO box, ' + counts.num + ' have no street number, ' + counts.rev + ' to review, ' + counts.ok + ' look OK.' : 'Paste at least one address line.';
+    }
+    document.getElementById('run').addEventListener('click', run);
+    document.getElementById('clear').addEventListener('click', function () { ta.value = ''; body.textContent = ''; out.hidden = true; sum.textContent = ''; last = []; });
+    document.getElementById('copy').addEventListener('click', function () { if (navigator.clipboard && last.length) navigator.clipboard.writeText(last.join('\n')); });
+    run();
+  })();
+  </script>
+</body>
+</html>
