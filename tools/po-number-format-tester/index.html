@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Free PO number format tester: prefix, length and regex for B2B checkout</title>
+  <meta name="description" content="Build a purchase-order number rule (prefix, length, characters, regex) and test a pasted list of sample PO numbers, including duplicates. Runs in your browser; nothing is sent anywhere.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.ico">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Free PO number format tester for B2B checkout">
+  <meta property="og:description" content="Build a PO number rule and test sample numbers for prefix, length, characters, regex and duplicates. Runs in your browser; nothing is sent anywhere.">
+  <meta property="og:url" content="https://apify.momiji-space.com/tools/po-number-format-tester/">
+  <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/0d5bee841b158614f7a791277c9b589e/icon/CMiBo7bN5JQDEAE=.png">
+  <meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://apify.momiji-space.com/tools/po-number-format-tester/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <style>
+    .tool{border:1px solid var(--line,#e4e2da);background:var(--bg-raised,#fff);border-radius:14px;padding:1.25rem;margin:1.5rem 0;box-shadow:0 1px 0 rgba(24,34,56,.04),0 12px 32px -18px rgba(24,34,56,.25)}
+    .tool h2{margin-top:0}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(11rem,1fr));gap:.9rem 1rem;margin:1rem 0}
+    .field label,.tool .lab{display:block;font-weight:600;font-size:.9rem;margin-bottom:.25rem}
+    .field input[type=text],.field input[type=number],.field select,.tool textarea{width:100%;font:inherit;padding:.5rem .6rem;border:1px solid #c9c6bb;border-radius:8px;background:#fff;color:inherit}
+    .field input:focus,.field select:focus,.tool textarea:focus,.tool button:focus-visible{outline:3px solid rgba(42,74,155,.35);outline-offset:1px}
+    .tool textarea{min-height:11rem;font-family:ui-monospace,Menlo,Consolas,monospace;box-sizing:border-box}
+    .checks{display:flex;flex-wrap:wrap;gap:.5rem 1.4rem;margin:.25rem 0 .5rem}
+    .checks label{font-weight:500;display:inline-flex;gap:.4rem;align-items:center}
+    .hint{font-size:.85rem;color:var(--muted,#4e586e);margin:.2rem 0 0}
+    .tool button{font:inherit;font-weight:600;padding:.55rem 1.1rem;border-radius:999px;border:1px solid var(--ink,#182238);background:var(--ink,#182238);color:#fff;cursor:pointer;margin:.6rem .5rem 0 0;transition:transform .15s ease,box-shadow .15s ease}
+    .tool button:hover{transform:translateY(-1px);box-shadow:0 6px 14px -8px rgba(24,34,56,.6)}
+    .tool button.alt{background:#fff;color:var(--ink,#182238)}
+    .tool table{width:100%;border-collapse:collapse;margin-top:1rem;font-size:.95rem}
+    .tool th,.tool td{border-bottom:1px solid var(--line,#e4e2da);text-align:left;padding:.45rem .5rem;vertical-align:top}
+    .tool td.v{font-family:ui-monospace,Menlo,Consolas,monospace;word-break:break-all}
+    .tag{display:inline-block;padding:.1rem .6rem;border-radius:999px;font-size:.85em;font-weight:700}
+    .t-ok{background:#e3f6e8;color:#14532d}.t-bad{background:#fde8e8;color:#8a1c1c}
+    #summary{margin-top:.9rem;font-weight:600}
+    #err{color:#8a1c1c;font-weight:600;margin:.4rem 0 0}
+    @media (prefers-reduced-motion:reduce){.tool button{transition:none}.tool button:hover{transform:none}}
+  </style>
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://apify.momiji-space.com/"}, {"@type": "ListItem", "position": 2, "name": "Tools", "item": "https://apify.momiji-space.com/tools/"}, {"@type": "ListItem", "position": 3, "name": "PO number format tester", "item": "https://apify.momiji-space.com/tools/po-number-format-tester/"}]}
+  </script>
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "B2B Terms & PO Guard", "description": "Validates purchase-order numbers by format, prefix, regex, length, and uniqueness, and previews any PO rule live against a sample number before you publish.", "url": "https://apps.shopify.com/b2b-terms-guard", "applicationCategory": "BusinessApplication", "operatingSystem": "Shopify", "image": "https://cdn.shopify.com/app-store/listing_images/0d5bee841b158614f7a791277c9b589e/icon/CMiBo7bN5JQDEAE=.png"}
+  </script>
+</head>
+<body>
+  <header class="site"><div class="wrap bar"><a class="logo" href="/">momiji-space</a>
+    <nav><a href="/review/">Shopify apps</a><a href="/guides/b2b-po-number-required/">Require PO</a><a href="https://apps.shopify.com/b2b-terms-guard">Install</a></nav>
+  </div></header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / <a href="/tools/">Tools</a> / PO number format tester</nav>
+    <p class="eyebrow">Free tool</p>
+    <h1>PO number format tester</h1>
+    <p class="answer-first"><strong>Direct answer.</strong> Set a prefix, a length range, an allowed character set and an optional regular expression, then paste sample purchase-order numbers, one per row. Each row is marked pass or fail with the reason, and repeated numbers are flagged. It runs in your browser and sends nothing anywhere. Use it to settle your rule and a test list before you configure checkout validation.</p>
+    <p class="lede">This page applies a simple rule you define. It does not show what any app matches: to see how a real rule behaves, preview the same samples in <strong>B2B Terms &amp; PO Guard</strong> (<a href="https://apps.shopify.com/b2b-terms-guard">Shopify App Store</a>) before you publish. Checkout enforcement runs on Plus B2B; PO rules work on every plan.</p>
+    <p><a class="cta" href="https://apps.shopify.com/b2b-terms-guard">Install B2B Terms &amp; PO Guard</a></p>
+
+    <section class="tool" aria-labelledby="tool-h">
+      <h2 id="tool-h">Build the rule, then test samples</h2>
+      <div class="grid">
+        <div class="field"><label for="prefix">Prefix</label><input type="text" id="prefix" value="PO-" autocomplete="off" spellcheck="false"><p class="hint">Leave empty for none.</p></div>
+        <div class="field"><label for="min">Minimum length</label><input type="number" id="min" min="0" value="8" inputmode="numeric"><p class="hint">Counts the prefix. 0 = no limit.</p></div>
+        <div class="field"><label for="max">Maximum length</label><input type="number" id="max" min="0" value="12" inputmode="numeric"><p class="hint">0 = no limit.</p></div>
+        <div class="field"><label for="charset">Allowed characters</label><select id="charset"><option value="any">Anything</option><option value="digits">Digits only</option><option value="alnum">Letters and digits</option><option value="alnumdash" selected>Letters, digits, hyphen</option></select></div>
+      </div>
+      <div class="field"><label for="re">Regular expression (optional)</label><input type="text" id="re" value="" placeholder="e.g. PO-\d{6}" autocomplete="off" spellcheck="false"><p class="hint">Must match the whole number. JavaScript syntax. Checked in addition to the settings above.</p></div>
+      <div class="checks">
+        <label><input type="checkbox" id="required" checked> Empty rows fail (required)</label>
+        <label><input type="checkbox" id="icase"> Ignore upper/lower case</label>
+        <label><input type="checkbox" id="unique" checked> Flag duplicates in this list</label>
+      </div>
+      <label class="lab" for="list">Sample PO numbers, one per row</label>
+      <textarea id="list" spellcheck="false">PO-123456
+PO-123457
+PO-123456
+po-123458
+PO123459
+PO-12
+PO-1234567890123
+PO-12 3456
+PO-12#3456
+4500012345
+PO-ABC123
+
+ PO-654321 </textarea>
+      <div><button type="button" id="run">Test samples</button><button type="button" id="clear" class="alt">Clear list</button><button type="button" id="copy" class="alt">Copy results as text</button></div>
+      <p id="err" role="alert"></p>
+      <p id="summary" role="status" aria-live="polite"></p>
+      <table id="out" hidden><thead><tr><th scope="col">Row</th><th scope="col">PO number</th><th scope="col">Result</th><th scope="col">Why</th></tr></thead><tbody></tbody></table>
+    </section>
+
+    <p><a class="cta" href="https://apps.shopify.com/b2b-terms-guard">Install B2B Terms &amp; PO Guard → turn your rule into checkout validation</a></p>
+
+    <h2>What the tester checks</h2>
+    <ul>
+      <li><strong>Prefix:</strong> the number must start with the text you enter, for example PO-.</li>
+      <li><strong>Length:</strong> minimum and maximum character count, prefix included.</li>
+      <li><strong>Characters:</strong> digits only, letters and digits, or letters, digits and hyphens.</li>
+      <li><strong>Regular expression:</strong> an optional pattern the whole number must match.</li>
+      <li><strong>Duplicates:</strong> a number that already appeared earlier in your pasted list is flagged on its second and later rows.</li>
+      <li><strong>Empty rows:</strong> completely blank lines are skipped. A row that holds only spaces counts as empty and fails when the required box is ticked.</li>
+    </ul>
+    <p>Surrounding spaces are trimmed before testing. Spaces inside a number are not removed, so “PO-12 3456” fails the character rule.</p>
+
+    <h2>From a test list to checkout validation</h2>
+    <p>Write down the result you expect for each sample first, then compare. Native B2B Net Terms control how a company pays and do not check the PO field (<a href="/guides/b2b-po-number-required/">why a required PO number needs its own rule</a>). Format choices are covered in <a href="/guides/b2b-po-format-prefix-regex-length/">prefix, regex and length</a>, and repeat numbers in <a href="/guides/b2b-po-number-uniqueness-duplicate/">PO number uniqueness</a>. Then preview each sample against the live rule, as in <a href="/guides/b2b-po-rule-live-preview/">previewing a PO rule before you publish</a>.</p>
+    <p><a class="cta" href="https://apps.shopify.com/b2b-terms-guard">Install B2B Terms &amp; PO Guard on the Shopify App Store</a></p>
+
+    <h2>What this page is not</h2>
+    <ul>
+      <li>Not a list of every pattern B2B Terms &amp; PO Guard matches; the preview in the app is what counts.</li>
+      <li>Not a check of whether a PO number is real, approved or paid.</li>
+      <li>Not legal or credit advice.</li>
+      <li>Not a data collector: numbers you paste stay in this browser tab.</li>
+    </ul>
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/guides/b2b-po-number-required/">Require a PO number on B2B checkout</a></li>
+      <li><a href="/guides/b2b-po-format-prefix-regex-length/">PO number format, prefix, regex and length</a></li>
+      <li><a href="/guides/b2b-po-number-uniqueness-duplicate/">Block duplicate PO numbers</a></li>
+      <li><a href="https://apps.shopify.com/b2b-terms-guard">B2B Terms &amp; PO Guard</a></li>
+    </ul>
+    <p><a class="cta" href="https://apps.shopify.com/b2b-terms-guard">Install B2B Terms &amp; PO Guard</a></p>
+  </main>
+  <footer class="site"><div class="wrap"><ul><li><a href="/review/">Shopify apps hub</a></li><li><a href="/tools/">Tools</a></li><li><a href="/">Home</a></li></ul></div></footer>
+  <script>
+  (function () {
+function testPo(raw, cfg, seen) {
+  var s = String(raw).trim();
+  var fails = [];
+  if (!s) { if (cfg.required) fails.push('Empty: a PO number is required.'); return { fails: fails, value: s, empty: true }; }
+  var cmp = cfg.ignoreCase ? s.toLowerCase() : s;
+  if (cfg.prefix) {
+    var p = cfg.ignoreCase ? cfg.prefix.toLowerCase() : cfg.prefix;
+    if (cmp.indexOf(p) !== 0) fails.push('Does not start with the prefix "' + cfg.prefix + '".');
+  }
+  if (cfg.min > 0 && s.length < cfg.min) fails.push('Too short: ' + s.length + ' characters, minimum ' + cfg.min + '.');
+  if (cfg.max > 0 && s.length > cfg.max) fails.push('Too long: ' + s.length + ' characters, maximum ' + cfg.max + '.');
+  if (cfg.charset === 'digits' && !/^\d+$/.test(s)) fails.push('Contains characters other than digits.');
+  if (cfg.charset === 'alnum' && !/^[A-Za-z0-9]+$/.test(s)) fails.push('Contains characters other than letters and digits.');
+  if (cfg.charset === 'alnumdash' && !/^[A-Za-z0-9-]+$/.test(s)) fails.push('Contains characters other than letters, digits and hyphens.');
+  if (cfg.re && !cfg.re.test(s)) fails.push('Does not match the regular expression.');
+  if (cfg.unique && seen) {
+    if (seen[cmp]) fails.push('Duplicate of an earlier row (row ' + seen[cmp] + ').');
+  }
+  return { fails: fails, value: s };
+}
+function buildRe(src, ignoreCase) {
+  if (!src) return { re: null };
+  try { return { re: new RegExp('^(?:' + src + ')$', ignoreCase ? 'i' : '') }; }
+  catch (e) { return { error: 'The regular expression is not valid.' }; }
+}
+
+    var $ = function (id) { return document.getElementById(id); };
+    var out = $('out'), body = out.querySelector('tbody'), sum = $('summary'), err = $('err'), last = [];
+    function run() {
+      body.textContent = ''; last = []; err.textContent = '';
+      var ic = $('icase').checked;
+      var br = buildRe($('re').value.trim(), ic);
+      if (br.error) { err.textContent = br.error; out.hidden = true; sum.textContent = ''; return; }
+      var cfg = { prefix: $('prefix').value.trim(), min: parseInt($('min').value, 10) || 0, max: parseInt($('max').value, 10) || 0,
+        charset: $('charset').value, re: br.re, required: $('required').checked, unique: $('unique').checked, ignoreCase: ic };
+      var seen = {}, pass = 0, fail = 0, n = 0, rows = $('list').value.split(/\r?\n/).slice(0, 1000);
+      rows.forEach(function (line, i) {
+        if (line === '') return;
+        var r = testPo(line.length > 300 ? line.slice(0, 300) : line, cfg, seen);
+        var key = ic ? r.value.toLowerCase() : r.value;
+        if (r.value && !seen[key]) seen[key] = i + 1;
+        n++;
+        var ok = r.fails.length === 0; if (ok) pass++; else fail++;
+        last.push((i + 1) + '\t' + r.value + '\t' + (ok ? 'Pass' : 'Fail') + (ok ? '' : '\t' + r.fails.join(' ')));
+        var tr = document.createElement('tr'), a = document.createElement('td'), b = document.createElement('td'), c = document.createElement('td'), d = document.createElement('td'), t = document.createElement('span');
+        a.textContent = i + 1; b.className = 'v'; b.textContent = r.value || '(empty)';
+        t.className = 'tag ' + (ok ? 't-ok' : 't-bad'); t.textContent = ok ? 'Pass' : 'Fail'; c.appendChild(t);
+        d.textContent = ok ? 'Meets every setting above.' : r.fails.join(' ');
+        tr.appendChild(a); tr.appendChild(b); tr.appendChild(c); tr.appendChild(d); body.appendChild(tr);
+      });
+      out.hidden = n === 0;
+      sum.textContent = n ? n + ' rows: ' + pass + ' pass, ' + fail + ' fail.' : 'Paste at least one PO number.';
+    }
+    $('run').addEventListener('click', run);
+    $('clear').addEventListener('click', function () { $('list').value = ''; body.textContent = ''; out.hidden = true; sum.textContent = ''; err.textContent = ''; last = []; });
+    $('copy').addEventListener('click', function () { if (navigator.clipboard && last.length) navigator.clipboard.writeText(last.join('\n')); });
+    run();
+  })();
+  </script>
+</body>
+</html>
