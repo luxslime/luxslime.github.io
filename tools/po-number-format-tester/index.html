@@ -29,6 +29,7 @@
     .tool button{font:inherit;font-weight:600;padding:.55rem 1.1rem;border-radius:999px;border:1px solid var(--ink,#182238);background:var(--ink,#182238);color:#fff;cursor:pointer;margin:.6rem .5rem 0 0;transition:transform .15s ease,box-shadow .15s ease}
     .tool button:hover{transform:translateY(-1px);box-shadow:0 6px 14px -8px rgba(24,34,56,.6)}
     .tool button.alt{background:#fff;color:var(--ink,#182238)}
+    .result-scroll{overflow-x:auto;max-width:100%}
     .tool table{width:100%;border-collapse:collapse;margin-top:1rem;font-size:.95rem}
     .tool th,.tool td{border-bottom:1px solid var(--line,#e4e2da);text-align:left;padding:.45rem .5rem;vertical-align:top}
     .tool td.v{font-family:ui-monospace,Menlo,Consolas,monospace;word-break:break-all}
@@ -47,15 +48,15 @@
 </head>
 <body>
   <header class="site"><div class="wrap bar"><a class="logo" href="/">momiji-space</a>
-    <nav><a href="/review/">Shopify apps</a><a href="/guides/b2b-po-number-required/">Require PO</a><a href="https://apps.shopify.com/b2b-terms-guard">Install</a></nav>
+    <nav><a href="/review/">Shopify apps</a><a href="/guides/b2b-po-number-required/">Require PO</a><a href="https://apps.shopify.com/b2b-terms-guard?utm_source=momiji-site&amp;utm_medium=tool&amp;utm_campaign=po-number-format-tester">Install</a></nav>
   </div></header>
   <main class="wrap">
     <nav><a href="/">Home</a> / <a href="/tools/">Tools</a> / PO number format tester</nav>
     <p class="eyebrow">Free tool</p>
     <h1>PO number format tester</h1>
     <p class="answer-first"><strong>Direct answer.</strong> Set a prefix, a length range, an allowed character set and an optional regular expression, then paste sample purchase-order numbers, one per row. Each row is marked pass or fail with the reason, and repeated numbers are flagged. It runs in your browser and sends nothing anywhere. Use it to settle your rule and a test list before you configure checkout validation.</p>
-    <p class="lede">This page applies a simple rule you define. It does not show what any app matches: to see how a real rule behaves, preview the same samples in <strong>B2B Terms &amp; PO Guard</strong> (<a href="https://apps.shopify.com/b2b-terms-guard">Shopify App Store</a>) before you publish. Checkout enforcement runs on Plus B2B; PO rules work on every plan.</p>
-    <p><a class="cta" href="https://apps.shopify.com/b2b-terms-guard">Install B2B Terms &amp; PO Guard</a></p>
+    <p class="lede">This page applies a simple rule you define. It does not show what any app matches: to see how a real rule behaves, preview the same samples in <strong>B2B Terms &amp; PO Guard</strong> (<a href="https://apps.shopify.com/b2b-terms-guard?utm_source=momiji-site&amp;utm_medium=tool&amp;utm_campaign=po-number-format-tester">Shopify App Store</a>) before you publish. Checkout enforcement runs on Plus B2B; PO rules work on every plan.</p>
+    <p><a class="cta" href="https://apps.shopify.com/b2b-terms-guard?utm_source=momiji-site&amp;utm_medium=tool&amp;utm_campaign=po-number-format-tester">Install B2B Terms &amp; PO Guard</a></p>
 
     <section class="tool" aria-labelledby="tool-h">
       <h2 id="tool-h">Build the rule, then test samples</h2>
@@ -88,10 +89,11 @@ PO-ABC123
       <div><button type="button" id="run">Test samples</button><button type="button" id="clear" class="alt">Clear list</button><button type="button" id="copy" class="alt">Copy results as text</button></div>
       <p id="err" role="alert"></p>
       <p id="summary" role="status" aria-live="polite"></p>
-      <table id="out" hidden><thead><tr><th scope="col">Row</th><th scope="col">PO number</th><th scope="col">Result</th><th scope="col">Why</th></tr></thead><tbody></tbody></table>
+      <div class="result-scroll"><table id="out" hidden><thead><tr><th scope="col">Row</th><th scope="col">PO number</th><th scope="col">Result</th><th scope="col">Why</th></tr></thead><tbody></tbody></table></div>
+      <p>To preview a PO number format for B2B checkout, see <a href="https://apps.shopify.com/b2b-terms-guard?utm_source=momiji-site&amp;utm_medium=tool&amp;utm_campaign=po-number-format-tester">B2B Terms &amp; PO Guard</a>.</p>
     </section>
 
-    <p><a class="cta" href="https://apps.shopify.com/b2b-terms-guard">Install B2B Terms &amp; PO Guard → turn your rule into checkout validation</a></p>
+    <p><a class="cta" href="https://apps.shopify.com/b2b-terms-guard?utm_source=momiji-site&amp;utm_medium=tool&amp;utm_campaign=po-number-format-tester">Install B2B Terms &amp; PO Guard → turn your rule into checkout validation</a></p>
 
     <h2>What the tester checks</h2>
     <ul>
@@ -106,7 +108,7 @@ PO-ABC123
 
     <h2>From a test list to checkout validation</h2>
     <p>Write down the result you expect for each sample first, then compare. Native B2B Net Terms control how a company pays and do not check the PO field (<a href="/guides/b2b-po-number-required/">why a required PO number needs its own rule</a>). Format choices are covered in <a href="/guides/b2b-po-format-prefix-regex-length/">prefix, regex and length</a>, and repeat numbers in <a href="/guides/b2b-po-number-uniqueness-duplicate/">PO number uniqueness</a>. Then preview each sample against the live rule, as in <a href="/guides/b2b-po-rule-live-preview/">previewing a PO rule before you publish</a>.</p>
-    <p><a class="cta" href="https://apps.shopify.com/b2b-terms-guard">Install B2B Terms &amp; PO Guard on the Shopify App Store</a></p>
+    <p><a class="cta" href="https://apps.shopify.com/b2b-terms-guard?utm_source=momiji-site&amp;utm_medium=tool&amp;utm_campaign=po-number-format-tester">Install B2B Terms &amp; PO Guard on the Shopify App Store</a></p>
 
     <h2>What this page is not</h2>
     <ul>
@@ -120,9 +122,18 @@ PO-ABC123
       <li><a href="/guides/b2b-po-number-required/">Require a PO number on B2B checkout</a></li>
       <li><a href="/guides/b2b-po-format-prefix-regex-length/">PO number format, prefix, regex and length</a></li>
       <li><a href="/guides/b2b-po-number-uniqueness-duplicate/">Block duplicate PO numbers</a></li>
-      <li><a href="https://apps.shopify.com/b2b-terms-guard">B2B Terms &amp; PO Guard</a></li>
+      <li><a href="https://apps.shopify.com/b2b-terms-guard?utm_source=momiji-site&amp;utm_medium=tool&amp;utm_campaign=po-number-format-tester">B2B Terms &amp; PO Guard</a></li>
     </ul>
-    <p><a class="cta" href="https://apps.shopify.com/b2b-terms-guard">Install B2B Terms &amp; PO Guard</a></p>
+    <p><a class="cta" href="https://apps.shopify.com/b2b-terms-guard?utm_source=momiji-site&amp;utm_medium=tool&amp;utm_campaign=po-number-format-tester">Install B2B Terms &amp; PO Guard</a></p>
+    <h2>Related free checks</h2>
+    <ul>
+      <li><a href="/tools/po-box-address-checker/">PO box and street number address checker</a>. Paste address lines and see which look like a PO box or have no street number.</li>
+      <li><a href="/tools/app-scope-access-reader/">App access scope reader</a>. Paste the access scopes an app asks for and see which touch customer or order data, which can write, and which change the whole store.</li>
+    </ul>
+    <h2>Related Shopify apps</h2>
+    <ul>
+      <li><a href="https://apps.shopify.com/address-guard?utm_source=momiji-site&amp;utm_medium=tool-cross&amp;utm_campaign=from-po-number-format-tester">AddressFence: PO Box Billing</a>. Blocks a PO box on the billing address and can require a street number.</li>
+    </ul>
   </main>
   <footer class="site"><div class="wrap"><ul><li><a href="/review/">Shopify apps hub</a></li><li><a href="/tools/">Tools</a></li><li><a href="/">Home</a></li></ul></div></footer>
   <script>
@@ -186,5 +197,6 @@ function buildRe(src, ignoreCase) {
     run();
   })();
   </script>
+<script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "10aeccbd602743299692f41113bc3b55"}'></script>
 </body>
 </html>

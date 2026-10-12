@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ChatGPT shopping: product feeds for approved partners</title>
+  <meta name="description" content="OpenAI says product feeds give ChatGPT catalog data for titles, descriptions, images, price, and availability. Onboarding is currently available to approved partners. Not a ranking claim.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="ChatGPT shopping: product feeds for approved partners">
+  <meta property="og:description" content="OpenAI says product feeds give ChatGPT catalog data for titles, descriptions, images, price, and availability. Onboarding is currently available to approved partners. Not a ranking claim.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/chatgpt-shopping/">
+  <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/e390016f3b8dd309f00b480bdb35cc95/promotional_image/COPW_P3S7ZQDEAE=.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ChatGPT shopping: product feeds for approved partners">
+  <meta name="twitter:description" content="OpenAI says product feeds give ChatGPT catalog data for titles, descriptions, images, price, and availability. Onboarding is currently available to approved partners. Not a ranking claim.">
+  <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/e390016f3b8dd309f00b480bdb35cc95/promotional_image/COPW_P3S7ZQDEAE=.png">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/chatgpt-shopping/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://apify.momiji-space.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "ChatGPT shopping",
+        "item": "https://apify.momiji-space.com/guides/chatgpt-shopping/"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Agentic Catalog Readiness",
+    "url": "https://apps.shopify.com/agentic-catalog-readiness",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Shopify",
+    "image": "https://cdn.shopify.com/app-store/listing_images/e390016f3b8dd309f00b480bdb35cc95/icon/CMHlurDN5JQDEAE=.png"
+  }
+  </script>
+</head>
+<body>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/review/">Shopify apps</a>
+        <a href="/guides/chatgpt-shopping/" aria-current="page">ChatGPT shopping</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / <a href="/guides/">Guides</a> / ChatGPT shopping</nav>
+    <p class="eyebrow">ChatGPT shopping</p>
+    <h1>ChatGPT shopping uses a structured product feed that merchants share with OpenAI</h1>
+    <p class="answer-first"><strong>Direct answer.</strong> <a href="https://developers.openai.com/commerce/guides/get-started">Get Started</a> says: &ldquo;Start your ACP integration by sharing a structured product feed with OpenAI. Product feeds give ChatGPT the catalog data it needs to index your products, understand core attributes, and present accurate product information in shopping experiences.&rdquo; The same page says: &ldquo;Onboarding product feeds in ChatGPT is currently available to approved partners.&rdquo; Quotes below are from that page and from the <a href="https://developers.openai.com/commerce/specs/file-upload/products">products file-upload spec</a>, both checked 12 October 2026. This page does not describe a ChatGPT screen layout, a ranking method, or a count of merchants.</p>
+    <p class="lede"><strong>Agentic Catalog Readiness</strong> (<a href="https://apps.shopify.com/agentic-catalog-readiness?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=chatgpt-shopping">Shopify App Store</a>): &ldquo;Audit catalog and product readiness before launch or AI shopping discovery. Review fix guidance, rerun scans, and export CSV evidence.&rdquo; It does not submit feeds to OpenAI or certify ChatGPT acceptance.</p>
+    <p><strong>Free check first:</strong> <a href="/tools/product-json-ld-field-checker/">Product JSON-LD field checker</a> runs in your browser and sends nothing.</p>
+
+    <h2>Checklist</h2>
+    <ul>
+      <li>Treat onboarding as limited to approved partners, in the sentence quoted above.</li>
+      <li>Share a structured product feed. The overview says that is how the catalog data reaches ChatGPT.</li>
+      <li>Include the nine Basic product data fields. The field guide is <a href="/guides/openai-product-feed-spec/">OpenAI product feed spec</a>.</li>
+      <li>Use an availability value from the Basic product data cell. A later Google-compatible section on the same spec uses a different spelling.</li>
+    </ul>
+
+    <h2>What the overview says the feed is for</h2>
+    <p>Under &ldquo;Start with product feeds when you want to,&rdquo; the page lists:</p>
+    <ul>
+      <li>Make your catalog understandable to ChatGPT.</li>
+      <li>Share up-to-date product data, including titles, descriptions, images, price, and availability.</li>
+      <li>Establish a clear integration path based on a documented schema and delivery model.</li>
+    </ul>
+
+    <h2>Integration path</h2>
+    <p>The page says: &ldquo;Use this sequence to stand up your integration with ACP.&rdquo; The steps it names:</p>
+    <ol>
+      <li>Decide which integration method to use: file upload or API. &ldquo;It is generally recommended to provide the entire feed once a day via file upload, and then send updates throughout the day via the API.&rdquo; &ldquo;If your feed is small, you can provide both the entire feed and regular updates via the API.&rdquo; &ldquo;Promotions data can only be provided via the API.&rdquo;</li>
+      <li>Review the specs for the chosen integration method, and confirm the required fields, canonical field names, and validation rules.</li>
+      <li>Validate required fields for every record.</li>
+      <li>Upload feed data through the chosen integration method.</li>
+      <li>Keep the feed current. &ldquo;For file upload, overwrite the same file or shard set with your latest snapshot on a regular cadence.&rdquo; &ldquo;For the API, upsert products through the API.&rdquo;</li>
+    </ol>
+
+    <h2>Nine required fields</h2>
+    <p>The products spec: &ldquo;Submit one row per purchasable item or variant. Include the nine required fields in Basic product data, then add the optional data that describes your products.&rdquo; The table below copies the requirement and the description. The example column is omitted. The longer field notes are on <a href="/guides/openai-product-feed-spec/">OpenAI product feed spec</a>.</p>
+    <div class="card">
+      <table>
+        <caption>Basic product data, required rows, from the OpenAI products file-upload spec</caption>
+        <thead>
+          <tr>
+            <th scope="col">Field</th>
+            <th scope="col">Requirement</th>
+            <th scope="col">Description, as written</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row"><code>item_id</code></th>
+            <td>Required</td>
+            <td>Stable ID, unique per item or variant within your feed. Never reuse it for a different item. See identity rules.</td>
+          </tr>
+          <tr>
+            <th scope="row"><code>title</code></th>
+            <td>Required</td>
+            <td>Product name, including the selected variant when relevant.</td>
+          </tr>
+          <tr>
+            <th scope="row"><code>description</code></th>
+            <td>Required</td>
+            <td>Factual product description for this item.</td>
+          </tr>
+          <tr>
+            <th scope="row"><code>url</code></th>
+            <td>Required</td>
+            <td>Product detail page for the item, with the variant selected when possible. Keep it stable.</td>
+          </tr>
+          <tr>
+            <th scope="row"><code>brand</code></th>
+            <td>Required</td>
+            <td>Product brand as shown on the product page.</td>
+          </tr>
+          <tr>
+            <th scope="row"><code>seller_name</code></th>
+            <td>Required</td>
+            <td>Name of the seller supplying this offer. For marketplace offers, see merchant information.</td>
+          </tr>
+          <tr>
+            <th scope="row"><code>image_url</code></th>
+            <td>Required</td>
+            <td>Main product image, showing this variant. Use a direct image URL, such as a JPEG or PNG.</td>
+          </tr>
+          <tr>
+            <th scope="row"><code>availability</code></th>
+            <td>Required</td>
+            <td><code>in_stock</code>, <code>out_of_stock</code>, <code>pre_order</code>, <code>backorder</code>, or <code>unknown</code>. Omitted, empty, or unrecognized values reject the row. Use <code>unknown</code> explicitly when stock status is unavailable.</td>
+          </tr>
+          <tr>
+            <th scope="row"><code>price</code></th>
+            <td>Required</td>
+            <td>Regular item price in major currency units. See prices.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>A later section of the same spec, &ldquo;Google-compatible product data feeds,&rdquo; says: &ldquo;Use this format only after OpenAI confirms it for your registered feed.&rdquo; In that section, &ldquo;<code>availability</code> must be <code>in_stock</code>, <code>out_of_stock</code>, <code>preorder</code>, or <code>backorder</code>. Use <code>preorder</code>, not the OpenAI spelling <code>pre_order</code>; <code>unknown</code> is not accepted.&rdquo; That spelling applies to the Google-compatible path, not to the Basic product data cell above.</p>
+
+    <h2>Prohibited products</h2>
+    <p>Get Started, under Prohibited products policy: &ldquo;To keep ChatGPT a safe place for everyone, we only allow products and services that are legal, safe, and appropriate for a general audience. Prohibited products include, but are not limited to, those that involve adult content, age-restricted products (for example, alcohol, nicotine, gambling), harmful or dangerous materials, weapons, prescription-only medications, unlicensed financial products, legally restricted goods, illegal activities, or deceptive practices.&rdquo;</p>
+
+    <h2>Read these instead of repeating them</h2>
+    <ul>
+      <li><a href="/guides/openai-product-feed-spec/">OpenAI product feed spec</a></li>
+      <li><a href="/guides/agentic-commerce-protocol-acp/">Agentic Commerce Protocol</a></li>
+      <li><a href="/guides/shopify-universal-commerce-protocol-ucp/">Universal Commerce Protocol</a></li>
+      <li><a href="/guides/shopify-agentic-storefronts/">Shopify agentic storefronts</a></li>
+      <li><a href="/guides/shopify-json-ld-schema-product/">Product JSON-LD</a></li>
+      <li><a href="/guides/agentic-catalog-vs-ai-shopping-readiness/">Catalog readiness vs AI shopping readiness</a></li>
+      <li><a href="/guides/agentic-catalog-json-ld-open-graph-completeness/">JSON-LD and Open Graph completeness</a></li>
+    </ul>
+
+    <h2>What this page is not</h2>
+    <ul>
+      <li>Not a description of the ChatGPT shopping screen, a ranking formula, or a merchant count.</li>
+      <li>Not a claim that a Shopify catalog syncs to OpenAI by itself. Neither page quoted above says that.</li>
+      <li>Not a claim that Agentic Catalog Readiness submits a feed or certifies acceptance. The listing sentence does not say that.</li>
+    </ul>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/tools/product-json-ld-field-checker/">Product JSON-LD field checker</a></li>
+      <li><a href="https://developers.openai.com/commerce/guides/get-started">Get Started</a></li>
+      <li><a href="https://developers.openai.com/commerce/specs/file-upload/products">Products file-upload spec</a></li>
+      <li><a href="https://apps.shopify.com/agentic-catalog-readiness?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=chatgpt-shopping">Agentic Catalog Readiness</a> &mdash; live App Store listing</li>
+      <li><a href="/review/">Shopify apps hub</a></li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+    <p class="note">Not a ranking or inclusion claim. Confirm the live OpenAI pages before you treat a field or an availability value as current. The app audits catalog and product readiness, reviews fix guidance, reruns scans, and exports CSV evidence. It does not submit feeds to OpenAI or certify ChatGPT acceptance.</p>
+  </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/review/">Shopify apps hub</a></li>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
+<script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "10aeccbd602743299692f41113bc3b55"}'></script>
+</body>
+</html>
