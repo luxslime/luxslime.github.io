@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shopify app access scopes: what each lets an app see</title>
+  <meta name="description" content="read_customers, read_orders, read_all_orders, and write_products control which store data an installed Shopify app can read or change. Review granted permissions in Settings &gt; Apps. Not legal advice.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.ico">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Shopify app access scopes: what each lets an app see">
+  <meta property="og:description" content="read_customers, read_orders, read_all_orders, and write_products control which store data an installed Shopify app can read or change. Review granted permissions in Settings &gt; Apps. Not legal advice.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/shopify-app-access-scopes-explained/">
+  <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/9ea3a49e539bec70dcd6abb7cc7f4746/icon/CLqU3dXo9JQDEAE=.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Shopify app access scopes: what each lets an app see">
+  <meta name="twitter:description" content="read_customers, read_orders, read_all_orders, and write_products control which store data an installed Shopify app can read or change. Review granted permissions in Settings &gt; Apps. Not legal advice.">
+  <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/9ea3a49e539bec70dcd6abb7cc7f4746/icon/CLqU3dXo9JQDEAE=.png">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/shopify-app-access-scopes-explained/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://apify.momiji-space.com/"},
+    {"@type":"ListItem","position":2,"name":"Shopify app access scopes explained","item":"https://apify.momiji-space.com/guides/shopify-app-access-scopes-explained/"}
+  ]}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Staff Access Audit Guard","url":"https://apps.shopify.com/momiji-access-audit","applicationCategory":"BusinessApplication","operatingSystem":"Shopify","image":"https://cdn.shopify.com/app-store/listing_images/9ea3a49e539bec70dcd6abb7cc7f4746/icon/CLqU3dXo9JQDEAE=.png"}
+  </script>
+</head>
+<body>
+  <header class="site"><div class="wrap bar"><a class="logo" href="/">momiji-space</a>
+    <nav><a href="/review/">Shopify apps</a><a href="/guides/shopify-app-access-scopes-explained/" aria-current="page">App access scopes</a></nav>
+  </div></header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / <a href="/guides/">Guides</a> / Shopify app access scopes explained</nav>
+    <p class="eyebrow">Shopify app access scopes</p>
+    <h1>What read_customers, read_orders, and write_products let an app see</h1>
+    <p class="answer-first"><strong>Direct answer.</strong> Shopify <a href="https://shopify.dev/docs/api/usage/access-scopes">access scopes</a> are named permissions that control which store data an app can read or write. <code>read_customers</code> covers Customer records (and, where B2B is enabled, Company and CompanyLocation) plus Segment. <code>read_orders</code> covers Order, Fulfillment, OrderTransaction, AbandonedCheckout, and DeliveryCarrierService for orders created within the last 60 days. <code>read_all_orders</code> is used with an order scope so the app can reach orders outside that 60-day window; Shopify has to approve the app for that scope. <code>write_products</code> covers Product, ProductVariant, Collection, and ResourceFeedback, and a write scope includes read of the same resources. Confirm the live table on shopify.dev; this page is not legal advice.</p>
+    <p class="lede"><strong>Staff Access Audit Guard</strong> (<a href="https://apps.shopify.com/momiji-access-audit">Shopify App Store</a>) reviews installed app access, granted scopes, staff access records, and ownership evidence without reading customer or order data. It classifies each granted scope and flags protected customer-data and broad-write access. This page explains what those scope names mean and where a store owner reviews them &mdash; not the scored audit job.</p>
+    <p><strong>Free check first:</strong> <a href="/tools/app-scope-access-reader/">App access scope reader</a> runs in your browser and sends nothing. Paste an app's access scopes and see which touch customer data or can write.</p>
+
+    <h2>The four names, from Shopify&rsquo;s scope table</h2>
+    <p>The rows below paraphrase the authenticated-scope table on <a href="https://shopify.dev/docs/api/usage/access-scopes">Shopify API access scopes</a>. They are not a complete catalogue of every scope an app might hold.</p>
+    <div class="card">
+    <table>
+      <caption>Selected Admin API access scopes</caption>
+      <thead>
+        <tr>
+          <th scope="col">Scope</th>
+          <th scope="col">What Shopify documents that it covers</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>read_customers</code></td>
+          <td>Customer; Company and CompanyLocation where B2B is enabled; Segment</td>
+        </tr>
+        <tr>
+          <td><code>read_orders</code></td>
+          <td>AbandonedCheckout, Fulfillment, Order, OrderTransaction, DeliveryCarrierService &mdash; orders created within the last 60 days</td>
+        </tr>
+        <tr>
+          <td><code>read_all_orders</code></td>
+          <td>All relevant orders rather than the default 60-day window; used with <code>read_orders</code> or <code>write_orders</code>; Shopify approval required</td>
+        </tr>
+        <tr>
+          <td><code>write_products</code></td>
+          <td>Product, ProductVariant, Collection, ResourceFeedback (write includes read of the same resources)</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <p>Declaring a scope in an app&rsquo;s configuration is not the same as the merchant having granted it. Shopify documents that a scope takes effect only after it is approved on the store, and that optional scopes are granted separately after installation. Developers can query <code>currentAppInstallation</code> and its <code>accessScopes</code> field to see what an install actually holds.</p>
+
+    <h2>How a store owner reviews installed app permissions</h2>
+    <p>In Shopify admin, go to Settings &gt; Apps, open each installed app, and read its Activity and permissions section (the Admin API areas it can view or edit) and its Privacy section (which customer data categories it can access). Shopify&rsquo;s 11 March 2026 changelog, <a href="https://changelog.shopify.com/posts/track-app-activity-and-permissions-from-settings">Track app activity and permissions from Settings</a>, describes Admin API activity, data privacy, and app history on that screen. Uninstalling an app revokes its access; see the Help Center page <a href="https://help.shopify.com/en/manual/apps/app-personal-information">Protecting customer personal information in apps</a>.</p>
+    <p>That native view is per app and point-in-time. Classifying every granted scope on every install, without opening customer records, is the sibling job on <a href="/guides/access-audit-app-scopes-customer-data/">audit Shopify app scopes for customer data access</a>.</p>
+
+    <h2>What this page is not</h2>
+    <ul>
+      <li>Not a score, a security attestation, or a reading of customer or order payloads.</li>
+      <li>Not a substitute for the live shopify.dev access-scope table.</li>
+      <li>Not the store-wide scope-classification audit. That URL is <a href="/guides/access-audit-app-scopes-customer-data/">app scopes for customer data</a>.</li>
+      <li>Not staff leftover-Admin scoring. That path is <a href="/guides/staff-permissions-audit-checklist/">staff permissions checklist</a>.</li>
+    </ul>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/tools/app-scope-access-reader/">App access scope reader</a> &mdash; paste scope names and see which touch customer data or can write</li>
+      <li><a href="/guides/access-audit-app-scopes-customer-data/">Audit Shopify app scopes for customer data access</a></li>
+      <li><a href="/guides/access-audit-app-access-risk-score/">Score installed app access risk</a></li>
+      <li><a href="/guides/access-audit-without-customer-order-data/">Access audit without reading customer or order data</a></li>
+      <li><a href="https://shopify.dev/docs/api/usage/access-scopes">Shopify API access scopes</a></li>
+      <li><a href="https://apps.shopify.com/momiji-access-audit">Staff Access Audit Guard</a></li>
+      <li><a href="/review/">Shopify apps hub</a></li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+    <p class="note">Not legal advice. Confirm the live shopify.dev access-scope table and your Admin permissions screen before you treat a scope name as a legal finding.</p>
+  </main>
+  <footer class="site"><div class="wrap"><ul><li><a href="/review/">Shopify apps hub</a></li><li><a href="/tools/">Tools</a></li><li><a href="/">Home</a></li></ul></div></footer>
+</body>
+</html>
