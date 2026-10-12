@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Free textile fibre composition checker: Annex I fibre names and 100% total</title>
+  <meta name="description" content="Paste a fibre composition such as 60% cotton, 40% polyester and see which names are on the EU Annex I list and whether the percentages add up. Runs in your browser; nothing is sent anywhere.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.ico">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Free textile fibre composition checker: Annex I fibre names and 100% total">
+  <meta property="og:description" content="Paste a fibre composition such as 60% cotton, 40% polyester and see which names are on the EU Annex I list and whether the percentages add up. Runs in your browser; nothing is sent anywhere.">
+  <meta property="og:url" content="https://apify.momiji-space.com/tools/textile-fibre-composition-checker/">
+  <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/bb56512bf8aba98ee2f18d095e3735fc/icon/CL_xv7Cf3pUDEAE=.png">
+  <meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://apify.momiji-space.com/tools/textile-fibre-composition-checker/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <style>
+    .tool{border:1px solid var(--line,#e4e2da);background:var(--bg-raised,#fff);border-radius:14px;padding:1.25rem;margin:1.5rem 0;box-shadow:0 1px 0 rgba(24,34,56,.04),0 12px 32px -18px rgba(24,34,56,.25)}
+    .tool h2{margin-top:0}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(11rem,1fr));gap:.9rem 1rem;margin:1rem 0}
+    .field label,.tool .lab{display:block;font-weight:600;font-size:.9rem;margin-bottom:.25rem}
+    .field input[type=text],.field input[type=number],.field select,.tool textarea{width:100%;font:inherit;padding:.5rem .6rem;border:1px solid #c9c6bb;border-radius:8px;background:#fff;color:inherit}
+    .field input:focus,.field select:focus,.tool textarea:focus,.tool button:focus-visible{outline:3px solid rgba(42,74,155,.35);outline-offset:1px}
+    .tool textarea{min-height:11rem;font-family:ui-monospace,Menlo,Consolas,monospace;box-sizing:border-box}
+    .checks{display:flex;flex-wrap:wrap;gap:.5rem 1.4rem;margin:.25rem 0 .5rem}
+    .checks label{font-weight:500;display:inline-flex;gap:.4rem;align-items:center}
+    .hint{font-size:.85rem;color:var(--muted,#4e586e);margin:.2rem 0 0}
+    .tool button{font:inherit;font-weight:600;padding:.55rem 1.1rem;border-radius:999px;border:1px solid var(--ink,#182238);background:var(--ink,#182238);color:#fff;cursor:pointer;margin:.6rem .5rem 0 0;transition:transform .15s ease,box-shadow .15s ease}
+    .tool button:hover{transform:translateY(-1px);box-shadow:0 6px 14px -8px rgba(24,34,56,.6)}
+    .tool button.alt{background:#fff;color:var(--ink,#182238)}
+    .tool table{width:100%;border-collapse:collapse;margin-top:1rem;font-size:.95rem}
+    .tool th,.tool td{border-bottom:1px solid var(--line,#e4e2da);text-align:left;padding:.45rem .5rem;vertical-align:top}
+    .tool td.v{font-family:ui-monospace,Menlo,Consolas,monospace;word-break:break-all}
+    .tag{display:inline-block;padding:.1rem .6rem;border-radius:999px;font-size:.85em;font-weight:700}
+    .t-ok{background:#e3f6e8;color:#14532d}.t-bad{background:#fde8e8;color:#8a1c1c}
+    #summary{margin-top:.9rem;font-weight:600}
+    #err{color:#8a1c1c;font-weight:600;margin:.4rem 0 0}
+    @media (prefers-reduced-motion:reduce){.tool button{transition:none}.tool button:hover{transform:none}}
+      .t-gen{background:#fff4d6;color:#6b4e00}.t-off{background:#e6edff;color:#1d3a8a}.t-lab{background:#eee;color:#333}
+    .tool td.s{font-size:.85rem;color:var(--muted,#4e586e)}
+  </style>
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://apify.momiji-space.com/"}, {"@type": "ListItem", "position": 2, "name": "Tools", "item": "https://apify.momiji-space.com/tools/"}, {"@type": "ListItem", "position": 3, "name": "Textile fibre composition checker", "item": "https://apify.momiji-space.com/tools/textile-fibre-composition-checker/"}]}
+  </script>
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "FibreLedger Textile Labels", "url": "https://apps.shopify.com/textile-label-guard", "applicationCategory": "BusinessApplication", "operatingSystem": "Shopify", "image": "https://cdn.shopify.com/app-store/listing_images/bb56512bf8aba98ee2f18d095e3735fc/icon/CL_xv7Cf3pUDEAE=.png"}
+  </script>
+</head>
+<body>
+  <header class="site"><div class="wrap bar"><a class="logo" href="/">momiji-space</a>
+    <nav><a href="/review/">Shopify apps</a><a href="/guides/textile-fibre-label-eu/">EU textile labels</a><a href="https://apps.shopify.com/textile-label-guard">Install</a></nav>
+  </div></header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / <a href="/tools/">Tools</a> / Textile fibre composition checker</nav>
+    <p class="eyebrow">Free tool</p>
+    <h1>Textile fibre composition checker</h1>
+    <p class="answer-first"><strong>Direct answer.</strong> Paste one fibre per line with its percentage, for example <code>60% cotton</code>. The page shows whether each name is on the English list in Annex I of Regulation (EU) No 1007/2011, points out trade names such as Lycra or Tencel with the Annex I name to consider, and adds up your percentages. It runs in your browser and sends nothing anywhere.</p>
+    <p class="lede">This is a quick self-check, not legal advice and not what any app checks. To check every fibre in your catalog against the Annex I catalogue in English, German and French, try <strong>FibreLedger Textile Labels</strong> (<a href="https://apps.shopify.com/textile-label-guard">Shopify App Store</a>).</p>
+    <p><a class="cta" href="https://apps.shopify.com/textile-label-guard">Install FibreLedger Textile Labels</a></p>
+    <section class="tool" aria-labelledby="tool-h">
+      <h2 id="tool-h">Paste a fibre composition</h2>
+      <label class="lab" for="copy-in">One fibre per line, with its percentage</label>
+      <textarea id="copy-in" spellcheck="false">60% cotton
+35% polyester
+5% Lycra</textarea>
+      <div><button type="button" id="run">Check composition</button><button type="button" id="clear" class="alt">Clear text</button><button type="button" id="copy" class="alt">Copy results as text</button></div>
+      <p id="summary" role="status" aria-live="polite"></p>
+      <table id="out" hidden><thead><tr><th scope="col">Fibre as written</th><th scope="col">Share</th><th scope="col">Result</th><th scope="col">What to check</th></tr></thead><tbody></tbody></table>
+    </section>
+    <p><a class="cta" href="https://apps.shopify.com/textile-label-guard">Install FibreLedger Textile Labels → check your whole catalog</a></p>
+    <h2>What the checker looks at</h2>
+    <ul>
+      <li><strong>Fibre names:</strong> each line is compared with the English names in Annex I of Regulation (EU) No 1007/2011 on textile fibre names and labelling, including the animal-hair and plant-fibre names.</li>
+      <li><strong>Trade and common names:</strong> a short list of names such as Lycra, Tencel, Spandex or rayon is shown with the Annex I name to consider. See the guide on <a href="/guides/textile-flag-trade-names-lycra-tencel/">trade names like Lycra and Tencel</a> and on <a href="/guides/eu-bamboo-viscose-fibre-name-product-page/">bamboo and viscose</a>.</li>
+      <li><strong>Percentages:</strong> the numbers you give are added up and compared with 100%.</li>
+    </ul>
+    <p>Write one fibre per line, for example <code>60% cotton</code>. Names in other languages, the &ldquo;other fibres&rdquo; wording, tolerances and the rules for linings and decorative parts are not checked. A line marked &ldquo;Annex I name&rdquo; only means the name is on the list. Confirm against the <a href="https://eur-lex.europa.eu/eli/reg/2011/1007/oj" rel="noopener">regulation text</a> and read <a href="/guides/textile-fibre-label-eu/">the EU textile label guide</a>.</p>
+    <p><a class="cta" href="https://apps.shopify.com/textile-label-guard">Install FibreLedger Textile Labels on the Shopify App Store</a></p>
+    <h2>What this page is not</h2>
+    <ul>
+      <li>Not legal advice and not a compliance check of your label.</li>
+      <li>Not a list of everything FibreLedger Textile Labels checks; the app is what counts.</li>
+      <li>Not a check of languages, tolerances, linings or other label elements.</li>
+      <li>Not a data collector: text you paste stays in this browser tab.</li>
+    </ul>
+    <h2>Related pages</h2>
+    <ul><li><a href="/guides/textile-fibre-label-eu/">EU textile fibre label guide</a></li><li><a href="/guides/textile-flag-trade-names-lycra-tencel/">Trade names like Lycra and Tencel</a></li><li><a href="/guides/eu-textile-100-percent-blend-other-fibres-shopify/">100% and blends on Shopify product pages</a></li><li><a href="https://apps.shopify.com/textile-label-guard">FibreLedger Textile Labels</a></li></ul>
+    <p><a class="cta" href="https://apps.shopify.com/textile-label-guard">Install FibreLedger Textile Labels</a></p>
+  </main>
+  <footer class="site"><div class="wrap"><ul><li><a href="/review/">Shopify apps hub</a></li><li><a href="/tools/">Tools</a></li><li><a href="/">Home</a></li></ul></div></footer>
+  <script>
+  (function () {
+
+var ANNEX = ['wool','alpaca','llama','camel','cashmere','mohair','angora','vicuna','yak','guanaco','cashgora','beaver','otter','alpaca wool','alpaca hair','llama wool','llama hair','camel wool','camel hair','cashmere wool','cashmere hair','mohair wool','mohair hair','angora wool','angora hair','vicuna wool','vicuna hair','yak wool','yak hair','guanaco wool','guanaco hair','cashgora wool','cashgora hair','beaver wool','beaver hair','otter wool','otter hair','animal hair','horsehair','horse hair','silk','cotton','kapok','flax','linen','true hemp','jute','abaca','manila hemp','alfa','coir','coconut','broom','ramie','sisal','sunn','henequen','maguey','acetate','alginate','cupro','modal','protein','triacetate','viscose','acrylic','chlorofibre','fluorofibre','modacrylic','polyamide','nylon','aramid','polyimide','lyocell','polylactide','polyester','polyethylene','polypropylene','polycarbamide','polyurethane','vinylal','trivinyl','elastodiene','elastane','glass fibre','glass fiber','elastomultiester','elastolefin','melamine','polypropylene/polyamide bicomponent','polyacrylate','metal','metallic','metallised','metallized','paper','asbestos'];
+var TRADE = { lycra: 'elastane', spandex: 'elastane', tencel: 'lyocell or modal, depending on the product', dacron: 'polyester', terylene: 'polyester', rayon: 'viscose', kevlar: 'aramid', nomex: 'aramid', orlon: 'acrylic', dralon: 'acrylic', coolmax: 'polyester', thinsulate: 'polyolefin or polyester, depending on the product', bamboo: 'viscose, modal or lyocell, depending on how it was made', microfibre: 'the actual fibre, for example polyester or polyamide', microfiber: 'the actual fibre, for example polyester or polyamide', 'vegan leather': 'not a fibre name', pima: 'cotton', supima: 'cotton', merino: 'wool', lambswool: 'wool', 'egyptian cotton': 'cotton', 'organic cotton': 'cotton' };
+function norm(s) { return s.toLowerCase().replace(/[\u2019']/g, '').replace(/[^a-z\/ ]/g, ' ').replace(/\s+/g, ' ').trim(); }
+function analyse(text) {
+  var rows = [], total = 0, parsed = 0;
+  text.split(/\n|;/).forEach(function (line) {
+    line = line.trim(); if (!line) return;
+    var m = line.match(/(\d+(?:[.,]\d+)?)\s*%/), pct = null;
+    if (m) pct = parseFloat(m[1].replace(',', '.'));
+    var name = norm(line.replace(/(\d+(?:[.,]\d+)?)\s*%/, ' '));
+    var g, label, q;
+    if (ANNEX.indexOf(name) >= 0) { g = 'ok'; label = 'Annex I name'; q = 'This name appears in the Annex I list of Regulation (EU) No 1007/2011 (English names).'; }
+    else if (TRADE[name]) { g = 'bad'; label = 'Not an Annex I name'; q = 'Trade or common name. Check which Annex I name describes the fibre: ' + TRADE[name] + '.'; }
+    else { g = 'lab'; label = 'Not recognised'; q = 'Not found in this page\u2019s list. Check the spelling and the Annex I list, or whether this is a trade name.'; }
+    if (pct !== null) { total += pct; parsed++; }
+    rows.push({ g: g, pct: pct, cells: [{ t: name || line, cls: 'v' }, { t: pct === null ? 'no %' : pct + '%', cls: 'v' }, { t: label, tag: 't-' + g }, { t: q }] });
+  });
+  rows.total = Math.round(total * 100) / 100; rows.parsed = parsed;
+  return rows;
+}
+function summarise(rows) {
+  var flagged = rows.filter(function (r) { return r.g !== 'ok'; }).length;
+  var s = rows.length + (rows.length === 1 ? ' line' : ' lines') + ', ' + flagged + ' to review. ';
+  if (rows.parsed === 0) return s + 'No percentages found.';
+  s += 'Percentages add up to ' + rows.total + '%';
+  s += rows.total === 100 ? '.' : ' (a composition normally adds up to 100%).';
+  return s;
+}
+
+    var $ = function (id) { return document.getElementById(id); };
+    var out = $('out'), body = out.querySelector('tbody'), sum = $('summary'), last = [];
+    function run() {
+      body.textContent = ''; last = [];
+      var text = $('copy-in').value.slice(0, 20000), rows = analyse(text);
+      rows.forEach(function (r) {
+        var tr = document.createElement('tr');
+        r.cells.forEach(function (c) { var td = document.createElement('td'); if (c.tag) { var s = document.createElement('span'); s.className = 'tag ' + c.tag; s.textContent = c.t; td.appendChild(s); } else { td.textContent = c.t; if (c.cls) td.className = c.cls; } tr.appendChild(td); });
+        body.appendChild(tr); last.push(r.cells.map(function (c) { return c.t; }).join('\t'));
+      });
+      out.hidden = rows.length === 0;
+      sum.textContent = !text.trim() ? 'Paste a fibre composition first.' : summarise(rows);
+    }
+    $('run').addEventListener('click', run);
+    $('clear').addEventListener('click', function () { $('copy-in').value = ''; body.textContent = ''; out.hidden = true; sum.textContent = ''; last = []; });
+    $('copy').addEventListener('click', function () { if (navigator.clipboard && last.length) navigator.clipboard.writeText(last.join('\n')); });
+    run();
+  })();
+  </script>
+</body>
+</html>
