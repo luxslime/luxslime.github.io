@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Billing address vs shipping address in Shopify checkout</title>
+  <meta name="description" content="Shopify checkout copies the shipping address into the billing address field unless the customer, or a setting, changes that. Shipping-address validation is a separate sentence. Not legal advice.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Billing address vs shipping address in Shopify checkout">
+  <meta property="og:description" content="Shopify checkout copies the shipping address into the billing address field unless the customer, or a setting, changes that. Shipping-address validation is a separate sentence. Not legal advice.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/billing-address-vs-shipping-address/">
+  <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/27f7c111c94acf4b22bfef9207351043/promotional_image/CLDLhsPS7ZQDEAE=.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Billing address vs shipping address in Shopify checkout">
+  <meta name="twitter:description" content="Shopify checkout copies the shipping address into the billing address field unless the customer, or a setting, changes that. Shipping-address validation is a separate sentence. Not legal advice.">
+  <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/27f7c111c94acf4b22bfef9207351043/promotional_image/CLDLhsPS7ZQDEAE=.png">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/billing-address-vs-shipping-address/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://apify.momiji-space.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Billing address vs shipping address",
+        "item": "https://apify.momiji-space.com/guides/billing-address-vs-shipping-address/"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "AddressFence",
+    "url": "https://apps.shopify.com/address-guard",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Shopify",
+    "image": "https://cdn.shopify.com/app-store/listing_images/27f7c111c94acf4b22bfef9207351043/icon/CISg3YSo4pQDEAE=.png"
+  }
+  </script>
+</head>
+<body>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/review/">Shopify apps</a>
+        <a href="/guides/billing-address-vs-shipping-address/" aria-current="page">Billing vs shipping</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / <a href="/guides/">Guides</a> / Billing address vs shipping address</nav>
+    <p class="eyebrow">Billing address vs shipping address</p>
+    <h1>Shopify checkout can fill the billing address from the shipping address, and the customer can change it</h1>
+    <p class="answer-first"><strong>Direct answer.</strong> In ordinary checkout use, the shipping address is where the order is delivered and the billing address is the address the customer enters for payment. Shopify&rsquo;s <a href="https://help.shopify.com/en/manual/checkout-settings/address-collection-preferences">address collection preferences</a> page does not use those two definitions. What it does state is: &ldquo;By default, during checkout, the customer&rsquo;s shipping address is used as the billing address field automatically, but the customer can enter a different billing address. You can change whether the billing address is filled automatically or left empty.&rdquo; Checked 12 October 2026. This page is not legal advice.</p>
+    <p class="lede"><strong>AddressFence</strong> (<a href="https://apps.shopify.com/address-guard">Shopify App Store</a>): &ldquo;Billing-address rules and street-number checks for Shopify checkout - the address rules built-in validation cannot apply.&rdquo;</p>
+    <p><strong>Free check first:</strong> <a href="/tools/po-box-address-checker/">PO Box address checker</a> runs in your browser and sends nothing.</p>
+
+    <h2>Checklist</h2>
+    <ul>
+      <li>Read the default sentence first. The shipping address is copied into the billing address field unless that behaviour is changed.</li>
+      <li>The setting that allows a different billing address, and the setting that requires the two to match, are separate headings on the same page.</li>
+      <li>The validation sentence on that page names the shipping address. It does not say the same check runs on the billing address.</li>
+      <li>PO Box questions are the linked guides. This page does not repeat them.</li>
+    </ul>
+
+    <h2>What the Help Center page says it controls</h2>
+    <p>Opening sentence: &ldquo;Address collection preferences control how shipping and billing address information is collected and validated during checkout.&rdquo;</p>
+    <p>The next sentence on that page: &ldquo;You can allow different shipping and billing addresses, require matching shipping and billing addresses, set up address autocompletion, and validate shipping addresses before orders are placed.&rdquo;</p>
+
+    <h2>Activate different shipping and billing addresses</h2>
+    <p>The heading is &ldquo;Activate different shipping and billing addresses&rdquo;. Under it, Shopify states the default sentence quoted above. The steps, as written:</p>
+    <ol>
+      <li>From your Shopify admin, go to Settings &gt; Checkout.</li>
+      <li>In the Advanced preferences section, click Address collection.</li>
+      <li>Select Allow shipping and billing address to be different.</li>
+      <li>Optional: If you don&rsquo;t want the shipping address to be used as the billing address by default, then activate Don&rsquo;t use shipping address as billing address by default.</li>
+      <li>Click Save.</li>
+    </ol>
+
+    <h2>Require shipping and billing address to match</h2>
+    <p>The note under that heading: &ldquo;This feature is available only to merchants who have upgraded their checkout.&rdquo;</p>
+    <p>The paragraph: &ldquo;For most merchants, it&rsquo;s recommended to allow the shipping and billing address to be different during checkout. However, you can require the shipping and billing address to match. This will prevent customers from sending gifts, and is only recommended for stores with a high amount of fraudulent orders, and is best paired with an Address Verification System.&rdquo;</p>
+    <p>The same section: &ldquo;This address requirement applies to customers paying online by credit card or Apple Pay. This address requirement doesn&rsquo;t apply to the following order types:&rdquo;</p>
+    <ul>
+      <li>pickup in store</li>
+      <li>local delivery</li>
+      <li>draft order checkouts</li>
+      <li>B2B checkouts</li>
+    </ul>
+    <p>Requiring the two addresses to match is not, on this page, a PO Box rule. That difference is <a href="/guides/addressfence-billing-match-not-po-box/">billing match is not a PO Box block</a>.</p>
+
+    <h2>What shipping-address validation says it checks</h2>
+    <p>Under &ldquo;Validate shipping addresses at checkout&rdquo;, Shopify states: &ldquo;This feature validates your customer&rsquo;s shipping address before the order is placed.&rdquo; The next sentence on that page: &ldquo;Additionally, your customer&rsquo;s shipping address is also automatically validated after the order is placed.&rdquo; Both sentences name the shipping address. The page does not say this feature validates the billing address.</p>
+    <p>Checkout validation more broadly is <a href="/guides/shopify-address-validation-checkout/">Shopify address validation at checkout</a>. Street number is <a href="/guides/require-street-number-shopify-checkout/">require a street number</a>. Built-in rules and the billing address are <a href="/guides/addressfence-built-in-checkout-rules-cannot-target-billing/">why built-in checkout rules cannot target billing</a>.</p>
+
+    <h2>Shipping address and billing address on this page</h2>
+    <div class="card">
+      <table>
+        <caption>Shipping address and billing address, from the address collection preferences page</caption>
+        <thead>
+          <tr>
+            <th scope="col">Question</th>
+            <th scope="col">Shipping address</th>
+            <th scope="col">Billing address</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">What it is used for</th>
+            <td>Not stated on this page.</td>
+            <td>Not stated on this page.</td>
+          </tr>
+          <tr>
+            <th scope="row">Default behaviour</th>
+            <td>&ldquo;the customer&rsquo;s shipping address is used as the billing address field automatically&rdquo;</td>
+            <td>&ldquo;the customer can enter a different billing address&rdquo;</td>
+          </tr>
+          <tr>
+            <th scope="row">Setting that changes it</th>
+            <td>&ldquo;Allow shipping and billing address to be different&rdquo;; &ldquo;Don&rsquo;t use shipping address as billing address by default&rdquo;; &ldquo;Require shipping and billing address to match&rdquo;</td>
+            <td>&ldquo;Allow shipping and billing address to be different&rdquo;; &ldquo;Don&rsquo;t use shipping address as billing address by default&rdquo;; &ldquo;Require shipping and billing address to match&rdquo;. Not stated on this page as a fourth setting that edits only the billing address.</td>
+          </tr>
+          <tr>
+            <th scope="row">Validated by Shopify&rsquo;s shipping-address validation on this page?</th>
+            <td>&ldquo;This feature validates your customer&rsquo;s shipping address before the order is placed.&rdquo;</td>
+            <td>Not stated on this page.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>What &ldquo;billing address&rdquo; usually means</h2>
+    <p>Outside this Help Center page, billing address usually means the address a card issuer or payment provider has on file. This page does not say that, and it does not say how any card network or bank checks the address. No fraud figure is added here. The only fraud sentence on this page is the one Shopify wrote in the matching-address paragraph, quoted above.</p>
+
+    <h2>PO Box pages, rather than a repeat</h2>
+    <ul>
+      <li><a href="/guides/is-a-po-box-a-physical-address/">Is a PO Box a physical address?</a></li>
+      <li><a href="/guides/block-po-box-billing-address/">Block a PO Box on the billing address</a></li>
+      <li><a href="/guides/po-box-blocker-apps-billing-vs-shipping/">PO Box blockers: billing vs shipping</a></li>
+      <li><a href="/guides/addressfence-billing-match-not-po-box/">Billing match is not a PO Box block</a></li>
+      <li><a href="/guides/addressfence-built-in-checkout-rules-cannot-target-billing/">Built-in checkout rules cannot target billing</a></li>
+      <li><a href="/guides/shopify-address-validation-checkout/">Shopify address validation at checkout</a></li>
+      <li><a href="/guides/require-street-number-shopify-checkout/">Require a street number</a></li>
+    </ul>
+
+    <h2>What this page is not</h2>
+    <ul>
+      <li>Not a statement about how a card network or a bank verifies an address.</li>
+      <li>Not a fraud statistic.</li>
+      <li>Not a PO Box rule. Those pages are linked above.</li>
+    </ul>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/tools/po-box-address-checker/">PO Box address checker</a></li>
+      <li><a href="https://help.shopify.com/en/manual/checkout-settings/address-collection-preferences">Address collection preferences</a> &mdash; Shopify Help Center</li>
+      <li><a href="https://apps.shopify.com/address-guard">AddressFence</a> &mdash; live App Store listing</li>
+      <li><a href="/review/">Shopify apps hub</a></li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+    <p class="note">Not legal advice. Confirm the live Help Center page. Quotes are from that page as read on 12 October 2026. The app&rsquo;s listing describes billing-address rules and street-number checks for Shopify checkout, and says the address rules built-in validation cannot apply.</p>
+  </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/review/">Shopify apps hub</a></li>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>
