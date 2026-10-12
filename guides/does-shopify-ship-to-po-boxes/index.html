@@ -69,7 +69,7 @@
     <p><strong>Free check first:</strong> <a href="/tools/po-box-address-checker/">PO box and street number address checker</a> runs in your browser and sends nothing. Paste addresses and see which look like a PO box or lack a street number.</p>
 
     <h2>Checkout collection is not carrier delivery</h2>
-    <p>A Shopify order can store a PO Box on shipping, on billing, or on both. That is an address field, not a promise that a carrier will attempt delivery. Native checkout can block some address types on <strong>shipping</strong> through address format validation; Shopify Help states that rule does not validate billing fields. See <a href="https://help.shopify.com/en/manual/checkout-settings/checkout-blocks/customizations/address-format-validation">Shopify Help: address format validation</a>.</p>
+    <p>A Shopify order can store a PO Box on shipping, on billing, or on both. That is an address field, not a promise that a carrier will attempt delivery. Since <a href="https://changelog.shopify.com/posts/checkout-blocks-block-non-compliant-shipping-addresses-at-checkout">17 June 2026</a>, Checkout Blocks address format validation is available to all merchants and can block a PO box on <strong>shipping</strong>; <a href="https://help.shopify.com/en/manual/checkout-settings/checkout-blocks/customizations/address-format-validation">Shopify Help</a> names PO box among the address types you can block, and states that billing fields are not validated.</p>
     <p>Hiding a shipping rate for a PO Box only affects whether a rate is offered. It does not decide billing, and it does not rewrite a carrier&rsquo;s delivery rule. Walk that split on <a href="/guides/po-box-shipping-rate-vs-checkout-validation/">shipping-rate hide vs checkout validation</a>.</p>
 
     <h2>Carrier PO Box rules this page can cite</h2>
@@ -100,11 +100,13 @@
       <li><a href="/guides/po-box-shipping-rate-vs-checkout-validation/">Shipping-rate hide vs checkout validation vs AddressFence</a></li>
       <li><a href="/guides/addressfence-billing-match-not-po-box/">Requiring billing to match shipping is not a PO Box block</a></li>
       <li><a href="/guides/po-box-spelling-variants-test-checkout-rule/">PO box spellings and look-alike street names</a></li>
+      <li><a href="https://changelog.shopify.com/posts/checkout-blocks-block-non-compliant-shipping-addresses-at-checkout">Shopify Changelog: Checkout Blocks address format validation</a></li>
+      <li><a href="https://help.shopify.com/en/manual/checkout-settings/checkout-blocks/customizations/address-format-validation">Shopify Help: address format validation</a></li>
       <li><a href="https://apps.shopify.com/address-guard">AddressFence: PO Box Billing</a> &mdash; live App Store listing</li>
       <li><a href="/review/">Shopify apps hub</a></li>
       <li><a href="/tools/">Tools</a></li>
     </ul>
-    <p class="note">Not legal advice. Not a carrier or fraud guarantee. Confirm the live carrier terms and Shopify Help before you treat a PO Box as deliverable or blocked. The app publishes address rules you configure; it does not ship parcels.</p>
+    <p class="note">Not legal advice. Not a carrier or fraud guarantee. Confirm the live carrier terms and Shopify Help before you treat a PO Box as deliverable or blocked. Native Checkout Blocks can block a shipping PO box; the app publishes billing-address rules you configure. Neither ships parcels.</p>
   </main>
   <footer class="site">
     <div class="wrap">
