@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Purchase order number format examples and regex patterns</title>
+  <meta name="description" content="There is no universal PO number format. Buyers set their own. Common patterns and example regexes with what each accepts and rejects. General information only.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.ico">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Purchase order number format examples and regex patterns">
+  <meta property="og:description" content="There is no universal PO number format. Buyers set their own. Common patterns and example regexes with what each accepts and rejects. General information only.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/purchase-order-number-format-examples/">
+  <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/0d5bee841b158614f7a791277c9b589e/icon/CMiBo7bN5JQDEAE=.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Purchase order number format examples and regex patterns">
+  <meta name="twitter:description" content="There is no universal PO number format. Buyers set their own. Common patterns and example regexes with what each accepts and rejects. General information only.">
+  <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/0d5bee841b158614f7a791277c9b589e/icon/CMiBo7bN5JQDEAE=.png">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/purchase-order-number-format-examples/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://apify.momiji-space.com/"},
+    {"@type":"ListItem","position":2,"name":"PO number format examples","item":"https://apify.momiji-space.com/guides/purchase-order-number-format-examples/"}
+  ]}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"B2B Terms & PO Guard","url":"https://apps.shopify.com/b2b-terms-guard","applicationCategory":"BusinessApplication","operatingSystem":"Shopify","image":"https://cdn.shopify.com/app-store/listing_images/0d5bee841b158614f7a791277c9b589e/icon/CMiBo7bN5JQDEAE=.png"}
+  </script>
+</head>
+<body>
+  <header class="site"><div class="wrap bar"><a class="logo" href="/">momiji-space</a>
+    <nav><a href="/review/">Shopify apps</a><a href="/guides/purchase-order-number-format-examples/" aria-current="page">PO format examples</a></nav>
+  </div></header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / <a href="/guides/">Guides</a> / PO number format examples</nav>
+    <p class="eyebrow">PO number format examples</p>
+    <h1>Purchase-order number format: no universal pattern, buyers set their own</h1>
+    <p class="answer-first"><strong>Direct answer.</strong> There is no universal purchase-order number format. Buyers set their own. Common patterns include a year-and-sequence string such as <code>PO-2026-00123</code>, a numeric-only string, and a fixed-length alphanumeric code. The regexes below are examples of those patterns, with what each accepts and rejects &mdash; not a standard anyone must use.</p>
+    <p class="lede"><strong>B2B Terms &amp; PO Guard</strong> (<a href="https://apps.shopify.com/b2b-terms-guard">Shopify App Store</a>) validates PO numbers by format, prefix, regex, length, and uniqueness, and previews any PO rule live against a sample number before you publish. This page is example formats and regexes &mdash; not the require-PO job and not uniqueness. General information only.</p>
+    <p><strong>Free check first:</strong> <a href="/tools/po-number-format-tester/">PO number format tester</a> runs in your browser and sends nothing. Test prefix, length, characters, regex and duplicates on sample PO numbers.</p>
+
+    <h2>Common patterns buyers actually send</h2>
+    <p>A purchase-order number is the buyer&rsquo;s reference, so the shape follows their system, not yours. You will see strings like <code>PO-2026-00123</code>, a run of digits such as <code>4500012345</code>, or a fixed-length mix of letters and digits such as <code>AB12CD34</code>. Hyphens, prefixes, year segments, and length are conventions, not a shared specification.</p>
+    <p>Requiring the field to be filled is a different job from checking that the string matches a pattern. Walk required vs empty on <a href="/guides/b2b-po-number-required/">why a B2B checkout can skip a PO number unless a rule requires it</a>, and walk prefix, regex, and length as checkout rules on <a href="/guides/b2b-po-format-prefix-regex-length/">format, prefix, regex, and length</a>.</p>
+
+    <h2>Example regexes: what each accepts and rejects</h2>
+    <p>These patterns use JavaScript syntax with start and end anchors, the same whole-string match the <a href="/tools/po-number-format-tester/">PO number format tester</a> applies. They are case-sensitive unless you turn ignore-case on. Copy only the pattern that matches the convention you actually need; do not treat the set as a catalogue of every valid PO.</p>
+    <div class="card">
+    <table>
+      <caption>Example PO number regexes</caption>
+      <thead>
+        <tr>
+          <th scope="col">Pattern</th>
+          <th scope="col">Regex</th>
+          <th scope="col">Accepts</th>
+          <th scope="col">Rejects</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Prefix, four-digit year, five-digit sequence</td>
+          <td><code>^PO-\d{4}-\d{5}$</code></td>
+          <td><code>PO-2026-00123</code></td>
+          <td><code>PO-26-00123</code>, <code>po-2026-00123</code>, <code>PO2026-00123</code>, <code>PO-2026-123</code></td>
+        </tr>
+        <tr>
+          <td>Numeric-only, ten digits</td>
+          <td><code>^\d{10}$</code></td>
+          <td><code>4500012345</code></td>
+          <td><code>450001234</code>, <code>45000123456</code>, <code>PO-4500012345</code>, <code>4500-012345</code></td>
+        </tr>
+        <tr>
+          <td>Fixed-length alphanumeric, eight characters</td>
+          <td><code>^[A-Z0-9]{8}$</code></td>
+          <td><code>AB12CD34</code></td>
+          <td><code>ab12cd34</code>, <code>AB12-CD34</code>, <code>AB12CD3</code>, <code>AB12CD345</code></td>
+        </tr>
+        <tr>
+          <td>Prefix plus six digits</td>
+          <td><code>^PO-\d{6}$</code></td>
+          <td><code>PO-123456</code></td>
+          <td><code>PO123456</code>, <code>PO-12345</code>, <code>PO-1234567</code>, <code>po-123456</code></td>
+        </tr>
+        <tr>
+          <td>Three letters plus seven digits</td>
+          <td><code>^[A-Z]{3}\d{7}$</code></td>
+          <td><code>ACM1234567</code></td>
+          <td><code>AC1234567</code>, <code>ACM-1234567</code>, <code>acm1234567</code>, <code>ACM123456</code></td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <p>Spaces inside a number fail these patterns. A uniqueness check (the same number used twice) is not a regex; that job is a separate rule against previously used numbers.</p>
+
+    <h2>From an example pattern to a checkout rule</h2>
+    <p>Write the pattern you intend to enforce, then run matching and non-matching samples through the tester. Requiring a PO number at all is <a href="/guides/b2b-po-number-required/">its own rule</a>. Format, prefix, regex, and length are the slice on <a href="/guides/b2b-po-format-prefix-regex-length/">prefix, regex, and length</a>. Preview the live rule against those samples in <a href="https://apps.shopify.com/b2b-terms-guard">B2B Terms &amp; PO Guard</a> before you publish.</p>
+
+    <h2>What this page is not</h2>
+    <ul>
+      <li>Not a universal PO format, and not a list of every pattern a buyer might send.</li>
+      <li>Not a check of whether a PO number is real, approved, or paid.</li>
+      <li>Not the require-PO, uniqueness, or live-preview siblings.</li>
+      <li>Not a postal PO Box block. That job is <a href="/guides/block-po-box-billing-address/">block PO Box on billing</a>.</li>
+    </ul>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/tools/po-number-format-tester/">PO number format tester</a></li>
+      <li><a href="/guides/b2b-po-format-prefix-regex-length/">Validate B2B PO format, prefix, regex, and length</a></li>
+      <li><a href="/guides/b2b-po-number-required/">Require a B2B purchase-order number</a></li>
+      <li><a href="/guides/b2b-po-number-uniqueness-duplicate/">Stop reused PO numbers</a></li>
+      <li><a href="/guides/b2b-po-rule-live-preview/">Preview a PO rule before publish</a></li>
+      <li><a href="https://apps.shopify.com/b2b-terms-guard">B2B Terms &amp; PO Guard</a></li>
+    </ul>
+    <p class="note">General information only. Not legal, credit, or accounting advice. Confirm the format your buyer uses before you treat a sample as valid.</p>
+  </main>
+  <footer class="site"><div class="wrap"><ul><li><a href="/review/">Shopify apps hub</a></li><li><a href="/tools/">Tools</a></li><li><a href="/">Home</a></li></ul></div></footer>
+</body>
+</html>
