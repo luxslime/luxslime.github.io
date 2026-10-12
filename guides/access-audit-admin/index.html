@@ -67,18 +67,22 @@
     <nav><a href="/">Home</a> / <a href="/guides/">Guides</a> / Staff permission drift access audit</nav>
     <p class="eyebrow">Staff access audit</p>
     <h1>Staff access audit: permission drift is not a one-time user list</h1>
+    <p class="answer-first"><strong>Direct answer.</strong> To audit Shopify staff permissions, list every staff account, collaborator, and installed app scope, then re-check them on a schedule. The Users and permissions screen shows today's access only; it does not record what changed since your last review. Job: a staff access audit re-checks <strong>staff</strong>, <strong>collaborators</strong>, and <strong>installed-app scopes</strong> after the last review — including AI apps that can read customer or order data. Users and permissions is only a snapshot.</p>
     <p class="lede"><strong>Staff Access Audit Guard</strong> (<a href="https://apps.shopify.com/momiji-access-audit?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=access-audit-admin">Shopify App Store</a>) is a Shopify app that reviews installed app access and granted scopes — including AI and agentic apps — flags protected customer-data and broad-write access, scores the store Low to High (higher is safer), and tracks staff and collaborator access with review reminders, without reading customer or order data.</p>
-    <p>A staff access audit re-checks <strong>staff</strong>, <strong>collaborators</strong>, and <strong>installed-app scopes</strong> after the last review — including AI apps that can read customer or order data. Users and permissions is only a snapshot.</p>
     <p><strong>Free check first:</strong> <a href="/tools/app-scope-access-reader/">App scope access reader</a> runs in your browser and sends nothing. Paste an app's access scopes and see which touch customer data or can write.</p>
+    <h2 id="how-to-audit-shopify-staff-permissions">How to audit Shopify staff permissions</h2>
+    <ol>
+      <li>Open the <a href="https://apps.shopify.com/momiji-access-audit?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=access-audit-admin">Access Audit Guard listing</a> (<code>apps.shopify.com/momiji-access-audit</code>) and install it on the store that needs a staff access audit.</li>
+      <li>Wait for the first audit — the listing states it runs automatically on install. You can run another at any time.</li>
+      <li>Review staff and collaborator access (30/90-day reminders), and check which apps — including AI apps — can read or write customer data.</li>
+      <li>Export CSV or PDF evidence on the plans that include those exports. Re-run when owners, scopes, or costs change.</li>
+    </ol>
+    <p>The app scores and flags access. It does not revoke staff, uninstall apps, or attest that the store is secure.</p>
+    <p><a class="cta" href="https://apps.shopify.com/momiji-access-audit?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=access-audit-admin">Install staff access audit</a></p>
+
     <h2>How do I see which apps can access customer data?</h2>
     <p>Open <strong>Settings &gt; Apps</strong>, then open each app. Since <a href="https://changelog.shopify.com/posts/track-app-activity-and-permissions-from-settings">11 March 2026</a> Shopify shows Admin API activity (requests per area, last 30 days), Data privacy (which apps can reach sensitive customer data or other personal data), and App history (when staff granted updated permissions).</p>
     <p>Uninstalling an app revokes its access. Shopify’s <a href="https://help.shopify.com/en/manual/apps/app-personal-information">Help Center</a> documents that you revoke access to data by uninstalling the app.</p>
-    <p>What to check per app:</p>
-    <ul>
-      <li>Does it hold customer or order scopes it doesn't need?</li>
-      <li>Who installed it and who owns it now?</li>
-      <li>Is it still used or paid for?</li>
-    </ul>
     <p>The native view is per-app and point-in-time. It does not give a single scored list across all apps and staff, and it does not set a review reminder.</p>
     <p>The first Access Audit Guard audit runs on install. It scores staff, collaborators, and installed-app scopes, re-runs when scopes or owners move, and does not revoke staff or uninstall apps.</p>
     <p><a class="cta" href="https://apps.shopify.com/momiji-access-audit?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=access-audit-admin">Install staff access audit</a></p>
@@ -113,7 +117,6 @@
     <p><a href="https://www.youtube.com/watch?v=3xlq4BLK0mw">Open the demo on YouTube</a></p>
 
     <h2>People on the staff list are not the same inventory as app scopes</h2>
-    <p>The staff and collaborator list answers “who can open Admin?” Installed-app scopes answer a different question: “which apps can read or write customer, order, or broad store data?”</p>
     <p>A one-time screenshot of Users and permissions misses both problems after the next change:</p>
     <div class="card">
     <table>
@@ -144,7 +147,6 @@
       </tbody>
     </table>
     </div>
-    <p>Treat AI assistants like any other installed app with protected customer-data or broad-write scopes. They will not appear as “staff.” Put them on the scope inventory, not on the people list.</p>
     <p>Suggested path (unchanged job, sharper test):</p>
     <ol>
       <li>Install <a href="https://apps.shopify.com/momiji-access-audit?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=access-audit-admin">Access Audit Guard</a> from the App Store.</li>
@@ -154,16 +156,6 @@
       <li>Re-run when owners, scopes, or costs change.</li>
     </ol>
     <p>See the app listing for current plans.</p>
-
-    <h2>Start path: audit, then re-check drift</h2>
-    <ol>
-      <li>Open the <a href="https://apps.shopify.com/momiji-access-audit?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=access-audit-admin">Access Audit Guard listing</a> (<code>apps.shopify.com/momiji-access-audit</code>) and install it on the store that needs a staff access audit.</li>
-      <li>Wait for the first audit — the listing states it runs automatically on install. You can run another at any time.</li>
-      <li>Review staff and collaborator access (30/90-day reminders), and check which apps — including AI apps — can read or write customer data.</li>
-      <li>Export CSV or PDF evidence on the plans that include those exports. Re-run when owners, scopes, or costs change.</li>
-    </ol>
-    <p>The app scores and flags access. It does not revoke staff, uninstall apps, or attest that the store is secure.</p>
-    <p><a class="cta" href="https://apps.shopify.com/momiji-access-audit?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=access-audit-admin">Install staff access audit</a></p>
 
     <h2>Snapshot vs a recurring access audit</h2>
     <div class="card">
@@ -228,6 +220,16 @@ owner / cost drift since last audit</code></pre>
     <h2>Do installed apps, including AI assistants, show up on the staff list?</h2>
     <p>Not as a scored access review. Installed apps request scopes, including apps that can read customer or order data. The staff list is people. Scope risk is a separate inventory: which app was granted protected customer-data or broad-write access, and whether that set drifted after the last audit.</p>
 
+    <h2>Which staff permissions matter most?</h2>
+    <p>The staff and collaborator list answers “who can open Admin?” Installed-app scopes answer a different question: “which apps can read or write customer, order, or broad store data?”</p>
+    <p>What to check per app:</p>
+    <ul>
+      <li>Does it hold customer or order scopes it doesn't need?</li>
+      <li>Who installed it and who owns it now?</li>
+      <li>Is it still used or paid for?</li>
+    </ul>
+    <p>Treat AI assistants like any other installed app with protected customer-data or broad-write scopes. They will not appear as “staff.” Put them on the scope inventory, not on the people list.</p>
+
     <h2>What counts as permission drift?</h2>
     <p>A change since the last audit: granted scopes, app owners, or recorded costs. Staff and collaborator reviews that go past a 30- or 90-day reminder are overdue, not merely “still installed.” Duplicate paid categories are a cost-drift signal, not a permission grant by themselves.</p>
 
@@ -247,6 +249,10 @@ owner / cost drift since last audit</code></pre>
 
     <h2>Related pages</h2>
     <ul>
+      <li><a href="/guides/shopify-pos-staff-permissions/">Shopify POS staff permissions</a></li>
+      <li><a href="/guides/shopify-collaborator-permissions/">Shopify collaborator permissions</a></li>
+      <li><a href="/guides/shopify-staff-login-history/">Shopify staff login history</a></li>
+      <li><a href="/guides/shopify-activity-log/">Shopify activity log</a></li>
       <li><a href="/guides/access-audit-ownership-evidence/">App ownership evidence (scopes + owner)</a> — installed-app table, not the staff user list</li>
       <li><a href="https://apps.shopify.com/momiji-access-audit?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=access-audit-admin">Access Audit Guard</a> — live App Store listing</li>
       <li><a href="/guides/staff-permissions-audit-checklist/">Leftover Admin access checklist</a> — leavers with 2FA, collaborators vs the bill, preview vs publish</li>

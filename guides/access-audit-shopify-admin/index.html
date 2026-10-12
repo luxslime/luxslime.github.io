@@ -4,12 +4,297 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Staff access audit: permission drift is not a one-time user list</title>
+  <meta name="description" content="Staff access audit for Shopify. Admin user lists are a snapshot. Re-audit staff, collaborators, and app scopes, flag customer-data access, and export evidence. Not a security attestation.">
   <meta name="robots" content="noindex,follow">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Staff access audit: permission drift is not a one-time user list">
+  <meta property="og:description" content="Staff access audit for Shopify. Admin user lists are a snapshot. Re-audit staff, collaborators, and app scopes, flag customer-data access, and export evidence. Not a security attestation.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/access-audit-admin/">
+  <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/9ea3a49e539bec70dcd6abb7cc7f4746/promotional_image/CL_Eloyu9ZQDEAE=.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Staff access audit: permission drift is not a one-time user list">
+  <meta name="twitter:description" content="Staff access audit for Shopify. Admin user lists are a snapshot. Re-audit staff, collaborators, and app scopes, flag customer-data access, and export evidence. Not a security attestation.">
+  <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/9ea3a49e539bec70dcd6abb7cc7f4746/promotional_image/CL_Eloyu9ZQDEAE=.png">
   <link rel="canonical" href="https://apify.momiji-space.com/guides/access-audit-admin/">
-  <meta http-equiv="refresh" content="0; url=https://apify.momiji-space.com/guides/access-audit-admin/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://apify.momiji-space.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Staff permission drift access audit",
+        "item": "https://apify.momiji-space.com/guides/access-audit-admin/"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Staff Access Audit Guard",
+    "alternateName": "staff access audit",
+    "description": "Review installed app access, granted scopes, staff access records, and ownership evidence without reading customer or order data.",
+    "url": "https://apps.shopify.com/momiji-access-audit",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Shopify",
+    "image": "https://cdn.shopify.com/app-store/listing_images/9ea3a49e539bec70dcd6abb7cc7f4746/icon/CLqU3dXo9JQDEAE=.png"
+  }
+  </script>
 </head>
 <body>
-  <p>This guide lives at <a href="/guides/access-audit-admin/">Staff access audit: permission drift is not a one-time user list</a>.</p>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/review/">Shopify apps</a>
+        <a href="/guides/access-audit-admin/" aria-current="page">Staff access audit</a>
+        <a href="https://apps.shopify.com/momiji-access-audit?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=access-audit-admin">Install</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / <a href="/guides/">Guides</a> / Staff permission drift access audit</nav>
+    <p class="eyebrow">Staff access audit</p>
+    <h1>Staff access audit: permission drift is not a one-time user list</h1>
+    <p class="answer-first"><strong>Direct answer.</strong> To audit Shopify staff permissions, list every staff account, collaborator, and installed app scope, then re-check them on a schedule. The Users and permissions screen shows today's access only; it does not record what changed since your last review. Job: a staff access audit re-checks <strong>staff</strong>, <strong>collaborators</strong>, and <strong>installed-app scopes</strong> after the last review — including AI apps that can read customer or order data. Users and permissions is only a snapshot.</p>
+    <p class="lede"><strong>Staff Access Audit Guard</strong> (<a href="https://apps.shopify.com/momiji-access-audit?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=access-audit-admin">Shopify App Store</a>) is a Shopify app that reviews installed app access and granted scopes — including AI and agentic apps — flags protected customer-data and broad-write access, scores the store Low to High (higher is safer), and tracks staff and collaborator access with review reminders, without reading customer or order data.</p>
+    <p><strong>Free check first:</strong> <a href="/tools/app-scope-access-reader/">App scope access reader</a> runs in your browser and sends nothing. Paste an app's access scopes and see which touch customer data or can write.</p>
+    <h2 id="how-to-audit-shopify-staff-permissions">How to audit Shopify staff permissions</h2>
+    <ol>
+      <li>Open the <a href="https://apps.shopify.com/momiji-access-audit?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=access-audit-admin">Access Audit Guard listing</a> (<code>apps.shopify.com/momiji-access-audit</code>) and install it on the store that needs a staff access audit.</li>
+      <li>Wait for the first audit — the listing states it runs automatically on install. You can run another at any time.</li>
+      <li>Review staff and collaborator access (30/90-day reminders), and check which apps — including AI apps — can read or write customer data.</li>
+      <li>Export CSV or PDF evidence on the plans that include those exports. Re-run when owners, scopes, or costs change.</li>
+    </ol>
+    <p>The app scores and flags access. It does not revoke staff, uninstall apps, or attest that the store is secure.</p>
+    <p><a class="cta" href="https://apps.shopify.com/momiji-access-audit?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=access-audit-admin">Install staff access audit</a></p>
+
+    <h2>How do I see which apps can access customer data?</h2>
+    <p>Open <strong>Settings &gt; Apps</strong>, then open each app. Since <a href="https://changelog.shopify.com/posts/track-app-activity-and-permissions-from-settings">11 March 2026</a> Shopify shows Admin API activity (requests per area, last 30 days), Data privacy (which apps can reach sensitive customer data or other personal data), and App history (when staff granted updated permissions).</p>
+    <p>Uninstalling an app revokes its access. Shopify’s <a href="https://help.shopify.com/en/manual/apps/app-personal-information">Help Center</a> documents that you revoke access to data by uninstalling the app.</p>
+    <p>The native view is per-app and point-in-time. It does not give a single scored list across all apps and staff, and it does not set a review reminder.</p>
+    <p>The first Access Audit Guard audit runs on install. It scores staff, collaborators, and installed-app scopes, re-runs when scopes or owners move, and does not revoke staff or uninstall apps.</p>
+    <p><a class="cta" href="https://apps.shopify.com/momiji-access-audit?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=access-audit-admin">Install staff access audit</a></p>
+    <p class="note">Live listing: <a href="https://apps.shopify.com/momiji-access-audit?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=access-audit-admin">apps.shopify.com/momiji-access-audit</a>. The first audit runs on install. The app scores and flags. It does not revoke staff or attest that the store is secure.</p>
+    <p>Adjacent jobs: <a href="/guides/block-po-box-billing-address/">PO box blocker</a> · <a href="/b2b-po-terms/">B2B purchase order</a> · <a href="/guides/cra-duty-records-eu/">CRA duty records</a>.</p>
+    <p>Opening <strong>Users and permissions</strong> today is a snapshot. It is not a drift log. Scopes, owners, and recorded costs can move after you last checked.</p>
+
+    <h2>Leftover Admin access checklist (no install)</h2>
+    <p>Score questions people actually post: a former staffer holding the only 2FA, collaborator access versus org billing, and who can publish a theme versus only preview. The checklist does not open Admin and does not scrape the store.</p>
+    <p><a href="/guides/staff-permissions-audit-checklist/">Open the leftover Admin access checklist</a> — nine questions, scored in the browser, then an Install path if you want the same review to re-run.</p>
+
+    <h2>Install, run the first audit, then keep the evidence</h2>
+    <p>Opening Users and permissions today is a snapshot. The paid path is a scored audit you can re-run when staff, collaborators, or installed-app scopes move.</p>
+    <ol>
+      <li>Install Access Audit Guard from the App Store.</li>
+      <li>Wait for the first audit on install (or run another now).</li>
+      <li>Review staff/collaborator reminders and apps that can touch customer or order data - including AI apps with broad scopes.</li>
+      <li>Export CSV or PDF evidence on plans that include those exports.</li>
+      <li>Re-run when owners, scopes, or costs change.</li>
+    </ol>
+    <p>The app scores and flags access. It does not revoke staff, uninstall apps, or attest that the store is secure.</p>
+    <p><a class="cta" href="https://apps.shopify.com/momiji-access-audit?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=access-audit-admin">Install staff access audit</a></p>
+
+    <h2 class="shopify-yt-demo">Demo</h2>
+    <p>Short walkthrough of the app flow. Then follow the start path below.</p>
+    <div class="demo-embed">
+      <button type="button" class="yt-facade" data-yt="3xlq4BLK0mw" aria-label="Play Access Audit Guard demo on YouTube">
+        <img src="https://i.ytimg.com/vi/3xlq4BLK0mw/hqdefault.jpg" alt="" width="480" height="360">
+        <span class="yt-play">Play demo</span>
+      </button>
+    </div>
+    <p><a href="https://www.youtube.com/watch?v=3xlq4BLK0mw">Open the demo on YouTube</a></p>
+
+    <h2>People on the staff list are not the same inventory as app scopes</h2>
+    <p>A one-time screenshot of Users and permissions misses both problems after the next change:</p>
+    <div class="card">
+    <table>
+      <caption>Staff list versus installed-app scope inventory</caption>
+      <thead>
+        <tr>
+          <th scope="col">Inventory</th>
+          <th scope="col">What moves after a review</th>
+          <th scope="col">Caught by a one-time user list?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Staff / collaborators</td>
+          <td>New invites, role edits, overdue 30/90-day reviews</td>
+          <td>No history, no overdue flag</td>
+        </tr>
+        <tr>
+          <td>Installed apps (including AI)</td>
+          <td>New installs, scope grants, owner or cost drift</td>
+          <td>No scored scope risk</td>
+        </tr>
+        <tr>
+          <td>Access audit with re-run</td>
+          <td>Scopes + owners + costs + review cadence</td>
+          <td>Yes, if you re-run and keep the export</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <p>Suggested path (unchanged job, sharper test):</p>
+    <ol>
+      <li>Install <a href="https://apps.shopify.com/momiji-access-audit?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=access-audit-admin">Access Audit Guard</a> from the App Store.</li>
+      <li>Wait for the first audit on install (or run another now).</li>
+      <li>Review staff/collaborator reminders and apps that can touch customer data.</li>
+      <li>Export CSV or PDF evidence on plans that include those exports.</li>
+      <li>Re-run when owners, scopes, or costs change.</li>
+    </ol>
+    <p>See the app listing for current plans.</p>
+
+    <h2>Snapshot vs a recurring access audit</h2>
+    <div class="card">
+    <table>
+      <caption>Snapshot vs a recurring access audit</caption>
+      <thead>
+        <tr>
+          <th scope="col">Control</th>
+          <th scope="col">What it sees</th>
+          <th scope="col">Permission drift?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Users and permissions screen</td>
+          <td>Who currently has staff or collaborator access</td>
+          <td>No history, no overdue review flags</td>
+        </tr>
+        <tr>
+          <td>Installed-app list</td>
+          <td>Which apps are installed</td>
+          <td>No scored scope risk, no customer-data flag</td>
+        </tr>
+        <tr>
+          <td>One screenshotted user list</td>
+          <td>That day’s snapshot</td>
+          <td>Stale the next time a role or scope changes</td>
+        </tr>
+        <tr>
+          <td>Access audit</td>
+          <td>Scopes, owners, costs, staff review cadence</td>
+          <td>Yes, if you re-run and keep the evidence</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <p>Example fields you keep against a review (paraphrase, not a form):</p>
+<pre><code>staff / collaborator
+last review date
+overdue? (30 / 90 day)
+installed app
+granted scopes
+customer-data or broad-write flag
+risk score
+owner / cost drift since last audit</code></pre>
+
+    <h2>How a recurring staff permissions audit differs from a snapshot</h2>
+    <p>A Users and permissions screen is today’s list. A recurring staff permissions audit re-checks staff, collaborators, and granted scopes after that snapshot, so permission drift is a later record you can export — not a screenshot that goes stale after the next role or app-scope change.</p>
+
+    <h2>What this page is not</h2>
+    <ul>
+      <li>Not a security attestation, SOC report, or automatic remediation.</li>
+      <li>Not employee monitoring or a customer-data export.</li>
+      <li>Not a B2B purchase-order rule. That job is <a href="/guides/b2b-po-number-required/">require a PO number on B2B checkout</a>.</li>
+      <li>Not catalog readiness for AI shopping agents. That path is <a href="/guides/agentic-catalog-readiness/">llms.txt, crawler rules, and product JSON-LD</a>.</li>
+      <li>Not CRA product duty / Article 14 incident records. That path is <a href="/guides/cra-duty-records-eu/">Cyber Resilience Act duty files</a>.</li>
+    </ul>
+
+    <h2>Does a one-time admin user list catch staff permission drift?</h2>
+    <p>No. Users and permissions show who currently has access. They do not keep a review cadence, overdue flags, or a log of what changed since the last check. Collaborators, staff roles, and installed-app scopes can all move after you last opened that screen. A later audit is a different record from a screenshot of today’s list.</p>
+
+    <h2>Do installed apps, including AI assistants, show up on the staff list?</h2>
+    <p>Not as a scored access review. Installed apps request scopes, including apps that can read customer or order data. The staff list is people. Scope risk is a separate inventory: which app was granted protected customer-data or broad-write access, and whether that set drifted after the last audit.</p>
+
+    <h2>Which staff permissions matter most?</h2>
+    <p>The staff and collaborator list answers “who can open Admin?” Installed-app scopes answer a different question: “which apps can read or write customer, order, or broad store data?”</p>
+    <p>What to check per app:</p>
+    <ul>
+      <li>Does it hold customer or order scopes it doesn't need?</li>
+      <li>Who installed it and who owns it now?</li>
+      <li>Is it still used or paid for?</li>
+    </ul>
+    <p>Treat AI assistants like any other installed app with protected customer-data or broad-write scopes. They will not appear as “staff.” Put them on the scope inventory, not on the people list.</p>
+
+    <h2>What counts as permission drift?</h2>
+    <p>A change since the last audit: granted scopes, app owners, or recorded costs. Staff and collaborator reviews that go past a 30- or 90-day reminder are overdue, not merely “still installed.” Duplicate paid categories are a cost-drift signal, not a permission grant by themselves.</p>
+
+    <h2>Does an access audit remediate risky staff or apps?</h2>
+    <p>No. An audit scores and flags. It does not revoke staff, uninstall apps, or attest that the store is secure. You still review findings before you change access. It is not attorney advice, a SOC report, or employee monitoring.</p>
+
+    <h2>Does the audit read customer or order bodies?</h2>
+    <p>The listing’s job is store-level audit metadata, app scope findings, a manual access register, and report history. It does not store customer data bodies, order contents, screen recordings, or employee-monitoring events. Confirm the live privacy text, not this page.</p>
+
+    <h2>How do I keep evidence of an access audit?</h2>
+    <p>Run the audit, review staff and collaborator reminders, and export CSV or PDF evidence on the plans that include those exports. A first audit can run on install; you can run another at any time. Keep the export with the date you reviewed it.</p>
+
+    <h2>Where do I run a staff and app-scope access audit?</h2>
+    <p>Use an access audit that scores installed-app scopes (including AI apps), flags customer-data access, and tracks staff and collaborator reviews. <a href="https://apps.shopify.com/momiji-access-audit?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=access-audit-admin">Access Audit Guard</a> is the App Store listing this site already uses for that job. Open the listing, install, wait for the first audit, then export evidence if you need a file.</p>
+
+    <p><a class="cta" href="https://apps.shopify.com/momiji-access-audit?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=access-audit-admin">Install staff access audit</a></p>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/guides/shopify-pos-staff-permissions/">Shopify POS staff permissions</a></li>
+      <li><a href="/guides/shopify-collaborator-permissions/">Shopify collaborator permissions</a></li>
+      <li><a href="/guides/shopify-staff-login-history/">Shopify staff login history</a></li>
+      <li><a href="/guides/shopify-activity-log/">Shopify activity log</a></li>
+      <li><a href="/guides/access-audit-ownership-evidence/">App ownership evidence (scopes + owner)</a> — installed-app table, not the staff user list</li>
+      <li><a href="https://apps.shopify.com/momiji-access-audit?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=access-audit-admin">Access Audit Guard</a> — live App Store listing</li>
+      <li><a href="/guides/staff-permissions-audit-checklist/">Leftover Admin access checklist</a> — leavers with 2FA, collaborators vs the bill, preview vs publish</li>
+      <li><a href="/guides/shopify-cannot-suspend-collaborator-remove/">Cannot suspend a collaborator — remove access instead</a> — staff Suspend vs collaborator Remove</li>
+      <li><a href="/guides/access-audit-30-90-day-review-reminders/">30/90-day review reminders vs collaborator expiry</a> — app reminders are not Shopify’s 90-day auto-expiry</li>
+      <li><a href="/guides/shopify-collaborator-request-code/">Collaborator request code</a> — only Partners you share the code with can ask for access</li>
+      <li><a href="/access-audit/">Staff access audit install page</a></li>
+      <li><a href="/guides/cra-duty-records-eu/">Cyber Resilience Act duty records</a> — product cybersecurity duties, not staff scopes</li>
+      <li><a href="/guides/agentic-catalog-readiness/">Catalog readiness for AI shopping agents</a> — crawler rules, not staff scopes</li>
+      <li><a href="/guides/b2b-po-number-required/">Require a PO number on B2B checkout</a></li>
+      <li><a href="/review/">Shopify apps hub</a></li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+    <p class="note">Not a security attestation. Not attorney advice. Not employee monitoring. The app scores and flags access you already granted; you choose what to change.</p>
+  </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/review/">Shopify apps hub</a></li>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
+  <script>
+    (function () {
+      var button = document.querySelector(".yt-facade");
+      if (!button) return;
+      button.addEventListener("click", function () {
+        var id = button.getAttribute("data-yt");
+        var frame = document.createElement("iframe");
+        frame.src = "https://www.youtube.com/embed/" + id + "?autoplay=1";
+        frame.title = "Access Audit Guard demo on YouTube";
+        frame.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+        frame.setAttribute("allowfullscreen", "");
+        frame.referrerPolicy = "strict-origin-when-cross-origin";
+        var box = button.parentNode;
+        box.replaceChildren(frame);
+      });
+    })();
+  </script>
+  <script src="/assets/js/shopify-guide-youtube-demos.js" defer></script>
 <script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "10aeccbd602743299692f41113bc3b55"}'></script>
 </body>
 </html>
