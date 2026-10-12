@@ -29,6 +29,7 @@
     .tool button{font:inherit;font-weight:600;padding:.55rem 1.1rem;border-radius:999px;border:1px solid var(--ink,#182238);background:var(--ink,#182238);color:#fff;cursor:pointer;margin:.6rem .5rem 0 0;transition:transform .15s ease,box-shadow .15s ease}
     .tool button:hover{transform:translateY(-1px);box-shadow:0 6px 14px -8px rgba(24,34,56,.6)}
     .tool button.alt{background:#fff;color:var(--ink,#182238)}
+    .result-scroll{overflow-x:auto;max-width:100%}
     .tool table{width:100%;border-collapse:collapse;margin-top:1rem;font-size:.95rem}
     .tool th,.tool td{border-bottom:1px solid var(--line,#e4e2da);text-align:left;padding:.45rem .5rem;vertical-align:top}
     .tool td.v{font-family:ui-monospace,Menlo,Consolas,monospace;word-break:break-all}
@@ -88,7 +89,8 @@ PO-ABC123
       <div><button type="button" id="run">Test samples</button><button type="button" id="clear" class="alt">Clear list</button><button type="button" id="copy" class="alt">Copy results as text</button></div>
       <p id="err" role="alert"></p>
       <p id="summary" role="status" aria-live="polite"></p>
-      <table id="out" hidden><thead><tr><th scope="col">Row</th><th scope="col">PO number</th><th scope="col">Result</th><th scope="col">Why</th></tr></thead><tbody></tbody></table>
+      <div class="result-scroll"><table id="out" hidden><thead><tr><th scope="col">Row</th><th scope="col">PO number</th><th scope="col">Result</th><th scope="col">Why</th></tr></thead><tbody></tbody></table></div>
+      <p>To preview a PO number format for B2B checkout, see <a href="https://apps.shopify.com/b2b-terms-guard?utm_source=momiji-site&amp;utm_medium=tool&amp;utm_campaign=po-number-format-tester">B2B Terms &amp; PO Guard</a>.</p>
     </section>
 
     <p><a class="cta" href="https://apps.shopify.com/b2b-terms-guard?utm_source=momiji-site&amp;utm_medium=tool&amp;utm_campaign=po-number-format-tester">Install B2B Terms &amp; PO Guard → turn your rule into checkout validation</a></p>
