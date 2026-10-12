@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>US PO Box address format: Publication 28 and Street Addressing</title>
+  <meta name="description" content="USPS Publication 28 section 281 standardizes a Post Office Box as PO BOX plus the number. Section 284 and usps.com describe Street Addressing where it is available. Shoppers still type other spellings. Not legal advice.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="US PO Box address format: Publication 28 and Street Addressing">
+  <meta property="og:description" content="USPS Publication 28 section 281 standardizes a Post Office Box as PO BOX plus the number. Section 284 and usps.com describe Street Addressing where it is available. Shoppers still type other spellings. Not legal advice.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/po-box-address-format/">
+  <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/27f7c111c94acf4b22bfef9207351043/promotional_image/CLDLhsPS7ZQDEAE=.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="US PO Box address format: Publication 28 and Street Addressing">
+  <meta name="twitter:description" content="USPS Publication 28 section 281 standardizes a Post Office Box as PO BOX plus the number. Section 284 and usps.com describe Street Addressing where it is available. Shoppers still type other spellings. Not legal advice.">
+  <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/27f7c111c94acf4b22bfef9207351043/promotional_image/CLDLhsPS7ZQDEAE=.png">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/po-box-address-format/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://apify.momiji-space.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "US PO Box address format",
+        "item": "https://apify.momiji-space.com/guides/po-box-address-format/"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "AddressFence: PO Box Billing",
+    "url": "https://apps.shopify.com/address-guard",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Shopify",
+    "image": "https://cdn.shopify.com/app-store/listing_images/27f7c111c94acf4b22bfef9207351043/icon/CISg3YSo4pQDEAE=.png"
+  }
+  </script>
+</head>
+<body>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/review/">Shopify apps</a>
+        <a href="/guides/po-box-address-format/" aria-current="page">PO Box address format</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / <a href="/guides/">Guides</a> / US PO Box address format</nav>
+    <p class="eyebrow">US PO Box address format</p>
+    <h1>How a US PO Box address is written, and why checkout still sees other spellings</h1>
+    <p class="answer-first"><strong>Direct answer.</strong> <a href="https://pe.usps.com/text/pub28/pub28c2_036.htm">USPS Publication 28, section 281</a>, says the Post Office Box address on a mailpiece must be standardized as PO BOX ##, where &ldquo;##&rdquo; indicates the actual number, numbers, or letter. That standardized line has no periods. <a href="https://pe.usps.com/text/pub28/28c2_007.htm">Section 222</a> says that, with the exception of the hyphen in the ZIP+4 Code, punctuation may be omitted in the delivery address block, and that no punctuation is preferred. <a href="https://pe.usps.com/text/pub28/pub28c2_039.htm">Section 284</a> says PO Box services in some locations allow an option to use the Post Office street address for the mailing address, along with the PO Box number preceded by a &ldquo;#&rdquo; sign or &ldquo;UNIT&rdquo; designation. <a href="https://www.usps.com/manage/po-boxes.htm">usps.com</a> calls that option Street Addressing, subject to availability and restrictions. Shoppers still type &ldquo;P.O. Box&rdquo;, &ldquo;Post Office Box&rdquo;, &ldquo;POB&rdquo;, &ldquo;Box 12&rdquo;, and locker lines. A checkout rule that matches only one of those strings will miss the others. The spelling test list is a separate page. This page is not legal advice.</p>
+    <p class="lede"><strong>AddressFence: PO Box Billing</strong> (<a href="https://apps.shopify.com/address-guard">Shopify App Store</a>) adds billing-address rules and street-number checks at Shopify checkout, where the listing says built-in validation cannot apply those rules, and lets you test any address in the simulator before publishing, with one-click rollback. This page is the USPS format reading aid &mdash; not a list of every string the app matches.</p>
+    <p><strong>Free check first:</strong> <a href="/tools/po-box-address-checker/">PO box and street number address checker</a> runs in your browser and sends nothing. Paste addresses and see which look like a PO box or lack a street number.</p>
+
+    <h2>Checklist before you write the line or the rule</h2>
+    <ul>
+      <li>Read <a href="https://pe.usps.com/text/pub28/pub28c2_036.htm">Publication 28, section 281</a>, for the standardized &ldquo;PO BOX&rdquo; plus the number.</li>
+      <li>Read <a href="https://pe.usps.com/text/pub28/pub28c2_038.htm">section 283</a> for designations the Postal Service says to change to PO BOX on output.</li>
+      <li>Read <a href="https://pe.usps.com/text/pub28/28c2_007.htm">section 222</a> before you treat punctuation as forbidden. The preferred form omits it, except the ZIP+4 hyphen.</li>
+      <li>Read <a href="https://pe.usps.com/text/pub28/pub28c2_039.htm">section 284</a> and the <a href="https://www.usps.com/manage/po-boxes.htm">usps.com PO Box page</a> before you describe Street Addressing. It is an option in some locations, not a format every box has.</li>
+      <li>For the checkout spellings shoppers actually type, use <a href="/guides/po-box-spelling-variants-test-checkout-rule/">the spelling-variants test list</a>. This page does not repeat that list.</li>
+    </ul>
+
+    <h2>The standardized mailpiece line</h2>
+    <p>Section 281 is titled Format, under &ldquo;28 Post Office Box Addresses&rdquo;. The sentence is: &ldquo;The Post Office Box address on a mailpiece must be standardized as follows: PO BOX ## (in this example, &lsquo;##&rsquo; indicates the actual number, numbers, or letter).&rdquo; That is the delivery-address form Publication 28 standardizes. It is not &ldquo;P.O. Box&rdquo;, &ldquo;Post Office Box&rdquo;, or &ldquo;POB&rdquo;.</p>
+    <p>Section 282 says Post Office Box numbers that are preceded by significant leading zeroes are identified in the ZIP+4 file by a hyphen preceding the box number, and that the hyphen is converted into a zero on the output mailpiece. Section 283 says PO Box addresses often appear with the word CALLER, FIRM CALLER, BIN, LOCKBOX, or DRAWER, and that those designations are changed to PO BOX as output on a mailpiece.</p>
+    <p>Section 222, under the last line of the address, says punctuation may be omitted in the delivery address block except for the hyphen in the ZIP+4 Code, that an address with punctuation is acceptable, and that an address with no punctuation is preferred. The standardized &ldquo;PO BOX&rdquo; token in section 281 is already written without periods.</p>
+
+    <h2>Street Addressing, where the Post Office offers it</h2>
+    <p>Publication 28 section 284 is titled &ldquo;PO Box Street Addressing&rdquo;. It says PO Box services in some locations allow an option to use the Post Office street address for the mailing address, along with the PO Box number preceded by a &ldquo;#&rdquo; sign or &ldquo;UNIT&rdquo; designation. The <a href="https://www.usps.com/manage/po-boxes.htm">usps.com PO Box page</a> lists Street Addressing among PO Box features: a delivery address for packages from other carriers, including Amazon, DHL, FedEx, and UPS, subject to availability and restrictions. The same page&rsquo;s question &ldquo;What is Street Addressing and how can I get it for my PO Box?&rdquo; says that, if available, you have the option of using the street address of your Post Office location, combined with your PO Box number, as your mailing address, so you can receive packages from private carriers such as UPS, FedEx, DHL, and Amazon, as long as they comply with USPS mailing standards. It points to the customer agreement for details. A street-style line can still be a PO Box. Whether a given box has the option is a location question on those USPS pages, not a guess from the words &ldquo;PO BOX&rdquo;.</p>
+
+    <h2>Why the checkout line does not match section 281</h2>
+    <p>People ordering online type the words they say: &ldquo;P.O. Box&rdquo;, &ldquo;Post Office Box&rdquo;, &ldquo;POB&rdquo;, a bare &ldquo;Box 12&rdquo;, or a locker line. Publication 28 tells mailers to standardize those kinds of designations to PO BOX on the mailpiece. A shopper at checkout has not done that. A rule that looks only for the letters P, O, space, B, O, X will miss &ldquo;Post Office Box&rdquo; and can also be confused by a real street. The strings to paste, and the look-alike streets to keep, are on <a href="/guides/po-box-spelling-variants-test-checkout-rule/">PO box spellings and look-alike street names</a>. Run them in the simulator before you publish.</p>
+    <p>Whether a carrier will deliver to a PO Box is a different question: <a href="/guides/does-shopify-ship-to-po-boxes/">Does Shopify ship to PO Boxes?</a> Billing is a different surface from shipping: <a href="/guides/block-po-box-billing-address/">PO box blocker for the billing address</a>. APO, FPO, and DPO lines are not PO Boxes: <a href="/guides/shopify-ship-to-apo-fpo-address/">Shopify APO, FPO, and DPO addresses</a>.</p>
+
+    <h2>What this page is not</h2>
+    <ul>
+      <li>Not legal advice, a carrier rule, or a card-network rule.</li>
+      <li>Not a substitute for the live Publication 28 sections or the usps.com PO Box page.</li>
+      <li>Not the spelling test list. That URL is <a href="/guides/po-box-spelling-variants-test-checkout-rule/">PO box spellings and look-alike street names</a>.</li>
+      <li>Not a Canada Post or Australia Post format. This page does not describe those.</li>
+    </ul>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/tools/po-box-address-checker/">PO box and street number address checker</a> &mdash; paste lines and see which look like a PO box</li>
+      <li><a href="/guides/po-box-spelling-variants-test-checkout-rule/">PO box spellings and look-alike street names</a> &mdash; the test list for a checkout rule</li>
+      <li><a href="/guides/does-shopify-ship-to-po-boxes/">Does Shopify ship to PO Boxes?</a></li>
+      <li><a href="/guides/block-po-box-billing-address/">PO box blocker for the billing address</a></li>
+      <li><a href="/guides/shopify-ship-to-apo-fpo-address/">Shopify APO, FPO, and DPO addresses</a></li>
+      <li><a href="https://pe.usps.com/text/pub28/pub28c2_036.htm">Publication 28, section 281</a> &mdash; PO BOX format</li>
+      <li><a href="https://pe.usps.com/text/pub28/pub28c2_039.htm">Publication 28, section 284</a> &mdash; PO Box Street Addressing</li>
+      <li><a href="https://www.usps.com/manage/po-boxes.htm">usps.com: Rent a PO Box</a> &mdash; Street Addressing, subject to availability</li>
+      <li><a href="https://apps.shopify.com/address-guard">AddressFence: PO Box Billing</a> &mdash; live App Store listing</li>
+      <li><a href="/review/">Shopify apps hub</a></li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+    <p class="note">Not legal advice. Confirm Publication 28 sections 222, 281, 283, and 284, and the usps.com PO Box page, before you treat an address line as a standardized PO Box or as Street Addressing. The app checks address rules you publish. It does not decide carrier eligibility.</p>
+  </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/review/">Shopify apps hub</a></li>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>
