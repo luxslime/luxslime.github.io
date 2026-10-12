@@ -20,11 +20,21 @@
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "WebPage",
-        "name": "EU food information before purchase",
-        "url": "https://apify.momiji-space.com/eu-food-labelling/",
-        "description": "English merchant install page for the existing EU Food Info Guard app. Shows allergen, origin, and nutrition facts before purchase under EU food labelling law (Reg 1169/2011).",
-        "isPartOf": { "@type": "WebSite", "name": "momiji-space", "url": "https://apify.momiji-space.com/" }
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://apify.momiji-space.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "EU food information before purchase",
+            "item": "https://apify.momiji-space.com/eu-food-labelling/"
+          }
+        ]
       },
       {
         "@type": "SoftwareApplication",
@@ -36,12 +46,7 @@
         "description": "EU origin rules changed Jun 2026 — show allergen, nutrition, and origin info pre-purchase.",
         "url": "https://apps.shopify.com/fic-food-info-guard",
         "image": "https://cdn.shopify.com/app-store/listing_images/63e5940e02ff2380d0c59729b22f3cdb/icon/CLb7-viUk5UDEAE=.png",
-        "author": { "@type": "Organization", "name": "momiji-shop" },
-        "offers": [
-          { "@type": "Offer", "name": "Free", "price": "0", "priceCurrency": "USD" },
-          { "@type": "Offer", "name": "Starter", "price": "29", "priceCurrency": "USD" },
-          { "@type": "Offer", "name": "Growth", "price": "79", "priceCurrency": "USD" }
-        ]
+        "author": { "@type": "Organization", "name": "momiji-shop" }
       }
     ]
   }
@@ -155,23 +160,7 @@
         <p class="eyebrow">Listing prices</p>
         <h2>Plans on the listing</h2>
       </header>
-      <ul class="plans">
-        <li>
-          <span class="plan-name">Free</span>
-          <span class="plan-price">Free</span>
-          <p class="plan-note">The live listing’s first-install plan is Free. No charge until you pick a paid plan.</p>
-        </li>
-        <li>
-          <span class="plan-name">Starter</span>
-          <span class="plan-price">$29 / month</span>
-          <p class="plan-note">or $290/year and save 17%. 14-day free trial.</p>
-        </li>
-        <li>
-          <span class="plan-name">Growth</span>
-          <span class="plan-price">$79 / month</span>
-          <p class="plan-note">or $790/year and save 17%. 14-day free trial.</p>
-        </li>
-      </ul>
+      <p>See the app listing for current plans.</p>
       <p>Quoted from the live listing. USD. Recurring charges billed every 30 days. Confirm current prices on the listing before you install.</p>
     </section>
 
