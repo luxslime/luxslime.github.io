@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shopify address validation API: checkout, autofill, and carrier checks</title>
+  <meta name="description" content="Shopify documents checkout address checks, address autofill, and carrier label checks. Those are not one product named Address Validation API. Confirm shopify.dev and Help Center.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Shopify address validation API: checkout, autofill, and carrier checks">
+  <meta property="og:description" content="Shopify documents checkout address checks, address autofill, and carrier label checks. Those are not one product named Address Validation API. Confirm shopify.dev and Help Center.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/shopify-address-validation-api/">
+  <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/27f7c111c94acf4b22bfef9207351043/promotional_image/CLDLhsPS7ZQDEAE=.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Shopify address validation API: checkout, autofill, and carrier checks">
+  <meta name="twitter:description" content="Shopify documents checkout address checks, address autofill, and carrier label checks. Those are not one product named Address Validation API. Confirm shopify.dev and Help Center.">
+  <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/27f7c111c94acf4b22bfef9207351043/promotional_image/CLDLhsPS7ZQDEAE=.png">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/shopify-address-validation-api/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://apify.momiji-space.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Shopify address validation API",
+        "item": "https://apify.momiji-space.com/guides/shopify-address-validation-api/"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "AddressFence: PO Box Billing",
+    "url": "https://apps.shopify.com/address-guard",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Shopify",
+    "image": "https://cdn.shopify.com/app-store/listing_images/27f7c111c94acf4b22bfef9207351043/icon/CISg3YSo4pQDEAE=.png"
+  }
+  </script>
+</head>
+<body>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/review/">Shopify apps</a>
+        <a href="/guides/shopify-address-validation-api/" aria-current="page">Address validation API</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / <a href="/guides/">Guides</a> / Shopify address validation API</nav>
+    <p class="eyebrow">Shopify address validation API</p>
+    <h1>Checkout checks, address autofill, and carrier checks are not one Address Validation API</h1>
+    <p class="answer-first"><strong>Direct answer.</strong> Shopify and carrier or partner address services expose address validation and autocomplete in more than one place: checkout settings, Shopify Functions, and third-party checkout apps. Help Center documents address autocompletion and shipping-address validation at checkout, and a separate check when you buy a shipping label. shopify.dev documents a Cart and Checkout Validation Function that can target address fields, and checkout targets for a custom autocomplete provider. This page does not find a merchant setting whose product name is &ldquo;Address Validation API&rdquo;. If a developer doc uses a nearby name, such as Addresses API or DeliveryAddressValidationStrategy, treat that as that doc&rsquo;s name and confirm it on <a href="https://shopify.dev/docs/apps/build/checkout/cart-checkout-validation">shopify.dev</a> or <a href="https://help.shopify.com/en/manual/checkout-settings/address-collection-preferences">Shopify Help Center</a>. This page does not name subscriptions.</p>
+    <p class="lede"><strong>AddressFence: PO Box Billing</strong> (<a href="https://apps.shopify.com/address-guard">Shopify App Store</a>) is a checkout-validation app for billing-address rules such as PO boxes and street-number checks. It is not Shopify&rsquo;s address autocomplete, not the shipping-address validation setting, and not a carrier&rsquo;s label check. This page names the surfaces merchants can configure &mdash; not the country-by-country checkout list.</p>
+    <p><strong>Free check first:</strong> <a href="/tools/po-box-address-checker/">PO box and street number address checker</a> runs in your browser and sends nothing. Paste addresses and see which look like a PO box or lack a street number.</p>
+
+    <h2>Checklist: which address check you mean</h2>
+    <ul>
+      <li>Suggestions while the customer types, or a shipping-address check before the order: checkout settings. The country lists and toggles are on <a href="/guides/shopify-address-validation-checkout/">Shopify address validation at checkout</a>.</li>
+      <li>A custom suggestion provider: checkout address-autocomplete targets on shopify.dev, where the store can select an installed app. Help Center says that option is not shown the same way on every store.</li>
+      <li>A rule that blocks checkout, such as a PO box: a Cart and Checkout Validation Function or an app that provides one, not the autocomplete toggle.</li>
+      <li>A label that the carrier will accept: the carrier check described under Shopify Shipping, after checkout.</li>
+      <li>Do not search Admin for a product named Address Validation API until a Help Center or shopify.dev page uses that name for the setting you want.</li>
+    </ul>
+
+    <h2>Checkout validation and address autofill</h2>
+    <p><a href="https://help.shopify.com/en/manual/checkout-settings/address-collection-preferences">Address collection preferences</a> describes how shipping and billing addresses are collected and validated during checkout, including address autocompletion and validating shipping addresses before the order is placed. Suggestions come from services such as Google Autocomplete, not from the customer&rsquo;s browser. Turning those settings on, which countries they cover, and how they differ from a PO-box rule is <a href="/guides/shopify-address-validation-checkout/">Shopify address validation at checkout</a>. This page does not repeat that country list.</p>
+    <p>For a custom autocomplete provider, shopify.dev documents the checkout targets <code>purchase.address-autocomplete.suggest</code> and <code>purchase.address-autocomplete.format-suggestion</code> in <a href="https://shopify.dev/docs/apps/build/checkout/delivery-shipping/address-autocomplete/build-autocomplete">Build customized address autocomplete</a>. Help Center says stores that can install a third-party address-autocompletion app select it in the checkout editor. Which stores see that choice is on the Help Center page. This guide does not restate plan names.</p>
+    <p>A validation rule that blocks checkout is the <a href="https://shopify.dev/docs/api/functions/latest/cart-and-checkout-validation">Cart and Checkout Validation Function API</a>. The reference includes delivery-address and billing-address fields as error targets. That is a Functions API. It is not documented on that page as a product named Address Validation API. Whether a PO box can be entered at checkout at all is <a href="/guides/does-shopify-ship-to-po-boxes/">Does Shopify ship to PO Boxes?</a>.</p>
+    <p>shopify.dev also documents an <a href="https://shopify.dev/docs/api/checkout-ui-extensions/latest/target-apis/checkout-apis/addresses-api">Addresses API</a> for checkout UI extensions, and a Storefront API enum <a href="https://shopify.dev/docs/api/storefront/latest/enums/DeliveryAddressValidationStrategy">DeliveryAddressValidationStrategy</a> with values for country-code-only and stricter cart address checks. Those names are easy to shorten to &ldquo;address validation API&rdquo;. They are developer references for checkout and cart operations. Confirm the page before you treat either name as an Admin product.</p>
+
+    <h2>Carrier and partner checks are a later step</h2>
+    <p><a href="https://help.shopify.com/en/manual/shipping/shopify-shipping/shipping-labels/reviewing-address-formats">Reviewing address formats</a> says that when you enter a shipping address for a shipping label, the address is checked against the shipping carrier&rsquo;s database, and that carriers differ on format. The same article points merchants to carrier address checkers, including USPS, Canada Post, DHL, DPD, and Colissimo. That check is about buying a label. It is not the checkout autocomplete setting and it is not a Functions validation. Admin warnings on an order address, after checkout, are <a href="https://help.shopify.com/en/manual/fulfillment/managing-orders/validating-order-address">Validating addresses in your Shopify admin</a>.</p>
+
+    <h2>What this page is not</h2>
+    <ul>
+      <li>Not legal advice, and not a statement that an address exists or is deliverable.</li>
+      <li>Not a product page for something named Address Validation API. No Help Center page cited here uses that as the setting name.</li>
+      <li>Not the checkout country list. That URL is <a href="/guides/shopify-address-validation-checkout/">Shopify address validation at checkout</a>.</li>
+      <li>Not a plan comparison. Options that depend on the store are left to Help Center.</li>
+    </ul>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/tools/po-box-address-checker/">PO box and street number address checker</a></li>
+      <li><a href="/guides/shopify-address-validation-checkout/">Shopify address validation at checkout</a></li>
+      <li><a href="/guides/does-shopify-ship-to-po-boxes/">Does Shopify ship to PO Boxes?</a></li>
+      <li><a href="https://help.shopify.com/en/manual/checkout-settings/address-collection-preferences">Shopify Help Center: address collection preferences</a></li>
+      <li><a href="https://help.shopify.com/en/manual/shipping/shopify-shipping/shipping-labels/reviewing-address-formats">Shopify Help Center: reviewing address formats</a></li>
+      <li><a href="https://shopify.dev/docs/api/functions/latest/cart-and-checkout-validation">shopify.dev: Cart and Checkout Validation Function API</a></li>
+      <li><a href="https://apps.shopify.com/address-guard">AddressFence: PO Box Billing</a> &mdash; live App Store listing</li>
+      <li><a href="/review/">Shopify apps hub</a></li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+    <p class="note">General information, not legal advice. Confirm the live Shopify Help Center and shopify.dev pages before you treat a checkout setting, a Functions API, or a carrier label check as one product. The app adds checkout validation rules. It does not replace autocomplete or the carrier&rsquo;s address database.</p>
+  </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/review/">Shopify apps hub</a></li>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>
