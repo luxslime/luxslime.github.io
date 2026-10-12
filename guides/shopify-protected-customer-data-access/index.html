@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shopify protected customer data: what a public app must request</title>
+  <meta name="description" content="Protected customer data is data that directly relates to a customer. A public app must request access, and name, address, email, and phone separately, before the API returns them.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Shopify protected customer data: what a public app must request">
+  <meta property="og:description" content="Protected customer data is data that directly relates to a customer. A public app must request access, and name, address, email, and phone separately, before the API returns them.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/shopify-protected-customer-data-access/">
+  <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/9ea3a49e539bec70dcd6abb7cc7f4746/promotional_image/CL_Eloyu9ZQDEAE=.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Shopify protected customer data: what a public app must request">
+  <meta name="twitter:description" content="Protected customer data is data that directly relates to a customer. A public app must request access, and name, address, email, and phone separately, before the API returns them.">
+  <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/9ea3a49e539bec70dcd6abb7cc7f4746/promotional_image/CL_Eloyu9ZQDEAE=.png">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/shopify-protected-customer-data-access/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://apify.momiji-space.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Protected customer data",
+        "item": "https://apify.momiji-space.com/guides/shopify-protected-customer-data-access/"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Staff Access Audit Guard",
+    "url": "https://apps.shopify.com/momiji-access-audit",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Shopify",
+    "image": "https://cdn.shopify.com/app-store/listing_images/9ea3a49e539bec70dcd6abb7cc7f4746/icon/CLqU3dXo9JQDEAE=.png"
+  }
+  </script>
+</head>
+<body>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/review/">Shopify apps</a>
+        <a href="/guides/shopify-protected-customer-data-access/" aria-current="page">Protected customer data</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / <a href="/guides/">Guides</a> / Protected customer data</nav>
+    <p class="eyebrow">Shopify protected customer data</p>
+    <h1>Protected customer data is customer data a public app must be approved to receive</h1>
+    <p class="answer-first"><strong>Direct answer.</strong> &ldquo;Protected customer data&rdquo; is Shopify&rsquo;s term for data that directly relates to a customer. On <a href="https://shopify.dev/docs/apps/launch/protected-customer-data">Work with protected customer data</a>, Shopify writes: &ldquo;Protected customer data includes any data that directly relates to a customer or prospective customer, as represented in the API types and resources.&rdquo; The next sentence says: &ldquo;Types and resources that don&rsquo;t refer to a single customer, such as the product query, aren&rsquo;t included.&rdquo; Public apps request access to protected customer data, and separately to the name, address, email, and phone fields, through the Partner Dashboard. After approval, &ldquo;Responses will include only approved fields, and unapproved fields will be redacted.&rdquo; This page is not legal advice. It does not describe any named third-party app&rsquo;s data use.</p>
+    <p class="lede"><strong>Staff Access Audit Guard</strong> (<a href="https://apps.shopify.com/momiji-access-audit">Shopify App Store</a>): &ldquo;Review installed app access, granted scopes, staff access records, and ownership evidence without reading customer or order data.&rdquo;</p>
+    <p><strong>Free check first:</strong> <a href="/tools/app-scope-access-reader/">App access scope reader</a> runs in your browser and sends nothing. Paste an app&rsquo;s access scopes and see which the checker flags.</p>
+
+    <h2>Checklist before you treat an API field as returned</h2>
+    <ul>
+      <li>Read the live <a href="https://shopify.dev/docs/apps/launch/protected-customer-data">protected customer data</a> page. The sentences on this page were checked against it on 13 October 2026.</li>
+      <li>A type that does not refer to a single customer, such as the product query, is not protected customer data.</li>
+      <li>Name, address, email, and phone are requested individually, in addition to protected customer data access.</li>
+      <li>Use the level 0, 1, and 2 rows below. This page does not copy the later table of app types.</li>
+      <li>A merchant reviews installed-app areas and personal-data categories in Shopify admin. The Help Center sentences are quoted below. Scope names are <a href="/guides/shopify-app-access-scopes-explained/">Shopify app access scopes</a>.</li>
+    </ul>
+
+    <h2>Fields requested individually</h2>
+    <p>Shopify writes: &ldquo;In addition to requesting access to protected customer data, you&rsquo;ll need to request access to the following protected customer fields individually because they directly identify customers:&rdquo;</p>
+    <ul>
+      <li>Name: first and last names</li>
+      <li>Address: address line 1, address line 2, geolocation, and zip codes in both billing and shipping addresses</li>
+      <li>Email</li>
+      <li>Phone</li>
+    </ul>
+    <p>The same page says: &ldquo;If your access is approved, these fields will appear in the protected customer API types and resources.&rdquo; And: &ldquo;Public apps request access to protected customer data and protected customer fields through the Partner Dashboard.&rdquo;</p>
+
+    <h2>Level 0, level 1, and level 2</h2>
+    <p>The first table on that page is headed Level, Data use, and Partner actions. The rows, as written:</p>
+    <div class="card">
+    <table>
+      <caption>Protected customer data levels, as written on shopify.dev</caption>
+      <thead>
+        <tr>
+          <th scope="col">Level</th>
+          <th scope="col">Data use</th>
+          <th scope="col">Partner actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">0</th>
+          <td>No customer data</td>
+          <td>No action required</td>
+        </tr>
+        <tr>
+          <th scope="row">1</th>
+          <td>Customer data excluding name, address, phone, and email fields</td>
+          <td>Request access to protected customer data in the Partner Dashboard. Implement level 1 protected customer data requirements.</td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>Customer data including name, address, phone, or email fields</td>
+          <td>Request access to protected customer data and fields in the Partner Dashboard. Implement level 1 and level 2 protected customer data requirements. Participate in data protection reviews.</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <p>The page then says: &ldquo;If you&rsquo;re using only protected customer data, then you must meet the level 1 requirements.&rdquo; And: &ldquo;If you&rsquo;re using protected customer data including name, address, phone, or email fields, then you must meet all of the level 1 and 2 requirements.&rdquo;</p>
+
+    <h2>Level 1 requirements</h2>
+    <p>Under the heading &ldquo;Level 1 requirements&rdquo;, the bold lead sentence of each item is:</p>
+    <ol>
+      <li>Process only the minimum personal data required to provide app functionality to merchants.</li>
+      <li>Inform merchants what personal data you process and your reason for processing it.</li>
+      <li>Limit your processing of personal data to the stated purposes.</li>
+      <li>Where applicable, respect and apply customer consent decisions.</li>
+      <li>Where applicable, respect and apply customer decisions to opt out of any data sharing such as a &lsquo;data sale&rsquo; or similar concept under applicable laws or regulations.</li>
+      <li>If you use personal data for automated decision-making and those decisions might have legal or significant effects, then you must allow customers to opt out.</li>
+      <li>Make privacy and data protection agreements with your merchants.</li>
+      <li>Apply retention periods to make sure that personal data isn&rsquo;t kept for longer than needed.</li>
+      <li>Encrypt data at rest and in transit.</li>
+    </ol>
+
+    <h2>Level 2 requirements</h2>
+    <p>Under the heading &ldquo;Level 2 requirements&rdquo;, the bold lead sentence of each item is:</p>
+    <ol>
+      <li>Encrypt your data backups.</li>
+      <li>Keep test and production data separate.</li>
+      <li>Have a data loss prevention strategy.</li>
+      <li>Limit staff access to protected customer data.</li>
+      <li>Require strong passwords for staff accounts.</li>
+      <li>Keep an access log to protected customer data.</li>
+      <li>Implement a security incident response policy.</li>
+    </ol>
+    <p>The explanatory paragraphs under those lead sentences stay on the shopify.dev page. This page does not restate them.</p>
+
+    <h2>What the API returns</h2>
+    <p>Under &ldquo;Using protected customer data&rdquo;, Shopify writes: &ldquo;After your app is approved to access protected customer data, API requests and webhooks that contain protected resources will return the data requested. Responses will include only approved fields, and unapproved fields will be redacted.&rdquo;</p>
+
+    <h2>How a merchant reviews installed apps</h2>
+    <p>Shopify Help Center, <a href="https://help.shopify.com/en/manual/apps/install-setup-apps">Installing and setting up apps</a>, says: &ldquo;Before you install an app, Shopify displays an Install app screen that displays the data and areas of your store the app needs access to.&rdquo; The same section says the install screen shows &ldquo;View personal data: The types of personal data the app can view, such as customers, store owner, and blog contributors.&rdquo; And: &ldquo;You can expand each category to view the specific permissions the app is requesting.&rdquo;</p>
+    <p><a href="https://help.shopify.com/en/manual/apps/working-with-apps">Managing apps</a> says: &ldquo;You can review an app&rsquo;s activity and permissions from the app&rsquo;s about page. The Activity and permissions section displays which areas of your store the app can view or edit, along with the date of the app&rsquo;s most recent activity in each area.&rdquo; On privacy, the same page says: &ldquo;You can review the personal data an app can access and view the developer&rsquo;s privacy policy from the app&rsquo;s about page. The Privacy section displays the types of personal data the app can access, grouped by category such as Customers and Staff and contributors.&rdquo;</p>
+    <p>What a scope name covers is <a href="/guides/shopify-app-access-scopes-explained/">Shopify app access scopes</a>. Classifying granted scopes is <a href="/guides/access-audit-app-scopes-customer-data/">audit app scopes for customer data</a>. An audit that does not read customer or order records is <a href="/guides/access-audit-without-customer-order-data/">access audit without customer or order data</a>. Custom-app approval is <a href="/guides/shopify-custom-app-permissions/">custom app permissions</a>. Staff roles are <a href="/guides/staff-permissions-audit-checklist/">the staff permissions checklist</a>. Collaborator roles are <a href="/guides/shopify-collaborator-permissions/">collaborator permissions</a>.</p>
+
+    <h2>What this page is not</h2>
+    <ul>
+      <li>Not legal advice, and not a statement about how any named third-party app uses data.</li>
+      <li>Not the access-scope catalogue. That URL is <a href="/guides/shopify-app-access-scopes-explained/">Shopify app access scopes</a>.</li>
+      <li>Not a copy of the app-type table that follows the level 0, 1, and 2 rows on shopify.dev.</li>
+      <li>Not a reading of customer or order payloads.</li>
+    </ul>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/tools/app-scope-access-reader/">App access scope reader</a> &mdash; paste scope names in the browser</li>
+      <li><a href="/guides/shopify-app-access-scopes-explained/">Shopify app access scopes</a></li>
+      <li><a href="/guides/access-audit-app-scopes-customer-data/">Audit app scopes for customer data</a></li>
+      <li><a href="/guides/access-audit-without-customer-order-data/">Access audit without customer or order data</a></li>
+      <li><a href="/guides/shopify-custom-app-permissions/">Custom app permissions</a></li>
+      <li><a href="/guides/staff-permissions-audit-checklist/">Staff permissions checklist</a></li>
+      <li><a href="/guides/shopify-collaborator-permissions/">Collaborator permissions</a></li>
+      <li><a href="https://shopify.dev/docs/apps/launch/protected-customer-data">Protected customer data</a> &mdash; shopify.dev</li>
+      <li><a href="https://help.shopify.com/en/manual/apps/working-with-apps">Managing apps</a> &mdash; Shopify Help Center</li>
+      <li><a href="https://apps.shopify.com/momiji-access-audit">Staff Access Audit Guard</a> &mdash; live App Store listing</li>
+      <li><a href="/review/">Shopify apps hub</a></li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+    <p class="note">Not legal advice. Confirm the live shopify.dev protected-customer-data page and the Help Center pages linked above before you treat a field as returned or withheld. The app reviews access records. It does not read customer or order data.</p>
+  </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/review/">Shopify apps hub</a></li>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>
