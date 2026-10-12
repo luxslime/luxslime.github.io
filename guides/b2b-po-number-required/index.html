@@ -65,6 +65,8 @@
     <p class="eyebrow">Require PO number on B2B checkout</p>
     <h1>B2B checkout can skip a purchase-order number unless a validation rule requires it</h1>
     <p class="lede"><strong>B2B PO Guard — Require PO</strong> (<a href="https://apps.shopify.com/b2b-terms-guard">Shopify App Store</a>) is a Shopify app that validates purchase-order numbers by format, prefix, regex, length and uniqueness, and previews any PO rule live against a sample number before you publish. D2C and no-company checkouts stay untouched. Checkout enforcement runs on Plus B2B; PO rules work on every plan.</p>
+    <!-- r131 free-checkers -->
+    <p><strong>Free check first:</strong> <a href="/tools/po-number-format-tester/">PO number format tester</a> runs in your browser and sends nothing. Test prefix, length, characters, regex and duplicates on sample PO numbers.</p>
     <p>Job: reject a <strong>company checkout</strong> when the purchase-order number is missing or fails the format you publish.</p>
     <h2 id="require-po-number">Can I make the PO number required at Shopify B2B checkout?</h2>
     <p>Short answer: there is no native “required PO” toggle in Shopify B2B. Since Functions API 2026-04, a Cart and Checkout Validation function can read <code>cart.poNumber</code> and return an error on <code>$.cart.poNumber</code>. Shopify added those field targets in the <a href="https://shopify.dev/changelog/cart-and-checkout-validation-adds-billing-address-and-po-number-error-targets">1 April 2026 changelog</a>.</p>
