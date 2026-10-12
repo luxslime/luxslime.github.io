@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Does Shopify have address validation? Checkout autocomplete and shipping-address checks</title>
+  <meta name="description" content="Shopify checkout can suggest addresses and validate some shipping addresses. Blocking a PO box or requiring a street number needs a checkout validation function or an app. Not legal advice.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Does Shopify have address validation? Checkout autocomplete and shipping-address checks">
+  <meta property="og:description" content="Shopify checkout can suggest addresses and validate some shipping addresses. Blocking a PO box or requiring a street number needs a checkout validation function or an app. Not legal advice.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/shopify-address-validation-checkout/">
+  <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/27f7c111c94acf4b22bfef9207351043/icon/CISg3YSo4pQDEAE=.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Does Shopify have address validation? Checkout autocomplete and shipping-address checks">
+  <meta name="twitter:description" content="Shopify checkout can suggest addresses and validate some shipping addresses. Blocking a PO box or requiring a street number needs a checkout validation function or an app. Not legal advice.">
+  <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/27f7c111c94acf4b22bfef9207351043/icon/CISg3YSo4pQDEAE=.png">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/shopify-address-validation-checkout/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://apify.momiji-space.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Shopify address validation at checkout",
+        "item": "https://apify.momiji-space.com/guides/shopify-address-validation-checkout/"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "AddressFence: PO Box Billing",
+    "url": "https://apps.shopify.com/address-guard",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Shopify",
+    "image": "https://cdn.shopify.com/app-store/listing_images/27f7c111c94acf4b22bfef9207351043/icon/CISg3YSo4pQDEAE=.png"
+  }
+  </script>
+</head>
+<body>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/review/">Shopify apps</a>
+        <a href="/guides/shopify-address-validation-checkout/" aria-current="page">Address validation</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / <a href="/guides/">Guides</a> / Shopify address validation at checkout</nav>
+    <p class="eyebrow">Shopify address validation at checkout</p>
+    <h1>Does Shopify have address validation? Suggestions and shipping checks, not a PO-box or street-number rule</h1>
+    <p class="answer-first"><strong>Direct answer.</strong> Shopify&rsquo;s own checkout can show address suggestions while a customer types, and it can validate some shipping addresses before the order is placed. Those features are not a merchant rule that blocks PO boxes or requires a street number; that kind of rule needs a <a href="https://shopify.dev/docs/api/functions/latest/cart-and-checkout-validation">Cart and Checkout Validation Function</a> or an app that provides one. Read <a href="https://help.shopify.com/en/manual/checkout-settings/address-collection-preferences">address collection preferences on the Shopify Help Center</a>. Which countries are covered, and which stores can turn a check off or replace autocomplete, depends on the store; confirm the live Help Center page. This page does not name plans. This page is not legal advice.</p>
+    <p class="lede"><strong>AddressFence: PO Box Billing</strong> (<a href="https://apps.shopify.com/address-guard">Shopify App Store</a>) is a checkout-validation app for billing-address rules such as PO boxes and street-number checks. It does not replace Shopify&rsquo;s address autocomplete or the shipping-address validation setting. This page is what Shopify&rsquo;s own checkout address features do &mdash; not the billing-only gap and not the house-name test list.</p>
+    <p><strong>Free check first:</strong> <a href="/tools/po-box-address-checker/">PO box and street number address checker</a> runs in your browser and sends nothing. Paste addresses and see which look like a PO box or lack a street number.</p>
+
+    <h2>What Shopify Help Center says checkout already does</h2>
+    <p><a href="https://help.shopify.com/en/manual/checkout-settings/address-collection-preferences">Address collection preferences</a> describe four controls: allowing different shipping and billing addresses, requiring those addresses to match, address autocompletion, and validating shipping addresses before the order is placed. Updating those settings can take up to 30 seconds to show on checkout.</p>
+    <h3>Address suggestions (autocompletion)</h3>
+    <p>When customers enter a shipping or billing address, they can be shown address suggestions. Shopify says those suggestions come from services such as Google Autocomplete, not from the customer&rsquo;s browser. If the feature is inactive, or the customer is in a country where it is not supported yet, the customer checks out by typing the address. Shopify says the default feature is available to all Shopify merchants and is active by default, for customers in these countries:</p>
+    <ul>
+      <li>Australia, Austria, Belgium, Brazil, Canada, Denmark, France, Germany, Hong Kong SAR, India, Italy, Japan, Luxembourg, Netherlands, New Zealand, Norway, Saudi Arabia, Singapore, Spain, Sweden, Switzerland, United Kingdom, United States</li>
+    </ul>
+    <p>Turn it off or on in the checkout and accounts editor: Settings &gt; Checkout, Edit the configuration, open the Settings sidebar, then Address autocompletion, and select or clear Use address autocompletion. Shopify Help Center also says some stores can use a third-party address autocompletion app instead of the default service, and that developers can build custom apps for it with Checkout UI extensions. Which stores can install that third-party checkout app is stated on the Help Center page. This guide does not restate plan names.</p>
+    <h3>Shipping-address validation</h3>
+    <p>When a customer enters invalid shipping-address details, checkout can show issues and suggestions. Shopify says suggestions are offered when there is high confidence in the address the customer intended. If you deactivate the feature, or the shipping address is outside the available countries, the customer can check out as usual. Individual address-field checks, such as whether a field is required and its format or length, stay active for all countries and regions.</p>
+    <p>Shopify lists shipping-address validation for these countries: Australia, Austria, Belgium, Bermuda, Canada, Czechia, Denmark, Faroe Islands, France, Guernsey, Italy, Liechtenstein, Luxembourg, Netherlands, Poland, Portugal, Slovenia, South Korea, Switzerland, and the United States. Orders from other countries are still inspected, but might not return as many specific suggestions. The United Kingdom is on the autocomplete list above and is not on this validation list.</p>
+    <p>Turn the checkout check on under Settings &gt; Checkout &gt; Advanced preferences &gt; Address collection &gt; Validate shipping address. Shopify also says the shipping address is validated again after the order is placed. That later warning, on the order in admin, is the separate page <a href="https://help.shopify.com/en/manual/fulfillment/managing-orders/validating-order-address">Validating addresses in your Shopify admin</a>.</p>
+    <p>If a third-party address-validation app is also installed, Shopify says the two can show conflicting elements or suggestions. Use either the shipping-address validation setting or a third-party app, not both at once.</p>
+    <p>Shopify Help Center says some checkout address checks, such as state or province and postal code matching, apply to all regions and cannot be deactivated on every store. Whether a given store can turn those checks off is stated on that page. This guide does not restate plan names.</p>
+
+    <h2>PO boxes and street numbers are a different rule</h2>
+    <p>The Help Center page does not describe a setting that blocks PO boxes or requires a street number. <a href="https://shopify.dev/docs/apps/build/checkout/cart-checkout-validation">Cart and Checkout Validation</a> on shopify.dev is the function that can return a validation error on a checkout field. The <a href="https://shopify.dev/docs/api/functions/latest/cart-and-checkout-validation">function API</a> documents targets for delivery-address fields. A <a href="https://shopify.dev/changelog/posts/cart-and-checkout-validation-adds-billing-address-and-po-number-error-targets">shopify.dev changelog</a> says that, as of API version 2026-04, the same function can also target billing-address fields. An app can install that kind of validation. Built-in checkout settings and billing are a separate job: <a href="/guides/addressfence-built-in-checkout-rules-cannot-target-billing/">built-in checkout address rules cannot target billing</a>. A street-number rule, including house-name addresses, is <a href="/guides/shopify-require-street-number-house-name-addresses/">require a street number: test house-name addresses first</a>.</p>
+
+    <h2>If address validation is not working</h2>
+    <p>Work through the Help Center conditions before you treat the feature as broken:</p>
+    <ul>
+      <li>Wait. Shopify says checkout setting changes can take up to 30 seconds to appear.</li>
+      <li>Autocomplete: in the checkout and accounts editor, confirm Use address autocompletion is selected. If a third-party autocompletion app is installed, select that app after the setting is on. Which stores can use a third-party autocompletion app depends on the store.</li>
+      <li>Country. If the customer&rsquo;s country is not on the autocomplete list, Shopify says they type the address. Suggestions come from services such as Google Autocomplete, not from the browser.</li>
+      <li>Shipping validation: confirm Validate shipping address is selected under Address collection. If it is off, or the address is outside the countries listed above, checkout can continue without those suggestions. Suggestions appear when Shopify has high confidence.</li>
+      <li>Do not run Shopify&rsquo;s shipping-address validation and a third-party validation app at the same time. Shopify says that combination can conflict.</li>
+      <li>Required, format, and length checks on individual fields stay on for every country. State or province and postal-code matching cannot be turned off on every store. Confirm that limit on the Help Center page.</li>
+      <li>For Brazil, Kuwait, Panama, Peru, and the Philippines, Shopify replaces or adds address fields (street name and building number, and in some cases a neighborhood) and says you cannot change which of those fields appear or which are required. Apps or customizations that read or edit address information can make those extra fields unavailable. Shopify names Checkout Blocks as an exception that does not remove them. Accelerated checkouts such as PayPal do not require the extra fields.</li>
+      <li>Requiring shipping and billing to match is a different control. Shopify says it is available only to merchants who have upgraded their checkout, and that it does not apply to pickup, local delivery, draft-order checkouts, or B2B checkouts. It does not detect a PO box.</li>
+      <li>A missing PO-box block or a missing street-number requirement is not fixed by turning autocomplete or shipping validation on. That is the validation-function job linked above.</li>
+    </ul>
+
+    <h2>What this page is not</h2>
+    <ul>
+      <li>Not legal advice, carrier advice, or a statement that an address exists or is deliverable.</li>
+      <li>Not a plan comparison. Availability that depends on the store is left to the Help Center page.</li>
+      <li>Not the billing-address rule. That page is <a href="/guides/addressfence-built-in-checkout-rules-cannot-target-billing/">built-in checkout rules cannot target billing</a>.</li>
+      <li>Not the house-name test list. That page is <a href="/guides/shopify-require-street-number-house-name-addresses/">street number and house-name addresses</a>.</li>
+    </ul>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/tools/po-box-address-checker/">PO box and street number address checker</a></li>
+      <li><a href="/guides/shopify-require-street-number-house-name-addresses/">Require a street number: test house-name addresses first</a></li>
+      <li><a href="/guides/addressfence-built-in-checkout-rules-cannot-target-billing/">Built-in checkout address rules cannot target billing</a></li>
+      <li><a href="https://help.shopify.com/en/manual/checkout-settings/address-collection-preferences">Shopify Help Center: address collection preferences</a></li>
+      <li><a href="https://help.shopify.com/en/manual/fulfillment/managing-orders/validating-order-address">Shopify Help Center: validating addresses in admin</a></li>
+      <li><a href="https://shopify.dev/docs/api/functions/latest/cart-and-checkout-validation">shopify.dev: Cart and Checkout Validation Function API</a></li>
+      <li><a href="https://apps.shopify.com/address-guard">AddressFence: PO Box Billing</a> &mdash; live App Store listing</li>
+      <li><a href="/review/">Shopify apps hub</a></li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+    <p class="note">Not legal advice. Confirm the live Shopify Help Center and shopify.dev pages, including which countries and stores a checkout address feature covers, before you treat autocomplete or shipping-address validation as on or off. The app adds checkout validation rules; it does not replace Shopify&rsquo;s address suggestion service.</p>
+  </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/review/">Shopify apps hub</a></li>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>
