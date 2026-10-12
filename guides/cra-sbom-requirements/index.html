@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CRA software bill of materials: Annex I and Annex VII</title>
+  <meta name="description" content="Annex I Part II of Regulation (EU) 2024/2847 requires an SBOM in a commonly used machine-readable format covering at least top-level dependencies. It is technical documentation for authorities, not a format the regulation names. Not legal advice.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="CRA software bill of materials: Annex I and Annex VII">
+  <meta property="og:description" content="Annex I Part II of Regulation (EU) 2024/2847 requires an SBOM in a commonly used machine-readable format covering at least top-level dependencies. It is technical documentation for authorities, not a format the regulation names. Not legal advice.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/cra-sbom-requirements/">
+  <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/74418961a0d1e8f2b4258699cd5f6456/promotional_image/CIyR6fOSw5UDEAE=.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="CRA software bill of materials: Annex I and Annex VII">
+  <meta name="twitter:description" content="Annex I Part II of Regulation (EU) 2024/2847 requires an SBOM in a commonly used machine-readable format covering at least top-level dependencies. It is technical documentation for authorities, not a format the regulation names. Not legal advice.">
+  <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/74418961a0d1e8f2b4258699cd5f6456/promotional_image/CIyR6fOSw5UDEAE=.png">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/cra-sbom-requirements/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://apify.momiji-space.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "CRA software bill of materials",
+        "item": "https://apify.momiji-space.com/guides/cra-sbom-requirements/"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "CRALedger Duty Records",
+    "url": "https://apps.shopify.com/craledger-duty-records",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Shopify",
+    "image": "https://cdn.shopify.com/app-store/listing_images/74418961a0d1e8f2b4258699cd5f6456/icon/COq5kqCdwZUDEAE=.png"
+  }
+  </script>
+</head>
+<body>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/review/">Shopify apps</a>
+        <a href="/guides/cra-sbom-requirements/" aria-current="page">CRA SBOM</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / <a href="/guides/">Guides</a> / CRA software bill of materials</nav>
+    <p class="eyebrow">CRA software bill of materials</p>
+    <h1>The CRA requires an SBOM in technical documentation. It does not name a file format or require publication</h1>
+    <p class="answer-first"><strong>Direct answer.</strong> Annex I Part II, point (1), of <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:02024R2847-20241120">Regulation (EU) 2024/2847</a> says manufacturers shall identify and document vulnerabilities and components contained in products with digital elements, including by drawing up a software bill of materials in a commonly used and machine-readable format covering at the very least the top-level dependencies of the products. Article 3(39) defines that bill as a formal record of components and their supply-chain relationships. Annex VII, point 2(b), puts the software bill of materials in the technical documentation. Article 13(13) says manufacturers keep that documentation at the disposal of market surveillance authorities. Annex VII, point 8, and Article 13(22) cover providing it further to a reasoned request. Annex II, point 9, speaks of making the bill available to the user only if the manufacturer decides to do so. The regulation does not name SPDX, CycloneDX, or another format. Application dates are not restated here. This page is not legal advice.</p>
+    <p class="lede"><strong>CRALedger Duty Records</strong> (<a href="https://apps.shopify.com/craledger-duty-records">Shopify App Store</a>) tracks product roles, checklists, and open record gaps, Article 14 incident deadlines, encrypted ENISA draft packs, vulnerability forwarding, and audit records. The listing does not say the app draws up a software bill of materials or files a notification. Manufacturer articles are <a href="/guides/cra-manufacturer-obligations/">CRA manufacturer obligations</a>.</p>
+    <p><strong>Free check first:</strong> <a href="/tools/cra-role-scope-self-check/">CRA role and scope self-check</a> runs in your browser and sends nothing. Describe a product and your role and see which articles of Regulation (EU) 2024/2847 to read.</p>
+
+    <h2>Checklist before you treat a file as the SBOM</h2>
+    <ul>
+      <li>Read Annex I Part II, point (1), Article 3(39), Article 13(13), (22), and (24), and Annex VII on <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:02024R2847-20241120">EUR-Lex</a>.</li>
+      <li>Cover at least the top-level dependencies. The annex says &ldquo;at the very least&rdquo;. It does not, in that point, list a deeper tree.</li>
+      <li>Keep the bill in the technical documentation. Do not treat a public product page as the place Annex VII names.</li>
+      <li>Do not treat SPDX, CycloneDX, or any other name as mandatory unless an implementing act under Article 13(24), or a standard that act cites, says so. This page has not confirmed such an act.</li>
+      <li>Dates are Article 71, on <a href="/guides/cyber-resilience-act-timeline/">the CRA timeline</a>. This page does not repeat them.</li>
+    </ul>
+
+    <h2>Annex I: identify components, including by an SBOM</h2>
+    <p>Part II of Annex I is headed &ldquo;Vulnerability handling requirements&rdquo;. It says manufacturers of products with digital elements shall, at point (1), identify and document vulnerabilities and components, including by drawing up the software bill of materials in a commonly used and machine-readable format covering at the very least the top-level dependencies. Article 13(2) ties the manufacturer&rsquo;s vulnerability handling to that Part II. The Commission&rsquo;s <a href="https://digital-strategy.ec.europa.eu/en/policies/cyber-resilience-act">Cyber Resilience Act page</a> and <a href="https://digital-strategy.ec.europa.eu/en/policies/cra-summary">legislative summary</a> describe the same documentation duty at a high level. Annex numbers on this page are the EUR-Lex annexes.</p>
+    <p>Article 13(24) says the Commission may, by implementing acts that take account of European or international standards and best practices, specify the format and elements of the software bill of materials referred to in Part II, point (1), of Annex I. Until such an act specifies a format, the regulation&rsquo;s own words remain &ldquo;a commonly used and machine-readable format&rdquo;. Names such as SPDX or CycloneDX are examples people use. They are not mandated by the text opened here.</p>
+
+    <h2>Technical documentation, and a request rather than publication</h2>
+    <p>Article 31 says the technical documentation shall at least contain the elements set out in Annex VII. Annex VII, point 2(b), includes the software bill of materials among the specifications of the vulnerability handling processes. Article 13(13) says manufacturers shall keep the technical documentation and the EU declaration of conformity at the disposal of the market surveillance authorities for at least 10 years after the product has been placed on the market or for the support period, whichever is longer.</p>
+    <p>Article 13(22) says manufacturers shall, upon a reasoned request from a market surveillance authority, provide that authority with all the information and documentation necessary to demonstrate conformity. Annex VII, point 8, lists, where applicable, the software bill of materials further to a reasoned request from a market surveillance authority, provided it is necessary for that authority to check compliance with Annex I. Article 13(25) is a further request path: for a Union-wide dependency assessment, market surveillance authorities may request the relevant software bills of materials. Annex II, point 9, says that if the manufacturer decides to make the software bill of materials available to the user, the user information states where it can be accessed. That &ldquo;if&rdquo; is not a duty to publish the bill. Exporting the records you do keep is <a href="/guides/cra-export-record-packs-audit-evidence/">CRA record packs</a>.</p>
+
+    <h2>What this page is not</h2>
+    <ul>
+      <li>Not legal advice, a role determination, or an SBOM file for any product.</li>
+      <li>Not a claim that SPDX, CycloneDX, or another format is required. See Article 13(24) and any later implementing act.</li>
+      <li>Not the manufacturer article walkthrough. That URL is <a href="/guides/cra-manufacturer-obligations/">CRA manufacturer obligations</a>.</li>
+      <li>Not the application calendar. That URL is <a href="/guides/cyber-resilience-act-timeline/">the CRA timeline</a>.</li>
+    </ul>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/tools/cra-role-scope-self-check/">CRA role and scope self-check</a> &mdash; which articles to read</li>
+      <li><a href="/guides/cra-manufacturer-obligations/">CRA manufacturer obligations</a></li>
+      <li><a href="/guides/cyber-resilience-act-timeline/">Cyber Resilience Act timeline</a></li>
+      <li><a href="/guides/cra-export-record-packs-audit-evidence/">Export CRA record packs and audit evidence</a></li>
+      <li><a href="https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:02024R2847-20241120">Regulation (EU) 2024/2847 on EUR-Lex</a></li>
+      <li><a href="https://digital-strategy.ec.europa.eu/en/policies/cyber-resilience-act">Commission Cyber Resilience Act page</a></li>
+      <li><a href="https://digital-strategy.ec.europa.eu/en/policies/cra-summary">Commission summary of the legislative text</a></li>
+      <li><a href="https://apps.shopify.com/craledger-duty-records">CRALedger Duty Records</a> &mdash; live App Store listing</li>
+      <li><a href="/review/">Shopify apps hub</a></li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+    <p class="note">Not legal advice. Confirm Annex I Part II, Annex VII, and Article 13 on EUR-Lex, and the Commission pages, before you treat a file format as mandatory or an SBOM as something you must publish. The app tracks duty records you enter. It does not generate an SBOM or file a notification.</p>
+  </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/review/">Shopify apps hub</a></li>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>
