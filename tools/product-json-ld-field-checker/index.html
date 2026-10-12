@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Free product JSON-LD field checker: which fields do shopping agents and Google look for?</title>
+  <meta name="description" content="Paste a product&rsquo;s JSON-LD or product data and see which commonly needed fields are present or missing: name, description, image, price, currency, availability, brand, GTIN, shipping and return policy. Runs in your browser.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.ico">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Free product JSON-LD field checker: which fields do shopping agents and Google look for?">
+  <meta property="og:description" content="Paste a product&rsquo;s JSON-LD or product data and see which commonly needed fields are present or missing: name, description, image, price, currency, availability, brand, GTIN, shipping and return policy. Runs in your browser.">
+  <meta property="og:url" content="https://apify.momiji-space.com/tools/product-json-ld-field-checker/">
+  <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/e390016f3b8dd309f00b480bdb35cc95/icon/CMHlurDN5JQDEAE=.png">
+  <meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://apify.momiji-space.com/tools/product-json-ld-field-checker/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <style>
+    .tool{border:1px solid var(--line,#e4e2da);background:var(--bg-raised,#fff);border-radius:14px;padding:1.25rem;margin:1.5rem 0;box-shadow:0 1px 0 rgba(24,34,56,.04),0 12px 32px -18px rgba(24,34,56,.25)}
+    .tool h2{margin-top:0}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(11rem,1fr));gap:.9rem 1rem;margin:1rem 0}
+    .field label,.tool .lab{display:block;font-weight:600;font-size:.9rem;margin-bottom:.25rem}
+    .field input[type=text],.field input[type=number],.field select,.tool textarea{width:100%;font:inherit;padding:.5rem .6rem;border:1px solid #c9c6bb;border-radius:8px;background:#fff;color:inherit}
+    .field input:focus,.field select:focus,.tool textarea:focus,.tool button:focus-visible{outline:3px solid rgba(42,74,155,.35);outline-offset:1px}
+    .tool textarea{min-height:11rem;font-family:ui-monospace,Menlo,Consolas,monospace;box-sizing:border-box}
+    .checks{display:flex;flex-wrap:wrap;gap:.5rem 1.4rem;margin:.25rem 0 .5rem}
+    .checks label{font-weight:500;display:inline-flex;gap:.4rem;align-items:center}
+    .hint{font-size:.85rem;color:var(--muted,#4e586e);margin:.2rem 0 0}
+    .tool button{font:inherit;font-weight:600;padding:.55rem 1.1rem;border-radius:999px;border:1px solid var(--ink,#182238);background:var(--ink,#182238);color:#fff;cursor:pointer;margin:.6rem .5rem 0 0;transition:transform .15s ease,box-shadow .15s ease}
+    .tool button:hover{transform:translateY(-1px);box-shadow:0 6px 14px -8px rgba(24,34,56,.6)}
+    .tool button.alt{background:#fff;color:var(--ink,#182238)}
+    .tool table{width:100%;border-collapse:collapse;margin-top:1rem;font-size:.95rem}
+    .tool th,.tool td{border-bottom:1px solid var(--line,#e4e2da);text-align:left;padding:.45rem .5rem;vertical-align:top}
+    .tool td.v{font-family:ui-monospace,Menlo,Consolas,monospace;word-break:break-all}
+    .tag{display:inline-block;padding:.1rem .6rem;border-radius:999px;font-size:.85em;font-weight:700}
+    .t-ok{background:#e3f6e8;color:#14532d}.t-bad{background:#fde8e8;color:#8a1c1c}
+    #summary{margin-top:.9rem;font-weight:600}
+    #err{color:#8a1c1c;font-weight:600;margin:.4rem 0 0}
+    @media (prefers-reduced-motion:reduce){.tool button{transition:none}.tool button:hover{transform:none}}
+      .t-gen{background:#fff4d6;color:#6b4e00}.t-off{background:#e6edff;color:#1d3a8a}.t-lab{background:#eee;color:#333}
+    .tool td.s{font-size:.85rem;color:var(--muted,#4e586e)}
+  </style>
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://apify.momiji-space.com/"}, {"@type": "ListItem", "position": 2, "name": "Tools", "item": "https://apify.momiji-space.com/tools/"}, {"@type": "ListItem", "position": 3, "name": "Product JSON-LD field checker", "item": "https://apify.momiji-space.com/tools/product-json-ld-field-checker/"}]}
+  </script>
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Agentic Catalog by momiji", "url": "https://apps.shopify.com/agentic-catalog-readiness", "applicationCategory": "BusinessApplication", "operatingSystem": "Shopify", "image": "https://cdn.shopify.com/app-store/listing_images/e390016f3b8dd309f00b480bdb35cc95/icon/CMHlurDN5JQDEAE=.png"}
+  </script>
+</head>
+<body>
+  <header class="site"><div class="wrap bar"><a class="logo" href="/">momiji-space</a>
+    <nav><a href="/review/">Shopify apps</a><a href="/guides/agentic-catalog-readiness/">AI catalog readiness</a><a href="https://apps.shopify.com/agentic-catalog-readiness">Install</a></nav>
+  </div></header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / <a href="/tools/">Tools</a> / Product JSON-LD field checker</nav>
+    <p class="eyebrow">Free tool</p>
+    <h1>Product JSON-LD field checker</h1>
+    <p class="answer-first"><strong>Direct answer.</strong> Paste the Product JSON-LD from a product page (the contents of its <code>application/ld+json</code> script) or lines such as <code>title: Merino Wool Beanie</code> and <code>gtin: 4006381333931</code>. The page shows which fields that Google&rsquo;s merchant listing documentation and Merchant Center product data specification list as required or recommended are present or missing, each with a question to check. It does not decide eligibility for any search feature or AI agent. It runs in your browser and sends nothing anywhere.</p>
+    <p class="lede">This is a reading aid, not what any app checks. To check llms.txt and robots.txt rules for GPTBot, ClaudeBot and PerplexityBot, audit Product JSON-LD and Open Graph completeness on live product pages, and review policy, shipping, tax, domain and product data in one readiness score, try <strong>Agentic Catalog by momiji</strong> (<a href="https://apps.shopify.com/agentic-catalog-readiness">Shopify App Store</a>).</p>
+    <p><a class="cta" href="https://apps.shopify.com/agentic-catalog-readiness">Install Agentic Catalog by momiji</a></p>
+    <section class="tool" aria-labelledby="tool-h">
+      <h2 id="tool-h">Paste your product JSON-LD or data</h2>
+      <label class="lab" for="copy-in">Product JSON-LD or product data</label>
+      <textarea id="copy-in" spellcheck="false">&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "Merino Wool Beanie",
+  "image": ["https://example.com/beanie.jpg"],
+  "brand": {"@type": "Brand", "name": "Example Knits"},
+  "sku": "BEANIE-01",
+  "offers": {
+    "@type": "Offer",
+    "price": "29.00",
+    "priceCurrency": "EUR",
+    "availability": "https://schema.org/InStock"
+  }
+}
+&lt;/script&gt;</textarea>
+      <div><button type="button" id="run">Check the fields</button><button type="button" id="clear" class="alt">Clear text</button><button type="button" id="copy" class="alt">Copy results as text</button></div>
+      <p id="summary" role="status" aria-live="polite"></p>
+      <table id="out" hidden><thead><tr><th scope="col">Field or prompt</th><th scope="col">In your data?</th><th scope="col">Where to read and what to ask</th></tr></thead><tbody></tbody></table>
+    </section>
+    <p><a class="cta" href="https://apps.shopify.com/agentic-catalog-readiness">Install Agentic Catalog by momiji → JSON-LD and Open Graph audit</a></p>
+    <h2>Where the checks come from</h2>
+    <p>The rows follow Google Search Central&rsquo;s <a href="https://developers.google.com/search/docs/appearance/structured-data/merchant-listing" rel="noopener">merchant listing structured data</a> documentation (Product: name, image and offers required; description, brand.name, gtin, mpn and sku recommended; Offer: price and priceCurrency required, price above zero for merchant listings; availability, itemCondition, shippingDetails and hasMerchantReturnPolicy recommended, with store-wide shipping and return policies suggested under Organization markup), Google Merchant Center&rsquo;s <a href="https://support.google.com/merchants/answer/7052112" rel="noopener">product data specification</a> (title up to 150 characters, brand for new products, valid GTIN check digits, MPN when there is no GTIN, no &ldquo;N/A&rdquo; or &ldquo;Generic&rdquo; brands) and the <a href="https://schema.org/Product" rel="noopener">schema.org Product</a> and <a href="https://schema.org/Offer" rel="noopener">Offer</a> types.</p>
+    <p>The page reads one Product (or the first variant of a ProductGroup) from what you paste. It cannot see your live page, your feed settings or what Google or any AI agent actually does with the data, and requirements differ by country and product category. Read the guides on <a href="/guides/agentic-catalog-json-ld-open-graph-completeness/">Product JSON-LD and Open Graph completeness</a> and <a href="/guides/shopify-gtin-barcode-ai-shopping/">GTIN and barcodes for AI shopping</a>.</p>
+    <p><a class="cta" href="https://apps.shopify.com/agentic-catalog-readiness">Install Agentic Catalog by momiji on the Shopify App Store</a></p>
+    <h2>What this page is not</h2>
+    <ul>
+      <li>Not legal advice and not a statement that a product is or is not eligible for any listing.</li>
+      <li>Not what Agentic Catalog by momiji matches or checks; the app is what counts.</li>
+      <li>Not a check of your live page, crawler rules or Merchant Center account, and not a promise that any search engine or AI agent will show the product.</li>
+      <li>Not a data collector: text you paste stays in this browser tab. Nothing is sent or stored.</li>
+    </ul>
+    <h2>Related pages</h2>
+    <ul><li><a href="/guides/agentic-catalog-readiness/">Crawler rules and product JSON-LD for AI agents</a></li><li><a href="/guides/agentic-catalog-json-ld-open-graph-completeness/">Product JSON-LD and Open Graph completeness</a></li><li><a href="/guides/shopify-gtin-barcode-ai-shopping/">GTIN and barcodes for AI shopping agents</a></li><li><a href="/guides/agentic-catalog-policy-shipping-tax-domain/">Policy, shipping, tax and domain in the readiness score</a></li><li><a href="https://apps.shopify.com/agentic-catalog-readiness">Agentic Catalog by momiji</a></li></ul>
+    <p><a class="cta" href="https://apps.shopify.com/agentic-catalog-readiness">Install Agentic Catalog by momiji</a></p>
+  </main>
+  <footer class="site"><div class="wrap"><ul><li><a href="/review/">Shopify apps hub</a></li><li><a href="/tools/">Tools</a></li><li><a href="/">Home</a></li></ul></div></footer>
+  <script>
+  (function () {
+var EMPTY = 'Paste a product\u2019s JSON-LD or product data first.';
+var KIND = { seen: ['Present', 't-off'], gap: ['Missing', 't-gen'], ask: ['Also ask', 't-lab'] };
+function row(g, name, q) { return { g: g, cells: [{ t: name, cls: 'v' }, { t: KIND[g][0], tag: KIND[g][1] }, { t: q }] }; }
+var FEED = { id: 'sku', title: 'name', description: 'description', link: 'url', image_link: 'image', image: 'image', price: 'price', sale_price: 'price', availability: 'availability', brand: 'brand', gtin: 'gtin', barcode: 'gtin', mpn: 'mpn', sku: 'sku', condition: 'itemCondition', shipping: 'shippingDetails', return_policy: 'hasMerchantReturnPolicy', name: 'name', currency: 'priceCurrency', pricecurrency: 'priceCurrency' };
+function types(n) { var t = n && n['@type']; return (Array.isArray(t) ? t : [t]).map(function (x) { return String(x || '').replace(/^https?:\/\/schema\.org\//, ''); }); }
+function findProduct(v, depth) {
+  if (!v || typeof v !== 'object' || depth > 6) return null;
+  if (Array.isArray(v)) { for (var i = 0; i < v.length; i++) { var r = findProduct(v[i], depth + 1); if (r) return r; } return null; }
+  var ty = types(v);
+  if (ty.indexOf('Product') >= 0) return v;
+  if (ty.indexOf('ProductGroup') >= 0) { var hv = findProduct(v.hasVariant, depth + 1); if (hv) { var m = {}; for (var k in v) m[k] = v[k]; for (var k2 in hv) if (hv[k2] !== undefined) m[k2] = hv[k2]; m._group = true; return m; } return v; }
+  if (v['@graph']) return findProduct(v['@graph'], depth + 1);
+  return null;
+}
+function parseInput(raw) {
+  var s = raw.replace(/<script[^>]*>/gi, '\n').replace(/<\/script>/gi, '\n').trim(), blocks = [];
+  try { blocks.push(JSON.parse(s)); } catch (e) {
+    var depth = 0, start = -1, inStr = false, esc = false;
+    for (var i = 0; i < s.length; i++) {
+      var c = s[i];
+      if (inStr) { if (esc) esc = false; else if (c === '\\') esc = true; else if (c === '"') inStr = false; continue; }
+      if (c === '"') inStr = true; else if (c === '{') { if (depth === 0) start = i; depth++; } else if (c === '}' && depth > 0) { depth--; if (depth === 0) { try { blocks.push(JSON.parse(s.slice(start, i + 1))); } catch (e2) {} } }
+    }
+  }
+  if (blocks.length) { var p = findProduct(blocks, 0); return { mode: 'json', p: p, ok: !!p }; }
+  var o = {}, n = 0;
+  s.split(/\r?\n/).forEach(function (line) {
+    var m = line.match(/^\s*([A-Za-z_ ]{2,30}?)\s*(?::|\t|=)\s*(.+)$/); if (!m) return;
+    var k = m[1].trim().toLowerCase().replace(/\s+/g, '_'), key = FEED[k]; if (!key) return;
+    var val = m[2].trim();
+    if (key === 'price') { var pm = val.match(/([\d.,]+)\s*([A-Za-z]{3})?/); if (pm) { o.price = pm[1].replace(',', '.'); if (pm[2]) o.priceCurrency = pm[2].toUpperCase(); } }
+    else o[key] = val; n++;
+  });
+  if (!n) return { mode: 'none', ok: false };
+  var p = { name: o.name, description: o.description, image: o.image, brand: o.brand, gtin: o.gtin, mpn: o.mpn, sku: o.sku, offers: (o.price || o.availability || o.priceCurrency || o.shippingDetails || o.hasMerchantReturnPolicy || o.itemCondition) ? { '@type': 'Offer', price: o.price, priceCurrency: o.priceCurrency, availability: o.availability, itemCondition: o.itemCondition, shippingDetails: o.shippingDetails, hasMerchantReturnPolicy: o.hasMerchantReturnPolicy } : undefined };
+  return { mode: 'feed', p: p, ok: true };
+}
+function has(v) { if (v === undefined || v === null) return false; if (typeof v === 'string') return v.trim() !== ''; if (Array.isArray(v)) return v.some(has); return true; }
+function first(v) { return Array.isArray(v) ? v[0] : v; }
+function gtinCheck(g) { var d = String(g).replace(/[\s-]/g, ''); if (!/^\d+$/.test(d) || [8, 12, 13, 14].indexOf(d.length) < 0) return false; var s = 0; for (var i = d.length - 2, w = 3; i >= 0; i--, w = w === 3 ? 1 : 3) s += +d[i] * w; return (10 - s % 10) % 10 === +d[d.length - 1]; }
+var AV = ['BackOrder', 'Discontinued', 'InStock', 'InStoreOnly', 'LimitedAvailability', 'OnlineOnly', 'OutOfStock', 'PreOrder', 'PreSale', 'SoldOut'];
+var G = 'Google merchant listing structured data';
+function analyse(text) {
+  var raw = String(text || '').slice(0, 20000), rows = [];
+  if (!raw.trim()) return rows;
+  var r = parseInput(raw);
+  if (!r.ok) { rows.push(row('gap', 'Product found', r.mode === 'json' ? 'The JSON parsed, but no node with @type Product or ProductGroup was found. Is this the product\u2019s own JSON-LD block?' : 'No JSON and no \u201cfield: value\u201d lines were recognised. Paste the contents of the product\u2019s application/ld+json script, or lines such as \u201ctitle: \u2026\u201d and \u201cgtin: \u2026\u201d.')); return rows; }
+  var p = r.p, offers = p.offers, o = first(offers) || {}, ot = types(o);
+  if (o.offers && ot.indexOf('AggregateOffer') >= 0) { /* keep aggregate for the ask row */ }
+  var gt = ['gtin', 'gtin8', 'gtin12', 'gtin13', 'gtin14', 'isbn'].filter(function (k) { return has(p[k]); });
+  var price = has(o.price) ? o.price : (o.priceSpecification && first(o.priceSpecification).price);
+  var cur = has(o.priceCurrency) ? o.priceCurrency : (o.priceSpecification && first(o.priceSpecification).priceCurrency);
+  var brand = p.brand && typeof p.brand === 'object' ? first(p.brand).name : p.brand;
+  var F = [
+    ['Title / name', has(p.name), G + ' lists name as required; Merchant Center lists title (plain text, max 150 characters). Is it the product\u2019s own name, not the shop name?', G + ' lists name as required. Where is the product name?'],
+    ['Description', has(p.description), 'Google calls description strongly recommended; Merchant Center limits it to 5000 characters of plain text. Does it describe this product?', 'Google: the description is not mandatory but strongly recommended. Can you add the product description?'],
+    ['Image', has(p.image), G + ' lists image as required; image URLs must be crawlable and indexable and represent the product. Can Google fetch these URLs?', G + ' lists image as required. Which product photo URL should go here?'],
+    ['Offer', has(offers), 'Merchant listings need a nested Offer (an AggregateOffer is accepted only for product snippets). Is the shop the seller of this offer?', G + ' lists offers as required. Is the Offer block missing from the markup?'],
+    ['Price', has(price), 'Price is required; merchant listings require a price greater than zero. Does it match the price on the page?', 'Price (offers.price or priceSpecification.price) is required. Where is the active price?'],
+    ['Currency', has(cur), 'priceCurrency is required when price is given, in three-letter ISO 4217 format. Is it the currency shown on the page?', 'priceCurrency is required when a price is given (three-letter ISO 4217, for example EUR). Which currency?'],
+    ['Availability', has(o.availability), 'Recommended. Google accepts one schema.org ItemAvailability value, for example InStock or OutOfStock. Does it match the stock shown?', 'Recommended by Google and required in Merchant Center. Which ItemAvailability value applies, for example InStock?'],
+    ['Brand', has(brand), 'Recommended by Google as brand.name (at most one). Merchant Center asks for brand for new products, except some media. Is it the brand shoppers recognise?', 'Google recommends brand.name; Merchant Center requires brand for all new products except movies, books and musical recordings. Does this product have a brand?'],
+    ['GTIN or other global identifier', gt.length > 0, 'Google: include all applicable global identifiers, in numerical form. Is the value the manufacturer\u2019s GTIN?', 'Google recommends gtin (or gtin8/12/13/14, isbn) where one exists; Merchant Center says products with a GTIN submitted without one may have limited visibility, but never guess one. Does this product have a GTIN?'],
+    ['MPN or SKU', has(p.mpn) || has(p.sku), 'mpn and sku are recommended. Merchant Center asks for an MPN only if the product has no manufacturer-assigned GTIN. Is the MPN the manufacturer\u2019s, not your own code?', 'Merchant Center requires an MPN only when the product has no manufacturer GTIN; sku is your own identifier. Which applies?'],
+    ['Shipping details', has(o.shippingDetails), 'shippingDetails on the Offer is recommended; Google suggests a store-wide shipping policy under Organization markup and the offer-level one only to override it. Is this an override?', 'Recommended. Google suggests a store-wide shipping policy under Organization markup instead; Merchant Center requires shipping costs for many countries. Where is your shipping policy marked up?'],
+    ['Return policy', has(o.hasMerchantReturnPolicy), 'hasMerchantReturnPolicy is recommended; Google suggests a store-wide return policy under Organization markup and the offer-level one only to override it. Is this an override?', 'Recommended. Google suggests a store-wide return policy under Organization markup instead. Where is your return policy marked up?']
+  ];
+  F.forEach(function (f) { rows.push(row(f[1] ? 'seen' : 'gap', f[0], f[1] ? f[2] : f[3])); });
+  var ask = function (n, q) { rows.push(row('ask', n, q)); };
+  if (r.mode === 'feed') ask('Read as feed lines', 'Your text was read as \u201cfield: value\u201d lines, not JSON-LD. Does the product page also carry Product JSON-LD with the same values?');
+  if (p._group) ask('ProductGroup', 'This is a ProductGroup; the rows read the first variant in hasVariant together with the group. Do all variants carry their own offer, price and identifiers?');
+  if (ot.indexOf('AggregateOffer') >= 0) ask('AggregateOffer', 'Google: product snippets accept an AggregateOffer, but merchant listings require an Offer. Which do you need?');
+  if (has(price) && !(parseFloat(String(price).replace(',', '.')) > 0)) ask('Price of zero', 'Unlike product snippets, merchant listing experiences require a price greater than zero. Is the price really zero?');
+  if (has(cur) && !/^[A-Z]{3}$/.test(String(cur).trim())) ask('Currency format', 'priceCurrency is expected in three-letter ISO 4217 format, for example EUR or USD. Is \u201c' + cur + '\u201d that?');
+  if (has(o.availability)) { var av = (Array.isArray(o.availability) ? o.availability : [o.availability]); if (av.length > 1) ask('More than one availability', 'Google: don\u2019t specify more than one availability value. Which one is current?'); else if (AV.indexOf(String(av[0]).replace(/^https?:\/\/schema\.org\//, '')) < 0) ask('Availability value', 'Google lists these ItemAvailability values: ' + AV.join(', ') + '. Is \u201c' + av[0] + '\u201d one of them?'); }
+  gt.forEach(function (k) { var v = String(first(p[k])); if (/^https?:/.test(v)) ask('GTIN as URL', 'Google wants the GTIN in numerical form and does not support the URL form. Can you give the digits only?'); else if (k !== 'isbn' && !gtinCheck(v)) ask('GTIN check digit', 'Merchant Center asks for valid GTINs (8, 12, 13 or 14 digits) with a correct check digit. \u201c' + v + '\u201d does not pass the GS1 check digit calculation here. Is it the right number?'); });
+  if (has(brand) && /^(n\/?a|generic|no brand|does not exist|none|unbranded)$/i.test(String(brand).trim())) ask('Brand placeholder', 'Merchant Center: don\u2019t submit values such as \u201cN/A\u201d, \u201cGeneric\u201d, \u201cNo brand\u201d or \u201cDoes not exist\u201d; leave brand empty for products that truly have no brand. Does this one?');
+  if (has(o.priceValidUntil) && !isNaN(Date.parse(o.priceValidUntil)) && Date.parse(o.priceValidUntil) < Date.now()) ask('priceValidUntil in the past', 'Google: your listing may not display if priceValidUntil is a past date. Is the date still right?');
+  if (has(p.sku) && /\s/.test(String(p.sku))) ask('SKU with spaces', 'Google: the sku value must not contain whitespace characters. Can you remove them?');
+  return rows;
+}
+function summarise(rows) {
+  if (!rows.length) return EMPTY;
+  var n = { seen: 0, gap: 0, ask: 0 };
+  rows.forEach(function (r) { n[r.g]++; });
+  return n.seen + ' present, ' + n.gap + ' missing, ' + n.ask + ' more questions. Each row is a question to check against the Google and schema.org documentation, not a verdict on eligibility.';
+}
+
+    var $ = function (id) { return document.getElementById(id); };
+    var out = $('out'), body = out.querySelector('tbody'), sum = $('summary'), last = [];
+    function run() {
+      body.textContent = ''; last = [];
+      var text = $('copy-in').value.slice(0, 20000), rows = analyse(text);
+      rows.forEach(function (r) {
+        var tr = document.createElement('tr');
+        r.cells.forEach(function (c) { var td = document.createElement('td'); if (c.tag) { var s = document.createElement('span'); s.className = 'tag ' + c.tag; s.textContent = c.t; td.appendChild(s); } else { td.textContent = c.t; if (c.cls) td.className = c.cls; } tr.appendChild(td); });
+        body.appendChild(tr); last.push(r.cells.map(function (c) { return c.t; }).join('\t'));
+      });
+      out.hidden = rows.length === 0;
+      sum.textContent = !text.trim() ? 'Paste product JSON-LD or data first.' : summarise(rows);
+    }
+    $('run').addEventListener('click', run);
+    $('clear').addEventListener('click', function () { $('copy-in').value = ''; body.textContent = ''; out.hidden = true; sum.textContent = ''; last = []; });
+    $('copy').addEventListener('click', function () { if (navigator.clipboard && last.length) navigator.clipboard.writeText(last.join('\n')); });
+    run();
+  })();
+  </script>
+</body>
+</html>

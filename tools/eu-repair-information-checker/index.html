@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Free EU repair information checker: what does your repair policy say? (Directive 2024/1799)</title>
+  <meta name="description" content="Paste a repair policy or product page and see which European Repair Information Form conditions and right-to-repair points of Directive (EU) 2024/1799 it mentions or lacks. Questions only. Runs in your browser.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.ico">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Free EU repair information checker: what does your repair policy say? (Directive 2024/1799)">
+  <meta property="og:description" content="Paste a repair policy or product page and see which European Repair Information Form conditions and right-to-repair points of Directive (EU) 2024/1799 it mentions or lacks. Questions only. Runs in your browser.">
+  <meta property="og:url" content="https://apify.momiji-space.com/tools/eu-repair-information-checker/">
+  <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/b0ccc2924b60059ae28b7f6d85bca13f/icon/CPjira-8yJUDEAE=.png">
+  <meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://apify.momiji-space.com/tools/eu-repair-information-checker/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <style>
+    .tool{border:1px solid var(--line,#e4e2da);background:var(--bg-raised,#fff);border-radius:14px;padding:1.25rem;margin:1.5rem 0;box-shadow:0 1px 0 rgba(24,34,56,.04),0 12px 32px -18px rgba(24,34,56,.25)}
+    .tool h2{margin-top:0}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(11rem,1fr));gap:.9rem 1rem;margin:1rem 0}
+    .field label,.tool .lab{display:block;font-weight:600;font-size:.9rem;margin-bottom:.25rem}
+    .field input[type=text],.field input[type=number],.field select,.tool textarea{width:100%;font:inherit;padding:.5rem .6rem;border:1px solid #c9c6bb;border-radius:8px;background:#fff;color:inherit}
+    .field input:focus,.field select:focus,.tool textarea:focus,.tool button:focus-visible{outline:3px solid rgba(42,74,155,.35);outline-offset:1px}
+    .tool textarea{min-height:11rem;font-family:ui-monospace,Menlo,Consolas,monospace;box-sizing:border-box}
+    .checks{display:flex;flex-wrap:wrap;gap:.5rem 1.4rem;margin:.25rem 0 .5rem}
+    .checks label{font-weight:500;display:inline-flex;gap:.4rem;align-items:center}
+    .hint{font-size:.85rem;color:var(--muted,#4e586e);margin:.2rem 0 0}
+    .tool button{font:inherit;font-weight:600;padding:.55rem 1.1rem;border-radius:999px;border:1px solid var(--ink,#182238);background:var(--ink,#182238);color:#fff;cursor:pointer;margin:.6rem .5rem 0 0;transition:transform .15s ease,box-shadow .15s ease}
+    .tool button:hover{transform:translateY(-1px);box-shadow:0 6px 14px -8px rgba(24,34,56,.6)}
+    .tool button.alt{background:#fff;color:var(--ink,#182238)}
+    .tool table{width:100%;border-collapse:collapse;margin-top:1rem;font-size:.95rem}
+    .tool th,.tool td{border-bottom:1px solid var(--line,#e4e2da);text-align:left;padding:.45rem .5rem;vertical-align:top}
+    .tool td.v{font-family:ui-monospace,Menlo,Consolas,monospace;word-break:break-all}
+    .tag{display:inline-block;padding:.1rem .6rem;border-radius:999px;font-size:.85em;font-weight:700}
+    .t-ok{background:#e3f6e8;color:#14532d}.t-bad{background:#fde8e8;color:#8a1c1c}
+    #summary{margin-top:.9rem;font-weight:600}
+    #err{color:#8a1c1c;font-weight:600;margin:.4rem 0 0}
+    @media (prefers-reduced-motion:reduce){.tool button{transition:none}.tool button:hover{transform:none}}
+      .t-gen{background:#fff4d6;color:#6b4e00}.t-off{background:#e6edff;color:#1d3a8a}.t-lab{background:#eee;color:#333}
+    .tool td.s{font-size:.85rem;color:var(--muted,#4e586e)}
+  </style>
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://apify.momiji-space.com/"}, {"@type": "ListItem", "position": 2, "name": "Tools", "item": "https://apify.momiji-space.com/tools/"}, {"@type": "ListItem", "position": 3, "name": "EU repair information checker", "item": "https://apify.momiji-space.com/tools/eu-repair-information-checker/"}]}
+  </script>
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "RepairProof EU", "url": "https://apps.shopify.com/repairproof-eu", "applicationCategory": "BusinessApplication", "operatingSystem": "Shopify", "image": "https://cdn.shopify.com/app-store/listing_images/b0ccc2924b60059ae28b7f6d85bca13f/icon/CPjira-8yJUDEAE=.png"}
+  </script>
+</head>
+<body>
+  <header class="site"><div class="wrap bar"><a class="logo" href="/">momiji-space</a>
+    <nav><a href="/review/">Shopify apps</a><a href="/guides/repair-proof-eu-right-to-repair/">EU right to repair</a><a href="https://apps.shopify.com/repairproof-eu">Install</a></nav>
+  </div></header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / <a href="/tools/">Tools</a> / EU repair information checker</nav>
+    <p class="eyebrow">Free tool</p>
+    <h1>EU repair information checker</h1>
+    <p class="answer-first"><strong>Direct answer.</strong> Paste your repair policy or a product page, for example <code>Repairs are carried out by Example Repair GmbH, Hauptstra&szlig;e 1, 10115 Berlin. Quotes are valid for 30 days. Typical turnaround 5 working days.</code>. The page shows which conditions of the European Repair Information Form in Article 4(4) of Directive (EU) 2024/1799 your text seems to mention and which it does not, plus questions on the obligation to repair and the legal guarantee, each as a question to check. It does not say whether your policy complies. It runs in your browser and sends nothing anywhere.</p>
+    <p class="lede">This is a reading aid, not legal advice and not what any app checks. To verify purchases before accepting repair requests, issue revision-linked repair forms with checksums, and track diagnosis, quote, repair, return and closure, try <strong>RepairProof EU</strong> (<a href="https://apps.shopify.com/repairproof-eu">Shopify App Store</a>).</p>
+    <p><a class="cta" href="https://apps.shopify.com/repairproof-eu">Install RepairProof EU</a></p>
+    <section class="tool" aria-labelledby="tool-h">
+      <h2 id="tool-h">Paste your repair policy or product page text</h2>
+      <label class="lab" for="copy-in">Repair policy or product page text</label>
+      <textarea id="copy-in" spellcheck="false">Smartphone repair service
+Repairs are carried out by Example Repair GmbH, Hauptstrasse 1, 10115 Berlin.
+Phone +49 30 1234567, email repairs@example.com
+Send your phone with our prepaid return label. Typical turnaround 5 working days.
+After diagnosis we send a quote with the maximum price. Quotes are valid for 30 days.
+Repairs by third parties void the warranty.</textarea>
+      <div><button type="button" id="run">Check the repair information</button><button type="button" id="clear" class="alt">Clear text</button><button type="button" id="copy" class="alt">Copy results as text</button></div>
+      <p id="summary" role="status" aria-live="polite"></p>
+      <table id="out" hidden><thead><tr><th scope="col">Repair information or prompt</th><th scope="col">In your text?</th><th scope="col">Where to read and what to ask</th></tr></thead><tbody></tbody></table>
+    </section>
+    <p><a class="cta" href="https://apps.shopify.com/repairproof-eu">Install RepairProof EU → repair forms and request tracking</a></p>
+    <h2>Where the questions come from</h2>
+    <p>The first rows follow the conditions of repair that the European Repair Information Form must specify under Article 4(4)(a) to (j) of Directive (EU) 2024/1799 on common rules promoting the repair of goods (the form itself is in Annex I), plus Article 4(2) and (3) on the form being free of charge and on diagnostic costs, and Article 4(5) on the 30 calendar days the conditions may not change. The product-category prompts come from the ten points of Annex II (goods with Union repairability requirements), which decide where the Article 5 obligation to repair and the Article 6 information duty apply. The other prompts come from Article 5(4) to (8) on spare parts, indicative prices, practices that impede repair and the consumer&rsquo;s choice of repairer, from Article 16, which amends Directive (EU) 2019/771 on the legal guarantee (right to choose repair or replacement, a one-time 12-month extension of the liability period when goods are repaired), and from Articles 21 and 22 (national measures apply from 31 July 2026).</p>
+    <p>The page looks for words in what you paste. It cannot tell whether you are the manufacturer, the seller or the repairer, or whether a product is covered; the facts and your national law decide that. Annex II can be updated by delegated acts (Article 5(9)), so check for later changes. Read <a href="https://eur-lex.europa.eu/eli/dir/2024/1799/oj" rel="noopener">Directive (EU) 2024/1799 on EUR-Lex</a> and the guides on <a href="/guides/repair-proof-eu-right-to-repair/">EU right-to-repair proof</a> and <a href="/guides/shopify-repair-request-tracking-diagnosis-quote-return/">tracking repair requests</a>.</p>
+    <p><a class="cta" href="https://apps.shopify.com/repairproof-eu">Install RepairProof EU on the Shopify App Store</a></p>
+    <h2>What this page is not</h2>
+    <ul>
+      <li>Not legal advice and not a statement that your policy or service does or does not comply.</li>
+      <li>Not what RepairProof EU matches or checks; the app is what counts.</li>
+      <li>Not a check of your national law, your contracts or the Annex I form layout, and not a decision on who must repair.</li>
+      <li>Not a data collector: text you paste stays in this browser tab. Nothing is sent or stored.</li>
+    </ul>
+    <h2>Related pages</h2>
+    <ul><li><a href="/guides/repair-proof-eu-right-to-repair/">EU right-to-repair proof needs revision-linked forms</a></li><li><a href="/guides/repairproof-verify-purchase-before-repair/">Verify the purchase before accepting a repair request</a></li><li><a href="/guides/shopify-repair-request-tracking-diagnosis-quote-return/">Track repair requests from diagnosis to closure</a></li><li><a href="/guides/repairproof-redacted-repair-records/">Redacted repair records from intake through return</a></li><li><a href="https://apps.shopify.com/repairproof-eu">RepairProof EU</a></li></ul>
+    <p><a class="cta" href="https://apps.shopify.com/repairproof-eu">Install RepairProof EU</a></p>
+  </main>
+  <footer class="site"><div class="wrap"><ul><li><a href="/review/">Shopify apps hub</a></li><li><a href="/tools/">Tools</a></li><li><a href="/">Home</a></li></ul></div></footer>
+  <script>
+  (function () {
+var EMPTY = 'Paste your repair policy or product page text first.';
+var ELEMS = [
+  ['Repairer identity (Art 4(4)(a))', /\b(ltd|limited|gmbh|ag|b\.v\.|bv|s\.a\.|sas|sarl|s\.r\.l\.|srl|oy|ab|aps|a\/s|inc|llc|plc|kft|s\.l\.|e\.k\.|ug)\b|\b(repairs? (are )?(carried out|performed|done) by|repairer|repair (centres?|centers?|partners?|service providers?)|service (centres?|centers?))\b/, 'Article 4(4)(a): the European Repair Information Form names the identity of the repairer. Is it clear who actually performs the repair?', 'Article 4(4)(a): the European Repair Information Form names the identity of the repairer. Who performs the repair, and is that named?'],
+  ['Repairer address (Art 4(4)(b))', /\b(street|st\.|road|rd\.|avenue|ave\.|lane|stra(ss|\u00df)e|str\.|platz|weg|rue|via|calle|plaza|laan|gade|vej|unit \d|industrial estate)\b|\b[a-z]{1,2}\d{1,2}[a-z]?\s\d[a-z]{2}\b|\b\d{4,5}\s+(?!days?\b|eur\b|ml\b|g\b)[a-z\u00e0-\u00ff]{3,}/, 'Article 4(4)(b): the geographical address at which the repairer is established. Is it a full postal address of the repairer?', 'Article 4(4)(b): the geographical address at which the repairer is established. No street word or postcode was found. Where is the address?'],
+  ['Repairer telephone (Art 4(4)(b))', /(\+|\b00)\s?\d{1,3}[\s\d().\/-]{6,}\d|\b(tel|tel\.|phone|telephone|call us)\b/, 'Article 4(4)(b): the repairer\u2019s telephone number. Is it the repairer\u2019s own number?', 'Article 4(4)(b): the repairer\u2019s telephone number. Is a phone number given?'],
+  ['Repairer email (Art 4(4)(b))', /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}|\be-?mail\b/, 'Article 4(4)(b): the repairer\u2019s email address, and other online contact means if available. Is it an address the consumer can actually write to?', 'Article 4(4)(b): the repairer\u2019s email address. Is an email address given?'],
+  ['Defect and type of repair (Art 4(4)(c)(d))', /\b(defect|fault|faulty|broken|damage|diagnos\w*|not working|replace(ment)? (of )?(the )?(screen|battery|part)|repair type|type of repair)\b/, 'Article 4(4)(c) and (d): the good to be repaired, the nature of the defect and the type of repair suggested. Does the form you send describe these for each request?', 'Article 4(4)(c) and (d): the good to be repaired, the nature of the defect and the type of repair suggested. Where do you describe them?'],
+  ['Price or maximum price (Art 4(4)(e))', /(\u20ac|\beur\b|\u00a3|\bgbp\b|\$)\s?\d|\d\s?(\u20ac|eur\b)|\b(price|cost|fee|quote|estimate|maximum|max\.|up to)\b/, 'Article 4(4)(e): the price or, if it cannot reasonably be calculated in advance, how it is calculated and the maximum price. Is a maximum stated when the price is open?', 'Article 4(4)(e): the price, or how it is calculated and the maximum price. Where is the price information?'],
+  ['Time to complete (Art 4(4)(f))', /\b\d+\s?(-\s?\d+\s?)?(working |business )?(days?|weeks?|hours?)\b|\bturnaround\b|\bwithin a week\b/, 'Article 4(4)(f): the time needed to complete the repair. Is it a time you undertake, per request?', 'Article 4(4)(f): the time needed to complete the repair. Is a repair time stated?'],
+  ['Temporary replacement (Art 4(4)(g))', /\b(loan(er)?|temporary (replacement|device|unit)|replacement (device|unit|good) (during|while)|courtesy (device|unit|phone))\b/, 'Article 4(4)(g): the availability of temporary replacement goods and their costs, if any. Are both stated?', 'Article 4(4)(g): the availability of temporary replacement goods during the repair and their costs, if any. Yes or no, and at what cost?'],
+  ['Hand-over place (Art 4(4)(h))', /\b(drop[- ]?off|hand (it )?over|bring (it|your)|send (it|your|the)|ship (it|your|the)|post (it|your)|mail (it|your)|return label|in[- ]store|collection point|pick[- ]?up)\b/, 'Article 4(4)(h): the place where the consumer hands over the good for repair. Is the place clear?', 'Article 4(4)(h): the place where the consumer hands over the good for repair. Where does the customer send or bring it?'],
+  ['Ancillary services (Art 4(4)(i))', /\b(shipping|transport|courier|collection|removal|installation|postage|delivery)\b/, 'Article 4(4)(i): where applicable, ancillary services such as removal, installation and transportation, and their detailed costs. Are the costs given per service?', 'Article 4(4)(i): where applicable, ancillary services such as removal, installation and transportation and their costs. Do you offer any, and at what cost?'],
+  ['Validity of the form (Art 4(4)(j), 4(5))', /\bvalid (for|until)\b|\bvalidity\b|\bquote (is )?valid\b|\b30 (calendar )?days\b/, 'Article 4(5): the repairer may not alter the conditions in the form for 30 calendar days from when it was provided, unless a longer period is agreed. Is your validity period at least that?', 'Article 4(4)(j) and 4(5): the form states its period of validity, and the conditions may not change for 30 calendar days. Is a validity period stated?'],
+  ['Diagnostic cost (Art 4(3))', /\b(diagnos\w*|inspection|assessment|examination) (fee|cost|charge)\b|\b(fee|charge|cost) for (the )?(diagnos\w*|inspection|assessment)\b/, 'Article 4(2) and (3): the form itself is free of charge, but the repairer may ask the consumer to pay the necessary costs of a diagnostic service, and must tell the consumer about those costs. Is the diagnostic cost stated before the customer commits?', 'Article 4(3): if a diagnostic service is needed to identify the defect and estimate the price, the repairer may charge its necessary costs and must inform the consumer of them. Do you charge for diagnosis, and is that said?']
+];
+var CATS = [
+  ['washing machines and washer-dryers (Annex II point 1)', /\bwashing machines?\b|\bwasher[- ]dryers?\b/],
+  ['dishwashers (point 2)', /\bdishwashers?\b/],
+  ['refrigerating appliances (point 3)', /\bfridges?\b|\brefrigerat\w*|\bfreezers?\b/],
+  ['electronic displays (point 4)', /\b(monitors?|televisions?|tvs?|electronic displays?)\b/],
+  ['welding equipment (point 5)', /\bweld\w*/],
+  ['vacuum cleaners (point 6)', /\bvacuum(s| cleaners?)?\b|\bhoover\b/],
+  ['servers and data storage products (point 7)', /\bservers?\b|\bdata storage\b|\bnas\b/],
+  ['mobile phones, cordless phones and slate tablets (point 8)', /\b(smart ?phones?|mobile phones?|cordless phones?|tablets?|iphone|ipad)\b/],
+  ['household tumble dryers (point 9)', /\btumble[- ]dryers?\b/],
+  ['goods with light means of transport batteries (point 10)', /\be-?bikes?\b|\be-?scooters?\b|\belectric (bikes?|bicycles?|scooters?)\b|\bpedelecs?\b/]
+];
+function EXTRA(t) {
+  var out = [];
+  CATS.forEach(function (c) {
+    if (c[1].test(t)) out.push(row('ask', 'Annex II: ' + c[0], 'Annex II lists Union acts with repairability requirements for ' + c[0] + '. For these goods Article 5 makes the manufacturer (or, outside the Union, the authorised representative, importer or distributor) repair on request, and Article 6 asks for information on those repair services free of charge. Who is that for this product, and where is the information?'));
+  });
+  return out;
+}
+var ASKS = [
+  ['Repair only by you or authorised partners', function (t) { return /\b(only|exclusively) (by )?(us|our|authori[sz]ed)|unauthori[sz]ed repair|void(s|ed)? (the |your )?(warranty|guarantee)|third[- ]party (repair|parts)|non[- ]original parts\b/.test(t); }, 'Article 5(6) and (7): for goods in Annex II, manufacturers shall not use contractual clauses, hardware or software techniques that impede repair unless justified, and shall not refuse repair only because someone else repaired the good before. Article 5(8): consumers may choose any repairer. Does this wording fit those rules for the goods it covers?'],
+  ['Spare parts and tools', function (t) { return /\bspare parts?\b|\breplacement parts?\b|\btools?\b/.test(t); }, 'Article 5(4): manufacturers that make spare parts and tools available for Annex II goods offer them at a reasonable price that does not deter repair. Does that apply to you as manufacturer?'],
+  ['Indicative repair prices', function (t) { return /\b(price list|indicative|typical repair|standard repair price)\b/.test(t); }, 'Article 5(5): whoever has the Article 5 obligation lets consumers see indicative prices for typical repairs on a free access website. Is that where this list sits?'],
+  ['Refurbished good instead', function (t) { return /\brefurbish\w*/.test(t); }, 'Article 5(2)(d): where repair is impossible, the manufacturer may offer a refurbished good. Under the amended Directive (EU) 2019/771, a refurbished replacement to fulfil the seller\u2019s duty to replace is at the consumer\u2019s explicit request. Which situation is this?'],
+  ['Repair under the legal guarantee', function (t) { return /\b(warranty|guarantee|guaranty|lack of conformity|defective on arrival)\b/.test(t); }, 'Article 16 amends Directive (EU) 2019/771 for sales contracts concluded from 31 July 2026: before giving a remedy the seller informs the consumer of the right to choose between repair and replacement and of the possible extension of the liability period; where repair is the remedy, that period is extended once by 12 months (Article 10(2a), with a national derogation in 10(5a)). Does your policy say this?'],
+  ['Which national law applies', function () { return true; }, 'Article 22: Member States apply their transposing measures from 31 July 2026, and Article 15 leaves penalties to them. Which Member States do you sell to, and have you read their national rules?'],
+  ['Repair form on a durable medium', function () { return true; }, 'Article 4(1) and (2): repairers may give the European Repair Information Form (Annex I) on a durable medium, free of charge, before the consumer is bound by a repair contract. Article 4(6): a complete and accurate form counts towards certain information duties. Do you use the form, and how is it sent?']
+];
+var KIND = { seen: ['Seen in your text', 't-off'], gap: ['Not seen in your text', 't-gen'], ask: ['Also ask', 't-lab'] };
+function row(g, name, q) { return { g: g, cells: [{ t: name, cls: 'v' }, { t: KIND[g][0], tag: KIND[g][1] }, { t: q }] }; }
+function analyse(text) {
+  var raw = String(text || '').slice(0, 20000), t = raw.toLowerCase().replace(/\u2019/g, "'"), rows = [];
+  if (!t.trim()) return rows;
+  ELEMS.forEach(function (e) {
+    var hit = typeof e[1] === 'function' ? e[1](t, raw) : e[1].test(t);
+    rows.push(row(hit ? 'seen' : 'gap', e[0], hit ? e[2] : e[3]));
+  });
+  if (typeof EXTRA === 'function') EXTRA(t, raw).forEach(function (r) { rows.push(r); });
+  ASKS.forEach(function (a) { var r = a[1](t, raw); if (r) rows.push(row('ask', a[0], typeof r === 'string' ? r : a[2])); });
+  return rows;
+}
+function summarise(rows) {
+  if (!rows.length) return EMPTY;
+  var n = { seen: 0, gap: 0, ask: 0 };
+  rows.forEach(function (r) { n[r.g]++; });
+  return n.seen + ' seen in your text, ' + n.gap + ' not seen, ' + n.ask + ' more questions. Each row is a question to check against the regulation, not an answer.';
+}
+
+    var $ = function (id) { return document.getElementById(id); };
+    var out = $('out'), body = out.querySelector('tbody'), sum = $('summary'), last = [];
+    function run() {
+      body.textContent = ''; last = [];
+      var text = $('copy-in').value.slice(0, 20000), rows = analyse(text);
+      rows.forEach(function (r) {
+        var tr = document.createElement('tr');
+        r.cells.forEach(function (c) { var td = document.createElement('td'); if (c.tag) { var s = document.createElement('span'); s.className = 'tag ' + c.tag; s.textContent = c.t; td.appendChild(s); } else { td.textContent = c.t; if (c.cls) td.className = c.cls; } tr.appendChild(td); });
+        body.appendChild(tr); last.push(r.cells.map(function (c) { return c.t; }).join('\t'));
+      });
+      out.hidden = rows.length === 0;
+      sum.textContent = !text.trim() ? 'Paste your repair policy text first.' : summarise(rows);
+    }
+    $('run').addEventListener('click', run);
+    $('clear').addEventListener('click', function () { $('copy-in').value = ''; body.textContent = ''; out.hidden = true; sum.textContent = ''; last = []; });
+    $('copy').addEventListener('click', function () { if (navigator.clipboard && last.length) navigator.clipboard.writeText(last.join('\n')); });
+    run();
+  })();
+  </script>
+</body>
+</html>
