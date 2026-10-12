@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shopify collaborator permissions: roles, the request code, and the user limit</title>
+  <meta name="description" content="Shopify Help Center says collaborators are Partners you allow in with a 4-digit request code. You approve a role before access, and you can change that role later. Collaborators don’t count towards the store’s user limit. Not legal advice.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Shopify collaborator permissions: roles, the request code, and the user limit">
+  <meta property="og:description" content="Shopify Help Center says collaborators are Partners you allow in with a 4-digit request code. You approve a role before access, and you can change that role later. Collaborators don’t count towards the store’s user limit. Not legal advice.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/shopify-collaborator-permissions/">
+  <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/9ea3a49e539bec70dcd6abb7cc7f4746/promotional_image/CL_Eloyu9ZQDEAE=.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Shopify collaborator permissions: roles, the request code, and the user limit">
+  <meta name="twitter:description" content="Shopify Help Center says collaborators are Partners you allow in with a 4-digit request code. You approve a role before access, and you can change that role later. Collaborators don’t count towards the store’s user limit. Not legal advice.">
+  <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/9ea3a49e539bec70dcd6abb7cc7f4746/promotional_image/CL_Eloyu9ZQDEAE=.png">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/shopify-collaborator-permissions/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://apify.momiji-space.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Shopify collaborator permissions",
+        "item": "https://apify.momiji-space.com/guides/shopify-collaborator-permissions/"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Staff Access Audit Guard",
+    "url": "https://apps.shopify.com/momiji-access-audit",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Shopify",
+    "image": "https://cdn.shopify.com/app-store/listing_images/9ea3a49e539bec70dcd6abb7cc7f4746/icon/CLqU3dXo9JQDEAE=.png"
+  }
+  </script>
+</head>
+<body>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/review/">Shopify apps</a>
+        <a href="/guides/shopify-collaborator-permissions/" aria-current="page">Collaborator permissions</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / <a href="/guides/">Guides</a> / Shopify collaborator permissions</nav>
+    <p class="eyebrow">Shopify collaborator permissions</p>
+    <h1>Collaborator permissions are a role you approve. Help Center says they don’t count towards the user limit</h1>
+    <p class="answer-first"><strong>Direct answer.</strong> <a href="https://help.shopify.com/en/manual/your-account/users/security/collaborator-accounts">Shopify Help Center</a> says collaborators are Shopify Partners you have allowed to access your store or organization. They are similar to regular user accounts. You must give the Partner a 4-digit request code, and the Partner must enter that code when they submit a request. Only Partners you share the code with can request access. To accept the request, the collaborator must have an assigned user role. Before you accept, you can review and edit permissions on the auto-generated role, assign one or more existing roles, or create a new role. After the collaborator is added, you can change the assigned role using the same steps as managing roles for other users. Help Center says collaborators don&rsquo;t count towards your store&rsquo;s user limit. A staff account is a user you create and assign roles to, on <a href="https://help.shopify.com/en/manual/your-account/users">Managing users</a> and <a href="https://help.shopify.com/en/manual/your-account/staff-accounts/create-staff-accounts">Inviting users</a>. How the two account types differ is <a href="/guides/shopify-collaborator-vs-staff/">collaborator vs staff</a>. This page does not name subscriptions.</p>
+    <p class="lede"><strong>Staff Access Audit Guard</strong> (<a href="https://apps.shopify.com/momiji-access-audit">Shopify App Store</a>) classifies each granted app scope, flags protected customer-data and broad-write access, and tracks staff and collaborator access. The listing does not say the app approves a collaborator request, edits a role, or removes a user. The request-code steps are <a href="/guides/shopify-collaborator-request-code/">the request-code guide</a>.</p>
+    <p><strong>Free check first:</strong> <a href="/tools/app-scope-access-reader/">App access scope reader</a> runs in your browser and sends nothing. Paste an app&rsquo;s access scopes and see which touch customer data or can write.</p>
+
+    <h2>Checklist before you accept the permissions</h2>
+    <ul>
+      <li>Confirm the person is a Partner request, not a staff invite. The account-type difference is <a href="/guides/shopify-collaborator-vs-staff/">collaborator vs staff</a>.</li>
+      <li>The code they must enter is the current 4-digit code under Settings &gt; Users &gt; Security. Generating a new code stops older codes. The path is <a href="/guides/shopify-collaborator-request-code/">Shopify collaborator request code</a>.</li>
+      <li>On a single store, Help Center says the store owner, and users with the Administrator store role, can view collaborator requests and grant access. You cannot assign the Administrator store role to a collaborator.</li>
+      <li>Give a role, and only the permissions the work needs. The store-permission groups Help Center lists are below.</li>
+      <li>Expiry and Reactivate are <a href="/guides/shopify-collaborator-90-day-expiry-reactivate/">the 90-day expiry page</a>. This page does not repeat that clock.</li>
+    </ul>
+
+    <h2>Who approves, and how the role is granted or changed</h2>
+    <p>The collaborator article says that after a Partner submits a request, you receive an email and a notification on Shopify Home. You manage the request in Settings &gt; Users, filtered to the Requests status. Each request has an auto-generated user role based on the permissions the collaborator asked for. Before you click Accept request, Help Center says you can edit any permissions on that auto-generated role and rename it, assign one or more existing roles and then remove the auto-generated role, or create a new role and assign it. If the role name already exists, Help Center says you can remove the auto-generated role and assign one or more existing roles. Rejecting the request also removes the auto-generated role.</p>
+    <p>For a single store, the article says only the store owner and users with the Administrator store role can view collaborator access requests or grant collaborator access, and that you can&rsquo;t assign the Administrator store role to collaborators. In the considerations for stores and organizations, it says collaborators don&rsquo;t have access to the Shopify POS app or the Point of Sales channel in the admin. In the organization section, it says you can&rsquo;t assign organization roles to collaborators. Who may edit the auto-generated role at organization level is on that same Help Center page. This page does not rename those roles.</p>
+    <p>After the collaborator has been added, Help Center says you can change their assigned role at any time using the same steps as managing roles for other users. Those steps are on <a href="https://help.shopify.com/en/manual/your-account/users/roles/manage-roles">Managing roles</a>. A staff invite is a different path: <a href="https://help.shopify.com/en/manual/your-account/staff-accounts/create-staff-accounts">Inviting users</a> says you create users and assign roles, and that a collaborator invite is the collaborator article instead.</p>
+
+    <h2>Permission categories Help Center lists</h2>
+    <p><a href="https://help.shopify.com/en/manual/your-account/users/roles/permissions/store-permissions">Store permissions</a> says you assign store permissions to roles with the Store role category, and that store permissions are grouped into these categories: Home, Orders, Draft orders, Products, Inventory, Catalogs, Gift cards, Customers, Analytics, Marketing, Discounts, Content, Files, Online store, Checkout and customer accounts, Companies, App development, Store settings, and Finance. The collaborator article says you can create roles for collaborators with the permissions they require, and that collaborators can request and be given all available permissions in your store. It also says to consider carefully which permissions the task needs. The same article&rsquo;s example is a role with the View products and Manage settings permissions when a collaborator needs shipping profiles. Its FAQ says that when you approve access, you can assign permissions for specific apps and channels. A reading list for staff roles already on the store is <a href="/guides/staff-permissions-audit-checklist/">the staff permissions audit checklist</a>.</p>
+    <p>Help Center says collaborators don&rsquo;t count towards your store&rsquo;s user limit. That is the sentence on the collaborator article. How many staff users a store can add is on <a href="https://help.shopify.com/en/manual/your-account/users">Managing users</a>. This page does not name a subscription.</p>
+
+    <h2>What this page leaves to the other collaborator guides</h2>
+    <p>The code&rsquo;s click path, and what happens when you generate a new code, is <a href="/guides/shopify-collaborator-request-code/">Shopify collaborator request code</a>. If access has expired, or you need Reactivate, that is <a href="/guides/shopify-collaborator-90-day-expiry-reactivate/">90-day collaborator expiry</a>. Removing a collaborator, and why Suspend is not the control Help Center documents for that account, is <a href="/guides/shopify-cannot-suspend-collaborator-remove/">Cannot suspend a Shopify collaborator</a>. The account-type difference is <a href="/guides/shopify-collaborator-vs-staff/">collaborator vs staff</a>. This page does not repeat those steps.</p>
+
+    <h2>What this page is not</h2>
+    <ul>
+      <li>Not a subscription comparison, and not a count of staff users your store can add.</li>
+      <li>Not the request-code click path. That URL is <a href="/guides/shopify-collaborator-request-code/">Shopify collaborator request code</a>.</li>
+      <li>Not the 90-day expiry or Reactivate steps. That URL is <a href="/guides/shopify-collaborator-90-day-expiry-reactivate/">90-day collaborator expiry</a>.</li>
+      <li>Not a claim that an audit app can approve, edit, or remove the collaborator. The listing does not say that.</li>
+    </ul>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/tools/app-scope-access-reader/">App access scope reader</a></li>
+      <li><a href="/guides/shopify-collaborator-vs-staff/">Shopify collaborator vs staff</a></li>
+      <li><a href="/guides/shopify-collaborator-request-code/">Shopify collaborator request code</a></li>
+      <li><a href="/guides/shopify-collaborator-90-day-expiry-reactivate/">Shopify collaborator 90-day expiry</a></li>
+      <li><a href="/guides/staff-permissions-audit-checklist/">Staff permissions audit checklist</a></li>
+      <li><a href="/guides/shopify-cannot-suspend-collaborator-remove/">Cannot suspend a Shopify collaborator</a></li>
+      <li><a href="https://help.shopify.com/en/manual/your-account/users/security/collaborator-accounts">Shopify Help Center: Collaborator accounts</a></li>
+      <li><a href="https://help.shopify.com/en/manual/your-account/users/roles/permissions/store-permissions">Shopify Help Center: Store permissions</a></li>
+      <li><a href="https://apps.shopify.com/momiji-access-audit">Staff Access Audit Guard</a> &mdash; live App Store listing</li>
+      <li><a href="/review/">Shopify apps hub</a></li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+    <p class="note">Not legal advice. Confirm collaborator permissions, the request code, and the user-limit sentence on the live Help Center pages. The app tracks staff and collaborator access you already granted. It does not approve a collaborator or change a role.</p>
+  </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/review/">Shopify apps hub</a></li>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>
