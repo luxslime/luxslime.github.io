@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PMB and CMRA private mailbox addresses: USPS format vs a PO Box</title>
+  <meta name="description" content="Publication 28 section 285 says mail to a CMRA uses PMB or # plus the private mailbox number. PO BOX cannot sit on that delivery line. A PO Box keyword rule misses it. Not legal advice.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="PMB and CMRA private mailbox addresses: USPS format vs a PO Box">
+  <meta property="og:description" content="Publication 28 section 285 says mail to a CMRA uses PMB or # plus the private mailbox number. PO BOX cannot sit on that delivery line. A PO Box keyword rule misses it. Not legal advice.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/pmb-cmra-private-mailbox-address/">
+  <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/27f7c111c94acf4b22bfef9207351043/promotional_image/CLDLhsPS7ZQDEAE=.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="PMB and CMRA private mailbox addresses: USPS format vs a PO Box">
+  <meta name="twitter:description" content="Publication 28 section 285 says mail to a CMRA uses PMB or # plus the private mailbox number. PO BOX cannot sit on that delivery line. A PO Box keyword rule misses it. Not legal advice.">
+  <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/27f7c111c94acf4b22bfef9207351043/promotional_image/CLDLhsPS7ZQDEAE=.png">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/pmb-cmra-private-mailbox-address/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://apify.momiji-space.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "PMB and CMRA private mailbox addresses",
+        "item": "https://apify.momiji-space.com/guides/pmb-cmra-private-mailbox-address/"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "AddressFence: PO Box Billing",
+    "url": "https://apps.shopify.com/address-guard",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Shopify",
+    "image": "https://cdn.shopify.com/app-store/listing_images/27f7c111c94acf4b22bfef9207351043/icon/CISg3YSo4pQDEAE=.png"
+  }
+  </script>
+</head>
+<body>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/review/">Shopify apps</a>
+        <a href="/guides/pmb-cmra-private-mailbox-address/" aria-current="page">PMB / CMRA address</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / <a href="/guides/">Guides</a> / PMB and CMRA private mailbox addresses</nav>
+    <p class="eyebrow">PMB and CMRA private mailbox addresses</p>
+    <h1>A private mailbox is the CMRA&rsquo;s street address plus PMB or #, so a PO BOX keyword does not match it</h1>
+    <p class="answer-first"><strong>Direct answer.</strong> A private mailbox (PMB) is a box rented from a private company. <a href="https://pe.usps.com/text/pub28/pub28c2_040.htm">USPS Publication 28, section 285</a>, says those companies are commercial mail receiving agencies (CMRA), and that mail sent to an addressee at a CMRA must include either the PMB identifier or the #, followed by the appropriate private mailbox number. Use of any other identifier is prohibited. The same section says the words POST OFFICE BOX or PO BOX and the private mailbox number cannot be used on the Delivery Address Line, that only the Postal Service is entitled to provide delivery to a PO Box, and that the Delivery Address Line is the standardized address of the private company. <a href="https://pe.usps.com/text/dmm300/602.htm">Domestic Mail Manual 602, section 2.3</a>, says mail sent to an addressee at a CMRA must be addressed to their private mailbox (&ldquo;PMB&rdquo; or &ldquo;#&rdquo;) number at the CMRA mailing address. Section 1.3 of that same DMM part lists the private mailbox designator before the street and number. A checkout rule that looks for the letters PO BOX is aimed at a Post Office box line. Section 285 says that line is not how the private mailbox is written. This page is not legal advice.</p>
+    <p class="lede"><strong>AddressFence: PO Box Billing</strong> (<a href="https://apps.shopify.com/address-guard">Shopify App Store</a>) adds billing-address rules and street-number checks at Shopify checkout, where the listing says built-in checkout rules cannot target billing, and lets you test any address in the simulator before publishing, with one-click rollback. The listing describes a billing PO box block and a street-number check. It does not say the app detects a PMB or a CMRA. This page is the USPS private-mailbox format &mdash; not a list of strings the app matches.</p>
+    <p><strong>Free check first:</strong> <a href="/tools/po-box-address-checker/">PO box and street number address checker</a> runs in your browser and sends nothing. Paste addresses and see which look like a PO box or lack a street number.</p>
+
+    <h2>Checklist before you treat the line as a PO Box</h2>
+    <ul>
+      <li>Read <a href="https://pe.usps.com/text/pub28/pub28c2_040.htm">Publication 28, section 285</a>, for PMB or # and the ban on POST OFFICE BOX or PO BOX on that delivery line.</li>
+      <li>Read <a href="https://pe.usps.com/text/dmm300/602.htm">DMM 602, sections 1.3, 1.4.2, and 2.3</a>, for the same designator on a CMRA mailing address.</li>
+      <li>A USPS Post Office box is a different format. That page is <a href="/guides/po-box-address-format/">US PO Box address format</a>.</li>
+      <li>Shoppers still spell PO Box in other ways. The test list is <a href="/guides/po-box-spelling-variants-test-checkout-rule/">PO box spellings and look-alike street names</a>.</li>
+      <li>Do not read this page as a claim that AddressFence detects a private mailbox. The listing is billing-address rules and a street-number check.</li>
+    </ul>
+
+    <h2>The format section 285 and DMM 602 require</h2>
+    <p>Section 285 says either a three-line or a four-line address format can be used with a CMRA address and the PMB or # identifier, with one exception. Where the CMRA&rsquo;s physical address requires its own secondary address element, the PMB or # address must follow the format rules on that page. It is not permissible to combine the secondary address element of the mailing address for the CMRA and the CMRA customer&rsquo;s private box number. The exception on that page: when the CMRA mailing address contains a secondary address element (for example a rural route box number, suite, #, or other term), the CMRA customer must use PMB when utilizing a three-line address format. The examples themselves are on the Publication 28 page. This page does not redraw them.</p>
+    <p>DMM 602, section 1.3, lists the delivery-address elements in order, including the private mailbox designator (&ldquo;PMB&rdquo; or alternative &ldquo;#&rdquo;) and number if the mailpiece is addressed to a CMRA address, then the street and number. Section 1.4.2 includes, among complete-address elements, the private mail box designator and number, and the page&rsquo;s parenthetical is &ldquo;PMB 300 or #300&rdquo;. The same subsection says &ldquo;PO Box&rdquo; is used incorrectly if preceding a private box number. Section 2.3 is the short CMRA rule: the mailpiece is addressed to the private mailbox (&ldquo;PMB&rdquo; or &ldquo;#&rdquo;) number at the CMRA mailing address.</p>
+
+    <h2>Why that line is not a USPS PO Box</h2>
+    <p>Publication 28 section 281 standardizes a Post Office box as PO BOX plus the number. That job is <a href="/guides/po-box-address-format/">US PO Box address format</a>, including Street Addressing where the Postal Service offers it. Section 285 is the private company. It says the Delivery Address Line is the standardized address of the private company, and that POST OFFICE BOX or PO BOX cannot be used with the private mailbox number on that line. A shopper can therefore type a street, a suite that belongs to the CMRA, and PMB or #. A rule that matches only the PO BOX keyword does not see that street line. Whether UPS will deliver to a Post Office box is a different page: <a href="/guides/ups-ship-to-po-box/">Does UPS deliver to a US PO Box?</a> Whether Shopify checkout ships to a PO Box is <a href="/guides/does-shopify-ship-to-po-boxes/">Does Shopify ship to PO Boxes?</a> Holding an order after checkout is <a href="/guides/hold-po-box-ship-commercial-billing-review/">Hold PO box ship-to orders billed to a commercial suite</a>. That page is a hold. It is not this format.</p>
+
+    <h2>What this page is not</h2>
+    <ul>
+      <li>Not legal advice, a carrier rule, or a card-network rule.</li>
+      <li>Not a claim that AddressFence detects a PMB or a CMRA. The listing is billing-address rules and a street-number check.</li>
+      <li>Not the standardized PO BOX line. That URL is <a href="/guides/po-box-address-format/">US PO Box address format</a>.</li>
+      <li>Not the spelling test list. That URL is <a href="/guides/po-box-spelling-variants-test-checkout-rule/">PO box spellings and look-alike street names</a>.</li>
+    </ul>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/tools/po-box-address-checker/">PO box and street number address checker</a> &mdash; paste lines and see which look like a PO box</li>
+      <li><a href="/guides/po-box-address-format/">US PO Box address format</a> &mdash; Publication 28 section 281</li>
+      <li><a href="/guides/po-box-spelling-variants-test-checkout-rule/">PO box spellings and look-alike street names</a></li>
+      <li><a href="/guides/does-shopify-ship-to-po-boxes/">Does Shopify ship to PO Boxes?</a></li>
+      <li><a href="/guides/ups-ship-to-po-box/">Does UPS deliver to a US PO Box?</a></li>
+      <li><a href="/guides/hold-po-box-ship-commercial-billing-review/">Hold PO box ship-to orders billed to a commercial suite</a></li>
+      <li><a href="https://pe.usps.com/text/pub28/pub28c2_040.htm">Publication 28, section 285</a> &mdash; private mailbox addresses</li>
+      <li><a href="https://pe.usps.com/text/dmm300/602.htm">DMM 602 Addressing</a> &mdash; sections 1.3, 1.4.2, and 2.3</li>
+      <li><a href="https://apps.shopify.com/address-guard">AddressFence: PO Box Billing</a> &mdash; live App Store listing</li>
+      <li><a href="/review/">Shopify apps hub</a></li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+    <p class="note">Not legal advice. Confirm Publication 28 section 285 and DMM 602 sections 1.3, 1.4.2, and 2.3 before you treat a street line with PMB or # as a Post Office box. The app checks billing-address rules you publish. The listing does not say it detects a private mailbox.</p>
+  </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/review/">Shopify apps hub</a></li>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>
