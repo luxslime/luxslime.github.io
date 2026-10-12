@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shopify purchase orders vs the B2B checkout PO number</title>
+  <meta name="description" content="Shopify purchase orders record what you buy from your suppliers. A B2B checkout PO number is what a customer types when they buy from you. Not legal advice.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Shopify purchase orders vs the B2B checkout PO number">
+  <meta property="og:description" content="Shopify purchase orders record what you buy from your suppliers. A B2B checkout PO number is what a customer types when they buy from you. Not legal advice.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/shopify-purchase-orders/">
+  <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/0d5bee841b158614f7a791277c9b589e/promotional_image/CJrF7JSn6JQDEAE=.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Shopify purchase orders vs the B2B checkout PO number">
+  <meta name="twitter:description" content="Shopify purchase orders record what you buy from your suppliers. A B2B checkout PO number is what a customer types when they buy from you. Not legal advice.">
+  <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/0d5bee841b158614f7a791277c9b589e/promotional_image/CJrF7JSn6JQDEAE=.png">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/shopify-purchase-orders/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://apify.momiji-space.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Shopify purchase orders",
+        "item": "https://apify.momiji-space.com/guides/shopify-purchase-orders/"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "B2B PO Guard — Require PO",
+    "url": "https://apps.shopify.com/b2b-terms-guard",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Shopify",
+    "image": "https://cdn.shopify.com/app-store/listing_images/0d5bee841b158614f7a791277c9b589e/icon/CMiBo7bN5JQDEAE=.png"
+  }
+  </script>
+</head>
+<body>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/review/">Shopify apps</a>
+        <a href="/guides/shopify-purchase-orders/" aria-current="page">Purchase orders</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / <a href="/guides/">Guides</a> / Shopify purchase orders</nav>
+    <p class="eyebrow">Shopify purchase orders</p>
+    <h1>A Shopify purchase order is your agreement with a supplier, not the PO number a B2B customer types</h1>
+    <p class="answer-first"><strong>Direct answer.</strong> Shopify&rsquo;s purchase orders, under Products &gt; Purchase orders, record the agreement you make with your own suppliers when you buy stock. That is a different thing from the purchase order number a B2B customer can enter at checkout when they buy from you. Quotes below are from Shopify Help, checked 13 October 2026. The older Help path for purchase orders redirects to the inventory-and-locations URLs linked here.</p>
+    <p class="lede"><strong>B2B PO Guard</strong> (<a href="https://apps.shopify.com/b2b-terms-guard">Shopify App Store</a>): &ldquo;Validate PO numbers, deposits, Net terms, order review, and D2C no-op behavior for Shopify native B2B checkout workflows.&rdquo; It does not create supplier purchase orders.</p>
+    <p><strong>Free check first:</strong> <a href="/tools/po-number-format-tester/">PO number format tester</a> runs in your browser and sends nothing.</p>
+
+    <h2>Checklist</h2>
+    <ul>
+      <li>A record under Products &gt; Purchase orders is the commercial agreement with your supplier.</li>
+      <li>After it is Ordered, receiving sits on the linked inventory transfer, not on the purchase order itself.</li>
+      <li>A number typed at B2B checkout is the customer&rsquo;s reference on the order they place with you.</li>
+      <li>Checkout rules for that number &mdash; required, unique, format, Net terms &mdash; are the guides linked below.</li>
+    </ul>
+
+    <h2>What Shopify means by a purchase order</h2>
+    <p><a href="https://help.shopify.com/en/manual/inventory-and-locations/purchase-orders">Purchase orders</a>: &ldquo;You can create purchase orders in your Shopify admin to record the commercial agreements that you make with your suppliers. A purchase order lists the products, quantities, costs, payment terms, and supplier details for an order.&rdquo;</p>
+    <p>The same page: &ldquo;You might use a purchase order to order new inventory from a supplier, agree on payment terms for a large order, or keep accurate records of incoming inventory.&rdquo;</p>
+    <p>And: &ldquo;You can save a purchase order as a draft to work on later, or mark it as Ordered after your supplier confirms. After the purchase order is marked as Ordered, you can create an inventory transfer for your purchase order to track shipments, receive inventory, and add cost adjustments.&rdquo;</p>
+
+    <h2>Creating and managing purchase orders</h2>
+    <p><a href="https://help.shopify.com/en/manual/inventory-and-locations/purchase-orders/creating-purchase-orders">Creating and managing purchase orders</a> repeats the commercial-agreement sentence, then: &ldquo;Purchase orders list the products, prices, and quantities for an order, and help you track inventory costs, payment terms, and supplier information. You can save a purchase order as a draft to work on later, or mark it as Ordered after your supplier confirms the order.&rdquo;</p>
+    <p>Statuses on that page: &ldquo;Purchase orders have two statuses that reflect their current state. Receiving, partial receipt, completion, and closure are tracked on the linked inventory transfer instead.&rdquo;</p>
+    <ul>
+      <li>Draft: &ldquo;The purchase order is being created or reviewed. You can edit all details and add or remove products.&rdquo;</li>
+      <li>Ordered: &ldquo;The purchase order has been submitted to the supplier. You can now create an inventory transfer for your purchase order to track the inventory movement.&rdquo;</li>
+    </ul>
+    <p>Create a purchase order, as written:</p>
+    <ol>
+      <li>From your Shopify admin, go to Products &gt; Purchase orders.</li>
+      <li>Click Create purchase order.</li>
+      <li>Select a supplier. To select an existing supplier, click the supplier. To create a new supplier, click Create new supplier, enter the supplier details, and then click Save.</li>
+      <li>Optional: Select a destination location. You can save a purchase order as a draft without a destination, and add one later before you mark it as ordered.</li>
+      <li>Add products to the purchase order. You can only add products that already exist in your Shopify store.</li>
+      <li>For each product, enter the quantity, the supplier SKU (optional), and the cost and tax percentage (optional).</li>
+      <li>Optional: In the Purchase order details section, enter a reference number or a note to the supplier.</li>
+      <li>Optional: In the Purchasing information section, adjust the Payment terms and Supplier currency settings.</li>
+      <li>Optional: In the Tags section, add any tags for the purchase order.</li>
+      <li>In the Cost summary section, review the order total.</li>
+      <li>Click Save as draft.</li>
+    </ol>
+    <p>After you save the draft: &ldquo;you can export it as a PDF to submit to your supplier for review and approval.&rdquo; Mark as ordered: &ldquo;After your supplier confirms the order, you can mark the purchase order as Ordered. Marking a purchase order as ordered can't be reversed.&rdquo; The steps are Products &gt; Purchase orders, click the draft, then Mark as ordered, then Mark as ordered again to confirm.</p>
+
+    <h2>Receiving inventory</h2>
+    <p><a href="https://help.shopify.com/en/manual/inventory-and-locations/purchase-orders/creating-inventory-transfers">Receiving inventory from a purchase order</a>: &ldquo;The purchase order records the commercial agreement, and the linked inventory transfer handles shipments, receiving, and cost adjustments in your Shopify admin.&rdquo;</p>
+    <p>The same page: &ldquo;Receiving happens on the inventory transfer that's linked to your purchase order, not on the purchase order itself. This keeps the commercial agreement separate from the actual inventory movement.&rdquo;</p>
+
+    <h2>Viewing and filtering</h2>
+    <p><a href="https://help.shopify.com/en/manual/inventory-and-locations/purchase-orders/viewing-purchase-orders">Viewing and filtering purchase orders</a>: &ldquo;By default, the purchase orders list has existing views for All, Draft, and Ordered purchase orders.&rdquo;</p>
+    <div class="card">
+      <table>
+        <caption>Default views, as written on the viewing page</caption>
+        <thead>
+          <tr>
+            <th scope="col">View</th>
+            <th scope="col">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">All</th>
+            <td>Shows all purchase orders regardless of status</td>
+          </tr>
+          <tr>
+            <th scope="row">Draft</th>
+            <td>Purchase orders that are still being created or reviewed</td>
+          </tr>
+          <tr>
+            <th scope="row">Ordered</th>
+            <td>Purchase orders submitted to suppliers. You can create an inventory transfer for the purchase order to track the inventory movement.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>The sort-by-status description on that page: &ldquo;This option displays purchase orders by status. A purchase order can have any of the following statuses, listed by ascending order:&rdquo; Draft, and Ordered. The next sentence: &ldquo;Partial, received, and closed statuses are tracked on the linked inventory transfer.&rdquo;</p>
+
+    <h2>The B2B checkout purchase order number</h2>
+    <p><a href="https://help.shopify.com/en/manual/b2b/checkout">Sign-in and customer accounts in B2B</a>, in the place-an-order steps: &ldquo;Customers will have the option to enter a purchase order number for the order.&rdquo;</p>
+    <p>After checkout: &ldquo;After completing the checkout, the customer is taken to an Order status page.&rdquo; The next sentences: &ldquo;If the company location has payment terms set, then the due date is displayed. Customers can also view the purchase order number for the order, if one was entered at checkout.&rdquo;</p>
+    <p>Rules for requiring that number, rejecting a duplicate, checking a format, or pairing it with Net terms are already written here:</p>
+    <ul>
+      <li><a href="/guides/b2b-po-number-required/">B2B PO number required</a></li>
+      <li><a href="/guides/b2b-po-number-uniqueness-duplicate/">PO number uniqueness</a></li>
+      <li><a href="/guides/purchase-order-number-format-examples/">PO number format examples</a></li>
+      <li><a href="/guides/shopify-net-30-payment-terms/">Shopify Net 30 payment terms</a></li>
+    </ul>
+
+    <h2>Side by side</h2>
+    <div class="card">
+      <table>
+        <caption>Each cell is a Shopify Help sentence, or a short reading of one</caption>
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">Shopify purchase order</th>
+            <th scope="col">B2B checkout PO number</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Who issues or enters it</th>
+            <td>You create it &ldquo;to record the commercial agreements that you make with your suppliers.&rdquo;</td>
+            <td>&ldquo;Customers will have the option to enter a purchase order number for the order.&rdquo;</td>
+          </tr>
+          <tr>
+            <th scope="row">Who it is sent to</th>
+            <td>After the draft is saved, &ldquo;you can export it as a PDF to submit to your supplier for review and approval.&rdquo;</td>
+            <td>The quoted checkout sentence says the customer enters the number for the order. It does not name another recipient.</td>
+          </tr>
+          <tr>
+            <th scope="row">Where it lives in Shopify</th>
+            <td>&ldquo;From your Shopify admin, go to Products &gt; Purchase orders.&rdquo; Receiving is on the linked inventory transfer.</td>
+            <td>The customer enters it at checkout. After checkout, the customer is taken to an Order status page and can view the purchase order number &ldquo;if one was entered at checkout.&rdquo;</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Purchase order vs sales order</h2>
+    <p>Generally, in most accounting systems, a purchase order is the buyer&rsquo;s order to a supplier, and a sales order is the seller&rsquo;s record of a sale. This page does not cite an accounting standard for that pair of words. What a PO number is, and how it differs from an invoice number, is already on <a href="/guides/what-is-a-po-number/">What is a PO number?</a> and <a href="/guides/purchase-order-number-vs-invoice-number/">Purchase order number vs invoice number</a>.</p>
+
+    <h2>What this page is not</h2>
+    <ul>
+      <li>Not a guide to an inventory app, and not a description of Stocky or any other third-party app.</li>
+      <li>Not an API reference. Nothing here is quoted from shopify.dev.</li>
+      <li>Not a claim that B2B PO Guard creates the supplier purchase orders in Products &gt; Purchase orders.</li>
+    </ul>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/tools/po-number-format-tester/">PO number format tester</a></li>
+      <li><a href="https://help.shopify.com/en/manual/inventory-and-locations/purchase-orders">Purchase orders</a></li>
+      <li><a href="https://help.shopify.com/en/manual/inventory-and-locations/purchase-orders/creating-purchase-orders">Creating and managing purchase orders</a></li>
+      <li><a href="https://help.shopify.com/en/manual/inventory-and-locations/purchase-orders/creating-inventory-transfers">Receiving inventory from a purchase order</a></li>
+      <li><a href="https://help.shopify.com/en/manual/inventory-and-locations/purchase-orders/viewing-purchase-orders">Viewing and filtering purchase orders</a></li>
+      <li><a href="https://help.shopify.com/en/manual/b2b/checkout">Sign-in and customer accounts in B2B</a></li>
+      <li><a href="https://apps.shopify.com/b2b-terms-guard">B2B PO Guard</a> &mdash; live App Store listing</li>
+      <li><a href="/review/">Shopify apps hub</a></li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+    <p class="note">Not legal advice. Confirm the live Shopify Help pages. B2B PO Guard validates PO numbers, deposits, Net terms, order review, and D2C no-op behavior for Shopify native B2B checkout workflows. It does not create supplier purchase orders.</p>
+  </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/review/">Shopify apps hub</a></li>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>

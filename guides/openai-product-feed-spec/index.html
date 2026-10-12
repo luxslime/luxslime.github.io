@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OpenAI product feed spec: nine required fields for a ChatGPT catalog file</title>
+  <meta name="description" content="OpenAI’s product feed is one row per purchasable item or variant, with nine required fields: item_id, title, description, url, brand, seller_name, image_url, availability, and price. Not a ranking claim.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="OpenAI product feed spec: nine required fields for a ChatGPT catalog file">
+  <meta property="og:description" content="OpenAI’s product feed is one row per purchasable item or variant, with nine required fields: item_id, title, description, url, brand, seller_name, image_url, availability, and price. Not a ranking claim.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/openai-product-feed-spec/">
+  <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/e390016f3b8dd309f00b480bdb35cc95/promotional_image/COPW_P3S7ZQDEAE=.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="OpenAI product feed spec: nine required fields for a ChatGPT catalog file">
+  <meta name="twitter:description" content="OpenAI’s product feed is one row per purchasable item or variant, with nine required fields: item_id, title, description, url, brand, seller_name, image_url, availability, and price. Not a ranking claim.">
+  <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/e390016f3b8dd309f00b480bdb35cc95/promotional_image/COPW_P3S7ZQDEAE=.png">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/openai-product-feed-spec/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://apify.momiji-space.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "OpenAI product feed spec",
+        "item": "https://apify.momiji-space.com/guides/openai-product-feed-spec/"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Agentic Catalog by momiji",
+    "url": "https://apps.shopify.com/agentic-catalog-readiness",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Shopify",
+    "image": "https://cdn.shopify.com/app-store/listing_images/e390016f3b8dd309f00b480bdb35cc95/icon/CMHlurDN5JQDEAE=.png"
+  }
+  </script>
+</head>
+<body>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/review/">Shopify apps</a>
+        <a href="/guides/openai-product-feed-spec/" aria-current="page">OpenAI product feed</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / <a href="/guides/">Guides</a> / OpenAI product feed spec</nav>
+    <p class="eyebrow">OpenAI product feed spec</p>
+    <h1>OpenAI&rsquo;s ChatGPT product feed is one row per item or variant, with nine required fields</h1>
+    <p class="answer-first"><strong>Direct answer.</strong> OpenAI&rsquo;s product feed for ChatGPT is a structured catalog file, one row per purchasable item or variant. <a href="https://developers.openai.com/commerce/specs/file-upload/products">The products file-upload spec</a> requires nine fields in Basic product data: <code>item_id</code>, <code>title</code>, <code>description</code>, <code>url</code>, <code>brand</code>, <code>seller_name</code>, <code>image_url</code>, <code>availability</code>, and <code>price</code>. Quotes below are from that page and from the <a href="https://developers.openai.com/commerce/specs">product feeds overview</a>, both read as markdown on 13 October 2026. This page does not say who is approved, what a feed costs, or how products are ranked.</p>
+    <p class="lede"><strong>Agentic Catalog by momiji</strong> (<a href="https://apps.shopify.com/agentic-catalog-readiness">Shopify App Store</a>): &ldquo;Audit catalog and product readiness before launch or AI shopping discovery. Review fix guidance, rerun scans, and export CSV evidence.&rdquo; The listing does not say the app generates or submits an OpenAI feed.</p>
+    <p><strong>Free check first:</strong> <a href="/tools/product-json-ld-field-checker/">Product JSON-LD field checker</a> runs in your browser and sends nothing.</p>
+
+    <h2>Checklist</h2>
+    <ul>
+      <li>Send one row per purchasable item or variant, with the nine required fields.</li>
+      <li>Use one of the listed availability values. An omitted, empty, or unrecognized value rejects the row.</li>
+      <li>Keep <code>item_id</code>, <code>group_id</code>, and <code>offer_id</code> stable when price, stock, title, or images change.</li>
+      <li>Treat checkout and Ads as separate from the discovery row. This page does not describe how to apply.</li>
+    </ul>
+
+    <h2>What the overview says a product feed is</h2>
+    <p><a href="https://developers.openai.com/commerce/specs">Product feeds</a>: &ldquo;Product feeds provide structured catalog data that helps ChatGPT surface the right products with accurate pricing, availability, and seller context.&rdquo;</p>
+    <p><a href="https://developers.openai.com/commerce/specs/file-upload/products">Products</a>: &ldquo;Submit one row per purchasable item or variant. Include the nine required fields in Basic product data, then add the optional data that describes your products. Ads and checkout have separate requirements.&rdquo;</p>
+    <p>The same page says: &ldquo;Ads product feeds follow the <a href="https://developers.openai.com/ads/product-feeds">Ads product feeds</a> guide.&rdquo; And: &ldquo;Checkout requires a separately enabled integration.&rdquo;</p>
+
+    <h2>Basic product data</h2>
+    <p>The table below copies the Basic product data rows as written on 13 October 2026. The example column is omitted.</p>
+    <div class="card">
+      <table>
+        <caption>Basic product data, from the OpenAI products file-upload spec</caption>
+        <thead>
+          <tr>
+            <th scope="col">Field</th>
+            <th scope="col">Type</th>
+            <th scope="col">Requirement</th>
+            <th scope="col">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row"><code>item_id</code></th>
+            <td>String</td>
+            <td>Required</td>
+            <td>Stable ID, unique per item or variant within your feed. Never reuse it for a different item. See identity rules.</td>
+          </tr>
+          <tr>
+            <th scope="row"><code>title</code></th>
+            <td>String</td>
+            <td>Required</td>
+            <td>Product name, including the selected variant when relevant.</td>
+          </tr>
+          <tr>
+            <th scope="row"><code>description</code></th>
+            <td>String</td>
+            <td>Required</td>
+            <td>Factual product description for this item.</td>
+          </tr>
+          <tr>
+            <th scope="row"><code>url</code></th>
+            <td>String (URL)</td>
+            <td>Required</td>
+            <td>Product detail page for the item, with the variant selected when possible. Keep it stable.</td>
+          </tr>
+          <tr>
+            <th scope="row"><code>brand</code></th>
+            <td>String</td>
+            <td>Required</td>
+            <td>Product brand as shown on the product page.</td>
+          </tr>
+          <tr>
+            <th scope="row"><code>seller_name</code></th>
+            <td>String</td>
+            <td>Required</td>
+            <td>Name of the seller supplying this offer. For marketplace offers, see merchant information.</td>
+          </tr>
+          <tr>
+            <th scope="row"><code>image_url</code></th>
+            <td>String (URL)</td>
+            <td>Required</td>
+            <td>Main product image, showing this variant. Use a direct image URL, such as a JPEG or PNG.</td>
+          </tr>
+          <tr>
+            <th scope="row"><code>availability</code></th>
+            <td>String</td>
+            <td>Required</td>
+            <td><code>in_stock</code>, <code>out_of_stock</code>, <code>pre_order</code>, <code>backorder</code>, or <code>unknown</code>. Omitted, empty, or unrecognized values reject the row. Use <code>unknown</code> explicitly when stock status is unavailable.</td>
+          </tr>
+          <tr>
+            <th scope="row"><code>price</code></th>
+            <td>String (money)</td>
+            <td>Required</td>
+            <td>Regular item price in major currency units. See prices.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Identity and variants</h2>
+    <p>&ldquo;Use <code>item_id</code> for the specific item, <code>group_id</code> for its parent listing, and <code>offer_id</code> for a seller's offer. Keep all three stable when price, stock, title, or images change. Never include price in an offer ID.&rdquo;</p>
+    <p>&ldquo;For variants, send a separate row for each selection, with a distinct <code>item_id</code>, the same <code>group_id</code>, <code>listing_has_variations=true</code>, and a <code>variant_dict</code> of the selected options. The group ID must differ from each item ID. Use the same option names across a group, and unique option combinations. Group only variants of the same product as presented on your site. Each row carries its own price, availability, URL, and images.&rdquo;</p>
+    <p>The optional <code>gtin</code> row: &ldquo;One assigned GTIN: exactly 8, 12, 13, or 14 digits, including a valid check digit. Preserve leading zeros; no spaces or dashes. Omit if unassigned.&rdquo;</p>
+
+    <h2>Google-compatible feeds</h2>
+    <p>Under Google-compatible product data feeds, the spec says: &ldquo;Use this format only after OpenAI confirms it for your registered feed.&rdquo; The rest of that section is on the <a href="https://developers.openai.com/commerce/specs/file-upload/products">products page</a>.</p>
+
+    <h2>A practical mapping onto a Shopify product page</h2>
+    <p>The table below is a practical mapping. It is not an OpenAI statement and not a Shopify statement. This page quotes nothing new about Shopify. What Shopify writes about its own AI shopping surfaces is <a href="/guides/shopify-agentic-storefronts/">Shopify agentic storefronts</a>.</p>
+    <div class="card">
+      <table>
+        <caption>Practical mapping: OpenAI feed field to a fact that usually appears on a Shopify product page</caption>
+        <thead>
+          <tr>
+            <th scope="col">OpenAI feed field</th>
+            <th scope="col">Where the same fact usually lives on a Shopify product page</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row"><code>title</code></th>
+            <td>Product title</td>
+          </tr>
+          <tr>
+            <th scope="row"><code>description</code></th>
+            <td>Product description</td>
+          </tr>
+          <tr>
+            <th scope="row"><code>url</code></th>
+            <td>Product page URL</td>
+          </tr>
+          <tr>
+            <th scope="row"><code>brand</code></th>
+            <td>Vendor or brand shown on the product page</td>
+          </tr>
+          <tr>
+            <th scope="row"><code>image_url</code></th>
+            <td>Product image</td>
+          </tr>
+          <tr>
+            <th scope="row"><code>availability</code></th>
+            <td>Inventory or availability shown for that variant</td>
+          </tr>
+          <tr>
+            <th scope="row"><code>price</code></th>
+            <td>Price shown for that variant</td>
+          </tr>
+          <tr>
+            <th scope="row"><code>gtin</code></th>
+            <td>Barcode or GTIN stored on the variant</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Related catalog pages</h2>
+    <ul>
+      <li><a href="/guides/agentic-commerce-protocol-acp/">Agentic Commerce Protocol (ACP)</a></li>
+      <li><a href="/guides/shopify-universal-commerce-protocol-ucp/">Shopify Universal Commerce Protocol (UCP)</a></li>
+      <li><a href="/guides/shopify-gtin-barcode-ai-shopping/">Shopify GTIN and barcode for AI shopping</a></li>
+      <li><a href="/guides/shopify-json-ld-schema-product/">Shopify Product JSON-LD</a></li>
+      <li><a href="/guides/agentic-catalog-readiness/">Crawler rules and product JSON-LD</a></li>
+      <li><a href="/guides/shopify-merchant-return-policy-shipping-structured-data/">Merchant return policy and shipping structured data</a></li>
+    </ul>
+
+    <h2>What this page is not</h2>
+    <ul>
+      <li>Not an application, approval, fee, ranking, or traffic claim.</li>
+      <li>Not a statement that Shopify stores are included in, or excluded from, an OpenAI feed.</li>
+      <li>Not a feed generator. The listing does not say the app submits an OpenAI file.</li>
+    </ul>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/tools/product-json-ld-field-checker/">Product JSON-LD field checker</a></li>
+      <li><a href="https://developers.openai.com/commerce/specs">OpenAI product feeds</a></li>
+      <li><a href="https://developers.openai.com/commerce/specs/file-upload/products">OpenAI products file-upload spec</a></li>
+      <li><a href="https://developers.openai.com/ads/product-feeds">OpenAI Ads product feeds</a></li>
+      <li><a href="https://apps.shopify.com/agentic-catalog-readiness">Agentic Catalog by momiji</a> &mdash; live App Store listing</li>
+      <li><a href="/review/">Shopify apps hub</a></li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+    <p class="note">Not legal advice. Confirm the live OpenAI spec before you treat a field as required. The app audits catalog and product readiness, reviews fix guidance, reruns scans, and exports CSV evidence. It does not generate or submit an OpenAI feed.</p>
+  </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/review/">Shopify apps hub</a></li>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>
