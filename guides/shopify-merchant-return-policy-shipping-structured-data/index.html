@@ -73,7 +73,7 @@
     <nav><a href="/">Home</a> / <a href="/guides/">Guides</a> / <a href="/guides/agentic-catalog-readiness/">Catalog readiness</a> / Returns / shipping</nav>
     <p class="eyebrow">Shopify missing hasMerchantReturnPolicy / shippingDetails</p>
     <h1>The Search Console warning is non-critical — set returns and shipping once (Search Console, Merchant Center, or Organization markup) before hand-editing every offer</h1>
-    <p class="lede"><strong>Agentic Catalog by momiji</strong> (<a href="https://apps.shopify.com/agentic-catalog-readiness">Shopify App Store</a>) reviews policy, shipping, tax, domain, and product data in one readiness score, and audits Product JSON-LD completeness on live product pages. The Search Console warning “Missing field ‘hasMerchantReturnPolicy’” / “Missing field ‘shippingDetails’ (in ‘offers’)” flags <strong>recommended</strong> merchant-listing properties on <code>Offer</code> — not a required field, and not an error that removes the product from Search. Set a store-wide return and shipping policy once, then re-score. The app audits and scores those live surfaces; you apply the policy change yourself.</p>
+    <p class="lede"><strong>Agentic Catalog by momiji</strong> (<a href="https://apps.shopify.com/agentic-catalog-readiness?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=shopify-merchant-return-policy-shipping-structured-data">Shopify App Store</a>) reviews policy, shipping, tax, domain, and product data in one readiness score, and audits Product JSON-LD completeness on live product pages. The Search Console warning “Missing field ‘hasMerchantReturnPolicy’” / “Missing field ‘shippingDetails’ (in ‘offers’)” flags <strong>recommended</strong> merchant-listing properties on <code>Offer</code> — not a required field, and not an error that removes the product from Search. Set a store-wide return and shipping policy once, then re-score. The app audits and scores those live surfaces; you apply the policy change yourself.</p>
     <p><strong>Free check first:</strong> <a href="/tools/product-json-ld-field-checker/">Product JSON-LD field checker</a> runs in your browser and sends nothing. Paste product JSON-LD and see which merchant-listing fields are present or missing.</p>
     <p>Job: give Google one store-wide returns and shipping policy (Search Console, Merchant Center, or organization-level markup) instead of hand-editing every product offer unless a product truly has a non-standard policy.</p>
 
@@ -119,7 +119,7 @@
   }
 }</code></pre>
     <p>Copy the property names from Google’s <a href="https://developers.google.com/search/docs/appearance/structured-data/return-policy">return policy</a>, <a href="https://developers.google.com/search/docs/appearance/structured-data/shipping-policy">shipping policy</a>, and <a href="https://developers.google.com/search/docs/appearance/structured-data/organization">Organization</a> pages. Replace the placeholders with your live policy. The legal refund-policy wording on the storefront is still the merchant’s job.</p>
-    <p><a class="cta" href="https://apps.shopify.com/agentic-catalog-readiness">Install Agentic Catalog Readiness → run check → re-score after you set returns and shipping</a></p>
+    <p><a class="cta" href="https://apps.shopify.com/agentic-catalog-readiness?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=shopify-merchant-return-policy-shipping-structured-data">Install Agentic Catalog Readiness → run check → re-score after you set returns and shipping</a></p>
 
     <h2>When offer-level markup is still right</h2>
     <p>Use offer-level <code>hasMerchantReturnPolicy</code> and <code>shippingDetails</code> only when a product has a non-standard policy, or when you have no store-wide policy. Google says product-level return and shipping markup supports a <strong>subset</strong> of the organization-level properties. On <code>Offer</code>, the merchant-listing subset for returns includes required <code>applicableCountry</code> and <code>returnPolicyCategory</code> (plus <code>merchantReturnDays</code> when the window is finite), and recommended <code>returnMethod</code>, <code>returnFees</code>, and <code>returnShippingFeesAmount</code>. For shipping, if you add <code>shippingDetails</code>, Google’s <code>OfferShippingDetails</code> required set for the shipping-details enhancement is <code>deliveryTime</code>, <code>shippingDestination</code>, and <code>shippingRate</code>.</p>
@@ -155,10 +155,10 @@
       <li><strong>agents.md / llms.txt</strong> customization is a theme-template context file. That path is <a href="/guides/shopify-customize-agents-md-llms-txt/">customize Shopify agents.md and llms.txt</a>.</li>
     </ul>
     <p>None of those jobs writes a return or shipping policy for Google. The legal refund-policy and shipping-policy <em>content</em> on the storefront is the merchant’s. This page is about how Google is told that policy exists — not a substitute for counsel, and not a rewrite of the policy text.</p>
-    <p><a class="cta" href="https://apps.shopify.com/agentic-catalog-readiness">Install Agentic Catalog Readiness, run a catalog readiness scan, then review policy and shipping in the score.</a></p>
+    <p><a class="cta" href="https://apps.shopify.com/agentic-catalog-readiness?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=shopify-merchant-return-policy-shipping-structured-data">Install Agentic Catalog Readiness, run a catalog readiness scan, then review policy and shipping in the score.</a></p>
 
     <h2>App path: score policy and live Product JSON-LD, then fix the policy yourself</h2>
-    <p><a href="https://apps.shopify.com/agentic-catalog-readiness">Agentic Catalog by momiji</a>:</p>
+    <p><a href="https://apps.shopify.com/agentic-catalog-readiness?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=shopify-merchant-return-policy-shipping-structured-data">Agentic Catalog by momiji</a>:</p>
     <ul>
       <li>“Reviews policy, shipping, tax, domain, and product data in one readiness score.”</li>
       <li>“Audits Product JSON-LD and Open Graph completeness on live product pages.”</li>
@@ -167,11 +167,11 @@
     <ol>
       <li>Set the store-wide policy in Search Console, Merchant Center, or organization-level markup on the refund / shipping policy page.</li>
       <li>Open a live PDP, view source, and note whether Product JSON-LD is present. Treat missing offer-level return or shipping keys as expected when the store-wide path is in place.</li>
-      <li>Install <a href="https://apps.shopify.com/agentic-catalog-readiness">Agentic Catalog Readiness</a> and run the readiness check so policy, shipping, and Product JSON-LD completeness are scored together.</li>
+      <li>Install <a href="https://apps.shopify.com/agentic-catalog-readiness?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=shopify-merchant-return-policy-shipping-structured-data">Agentic Catalog Readiness</a> and run the readiness check so policy, shipping, and Product JSON-LD completeness are scored together.</li>
       <li>If the score still flags policy or shipping, fix the matching Google setting or the policy-page markup yourself, then run another check.</li>
     </ol>
     <p>A score is a checklist. It is not a ranking, inclusion, or merchant-listing guarantee.</p>
-    <p><a class="cta" href="https://apps.shopify.com/agentic-catalog-readiness">Install Agentic Catalog Readiness, run a catalog readiness scan, then review policy, shipping, and Product JSON-LD completeness the score cites.</a></p>
+    <p><a class="cta" href="https://apps.shopify.com/agentic-catalog-readiness?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=shopify-merchant-return-policy-shipping-structured-data">Install Agentic Catalog Readiness, run a catalog readiness scan, then review policy, shipping, and Product JSON-LD completeness the score cites.</a></p>
 
     <h2>What this page is not</h2>
     <ul>
@@ -183,7 +183,7 @@
       <li>Not an <code>agents.md</code> / <code>llms.txt</code> customize deep dive. That is <a href="/guides/shopify-customize-agents-md-llms-txt/">customize Shopify agents.md and llms.txt</a>.</li>
       <li>Not a markup writer: Agentic Catalog by momiji scores and audits; it does not add <code>hasMerchantReturnPolicy</code> or <code>shippingDetails</code> or edit the theme.</li>
     </ul>
-    <p><a class="cta" href="https://apps.shopify.com/agentic-catalog-readiness">Install Agentic Catalog Readiness, run a catalog readiness scan, then review policy, shipping, and Product JSON-LD completeness the score cites.</a></p>
+    <p><a class="cta" href="https://apps.shopify.com/agentic-catalog-readiness?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=shopify-merchant-return-policy-shipping-structured-data">Install Agentic Catalog Readiness, run a catalog readiness scan, then review policy, shipping, and Product JSON-LD completeness the score cites.</a></p>
 
     <h2>Related pages</h2>
     <ul>
@@ -192,7 +192,7 @@
       <li><a href="/guides/shopify-open-graph-ai-shopping/">Open Graph is not Product JSON-LD</a> — dedicated live-PDP Open Graph completeness check</li>
       <li><a href="/guides/shopify-robots-txt-block-gptbot-ai-crawlers/">robots.txt GPTBot / ClaudeBot / PerplexityBot allow vs block</a></li>
       <li><a href="/guides/shopify-customize-agents-md-llms-txt/">Customize agents.md and llms.txt</a> — theme templates, not return markup</li>
-      <li><a href="https://apps.shopify.com/agentic-catalog-readiness">Agentic Catalog Readiness</a> — live App Store listing</li>
+      <li><a href="https://apps.shopify.com/agentic-catalog-readiness?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=shopify-merchant-return-policy-shipping-structured-data">Agentic Catalog Readiness</a> — live App Store listing</li>
       <li><a href="https://developers.google.com/search/docs/appearance/structured-data/merchant-listing">Google — merchant listing structured data</a></li>
       <li><a href="https://developers.google.com/search/docs/appearance/structured-data/return-policy">Google — MerchantReturnPolicy</a></li>
       <li><a href="https://developers.google.com/search/docs/appearance/structured-data/shipping-policy">Google — ShippingService</a></li>
