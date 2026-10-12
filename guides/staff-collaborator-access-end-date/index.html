@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Set an end date on staff or collaborator access</title>
+  <meta name="description" content="Shopify has no calendar end date for staff or collaborator access. Collaborators expire after 90 days unused. Reminders are not removal. Not legal advice.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Set an end date on staff or collaborator access">
+  <meta property="og:description" content="Shopify has no calendar end date for staff or collaborator access. Collaborators expire after 90 days unused. Reminders are not removal. Not legal advice.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/staff-collaborator-access-end-date/">
+  <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/9ea3a49e539bec70dcd6abb7cc7f4746/promotional_image/CL_Eloyu9ZQDEAE=.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Set an end date on staff or collaborator access">
+  <meta name="twitter:description" content="Shopify has no calendar end date for staff or collaborator access. Collaborators expire after 90 days unused. Reminders are not removal. Not legal advice.">
+  <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/9ea3a49e539bec70dcd6abb7cc7f4746/promotional_image/CL_Eloyu9ZQDEAE=.png">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/staff-collaborator-access-end-date/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://apify.momiji-space.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Set an end date on staff or collaborator access",
+        "item": "https://apify.momiji-space.com/guides/staff-collaborator-access-end-date/"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Staff Access Audit Guard",
+    "url": "https://apps.shopify.com/momiji-access-audit",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Shopify",
+    "image": "https://cdn.shopify.com/app-store/listing_images/9ea3a49e539bec70dcd6abb7cc7f4746/icon/CLqU3dXo9JQDEAE=.png"
+  }
+  </script>
+</head>
+<body>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/review/">Shopify apps</a>
+        <a href="/guides/staff-collaborator-access-end-date/" aria-current="page">Access end date</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / <a href="/guides/">Guides</a> / Set an end date on staff or collaborator access</nav>
+    <p class="eyebrow">Contractors and seasonal staff</p>
+    <h1>There is no “access expires on” date — contractors are easy to forget</h1>
+    <p class="answer-first"><strong>Direct answer.</strong> Shopify Help Center does not document a calendar end date on a staff user or a collaborator. You remove access by hand: <a href="https://help.shopify.com/en/manual/your-account/users/manage-users">Managing users from your Shopify admin</a> documents Actions &gt; Suspend and Actions &gt; Remove for users, and a CSV import that can create, suspend, or reactivate users in bulk. That import does not schedule itself. <a href="https://help.shopify.com/en/manual/your-account/users/security/collaborator-accounts">Collaborator accounts</a> expire only if the Partner has not logged in within 90 days — unused access, not a date you chose when the contract ends. It is easy to forget to remove a contractor on the right day. This page does not name subscriptions. This page is not legal advice.</p>
+    <p class="lede"><strong>Staff Access Audit Guard</strong> (<a href="https://apps.shopify.com/momiji-access-audit">Shopify App Store</a>) reviews installed-app access, granted scopes, staff access records, and ownership evidence without reading customer or order data. It tracks staff and collaborator access with 30/90-day review reminders. A reminder that is overdue does not expire, suspend, or remove anyone. The app does not set an end date, Reactivate collaborators, or revoke users. This page is the missing calendar end date — not the 90-day Reactivate walkthrough.</p>
+    <p><strong>Free check first:</strong> <a href="/tools/app-scope-access-reader/">App access scope reader</a> runs in your browser and sends nothing. Paste an app’s access scopes and see which touch customer data or can write.</p>
+
+    <h2>What native Shopify can and cannot do</h2>
+    <p>Native Shopify <strong>can</strong> end access today: Suspend (the user cannot log in; you can Reactivate) or Remove (permanent) on a staff user, and a permanent Remove on a collaborator. Collaborators do not use staff Suspend — that split is <a href="/guides/shopify-cannot-suspend-collaborator-remove/">Cannot suspend a Shopify collaborator</a>. Help Center also documents a 90-day inactivity expiry for collaborators only; restoring that access is <a href="/guides/shopify-collaborator-90-day-expiry-reactivate/">90-day collaborator expiry — Reactivate</a>.</p>
+    <p>Native Shopify <strong>cannot</strong> store an “Access expires on” date and time on the user card, auto-suspend on that date, or email you a few days before. The 90-day collaborator clock starts from last login, so a contractor who keeps logging in does not expire when the project ends. Staff accounts do not have that inactivity expiry.</p>
+
+    <h2>Checklist: time-limited contractors and seasonal staff</h2>
+    <ul>
+      <li>Decide the account type first: Partner or agency = collaborator; employee = staff user. The difference is <a href="/guides/shopify-collaborator-vs-staff/">collaborator vs staff</a>.</li>
+      <li>Write the last working day somewhere you will see it. Shopify will not store that date on the Users page.</li>
+      <li>On that day, open Settings &gt; Users and Suspend or Remove the staff user, or Remove the collaborator.</li>
+      <li>Do not wait for the 90-day collaborator inactivity expiry if the work already ended.</li>
+      <li>Re-open the user list on a 30- or 90-day cadence so leftover access is not forgotten. A reminder is not removal — see <a href="/guides/access-audit-30-90-day-review-reminders/">30/90-day review reminders vs collaborator expiry</a>.</li>
+    </ul>
+
+    <h2>What this page is not</h2>
+    <ul>
+      <li>Not a security attestation, and not a claim that any reminder revokes access.</li>
+      <li>Not the 90-day Reactivate steps. That URL is <a href="/guides/shopify-collaborator-90-day-expiry-reactivate/">Shopify collaborator access expired after 90 days</a>.</li>
+      <li>Not a subscription comparison. User limits that depend on the store are left to <a href="https://help.shopify.com/en/manual/your-account/users">Managing users</a>.</li>
+    </ul>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/tools/app-scope-access-reader/">App access scope reader</a> &mdash; which pasted scopes touch customer data or can write</li>
+      <li><a href="/guides/access-audit-30-90-day-review-reminders/">30/90-day review reminders vs collaborator expiry</a></li>
+      <li><a href="/guides/shopify-collaborator-vs-staff/">Shopify collaborator vs staff</a></li>
+      <li><a href="/guides/shopify-cannot-suspend-collaborator-remove/">Cannot suspend a Shopify collaborator</a></li>
+      <li><a href="https://help.shopify.com/en/manual/your-account/users/security/collaborator-accounts">Shopify Help Center: Collaborator accounts</a></li>
+      <li><a href="https://help.shopify.com/en/manual/your-account/users/manage-users">Shopify Help Center: Managing users from your Shopify admin</a></li>
+      <li><a href="https://apps.shopify.com/momiji-access-audit">Staff Access Audit Guard</a> &mdash; live App Store listing</li>
+      <li><a href="/review/">Shopify apps hub</a></li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+    <p class="note">General information from Shopify Help Center, not legal advice and not a security attestation. Confirm the live user and collaborator articles before you Suspend, Remove, or Reactivate. The app reviews access you already granted. It does not remove users or set an end date.</p>
+  </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/review/">Shopify apps hub</a></li>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>
