@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Purchase order vs invoice number</title>
+  <meta name="description" content="A PO number is the buyer’s purchase reference. An invoice number is the seller’s bill reference. They are different identifiers. General information only.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Purchase order vs invoice number">
+  <meta property="og:description" content="A PO number is the buyer’s purchase reference. An invoice number is the seller’s bill reference. They are different identifiers. General information only.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/purchase-order-number-vs-invoice-number/">
+  <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/0d5bee841b158614f7a791277c9b589e/icon/CMiBo7bN5JQDEAE=.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Purchase order vs invoice number">
+  <meta name="twitter:description" content="A PO number is the buyer’s purchase reference. An invoice number is the seller’s bill reference. They are different identifiers. General information only.">
+  <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/0d5bee841b158614f7a791277c9b589e/icon/CMiBo7bN5JQDEAE=.png">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/purchase-order-number-vs-invoice-number/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://apify.momiji-space.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Purchase order vs invoice number",
+        "item": "https://apify.momiji-space.com/guides/purchase-order-number-vs-invoice-number/"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "B2B Terms & PO Guard",
+    "url": "https://apps.shopify.com/b2b-terms-guard",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Shopify",
+    "image": "https://cdn.shopify.com/app-store/listing_images/0d5bee841b158614f7a791277c9b589e/icon/CMiBo7bN5JQDEAE=.png"
+  }
+  </script>
+</head>
+<body>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/review/">Shopify apps</a>
+        <a href="/guides/purchase-order-number-vs-invoice-number/" aria-current="page">PO vs invoice</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / <a href="/guides/">Guides</a> / Purchase order vs invoice number</nav>
+    <p class="eyebrow">Purchase order vs invoice number</p>
+    <h1>Purchase-order number vs invoice number: two different references</h1>
+    <p class="answer-first"><strong>Direct answer.</strong> A purchase-order number is the buyer&rsquo;s reference on the document that authorizes a purchase. An invoice number is the seller&rsquo;s reference on the document that asks for payment. They are issued by different parties, at different moments, and they are not interchangeable: a string that matches a PO format is not proof of an invoice, and an invoice number is not a purchase-order number. General information only; not legal, credit, or accounting advice.</p>
+    <p class="lede"><strong>B2B Terms &amp; PO Guard</strong> (<a href="https://apps.shopify.com/b2b-terms-guard">Shopify App Store</a>) validates PO numbers by format, prefix, regex, length, and uniqueness, and previews any PO rule live against a sample number before you publish. This page is the PO-versus-invoice distinction &mdash; not the require-PO job and not the regex catalogue. Requiring the checkout field is <a href="/guides/b2b-po-number-required/">why a B2B checkout can skip a PO number unless a rule requires it</a>.</p>
+    <p><strong>Free check first:</strong> <a href="/tools/po-number-format-tester/">PO number format tester</a> runs in your browser and sends nothing. Test prefix, length, characters, regex and duplicates on sample PO numbers.</p>
+
+    <h2>Who issues which number</h2>
+    <div class="card">
+    <table>
+      <caption>Purchase-order number vs invoice number</caption>
+      <thead>
+        <tr>
+          <th scope="col"></th>
+          <th scope="col">Purchase-order number</th>
+          <th scope="col">Invoice number</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Issued by</td>
+          <td>The buyer (their purchasing system)</td>
+          <td>The seller (their billing system)</td>
+        </tr>
+        <tr>
+          <td>What it identifies</td>
+          <td>The buyer&rsquo;s authorization to buy</td>
+          <td>The seller&rsquo;s request for payment</td>
+        </tr>
+        <tr>
+          <td>Typical moment</td>
+          <td>Before or at order, so the seller can put it on the order</td>
+          <td>When the seller bills, often after fulfilment</td>
+        </tr>
+        <tr>
+          <td>Shopify B2B checkout field</td>
+          <td>The PO number field on a company checkout</td>
+          <td>Not that field</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <p>Buyers set their own PO formats. There is no universal pattern. Example shapes and regexes live on <a href="/guides/purchase-order-number-format-examples/">purchase-order number format examples</a>. An invoice series is a different numbering scheme; do not paste invoice samples into a PO format rule and treat a match as a valid purchase order.</p>
+
+    <h2>What a checkout PO rule can and cannot do</h2>
+    <p>A Cart and Checkout Validation function can read <code>cart.poNumber</code> and reject a company checkout when the field is empty or fails the pattern you publish. That is a PO-number rule. It does not issue invoices, does not match the string to a buyer&rsquo;s purchasing system, and does not prove the order was approved or paid.</p>
+    <p>Format, prefix, regex, and length are the slice on <a href="/guides/b2b-po-format-prefix-regex-length/">validate B2B PO format, prefix, regex, and length</a>. Uniqueness (the same PO used twice) is <a href="/guides/b2b-po-number-uniqueness-duplicate/">prevent duplicate PO numbers</a>. Preview the live rule against samples before you publish, from the <a href="https://apps.shopify.com/b2b-terms-guard">B2B Terms &amp; PO Guard</a> listing.</p>
+
+    <h2>What this page is not</h2>
+    <ul>
+      <li>Not a tax, VAT, or accounting standard, and not a chart of accounts.</li>
+      <li>Not a check that a PO number is real, approved, funded, or unique in the buyer&rsquo;s system.</li>
+      <li>Not the require-PO, uniqueness, or regex-example siblings.</li>
+      <li>Not a postal PO Box block. That job is <a href="/guides/block-po-box-billing-address/">block PO Box on billing</a>.</li>
+    </ul>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/tools/po-number-format-tester/">PO number format tester</a></li>
+      <li><a href="/guides/purchase-order-number-format-examples/">Purchase order number format examples</a></li>
+      <li><a href="/guides/b2b-po-number-required/">Require a B2B purchase-order number</a></li>
+      <li><a href="/guides/b2b-po-format-prefix-regex-length/">Validate B2B PO format, prefix, regex, and length</a></li>
+      <li><a href="/guides/b2b-po-number-uniqueness-duplicate/">Stop reused PO numbers</a></li>
+      <li><a href="/guides/b2b-po-rule-live-preview/">Preview a PO rule before publish</a></li>
+      <li><a href="https://apps.shopify.com/b2b-terms-guard">B2B Terms &amp; PO Guard</a> &mdash; live App Store listing</li>
+      <li><a href="/review/">Shopify apps hub</a></li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+    <p class="note">General information only. Not legal, credit, or accounting advice. Confirm the identifier your buyer and your billing system actually use before you treat a string as a PO or an invoice.</p>
+  </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/review/">Shopify apps hub</a></li>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>
