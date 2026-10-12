@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Free CLP label element checker: which Article 17 elements does your label text mention?</title>
+  <meta name="description" content="Paste CLP label text and see which Article 17 label elements it mentions or lacks: supplier details, nominal quantity, identifiers, pictograms, signal word, H and P statements. Questions only. Runs in your browser.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.ico">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Free CLP label element checker: which Article 17 elements does your label text mention?">
+  <meta property="og:description" content="Paste CLP label text and see which Article 17 label elements it mentions or lacks: supplier details, nominal quantity, identifiers, pictograms, signal word, H and P statements. Questions only. Runs in your browser.">
+  <meta property="og:url" content="https://apify.momiji-space.com/tools/clp-label-element-checker/">
+  <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/0098fdedaba88e2aeec106456e65943d/icon/CK6nmIeuvZUDEAE=.png">
+  <meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://apify.momiji-space.com/tools/clp-label-element-checker/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <style>
+    .tool{border:1px solid var(--line,#e4e2da);background:var(--bg-raised,#fff);border-radius:14px;padding:1.25rem;margin:1.5rem 0;box-shadow:0 1px 0 rgba(24,34,56,.04),0 12px 32px -18px rgba(24,34,56,.25)}
+    .tool h2{margin-top:0}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(11rem,1fr));gap:.9rem 1rem;margin:1rem 0}
+    .field label,.tool .lab{display:block;font-weight:600;font-size:.9rem;margin-bottom:.25rem}
+    .field input[type=text],.field input[type=number],.field select,.tool textarea{width:100%;font:inherit;padding:.5rem .6rem;border:1px solid #c9c6bb;border-radius:8px;background:#fff;color:inherit}
+    .field input:focus,.field select:focus,.tool textarea:focus,.tool button:focus-visible{outline:3px solid rgba(42,74,155,.35);outline-offset:1px}
+    .tool textarea{min-height:11rem;font-family:ui-monospace,Menlo,Consolas,monospace;box-sizing:border-box}
+    .checks{display:flex;flex-wrap:wrap;gap:.5rem 1.4rem;margin:.25rem 0 .5rem}
+    .checks label{font-weight:500;display:inline-flex;gap:.4rem;align-items:center}
+    .hint{font-size:.85rem;color:var(--muted,#4e586e);margin:.2rem 0 0}
+    .tool button{font:inherit;font-weight:600;padding:.55rem 1.1rem;border-radius:999px;border:1px solid var(--ink,#182238);background:var(--ink,#182238);color:#fff;cursor:pointer;margin:.6rem .5rem 0 0;transition:transform .15s ease,box-shadow .15s ease}
+    .tool button:hover{transform:translateY(-1px);box-shadow:0 6px 14px -8px rgba(24,34,56,.6)}
+    .tool button.alt{background:#fff;color:var(--ink,#182238)}
+    .tool table{width:100%;border-collapse:collapse;margin-top:1rem;font-size:.95rem}
+    .tool th,.tool td{border-bottom:1px solid var(--line,#e4e2da);text-align:left;padding:.45rem .5rem;vertical-align:top}
+    .tool td.v{font-family:ui-monospace,Menlo,Consolas,monospace;word-break:break-all}
+    .tag{display:inline-block;padding:.1rem .6rem;border-radius:999px;font-size:.85em;font-weight:700}
+    .t-ok{background:#e3f6e8;color:#14532d}.t-bad{background:#fde8e8;color:#8a1c1c}
+    #summary{margin-top:.9rem;font-weight:600}
+    #err{color:#8a1c1c;font-weight:600;margin:.4rem 0 0}
+    @media (prefers-reduced-motion:reduce){.tool button{transition:none}.tool button:hover{transform:none}}
+      .t-gen{background:#fff4d6;color:#6b4e00}.t-off{background:#e6edff;color:#1d3a8a}.t-lab{background:#eee;color:#333}
+    .tool td.s{font-size:.85rem;color:var(--muted,#4e586e)}
+  </style>
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://apify.momiji-space.com/"}, {"@type": "ListItem", "position": 2, "name": "Tools", "item": "https://apify.momiji-space.com/tools/"}, {"@type": "ListItem", "position": 3, "name": "CLP label element checker", "item": "https://apify.momiji-space.com/tools/clp-label-element-checker/"}]}
+  </script>
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "CLPLens: CLP Hazard Display", "url": "https://apps.shopify.com/clp-hazard-info-display", "applicationCategory": "BusinessApplication", "operatingSystem": "Shopify", "image": "https://cdn.shopify.com/app-store/listing_images/0098fdedaba88e2aeec106456e65943d/icon/CK6nmIeuvZUDEAE=.png"}
+  </script>
+</head>
+<body>
+  <header class="site"><div class="wrap bar"><a class="logo" href="/">momiji-space</a>
+    <nav><a href="/review/">Shopify apps</a><a href="/guides/clp-hazard-product-page/">CLP hazard display</a><a href="https://apps.shopify.com/clp-hazard-info-display">Install</a></nav>
+  </div></header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / <a href="/tools/">Tools</a> / CLP label element checker</nav>
+    <p class="eyebrow">Free tool</p>
+    <h1>CLP label element checker</h1>
+    <p class="answer-first"><strong>Direct answer.</strong> Paste the text of a CLP label or a product page, for example <code>Danger. H225 Highly flammable liquid and vapour. GHS02. Acme GmbH, Hauptstra&szlig;e 1, 10115 Berlin, +49 30 123456. 500 ml</code>. The page shows which label elements of Article 17(1) of Regulation (EC) No 1272/2008 your text seems to mention and which it does not, each as a question to check. It does not classify the product or say whether the label complies. It runs in your browser and sends nothing anywhere.</p>
+    <p class="lede">This is a reading aid, not legal advice and not what any app checks. To create hazard profiles with GHS pictograms and statements, show them on product pages and review missing hazard fields before publishing, try <strong>CLPLens: CLP Hazard Display</strong> (<a href="https://apps.shopify.com/clp-hazard-info-display">Shopify App Store</a>).</p>
+    <p><a class="cta" href="https://apps.shopify.com/clp-hazard-info-display">Install CLPLens: CLP Hazard Display</a></p>
+    <section class="tool" aria-labelledby="tool-h">
+      <h2 id="tool-h">Paste your label text</h2>
+      <label class="lab" for="copy-in">CLP label or product page text</label>
+      <textarea id="copy-in" spellcheck="false">Lavender Fresh All-Purpose Cleaner
+Danger
+GHS05 GHS07
+H314 Causes severe skin burns and eye damage.
+P102 Keep out of reach of children. P280 Wear protective gloves.
+Contains: sodium hydroxide, CAS 1310-73-2
+Acme Clean GmbH, Hauptstrasse 1, 10115 Berlin
+500 ml</textarea>
+      <div><button type="button" id="run">Check the label elements</button><button type="button" id="clear" class="alt">Clear text</button><button type="button" id="copy" class="alt">Copy results as text</button></div>
+      <p id="summary" role="status" aria-live="polite"></p>
+      <table id="out" hidden><thead><tr><th scope="col">Label element or prompt</th><th scope="col">In your text?</th><th scope="col">Where to read and what to ask</th></tr></thead><tbody></tbody></table>
+    </section>
+    <p><a class="cta" href="https://apps.shopify.com/clp-hazard-info-display">Install CLPLens → hazard profiles and missing-field review</a></p>
+    <h2>Where the questions come from</h2>
+    <p>The ten rows follow Article 17(1)(a) to (h) of Regulation (EC) No 1272/2008 (CLP): supplier name, address and telephone number; nominal quantity for packages made available to the general public; product identifiers (Article 18); and, where applicable, hazard pictograms (Article 19, Annex V codes GHS01 to GHS09), signal word (Article 20), hazard statements (Article 21), precautionary statements (Article 22) and supplemental information (Article 25). The extra prompts come from Article 17(2) on languages, Article 20(3) on &ldquo;Danger&rdquo; and &ldquo;Warning&rdquo;, Article 26(1) on pictogram precedence, Article 29(1) on small packs and Article 48(2) on advertising. Article 48a (distance sales offers) was added by Regulation (EU) 2024/2865 and, under Regulation (EU) 2025/2439, applies from 1 January 2028.</p>
+    <p>The page looks for words, codes and patterns in what you paste. It cannot classify a substance or mixture, and it cannot tell whether an element is &ldquo;applicable&rdquo;; the classification decides that. Read the <a href="https://eur-lex.europa.eu/eli/reg/2008/1272/oj" rel="noopener">CLP Regulation on EUR-Lex</a> (check the consolidated version) and the guides on <a href="/guides/clp-hazard-product-page/">CLP hazard information on the product page</a> and <a href="/guides/clp-missing-hazard-fields-before-publish/">missing hazard fields before publishing</a>.</p>
+    <p><a class="cta" href="https://apps.shopify.com/clp-hazard-info-display">Install CLPLens: CLP Hazard Display on the Shopify App Store</a></p>
+    <h2>What this page is not</h2>
+    <ul>
+      <li>Not legal advice and not a statement that your label or product does or does not comply.</li>
+      <li>Not what CLPLens matches or checks; the app is what counts.</li>
+      <li>Not a classification, a safety data sheet review or a check of label size, layout or colours.</li>
+      <li>Not a data collector: text you paste stays in this browser tab. Nothing is sent or stored.</li>
+    </ul>
+    <h2>Related pages</h2>
+    <ul><li><a href="/guides/clp-hazard-product-page/">CLP hazard pictograms on the product page</a></li><li><a href="/guides/clp-missing-hazard-fields-before-publish/">Missing hazard fields before publishing</a></li><li><a href="/guides/clp-create-hazard-profiles-ghs/">Create hazard profiles with GHS pictograms</a></li><li><a href="/guides/clp-ufi-on-shopify-product-page/">UFI on the product page</a></li><li><a href="https://apps.shopify.com/clp-hazard-info-display">CLPLens: CLP Hazard Display</a></li></ul>
+    <p><a class="cta" href="https://apps.shopify.com/clp-hazard-info-display">Install CLPLens: CLP Hazard Display</a></p>
+  </main>
+  <footer class="site"><div class="wrap"><ul><li><a href="/review/">Shopify apps hub</a></li><li><a href="/tools/">Tools</a></li><li><a href="/">Home</a></li></ul></div></footer>
+  <script>
+  (function () {
+var EMPTY = 'Paste the label text first, for example the wording from your physical label or product page.';
+var CO = /\b(ltd|limited|gmbh|ag|b\.v\.|bv|s\.a\.|sas|sarl|s\.r\.l\.|srl|sp\. z o\.o\.|oy|ab|aps|a\/s|inc|llc|plc|kft|s\.l\.|e\.k\.|ug)\b|\b(manufactured by|supplied by|distributed by|supplier|made by|importer|imported by)\b/;
+var ADDR = /\b(street|st\.|road|rd\.|avenue|ave\.|lane|way|stra(ss|\u00df)e|str\.|platz|weg|rue|via|calle|plaza|laan|gade|vej|unit \d|industrial estate|po box)\b|\b[a-z]{1,2}\d{1,2}[a-z]?\s\d[a-z]{2}\b|\b\d{4,5}\s+(?!ml\b|l\b|g\b|kg\b|cl\b|mg\b)[a-z\u00e0-\u00ff]{3,}/;
+var PHONE = /(\+|\b00)\s?\d{1,3}[\s\d().\/-]{6,}\d|\b(tel|tel\.|phone|telephone|telefon|t\u00e9l\u00e9phone|telefono|tel\u00e9fono)\b/;
+var ELEMS = [
+  ['Supplier name (Art 17(1)(a))', function (t) { return CO.test(t); }, 'Article 17(1)(a) asks for the name of the supplier(s). Is this the name of the supplier who places the product on the EU market?', 'Article 17(1)(a) asks for the name of the supplier(s). Where is the supplier name on the label?'],
+  ['Supplier address (Art 17(1)(a))', ADDR, 'Article 17(1)(a) asks for the address of the supplier(s). Is it a full postal address?', 'Article 17(1)(a) asks for the address of the supplier(s). No street word or postcode was found. Is the address on the label?'],
+  ['Supplier telephone number (Art 17(1)(a))', PHONE, 'Article 17(1)(a) asks for the telephone number of the supplier(s). Is it a number someone can call?', 'Article 17(1)(a) asks for the telephone number of the supplier(s). Is a phone number on the label?'],
+  ['Nominal quantity (Art 17(1)(b))', /\b\d+(?:[.,]\d+)?\s?(ml|l|cl|g|kg|litres?|liters?|millilitres?|milliliters?|grams?)\b/, 'Article 17(1)(b): the nominal quantity in a package made available to the general public, unless it is specified elsewhere on the package. Does this figure match the pack?', 'Article 17(1)(b): the nominal quantity in a package made available to the general public, unless it is specified elsewhere on the package. Is it elsewhere on the pack?'],
+  ['Product identifier (Art 17(1)(c), Art 18)', /\b\d{2,7}-\d{2}-\d\b|\bec (no\.?|number)|\bcontains\s*:?\s*[a-z]|\bcas\b/, 'Article 18: for a substance, a name and an identification number; for a mixture, the trade name or designation and the identity of the substances that contribute to certain hazard classes. Article 18(1) says the term should match the one in the safety data sheet. Does it?', 'Article 18: for a substance, a name and identification number (for example a CAS number); for a mixture, the trade name or designation and the substances that contribute to certain hazard classes. Which identifier is on the label?'],
+  ['Hazard pictograms (Art 17(1)(d), Art 19)', /\bghs0[1-9]\b|pictogram|exploding bomb|flame over circle|\bflame\b|gas cylinder|\bcorrosion\b|skull and crossbones|exclamation mark|health hazard|environment symbol/, 'Article 19 and Annex V: pictograms GHS01 to GHS09. Do the pictograms on the label follow from the classification?', 'Article 19: where applicable, hazard pictograms (GHS01 to GHS09 in Annex V). If the product is classified as hazardous, which pictograms apply?'],
+  ['Signal word (Art 17(1)(e), Art 20)', /\bdanger\b|\bwarning\b/, 'Article 20: the signal word follows from the classification. Is it the one the classification gives?', 'Article 20: where applicable, the signal word \u201cDanger\u201d or \u201cWarning\u201d. Does the classification give one?'],
+  ['Hazard statements (Art 17(1)(f), Art 21)', /\bh[2-4]\d{2}[a-z]{0,2}\b|harmful if|fatal if|toxic if|causes (serious|severe|skin)|may cause|flammable (liquid|solid|gas|aerosol)|aquatic life/, 'Article 21: hazard statements are worded as in Annex III, in the label language. Is each statement for each classification there?', 'Article 21: where applicable, hazard statements worded as in Annex III (for example \u201cCauses serious eye irritation\u201d). Which apply?'],
+  ['Precautionary statements (Art 17(1)(g), Art 22)', /\bp[1-5]\d{2}\b|keep out of reach of children|if medical advice is needed|wear protective|do not breathe|if swallowed|if in eyes|dispose of contents/, 'Article 22: precautionary statements are chosen from Parts 2 to 5 of Annex I, using Part 1 of Annex IV. Are the ones on the label the ones that apply to the use?', 'Article 22: where applicable, precautionary statements (for example \u201cKeep out of reach of children\u201d). Which apply?'],
+  ['Supplemental information (Art 17(1)(h), Art 25)', /\beuh\d{3}[a-z]?\b|may produce an allergic reaction|safety data sheet available on request/, 'Article 25: a section for supplemental information, for example EUH statements from Annex II. Does it stay separate from the other label elements?', 'Article 25: where applicable, a section for supplemental information, for example EUH statements. Does any EUH statement apply?']
+];
+var ASKS = [
+  ['Both \u201cDanger\u201d and \u201cWarning\u201d', function (t) { return /\bdanger\b/.test(t) && /\bwarning\b/.test(t); }, 'Article 20(3): where the signal word \u201cDanger\u201d is used on the label, \u201cWarning\u201d shall not appear. Is \u201cWarning\u201d used here as a signal word or in other wording?'],
+  ['GHS05 with GHS07', function (t) { return /\bghs05\b|\bcorrosion\b/.test(t) && /\bghs07\b|exclamation mark/.test(t); }, 'Article 26(1)(c): if GHS05 applies, GHS07 shall not appear for skin or eye irritation. What is GHS07 there for?'],
+  ['GHS06 with GHS07', function (t) { return /\bghs06\b|skull and crossbones/.test(t) && /\bghs07\b|exclamation mark/.test(t); }, 'Article 26(1)(b): if GHS06 applies, GHS07 shall not appear. Does the label show both?'],
+  ['Small pack or sample', function (t) { return /\b(sample|samples|tester|mini|travel size)\b/.test(t); }, 'Article 29(1): where the packaging is so small or shaped so that a label meeting Article 31 is impossible, the label elements are given as set out in section 1.5.1 of Annex I. Does that apply to this pack?'],
+  ['Digital or fold-out label', function (t) { return /\bqr\b|digital label|fold-?out|more hazard information available online/.test(t); }, 'Regulation (EU) 2024/2865 adds Article 34a (physical and digital labelling) and allows fold-out labels in Article 31(1). Check the application dates in its Article 2, as amended by Regulation (EU) 2025/2439, before relying on them.'],
+  ['Label language', function () { return true; }, 'Article 17(2): the label is written in the official language(s) of each Member State where the product is placed on the market, unless that Member State provides otherwise. Which countries do you ship to, and is the label in their languages?'],
+  ['Selling online', function () { return true; }, 'Today, Article 48(2) asks advertisements for a hazardous mixture that let the public buy without first seeing the label to mention the type of hazard on the label. From 1 January 2028 (Regulation (EU) 2025/2439), Article 48a in Regulation (EU) 2024/2865 says a distance sales offer shall clearly and visibly indicate the Article 17 label elements. What does your product page show?']
+];
+
+var KIND = { seen: ['Seen in your text', 't-off'], gap: ['Not seen in your text', 't-gen'], ask: ['Also ask', 't-lab'] };
+function row(g, name, q) { return { g: g, cells: [{ t: name, cls: 'v' }, { t: KIND[g][0], tag: KIND[g][1] }, { t: q }] }; }
+function analyse(text) {
+  var raw = String(text || '').slice(0, 20000), t = raw.toLowerCase().replace(/\u2019/g, "'"), rows = [];
+  if (!t.trim()) return rows;
+  ELEMS.forEach(function (e) {
+    var hit = typeof e[1] === 'function' ? e[1](t, raw) : e[1].test(t);
+    rows.push(row(hit ? 'seen' : 'gap', e[0], hit ? e[2] : e[3]));
+  });
+  if (typeof EXTRA === 'function') EXTRA(t, raw).forEach(function (r) { rows.push(r); });
+  ASKS.forEach(function (a) { var r = a[1](t, raw); if (r) rows.push(row('ask', a[0], typeof r === 'string' ? r : a[2])); });
+  return rows;
+}
+function summarise(rows) {
+  if (!rows.length) return EMPTY;
+  var n = { seen: 0, gap: 0, ask: 0 };
+  rows.forEach(function (r) { n[r.g]++; });
+  return n.seen + ' seen in your text, ' + n.gap + ' not seen, ' + n.ask + ' more questions. Each row is a question to check against the regulation, not an answer.';
+}
+
+    var $ = function (id) { return document.getElementById(id); };
+    var out = $('out'), body = out.querySelector('tbody'), sum = $('summary'), last = [];
+    function run() {
+      body.textContent = ''; last = [];
+      var text = $('copy-in').value.slice(0, 20000), rows = analyse(text);
+      rows.forEach(function (r) {
+        var tr = document.createElement('tr');
+        r.cells.forEach(function (c) { var td = document.createElement('td'); if (c.tag) { var s = document.createElement('span'); s.className = 'tag ' + c.tag; s.textContent = c.t; td.appendChild(s); } else { td.textContent = c.t; if (c.cls) td.className = c.cls; } tr.appendChild(td); });
+        body.appendChild(tr); last.push(r.cells.map(function (c) { return c.t; }).join('\t'));
+      });
+      out.hidden = rows.length === 0;
+      sum.textContent = !text.trim() ? 'Paste label text first.' : summarise(rows);
+    }
+    $('run').addEventListener('click', run);
+    $('clear').addEventListener('click', function () { $('copy-in').value = ''; body.textContent = ''; out.hidden = true; sum.textContent = ''; last = []; });
+    $('copy').addEventListener('click', function () { if (navigator.clipboard && last.length) navigator.clipboard.writeText(last.join('\n')); });
+    run();
+  })();
+  </script>
+</body>
+</html>
