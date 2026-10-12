@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shopify B2B minimum order: catalog quantity rules, not a currency threshold</title>
+  <meta name="description" content="Shopify Help documents B2B catalog quantity rules: minimum, maximum, and increment per variant. That page does not describe a minimum order value in currency. Order review is a separate job. Not legal advice.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Shopify B2B minimum order: catalog quantity rules, not a currency threshold">
+  <meta property="og:description" content="Shopify Help documents B2B catalog quantity rules: minimum, maximum, and increment per variant. That page does not describe a minimum order value in currency. Order review is a separate job. Not legal advice.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/shopify-b2b-minimum-order-value/">
+  <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/0d5bee841b158614f7a791277c9b589e/promotional_image/CJrF7JSn6JQDEAE=.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Shopify B2B minimum order: catalog quantity rules, not a currency threshold">
+  <meta name="twitter:description" content="Shopify Help documents B2B catalog quantity rules: minimum, maximum, and increment per variant. That page does not describe a minimum order value in currency. Order review is a separate job. Not legal advice.">
+  <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/0d5bee841b158614f7a791277c9b589e/promotional_image/CJrF7JSn6JQDEAE=.png">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/shopify-b2b-minimum-order-value/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://apify.momiji-space.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Shopify B2B minimum order",
+        "item": "https://apify.momiji-space.com/guides/shopify-b2b-minimum-order-value/"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "B2B Terms & PO Guard",
+    "url": "https://apps.shopify.com/b2b-terms-guard",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Shopify",
+    "image": "https://cdn.shopify.com/app-store/listing_images/0d5bee841b158614f7a791277c9b589e/icon/CMiBo7bN5JQDEAE=.png"
+  }
+  </script>
+</head>
+<body>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/review/">Shopify apps</a>
+        <a href="/guides/shopify-b2b-minimum-order-value/" aria-current="page">B2B minimum order</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / <a href="/guides/">Guides</a> / Shopify B2B minimum order</nav>
+    <p class="eyebrow">Shopify B2B minimum order</p>
+    <h1>Shopify B2B quantity rules are minimum, maximum, and increment. They are not a minimum order value</h1>
+    <p class="answer-first"><strong>Direct answer.</strong> Shopify Help&rsquo;s <a href="https://help.shopify.com/en/manual/b2b/catalogs/quantity-pricing">quantity rules and volume pricing</a> page says you can sell a B2B product in increments, or set a minimum or maximum quantity that can be purchased at one time. Rules apply per variant, in a catalog, and the default increment is 1. That page does not describe a minimum order value in currency. A hold that routes a company order above a threshold for review is a different control; walk it on <a href="/guides/b2b-order-review-threshold-checkout/">B2B order review threshold</a>. Payment terms, including Net 30, are <a href="/guides/shopify-net-30-payment-terms/">Shopify B2B payment terms</a>. Confirm the live Help page. This page does not name plans. This page is not legal advice.</p>
+    <p class="lede"><strong>B2B Terms &amp; PO Guard</strong> (<a href="https://apps.shopify.com/b2b-terms-guard">Shopify App Store</a>) validates PO numbers and routes orders above a threshold for manual review and approval. It works alongside native Net Terms. D2C and no-company checkouts stay untouched. The listing does not describe catalog quantity rules. This page is the native quantity-rule reading &mdash; not the PO-format job and not the review-threshold setup.</p>
+    <p><strong>Free check first:</strong> <a href="/tools/po-number-format-tester/">PO number format tester</a> runs in your browser and sends nothing. Test prefix, length, characters, regex, and duplicates on sample PO numbers. That test is a PO string. It is not a catalog quantity rule.</p>
+
+    <h2>Checklist before you call a quantity rule a minimum order value</h2>
+    <ul>
+      <li>Open <a href="https://help.shopify.com/en/manual/b2b/catalogs/quantity-pricing">Setting up quantity rules and volume pricing in B2B</a> and confirm the three fields: increment, minimum, and maximum.</li>
+      <li>Treat them as unit counts for one variant at one time. Help&rsquo;s hat example says customers cannot add two variants together to meet one variant&rsquo;s minimum or increment.</li>
+      <li>Do not read that page as a cart-total minimum in money. It does not describe one.</li>
+      <li>Volume pricing on the same page is a price break at a quantity. It is not the quantity rule, and it is not an order-review hold.</li>
+      <li>If the job is to hold an oversized company order for a person to approve, use <a href="/guides/b2b-order-review-threshold-checkout/">the order-review guide</a>. If the job is when the company pays, use <a href="/guides/shopify-net-30-payment-terms/">payment terms</a>.</li>
+    </ul>
+
+    <h2>What Help says the catalog can require</h2>
+    <p>The Help page says quantity rules and volume pricing can be used together or independently. On quantity rules it says:</p>
+    <ul>
+      <li><strong>Increment.</strong> Customers buy in steps you set. Help&rsquo;s example is an increment of 10 so the quantities are 10, 20, 30. The default increment is 1. An increment must be a positive whole number of 1 or more. You can set different increments on different products. The rule is per variant: 5 of one color and 5 of another do not make an increment of 10.</li>
+      <li><strong>Minimum.</strong> The fewest units of that item that can be purchased at one time. You can set a minimum, a maximum, or both. The same per-variant example applies: quantities of two variants are not added together.</li>
+      <li><strong>Maximum.</strong> The greatest number of that product that can be purchased at one time. In the catalog editor, Help says the maximum limits the amount of the variant a customer can purchase in one order.</li>
+    </ul>
+    <p>Help says you set the rules in Markets &gt; Catalogs, on the product or on one variant, or by CSV. If you set a minimum, it says to make sure the theme shows that minimum on the product page. It also says customers can only add and purchase quantities above the minimum, below the maximum, and in multiples of the increment, and that those rules are re-validated in checkout. Confirm that paragraph on the live page.</p>
+    <p>Volume pricing, on the same page, is a set of price breaks when the customer buys a larger quantity of a variant in one order. Help says you can add up to 10 price breaks per product, applied to each variant. A price break is not a minimum order value for the whole cart.</p>
+
+    <h2>What that page does not do, and where review fits</h2>
+    <p>The quantity-rules article counts units of a variant. It does not show a field for a minimum order value in currency, and it does not describe routing an order to a person for approval. If you need a currency floor or a review hold, do not rename the catalog minimum as that floor. This page did not find that control on the quantity-rules article. Confirm the live article before you treat a later Help page as adding one.</p>
+    <p>Order review is the job of holding a company order above a threshold for manual approval. Native payment terms are when the location pays. Both are separate from a per-variant quantity. The review reading, including what Shopify Help says about draft review, is <a href="/guides/b2b-order-review-threshold-checkout/">B2B order review threshold</a>. Net terms are <a href="/guides/shopify-net-30-payment-terms/">Shopify B2B payment terms</a>. A PO number check is a third checkout job; the browser tester above only exercises the string.</p>
+
+    <h2>What this page is not</h2>
+    <ul>
+      <li>Not legal advice, a credit decision, or a statement that every store can assign catalogs.</li>
+      <li>Not a minimum order value in currency. Help&rsquo;s quantity-rules page describes unit counts.</li>
+      <li>Not the review-threshold setup. That URL is <a href="/guides/b2b-order-review-threshold-checkout/">B2B order review threshold</a>.</li>
+      <li>Not Net 30 or other payment terms. That URL is <a href="/guides/shopify-net-30-payment-terms/">Shopify B2B payment terms</a>.</li>
+    </ul>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/tools/po-number-format-tester/">PO number format tester</a> &mdash; prefix, length, and duplicates on a sample PO</li>
+      <li><a href="/guides/b2b-order-review-threshold-checkout/">B2B order review threshold</a> &mdash; hold a company order above a threshold</li>
+      <li><a href="/guides/shopify-net-30-payment-terms/">Shopify B2B payment terms</a> &mdash; Net 30 and the other term types on Help</li>
+      <li><a href="https://help.shopify.com/en/manual/b2b/catalogs/quantity-pricing">Shopify Help: quantity rules and volume pricing</a></li>
+      <li><a href="https://apps.shopify.com/b2b-terms-guard">B2B Terms &amp; PO Guard</a> &mdash; live App Store listing</li>
+      <li><a href="/review/">Shopify apps hub</a></li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+    <p class="note">Not legal advice. Confirm Shopify Help&rsquo;s quantity-rules page before you treat a catalog minimum as a currency threshold or as an approval hold. The app checks the PO and review rules you publish. It does not replace catalog quantity rules.</p>
+  </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/review/">Shopify apps hub</a></li>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>

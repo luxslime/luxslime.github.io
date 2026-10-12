@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shopify APO, FPO, and DPO addresses: USPS format and checkout settings</title>
+  <meta name="description" content="USPS writes APO, FPO, and DPO addresses with AA, AE, or AP and no foreign city. Shopify Help maps those fields and documents zones, rates, and checkout validation. Confirm the live pages. Not legal advice.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Shopify APO, FPO, and DPO addresses: USPS format and checkout settings">
+  <meta property="og:description" content="USPS writes APO, FPO, and DPO addresses with AA, AE, or AP and no foreign city. Shopify Help maps those fields and documents zones, rates, and checkout validation. Confirm the live pages. Not legal advice.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/shopify-ship-to-apo-fpo-address/">
+  <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/27f7c111c94acf4b22bfef9207351043/promotional_image/CLDLhsPS7ZQDEAE=.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Shopify APO, FPO, and DPO addresses: USPS format and checkout settings">
+  <meta name="twitter:description" content="USPS writes APO, FPO, and DPO addresses with AA, AE, or AP and no foreign city. Shopify Help maps those fields and documents zones, rates, and checkout validation. Confirm the live pages. Not legal advice.">
+  <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/27f7c111c94acf4b22bfef9207351043/promotional_image/CLDLhsPS7ZQDEAE=.png">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/shopify-ship-to-apo-fpo-address/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://apify.momiji-space.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Shopify APO, FPO, and DPO addresses",
+        "item": "https://apify.momiji-space.com/guides/shopify-ship-to-apo-fpo-address/"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "AddressFence: PO Box Billing",
+    "url": "https://apps.shopify.com/address-guard",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Shopify",
+    "image": "https://cdn.shopify.com/app-store/listing_images/27f7c111c94acf4b22bfef9207351043/icon/CISg3YSo4pQDEAE=.png"
+  }
+  </script>
+</head>
+<body>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/review/">Shopify apps</a>
+        <a href="/guides/shopify-ship-to-apo-fpo-address/" aria-current="page">APO / FPO / DPO</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / <a href="/guides/">Guides</a> / Shopify APO, FPO, and DPO addresses</nav>
+    <p class="eyebrow">Shopify APO, FPO, and DPO addresses</p>
+    <h1>How APO, FPO, and DPO addresses are written, and what Shopify can allow or block</h1>
+    <p class="answer-first"><strong>Direct answer.</strong> <a href="https://www.usps.com/ship/apo-fpo-dpo.htm">USPS</a> writes a military or diplomatic shipment to a named person, with the unit or PSC and box on the delivery line, then APO, FPO, or DPO as the city, a two-letter designation, and the ZIP Code &mdash; and it says not to add a foreign city or country. <a href="https://pe.usps.com/text/pub28/pub28c2_010.htm">Postal Explorer 225.1</a> uses AE for armed forces in Europe, the Middle East, Africa, and Canada; AP for the Pacific; and AA for the Americas excluding Canada. Shopify Help&rsquo;s <a href="https://help.shopify.com/en/manual/shipping/shopify-shipping/shipping-labels/reviewing-address-formats">address-format page</a> maps that onto United States, an Armed Forces state, and a city of only APO, FPO, or DPO. A merchant allows the destination by including the country or region in a <a href="https://help.shopify.com/en/manual/fulfillment/setup/shipping-rates/setting-up-shipping-rates">shipping zone that has rates</a>, and can reject an address checkout would otherwise take with address checks or a <a href="https://shopify.dev/docs/api/functions/latest/cart-and-checkout-validation">checkout validation function</a>. Those Help pages do not name an APO on/off switch. Confirm the live pages. This page is not legal advice.</p>
+    <p class="lede"><strong>AddressFence: PO Box Billing</strong> (<a href="https://apps.shopify.com/address-guard">Shopify App Store</a>) publishes billing-address rules and street-number checks for checkout, where built-in validation cannot apply to billing, and tests an address in the simulator before you publish. The listing describes that billing job. This page does not read it as an APO, FPO, or DPO switch. The PO Box question is <a href="/guides/does-shopify-ship-to-po-boxes/">Does Shopify ship to PO Boxes?</a>.</p>
+    <p><strong>Free check first:</strong> <a href="/tools/po-box-address-checker/">PO box and street number address checker</a> runs in your browser and sends nothing. Paste addresses and see which look like a PO box or lack a street number.</p>
+
+    <h2>Checklist before you allow or block a military address</h2>
+    <ul>
+      <li>Copy the format from the live <a href="https://www.usps.com/ship/apo-fpo-dpo.htm">USPS military and diplomatic mail page</a> and from <a href="https://pe.usps.com/text/pub28/pub28c2_010.htm">Postal Explorer 225</a>.</li>
+      <li>Map the fields the way <a href="https://help.shopify.com/en/manual/shipping/shopify-shipping/shipping-labels/reviewing-address-formats">Shopify Help</a> states them: country United States, Armed Forces state, city only APO, FPO, or DPO.</li>
+      <li>If USPS and Shopify Help use different words for the delivery line (PSC, UNIT, or BOX), keep the line the recipient was given and re-read both pages.</li>
+      <li>To offer a rate, put the destination&rsquo;s country or region in a shipping zone that has rates, and in an active market, as the <a href="https://help.shopify.com/en/manual/fulfillment/setup/shipping-rates/setting-up-shipping-rates">shipping zones page</a> describes. Confirm in the zone editor whether Armed Forces states are inside a United States zone.</li>
+      <li>To reject an address that checkout would still accept, use the checkout address settings or a validation function. Read <a href="https://help.shopify.com/en/manual/checkout-settings/address-collection-preferences">address collection preferences</a> and <a href="https://shopify.dev/docs/apps/build/checkout/cart-checkout-validation">cart and checkout validation</a> on shopify.dev. Neither page, as used for this guide, names a preset called APO.</li>
+    </ul>
+
+    <h2>The USPS lines</h2>
+    <p>The USPS military and diplomatic mail page says each shipment needs the recipient&rsquo;s name, rank, and unit, and the APO, FPO, or DPO address with the 9-digit ZIP Code. It also says to include a return address, to address the piece to a specific person, and that addressing to &ldquo;Any Service Member&rdquo; is no longer permitted. It says not to include city or country names, so the piece does not enter a foreign mail network. The examples it prints are:</p>
+    <ul>
+      <li>Army/Air Post Office (APO): PFC JOHN DOE / PSC 3 BOX 4120 / APO AE 09021</li>
+      <li>Fleet Post Office (FPO): SEAMAN JOSEPH SMITH / UNIT 100100 BOX 4120 / FPO AP 96691</li>
+      <li>Diplomatic Post Office (DPO): JOHN ADAMS / UNIT 8400 BOX 0000 / DPO AE 09498-0048</li>
+    </ul>
+    <p>That page asks for a 9-digit ZIP Code and also prints 5-digit examples. Use the ZIP the recipient was assigned. Postal Explorer 225.1 says an overseas military address must contain the APO or FPO designation, a two-character &ldquo;state&rdquo; abbreviation of AE, AP, or AA, and the ZIP Code or ZIP+4 Code, and it defines AE, AP, and AA as in the direct answer. Confirm both USPS pages if a DPO line is not in section 225.1.</p>
+
+    <h2>How Shopify Help says to enter the same address</h2>
+    <p>Shopify Help&rsquo;s reviewing-address-formats page says there are three US military address types: APO, FPO, and DPO. If the customer&rsquo;s entry does not match, edit it using these guidelines from that page:</p>
+    <ul>
+      <li>The recipient&rsquo;s name goes in the name fields. Rank is optional.</li>
+      <li>The PSC and BOX numbers for what that page calls &ldquo;AP addresses,&rdquo; or the UNIT and BOX numbers for FPO and DPO addresses, both belong in the address field.</li>
+      <li>The city field must contain only APO, FPO, or DPO. Do not enter a city name.</li>
+      <li>United States must be selected as the country or region.</li>
+      <li>Armed Forces Americas, Armed Forces Europe, or Armed Forces Pacific must be selected as the state. Help says customers may abbreviate those as Armed Forces America (AA), Armed Forces Europe (AE), or Armed Forces Pacific (AP).</li>
+    </ul>
+    <p>Help&rsquo;s &ldquo;Armed Forces America&rdquo; and Postal Explorer&rsquo;s &ldquo;Americas excluding Canada&rdquo; are not the same sentence. Quote the page you are following, and ask the customer if a field is unclear. Help also says that if you are unsure, contact the customer before you ship.</p>
+
+    <h2>Zones, rates, and checkout validation</h2>
+    <p>Shopify Help says a shipping zone is a group of countries or regions, and that you add rates inside the zone. It also says customers can place an order for a country only when that country is in an active market and in a zone that has rates. Within a location group, a country or region can sit in only one zone. That is how a merchant includes a destination, or withholds a rate by leaving the destination out of a zone.</p>
+    <p>Those pages describe countries and regions. They do not, in the text used for this guide, say that selecting United States automatically includes or excludes Armed Forces Americas, Europe, and Pacific. Check the regions list in the zone editor against the live Help article before you treat AA, AE, or AP as covered or blocked.</p>
+    <p><a href="https://help.shopify.com/en/manual/checkout-settings/address-collection-preferences">Address collection preferences</a> describe autocomplete and validating some shipping addresses before the order is placed. That setting is not written there as a military-address block. A rule that rejects a delivery address is a <a href="https://shopify.dev/docs/api/functions/latest/cart-and-checkout-validation">Cart and Checkout Validation Function</a>: shopify.dev says the function can return a validation error on a checkout field, including delivery-address targets. Whether a given function treats APO, FPO, and DPO as allowed is the function you publish, not a switch this page found on Help. The wider checkout picture is <a href="/guides/shopify-address-validation-checkout/">Shopify address validation at checkout</a>.</p>
+    <p>Allowing the address at checkout is not a statement that every carrier will deliver it. Carrier rules are outside the USPS and Shopify pages cited here. The PO Box comparison is <a href="/guides/does-shopify-ship-to-po-boxes/">Does Shopify ship to PO Boxes?</a>.</p>
+
+    <h2>What this page is not</h2>
+    <ul>
+      <li>Not a claim that every United States shipping zone includes AA, AE, and AP, or that checkout validation rejects them by default.</li>
+      <li>Not a carrier-delivery ruling. That question, for PO Boxes, is <a href="/guides/does-shopify-ship-to-po-boxes/">Does Shopify ship to PO Boxes?</a>.</li>
+      <li>Not the billing-address how-to. AddressFence&rsquo;s listing is billing rules and a street-number check.</li>
+      <li>Not legal advice, a customs ruling, or a promise that a label will be accepted.</li>
+    </ul>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/tools/po-box-address-checker/">PO box and street number address checker</a> &mdash; paste an address in the browser</li>
+      <li><a href="/guides/does-shopify-ship-to-po-boxes/">Does Shopify ship to PO Boxes?</a></li>
+      <li><a href="/guides/shopify-address-validation-checkout/">Shopify address validation at checkout</a></li>
+      <li><a href="https://www.usps.com/ship/apo-fpo-dpo.htm">USPS: Military and diplomatic mail</a></li>
+      <li><a href="https://pe.usps.com/text/pub28/pub28c2_010.htm">USPS Postal Explorer 225: Military addresses</a></li>
+      <li><a href="https://help.shopify.com/en/manual/shipping/shopify-shipping/shipping-labels/reviewing-address-formats">Shopify Help: reviewing address formats</a></li>
+      <li><a href="https://apps.shopify.com/address-guard">AddressFence: PO Box Billing</a> &mdash; live App Store listing</li>
+      <li><a href="/review/">Shopify apps hub</a></li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+    <p class="note">Not legal advice. Confirm the live USPS pages and Shopify Help and shopify.dev before you treat an APO, FPO, or DPO address as accepted or blocked. The app publishes the billing-address rules you configure. It does not ship parcels.</p>
+  </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/review/">Shopify apps hub</a></li>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>
