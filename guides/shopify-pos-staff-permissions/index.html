@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shopify POS staff permissions: POS roles vs admin staff permissions</title>
+  <meta name="description" content="POS permissions are set per POS role, separate from admin staff permissions. Review discount and refund rights on the POS role. Cite help.shopify.com only. Not legal advice.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Shopify POS staff permissions: POS roles vs admin staff permissions">
+  <meta property="og:description" content="POS permissions are set per POS role, separate from admin staff permissions. Review discount and refund rights on the POS role. Cite help.shopify.com only. Not legal advice.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/shopify-pos-staff-permissions/">
+  <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/9ea3a49e539bec70dcd6abb7cc7f4746/promotional_image/CL_Eloyu9ZQDEAE=.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Shopify POS staff permissions: POS roles vs admin staff permissions">
+  <meta name="twitter:description" content="POS permissions are set per POS role, separate from admin staff permissions. Review discount and refund rights on the POS role. Cite help.shopify.com only. Not legal advice.">
+  <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/9ea3a49e539bec70dcd6abb7cc7f4746/promotional_image/CL_Eloyu9ZQDEAE=.png">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/shopify-pos-staff-permissions/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://apify.momiji-space.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Shopify POS staff permissions",
+        "item": "https://apify.momiji-space.com/guides/shopify-pos-staff-permissions/"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Staff Access Audit Guard",
+    "url": "https://apps.shopify.com/momiji-access-audit",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Shopify",
+    "image": "https://cdn.shopify.com/app-store/listing_images/9ea3a49e539bec70dcd6abb7cc7f4746/icon/CLqU3dXo9JQDEAE=.png"
+  }
+  </script>
+</head>
+<body>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/review/">Shopify apps</a>
+        <a href="/guides/shopify-pos-staff-permissions/" aria-current="page">POS staff permissions</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / <a href="/guides/">Guides</a> / Shopify POS staff permissions</nav>
+    <p class="eyebrow">Shopify POS staff permissions</p>
+    <h1>POS permissions are set per POS role, not by editing admin staff permissions</h1>
+    <p class="answer-first"><strong>Direct answer.</strong> Shopify documents Point of Sale permissions as a named set on a <em>POS role</em>, assigned to POS staff, separate from the admin user-role permissions that control Shopify admin. You cannot assign individual POS permissions to a person; you assign a role. Discount and refund rights live on that role: Apply custom discounts, Apply discount codes, and Return and exchange orders, each set to Allowed, Denied, or Approval required. Confirm the live Help Center pages; Shopify can change labels. This page is not legal advice.</p>
+    <p class="lede"><strong>Staff Access Audit Guard</strong> (<a href="https://apps.shopify.com/momiji-access-audit">Shopify App Store</a>) reviews installed app access, granted scopes, staff access records, and ownership evidence without reading customer or order data. It does not revoke staff or change POS roles. This page is the Help Center reading aid for POS roles versus admin permissions &mdash; not the leftover-admin self-score.</p>
+    <p><strong>Free check first:</strong> <a href="/tools/app-scope-access-reader/">App access scope reader</a> runs in your browser and sends nothing. Paste an app&rsquo;s access scopes and see which touch customer data or can write.</p>
+
+    <h2>Checklist: review discount and refund rights</h2>
+    <ul>
+      <li>Open the POS role pages Shopify documents, not only Settings &gt; Users admin roles.</li>
+      <li>Confirm each POS staff member has an assigned POS role. Shopify says every Point of Sale staff member needs one.</li>
+      <li>On that role, read Apply custom discounts and Apply discount codes (Allowed, Denied, or Approval required).</li>
+      <li>On that role, read Return and exchange orders and the related return permissions Shopify lists (ineligible items, unverified returns, complete in-progress returns, restock).</li>
+      <li>If Approval required is set, confirm who holds manager-approval plus the matching Allowed permission, because Shopify says that person enters a PIN.</li>
+    </ul>
+
+    <h2>POS roles are not admin staff permissions</h2>
+    <p>Shopify&rsquo;s <a href="https://help.shopify.com/en/manual/sell-in-person/shopify-pos/staff-management/pos-roles">Understanding Shopify POS staff management</a> page describes POS roles as a named set of permissions for POS app activities &mdash; processing returns, adding discounts, cash tracking, and similar register actions. It states that you cannot assign individual permissions to Point of Sale staff; you assign a role. Custom POS roles are documented for locations on the POS Pro subscription. Admin user roles, documented under <a href="https://help.shopify.com/en/manual/your-account/users/roles/permissions">Users and permissions</a>, control Shopify admin. A staff member can hold both an admin role and a POS role; changing one does not rewrite the other.</p>
+    <p>The same POS staff-management page notes that a POS role applies when the staff member uses a PIN at a POS Pro location. A permission denied on the POS role can still be available when that person works in Shopify admin, if their admin role allows it. Confirm the live Help Center wording for your plan and location type.</p>
+
+    <h2>Where discount and refund rights sit</h2>
+    <p>The <a href="https://help.shopify.com/en/manual/your-account/users/roles/permissions/pos-permissions">Point of Sale permissions</a> table lists each POS permission and the Allowed / Denied / Approval required options. For money off the cart, Shopify names:</p>
+    <ul>
+      <li><strong>Apply custom discounts</strong> &mdash; custom discounts on the cart or a line item.</li>
+      <li><strong>Apply discount codes</strong> &mdash; discount codes on the cart.</li>
+    </ul>
+    <p>For refunds and exchanges, Shopify names <strong>Return and exchange orders</strong>, with separate permissions for returning ineligible items, creating unverified returns, completing in-progress returns, managing restock, and cancel. The Help Center page on <a href="https://help.shopify.com/en/manual/sell-in-person/shopify-pos/order-management/complete-refund-orders">processing returns and refunds in Shopify POS</a> says staff must have Return and exchange orders to refund, plus those extra permissions for the extra actions. Approval required means a staff member who has manager approval and the matching Allowed permission enters their PIN.</p>
+    <p>Shopify also documents that high-risk register actions such as voids, refunds, and manual discounts are attributed to the staff member who performed them, and that you can review them in the POS activity log. That log is an activity record, not an access-audit score.</p>
+
+    <h2>What this page is not</h2>
+    <ul>
+      <li>Not legal advice, a security attestation, or employee monitoring.</li>
+      <li>Not a substitute for the live Help Center pages, which Shopify can update.</li>
+      <li>Not the leftover-admin 2FA and publish-rights score. That URL is <a href="/guides/staff-permissions-audit-checklist/">staff permissions audit checklist</a>.</li>
+    </ul>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/tools/app-scope-access-reader/">App access scope reader</a> &mdash; paste scopes and see which touch customer data</li>
+      <li><a href="/guides/staff-permissions-audit-checklist/">Staff permissions audit checklist</a> &mdash; leftover Admin access, not POS roles</li>
+      <li><a href="https://apps.shopify.com/momiji-access-audit">Staff Access Audit Guard</a> &mdash; live App Store listing</li>
+      <li><a href="https://help.shopify.com/en/manual/your-account/users/roles/permissions/pos-permissions">Point of Sale permissions</a></li>
+      <li><a href="https://help.shopify.com/en/manual/sell-in-person/shopify-pos/staff-management/pos-roles">Understanding Shopify POS staff management</a></li>
+      <li><a href="/review/">Shopify apps hub</a></li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+    <p class="note">Not legal advice. Confirm the live Shopify Help Center pages before you treat a POS role as granting or denying a register action. The app scores and flags access you already granted; it does not change POS roles.</p>
+  </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/review/">Shopify apps hub</a></li>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>
