@@ -4,17 +4,17 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Require a street number at Shopify checkout after the Address Blocker sunset</title>
-  <meta name="description" content="Shopify's address format validation can't require a street number. Additional address fields cover only some countries. Here is the gap and a fix.">
+  <meta name="description" content="Shopify's built-in address validation can't require a street number. Use a checkout validation function or an app such as AddressFence, and test house-name addresses before publishing. Not legal advice.">
   <meta name="robots" content="index,follow">
   <link rel="icon" href="/favicon.ico" sizes="any">
   <meta property="og:type" content="article">
   <meta property="og:title" content="Require a street number at Shopify checkout after the Address Blocker sunset">
-  <meta property="og:description" content="Shopify's address format validation can't require a street number. Additional address fields cover only some countries. Here is the gap and a fix.">
+  <meta property="og:description" content="Shopify's built-in address validation can't require a street number. Use a checkout validation function or an app such as AddressFence, and test house-name addresses before publishing. Not legal advice.">
   <meta property="og:url" content="https://apify.momiji-space.com/guides/require-street-number-shopify-checkout/">
   <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/27f7c111c94acf4b22bfef9207351043/promotional_image/CLDLhsPS7ZQDEAE=.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Require a street number at Shopify checkout after the Address Blocker sunset">
-  <meta name="twitter:description" content="Shopify's address format validation can't require a street number. Additional address fields cover only some countries. Here is the gap and a fix.">
+  <meta name="twitter:description" content="Shopify's built-in address validation can't require a street number. Use a checkout validation function or an app such as AddressFence, and test house-name addresses before publishing. Not legal advice.">
   <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/27f7c111c94acf4b22bfef9207351043/promotional_image/CLDLhsPS7ZQDEAE=.png">
   <link rel="canonical" href="https://apify.momiji-space.com/guides/require-street-number-shopify-checkout/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
@@ -72,6 +72,8 @@
     <nav><a href="/">Home</a> / <a href="/guides/">Guides</a> / Street number at checkout</nav>
     <p class="eyebrow">Street number at checkout</p>
     <h1>Require a street number at Shopify checkout after the Address Blocker sunset</h1>
+    <p><strong>Direct answer.</strong> Shopify's built-in address format validation cannot require a street number; <a href="https://help.shopify.com/en/manual/checkout-settings/checkout-blocks/customizations/address-format-validation">Shopify Help</a> states that requiring a street number is not supported there, and additional address fields appear only in some countries, with no merchant control over which fields are required. To require a street number at checkout, use a Cart and Checkout Validation Function or an app that provides one. <a href="https://apps.shopify.com/address-guard">AddressFence: PO Box Billing</a> adds that check back (“Require a street number - the Address Blocker rule that was not migrated”), alongside billing-address rules, and lets you test any address in the simulator before publishing, with one-click rollback.</p>
+    <p>Some UK addresses use a house name instead of a number, so test those in the simulator before you publish; see the <a href="/guides/shopify-require-street-number-house-name-addresses/">house-name test list</a>.</p>
     <p class="lede"><strong>AddressFence: PO Box Billing</strong> (<a href="https://apps.shopify.com/address-guard">Shopify App Store</a>) is a Shopify checkout-validation app for billing-address rules and street-number checks — the address rules built-in validation cannot apply. Native Shopify blocks PO boxes, lockers and ZIP patterns on <strong>shipping</strong> only (<a href="https://changelog.shopify.com/posts/checkout-blocks-block-non-compliant-shipping-addresses-at-checkout">available to all merchants since 17 June 2026</a>; <a href="https://help.shopify.com/en/manual/checkout-settings/checkout-blocks/customizations/address-format-validation">Help</a>). AddressFence lists: “Require a street number - the Address Blocker rule that was not migrated.” Test any address in the simulator before publishing, with one-click rollback.</p>
     <p><strong>Free check first:</strong> <a href="/tools/po-box-address-checker/">PO box and street number address checker</a> runs in your browser and sends nothing. Paste addresses and see which look like a PO box or lack a street number.</p>
     <p>Native address format validation cannot require a street number.</p>
