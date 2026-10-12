@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>llms.txt vs llms-full.txt: the proposal and Shopify&rsquo;s default</title>
+  <meta name="description" content="llmstxt.org specifies /llms.txt. It does not define llms-full.txt. On Shopify, both URLs mirror /agents.md until a theme template makes one diverge.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="llms.txt vs llms-full.txt: the proposal and Shopify’s default">
+  <meta property="og:description" content="llmstxt.org specifies /llms.txt. It does not define llms-full.txt. On Shopify, both URLs mirror /agents.md until a theme template makes one diverge.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/llms-txt-vs-llms-full-txt/">
+  <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/e390016f3b8dd309f00b480bdb35cc95/icon/CMHlurDN5JQDEAE=.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="llms.txt vs llms-full.txt: the proposal and Shopify’s default">
+  <meta name="twitter:description" content="llmstxt.org specifies /llms.txt. It does not define llms-full.txt. On Shopify, both URLs mirror /agents.md until a theme template makes one diverge.">
+  <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/e390016f3b8dd309f00b480bdb35cc95/icon/CMHlurDN5JQDEAE=.png">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/llms-txt-vs-llms-full-txt/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://apify.momiji-space.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "llms.txt vs llms-full.txt",
+        "item": "https://apify.momiji-space.com/guides/llms-txt-vs-llms-full-txt/"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Agentic Catalog by momiji",
+    "url": "https://apps.shopify.com/agentic-catalog-readiness",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Shopify",
+    "image": "https://cdn.shopify.com/app-store/listing_images/e390016f3b8dd309f00b480bdb35cc95/icon/CMHlurDN5JQDEAE=.png"
+  }
+  </script>
+</head>
+<body>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/review/">Shopify apps</a>
+        <a href="/guides/llms-txt-vs-llms-full-txt/" aria-current="page">llms.txt vs llms-full.txt</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / <a href="/guides/">Guides</a> / llms.txt vs llms-full.txt</nav>
+    <p class="eyebrow">llms.txt vs llms-full.txt</p>
+    <h1>llms.txt is the proposal. llms-full.txt is not in it. Shopify serves both as copies of /agents.md until you split them</h1>
+    <p class="answer-first"><strong>Direct answer.</strong> <a href="https://llmstxt.org/">llmstxt.org</a> publishes a proposal, &ldquo;The /llms.txt file, v2&rdquo; (published September 3, 2024; modified August 10, 2026), for a Markdown file named <code>llms.txt</code>. The live page does not mention <code>llms-full.txt</code>. Outside that proposal, <code>llms-full.txt</code> is a common file name for a single file that holds the full content. On Shopify, the <a href="https://shopify.dev/changelog/customize-llmstxt-llms-fulltxt-and-agentsmd">28 May 2026 changelog</a> says the store includes a default <code>agents.md</code> at <code>/agents.md</code>, and that <code>/llms.txt</code> and <code>/llms-full.txt</code> also point to this content by default. The <a href="https://shopify.dev/docs/storefronts/themes/architecture/templates/llms-txt-liquid">llms.txt.liquid</a> and <a href="https://shopify.dev/docs/storefronts/themes/architecture/templates/llms-full-txt-liquid">llms-full.txt.liquid</a> docs say each URL mirrors <code>/agents.md</code> until a dedicated template makes that URL diverge. This page does not claim that any AI system reads or ranks these files.</p>
+    <p class="lede"><strong>Agentic Catalog by momiji</strong> (<a href="https://apps.shopify.com/agentic-catalog-readiness">Shopify App Store</a>) audits catalog and product readiness before launch or AI shopping discovery. It reviews fix guidance, reruns scans, and exports CSV evidence. It does not publish <code>llms.txt</code> or <code>llms-full.txt</code>. How to add the file is <a href="/guides/how-to-add-llms-txt-to-shopify/">how to add llms.txt to Shopify</a>.</p>
+    <p><strong>Free check first:</strong> <a href="/tools/product-json-ld-field-checker/">Product JSON-LD field checker</a> runs in your browser and sends nothing. Paste product JSON-LD and see which merchant-listing fields are present or missing.</p>
+
+    <h2>Checklist before you treat the two URLs as different files</h2>
+    <ul>
+      <li>Read the live <a href="https://llmstxt.org/">llmstxt.org</a> format. The page checked for this guide does not define <code>llms-full.txt</code>.</li>
+      <li>Read the <a href="https://shopify.dev/changelog/customize-llmstxt-llms-fulltxt-and-agentsmd">28 May 2026 changelog</a> and the three template pages linked below. They are the Shopify statements this page uses.</li>
+      <li>Open <code>/agents.md</code>, <code>/llms.txt</code>, and <code>/llms-full.txt</code> on the store. Until a template splits them, Shopify says they point at the same content.</li>
+      <li>The template lookup order is on <a href="/guides/shopify-customize-agents-md-llms-txt/">customize agents.md and llms.txt</a>. This page does not repeat that table.</li>
+      <li>A <code>robots.txt</code> rule is a different file. That page is <a href="/guides/shopify-robots-txt-block-gptbot-ai-crawlers/">Shopify robots.txt and AI crawlers</a>.</li>
+    </ul>
+
+    <h2>What llmstxt.org says the file contains</h2>
+    <p>The proposal says it is a Markdown file named <code>llms.txt</code>, at <code>/llms.txt</code> or at a subpath. A file following the spec contains, in order: an optional byte-order mark; an H1 with the name of the project or site, which is the only required section; a blockquote with a short summary of the project, containing key information necessary for understanding the rest of the file; zero or more markdown sections of any type except headings, with more detailed information; and zero or more markdown sections delimited by H2 headers, containing &ldquo;file lists&rdquo; of URLs where further detail is available. Each file-list item is a markdown hyperlink <code>[name](url)</code>, then optionally a colon and notes. The page says the &ldquo;Optional&rdquo; section is used, by convention, for secondary information. The proposal describes the file as information to help agents use a website. That is the proposal&rsquo;s statement. It is not a claim that a named AI system reads or ranks a store&rsquo;s file.</p>
+
+    <h2>What Shopify says the two URLs serve</h2>
+    <p>The changelog dated May 28, 2026 says: &ldquo;Your store includes a default <code>agents.md</code> file accessible at <code>/agents.md</code>. The paths <code>/llms.txt</code> and <code>/llms-full.txt</code> also point to this content by default.&rdquo; It says you add a template under Online Store, Themes, Edit code to serve different content per path: <code>templates/agents.md.liquid</code> controls <code>/agents.md</code> and is the default for the other two paths; <code>templates/llms.txt.liquid</code> controls <code>/llms.txt</code> only; <code>templates/llms-full.txt.liquid</code> controls <code>/llms-full.txt</code> only. If no template is present for a given path, it falls back to the <code>agents.md</code> template, then to the Shopify-generated default.</p>
+    <p>The <a href="https://shopify.dev/docs/storefronts/themes/architecture/templates/llms-txt-liquid">llms.txt.liquid</a> page says <code>/llms.txt</code> is an agent-discovery file and an alternate URL for <code>/agents.md</code>, which is the canonical agent-discovery document, and that by default Shopify manages <code>/llms.txt</code> by mirroring the content of <code>/agents.md</code>. It says to add <code>llms.txt.liquid</code> only when <code>/llms.txt</code> needs to diverge from <code>/agents.md</code>. A dedicated template takes precedence for <code>/llms.txt</code> only, while <code>/agents.md</code> and <code>/llms-full.txt</code> are unaffected. The <a href="https://shopify.dev/docs/storefronts/themes/architecture/templates/llms-full-txt-liquid">llms-full.txt.liquid</a> page says the same mirroring for <code>/llms-full.txt</code>, and that a dedicated <code>llms-full.txt.liquid</code> takes precedence for that URL only, while <code>/agents.md</code> and <code>/llms.txt</code> are unaffected. The <a href="https://shopify.dev/docs/storefronts/themes/architecture/templates/agents-md-liquid">agents.md.liquid</a> page says <code>agents.md</code> is the canonical agent-discovery document, and that the two <code>llms</code> URLs are alternate URLs that mirror <code>/agents.md</code> by default.</p>
+
+    <h2>Purpose, who defines it, the Shopify default, when to diverge</h2>
+    <table>
+      <caption>llms.txt and llms-full.txt, as the proposal and Shopify&rsquo;s docs describe them</caption>
+      <thead>
+        <tr>
+          <th scope="col">File</th>
+          <th scope="col">Purpose</th>
+          <th scope="col">Defined by</th>
+          <th scope="col">Shopify default</th>
+          <th scope="col">When to diverge</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>/llms.txt</code></td>
+          <td>The proposal&rsquo;s Markdown overview: H1 name, blockquote summary, and link lists</td>
+          <td><a href="https://llmstxt.org/">llmstxt.org</a></td>
+          <td>Mirrors <code>/agents.md</code></td>
+          <td>Add <code>llms.txt.liquid</code> only when this URL should differ from <code>/agents.md</code></td>
+        </tr>
+        <tr>
+          <td><code>/llms-full.txt</code></td>
+          <td>A common name for one file with the full content. The proposal page does not define it</td>
+          <td>Not defined on llmstxt.org</td>
+          <td>Mirrors <code>/agents.md</code></td>
+          <td>Add <code>llms-full.txt.liquid</code> only when this URL should differ from <code>/agents.md</code></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>llms.txt, agents.md, and robots.txt</h2>
+    <ul>
+      <li><code>llms.txt</code> is the proposal&rsquo;s curated Markdown file. On Shopify it is an alternate URL for <code>/agents.md</code> until you add <code>llms.txt.liquid</code>. See <a href="/guides/how-to-add-llms-txt-to-shopify/">how to add llms.txt</a>.</li>
+      <li><code>agents.md</code> is Shopify&rsquo;s canonical agent-discovery document. Customizing it is <a href="/guides/shopify-customize-agents-md-llms-txt/">the template guide</a>.</li>
+      <li><code>robots.txt</code> is the access file for automated crawlers. It is not an llms.txt. See <a href="/guides/shopify-robots-txt-block-gptbot-ai-crawlers/">Shopify robots.txt and AI crawlers</a>.</li>
+    </ul>
+    <p>Agentic storefronts, which Shopify Help describes as a sales channel, are <a href="/guides/shopify-agentic-storefronts/">a separate control</a>. Catalog readiness checks are <a href="/guides/agentic-catalog-readiness/">crawler rules and product JSON-LD</a>.</p>
+
+    <h2>What this page is not</h2>
+    <ul>
+      <li>Not a claim that any AI system reads, cites, or ranks <code>llms.txt</code> or <code>llms-full.txt</code>.</li>
+      <li>Not the theme lookup table. That URL is <a href="/guides/shopify-customize-agents-md-llms-txt/">customize agents.md and llms.txt</a>.</li>
+      <li>Not a <code>robots.txt</code> rule. That URL is <a href="/guides/shopify-robots-txt-block-gptbot-ai-crawlers/">Shopify robots.txt and AI crawlers</a>.</li>
+      <li>Not Product JSON-LD. The browser check is <a href="/tools/product-json-ld-field-checker/">the field checker</a>.</li>
+    </ul>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/tools/product-json-ld-field-checker/">Product JSON-LD field checker</a> &mdash; which merchant-listing fields pasted JSON-LD contains</li>
+      <li><a href="/guides/how-to-add-llms-txt-to-shopify/">How to add llms.txt to a Shopify store</a></li>
+      <li><a href="/guides/shopify-customize-agents-md-llms-txt/">Customize Shopify agents.md and llms.txt</a></li>
+      <li><a href="/guides/shopify-robots-txt-block-gptbot-ai-crawlers/">Shopify robots.txt and AI crawlers</a></li>
+      <li><a href="/guides/shopify-agentic-storefronts/">Shopify agentic storefronts</a></li>
+      <li><a href="/guides/agentic-catalog-readiness/">Crawler rules and product JSON-LD</a></li>
+      <li><a href="https://llmstxt.org/">llmstxt.org</a></li>
+      <li><a href="https://shopify.dev/changelog/customize-llmstxt-llms-fulltxt-and-agentsmd">Shopify changelog, 28 May 2026</a></li>
+      <li><a href="https://apps.shopify.com/agentic-catalog-readiness">Agentic Catalog by momiji</a> &mdash; live App Store listing</li>
+      <li><a href="/review/">Shopify apps hub</a></li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+    <p class="note">Confirm llmstxt.org and the live Shopify template docs before you treat <code>/llms.txt</code> and <code>/llms-full.txt</code> as different files. The app audits catalog readiness and exports CSV evidence. It does not publish these files.</p>
+  </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/review/">Shopify apps hub</a></li>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>

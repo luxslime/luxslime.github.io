@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EUDR GeoJSON format: the Information System file description</title>
+  <meta name="description" content="The EUDR Information System accepts production-place coordinates as GeoJSON. The official file description sets the geometry, properties, six-decimal truncation, and a 25 Mb DDS limit.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="EUDR GeoJSON format: the Information System file description">
+  <meta property="og:description" content="The EUDR Information System accepts production-place coordinates as GeoJSON. The official file description sets the geometry, properties, six-decimal truncation, and a 25 Mb DDS limit.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/eudr-geojson-format/">
+  <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/6eb84e4af85790ce7a2dde5c9adee4f3/icon/CKf1oNyRk5UDEAE=.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="EUDR GeoJSON format: the Information System file description">
+  <meta name="twitter:description" content="The EUDR Information System accepts production-place coordinates as GeoJSON. The official file description sets the geometry, properties, six-decimal truncation, and a 25 Mb DDS limit.">
+  <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/6eb84e4af85790ce7a2dde5c9adee4f3/icon/CKf1oNyRk5UDEAE=.png">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/eudr-geojson-format/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://apify.momiji-space.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "EUDR GeoJSON format",
+        "item": "https://apify.momiji-space.com/guides/eudr-geojson-format/"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "EUDR Records Manager",
+    "url": "https://apps.shopify.com/eudr-records-manager",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Shopify",
+    "image": "https://cdn.shopify.com/app-store/listing_images/6eb84e4af85790ce7a2dde5c9adee4f3/icon/CKf1oNyRk5UDEAE=.png"
+  }
+  </script>
+</head>
+<body>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/review/">Shopify apps</a>
+        <a href="/guides/eudr-geojson-format/" aria-current="page">EUDR GeoJSON format</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / <a href="/guides/">Guides</a> / EUDR GeoJSON format</nav>
+    <p class="eyebrow">EUDR GeoJSON format</p>
+    <h1>The EUDR Information System takes plot coordinates as GeoJSON. The file description, updated 17 August 2026, is the structure</h1>
+    <p class="answer-first"><strong>Direct answer.</strong> The European Commission&rsquo;s <a href="https://eudr.webcloud.ec.europa.eu/tracesnt/help/eudr-documentation/operator/geojson-description.html">GeoJSON File Description</a> (page title &ldquo;EUDR GeoJSON File Description&rdquo;, updated 17 August 2026) says the EUDR Information System supports the import, processing, and export of GeoJSON files for defining production place coordinates for declared commodities in a due diligence statement. GeoJSON is <a href="https://datatracker.ietf.org/doc/html/rfc7946">IETF RFC 7946</a>. The page says it uses the World Geodetic System 1984 (WGS 84) datum, with longitude and latitude units of decimal degrees, and that coordinates in another system must be converted to WGS84 (EPSG:4326). Position order is longitude, then latitude. The page does not state a feature-count limit. It does state a file size limit of 25 Mb for individual DDS submissions, which includes the total size of uploaded GeoJSON files. Regulation (EU) 2023/1115 Article 2(28) is the legal geolocation definition; that reading is <a href="/guides/eudr-geolocation-requirements/">EUDR geolocation</a>, not repeated here. This page is not legal advice.</p>
+    <p class="lede"><strong>EUDR Records Manager</strong> (<a href="https://apps.shopify.com/eudr-records-manager">Shopify App Store</a>) tracks supplier lots, product links, missing fields, document packs, CSV exports, and audit logs for EUDR record review. The listing does not say the app creates or validates GeoJSON. Application dates are <a href="/guides/eudr-scope-2026-2027/">EUDR scope: 2026 vs mid-2027</a>.</p>
+    <p><strong>Free check first:</strong> <a href="/tools/eudr-product-scope-check/">EUDR product scope check</a> runs in your browser and sends nothing. Type a product or HS code and see which EUDR Annex I lines it may touch.</p>
+
+    <h2>Checklist before you upload a file</h2>
+    <ul>
+      <li>Read the live <a href="https://eudr.webcloud.ec.europa.eu/tracesnt/help/eudr-documentation/operator/geojson-description.html">GeoJSON File Description</a>. The Commission <a href="https://green-business.ec.europa.eu/deforestation-regulation-implementation/information-system-deforestation-regulation_en">information-system page</a> links the same document on the acceptance host. The production and acceptance HTML matched when this page was written.</li>
+      <li>Use WGS84 (EPSG:4326), longitude then latitude, decimal degrees.</li>
+      <li>Use Point, MultiPoint, Polygon, or MultiPolygon. The page says LineString and MultiLineString will not be accepted or processed.</li>
+      <li>For a polygon, the first and last coordinate pair coincide. Holes and crossing lines are not supported.</li>
+      <li>The system truncates coordinates to 6 decimal places before storing. Article 2(28)&rsquo;s six-decimal rule is on <a href="/guides/eudr-geolocation-requirements/">the geolocation guide</a>.</li>
+    </ul>
+
+    <h2>What the file description says the geometry is</h2>
+    <p>A geometry object other than GeometryCollection must have a member named <code>coordinates</code>. A position is an array of numbers with at least two elements. The order is longitude, latitude in EPSG:4326. Point geometry consists of two coordinate values. MultiPoint consists of two or more points. Polygon consists of at least four pairs of coordinates, and the first and last points coincide. MultiPolygon contains two or more polygon definitions. A Feature contains a single geometry plus properties. A FeatureCollection is one or more features. GeometryCollection is two or more geometries. The page&rsquo;s Feature example nests the Point position as <code>[[longitude, latitude]]</code>. Its FeatureCollection Point example uses <code>[longitude, latitude]</code>. This page follows the FeatureCollection Point form in the snippet below.</p>
+    <p>Polygons with holes (doughnut shapes) and shapes with crossing lines are not supported and will not be processed. If a doughnut shape is needed, the page says it can be defined by combining two half-doughnut shaped polygons.</p>
+
+    <h2>Type I, Type II, and the properties the system accepts</h2>
+    <p>The page describes two variants. Type I is for the web services interface (API) and for the UI import utility at producer level. It includes the required features from the definitions section and may include any of the optional properties. Type II is for the UI file import utility at commodity level. It contains multiple producers grouped by <code>ProducerName</code> and <code>ProducerCountry</code>, and it includes the <code>ProducerCountry</code> property per Feature.</p>
+    <p>Optional properties the system accepts and will process are: <code>ProducerName</code>, an optional producer name; <code>ProducerCountry</code>, the country of production ISO2 code; <code>ProductionPlace</code>, an optional name for the geometry; and <code>Area</code>, the area in hectares of a Point. Any other syntactically valid property is ignored. The page recommends <code>ProductionPlace</code> to describe the production place name.</p>
+    <p>The information system will truncate coordinate points to 6 decimal places before storing. The page says it is superfluous to send a higher resolution, and that higher resolution may, in extreme cases, result in invalid geometries where the original is valid. The property <code>Area</code> for points is optional. If it is not provided, it will be set by default to &ldquo;4&rdquo; (four) hectares when processed by the EUDR system.</p>
+
+    <h2>An illustrative FeatureCollection, not a real plot</h2>
+    <p>The coordinates and property values below are placeholders. They are not a farm, a plot, or a coordinate from the official examples. <code>XX</code> is not an ISO2 code; an invalid producer-country ISO2 code is one of the errors the page lists. The number 4 is the default the page states when <code>Area</code> is omitted for a point; it is shown here only so the value is a number, not a string.</p>
+    <pre><code>{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "ProductionPlace": "PLACEHOLDER",
+        "ProducerCountry": "XX",
+        "Area": 4
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [0.000001, 0.000001]
+      }
+    }
+  ]
+}</code></pre>
+
+    <h2>What the Information System treats as a file error</h2>
+    <p>The page lists common GeoJSON file errors. It does not point to a third-party validator. The checks below are the ones that page describes for import into the Information System:</p>
+    <ol>
+      <li>Coordinate lines crossing, such as a figure-eight or intersecting polygon lines.</li>
+      <li>Overlapping sides. Internal overlap or holes where part of the polygon folds inward are not accepted.</li>
+      <li>Coordinate shapes with holes. The workaround on the page is two half-moon shapes.</li>
+      <li>Open polygons. The first coordinate pair must be the same as the last.</li>
+      <li>Invalid geometry types, for example LineString.</li>
+      <li>Coordinates representing straight lines.</li>
+      <li>Duplicate coordinates after truncation to 6 decimals. The page&rsquo;s example is two points with 10 decimals that become the same after truncation: <code>2.348800000,48.8534345673</code> becomes <code>2.3488,48.853434</code>, and both <code>-5.8227391234,144.2567071234</code> and <code>-5.8227394567,144.2567074567</code> become <code>-5.822739,144.256707</code>.</li>
+      <li>File syntax errors, such as a missing <code>)</code> or <code>}</code>.</li>
+      <li>Invalid property names, or the wrong case, such as <code>productionplace</code> instead of <code>ProductionPlace</code>.</li>
+      <li>Invalid file format, such as PDF or txt.</li>
+      <li>Invalid coordinate range, outside 90/−90 or 180/−180.</li>
+      <li>Invalid producer country ISO2 code.</li>
+      <li>Password-protected files.</li>
+      <li>A value of the wrong type. The page says <code>&quot;Area&quot;: &quot;3&quot;</code> instead of <code>&quot;Area&quot;: 3</code> results in area = 0, because the quoted 3 is not recognized as a number.</li>
+      <li>Polygons with holes. The page says the user will be shown an error message.</li>
+      <li>GeoJSON files exceeding the 25 Mb size limit.</li>
+    </ol>
+    <p>The page says operators are required to obtain geolocation data that is as granular as possible, and that the system has a file size limit of 25 Mb for individual DDS submissions, which includes the total size of uploaded GeoJSON files. Its workarounds for that limit are: reduce the number of points used to describe straight lines, using only two points to define a line instead of adding coordinates at frequent intervals (the page&rsquo;s example interval is every 5–10 meters); and use single geolocation points to represent plots under 4 hectares, rather than creating polygons. The regulation&rsquo;s own polygon rule, including the cattle exception, stays on <a href="/guides/eudr-geolocation-requirements/">EUDR geolocation</a>.</p>
+
+    <h2>What this page is not</h2>
+    <ul>
+      <li>Not Article 2(28). Latitude, longitude, six decimal digits, and polygons above four hectares except cattle are <a href="/guides/eudr-geolocation-requirements/">the geolocation guide</a>.</li>
+      <li>Not a due diligence statement. An Annex II reading is <a href="/guides/eudr-due-diligence-statement-example/">the statement example</a>. The reference number is <a href="/guides/eudr-dds-reference-number/">a separate page</a>.</li>
+      <li>Not country risk. That list is <a href="/guides/eudr-country-benchmarking-low-risk/">Article 29 benchmarking</a>.</li>
+      <li>Not an application date. Those dates are <a href="/guides/eudr-scope-2026-2027/">EUDR scope: 2026 vs mid-2027</a>.</li>
+      <li>Not a third-party GeoJSON validator. The page describes validation by the Information System on import.</li>
+    </ul>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/tools/eudr-product-scope-check/">EUDR product scope check</a> &mdash; which Annex I lines a product or HS code may touch</li>
+      <li><a href="/guides/eudr-geolocation-requirements/">EUDR geolocation</a> &mdash; Article 2(28)</li>
+      <li><a href="/guides/eudr-due-diligence-statement-example/">EUDR due diligence statement example</a></li>
+      <li><a href="/guides/eudr-dds-reference-number/">EUDR due diligence statement reference number</a></li>
+      <li><a href="/guides/eudr-country-benchmarking-low-risk/">EUDR country benchmarking</a></li>
+      <li><a href="/guides/eudr-scope-2026-2027/">EUDR scope: 2026 vs mid-2027</a></li>
+      <li><a href="https://eudr.webcloud.ec.europa.eu/tracesnt/help/eudr-documentation/operator/geojson-description.html">EUDR Information System: GeoJSON File Description</a></li>
+      <li><a href="https://green-business.ec.europa.eu/deforestation-regulation-implementation/information-system-deforestation-regulation_en">Commission: Information System</a></li>
+      <li><a href="https://apps.shopify.com/eudr-records-manager">EUDR Records Manager</a> &mdash; live App Store listing</li>
+      <li><a href="/review/">Shopify apps hub</a></li>
+      <li><a href="/tools/">Tools</a></li>
+    </ul>
+    <p class="note">Confirm the live GeoJSON File Description and Regulation (EU) 2023/1115 before you treat a file as accepted. EUDR Records Manager tracks supplier lots, product links, missing fields, document packs, CSV exports, and audit logs for EUDR record review. It does not create or validate GeoJSON.</p>
+  </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/review/">Shopify apps hub</a></li>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>
