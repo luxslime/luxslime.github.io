@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Free Shopify app access scope reader: group scopes by data touched</title>
+  <meta name="description" content="Paste the access scopes an app asks for and see which touch customer or order data, which can write, and which change the whole store. Runs in your browser; nothing is sent anywhere.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.ico">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Free Shopify app access scope reader: group scopes by data touched">
+  <meta property="og:description" content="Paste the access scopes an app asks for and see which touch customer or order data, which can write, and which change the whole store. Runs in your browser; nothing is sent anywhere.">
+  <meta property="og:url" content="https://apify.momiji-space.com/tools/app-scope-access-reader/">
+  <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/9ea3a49e539bec70dcd6abb7cc7f4746/icon/CLqU3dXo9JQDEAE=.png">
+  <meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://apify.momiji-space.com/tools/app-scope-access-reader/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <style>
+    .tool{border:1px solid var(--line,#e4e2da);background:var(--bg-raised,#fff);border-radius:14px;padding:1.25rem;margin:1.5rem 0;box-shadow:0 1px 0 rgba(24,34,56,.04),0 12px 32px -18px rgba(24,34,56,.25)}
+    .tool h2{margin-top:0}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(11rem,1fr));gap:.9rem 1rem;margin:1rem 0}
+    .field label,.tool .lab{display:block;font-weight:600;font-size:.9rem;margin-bottom:.25rem}
+    .field input[type=text],.field input[type=number],.field select,.tool textarea{width:100%;font:inherit;padding:.5rem .6rem;border:1px solid #c9c6bb;border-radius:8px;background:#fff;color:inherit}
+    .field input:focus,.field select:focus,.tool textarea:focus,.tool button:focus-visible{outline:3px solid rgba(42,74,155,.35);outline-offset:1px}
+    .tool textarea{min-height:11rem;font-family:ui-monospace,Menlo,Consolas,monospace;box-sizing:border-box}
+    .checks{display:flex;flex-wrap:wrap;gap:.5rem 1.4rem;margin:.25rem 0 .5rem}
+    .checks label{font-weight:500;display:inline-flex;gap:.4rem;align-items:center}
+    .hint{font-size:.85rem;color:var(--muted,#4e586e);margin:.2rem 0 0}
+    .tool button{font:inherit;font-weight:600;padding:.55rem 1.1rem;border-radius:999px;border:1px solid var(--ink,#182238);background:var(--ink,#182238);color:#fff;cursor:pointer;margin:.6rem .5rem 0 0;transition:transform .15s ease,box-shadow .15s ease}
+    .tool button:hover{transform:translateY(-1px);box-shadow:0 6px 14px -8px rgba(24,34,56,.6)}
+    .tool button.alt{background:#fff;color:var(--ink,#182238)}
+    .tool table{width:100%;border-collapse:collapse;margin-top:1rem;font-size:.95rem}
+    .tool th,.tool td{border-bottom:1px solid var(--line,#e4e2da);text-align:left;padding:.45rem .5rem;vertical-align:top}
+    .tool td.v{font-family:ui-monospace,Menlo,Consolas,monospace;word-break:break-all}
+    .tag{display:inline-block;padding:.1rem .6rem;border-radius:999px;font-size:.85em;font-weight:700}
+    .t-ok{background:#e3f6e8;color:#14532d}.t-bad{background:#fde8e8;color:#8a1c1c}
+    #summary{margin-top:.9rem;font-weight:600}
+    #err{color:#8a1c1c;font-weight:600;margin:.4rem 0 0}
+    @media (prefers-reduced-motion:reduce){.tool button{transition:none}.tool button:hover{transform:none}}
+      .t-gen{background:#fff4d6;color:#6b4e00}.t-off{background:#e6edff;color:#1d3a8a}.t-lab{background:#eee;color:#333}
+    .tool td.s{font-size:.85rem;color:var(--muted,#4e586e)}
+  </style>
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://apify.momiji-space.com/"}, {"@type": "ListItem", "position": 2, "name": "Tools", "item": "https://apify.momiji-space.com/tools/"}, {"@type": "ListItem", "position": 3, "name": "App access scope reader", "item": "https://apify.momiji-space.com/tools/app-scope-access-reader/"}]}
+  </script>
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Staff Access Audit Guard", "url": "https://apps.shopify.com/momiji-access-audit", "applicationCategory": "BusinessApplication", "operatingSystem": "Shopify", "image": "https://cdn.shopify.com/app-store/listing_images/9ea3a49e539bec70dcd6abb7cc7f4746/icon/CLqU3dXo9JQDEAE=.png"}
+  </script>
+</head>
+<body>
+  <header class="site"><div class="wrap bar"><a class="logo" href="/">momiji-space</a>
+    <nav><a href="/review/">Shopify apps</a><a href="/guides/access-audit-app-scopes-customer-data/">App scopes</a><a href="https://apps.shopify.com/momiji-access-audit">Install</a></nav>
+  </div></header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / <a href="/tools/">Tools</a> / App access scope reader</nav>
+    <p class="eyebrow">Free tool</p>
+    <h1>App access scope reader</h1>
+    <p class="answer-first"><strong>Direct answer.</strong> Paste the access scopes an installed app asks for, for example <code>read_products, write_orders, read_customers</code>, and the page groups each one: customer or order data, store-wide change or finance, other write, or read-only. Each group comes with a question to ask the vendor. It runs in your browser and sends nothing anywhere.</p>
+    <p class="lede">This is a reading aid for a review conversation, not a score or a security verdict, and it does not show what any app checks. To audit every app installed on your store, plus staff and collaborator reviews, try <strong>Staff Access Audit Guard</strong> (<a href="https://apps.shopify.com/momiji-access-audit">Shopify App Store</a>).</p>
+    <p><a class="cta" href="https://apps.shopify.com/momiji-access-audit">Install Staff Access Audit Guard</a></p>
+    <section class="tool" aria-labelledby="tool-h">
+      <h2 id="tool-h">Paste scope names</h2>
+      <label class="lab" for="copy-in">Scopes (comma, space or line separated)</label>
+      <textarea id="copy-in" spellcheck="false">read_products, write_products, read_customers, read_orders, write_themes, read_inventory</textarea>
+      <div><button type="button" id="run">Read scopes</button><button type="button" id="clear" class="alt">Clear text</button><button type="button" id="copy" class="alt">Copy results as text</button></div>
+      <p id="summary" role="status" aria-live="polite"></p>
+      <table id="out" hidden><thead><tr><th scope="col">Scope</th><th scope="col">Group</th><th scope="col">Question to ask</th></tr></thead><tbody></tbody></table>
+    </section>
+    <p><a class="cta" href="https://apps.shopify.com/momiji-access-audit">Install Staff Access Audit Guard → review every installed app</a></p>
+    <h2>How the groups work</h2>
+    <ul>
+      <li><strong>Customer or order data:</strong> scopes for customers, orders and draft orders, read or write.</li>
+      <li><strong>Store-wide change or finance:</strong> scopes that can edit themes, scripts, checkout branding or content, or that reach payments or staff data.</li>
+      <li><strong>Other write:</strong> any other <code>write_</code> scope, which lets an app change data and not only read it.</li>
+      <li><strong>Read-only:</strong> <code>read_</code> and <code>unauthenticated_</code> scopes outside the groups above.</li>
+    </ul>
+    <p>The groups come from the scope names alone. They are a reading aid for a review conversation, not a risk score: the same scope can be reasonable for one app and unnecessary for another. Where to find the list: the permissions screen shown when an app is installed, or the app&rsquo;s own listing or support page.</p>
+    <p>Related reading: <a href="/guides/access-audit-app-scopes-customer-data/">which app scopes touch customer data</a> and <a href="/guides/staff-permissions-audit-checklist/">a staff permissions audit checklist</a>.</p>
+    <p><a class="cta" href="https://apps.shopify.com/momiji-access-audit">Install Staff Access Audit Guard on the Shopify App Store</a></p>
+    <h2>What this page is not</h2>
+    <ul>
+      <li>Not a security assessment and not a score of your store.</li>
+      <li>Not a list of everything Staff Access Audit Guard checks; the audit in the app uses its own classification.</li>
+      <li>Not a check of staff accounts, collaborators or app costs.</li>
+      <li>Not a data collector: scope names you paste stay in this browser tab.</li>
+    </ul>
+    <h2>Related pages</h2>
+    <ul><li><a href="/guides/access-audit-app-scopes-customer-data/">Which app scopes touch customer data</a></li><li><a href="/guides/access-audit-app-access-risk-score/">App access risk score</a></li><li><a href="/guides/staff-permissions-audit-checklist/">Staff permissions audit checklist</a></li><li><a href="https://apps.shopify.com/momiji-access-audit">Staff Access Audit Guard</a></li></ul>
+    <p><a class="cta" href="https://apps.shopify.com/momiji-access-audit">Install Staff Access Audit Guard</a></p>
+  </main>
+  <footer class="site"><div class="wrap"><ul><li><a href="/review/">Shopify apps hub</a></li><li><a href="/tools/">Tools</a></li><li><a href="/">Home</a></li></ul></div></footer>
+  <script>
+  (function () {
+
+var CUST = 'cust', WRITE = 'write', SENS = 'sens', READ = 'read', UNK = 'unk';
+var CUSTOMER_DATA = ['read_customers','write_customers','read_orders','write_orders','read_all_orders','read_draft_orders','write_draft_orders','read_customer_data_erasure','write_customer_data_erasure','read_customer_merge','write_customer_merge'];
+var SENSITIVE = ['write_themes','write_script_tags','write_pixels','read_users','write_users','read_payment_terms','write_payment_terms','write_checkout_branding_settings','read_all_cart_transforms','write_cart_transforms','write_content','write_online_store_pages','write_payment_gateways','read_shopify_payments_payouts','write_shopify_payments_accounts','read_shopify_payments_accounts'];
+var LABEL = { cust: 'Customer or order data', write: 'Write access', sens: 'Store-wide change or finance', read: 'Read-only', unk: 'Not on this list' };
+var CLS = { cust: 't-bad', write: 't-gen', sens: 't-off', read: 't-ok', unk: 't-lab' };
+var PROMPT = {
+  cust: 'Touches customer or order records. Ask: does the app need this to do what you installed it for, and who at the vendor can see it?',
+  write: 'The app can change this data, not only read it. Ask: which feature needs to write, and is there a read-only mode?',
+  sens: 'Can change how the whole store looks or behaves, or reaches payment or staff data. Ask: is that part of the app\u2019s core job, and who owns the relationship?',
+  read: 'Read-only. Ask only whether the app still needs it.',
+  unk: 'This page\u2019s list does not include this scope. Look it up in the Shopify access scopes documentation.'
+};
+function classify(s) {
+  if (CUSTOMER_DATA.indexOf(s) >= 0) return CUST;
+  if (SENSITIVE.indexOf(s) >= 0) return SENS;
+  if (/^write_/.test(s)) return WRITE;
+  if (/^unauthenticated_/.test(s)) return READ;
+  if (/^read_/.test(s)) return READ;
+  return UNK;
+}
+function analyse(text) {
+  var seen = {}, rows = [];
+  text.split(/[\s,;]+/).forEach(function (t) {
+    t = t.replace(/["'\[\]]/g, '').toLowerCase();
+    if (!t || seen[t]) return; seen[t] = 1;
+    if (!/^[a-z_]+$/.test(t)) return;
+    var g = classify(t);
+    rows.push({ g: g, cells: [{ t: t, cls: 'v' }, { t: LABEL[g], tag: CLS[g] }, { t: PROMPT[g] }] });
+  });
+  var order = { cust: 0, sens: 1, write: 2, unk: 3, read: 4 };
+  rows.sort(function (a, b) { return order[a.g] - order[b.g]; });
+  return rows;
+}
+function summarise(rows) {
+  if (!rows.length) return 'No scope names found. Paste names such as read_products, write_orders.';
+  var n = { cust: 0, sens: 0, write: 0, read: 0, unk: 0 };
+  rows.forEach(function (r) { n[r.g]++; });
+  return rows.length + ' scopes: ' + n.cust + ' customer or order data, ' + n.sens + ' store-wide or finance, ' + n.write + ' other write, ' + n.read + ' read-only, ' + n.unk + ' not on the list.';
+}
+
+    var $ = function (id) { return document.getElementById(id); };
+    var out = $('out'), body = out.querySelector('tbody'), sum = $('summary'), last = [];
+    function run() {
+      body.textContent = ''; last = [];
+      var text = $('copy-in').value.slice(0, 20000), rows = analyse(text);
+      rows.forEach(function (r) {
+        var tr = document.createElement('tr');
+        r.cells.forEach(function (c) { var td = document.createElement('td'); if (c.tag) { var s = document.createElement('span'); s.className = 'tag ' + c.tag; s.textContent = c.t; td.appendChild(s); } else { td.textContent = c.t; if (c.cls) td.className = c.cls; } tr.appendChild(td); });
+        body.appendChild(tr); last.push(r.cells.map(function (c) { return c.t; }).join('\t'));
+      });
+      out.hidden = rows.length === 0;
+      sum.textContent = !text.trim() ? 'Paste some scope names first.' : summarise(rows);
+    }
+    $('run').addEventListener('click', run);
+    $('clear').addEventListener('click', function () { $('copy-in').value = ''; body.textContent = ''; out.hidden = true; sum.textContent = ''; last = []; });
+    $('copy').addEventListener('click', function () { if (navigator.clipboard && last.length) navigator.clipboard.writeText(last.join('\n')); });
+    run();
+  })();
+  </script>
+</body>
+</html>
