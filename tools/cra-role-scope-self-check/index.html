@@ -66,6 +66,7 @@
       <div><button type="button" id="run">Find the articles to read</button><button type="button" id="clear" class="alt">Clear text</button><button type="button" id="copy" class="alt">Copy results as text</button></div>
       <p id="summary" role="status" aria-live="polite"></p>
       <table id="out" hidden><thead><tr><th scope="col">Found in your text</th><th scope="col">Type</th><th scope="col">Where to read and what to ask</th></tr></thead><tbody></tbody></table>
+      <p id="cra-result-install" hidden><a href="https://apps.shopify.com/craledger-duty-records?utm_source=momiji-site&amp;utm_medium=tool&amp;utm_campaign=cra-self-check-result">Track the roles, checklists and open record gaps from this check in CRALedger Duty Records →</a></p>
     </section>
     <p><a class="cta" href="https://apps.shopify.com/craledger-duty-records?utm_source=momiji-site&amp;utm_medium=tool&amp;utm_campaign=cra-role-scope-self-check">Install CRALedger Duty Records → track roles and open gaps</a></p>
     <h2>Key dates in Regulation (EU) 2024/2847</h2>
@@ -157,10 +158,11 @@ function summarise(rows) {
         body.appendChild(tr); last.push(r.cells.map(function (c) { return c.t; }).join('\t'));
       });
       out.hidden = rows.length === 0;
+      var craInstall = $('cra-result-install'); if (craInstall) craInstall.hidden = rows.length === 0;
       sum.textContent = !text.trim() ? 'Describe a product first.' : summarise(rows);
     }
     $('run').addEventListener('click', run);
-    $('clear').addEventListener('click', function () { $('copy-in').value = ''; body.textContent = ''; out.hidden = true; sum.textContent = ''; last = []; });
+    $('clear').addEventListener('click', function () { $('copy-in').value = ''; body.textContent = ''; out.hidden = true; sum.textContent = ''; last = []; var craInstall = $('cra-result-install'); if (craInstall) craInstall.hidden = true; });
     $('copy').addEventListener('click', function () { if (navigator.clipboard && last.length) navigator.clipboard.writeText(last.join('\n')); });
     run();
   })();
