@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>RDAP Domain Lookup — registrar, dates, nameservers, and DNSSEC for many domains</title>
+  <meta name="description" content="RDAP Domain Lookup looks up registration data for many domains in one run through RDAP and returns registrar, dates, status codes, nameservers, and DNSSEC. Registrant, admin, and tech contacts are ignored. Store: taroyamada/rdap-domain-lookup.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/rdap-domain-lookup/">
+  <meta property="og:title" content="RDAP Domain Lookup — registrar, dates, nameservers, and DNSSEC for many domains">
+  <meta property="og:description" content="Bulk RDAP lookup for domains you supply. Registrar, dates, EPP status, nameservers, and DNSSEC. Registrant, admin, and tech contacts are ignored.">
+  <meta property="og:url" content="https://apify.momiji-space.com/rdap-domain-lookup/">
+  <meta property="og:type" content="website">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <link rel="stylesheet" href="/assets/css/actor-landing.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://apify.momiji-space.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "RDAP Domain Lookup",
+        "item": "https://apify.momiji-space.com/rdap-domain-lookup/"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "RDAP Domain Lookup",
+    "description": "Looks up registration data for many domains in one run through RDAP and returns registrar, dates, status codes, nameservers, and DNSSEC. Registrant, admin, and tech contacts are ignored.",
+    "url": "https://apify.momiji-space.com/rdap-domain-lookup/",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web"
+  }
+  </script>
+</head>
+<body>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/rdap-domain-lookup/" aria-current="page">RDAP Domain Lookup</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / RDAP Domain Lookup</nav>
+    <p class="eyebrow">RDAP · domain registration</p>
+    <h1>RDAP Domain Lookup — registrar, dates, nameservers, and DNSSEC for many domains</h1>
+    <p class="lede">RDAP Domain Lookup looks up registration data for many domains in one run through RDAP, the ICANN-standard successor to port-43 WHOIS, and returns registrar, dates, status codes, nameservers, and DNSSEC for each domain. Store id <code>taroyamada/rdap-domain-lookup</code>. Registrant, admin, and tech contact entities are ignored.</p>
+    <p>See the <a href="https://apify.com/taroyamada/rdap-domain-lookup?utm_source=momiji-space&amp;utm_medium=referral&amp;utm_campaign=actor-lp&amp;utm_content=rdap-domain-lookup">Apify Store page</a> for current pricing.</p>
+    <p class="cta-row"><a class="cta" href="https://apify.com/taroyamada/rdap-domain-lookup?utm_source=momiji-space&amp;utm_medium=referral&amp;utm_campaign=actor-lp&amp;utm_content=rdap-domain-lookup">Open RDAP Domain Lookup on Apify</a>
+      <a class="cta-secondary" href="https://apify.com/taroyamada/rdap-domain-lookup/input?utm_source=momiji-space&amp;utm_medium=referral&amp;utm_campaign=actor-lp&amp;utm_content=rdap-domain-lookup">Open Input</a></p>
+
+    <h2>Current RDAP records, not DNS propagation or a change monitor</h2>
+    <p>Use this page for a bulk lookup of the current registration record. The Actor reads the official IANA RDAP bootstrap file (<code>data.iana.org/rdap/dns.json</code>) to find the registry server for each TLD, then queries that server. Use <a href="/rdap-domain-monitor/">RDAP Domain Expiry &amp; Whois Scraper</a> when you need expiry warnings and registration changes between runs. Use <a href="/dns-propagation-checker/">DNS Propagation Checker</a> for public DNS across resolvers. Use <a href="/dmarc-email-security-checker/">DMARC &amp; Email Security Checker</a> for SPF, DMARC, and MX. Use <a href="/ssl-tls-certificate-scraper/">SSL/TLS Certificate Scraper</a> for certificate expiry and fingerprints.</p>
+    <div class="card">
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>This Actor</th>
+          <th>RDAP Domain Expiry &amp; Whois Scraper</th>
+          <th>DNS Propagation Checker</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Job</td>
+          <td>Current RDAP registration facts for a domain list</td>
+          <td>Expiry warnings and registration changes between runs</td>
+          <td>Public DNS records across resolvers</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td><code>domains</code>, <code>concurrency</code>, <code>delayMs</code></td>
+          <td><code>domains</code> plus snapshot and expiry-warning fields</td>
+          <td><code>domains</code> and record types</td>
+        </tr>
+        <tr>
+          <td>Contacts</td>
+          <td>Registrant, admin, and tech contacts are ignored</td>
+          <td>Registration-change monitoring</td>
+          <td>No RDAP contact records</td>
+        </tr>
+        <tr>
+          <td>Primary output</td>
+          <td>Registrar, dates, EPP status, nameservers, DNSSEC, answering RDAP server</td>
+          <td>Expiry, registrar, nameservers, change history, warnings</td>
+          <td>Resolved values, TTL, resolver identity</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <p>No personal data is collected. Only registrar-level and domain-level fields are written. This Actor is not affiliated with ICANN, IANA, or any registry.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>Expiry monitoring for a domain portfolio, from the dates the registry publishes.</li>
+      <li>Checking registrar and name-server setup across client domains.</li>
+      <li>Enriching a lead or vendor list with domain age from the registration date.</li>
+    </ul>
+
+    <h2>How to start a run</h2>
+    <ol>
+      <li>Open the Actor and start with the prefilled sample domains to see the output shape.</li>
+      <li>Replace the list with your own domains. URLs are accepted. <code>www.</code> is stripped. The schema uses the hostname’s registrable part as typed.</li>
+      <li>Export the dataset as JSON, CSV, or Excel, or call the Actor through the API.</li>
+    </ol>
+    <p><a href="https://apify.com/taroyamada/rdap-domain-lookup?utm_source=momiji-space&amp;utm_medium=referral&amp;utm_campaign=actor-lp&amp;utm_content=rdap-domain-lookup">Run RDAP Domain Lookup on Apify</a></p>
+
+    <h2>Input</h2>
+    <div class="card">
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>domains</code></td>
+          <td><code>["google.com", "wikipedia.org", "apify.com"]</code></td>
+          <td>Domain names to look up. URLs are accepted; <code>www.</code> is stripped</td>
+        </tr>
+        <tr>
+          <td><code>concurrency</code></td>
+          <td><code>3</code></td>
+          <td>Parallel lookups. Minimum 1, maximum 10. Kept low to respect registry RDAP rate limits</td>
+        </tr>
+        <tr>
+          <td><code>delayMs</code></td>
+          <td><code>500</code></td>
+          <td>Pause between batches, in milliseconds. Minimum 0, maximum 10000</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <p>Input example (schema prefill):</p>
+<pre><code>{
+  "domains": ["google.com", "wikipedia.org", "apify.com"],
+  "concurrency": 3,
+  "delayMs": 500
+}</code></pre>
+
+    <h2>Output fields</h2>
+    <p>One dataset row per domain that the registry answers. Registrant, admin, and tech contact entities are not included.</p>
+    <div class="card">
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Meaning</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>registrar</code>, <code>registrarIanaId</code></td>
+          <td>Sponsoring registrar name and IANA ID</td>
+        </tr>
+        <tr>
+          <td><code>createdAt</code>, <code>updatedAt</code>, <code>expiresAt</code></td>
+          <td>Registration, last-changed, and expiration dates, as published by the registry</td>
+        </tr>
+        <tr>
+          <td><code>domainStatus</code></td>
+          <td>EPP status codes (for example client transfer prohibited)</td>
+        </tr>
+        <tr>
+          <td><code>nameservers</code></td>
+          <td>Delegated name servers</td>
+        </tr>
+        <tr>
+          <td><code>dnssecSigned</code></td>
+          <td>Whether the delegation is DNSSEC-signed</td>
+        </tr>
+        <tr>
+          <td><code>rdapServer</code></td>
+          <td>The registry RDAP server that answered</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h2>Limitations</h2>
+    <ul>
+      <li>Some ccTLDs do not publish an RDAP server in the IANA bootstrap. Those domains are reported as <code>no_rdap_server</code>.</li>
+      <li>Field coverage depends on each registry. Thin registries (for example <code>.com</code>) return registrar-level data only.</li>
+      <li>Lookups are rate-limited: low default concurrency, a delay between batches, and retry with backoff on HTTP 429, to respect registry limits.</li>
+      <li>Domains that fail (invalid, not registered, TLD without RDAP, or a registry error) are not written to the dataset. They are saved to the key-value store record <code>FAILED_DOMAINS</code> with the reason.</li>
+      <li>Data comes from public RDAP services operated by domain registries, located via the IANA bootstrap registry. Use the output in line with each registry’s RDAP terms of use.</li>
+    </ul>
+    <p>See the <a href="https://apify.com/taroyamada/rdap-domain-lookup?utm_source=momiji-space&amp;utm_medium=referral&amp;utm_campaign=actor-lp&amp;utm_content=rdap-domain-lookup">Apify Store page</a> for current pricing.</p>
+
+    <h2>Related actors</h2>
+    <ul>
+      <li><a href="/rdap-domain-monitor/">RDAP Domain Expiry &amp; Whois Scraper</a> — expiry warnings and changes between runs</li>
+      <li><a href="/dns-propagation-checker/">DNS Propagation Checker</a> — public DNS across resolvers, not registration records</li>
+      <li><a href="/dmarc-email-security-checker/">DMARC &amp; Email Security Checker</a> — SPF, DMARC, and MX grades</li>
+      <li><a href="/ssl-tls-certificate-scraper/">SSL/TLS Certificate Scraper</a> — certificate expiry and fingerprints</li>
+      <li><a href="/domain-trust-monitor/">Domain Trust Reputation Scraper</a> — TLS, DMARC, and header checks together</li>
+    </ul>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/company-enrichment-intelligence/">Company Domain Tech, DNS &amp; Security Audit</a> — website, DNS, RDAP, and TLS in one audit</li>
+      <li><a href="/email-deliverability-portfolio-audit/">Bulk Email DNS Audit Scraper</a> — SPF, DKIM, DMARC, and BIMI across a portfolio</li>
+      <li><a href="/security-headers-checker/">Security Headers Checker</a> — HTTP response headers, not RDAP</li>
+      <li><a href="/tools/">Tools</a></li>
+      <li><a href="/">Home</a></li>
+    </ul>
+  </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
+<script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "10aeccbd602743299692f41113bc3b55"}'></script>
+</body>
+</html>

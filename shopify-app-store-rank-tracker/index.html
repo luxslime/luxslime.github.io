@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Shopify App Store Rank Tracker — keyword and category rank, rating, and Built for Shopify</title>
+  <meta name="description" content="Shopify App Store Rank Tracker records where an app ranks for each App Store keyword or category page, with rating, review count, Built for Shopify badge, and change since the last run. Store: taroyamada/shopify-app-store-rank-tracker.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/shopify-app-store-rank-tracker/">
+  <meta property="og:title" content="Shopify App Store Rank Tracker — keyword and category rank, rating, and Built for Shopify">
+  <meta property="og:description" content="Records where an app ranks for each Shopify App Store keyword or category page, with rating, review count, Built for Shopify badge, and change since the last run.">
+  <meta property="og:url" content="https://apify.momiji-space.com/shopify-app-store-rank-tracker/">
+  <meta property="og:type" content="website">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <link rel="stylesheet" href="/assets/css/actor-landing.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://apify.momiji-space.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Shopify App Store Rank Tracker",
+        "item": "https://apify.momiji-space.com/shopify-app-store-rank-tracker/"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Shopify App Store Rank Tracker",
+    "description": "Records where an app ranks for each Shopify App Store keyword or category page, with rating, review count, Built for Shopify badge, and change since the last run.",
+    "url": "https://apify.momiji-space.com/shopify-app-store-rank-tracker/",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web"
+  }
+  </script>
+</head>
+<body>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/shopify-app-store-rank-tracker/" aria-current="page">Shopify App Store Rank Tracker</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / Shopify App Store Rank Tracker</nav>
+    <p class="eyebrow">Shopify App Store rank</p>
+    <h1>Shopify App Store Rank Tracker — keyword and category rank, rating, and Built for Shopify</h1>
+    <p class="lede">Shopify App Store Rank Tracker records where your app ranks for each App Store keyword or category page, with rating, review count, Built for Shopify badge, and change since the last run. Store id <code>taroyamada/shopify-app-store-rank-tracker</code>. The default input is one keyword and one tracked app, and that run returns one row for that app.</p>
+    <p>See the <a href="https://apify.com/taroyamada/shopify-app-store-rank-tracker?utm_source=momiji-space&amp;utm_medium=referral&amp;utm_campaign=actor-lp&amp;utm_content=shopify-app-store-rank-tracker">Apify Store page</a> for current pricing.</p>
+    <p class="cta-row"><a class="cta" href="https://apify.com/taroyamada/shopify-app-store-rank-tracker?utm_source=momiji-space&amp;utm_medium=referral&amp;utm_campaign=actor-lp&amp;utm_content=shopify-app-store-rank-tracker">Open Shopify App Store Rank Tracker on Apify</a>
+      <a class="cta-secondary" href="https://apify.com/taroyamada/shopify-app-store-rank-tracker/input?utm_source=momiji-space&amp;utm_medium=referral&amp;utm_campaign=actor-lp&amp;utm_content=shopify-app-store-rank-tracker">Open Input</a></p>
+
+    <h2>Shopify App Store keyword and category rank, not review text</h2>
+    <p>Use this page when the job is organic rank on public <code>apps.shopify.com</code> search or category pages. Use <a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a> when you already have a listing and need review text and theme rollups. Use <a href="/apify-store-ranking-scraper/">Apify Store Ranking Scraper</a> for Apify Store keyword rank, not the Shopify App Store. Use <a href="/mobile-app-listing-gap-report/">App Store &amp; Google Play Listing Gap Report</a> for iOS and Android listing gaps, not Shopify app search.</p>
+    <div class="card">
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>This Actor</th>
+          <th>Shopify App Store Review Scraper</th>
+          <th>Apify Store Ranking Scraper</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Source</td>
+          <td>Public App Store keyword search and category pages</td>
+          <td>Public <code>apps.shopify.com/{slug}</code> listing and review pages</td>
+          <td>Apify Store search</td>
+        </tr>
+        <tr>
+          <td>Primary input</td>
+          <td><code>keywords</code>, optional <code>categoryHandles</code>, <code>appHandles</code></td>
+          <td><code>appUrls</code></td>
+          <td>Store search terms</td>
+        </tr>
+        <tr>
+          <td>What you get</td>
+          <td>Organic position, rating, review count, Built for Shopify, change since the last run</td>
+          <td>Listing metadata, sampled reviews, theme rollups</td>
+          <td>Apify Store keyword rank</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <p>This Actor reads public App Store pages. It does not need a login or an API key. It is not affiliated with or endorsed by Shopify.</p>
+
+    <h2>Use cases</h2>
+    <ul>
+      <li>App developers: track rank for the keywords a listing targets, on a schedule, and keep the change since the previous run.</li>
+      <li>Competitor research: see who sits above a tracked app, with rating, review count, and Built for Shopify status.</li>
+      <li>Agencies and investors: snapshot a category page to see which apps are listed there.</li>
+    </ul>
+
+    <h2>How to start a run</h2>
+    <ol>
+      <li>Open the Actor on the Apify Store and start with the default input: one keyword and one app handle.</li>
+      <li>Replace the keyword and the app handle with your own. Category handles or full category URLs are optional.</li>
+      <li>Leave <code>onlyTrackedApps</code> on to save rows for the apps you listed. Turn it off to save the full ranked list from the scanned pages.</li>
+      <li>Leave <code>compareWithPreviousRun</code> on. <code>previousPosition</code> is null on the first run and filled from the second run on.</li>
+      <li>Schedule the Actor (Apify Schedules) to build a rank history, then export the dataset to Google Sheets or CSV.</li>
+    </ol>
+    <p><a href="https://apify.com/taroyamada/shopify-app-store-rank-tracker?utm_source=momiji-space&amp;utm_medium=referral&amp;utm_campaign=actor-lp&amp;utm_content=shopify-app-store-rank-tracker">Run Shopify App Store Rank Tracker on Apify</a></p>
+
+    <h2>Input</h2>
+    <p>Published input fields:</p>
+    <div class="card">
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Default</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>keywords</code></td>
+          <td><code>["po box blocker"]</code></td>
+          <td>App Store search terms</td>
+        </tr>
+        <tr>
+          <td><code>categoryHandles</code></td>
+          <td><code>[]</code></td>
+          <td>Category handle (for example <code>store-design-search-and-navigation</code> or <code>orders-and-shipping-shipping-solutions-address-validation</code>) or a full category URL</td>
+        </tr>
+        <tr>
+          <td><code>appHandles</code></td>
+          <td><code>["address-guard"]</code></td>
+          <td>Apps to flag, as handles or URLs. If one is missing from the scanned pages, you still get a row with <code>notRankedInScannedPages: true</code></td>
+        </tr>
+        <tr>
+          <td><code>onlyTrackedApps</code></td>
+          <td><code>true</code></td>
+          <td>Save only rows for tracked apps. Needs at least one tracked app. Turn off to save the full ranked list</td>
+        </tr>
+        <tr>
+          <td><code>maxPages</code></td>
+          <td><code>1</code></td>
+          <td>Pages per keyword or category. Minimum 1, maximum 10. Each page lists up to 24 apps</td>
+        </tr>
+        <tr>
+          <td><code>compareWithPreviousRun</code></td>
+          <td><code>true</code></td>
+          <td>Fills <code>previousPosition</code> and <code>positionDelta</code> from the last run. Positive <code>positionDelta</code> means the app moved up</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <p>Input example:</p>
+<pre><code>{
+  "keywords": ["po box blocker", "address validation"],
+  "categoryHandles": ["store-design-search-and-navigation"],
+  "appHandles": ["address-guard"],
+  "maxPages": 2
+}</code></pre>
+
+    <h2>Output fields</h2>
+    <p>One row per app per keyword or category. If a tracked app is not found in the scanned pages, the row still arrives with <code>notRankedInScannedPages</code> set, so a drop off the list is visible.</p>
+    <div class="card">
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Meaning</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>surface</code>, <code>query</code></td>
+          <td>Keyword search or category page, and the query or category that was scanned</td>
+        </tr>
+        <tr>
+          <td><code>position</code></td>
+          <td>Organic rank across all scanned pages. 1 is the top. Sponsored slots are flagged and do not receive an organic position</td>
+        </tr>
+        <tr>
+          <td><code>previousPosition</code>, <code>positionDelta</code></td>
+          <td>Rank on the previous run, and the change. Positive delta means the app moved up. <code>previousPosition</code> is null on the first run</td>
+        </tr>
+        <tr>
+          <td><code>appName</code>, <code>appHandle</code>, <code>appUrl</code>, <code>tagline</code>, <code>iconUrl</code></td>
+          <td>Listing identity from the public App Store page</td>
+        </tr>
+        <tr>
+          <td><code>rating</code>, <code>reviewCount</code></td>
+          <td>Rating and review count shown on the listing</td>
+        </tr>
+        <tr>
+          <td><code>pricingSummary</code></td>
+          <td>Pricing label published on the listing</td>
+        </tr>
+        <tr>
+          <td><code>builtForShopify</code></td>
+          <td>Whether the listing shows the Built for Shopify badge</td>
+        </tr>
+        <tr>
+          <td><code>isAd</code>, <code>isTrackedApp</code></td>
+          <td>Sponsored slot versus organic row, and whether the app was in <code>appHandles</code></td>
+        </tr>
+        <tr>
+          <td><code>page</code>, <code>positionOnPage</code>, <code>sourceUrl</code>, <code>scrapedAt</code></td>
+          <td>Page number, rank on that page, source URL, and scrape time</td>
+        </tr>
+        <tr>
+          <td><code>notRankedInScannedPages</code></td>
+          <td>Present when a tracked app was not found in the scanned pages</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <p>One full row from a documented run (keyword search, tracked app). <code>pricingSummary</code> is the listing’s public pricing label; this page does not quote that label.</p>
+<pre><code>{
+  "surface": "keyword",
+  "query": "po box blocker",
+  "position": 7,
+  "page": 1,
+  "positionOnPage": 7,
+  "isAd": false,
+  "appHandle": "address-guard",
+  "appName": "PO Box Blocker — AddressFence",
+  "appUrl": "https://apps.shopify.com/address-guard",
+  "tagline": "Billing-address rules, street-number checks &amp; a simulator",
+  "rating": null,
+  "reviewCount": null,
+  "builtForShopify": false,
+  "isTrackedApp": true,
+  "previousPosition": 7,
+  "positionDelta": 0,
+  "iconUrl": "https://cdn.shopify.com/app-store/listing_images/27f7c111c94acf4b22bfef9207351043/icon/CISg3YSo4pQDEAE=.png",
+  "sourceUrl": "https://apps.shopify.com/search?page=1&amp;q=po+box+blocker",
+  "scrapedAt": "2026-10-13T05:08:45.550Z"
+}</code></pre>
+
+    <h2>Limitations</h2>
+    <ul>
+      <li>No login and no API key. The Actor reads public App Store pages.</li>
+      <li>Results reflect what an anonymous visitor in the US sees. Personalised placements and ads may differ.</li>
+      <li>Sponsored slots are often absent for anonymous visitors, so <code>isAd</code> is often false. When a sponsored slot appears, it is flagged and it does not get an organic <code>position</code>.</li>
+      <li><code>maxPages</code> stops at 10. A tracked app past the scanned pages is a not-ranked row, not a silent omission.</li>
+      <li><code>onlyTrackedApps</code> needs at least one app in <code>appHandles</code>.</li>
+    </ul>
+    <p>See the <a href="https://apify.com/taroyamada/shopify-app-store-rank-tracker?utm_source=momiji-space&amp;utm_medium=referral&amp;utm_campaign=actor-lp&amp;utm_content=shopify-app-store-rank-tracker">Apify Store page</a> for current pricing.</p>
+
+    <h2>Related actors</h2>
+    <ul>
+      <li><a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a> — full reviews of an app listing, not keyword rank</li>
+      <li><a href="/apify-store-ranking-scraper/">Apify Store Ranking Scraper</a> — Apify Store keyword rank, not the Shopify App Store</li>
+      <li><a href="/mobile-app-listing-gap-report/">App Store &amp; Google Play Listing Gap Report</a> — iOS and Android listing gaps</li>
+      <li><a href="/shopify-store-intelligence/">Shopify Store Scraper</a> — merchant storefronts, not App Store search rank</li>
+    </ul>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/shopify-app-store-review-scraper/">Shopify App Store Review Scraper</a></li>
+      <li><a href="/shopify-public-catalog-map-promo-watch-scraper/">Shopify Public Catalog Map &amp; Promo Watch</a> — storefront catalog and promo diffs</li>
+      <li><a href="/apple-app-store-intelligence/">Apple App Store Scraper</a> — iOS listings, not Shopify apps</li>
+      <li><a href="/google-play-intelligence/">Google Play App Scraper</a> — Play listings, not Shopify apps</li>
+      <li><a href="/tools/">Tools</a></li>
+      <li><a href="/">Home</a></li>
+    </ul>
+  </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
+<script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "10aeccbd602743299692f41113bc3b55"}'></script>
+</body>
+</html>
