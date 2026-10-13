@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/clinical-trials-fda-watch-monitor/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is Clinical Trial & FDA Signal Alerts different from ClinicalTrials.gov Sponsor Pipeline Scraper and FDA Warning Letters Scraper?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Clinical Trial & FDA Signal Alerts (taroyamada/clinical-trials-fda-watch-monitor): Watch drugs, sponsors, and conditions across ClinicalTrials.gov and openFDA: new-trial alerts, trial status changes, and FDA drug recall signals as source-linked rows. Not a sponsor-pipeline snapshot of ClinicalTrials.gov studies (use ClinicalTrials.gov Sponsor Pipeline Scraper). Not an FDA warning-letter digest. Not a PubMed evidence-gap report. You supply watches. ClinicalTrials.gov Sponsor Pipeline Scraper is for Sponsor/condition study inventory (input sponsors / conditions; ClinicalTrials.gov; Study rows). Not FDA recall/enforcement signal alerts. FDA Warning Letters Scraper is for FDA warning-letter pages (input search terms; FDA warning letters; Letter rows). Not ClinicalTrials.gov status watches. PubMed & Clinical Trials Evidence Gap Report is for PubMed vs trials evidence gap (input query terms; PubMed + ClinicalTrials.gov; Evidence-gap report). Not openFDA recall signal alerts."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: watches. Live schema fields: dryRun, watches, sources, monitorKey, initialRunMode, generateReport, emitExport, emitRawRows, maxRecordsPerWatch, maxChargeUsd. Watch drugs, sponsors, and conditions across ClinicalTrials.gov and openFDA: new-trial alerts, trial status changes, and FDA drug recall signals as source-linked rows. exampleRunInput keys: watches, dryRun, maxRecordsPerWatch, maxChargeUsd. additionalProperties is not set to false on this schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: watches, dryRun, maxRecordsPerWatch, maxChargeUsd. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is Clinical Trial & FDA Signal Alerts priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $100.00 / 1,000 New trial alert ($0.10 per delivered new-trial-alert); $0.006 per Raw record row; $0.08 per Trial status change alert; $0.10 per FDA signal alert; $5.00 per Pipeline watch report; $7.00 per Watch export generated. No Actor Start. Raw record row (raw-record-row) $0.006: Charged for an optional raw public clinical trial or FDA enforcement record row. New trial alert (new-trial-alert) $0.10: Charged for a source-linked new clinical trial matched to a watch. Trial status change alert (trial-status-change-alert) $0.08: Charged for a changed overall status or primary completion date on a previously tracked trial. FDA signal alert (fda-signal-alert) $0.10: Charged for a source-linked FDA drug enforcement or recall signal matched to a watch. Pipeline watch report (pipeline-watch-report) $5.00: Charged for a generated source-linked clinical trial and FDA signal watch report. Opt-in, off by default. Watch export generated (watch-export-generated) $7.00: Charged for a generated export bundle row for matching alerts. Opt-in, off by default. Platform usage is listed as included on the Store pricing tab."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

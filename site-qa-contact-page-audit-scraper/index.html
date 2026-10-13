@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/site-qa-contact-page-audit-scraper/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is Site QA Contact Page Audit different from Contact Page Audit & Business Channel Extractor and CSV Local Business List Scoring Report?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Site QA Contact Page Audit (taroyamada/site-qa-contact-page-audit-scraper): Audit public site contact pages for QA completeness without collecting personal outreach data. Not a contact-detail harvester for emails and phones (use Contact Page Audit & Business Channel Extractor). Not CSV scoring of a local-business list. Not a broken-link crawler. You supply the URLs. Contact Page Audit & Business Channel Extractor is for Channel/contact fields on known pages (input urls; Public contact pages; Channel rows). Not a contact-page QA completeness report pack. CSV Local Business List Scoring Report is for Score a CSV you already hold (input csvUrl / csvData; User-supplied CSV; Scoring report). Not a live contact-page HTML audit. Broken Link Checker is for Crawl start URLs for 404s (input start URLs; Linked HTTP statuses; Broken-link rows). Not contact-page completeness QA."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: urls. Live schema fields: urls, maxPages, maxLinksPerPage, emitPageRows, generateReport, emitExport, emitUnchanged, dryRun. Audit public site contact pages for QA completeness without collecting personal outreach data. exampleRunInput keys: urls, maxPages, maxLinksPerPage, dryRun. additionalProperties is not set to false on this schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: urls, maxPages, maxLinksPerPage, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is Site QA Contact Page Audit priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $10.00 / 1,000 Site page extracted ($0.01 per delivered site-page-extracted); $0.08 per Site QA issue detected; $5.00 per Site QA report generated; $7.00 per Site export generated. No Actor Start. Site page extracted (site-page-extracted) $0.01: Charged for each optional raw public page snapshot row. Site QA issue detected (site-qa-issue-detected) $0.08: Charged for each source-linked contact page QA issue row. Site QA report generated (site-qa-report-generated) $5.00: Charged for each contact page audit report row. Site export generated (site-export-generated) $7.00: Charged for each generated contact page QA export row. Platform usage is listed as included on the Store pricing tab."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

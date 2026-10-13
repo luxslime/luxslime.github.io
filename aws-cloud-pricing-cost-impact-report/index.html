@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/aws-cloud-pricing-cost-impact-report/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is AWS Cloud Pricing Cost Impact Report different from Azure Retail Price Cost Impact Report and Multi-Cloud Pricing Cost Impact Report?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "AWS Cloud Pricing Cost Impact Report (taroyamada/aws-cloud-pricing-cost-impact-report): Read official AWS public USD offer files for Lambda, S3, and RDS and emit stable price changes and cost-impact report rows. Not Azure Retail Prices (use Azure Retail Price Cost Impact Report). Not a multi-cloud scenario compare. Not a SaaS marketing-page scrape. No AWS account key. Azure Retail Price Cost Impact Report is for Azure Retail Prices public API (input scopes; Azure Retail Prices; Price-change / cost-impact rows). Not AWS offer files. Multi-Cloud Pricing Cost Impact Report is for Normalized AWS vs Azure scenarios (input scenarios; AWS + Azure public prices; Cross-cloud comparison report). Not an AWS-only SKU watch. SaaS Pricing Tracker is for Competitor SaaS page changes (input urls; Public HTML; Page-change rows). Not AWS list prices."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: scopes. Live schema fields: scopes, mode, initialRunMode, generateReport, emitUnchanged, emitRawRows, maxChargeUsd, dryRun. Read official AWS public USD offer files for Lambda, S3, and RDS and emit stable price changes and cost-impact report rows. exampleRunInput keys: scopes, maxChargeUsd, dryRun. additionalProperties is false on the live schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: scopes, maxChargeUsd, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is AWS Cloud Pricing Cost Impact Report priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $2.00 / 1,000 AWS price row ($0.002 per delivered aws-price-row); $0.10 per AWS SKU price change; $3.00 per AWS cost impact report; $2.00 per AWS price export. No Actor Start. AWS price row (aws-price-row) $0.002: Charged only when a aws price row row is delivered. AWS SKU price change (aws-sku-price-change) $0.10: Charged only when a aws sku price change row is delivered. AWS cost impact report (aws-cost-impact-report) $3.00: Charged only when a aws cost impact report row is delivered. AWS price export (aws-price-export) $2.00: Charged only when a aws price export row is delivered. Platform usage is listed as included on the Store pricing tab."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

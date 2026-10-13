@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/podcast-sponsor-contact-intelligence/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is Podcast Sponsor Evidence Scraper different from Podcast Sponsor Evidence Report Scraper and Apple Podcasts Scraper?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Podcast Sponsor Evidence Scraper (taroyamada/podcast-sponsor-contact-intelligence) reads public RSS, show pages, and optional iTunes Search terms. Live PPE is podcast-enriched-show $0.015 (primary), podcast-sponsor-evidence $0.25, and podcast-research-export $7 (skip with emitResearchExport=false). Podcast Sponsor Evidence Report Scraper is a sibling Actor with a different live card (do not copy those prices here). Apple Podcasts Scraper is catalog/episode/chart metadata, not sponsor evidence. RSS & Atom Feed Extractor is generic feed XML. Use this Actor for source-linked sponsor evidence. Use Apple Podcasts Scraper for iTunes catalog. Use RSS & Atom Feed Extractor for feed items only."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "The live schema required array is empty. Live fields are rssFeedUrls (default one NPR feed URL), showUrls (default empty), searchTerms (default one business-podcast term), maxEpisodesPerFeed (default 3, min 1, max 50), emitResearchExport (default false), emitUnchanged (default false), and dryRun (default false)."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the cheapest first paid Try Input?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "One public RSS URL, empty showUrls, empty searchTerms (avoid extra discovery), maxEpisodesPerFeed 1, emitResearchExport false, emitUnchanged false, dryRun false. Expected paid events: $0.015 per enriched show plus $0.25 per evidence row if found. Skip the $7 export on the first paid path. dryRun must be false."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "README rows include billingEventName plus sourceName, sourceUrl, retrievedAt, sourceMethod, authorizationBasis, limitations, and prohibitedInterpretations. A sample lives in docs/sample-output.json on the Actor, which is not fetched as a Store resource here. There is no published output JSON schema on the Store page. Treat README samples as illustrations, not a live coverage guarantee."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is Podcast Sponsor Evidence Scraper priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay-per-event. The live Store card is from $15.00 / 1,000 podcast enriched shows. Live events are podcast-enriched-show $0.015 (primary), podcast-sponsor-evidence $0.25, and podcast-research-export $7. No Actor Start on the current card (a superseded older card had start $0.001 plus Result $0.006). README matches those three event names and USD amounts. Prefer the live Store card if a later README drifts."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "This schema does not expose a delivery enum. Dataset output is the billable surface when rows are written. dryRun true samples rows locally with no live calls or billing. emitUnchanged false suppresses previously seen evidence so unchanged runs can write zero rows and zero events."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/biomedical-trial-literature-evidence-report/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How is PubMed & Clinical Trials Evidence Gap Report different from PubMed Literature Watch?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "This Actor compares ClinicalTrials.gov studies with PubMed citation metadata and can emit evidence rows, evidence-gap alerts, a biomedical evidence report, and an export. Store ID taroyamada/biomedical-trial-literature-evidence-report. PubMed Literature Watch is NCBI E-utilities citation watch, literature-update reports, and new-PMID alerts without ClinicalTrials.gov matching. OpenAlex Scholarly Works Scraper is the official OpenAlex API, not trial matching. NIH RePORTER Funding Landscape Report is NIH awards. Google News Scraper is news RSS. Citation metadata only — not full text or abstracts. Not medical advice."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is the best first run?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Live schema default dryRun is true: Start with defaults returns illustrative rows, does not call NCBI, and does not bill. Paid trial path from the README: watchlists starter-study with nctIds NCT04280705, runMode monitor, initialRunMode emit_backfill, emitRawRows true, generateReport false, generateExport false, maxChargeUsd 0.5, dryRun false. That path can deliver a biomedical-evidence-row at $0.008 and an evidence-gap-alert at $0.15 when the starter evidence matches. A zero-row run has zero event charge. Full report plus export uses a separate monitorKey, generateReport true, generateExport true, emitRawRows false, maxChargeUsd 8.41, dryRun false."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What input is required?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The live schema has no required array. additionalProperties is false. Live fields include searchTerms, pmids, fromDate (default 2025), toDate, sort (default most_recent), maxResultsPerQuery (default 1), maxArticles (default 1), maxStudiesPerWatchlist (default 1), maxPagesPerWatchlist (default 1), runMode (extract, audit, or monitor; default monitor), monitorKey (default starter-nct04280705-v2), initialRunMode (baseline_only or emit_backfill; live schema default emit_backfill — the README text that says default baseline_only is stale versus schema), emitRawRows (default true), generateReport (default false), generateExport (default false), tool, apiKey, timeoutMs (default 20000), delivery, webhookUrl, maxChargeUsd (default 0), dryRun (default true), watchlists (default starter-study / NCT04280705), and emitUnchanged (default false). README Quickstart JSON that sends watchlist conditions, interventions, and pubmedQuery is README documentation; the live items schema is not fully expanded."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What does a result contain?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The published README sample is a literature_update_report row with billingEventName biomedical-evidence-report, query.searchTerms, query.fromDate, articleCount, pmids, topJournals, summary, and sourceUrl https://pubmed.ncbi.nlm.nih.gov/. That sample is a README illustration, not a live coverage guarantee. Outputs are citation metadata, not article full text or abstracts."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Does this Actor return full text or medical conclusions?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "No. Official NCBI ESearch and ESummary JSON; no browser scraping or login. Citation metadata only — not full text or abstracts. Outputs support literature research and screening workflows. They are not medical advice, clinical efficacy claims, or a substitute for reviewing the source publication. Keep NCBI attribution and source URLs. This independent Actor is not affiliated with NCBI, PubMed, or ClinicalTrials.gov."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How is PubMed & Clinical Trials Evidence Gap Report priced?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Billing is pay per event. The live Store card is from $8.00 / 1,000 biomedical evidence rows. Current PPE: biomedical-evidence-row $0.008; evidence-gap-alert $0.15; biomedical-evidence-report $5.00; biomedical-evidence-export $3.00. There is no start charge. A baseline_only or unchanged monitor emits zero rows and zero event charge. Default dryRun true means a default Start does not bill. Do not run the $5.00 report under a cap that cannot cover it."
-        }
-      }
-    ]
-  }
-  </script>
 </head>
 <body>
   <header class="site">

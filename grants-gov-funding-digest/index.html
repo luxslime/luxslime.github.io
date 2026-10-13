@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/grants-gov-funding-digest/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is Grants.gov Scraper different from TED, SAM.gov & Grants Bid Alerts and NIH RePORTER Funding Landscape Report?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Grants.gov Scraper (taroyamada/grants-gov-funding-digest): This Actor queries the official Grants.gov opportunity API for bounded feeds (keywords, agencies, eligibility) and emits source-linked funding digest rows. It is a Grants.gov notice watcher, not a TED/SAM.gov bid queue. Not TED, SAM.gov, or USASpending award monitoring. Not NIH RePORTER awards. Not grant-writing or award-probability advice. TED, SAM.gov & Grants Bid Alerts is for Procurement notices (input keywords / jurisdictions; SAM/TED/Grants.gov; opportunity rows). Not FDA/NHTSA/CPSC recalls or SEC filings. NIH RePORTER Funding Landscape Report is for NIH awards (input org/term filters; NIH RePORTER; award rows). Not Grants.gov opportunity notices. Government Contract Award Change Report is for Awarded contracts (input award watches; TED/USASpending; award-change rows). Not Grants.gov pre-award notices."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: feeds. Live schema fields: feeds, watchTerms, lookbackDays, maxOpportunitiesPerFeed, minAwardCeiling, closingSoonDays, highValueThreshold, delivery, webhookUrl, datasetMode, snapshotKey, grantsGovApiUrl, requestTimeoutSeconds, notifyOnNoNew, dryRun, nowIso, grantsGovFixturePath. Quickstart: set feeds with at least one entry and one filter (agencies, fundingCategories, or keyword) additionalProperties is false on the live schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: feeds, watchTerms, lookbackDays, maxOpportunitiesPerFeed, minAwardCeiling, closingSoonDays, highValueThreshold, delivery, datasetMode, snapshotKey, notifyOnNoNew, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. datasetMode can limit emits to changes_only / changed_only / action_needed versus all. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is Grants.gov Scraper priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $8.00 / 1,000 Grants.gov funding digest ($0.008 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. Grants.gov funding digest (apify-default-dataset-item) $0.008: Charged only for one delivered Grants.gov funding opportunity digest row. Do not use the README Cost block as live pricing. The published README Cost block is stale versus the live Store pricing tab. README Cost still quotes actor-start $0.01. README Cost quotes dataset-item $0.003; live primary is $0.008 (Grants.gov funding digest). Live: Grants.gov funding digest $0.008. This page quotes live PPE only."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

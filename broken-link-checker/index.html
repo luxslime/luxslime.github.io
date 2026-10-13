@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/broken-link-checker/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How is Broken Link Checker different from Bulk URL Status Checker and Sitemap Scraper?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "This Actor crawls from start URLs you supply, follows internal links up to maxDepth, and reports broken links, HTTP status codes, and redirect chains. Required input is startUrls (maximum 10). Store ID taroyamada/broken-link-checker. Bulk URL Status Checker checks a known URL list (urls, maximum 1000) for HTTP status, redirect chains, and timing; it does not crawl pages. Sitemap Scraper & Analyzer parses sitemap.xml into URL inventories and optionally HEADs discovered URLs; it does not crawl HTML for anchors. robots.txt Parser audits AI crawler allow/disallow rules, not page links. Use this Actor to discover broken links from source HTML. Use Bulk URL Status Checker when you already have the URL list."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What input is required?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "startUrls is required: public start pages, maximum 10. Schema prefill is https://example.com. Optional live schema fields are maxDepth (integer, default 2, maximum 5), maxPages (integer, default 50), concurrency (integer, default 5), checkExternal (boolean, default true), timeoutMs (integer, default 10000), delivery (dataset or webhook, default dataset), webhookUrl (when delivery is webhook; not during dryRun), and dryRun (boolean, default false). additionalProperties is false. README examples that send includeExternalLinks, pages, maxLinksPerPage, or externalOnly are not live schema fields. For a fixed URL list or status-only checks, the schema points to Bulk URL Health Checker (this site: Bulk URL Status Checker)."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is the best first run?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The published Store example run input is a dry run: startUrls https://example.com, maxDepth 1, maxPages 5, concurrency 3, checkExternal true, timeoutMs 10000, delivery dataset, dryRun true. Schema default dryRun is false. The published Store Quickstart is startUrls https://example.com, maxDepth 1, maxPages 100, delivery dataset, dryRun false. Keep the first live crawl small (low maxDepth and maxPages) on sites you control or are authorized to check."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What does a result contain?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The published README field list is rowType, sourcePage, targetUrl, statusCode, anchorText, linkType, redirectChain, severity, and fetchedAt. The published sample wraps meta plus rows[] with rowType broken_link. The live schema description says each dataset row is a crawled source page including broken-link details; that may differ from the per-link sample shape. Treat the sample as a README illustration, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do dataset, webhook, and dry-run delivery work?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "delivery defaults to dataset. Dataset output is written first; webhook POSTs after PPE output succeeds when delivery is webhook, webhookUrl is set, and dryRun is false. dryRun true runs a local crawl only and skips dataset writes and webhook. The default dataset is the billable surface. README: healthy/no-issue checks should avoid default dataset charges; dry runs, missing-key warnings, and unchanged polls should not write payable default-dataset rows."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How is Broken Link Checker priced?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Billing is pay per event. The live Store card is from $8.00 / 1,000 results. Live Store events are Actor Start at $0.001 (charged when the Actor starts; number of events depends on Actor memory, one event per GB, minimum one event) and result at $0.008 (single result in the default dataset). The README pricing section matches those figures: $0.001 actor start and $0.008 per broken-link finding row. Older README figures of actor-start $0.01 / dataset-item $0.005 are stale. Platform usage is listed as included."
-        }
-      }
-    ]
-  }
-  </script>
 </head>
 <body>
   <header class="site">

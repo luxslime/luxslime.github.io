@@ -6,38 +6,6 @@
   <title>Google News brand monitoring — headlines and article URLs from queries</title>
   <meta name="description" content="Find recent media mentions with Google News RSS queries. Live Store price $0.003 per successfully parsed RSS article row. Discovery only — not publisher feed XML and not article HTML cleanup.">
   <link rel="canonical" href="https://apify.momiji-space.com/use-cases/google-news-brand-monitoring/">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Can Google News Scraper track brand and company mentions from search queries?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes, as a discovery step. Required input is queries (maximum 50 search terms). The Actor reads Google News RSS, not the Google News HTML interface, and returns title, link, source, pubDate, pubDateISO, description, and query. It does not return full article bodies, score sentiment, or crawl news sites. The published Store Brand Monitoring template is for tracking multiple companies or themes."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is the cheapest first paid input for Google News brand monitoring?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The cheapest first paid cap is one queries item with maxItems 1 (schema range 1–100). If one public RSS article row is parsed, live PPE is $0.003. There is no Actor start event. The published Store Quickstart is company news. Schema prefill is OpenAI and Google AI. The published Store example run uses queries artificial intelligence with maxItems 10."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Why not send Google News rows straight into RAG or a sentiment model?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Each row is metadata plus a direct article URL. There is no published full-article text field. Discover URLs first, confirm they are real article pages rather than generic homepages, then send news, blog, and press links to Article Content Extractor. Docs, product, or policy pages belong on Website Content Extractor."
-        }
-      }
-    ]
-  }
-  </script>
   <style>
     body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
     main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }

@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/nih-research-funding-landscape-report/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How is NIH RePORTER Funding Landscape Report different from TED/SAM.gov Bid Alerts and PubMed Literature Watch?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "This Actor queries the official NIH RePORTER v2 Project API for awards matching bounded watches (terms, institutions, fiscal years, activity codes, agencies, project numbers). Store ID taroyamada/nih-research-funding-landscape-report. TED, SAM.gov & Grants Bid Alerts Scraper queues TED tenders, SAM.gov opportunities, and Grants.gov notices — public-sector procurement, not NIH RePORTER awards. PubMed Literature Watch is NCBI citation metadata. OpenAlex is scholarly works. PubMed & Clinical Trials Evidence Gap Report matches trials to PubMed. This page is NIH award landscape only."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What input is required?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "watches is required: an array of objects with additionalProperties false. Watch fields are id, terms, institutions, fiscalYears (integers, min 2000, max 2100), activityCodes, agencies, projectNumbers, and includeActiveProjects (boolean, default true). Other live fields are monitorKey (default nih-funding-watch), initialRunMode (baseline_only or emit_backfill, default baseline_only), generateReport (boolean, default true), emitRawRows (boolean, default false), emitExport (boolean, default false), emitUnchanged (boolean, default false; unchanged still 0 rows / 0 charge), maxProjectsPerWatch (integer, default 50; NIH request limit never greater than 500), maxChargeUsd (number, default 25), and dryRun (boolean, default false). additionalProperties is false on the root schema."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is the best first run?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Published exampleRunInput: watches oncology-immunotherapy with terms immunotherapy and oncology, fiscalYears 2025 and 2026, activityCodes R01, maxProjectsPerWatch 3, maxChargeUsd 3, dryRun false. Default initialRunMode is baseline_only: the first successful run stores a free baseline with zero rows and zero charge. Use emit_backfill when you want the first matching awards billed. Store Quickstart uses emit_backfill, generateReport true, emitExport true, maxProjectsPerWatch 10, and maxChargeUsd 30. If planned PPE exceeds maxChargeUsd, the run fails closed with no delivery."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What does a result contain?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "README sample JSON lives in docs/sample-output.json and is illustrative, not a live NIH result. A landscape report includes matched project count, new/changed counts, observed award totals, FY/org/activity/agency distributions, and an official source URL. Descriptive public funding fields only. The Actor excludes investigator identity and direct communication fields. It is not a directory or prospecting tool."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Is this medical, financial, or grant-writing advice?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "No. Not financial, medical, clinical, legal, grant-writing, award-probability, or institutional-performance advice. No NIH or HHS endorsement. Sequential RePORTER requests are spaced at least 1 second apart. State is isolated by monitorKey plus caller; a state failure does not mark the monitor successful."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How is NIH RePORTER Funding Landscape Report priced?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Billing is pay per event. The live Store card is from $5.00 / 1,000 nih award rows. Current PPE: nih-award-row $0.005; nih-funding-change-alert $0.20; nih-funding-landscape-report $12.00; nih-funding-export $8.00. Baseline and unchanged checks are free (zero rows / zero charge), even if emitUnchanged is true. Default generateReport is true and bills $12.00 when a new or changed landscape is emitted; keep maxChargeUsd at or above the planned path. Default maxChargeUsd is 25."
-        }
-      }
-    ]
-  }
-  </script>
 </head>
 <body>
   <header class="site">

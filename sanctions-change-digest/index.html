@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/sanctions-change-digest/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is Sanctions Change Tracker different from HTS Tariff & Trade Scraper and Campaign Finance Scraper?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Sanctions Change Tracker (taroyamada/sanctions-change-digest): This Actor diffs the official OFAC Specially Designated Nationals XML against watches you supply and emits source-linked addition/removal digest rows. Public SDN XML only. Not legal, KYC, or screening advice. Not a real-time payment blocker. Not HTS tariff monitoring. Unofficial research on public lists. HTS Tariff & Trade Scraper is for HTS/USTR changes (input HTS watches; USITC/USTR public data; tariff digest rows). Not OFAC SDN list diffs. Campaign Finance Scraper is for FEC/LDA filings (input feeds / watchTerms; OpenFEC / LDA.gov; campaign digest rows). Not OFAC sanctions or Federal Register. Federal Register Scraper is for Federal Register docs (input feeds / watchTerms; federalregister.gov API; FR digest rows). Not page-HTML regulatory crawls."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: none (see live fields). Live schema fields: watches, sdnXmlUrl, maxEntriesPerWatch, requestTimeoutSeconds, delivery, webhookUrl, datasetMode, snapshotKey, notifyOnNoNew, dryRun, nowIso, fixturePath. Quickstart: leave watches empty to use the default all-programs watch, or configure one watch with programs=SDGT to narrow scope additionalProperties is false on the live schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: watches, maxEntriesPerWatch, requestTimeoutSeconds, delivery, datasetMode, snapshotKey, notifyOnNoNew, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "README output fence is truncated or invalid JSON on Store. Illustration head: { \"meta\": { \"generatedAt\": \"2026-04-03T12:00:00.000Z\", \"sdnPublishDate\": \"04/03/2026\", \"sdnRecordCount\": 18698, \"newEntries\": 3, \"actionNeededCount\": 0, \"executiveSummary\": { \"overallStatus\": \"watch\", \"brief\": \"3 new SDN addition(s) and 0 removal(s) detected across 2 watch(es).\" … Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. datasetMode can limit emits to changes_only / changed_only / action_needed versus all. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is Sanctions Change Tracker priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $8.00 / 1,000 Sanctions change digest row ($0.008 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. Sanctions change digest row (apify-default-dataset-item) $0.008: Charged only when a sanctions change digest row is delivered. Do not use the README Cost block as live pricing. The published README Cost block is stale versus the live Store pricing tab. README Cost still quotes actor-start $0.01. README Cost quotes dataset-item $0.003; live primary is $0.008 (Sanctions change digest row). Live: Sanctions change digest row $0.008. This page quotes live PPE only."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

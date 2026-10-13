@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/weather-forecast-fetcher/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is Weather Forecast Scraper different from Forex Exchange Rate Scraper and RSS & Atom Feed Extractor?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Weather Forecast Scraper (taroyamada/weather-forecast-fetcher): This Actor calls the Open-Meteo API for locations you supply (name and/or lat/lon per live schema) and emits hourly/daily forecast rows. Public weather API only. Not a meteorological warning service. Not RSS weather feeds. Not financial or operational advice. Forex Exchange Rate Scraper is for FX snapshots (input baseCurrency; open.er-api.com; exchange-rate snapshots). Not Treasury fiscal series. RSS & Atom Feed Extractor is for Known feed XML (input feed URLs; RSS/Atom; feed items). Not Open-Meteo forecasts. US Treasury Data Scraper is for Treasury fiscal series (input feeds; Treasury Fiscal Data API; fiscal change rows). Not FX mid-market rates."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: locations. Live schema fields: locations, forecastDays, hourly, daily, timeoutMs, delivery, webhookUrl, dryRun. Fetch weather forecasts via Open-Meteo API. additionalProperties is not documented on this page beyond the live Store schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: locations, forecastDays, daily, hourly, delivery, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is Weather Forecast Scraper priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $3.00 / 1,000 Weather forecast row ($0.003 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. Weather forecast row (apify-default-dataset-item) $0.003: Charged only for one successfully delivered public weather forecast row. Do not use the README Cost block as live pricing. The published README Cost block is stale versus the live Store pricing tab. README Cost still quotes actor-start $0.01. README Cost quotes dataset-item $0.001; live primary is $0.003 (Weather forecast row). Live: Weather forecast row $0.003. This page quotes live PPE only."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

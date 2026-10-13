@@ -8,62 +8,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/ssl-tls-certificate-scraper/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How is SSL/TLS Certificate Scraper different from Bulk URL Status Checker and DNS Propagation Checker?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "This Actor inspects TLS certificates on hostnames you supply: expiry, issuer, SHA-256 fingerprints, rotation, and optional Google Web Risk. Required input is domains (maximum 200). The Store description states it scans for expiring TLS certs, extracts fingerprint hashes, and can run Google Web Risk malware checks without rendering a browser. Bulk URL Status Checker checks a known URL list for HTTP status, redirect chains, response timing, and broken URL findings. Required input is urls (maximum 1000). It does not crawl pages. DNS Propagation Checker queries public DNS for A, AAAA, MX, TXT, CNAME, NS, and SOA across eight public resolvers. Required input is domains (maximum 200). It does not fetch HTTP(S) HTML. Use this Actor for TLS cert expiry and fingerprint monitoring. Use Bulk URL Status Checker for live HTTP status on URLs you already have. Use DNS Propagation Checker for nameserver and record propagation."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What input is required?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "domains is required: List of domains to check SSL certificates for (maximum 200 per run; OpenAPI minItems 1). Schema prefill is google.com, github.com, expired.badssl.com. Optional live schema fields are port (integer, default 443, minimum 1, maximum 65535), expiryWarningDays (integer, default 30, minimum 1, maximum 365), delivery (dataset or webhook, default dataset), webhookUrl (required when delivery is webhook), snapshotKey (string, default ssl-cert-snapshots), concurrency (integer, default 5, minimum 1, maximum 10), emitUnchanged (boolean, default false), dryRun (boolean, default false), enableReputationLookup (boolean, default false), reputationApiKey (required only when Google Web Risk lookup is enabled), and reputationThreatTypes (array, maxItems 3; supported values MALWARE, SOCIAL_ENGINEERING, UNWANTED_SOFTWARE). additionalProperties is false. The README Input table omits emitUnchanged and the three reputation fields; those names are live schema fields."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What does a monitoring result contain?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The published README output table lists meta, results, results[].domain, results[].status, results[].cert, results[].changes, results[].warnings, results[].reputation, results[].checkedAt, and results[].error. The published README sample is one row with domain, status (initial), cert (subject, issuer, validFrom, validTo, serialNumber, bits, altNames, authorized, protocol), changes, warnings (type expiring_soon, message, daysLeft), and reputation (provider google_webrisk). The README body also names precise expiry timestamps, SHA-256 fingerprint hashes, and full certificate chain coverage; the sample cert object does not include a fingerprint key. There is no published output JSON schema on the Store page. The sample is a README illustration, not a live coverage guarantee."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Does it render a browser or fetch HTTP page HTML?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "No. The Store description says without rendering a browser. README key features: Direct TLS inspection — Connects at the protocol level, not through HTTP. README also states validating connections directly at the protocol level rather than heavy web browser rendering. Required input is domains (hostnames), not page URLs. Optional Google Web Risk is off by default. This is not a pentest: the published FAQ states the Actor performs passive compliance scanning only, with no exploitation, fuzzing, or auth bypass. Only scan sites you have authorization for."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do unchanged rows, webhooks, and optional Google Web Risk work?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Recurring runs write only initial or changed successful checks to the billable Dataset by default. Stable checks produce 0 Dataset rows and 0 result charges; certificate or reputation lookup failures remain available in the free OUTPUT diagnostic record and are never billed as result rows. emitUnchanged defaults to false; keep it off for recurring monitoring so unchanged runs produce zero dataset rows and zero result charges. Set emitUnchanged true only when you explicitly need stable successful rows. delivery defaults to dataset. Set delivery to webhook and provide webhookUrl to POST results. dryRun true runs without saving results or sending webhooks. enableReputationLookup defaults to false so SSL-only runs behave as before. When enabled, reputationApiKey is required and must be a Google Cloud billing/API key, not the non-commercial Safe Browsing API. Supported threat types are MALWARE, SOCIAL_ENGINEERING, and UNWANTED_SOFTWARE (max 3)."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How is SSL/TLS Certificate Scraper priced?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Billing is pay-per-event. The live Store card is $9.00 / 1,000 delivered monitoring result rows. The billed event is Delivered monitoring result row at $0.009, charged only when a new or changed monitoring result row is delivered. Unchanged runs are free. You are not charged for Apify platform usage, only the fixed event price. Current PPE lists only that event (no actor-start). The README Cost section still quotes actor-start $0.01 plus dataset-item $0.003 ($3.01 for 1,000 items); those figures are not the live Store rates."
-        }
-      }
-    ]
-  }
-  </script>
 </head>
 <body>
   <header class="site">

@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/app-release-category-review-benchmark-report/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is App Store Release & Review Benchmark different from App Review Regression & Release Report and App Release Review Regression Report?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "App Store Release & Review Benchmark (taroyamada/app-release-category-review-benchmark-report): Benchmark Apple App Store and Google Play releases, ratings, and review regressions. Deliver source-linked app comparisons, alerts, reports, and optional exports. Not a single-app release-regression monitor (use App Review Regression & Release Report). Not an ASO keyword/review scrape of listings you already know. You supply Apple App IDs and/or Google Play IDs. App Review Regression & Release Report is for One-app release vs review regression (input app IDs; Store listing + reviews; Regression report). Not a multi-app category benchmark pack. App Release Review Regression Report is for Release-linked review regression report (input app IDs; Store reviews; Regression report). Not a category benchmark export. App Store & Google Play Reviews & ASO Scraper is for Reviews and ASO fields (input app IDs; Store listing + reviews; Review/ASO rows). Not a category benchmark report."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: none (see live fields). Live schema fields: appleAppIds, appleCountries, googlePlayIds, language, reviewLimit, lookbackDays, releaseWindowDays, ratingRegressionThreshold, negativeShareThresholdPct, minRegressionReviews, runMode, monitorKey, initialRunMode, emitRawReviews, generateReport, maxChargeUsd, dryRun, watchlists, emitRawRows, emitUnchanged, generateExport. Benchmark Apple App Store and Google Play releases, ratings, and review regressions. Deliver source-linked app comparisons, alerts, reports, and optional exports. exampleRunInput keys: appleAppIds, appleCountries, language, reviewLimit, lookbackDays, releaseWindowDays, ratingRegressionThreshold, negativeShareThresholdPct. additionalProperties is false on the live schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: appleAppIds, appleCountries, language, reviewLimit, lookbackDays, releaseWindowDays, ratingRegressionThreshold, negativeShareThresholdPct. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Published README Output Example / Sample Output JSON. Illustration: {   \"rowType\": \"app_release_review_report\",   \"billingEventName\": \"app-category-benchmark-report\",   \"productKey\": \"app-store:us:284882215\",   \"productName\": \"Sample App\",   \"status\": \"urgent\",   \"summary\": \"A likely post-release review regression was detected.\",   \"reviewsAnalyzed\": 30,   \"releaseRegression\": {     \"status\": \"urgent\",     \"regressionPlatforms\": [       \"appStore\"     ]   },   \"recommendedActions\": [     \"Inspect crash complaints introduced after the latest release.\"   ],   \"sourceUrl\": \"https://apps.apple.com/us/app/id284882215\" }  Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is App Store Release & Review Benchmark priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $15.00 / 1,000 App benchmarked ($0.01 per delivered app-benchmarked); $0.10 per App review regression; $3.00 per App category benchmark report; $2.00 per App benchmark export. No Actor Start. App benchmarked (app-benchmarked) $0.01: Charged only when a app benchmarked row is delivered. App review regression (app-review-regression) $0.10: Charged only when a app review regression row is delivered. App category benchmark report (app-category-benchmark-report) $3.00: Charged only when a app category benchmark report row is delivered. App benchmark export (app-benchmark-export) $2.00: Charged only when a app benchmark export row is delivered. Platform usage is listed as included on the Store pricing tab."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/podcast-media-buyer-shortlist-scraper/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is Podcast Media Buyer Shortlist Scraper different from Apple Podcasts Scraper and Apple Podcasts Chart Scraper?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Podcast Media Buyer Shortlist Scraper (taroyamada/podcast-media-buyer-shortlist-scraper): This Actor builds a podcast media-buyer shortlist from RSS feeds and show URLs you supply. First paid Input: 1 RSS + maxEpisodes 1, search off, export off. Not iTunes Search or Apple charts. Not sponsor-evidence extraction (use Podcast Sponsor Evidence Report Scraper). Not a contact/outreach list. Apple Podcasts Scraper is for iTunes search, charts, episodes (input searchTerm; Apple/iTunes endpoints; Podcast metadata rows). Not RSS-only sponsor evidence. Apple Podcasts Chart Scraper is for Top Podcasts ranks (input chart params; Apple chart endpoints; Chart rows). Not episode watchlists. RSS & Atom Feed Extractor is for Known-publisher feed XML (input feed URLs; RSS/Atom XML; Feed item rows). Not sponsor-evidence extraction."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: none (see live fields). Live schema fields: rssFeedUrls, showUrls, searchTerms, targetKeywords, maxEpisodesPerFeed, emitShortlistExport, emitUnchanged, dryRun. Build podcast advertising shortlists from Apple search terms and public RSS feeds with source-linked fit evidence and export rows. exampleRunInput keys: rssFeedUrls, showUrls, searchTerms, targetKeywords, maxEpisodesPerFeed, emitShortlistExport, emitUnchanged, dryRun. additionalProperties is false on the live schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: rssFeedUrls, showUrls, searchTerms, targetKeywords, maxEpisodesPerFeed, emitShortlistExport, emitUnchanged, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "README output fence is truncated or invalid JSON on Store. Illustration head: { \"rowType\": \"podcast_shortlist_export\", \"billingEventName\": \"podcast-shortlist-export\", \"sourceName\": \"Podcast Media Buyer Shortlist\", \"sourceUrl\": \"https://feeds.npr.org/510289/podcast.xml\", \"showTitle\": \"Planet Money\", \"matchedKeywords\": [\"business\", \"marketing\"], \"mediaBuyerF\u2026 Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is Podcast Media Buyer Shortlist Scraper priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $5.00 / 1,000 Podcast show candidate ($0.005 per delivered podcast-show-candidate); $0.05 per Podcast fit evidence; $2.50 per Podcast shortlist export. No Actor Start. Podcast show candidate (podcast-show-candidate) $0.005: Charged for each public podcast show candidate row in a media buyer shortlist. Podcast fit evidence (podcast-fit-evidence) $0.05: Charged for each source-linked fit evidence row matched to buyer keywords or campaign context. Podcast shortlist export (podcast-shortlist-export) $2.50: Charged for each generated media buyer shortlist export row. Platform usage is listed as included on the Store pricing tab."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

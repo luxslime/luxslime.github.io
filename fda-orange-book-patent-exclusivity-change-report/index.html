@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/fda-orange-book-patent-exclusivity-change-report/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is FDA Orange Book Patent & Exclusivity Change Report different from FDA Warning Letters Scraper and USPTO Patent Search Scraper?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "FDA Orange Book Patent & Exclusivity Change Report (taroyamada/fda-orange-book-patent-exclusivity-change-report): Monitor official FDA Orange Book product, patent, exclusivity, and therapeutic-equivalence records. Generate source-linked change alerts, cliff reports, and optional exports. Not USPTO patent search. Not FDA warning letters. Not 510(k) device clearances. You supply Orange Book watches. FDA Warning Letters Scraper is for FDA warning-letter pages (input search terms; FDA warning letters; Letter rows). Not Orange Book patents. USPTO Patent Search Scraper is for USPTO patent search (input queries; USPTO public search; Patent rows). Not FDA Orange Book exclusivity. FDA 510(k) Device Clearance Landscape Report is for FDA 510(k) clearances (input watches; FDA 510(k); Clearance landscape rows). Not Orange Book drug patents."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: watches. Live schema fields: watches, monitorKey, initialRunMode, generateReport, generateCliffReport, emitRawRows, emitExport, emitUnchanged, cliffWindowDays, maxRecordsPerWatch, maxRequests, maxChargeUsd, dryRun. Monitor official FDA Orange Book product, patent, exclusivity, and therapeutic-equivalence records. Generate source-linked change alerts, cliff reports, and optional exports. exampleRunInput keys: watches, maxRecordsPerWatch, maxRequests, maxChargeUsd, dryRun. additionalProperties is false on the live schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: watches, maxRecordsPerWatch, maxRequests, maxChargeUsd, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is FDA Orange Book Patent & Exclusivity Change Report priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $5.00 / 1,000 Orange Book product record ($0.005 per delivered orange-book-record-row); $0.35 per Orange Book patent change alert; $0.50 per Orange Book exclusivity change alert; $18.00 per Orange Book patent cliff report; $10.00 per Orange Book evidence export. No Actor Start. Orange Book product record (orange-book-record-row) $0.005: Charged only when a orange book product record row is delivered. Orange Book patent change alert (orange-book-patent-change-alert) $0.35: Charged only when a orange book patent change alert row is delivered. Orange Book exclusivity change alert (orange-book-exclusivity-change-alert) $0.50: Charged only when a orange book exclusivity change alert row is delivered. Orange Book patent cliff report (orange-book-patent-cliff-report) $18.00: Charged only when a orange book patent cliff report row is delivered. Orange Book evidence export (orange-book-export) $10.00: Charged only when a orange book evidence export row is delivered. Platform usage is listed as included on the Store pricing tab."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

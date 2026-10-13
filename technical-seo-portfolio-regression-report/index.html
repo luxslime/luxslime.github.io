@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/technical-seo-portfolio-regression-report/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is Technical SEO & AI Crawler Audit different from Site QA Indexability AI Crawler Report and robots.txt Parser & AI Crawler Block Checker?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Technical SEO & AI Crawler Audit (taroyamada/technical-seo-portfolio-regression-report): Audit public pages you are authorized to test for robots, noindex, sitemap, canonical, and AI crawler access changes. Deliver source-linked regressions, portfolio reports, and optional exports. Not an llms.txt + indexability report pack (use Site QA Indexability AI Crawler Report). Not a robots.txt parser-only check. Not a sitemap enumerator. You supply the URLs and must confirm authorized use for live runs. Site QA Indexability AI Crawler Report is for robots.txt and llms.txt signals (input urls; robots.txt / llms.txt; Policy-check and indexability events). Not a technical SEO regression pack covering canonical/noindex. robots.txt Parser & AI Crawler Block Checker is for GPTBot/ClaudeBot disallow audits (input origin URLs; robots.txt; Disallow rows). Not a canonical/noindex/sitemap regression report. Sitemap Scraper & Analyzer is for Nested XML sitemap URLs (input sitemap URLs; sitemap.xml; Sitemap URL rows). Not robots/canonical/noindex regressions."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: urls. Live schema fields: urls, aiCrawlerUserAgents, maxPages, checkRobotsTxt, checkLlmsTxt, authorizedUseConfirmed, emitPageRows, generateReport, emitExport, emitUnchanged, dryRun, initialRunMode, snapshotKey, watchlists, monitorKey, emitRawRows, maxChargeUsd. Audit public pages you are authorized to test for robots, noindex, sitemap, canonical, and AI crawler access changes. Deliver source-linked regressions, portfolio reports, and optional exports. exampleRunInput keys: urls, maxPages, dryRun, maxChargeUsd. additionalProperties is false on the live schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: urls, maxPages, dryRun, maxChargeUsd. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Published README Output Example / Sample Output JSON. Illustration: {   \"actorName\": \"technical-seo-portfolio-regression-report\",   \"rowType\": \"indexability_issue\",   \"billingEventName\": \"seo-regression-detected\",   \"issueType\": \"ai_crawler_disallowed_by_robots\",   \"severity\": \"high\",   \"sourceUrl\": \"https://example.com/?siteQaCanary=indexability-ai-crawler-v1\" }  Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is Technical SEO & AI Crawler Audit priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $12.00 / 1,000 SEO page audited ($0.01 per delivered seo-page-audited); $0.08 per SEO regression detected; $3.00 per SEO portfolio report; $2.00 per SEO agency export. No Actor Start. SEO page audited (seo-page-audited) $0.01: Charged only when a seo page audited row is delivered. SEO regression detected (seo-regression-detected) $0.08: Charged only when a seo regression detected row is delivered. SEO portfolio report (seo-portfolio-report) $3.00: Charged only when a seo portfolio report row is delivered. SEO agency export (seo-agency-export) $2.00: Charged only when a seo agency export row is delivered. Platform usage is listed as included on the Store pricing tab."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/government-contract-award-monitor/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How is Government Contract Award Change Report different from TED, SAM.gov & Grants Bid Alerts?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Government Contract Award Change Report (taroyamada/government-contract-award-monitor): This Actor watches public award records from TED and USASpending (SAM.gov awards optional with a user key) and can emit alerts, a supplier-share report, and an export. Default generateReport is true ($4) when new evidence exists; emitRawRows defaults false. Not a bid/no-bid desk, not SAM opportunity search (use TED/SAM Grants Bid Alerts), and not affiliated with any agency. Unchanged runs: 0 rows / 0 charge. TED, SAM.gov & Grants Bid Alerts is for Open opportunities / tenders (input keywords / jurisdictions; SAM/TED/Grants notices; opportunity rows). Not post-award spend/award change reports."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What input is required?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Live required fields: feeds. Live schema fields: feeds, watchTerms, lookbackDays, maxAwardsPerFeed, minValue, delivery, webhookUrl, datasetMode, snapshotKey, samApiKey, samApiUrl, tedApiUrl, usaSpendingApiUrl, requestTimeoutSeconds, notifyOnNoNew, emitRawRows, generateReport, emitExport, maxChargeUsd, dryRun, nowIso, tedFixturePath, samFixturePath, usaSpendingFixturePath. exampleRunInput is TED digital-services awards, watchTerms consultancies, minValue 100000, datasetMode all, notifyOnNoNew true, generateReport left at schema default true. SAM feeds need samApiKey. Keep maxChargeUsd at or above report+alerts. additionalProperties is not documented on this page beyond the live Store schema."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is the best first run?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Use the published Store example run input below. exampleRunInput is TED digital-services awards, watchTerms consultancies, minValue 100000, datasetMode all, notifyOnNoNew true, generateReport left at schema default true. SAM feeds need samApiKey. Keep maxChargeUsd at or above report+alerts. Keep the first live run small. Use dryRun when you only need to validate input."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What does a result contain?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do dataset, webhook, and dry-run delivery work?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. datasetMode can limit emits to changes_only versus all. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How is Government Contract Award Change Report priced?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Billing is pay per event. Live Store card: from $4.00 / 1,000 govcon-award-row events ($0.004 each, optional raw rows); $0.12 per govcon-spend-change-alert; $4.00 per govcon-supplier-share-report; $3.00 per govcon-award-export. No Actor Start. Default maxChargeUsd 10. Unchanged runs free. Government contract award row (govcon-award-row) $0.004: Charged only when a government contract award row row is delivered. Government spend change alert (govcon-spend-change-alert) $0.12: Charged only when a government spend change alert row is delivered. Government supplier share report (govcon-supplier-share-report) $4.00: Charged only when a government supplier share report row is delivered. Government award export (govcon-award-export) $3.00: Charged only when a government award export row is delivered. Platform usage is listed as included on the Store pricing tab."
-        }
-      }
-    ]
-  }
-  </script>
 </head>
 <body>
   <header class="site">

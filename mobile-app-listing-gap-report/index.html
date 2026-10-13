@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/mobile-app-listing-gap-report/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How is App Store & Google Play Listing Gap Report different from Chrome Web Store Extension Intelligence and Website Content Extractor?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "App Store & Google Play Listing Gap Report (taroyamada/mobile-app-listing-gap-report): This Actor scores public App Store and Google Play listing metadata for one target app against competitor listings and returns a capped, source-linked improvement report. Seed keywords are checked only as presence in listing text — it does not scrape rankings, autocomplete, or search volume. Not an ASO rank tracker, keyword-volume tool, review scraper, or paid-acquisition optimizer. Watch-tier listing_change_watch_summary is proof-gated and not selectable at public launch. Chrome Web Store Extension Intelligence is for Chrome Web Store listing/search metadata (input extensionUrls / searchTerms; chromewebstore.google.com HTML; extension metadata rows). Not App Store or Play listing gap reports. Website Content Extractor is for Docs/pricing/help pages to markdown (input urls; page HTML body; markdown/text). Not store-listing ASO scoring."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What input is required?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Live required fields: targetApp. Live schema fields: targetApp, competitorApps, country, language, seedKeywords, reportTier, maxChargeUsd, demoMode, dryRun, maxReports, sourceDatasetId, webhookUrl. exampleRunInput sets dryRun true and reportTier entry with maxChargeUsd 9. Schema default dryRun is false. Watch templates are not public. Keep maxChargeUsd aligned with the selected tier. additionalProperties is not documented on this page beyond the live Store schema."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is the best first run?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Use the published Store example run input below. exampleRunInput sets dryRun true and reportTier entry with maxChargeUsd 9. Schema default dryRun is false. Watch templates are not public. Keep maxChargeUsd aligned with the selected tier. Keep the first live run small. Use dryRun when you only need to validate input."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What does a result contain?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "No fenced output JSON. README field list: status, chargedEvent, chargedUsd, reason, listingScore, metadataCoverageScore, keywordCoverage, competitorGaps, actionList, rewriteSuggestions, sourceUrls, confidence, errors, recoveryHint. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do dataset, webhook, and dry-run delivery work?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How is App Store & Google Play Listing Gap Report priced?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Billing is pay per event. Live Store card: from $9.00 per listing_snapshot_checklist (primary); $29.00 per competitor_listing_gap_report; Actor Start $0.001; $49 listing_change_watch_summary is live but hidden until paid proof. 1,000 checklists would be $9,000 — this is a per-report Actor, not a per-row /1,000 crawler. Actor Start (apify-actor-start) $0.001: Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event). Listing snapshot checklist (listing_snapshot_checklist) $9.00: Charged once for a public app listing checklist with metadata coverage, warnings, and prioritized actions. Competitor listing gap report (competitor_listing_gap_report) $29.00: Charged once for a target-app plus competitor listing gap report with rewrite/action suggestions. Listing change watch summary (listing_change_watch_summary) $49.00: Hidden until paid proof; runtime defaults to no-charge high_tier_hold without owner-controlled proof inputs. Do not use the README Cost block as live pricing. README $9 / $29 matches live listing_snapshot_checklist and competitor_listing_gap_report. Public README table omits live $49 listing_change_watch_summary (hidden until paid proof). Actor Start live $0.001 is also omitted from that table. Platform usage is listed as included on the Store pricing tab."
-        }
-      }
-    ]
-  }
-  </script>
 </head>
 <body>
   <header class="site">

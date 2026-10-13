@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/app-review-cross-platform-intelligence/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How is iOS & Android App Review Scraper different from Chrome Web Store Extension Intelligence and G2 & Capterra Review Scraper?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "iOS & Android App Review Scraper (taroyamada/app-review-cross-platform-intelligence): This Actor pulls public App Store and Google Play review samples for one product, clusters complaint themes, and writes one buyer-ready summary row per monitored app. Google Play usually exposes about 20 public cards without deeper pagination. Not a full review-export crawler, not G2/Capterra, and not review generation. Live PPE is one summary row, not per-review billing. Chrome Web Store Extension Intelligence is for Chrome extensions (input extensionUrls; Chrome Web Store; extension metadata). Not iOS/Android reviews. G2 & Capterra Review Scraper is for B2B SaaS reviews (input reviewPageUrls; G2/Capterra; review rows). Not mobile storefront samples. Website Content Extractor is for Page markdown (input urls; HTML; markdown). Not store reviews."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What input is required?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Live required fields: none (see live fields). Live schema fields: productName, country, language, appleApp, googlePlayApp, reviewLimitPerPlatform, lookbackDays, minThemeMentions, delivery, webhookUrl, snapshotKey, nowIso, dryRun. exampleRunInput is Duolingo appleApp 570060128 + googlePlayApp com.duolingo, reviewLimitPerPlatform 20. No schema required array; supply at least one store object. Play pagination is intentionally shallow. additionalProperties is not documented on this page beyond the live Store schema."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is the best first run?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Use the published Store example run input below. exampleRunInput is Duolingo appleApp 570060128 + googlePlayApp com.duolingo, reviewLimitPerPlatform 20. No schema required array; supply at least one store object. Play pagination is intentionally shallow. Keep the first live run small. Use dryRun when you only need to validate input."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What does a result contain?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "README output fence is truncated or invalid JSON on Store. Illustration head: { \"meta\": { \"generatedAt\": \"2026-04-04T09:30:00.000Z\", \"warnings\": [ \"Google Play public HTML exposed 4 review cards in the fixture sample; deeper pagination is intentionally disabled to keep maintenance low.\" ], \"sourceFailures\": [], \"totals\": { \"products\": 1, \"platformsRequested\": 2, \"platformsSucceeded\": 2, \"platformsFailed\": 0, \"reviewsAnalyzed\": 7, \"recurringComplaints\": 2, \"complaintThemes\": 4 }, \"executiveSum… Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do dataset, webhook, and dry-run delivery work?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How is iOS & Android App Review Scraper priced?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Billing is pay per event. Live Store card: from $10.00 / 1,000 delivered monitoring result rows ($0.01 per new or changed app summary row). No Actor Start. Unchanged runs are free. Delivered monitoring result row (apify-default-dataset-item) $0.01: Charged only when a new or changed monitoring result row is delivered. Unchanged runs are free. Do not use the README Cost block as live pricing. README Pricing lists apify-actor-start $0.00005 and apify-default-dataset-item $0.015 per summary row. Live Store: Delivered monitoring result row $0.01 only, no start. Platform usage is listed as included on the Store pricing tab."
-        }
-      }
-    ]
-  }
-  </script>
 </head>
 <body>
   <header class="site">

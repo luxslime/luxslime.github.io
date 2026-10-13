@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/openalex-research-intelligence/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How is OpenAlex Scholarly Works Scraper different from PubMed Literature Watch and Google News Scraper?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "This Actor queries the official OpenAlex API for works, authors, institutions, sources, citations, topics, DOI, and open-access signals. Store ID taroyamada/openalex-research-intelligence. PubMed Literature Watch queries NCBI ESearch/ESummary for PubMed citation metadata, literature-update reports, and new-PMID alerts; it is not OpenAlex. Google News Scraper is query-based Google News RSS of headlines and article URLs. Article Content Extractor cleans news/blog HTML. NIH RePORTER Funding Landscape Report is NIH awards, not scholarly works. Use this Actor for OpenAlex bibliometrics and discovery, then confirm a focused PubMed query when needed."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What input is required?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The live schema required array is empty. additionalProperties is false. Supply at least one of searchTerms, workIds, authorIds, institutionIds, or conceptIds. Other live fields are fromDate and toDate (YYYY-MM-DD), sort (default cited_by_count:desc; also publication_date:desc, publication_date:asc, relevance_score:desc), limitPerSource (integer, default 25), maxWorks (integer, default 100), includeAbstract (boolean, default false), mailto (OpenAlex polite-pool email), timeoutMs (integer, default 20000), delivery (dataset or webhook, default dataset), webhookUrl, monitor (boolean, default false), monitorKey, initialRunMode (baseline_only or emit_backfill, default baseline_only; used when monitor is true), and dryRun (boolean, default false). Schema prefill search terms include LLM/RAG. Relevance sort is search-only."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is the best first run?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The published Store Quickstart monitor uses searchTerms retrieval augmented generation, fromDate 2025-01-01, sort publication_date:desc, limitPerSource 10, maxWorks 20, monitor true, monitorKey rag-literature-watch, initialRunMode baseline_only, delivery dataset, and dryRun false. That first baseline_only monitor writes zero rows and zero charges. Later unchanged polls are also zero. emit_backfill bills the current baseline. The published exampleRunInput is a non-monitor extract with LLM/RAG search terms, fromDate 2024-01-01, limitPerSource 10, maxWorks 20, and includeAbstract false."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What does a result contain?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Published README row types are work_summary (title, DOI, OpenAlex ID, year/date, type, citations, OA, retraction, source/publisher, landing/PDF, topics/concepts/countries/institutions), author_signal (work id/title, author name/id, order, corresponding flag, affiliations), and source_summary (journal/source, type, ISSN, host org, OA source flag). Sample JSON lives in docs/sample-output.json on the Actor, not inlined on the Store README. This Actor does not emit report, export, or synthetic alert rows; companion Actors do. There is no MCP output schema from recent runs."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Does this Actor return abstracts or fabricate reports?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "includeAbstract default is false. When true, abstracts are reconstructed from OpenAlex inverted index and increase payload size. OpenAlex is not Crossref, PubMed, Semantic Scholar, or a publisher API. Citation counts can lag. Auth-free official API. It does not fabricate literature reports or funding landscapes; use PubMed Literature Watch and NIH RePORTER Funding Landscape Report for those jobs. Fail-closed on state/charge receipt errors."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How is OpenAlex Scholarly Works Scraper priced?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Billing is pay per event. The live Store card is $4.00 / 1,000 openalex research rows. The billed event is OpenAlex research row (apify-default-dataset-item) at $0.004, charged for one delivered source-linked OpenAlex work, author, or source row. There is no Actor Start on the current pricing tab. A first baseline_only monitor and a later unchanged poll cost $0.00. emit_backfill bills the current baseline."
-        }
-      }
-    ]
-  }
-  </script>
 </head>
 <body>
   <header class="site">

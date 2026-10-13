@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/wcag-accessibility-checker/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is Website Accessibility Checker different from the Lighthouse Regression Report and Technical SEO & AI Crawler Audit?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Website Accessibility Checker (taroyamada/wcag-accessibility-checker) audits urls (maximum 50) for WCAG 2.1 violations with grades and remediation. Live PPE is Actor Start $0.002 per GB (minimum one event) plus result $0.015 per default-dataset item (from $15.00 / 1,000 results). WCAG Accessibility Checker — Lighthouse Regression Report runs Lighthouse and axe-core with optional report/export events and requires authorizedUseConfirmed for live runs. Technical SEO & AI Crawler Audit is canonical/noindex/robots/sitemap regressions, not WCAG DOM nodes. Broken Link Checker is HTTP status, not accessibility. Use this Actor for WCAG URL audits. Use the Lighthouse report Actor for performance-plus-axe regression. Use Technical SEO for indexability regressions."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "urls is required: URLs to audit, maximum 50 per run. Schema prefill is example.com and w3.org. Live schema fields are urls, wcagLevel (A, AA, AAA; default AA), includeWarnings (default true), delivery (dataset or webhook; default dataset), webhookUrl, snapshotKey (default wcag-accessibility-snapshots), concurrency (default 2, min 1, max 5), waitForSelector, timeout (default 30000, min 5000, max 60000), and dryRun (default false). README examples that send targets or emitChangedOnly are not live schema fields."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the cheapest first paid Try Input?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "One URL, wcagLevel A, includeWarnings false, delivery dataset, concurrency 1, dryRun false. If the run uses default 2048 MB memory, Actor Start is two $0.002 events ($0.004) plus one result at $0.015, totaling $0.019 when both start and one result charge. dryRun must be false for a dataset result."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Published README fields include url; score with total, grade (A-F), and level; summary with violations, critical, serious, moderate, minor, passes, incomplete, and totalAffectedNodes; violations[]; recommendedActions[]; and changes[]. Dataset view flattens _meta. actor.json requiredOutputFields: results. There is no published output JSON schema on the Store page. Treat README samples as illustrations, not a live coverage guarantee."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is Website Accessibility Checker priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay-per-event. The live Store card is from $15.00 / 1,000 results. Live events are Actor Start at $0.002 (charged every run; one event per GB of memory, minimum one event; default memory 2048 MB → 2 start events if default memory is used) and result at $0.015 per single result in the default dataset. The README Cost section still quotes actor-start $0.01 and dataset-item $0.003. Prefer the live Store card."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "delivery defaults to dataset. webhookUrl is used when delivery is webhook. dryRun true means no save and no webhooks. The cheapest first paid path keeps dryRun false."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

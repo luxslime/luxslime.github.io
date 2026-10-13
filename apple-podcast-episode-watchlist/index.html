@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/apple-podcast-episode-watchlist/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is Apple Podcast Episode Watchlist different from Apple Podcasts Scraper and Apple Podcasts Chart Scraper?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Apple Podcast Episode Watchlist (taroyamada/apple-podcast-episode-watchlist): This Actor watches Apple Podcast episode lists from shows or RSS you already know and emits new-episode rows. Paste a term plus maxEpisodes for a first run. Not Apple Podcasts search/charts (use Apple Podcasts Scraper / Chart Scraper). Not review monitoring. Not a cheaper Store-wide episode dump of shows you did not list. Apple Podcasts Scraper is for iTunes search, charts, episodes (input searchTerm; Apple/iTunes endpoints; Podcast metadata rows). Not RSS-only sponsor evidence. Apple Podcasts Chart Scraper is for Top Podcasts ranks (input chart params; Apple chart endpoints; Chart rows). Not episode watchlists. Apple Podcasts Reviews Scraper is for Public review RSS (input collection IDs; Customer Reviews RSS; Review rows). Not sponsor-signal reports."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: none (see live fields). Live schema fields: podcastIds, searchTerms, maxEpisodesPerShow, delivery, webhookUrl, dryRun. Provide iTunes collection IDs (numeric, e.g. 1535809341) or search terms. The actor resolves each to its show feed and returns the newest episodes per watchlist entry. exampleRunInput keys: podcastIds, searchTerms, maxEpisodesPerShow, delivery, dryRun. additionalProperties is false on the live schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: podcastIds, searchTerms, maxEpisodesPerShow, delivery, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "README output fence is truncated or invalid JSON on Store. Illustration head: { \"meta\": { \"actorName\": \"apple-podcast-episode-watchlist\", \"actorTitle\": \"Apple Podcast Episode Watchlist Scraper\", \"bundle\": \"Podcast Sponsor & Contact Suite\", \"fetchedAt\": \"2026-05-06T00:00:00.000Z\", \"totalRows\": 1 }, \"rows\": [ { \"actorName\": \"apple-podcast-episode-watchlist\",\u2026 Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is Apple Podcast Episode Watchlist priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $3.00 / 1,000 result ($0.003 per delivered apify-default-dataset-item). $0.001 Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. Actor Start (apify-actor-start) $0.001: Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event). result (apify-default-dataset-item) $0.003: Single result in the default dataset. Platform usage is listed as included on the Store pricing tab."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

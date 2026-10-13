@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/app-release-review-regression-monitor/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How is App Review Regression & Release Report different from Chrome Web Store Extension Intelligence and Website Content Extractor?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "App Review Regression & Release Report (taroyamada/app-release-review-regression-monitor): This Actor compares public App Store and Google Play release metadata and review samples across a release window versus lookback, then can emit regression alerts and per-app reports. Default dryRun is true, so a default Start does not bill. Not a review generator, reviewer profiler, or guarantee of store performance. Sample-based signals only; do not identify or target individual reviewers. Chrome Web Store Extension Intelligence is for Chrome extension listings (input extensionUrls / searchTerms; Chrome Web Store HTML; extension metadata). Not iOS/Android release regression. Website Content Extractor is for Page markdown (input urls; HTML body; markdown). Not store review samples. G2 & Capterra Review Scraper is for B2B SaaS reviews (input reviewPageUrls; G2/Capterra pages; review rows). Not App Store/Play release windows."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What input is required?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Live required fields: none (see live fields). Live schema fields: appleAppIds, appleCountries, googlePlayIds, language, reviewLimit, lookbackDays, releaseWindowDays, ratingRegressionThreshold, negativeShareThresholdPct, minRegressionReviews, runMode, monitorKey, initialRunMode, emitRawReviews, generateReport, maxChargeUsd, dryRun. exampleRunInput sets dryRun false, reviewLimit 10, and includes limit, delivery, webhookUrl which are NOT live schema fields. Live fields include runMode audit|monitor, initialRunMode baseline_only|emit_backfill, generateReport default true, dryRun default true, maxChargeUsd default 0. additionalProperties is not documented on this page beyond the live Store schema."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is the best first run?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Use the published Store example run input below. exampleRunInput sets dryRun false, reviewLimit 10, and includes limit, delivery, webhookUrl which are NOT live schema fields. Live fields include runMode audit|monitor, initialRunMode baseline_only|emit_backfill, generateReport default true, dryRun default true, maxChargeUsd default 0. Keep the first live run small. Use dryRun when you only need to validate input."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What does a result contain?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "No fenced output JSON. README: every row carries billingEventName, stableKey, sourceUrl, retrievedAt, source limitations, prohibited interpretations; report rows add release metadata, review-sample aggregates, regression status, recommended investigation steps. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do dataset, webhook, and dry-run delivery work?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How is App Review Regression & Release Report priced?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Billing is pay per event. Live Store card: from $0.50 / 1,000 optional app-review-row events ($0.0005 each); $0.10 per app-regression-alert; $2.00 per app-regression-report. No Actor Start. Report-first: keep emitRawReviews false. Schema default dryRun true. App review row (app-review-row) $0.0005: Charged for each optional raw app review row when explicitly emitted. App review regression alert (app-regression-alert) $0.1: Charged for each release-linked rating, sentiment, or review regression alert. App release regression report (app-regression-report) $2.00: Charged for each app/release-level regression report row. Platform usage is listed as included on the Store pricing tab."
-        }
-      }
-    ]
-  }
-  </script>
 </head>
 <body>
   <header class="site">

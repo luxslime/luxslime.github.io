@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/azure-retail-price-cost-impact-report/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is Azure Retail Price Cost Impact Report different from AWS Cloud Pricing Cost Impact Report and Multi-Cloud Pricing Cost Impact Report?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Azure Retail Price Cost Impact Report (taroyamada/azure-retail-price-cost-impact-report): Read official Azure Retail Prices data and emit stable price changes and cost-impact report rows for the scopes you configure. Not AWS offer files (use AWS Cloud Pricing Cost Impact Report). Not a multi-cloud scenario compare. No Azure subscription key is the Store contract unless the live schema adds one — this Actor is the public Retail Prices feed. AWS Cloud Pricing Cost Impact Report is for AWS public offer files (input scopes; AWS price list; SKU change / cost-impact rows). Not Azure Retail Prices. Multi-Cloud Pricing Cost Impact Report is for Normalized AWS vs Azure scenarios (input scenarios; AWS + Azure public prices; Cross-cloud comparison report). Not an Azure-only SKU watch. SaaS Pricing Tracker is for Competitor SaaS page changes (input urls; Public HTML; Page-change rows). Not Azure list prices."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: scopes. Live schema fields: scopes, monitorKey, initialRunMode, generateReport, emitRawRows, emitExport, emitUnchanged, maxPagesPerScope, maxItemsPerScope, maxChargeUsd, dryRun. Read official Azure Retail Prices data and emit stable price changes and cost-impact report rows for the scopes you configure. exampleRunInput keys: scopes, maxPagesPerScope, maxItemsPerScope, maxChargeUsd, dryRun. additionalProperties is false on the live schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: scopes, maxPagesPerScope, maxItemsPerScope, maxChargeUsd, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is Azure Retail Price Cost Impact Report priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $6.00 / 1,000 Azure price row ($0.006 per delivered azure-price-row); $0.20 per Azure price change alert; $10.00 per Azure cost impact report; $6.00 per Azure price export. No Actor Start. Azure price row (azure-price-row) $0.006: Charged only when a azure price row row is delivered. Azure price change alert (azure-price-change-alert) $0.20: Charged only when a azure price change alert row is delivered. Azure cost impact report (azure-cost-impact-report) $10.00: Charged only when a azure cost impact report row is delivered. Azure price export (azure-price-export) $6.00: Charged only when a azure price export row is delivered. Platform usage is listed as included on the Store pricing tab."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

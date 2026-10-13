@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/regulatory-change-monitor/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is Regulatory Alerts Scraper different from Federal Register Scraper and SaaS Pricing Tracker?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Regulatory Alerts Scraper (taroyamada/regulatory-change-monitor): This Actor fetches public government pages you list in targets[], snapshots extracted text, and emits source-linked change rows when filtered text drifts or watch terms hit. Live input is targets, not Federal Register API feeds. Not the Federal Register document API. Not authenticated portals. Not legal advice. Public HTML only; bot walls may block fetches. Federal Register Scraper is for Federal Register docs (input feeds / watchTerms; federalregister.gov API; FR digest rows). Not page-HTML regulatory crawls. SaaS Pricing Tracker is for Pricing/terms diffs (input targets[]; public SaaS pages; SaaS change rows). Not B2B competitor pricing packs. Docs & Changelog Drift Scraper is for Docs/changelog diffs (input doc URLs; public docs HTML; drift rows). Not Federal Register rules."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: targets. Live schema fields: targets, requestTimeoutSeconds, userAgent, maxChars, delivery, datasetMode, webhookUrl, notifyOnNoChange, snapshotKey, diffMode, summaryMaxLines, concurrency, batchDelayMs, nowIso, dryRun. Summary-first monitoring for official regulator update feeds, government bulletin pages, and public compliance notices additionalProperties is false on the live schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: targets, delivery, datasetMode, notifyOnNoChange, snapshotKey, diffMode, summaryMaxLines, concurrency, batchDelayMs, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. datasetMode can limit emits to changes_only / changed_only / action_needed versus all. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is Regulatory Alerts Scraper priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $9.00 / 1,000 Delivered monitoring result row ($0.009 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. Delivered monitoring result row (apify-default-dataset-item) $0.009: Charged only when a new or changed monitoring result row is delivered. Unchanged runs are free. Do not use the README Cost block as live pricing. The published README Cost block is stale versus the live Store pricing tab. README Cost still quotes actor-start $0.01. README Cost quotes dataset-item $0.003; live primary is $0.009 (Delivered monitoring result row). Live: Delivered monitoring result row $0.009. This page quotes live PPE only."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

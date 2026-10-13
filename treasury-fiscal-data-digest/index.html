@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/treasury-fiscal-data-digest/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is US Treasury Data Scraper different from Forex Exchange Rate Scraper and Grants.gov Scraper?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "US Treasury Data Scraper (taroyamada/treasury-fiscal-data-digest): This Actor pulls official US Treasury Fiscal Data API datasets (debt to the penny, average interest rates, MTS Table 1, record-setting auctions) for feeds you configure and emits source-linked change rows. Not FX mid-market rates. Not financial advice. Not a trading signal. Public Treasury APIs only. Forex Exchange Rate Scraper is for FX snapshots (input baseCurrency; open.er-api.com; exchange-rate snapshots). Not Treasury fiscal series. Grants.gov Scraper is for Grants.gov notices (input feeds / watchTerms; Grants.gov API; funding digest rows). Not TED/SAM.gov bid queues. Campaign Finance Scraper is for FEC/LDA filings (input feeds / watchTerms; OpenFEC / LDA.gov; campaign digest rows). Not OFAC sanctions or Federal Register."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: feeds. Live schema fields: feeds, watchTerms, lookbackDays, maxEvidencePerFeed, delivery, webhookUrl, datasetMode, snapshotKey, debtToPennyApiUrl, avgInterestRatesApiUrl, mtsTable1ApiUrl, recordSettingAuctionApiUrl, requestTimeoutSeconds, notifyOnNoNew, dryRun, nowIso, debtFixturePath, ratesFixturePath, mtsFixturePath, auctionFixturePath. Quickstart: configure one or more feeds, keep delivery=dataset, and run once to seed the baseline additionalProperties is false on the live schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: feeds, watchTerms, lookbackDays, maxEvidencePerFeed, delivery, datasetMode, snapshotKey, notifyOnNoNew, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "README output fence is truncated or invalid JSON on Store. Illustration head: { \"meta\": { \"feedCount\": 4, \"totalEvidenceRows\": 8, \"actionNeededCount\": 3, \"executiveSummary\": { \"overallStatus\": \"action_needed\", \"brief\": \"3 feed(s) require review; 4 changed since the last run.\" } }, \"digests\": [ { \"feedId\": \"monthly-budget\", \"status\": \"action_needed\", \"headl… Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. datasetMode can limit emits to changes_only / changed_only / action_needed versus all. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is US Treasury Data Scraper priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $9.00 / 1,000 Treasury fiscal data change row ($0.009 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. Treasury fiscal data change row (apify-default-dataset-item) $0.009: Charged for one successfully delivered new or changed Treasury Fiscal Data record. Do not use the README Cost block as live pricing. The published README Cost block is stale versus the live Store pricing tab. README Cost still quotes actor-start $0.01. README Cost quotes dataset-item $0.003; live primary is $0.009 (Treasury fiscal data change row). Live: Treasury fiscal data change row $0.009. This page quotes live PPE only."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

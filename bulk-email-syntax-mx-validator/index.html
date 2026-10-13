@@ -8,62 +8,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/bulk-email-syntax-mx-validator/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How is Bulk Email Syntax & MX Validator different from DMARC & Email Security Checker and Bulk Phone Format Validator?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "This Actor checks RFC syntax, DNS MX, and disposable-domain membership on email strings you already have. Required input is emails (maximum 1000). The Store description states it audits user-supplied email data using syntax, DNS MX, and disposable-domain checks; no messages are sent and no addresses are discovered or enriched. DMARC & Email Security Checker audits public SPF, DMARC, and MX (optional DKIM) on domains you supply (domains, maximum 500) and returns a 0–100 score with an A–F grade — domain email-auth policy, not per-address syntax on a list. Bulk Phone Format Validator is offline libphonenumber formatting of phone strings in numbers (maximum 1000). Use this Actor to validate a consented email-string list. Use DMARC & Email Security Checker for SPF/DMARC/MX posture on authorized domains. Use Bulk Phone Format Validator for E.164 hygiene."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What input is required?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "emails is required: Emails to validate (max 1000). Schema prefill is test@gmail.com, user@mailinator.com, bad@@invalid. Optional live schema fields are checkMx (boolean, default true; Check MX records via DNS lookup), checkDisposable (boolean, default true; Check against disposable email providers), delivery (dataset or webhook, default dataset), webhookUrl (when delivery is webhook), and dryRun (boolean, default false). additionalProperties is false. The README Input table lists only emails, checkMx, and checkDisposable. README examples that send includeDisposable or mxOnly are not live schema fields."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What does a result row contain?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The published README output table lists domain, hasMx, mxRecords, spfPass, spfRecord, dmarcPass, dmarcPolicy, dkimPass, and bimiPass. The published README sample uses email, isValid, syntaxOk, mxValid, mxRecords (priority plus exchange), isDisposable, domain, and score (0–100). There is no published output JSON schema on the Store page. The sample is a README illustration, not a live coverage guarantee. Live schema names do not include checkDkim or checkBimi."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Does it send mail, discover addresses, or check if an inbox exists?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "No. The Store description states: audit user-supplied email data using syntax, DNS MX, and disposable-domain checks; no messages are sent and no addresses are discovered or enriched. The README states the Actor never sends a message and does not discover, enrich, or acquire addresses. A positive result is a technical signal only and does not prove mailbox ownership, consent, or permission to send. The published FAQ states it does not check if the inbox exists — that would require an SMTP handshake, which is not safe for bulk checking."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How is Bulk Email Syntax & MX Validator priced?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Billing is pay-per-event. The live Store card is $3.00 / 1,000 email data-quality results. The billed event is Email data-quality result at $0.003, charged only for one delivered technical validation result for a user-supplied address. You are not charged for Apify platform usage, only the fixed event price. The README Cost section still quotes actor-start $0.01 plus dataset-item $0.003 ($3.01 for 1,000 items); live Store billing currently lists only the $0.003 Email data-quality result event."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do dataset, webhook, and dry-run delivery work?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "delivery defaults to dataset. Set delivery to webhook and provide webhookUrl to POST results. dryRun true runs without saving results (for testing). The Store Quickstart starts with Quickstart (5 Demo Emails) on a mixed set of valid, invalid, and disposable addresses, then Database migration audit, Sales Outreach Pre-Flight, or CRM Hygiene Audit (bulk-validate up to 1,000 addresses from an existing CRM export)."
-        }
-      }
-    ]
-  }
-  </script>
 </head>
 <body>
   <header class="site">

@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/lei-entity-lifecycle-watch-report/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is LEI Entity Lifecycle Watch Report different from RDAP Domain Expiry & Whois Scraper and SEC EDGAR Scraper?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "LEI Entity Lifecycle Watch Report (taroyamada/lei-entity-lifecycle-watch-report): Monitor GLEIF public LEI records for source-linked entity status, registration, renewal, and legal-name changes, then produce portfolio reports and optional exports. Not RDAP/whois domain expiry. Not SEC EDGAR filings. Not a vendor-registry pack. You supply LEIs or legal names. RDAP Domain Expiry & Whois Scraper is for RDAP registration records (input domains; RDAP; Expiry rows). Not GLEIF LEI lifecycle. SEC EDGAR Scraper is for 8-K and S-1 filing alerts (input tickers / CIKs; EDGAR; Filing rows). Not LEI registration status. Public Vendor Registry Intelligence is for Public vendor registries (input names / ids; Public registries; Vendor rows). Not GLEIF LEI records."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: none (see live fields). Live schema fields: leis, legalNames, countries, entityStatuses, registrationStatuses, pageSize, monitorKey, initialRunMode, generateReport, generateExport, emitRawRows, emitUnchanged, maxChargeUsd, dryRun. Monitor GLEIF public LEI records for source-linked entity status, registration, renewal, and legal-name changes, then produce portfolio reports and optional exports. exampleRunInput keys: leis, pageSize, monitorKey, initialRunMode, generateReport, generateExport, emitRawRows, emitUnchanged. additionalProperties is false on the live schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: leis, pageSize, monitorKey, initialRunMode, generateReport, generateExport, emitRawRows, emitUnchanged. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is LEI Entity Lifecycle Watch Report priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $5.00 / 1,000 LEI entity row ($0.005 per delivered lei-entity-row); $0.20 per LEI lifecycle change alert; $10.00 per LEI portfolio report; $6.00 per LEI export. No Actor Start. LEI entity row (lei-entity-row) $0.005: Charged only when a lei entity row row is delivered. LEI lifecycle change alert (lei-lifecycle-change-alert) $0.20: Charged only when a lei lifecycle change alert row is delivered. LEI portfolio report (lei-portfolio-report) $10.00: Charged only when a lei portfolio report row is delivered. LEI export (lei-export) $6.00: Charged only when a lei export row is delivered. Platform usage is listed as included on the Store pricing tab."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

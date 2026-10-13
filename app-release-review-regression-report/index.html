@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/app-release-review-regression-report/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is App Release Review Regression Report different from App Review Regression & Release Report and iOS & Android App Review Scraper?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "App Release Review Regression Report (taroyamada/app-release-review-regression-report): This Actor turns public App Store and Google Play review signals into release regression reports, QA backlog candidates, and prioritized product actions. Not the monitor Actor (taroyamada/app-release-review-regression-monitor). Not a review generator. Not reviewer targeting. Sample-based public storefront signals only. App Review Regression & Release Report is for Store review regression monitor (input appleAppIds / googlePlayIds; Public storefront samples; Regression alerts/reports). Not the $9/$29 report-only Actor. iOS & Android App Review Scraper is for Cross-store review samples (input app IDs; App Store / Play reviews; Review rows). Not a release-regression report. App Store & Google Play Listing Gap Report is for ASO listing checklist (input app IDs; Public listings; Listing-gap reports). Not release-regression reviews."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: none (see live fields). Live schema fields: appleAppIds, appleCountries, googlePlayIds, reportTier, releaseVersion, releaseDate, lookbackDays, reviewLimit, maxChargeUsd, maxReports, demoMode, dryRun, sourceDatasetId. Turn public App Store and Google Play review signals into release regression reports and QA action lists. exampleRunInput keys: appleAppIds, appleCountries, googlePlayIds, reportTier, lookbackDays, reviewLimit, maxChargeUsd, maxReports. additionalProperties is false on the live schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: appleAppIds, appleCountries, googlePlayIds, reportTier, lookbackDays, reviewLimit, maxChargeUsd, maxReports. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is App Release Review Regression Report priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: $9.00 per Release review snapshot report (release_review_snapshot_report); $29 per Release regression report. $0.001 Actor Start. Actor Start (apify-actor-start) $0.001: Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event). Release review snapshot report (release_review_snapshot_report) $9.00: One public app release review snapshot with risk score, source URLs, warnings, and three prioritized QA actions. Release regression report (release_regression_report) $29: One deeper release regression report with issue grouping, QA backlog suggestions, and action priorities. Platform usage is listed as included on the Store pricing tab."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

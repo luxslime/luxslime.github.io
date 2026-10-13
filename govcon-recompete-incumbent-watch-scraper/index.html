@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/govcon-recompete-incumbent-watch-scraper/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is GovCon Recompete & Spend Shift Watch different from TED, SAM.gov & Grants Bid Alerts and Government Contract Award Change Report?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "GovCon Recompete & Spend Shift Watch (taroyamada/govcon-recompete-incumbent-watch-scraper): This Actor watches official public federal award data for recompete windows, agency spend shifts, and vendor concentration reports. Not an open-opportunity bid desk (use TED, SAM.gov & Grants Bid Alerts). Not Grants.gov-only notices. Informational only. Not a bid/no-bid decision. TED, SAM.gov & Grants Bid Alerts is for Open opportunities / tenders (input keywords / jurisdictions; SAM/TED/Grants notices; Opportunity rows). Not vendor-pursuit profiles, Form D notices, or post-award spend reports. Government Contract Award Change Report is for Post-award spend/award changes (input feeds; TED / USASpending awards; Award change rows). Not open bid queues. Grants.gov Scraper is for Grants.gov-only funding notices (input feeds / watch terms; Grants.gov; Funding digest rows). Not a multi-source TED/SAM desk."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: none (see live fields). Live schema fields: awardSearches, maxAwardsPerSearch, emitBaselineSummary, emitAwardRows, generateReport, watchMode, spendWatches, maxSpendingRows, emitSpendExport, fixturePath, emitUnchanged, dryRun, initialRunMode, snapshotKey. Watch official public federal award data for recompete windows and incumbent contractor signals. exampleRunInput keys: awardSearches, maxAwardsPerSearch, emitBaselineSummary, emitAwardRows, generateReport, watchMode, maxSpendingRows, emitSpendExport, emitUnchanged, dryRun, initialRunMode. additionalProperties is false on the live schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: awardSearches, maxAwardsPerSearch, emitBaselineSummary, emitAwardRows, generateReport, watchMode, maxSpendingRows, emitSpendExport, emitUnchanged, dryRun, initialRunMode. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is GovCon Recompete & Spend Shift Watch priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $80.00 / 1,000 GovCon recompete candidate ($0.08 per delivered govcon-recompete-candidate). No Actor Start. GovCon recompete candidate (govcon-recompete-candidate) $0.08: Charged for each source-linked public award that appears inside a recompete watch window. GovCon incumbent map generated (govcon-incumbent-map-generated) $0.1: Charged for each search-level incumbent map summary row. GovCon incumbent change detected (govcon-incumbent-change-detected) $0.06: Charged for each source-linked incumbent or award-content change signal. GovCon incumbent award observed (govcon-incumbent-award-observed) $0.004: Charged for each optional public award observation row when explicitly enabled. GovCon recompete watch report (govcon-recompete-watch-report) $6.00: Charged for each portfolio-level recompete watch report row. GovCon spend shift alert (govcon-spend-shift-alert) $0.5: Charged for each source-linked material agency or vendor spend-share change alert. GovCon vendor concentration report (govcon-vendor-concentration-report) $12: Charged for each generated agency and vendor concentration report. GovCon spend export (govcon-spend-export) $5.00: Charged for each generated source-linked spend analysis export. Platform usage is listed as included on the Store pricing tab."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

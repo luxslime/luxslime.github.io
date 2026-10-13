@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/cryptocurrency-price-tracker/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is Cryptocurrency Price Scraper different from Forex Exchange Rate Scraper and CSV Cleaner?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Cryptocurrency Price Scraper (taroyamada/cryptocurrency-price-tracker) reads CoinGecko public market data for coins you supply as CoinGecko ids (required coins, maximum 50). It returns cryptocurrency price rows billed at $0.003 per delivered default-dataset item on the live Store card ($3.00 / 1,000). Forex Exchange Rate Scraper is for fiat FX snapshots, not CoinGecko ids. CSV Cleaner & Deduplication Tool is offline CSV hygiene and does not fetch market APIs. Use this Actor for token watchlists. Use Forex Exchange Rate Scraper for FX. Use CSV Cleaner when you already have a file."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "coins is required: CoinGecko ids (maximum 50). Live schema fields are coins, vsCurrencies, includeHistory (default false), historyDays (default 7, min 1, max 365), timeoutMs (default 15000, min 1000, max 30000), delivery (dataset or webhook, default dataset), webhookUrl (when delivery is webhook), and dryRun (default false). Schema prefill is bitcoin and ethereum with vsCurrencies usd. README Input Examples that send include24hChange, include7dChange, category, vsCurrency, or perPage are not live schema fields."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the cheapest first paid Try Input?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "One CoinGecko id, vsCurrencies usd, includeHistory false, delivery dataset, dryRun false. A delivered cryptocurrency price row is $0.003 on the live Store card. dryRun must be false so a row can be saved. There is no Actor Start on the live card. Schema prefill is two coins; keep the first paid run at one id."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "The live dataset view in actor.json titles the view Crypto Prices and lists overview columns id and lastUpdated. The README output table (not a published dataset_schema.json) lists coin, symbol, currency, price, marketCap, change24h, volume24h, and fetchedAt. README examples also show id, name, a price object, and sparkline7d. There is no published output JSON schema on the Store page. Treat README samples as illustrations, not a live coverage guarantee."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is Cryptocurrency Price Scraper priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay-per-event. The live Store card is $3.00 / 1,000 cryptocurrency price rows. The current event is apify-default-dataset-item titled Cryptocurrency price row at $0.003, charged only for one successfully delivered public cryptocurrency price result row. No Actor Start on the live card. The README Cost section still quotes actor-start $0.01 and dataset-item $0.005 (example 1,000 items = $5.01). Prefer the live Store card. Default memory on the Store listing is 128 MB. Platform usage is listed as included on the live pricing page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "delivery defaults to dataset. webhookUrl is used when delivery is webhook. dryRun defaults to false; set it true only to run without saving results. The cheapest first paid path keeps dryRun false so a payable row can be written."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

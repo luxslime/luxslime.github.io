@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/pypi-package-dependency-intelligence/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is PyPI Package & Dependency Scraper different from PyPI Vulnerability Scraper and npm Package & Dependency Scraper?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "PyPI Package & Dependency Scraper (taroyamada/pypi-package-dependency-intelligence): This Actor reads PyPI JSON for packages you list and emits dependency declarations, release cadence, maintainer hints, download stats, and OSV summaries. Python/PyPI only. Not npm trees. Not legal advice. Informational package metadata only. PyPI Vulnerability Scraper is for PyPI + OSV package alerts (input packages; PyPI + OSV; PyPI package rows). Not npm registry metadata. npm Package & Dependency Scraper is for npm deps/versions (input packages; npm registry; npm dep rows). Not license-policy audits. OSS Vulnerability Monitor is for OSV/GitHub advisories (input packages; OSV + GitHub Advisories; vuln rows). Not license-policy trees."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: packages. Live schema fields: packages, includeReleaseHistory, includeDownloadStats, includeVulnerabilities, maxReleaseRowsPerPackage, maxDependencyRowsPerPackage, concurrency, timeoutMs, delivery, webhookUrl, dryRun. Fetch official PyPI JSON API data and export package summaries, release cadence rows, dependency declarations, maintainer hints, download stats, and vulnerability signals. additionalProperties is false on the live schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: packages, includeReleaseHistory, includeDownloadStats, includeVulnerabilities, concurrency, timeoutMs, delivery, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is PyPI Package & Dependency Scraper priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $3.00 / 1,000 PyPI package or dependency row ($0.003 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. PyPI package or dependency row (apify-default-dataset-item) $0.003: Charged for one delivered PyPI package, release, or dependency row. Platform usage is listed as included on the Store pricing tab."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

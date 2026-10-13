@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/epa-enforcement-digest/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is EPA ECHO Enforcement Scraper different from FDA Warning Letters Scraper and Status Page Incident Digest Monitor?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "EPA ECHO Enforcement Scraper (taroyamada/epa-enforcement-digest): This Actor fetches public EPA ECHO facility/compliance/enforcement pages from targets[] and emits source-linked digest rows for EHS and diligence research. Public ECHO only. Not legal or environmental advice. Not FDA warning letters. Not a complete multi-media inspection. Unofficial research on public records. FDA Warning Letters Scraper is for FDA warning-letter digests (input feeds / watchTerms; FDA public warning-letter feeds; warning-letter digest rows). Not ClinicalTrials.gov or HHS OCR. Status Page Incident Digest Monitor is for Vendor incidents (input status page feeds; status.io-style pages; incident digest rows). Not EPA ECHO facilities. NHTSA Recall Scraper is for NHTSA recalls/complaints (input vehicle feeds; NHTSA public APIs; recall digest rows). Not CPSC consumer-product recalls."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: targets. Live schema fields: targets, requestTimeoutSeconds, userAgent, delivery, datasetMode, webhookUrl, notifyOnNoChange, snapshotKey, diffMode, summaryMaxLines, maxEvidenceItems, concurrency, batchDelayMs, dryRun, nowIso. Summary-first monitoring for EPA ECHO enforcement and compliance risk additionalProperties is false on the live schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: targets, delivery, datasetMode, snapshotKey, diffMode, summaryMaxLines, maxEvidenceItems, concurrency, batchDelayMs, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. datasetMode can limit emits to changes_only / changed_only / action_needed versus all. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is EPA ECHO Enforcement Scraper priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $8.00 / 1,000 EPA enforcement digest row ($0.008 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. EPA enforcement digest row (apify-default-dataset-item) $0.008: Charged only when an EPA enforcement digest row is delivered. Do not use the README Cost block as live pricing. The published README Cost block is stale versus the live Store pricing tab. README Cost still quotes actor-start $0.01. README Cost quotes dataset-item $0.003; live primary is $0.008 (EPA enforcement digest row). Live: EPA enforcement digest row $0.008. This page quotes live PPE only."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/vendor-change-monitor/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is SaaS Vendor Pricing & Page Change Scraper different from SaaS Pricing Tracker and B2B Pricing Scraper?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "SaaS Vendor Pricing & Page Change Scraper (taroyamada/vendor-change-monitor) takes a vendors JSON array of id, name, criticality, owner, tags, and urlPacks. Live PPE is $0.01 per delivered new or changed monitoring result row ($10.00 / 1,000). Unchanged runs are free. SaaS Pricing Tracker uses targets[] of public SaaS pages and bills SaaS change rows. B2B Pricing Scraper uses competitors[] pricing pages. Website Change Monitor is generic URL diffs. Use this Actor for vendor packs. Use SaaS Pricing Tracker for a flat target list. Use B2B Pricing Scraper for competitor price pages."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "vendors is required. Prefill shape is one vendor (Stripe) with pricing and terms packs; each page has id, name, url, includePatterns, and excludePatterns. Live schema also includes requestTimeoutSeconds (default 30, min 5, max 120), userAgent, maxChars (default 30000, min 1000, max 200000), delivery (dataset, webhook, or email; default dataset), datasetMode (action_needed, changes_only, all; default changes_only), webhookUrl, notifyOnNoChange (default false), snapshotKey (default vendor-pricing-terms-watch), diffMode (line_summary or hash_only; default line_summary), summaryMaxLines (default 12, min 5, max 50), concurrency (default 3, min 1, max 10), batchDelayMs (default 500), nowIso, and dryRun (default false). README Input Examples that send urls or sectionSelector are not live schema fields."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the cheapest first paid Try Input?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "The live Store card says unchanged runs are free. A changes_only first run seeds baseline and may therefore be $0. To request a billable delivered row on first success, use datasetMode all with one vendor, one pricing URL, dryRun false, and hash_only to keep the diff cheap. Unit price if a row is delivered: $0.01."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "actor.json requiredOutputFields are generatedAt, now, input, and snapshot. README fields include meta, recurringDigest, actionNeeded[] (vendorId, vendorName, owner, severity, status, reason, changedPacks, recommendedActions, executiveSummary), and results. Example rows also show vendorSummary. There is no published output JSON schema on the Store page. Treat README samples as illustrations, not a live coverage guarantee."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is SaaS Vendor Pricing & Page Change Scraper priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay-per-event. The live Store card is $10.00 / 1,000 delivered monitoring result rows. The current event is apify-default-dataset-item titled Delivered monitoring result row at $0.01, charged only when a new or changed monitoring result row is delivered. Unchanged runs are free. No Actor Start on the current card (an older superseded card had apify-actor-start $0.001 plus result $0.01). The README Cost section still quotes actor-start $0.01 and dataset-item $0.003. Prefer the live Store card."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "delivery defaults to dataset and also accepts webhook or email. webhookUrl is required when delivery is webhook. notifyOnNoChange defaults to false, so webhook skips when there are no changed digests and no action-needed items. dryRun previews without persisting snapshots or sending alerts. datasetMode changes_only is the default; all is the first-paid path when you need a delivered row on first success."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

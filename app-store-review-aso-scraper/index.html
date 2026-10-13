@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/app-store-review-aso-scraper/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is App Store & Google Play Reviews & ASO Scraper different from Apple App Store Scraper and Google Play App Scraper?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "App Store & Google Play Reviews & ASO Scraper (taroyamada/app-store-review-aso-scraper): This Actor scrapes Apple App Store and Google Play customer reviews and app/ASO intelligence in bulk by app ID, store URL, bundle/package ID, or keyword search. Public store endpoints only. Not a release-regression report (use App Review Regression & Release Report). Not Chrome Web Store. Not a reviewer-profiling or outreach tool. Public storefronts only. Apple App Store Scraper is for App metadata and ratings (input app IDs; App Store public pages; App metadata rows). Not bulk review pagination. Google Play App Scraper is for Play metadata and ASO (input package IDs; Play public pages; Play metadata rows). Not a dual-store review dump. iOS & Android App Review Scraper is for Cross-store review samples (input app IDs; App Store / Play reviews; Review rows). Not a release-regression report."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: none (see live fields). Live schema fields: appIds, appUrls, bundleIds, searchTerms, playAppIds, playUrls, maxAppsPerTerm, countries, language, maxReviewPages, reviewSort, includeReviews, includeAppProfile, minRating, proxy, dryRun, runMode, monitorKey, initialRunMode, maxChargeUsd, emitUnchanged, baselineStableKeys. Scrape Apple App Store customer reviews and app/ASO metadata in bulk by app ID, App Store URL, bundle ID, or keyword search. You are charged per review and per app profile delivered. exampleRunInput keys: appIds, maxAppsPerTerm, countries, language, maxReviewPages, reviewSort, includeReviews, includeAppProfile. additionalProperties is false on the live schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: appIds, maxAppsPerTerm, countries, language, maxReviewPages, reviewSort, includeReviews, includeAppProfile. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "README output fence is truncated or invalid JSON on Store. Illustration head: { \"rowType\": \"app_review\", \"appId\": \"1438388363\", \"appName\": \"Habit Tracker\", \"country\": \"us\", \"reviewId\": \"14143606963\", \"author\": \"Chelsea123\", \"rating\": 5, \"title\": \"Love it\", \"content\": \"Keeps me consistent every day...\", \"appVersion\": \"2.14.11\", \"voteSum\": 3, \"voteCount\": 4,\u2026 Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is App Store & Google Play Reviews & ASO Scraper priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $0.50 / 1,000 App review ($0.0005 per delivered app-review); $0.02 per App profile / ASO snapshot. No Actor Start. App review (app-review) $0.0005: Charged once per delivered public App Store or Google Play review row. App profile / ASO snapshot (app-profile) $0.02: Charged once per app per storefront for a public ASO profile snapshot with ratings, version, category, and aggregate signals. Platform usage is listed as included on the Store pricing tab."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

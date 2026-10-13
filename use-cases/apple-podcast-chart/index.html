@@ -6,38 +6,6 @@
   <title>Apple Podcasts chart scraper — country rank, rank delta, and movement reports</title>
   <meta name="description" content="Apple Podcasts chart scraper for public Top Podcasts ranks by country: raw chart_rank rows or one source-linked movement report. CSV/JSON. Pricing: see Store.">
   <link rel="canonical" href="https://apify.momiji-space.com/use-cases/apple-podcast-chart/">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Does this Apple Podcasts chart scraper compute rank movement?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes, when you set a stable monitorKey and generateMovementReport true. Raw mode emits chart_rank snapshot rows. Monitor mode can emit one podcast_chart_movement_report of new, changed, or dropped positions (previousRank, currentRank, rankDelta, sourceUrl). A baseline_only first run stores state with zero rows. Unchanged later polls emit zero rows when emitRawRows is false. Rank movement is descriptive evidence, not a forecast or audience estimate."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "When should I use Apple Podcasts Scraper instead of this chart scraper?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Use Apple Podcasts Scraper when you need keyword search, collection-ID watchlists, recent episodes, or chartRequests snapshots that you join yourself. Use this Chart Scraper when the job is storefront Top Podcasts ranks or one source-linked movement report. Chart Scraper does not search by keyword, look up collection IDs, or attach episode catalogs. For joining snapshot exports yourself, see Track Apple Podcasts charts over time."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Does Apple Podcasts chart rank equal downloads or listener count?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "No. Chart rows are public catalog metadata: country, rank, show identity, sourceUrl, and fetchedAt. Download counts and listener numbers are not in the published output. This Actor reads public Apple Podcasts / iTunes chart JSON. It is not affiliated with or endorsed by Apple."
-        }
-      }
-    ]
-  }
-  </script>
   <style>
     body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
     main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }

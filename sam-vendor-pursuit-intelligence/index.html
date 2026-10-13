@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/sam-vendor-pursuit-intelligence/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is SAM.gov Vendor Pursuit Intelligence different from TED, SAM.gov & Grants Bid Alerts and Government Contract Award Change Report?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "SAM.gov Vendor Pursuit Intelligence (taroyamada/sam-vendor-pursuit-intelligence): This Actor scrapes public SAM.gov opportunities from keywords, NAICS, and optional agency filters you supply. CSV/JSON dataset output. A SAM.gov API key is optional. Not a multi-source TED/Grants bid desk (use TED, SAM.gov & Grants Bid Alerts). Not post-award spend or incumbent mapping. Not a prospecting list or outreach tool. Informational only. TED, SAM.gov & Grants Bid Alerts is for Open opportunities / tenders (input keywords / jurisdictions; SAM/TED/Grants notices; Opportunity rows). Not vendor-pursuit profiles, Form D notices, or post-award spend reports. Government Contract Award Change Report is for Post-award spend/award changes (input feeds; TED / USASpending awards; Award change rows). Not open bid queues. Grants.gov Scraper is for Grants.gov-only funding notices (input feeds / watch terms; Grants.gov; Funding digest rows). Not a multi-source TED/SAM desk."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: none (see live fields). Live schema fields: keywords, naicsCodes, agency, postedFrom, postedTo, samApiKey, samApiUrl, emitSampleOnAuthMissing, limit, delivery, webhookUrl, dryRun. Extract federal opportunity pursuit leads from SAM.gov search inputs, with agency, NAICS, deadline, set-aside, contact, and warning fields. exampleRunInput keys: keywords, limit, delivery, dryRun. additionalProperties is false on the live schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: keywords, limit, delivery, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is SAM.gov Vendor Pursuit Intelligence priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $8.00 / 1,000 Result ($0.008 per delivered apify-default-dataset-item). $0.001 Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. Actor Start (apify-actor-start) $0.001: Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event). Result (apify-default-dataset-item) $0.008: Charged for each normalized result row saved to the default dataset. Platform usage is listed as included on the Store pricing tab."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">
