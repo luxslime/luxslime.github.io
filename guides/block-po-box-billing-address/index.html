@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>PO box blocker for the billing address, not just shipping</title>
-  <meta name="description" content="PO box blocker for Shopify billing addresses, plus the street-number rule Address Blocker dropped. Native checkout rules cover shipping only.">
+  <title>Shopify: Block PO Box on Billing Address, Not Just Shipping</title>
+  <meta name="description" content="Shopify's native checkout rule covers shipping only. Add a checkout validation that targets the billing address so PO Box billing is flagged before payment.">
   <meta name="robots" content="index,follow">
   <link rel="icon" href="/favicon.ico" sizes="any">
   <meta property="og:type" content="article">
-  <meta property="og:title" content="PO box blocker for the billing address, not just shipping">
-  <meta property="og:description" content="PO box blocker for Shopify billing addresses, plus the street-number rule Address Blocker dropped. Native checkout rules cover shipping only.">
+  <meta property="og:title" content="Shopify: Block PO Box on Billing Address, Not Just Shipping">
+  <meta property="og:description" content="Shopify's native checkout rule covers shipping only. Add a checkout validation that targets the billing address so PO Box billing is flagged before payment.">
   <meta property="og:url" content="https://apify.momiji-space.com/guides/block-po-box-billing-address/">
   <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/27f7c111c94acf4b22bfef9207351043/promotional_image/CLDLhsPS7ZQDEAE=.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="PO box blocker for the billing address, not just shipping">
-  <meta name="twitter:description" content="PO box blocker for Shopify billing addresses, plus the street-number rule Address Blocker dropped. Native checkout rules cover shipping only.">
+  <meta name="twitter:title" content="Shopify: Block PO Box on Billing Address, Not Just Shipping">
+  <meta name="twitter:description" content="Shopify's native checkout rule covers shipping only. Add a checkout validation that targets the billing address so PO Box billing is flagged before payment.">
   <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/27f7c111c94acf4b22bfef9207351043/promotional_image/CLDLhsPS7ZQDEAE=.png">
   <link rel="canonical" href="https://apify.momiji-space.com/guides/block-po-box-billing-address/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
@@ -32,7 +32,7 @@
       {
         "@type": "ListItem",
         "position": 2,
-        "name": "PO box blocker for the billing address, not just shipping",
+        "name": "Shopify: Block PO Box on Billing Address, Not Just Shipping",
         "item": "https://apify.momiji-space.com/guides/block-po-box-billing-address/"
       }
     ]
@@ -71,8 +71,8 @@
   <main class="wrap">
     <nav><a href="/">Home</a> / <a href="/guides/">Guides</a> / PO box blocker</nav>
     <p class="eyebrow">PO box blocker</p>
-    <h1>PO box blocker for the billing address, not just shipping</h1>
-    <p class="answer-first"><strong>Direct answer.</strong> A PO box blocker for Shopify checks both the shipping and billing address at checkout and flags PO Box, APO/FPO, and missing street-number entries. Native address validation covers the ship-to line only, so billing PO Boxes still get through. Native Checkout Blocks address format validation, available to all merchants since the <a href="https://changelog.shopify.com/posts/checkout-blocks-block-non-compliant-shipping-addresses-at-checkout">17 June 2026 changelog</a>, can block a PO box on shipping; <a href="https://help.shopify.com/en/manual/checkout-settings/checkout-blocks/customizations/address-format-validation">Shopify Help</a> names PO box among the types you can block. AddressFence publishes <strong>billing-address rules</strong> so a PO box on the card billing address can be flagged, and <strong>require a street number</strong> &mdash; the Address Blocker rule that was not migrated. Test any address in the simulator before publishing, with one-click rollback.</p>
+    <h1>How to block a PO Box on the Shopify billing address</h1>
+    <p class="answer-first"><strong>Direct answer.</strong> To block a PO Box on the Shopify billing address — not just shipping — you need checkout validation that targets <code>billingAddress</code>. Native Checkout Blocks address format validation, available to all merchants since the <a href="https://changelog.shopify.com/posts/checkout-blocks-block-non-compliant-shipping-addresses-at-checkout">17 June 2026 changelog</a>, can block a PO box on shipping; <a href="https://help.shopify.com/en/manual/checkout-settings/checkout-blocks/customizations/address-format-validation">Shopify Help</a> names PO box among the types you can block, but billing fields are not validated by that rule. AddressFence publishes <strong>billing-address rules</strong> so a PO box on the card billing address can be flagged, and <strong>require a street number</strong> &mdash; the Address Blocker rule that was not migrated. Test any address in the simulator before publishing, with one-click rollback.</p>
     <p class="lede"><strong>AddressFence</strong> (<a href="https://apps.shopify.com/address-guard?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=block-po-box-billing-address">Shopify App Store</a>) is a Shopify checkout-validation app for billing-address rules and the street-number check. Native address format validation checks the shipping address. Shopify Help states that billing address fields are not validated by that rule.</p>
     <p>Related: <a href="https://apps.shopify.com/b2b-terms-guard?utm_source=momiji-space&amp;utm_medium=guide&amp;utm_campaign=crosspromo&amp;utm_content=block-po-box-billing-address">B2B PO Guard — Require PO</a> — B2B purchase order number required at company checkout.</p>
     <!-- r131 free-checkers -->
