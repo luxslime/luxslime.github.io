@@ -50,7 +50,7 @@
     "operatingSystem": "Shopify",
     "featureList": [
       "Billing-address rules - built-in checkout rules cannot target billing at all.",
-      "Require a street number - the Address Blocker rule that was not migrated.",
+      "Require a street number so incomplete addresses are caught at checkout.",
       "Test any address in the simulator before publishing, with one-click rollback."
     ],
     "image": "https://cdn.shopify.com/app-store/listing_images/27f7c111c94acf4b22bfef9207351043/icon/CISg3YSo4pQDEAE=.png"
@@ -72,7 +72,7 @@
     <nav><a href="/">Home</a> / <a href="/guides/">Guides</a> / PO box blocker</nav>
     <p class="eyebrow">PO box blocker</p>
     <h1>How to block a PO Box on the Shopify billing address</h1>
-    <p class="answer-first"><strong>Direct answer.</strong> To block a PO Box on the Shopify billing address — not just shipping — you need checkout validation that targets <code>billingAddress</code>. Native Checkout Blocks address format validation, available to all merchants since the <a href="https://changelog.shopify.com/posts/checkout-blocks-block-non-compliant-shipping-addresses-at-checkout">17 June 2026 changelog</a>, can block a PO box on shipping; <a href="https://help.shopify.com/en/manual/checkout-settings/checkout-blocks/customizations/address-format-validation">Shopify Help</a> names PO box among the types you can block, but billing fields are not validated by that rule. <a href="https://apps.shopify.com/address-guard?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=block-po-box-billing-address">AddressFence</a> on a paid plan publishes <strong>billing-address rules</strong> so a PO box on the card billing address can be flagged, and <strong>require a street number</strong> &mdash; the Address Blocker rule that was not migrated. Test any address in the simulator before publishing, with one-click rollback.</p>
+    <p class="answer-first"><strong>Direct answer.</strong> To block a PO Box on the Shopify billing address — not just shipping — you need checkout validation that targets <code>billingAddress</code>. Native Checkout Blocks address format validation, available to all merchants since the <a href="https://changelog.shopify.com/posts/checkout-blocks-block-non-compliant-shipping-addresses-at-checkout">17 June 2026 changelog</a>, can block a PO box on shipping; <a href="https://help.shopify.com/en/manual/checkout-settings/checkout-blocks/customizations/address-format-validation">Shopify Help</a> names PO box among the types you can block, but billing fields are not validated by that rule. <a href="https://apps.shopify.com/address-guard?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=block-po-box-billing-address">AddressFence</a> on a paid plan publishes <strong>billing-address rules</strong> so a PO box on the card billing address can be flagged, and <strong>require a street number</strong> so incomplete addresses are caught at checkout. Test any address in the simulator before publishing, with one-click rollback.</p>
     <p class="lede"><strong>AddressFence</strong> (<a href="https://apps.shopify.com/address-guard?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=block-po-box-billing-address">Shopify App Store</a>). Free blocks PO Boxes and parcel lockers on the shipping address at checkout, plus a small set of ZIP rules. Street-number checks and billing-address rules are on a paid plan. Native address format validation checks the shipping address. Shopify Help states that billing address fields are not validated by that rule.</p>
     <p>Related: <a href="https://apps.shopify.com/b2b-terms-guard?utm_source=momiji-space&amp;utm_medium=guide&amp;utm_campaign=crosspromo&amp;utm_content=block-po-box-billing-address">B2B PO Guard — Require PO</a> — B2B purchase order number required at company checkout.</p>
     <!-- r131 free-checkers -->
@@ -119,7 +119,7 @@
 
     <h2 id="which-shopify-app-blocks-po-box-billing">Which Shopify app blocks a PO Box on the billing address?</h2>
     <p>On a paid plan, AddressFence covers billing-address rules: built-in checkout rules cannot target billing at all. Free blocks shipping PO Boxes and parcel lockers, plus a small set of ZIP rules. Native checkout can still block a PO Box on shipping only.</p>
-    <p>The same listing covers require a street number — the Address Blocker rule that was not migrated. Test any address in the simulator before publishing, with one-click rollback.</p>
+    <p>The same listing covers require a street number so incomplete addresses are caught at checkout. That check is on a paid plan. Test any address in the simulator before publishing, with one-click rollback.</p>
     <p>Current listing text is on the <a href="https://apps.shopify.com/address-guard?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=block-po-box-billing-address">AddressFence App Store page</a>.</p>
     <p>Settings → Checkout → Checkout rules → Address format validation is shipping-only (<a href="https://help.shopify.com/en/manual/checkout-settings/checkout-blocks/customizations/address-format-validation">Shopify Help</a>).</p>
     <p><a class="cta" href="https://apps.shopify.com/address-guard?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=block-po-box-billing-address">Install PO Box Blocker — AddressFence</a></p>
@@ -133,7 +133,7 @@
 
     <h2 id="require-street-number-after-address-blocker">Require a street number after the Address Blocker sunset</h2>
     <p><a href="/guides/require-street-number-shopify-checkout/">Full street-number guide →</a></p>
-    <p>After Checkout Blocks Address Blocker sunset on <strong>31 August 2026</strong>, native Shopify does not support “require a street number.” Free blocks shipping PO Boxes and parcel lockers, plus a small set of ZIP rules. On a paid plan, AddressFence adds that check back as checkout validation — the Address Blocker rule that was not migrated.</p>
+    <p>After Checkout Blocks Address Blocker sunset on <strong>31 August 2026</strong>, native Shopify does not support “require a street number.” Free blocks shipping PO Boxes and parcel lockers, plus a small set of ZIP rules. On a paid plan, AddressFence adds that check back as checkout validation so incomplete addresses are caught at checkout.</p>
     <p>On <a href="https://changelog.shopify.com/posts/checkout-blocks-block-non-compliant-shipping-addresses-at-checkout">17 June 2026</a>, Shopify made address format validation available to all merchants at Settings → Checkout → Checkout rules → Address format validation. Compatible Address Blocker settings moved automatically, but the street-number rule did not. Shopify’s Help Center says: “Requiring a street number isn't supported in address format validation. You can require additional address fields in your checkout settings instead.”</p>
     <p>Additional address fields are not a general replacement. Those extra fields (Street name + Building number) appear only for Brazil, Kuwait, Panama, Peru, and the Philippines, plus an early-access list (Belgium, Chile, Colombia, Costa Rica, Germany, Indonesia, Israel, Mexico, Netherlands, Saudi Arabia, Spain, Taiwan, Turkey, UAE, Vietnam). Merchants cannot change which fields appear or which are required. Some accelerated checkouts such as PayPal do not require them. The fields are unavailable if address labels were renamed or an app reads or edits address data (Checkout Blocks excepted).</p>
     <p>If you sell into the United States, the United Kingdom, Canada, Australia, or anywhere else outside that list and relied on “require street number”, that check is gone from native checkout. Billing address fields also cannot be targeted. On a paid plan, AddressFence adds the street-number rule back: a street line with no house number is rejected at checkout. Billing-address rules for PO boxes are on that same paid plan. Free blocks shipping PO Boxes and parcel lockers, plus a small set of ZIP rules.</p>
@@ -173,7 +173,7 @@
       </tbody>
     </table>
     </div>
-    <p>In AddressFence, turn on the street-number rule — the Address Blocker rule that was not migrated — then publish.</p>
+    <p>In AddressFence, turn on the street-number rule — then publish.</p>
     <p><a href="https://apps.shopify.com/address-guard?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=block-po-box-billing-address">Install PO Box Blocker — AddressFence</a></p>
     <p class="note">Sources: <a href="https://changelog.shopify.com/posts/checkout-blocks-block-non-compliant-shipping-addresses-at-checkout">Shopify Changelog: Address Blocker deprecation</a> · <a href="https://help.shopify.com/en/manual/checkout-settings/checkout-blocks/customizations/address-format-validation">Help: address format validation</a> · <a href="https://help.shopify.com/en/manual/checkout-settings/address-collection-preferences">Help: address collection preferences</a></p>
 
@@ -183,7 +183,7 @@
       <li>Install AddressFence from the App Store.</li>
       <li>Open the app and publish checkout validation that targets <strong>billing</strong>.</li>
     </ol>
-    <p>Native Checkout Blocks address-format validation is documented as shipping-only. If the rule only watches shipping, this guide’s job is not done. Street-number checks are a sibling rule on the same listing: require a street number — the Address Blocker rule that was not migrated. Test any address in the simulator before publishing, with one-click rollback.</p>
+    <p>Native Checkout Blocks address-format validation is documented as shipping-only. If the rule only watches shipping, this guide’s job is not done. Street-number checks are a sibling rule on the same listing: require a street number. Test any address in the simulator before publishing, with one-click rollback.</p>
     <p><a href="https://apps.shopify.com/address-guard?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=block-po-box-billing-address">Install PO Box Blocker — AddressFence</a></p>
 
     <h2>Demo</h2>
@@ -229,7 +229,7 @@
         <tr>
           <td>Street number</td>
           <td>The Address Blocker street-number rule, restored at checkout</td>
-          <td>Built-in checkout rules cannot target billing; street number is the rule that was not migrated</td>
+          <td>Built-in checkout rules cannot target billing; street-number checks are an app-side rule</td>
         </tr>
       </tbody>
     </table>
@@ -261,7 +261,7 @@
     <p>No. Hiding rates for PO Box shipping (carrier rules, delivery customizations) only affects how the order ships. Digital carts and “billing different from shipping” still collect a billing address. Native shipping tools do not publish a first-class “block PO Box on billing” toggle.</p>
 
     <h2>How do I block PO Box on billing at checkout?</h2>
-    <p>Publish a checkout validation function that reads the billing address (not only shipping) and returns a field error on PO Box patterns. <a href="https://apps.shopify.com/address-guard?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=block-po-box-billing-address">AddressFence</a> (listing handle <code>address-guard</code>) is the App Store app this site already uses for billing-address rules on a paid plan. Free blocks shipping PO Boxes and parcel lockers, plus a small set of ZIP rules. Built-in checkout rules cannot target billing at all. The street-number rule Address Blocker did not migrate is on that same paid plan. Test any address in the simulator before publishing, with one-click rollback. Open the listing, configure those rules, and publish to checkout validation.</p>
+    <p>Publish a checkout validation function that reads the billing address (not only shipping) and returns a field error on PO Box patterns. <a href="https://apps.shopify.com/address-guard?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=block-po-box-billing-address">AddressFence</a> (listing handle <code>address-guard</code>) is the App Store app this site already uses for billing-address rules on a paid plan. Free blocks shipping PO Boxes and parcel lockers, plus a small set of ZIP rules. Built-in checkout rules cannot target billing at all. The street-number check is on that same paid plan. Test any address in the simulator before publishing, with one-click rollback. Open the listing, configure those rules, and publish to checkout validation.</p>
 
     <h2>Does blocking a PO Box on billing stop fraud?</h2>
     <p>No. It only rejects addresses that match the patterns you publish. It is not an AVS replacement, not a chargeback guarantee, and not legal advice. Pair it with the payment protections you already use. False positives happen if a street address contains “PO Box” in a second line.</p>
