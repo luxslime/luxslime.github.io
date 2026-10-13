@@ -161,12 +161,91 @@ Use live Store listings for pricing. This file does not invent prices.
 - taroyamada/cisa-kev-asset-remediation-report — CISA KEV Asset Remediation Report — https://apify.com/taroyamada/cisa-kev-asset-remediation-report — https://apify.momiji-space.com/cisa-kev-asset-remediation-report/
 - taroyamada/food-safety-alert-portfolio-report — UK FSA Food Safety Alert Portfolio Report — https://apify.com/taroyamada/food-safety-alert-portfolio-report — https://apify.momiji-space.com/food-safety-alert-portfolio-report/
 
-## Shopify apps
+## Shopify apps (12, official App Store names)
 
-- https://apps.shopify.com/address-guard — PO Box Blocker — AddressFence — billing-address rules and street-number checks. Test any address in the simulator before publishing, with one-click rollback.
-- https://apps.shopify.com/momiji-prop-65-warning-manager — California Prop 65 warnings with audit trail
-- https://apps.shopify.com/b2b-terms-guard — B2B purchase order and Net terms checks — https://apify.momiji-space.com/b2b-po-terms/
-- https://apps.shopify.com/momiji-access-audit — App and staff access audit for customer data — https://apify.momiji-space.com/access-audit/
+### PO Box Blocker — AddressFence
+- App Store: https://apps.shopify.com/address-guard
+- What it does: Billing-address rules and street-number checks at Shopify checkout, tested in an address simulator before publishing.
+- Guide: https://apify.momiji-space.com/guides/block-po-box-billing-address/ — Shopify: Block PO Box on Billing Address, Not Just Shipping
+- Guide: https://apify.momiji-space.com/guides/po-box-blocker-apps-billing-vs-shipping/ — Shopify app to block PO boxes: shipping is native, billing needs a checkout-validation app
+- Guide: https://apify.momiji-space.com/guides/require-street-number-shopify-checkout/ — Require a street number at Shopify checkout after the Address Blocker sunset
+
+### B2B PO Guard — Require PO
+- App Store: https://apps.shopify.com/b2b-terms-guard
+- What it does: Checks PO numbers (format, prefix, length, duplicates) on Shopify native B2B checkout and flags orders for review; D2C checkout is untouched.
+- Guide: https://apify.momiji-space.com/guides/b2b-po-number-required/ — B2B checkout can skip a PO number unless a rule requires it
+- Guide: https://apify.momiji-space.com/guides/b2b-po-rule-live-preview/ — Preview a Shopify B2B PO rule before you publish
+- Guide: https://apify.momiji-space.com/guides/b2b-po-number-uniqueness-duplicate/ — Prevent duplicate PO numbers on Shopify B2B checkout
+
+### Prop 65 Warning Manager
+- App Store: https://apps.shopify.com/momiji-prop-65-warning-manager
+- What it does: Shows California Prop 65 warnings on product pages after merchant approval and keeps an audit trail of picks, edits and go-live.
+- Guide: https://apify.momiji-space.com/guides/prop-65-warning-examples/ — Prop 65 warning examples: 27 CCR 25602/25603 safe-harbor and short-form
+- Guide: https://apify.momiji-space.com/guides/prop-65-audit-trail-picks-edits-go-live/ — Prop 65 audit trail of picks, edits, and go-live
+- Guide: https://apify.momiji-space.com/guides/prop-65-california-only-warning/ — Show a Prop 65 warning only for California (US-CA) on Shopify
+
+### Staff Access Audit Guard
+- App Store: https://apps.shopify.com/momiji-access-audit
+- What it does: Reviews installed app scopes, staff access records and ownership evidence without reading customer or order data.
+- Guide: https://apify.momiji-space.com/guides/access-audit-app-scopes-customer-data/ — Audit Shopify app scopes for customer data access
+- Guide: https://apify.momiji-space.com/guides/staff-collaborator-access-end-date/ — Set an end date on staff or collaborator access
+- Guide: https://apify.momiji-space.com/guides/hide-b2b-companies-customer-service/ — Hide B2B Companies from customer service staff
+
+### EUDR Records Manager
+- App Store: https://apps.shopify.com/eudr-records-manager
+- What it does: Tracks EUDR supplier lots, product links, missing fields and hashed document packs, with CSV exports and an audit log.
+- Guide: https://apify.momiji-space.com/guides/eudr-dds-lot-registry/ — Store EUDR DDS lot references by 30 December 2026
+- Guide: https://apify.momiji-space.com/guides/eudr-sha256-hashed-document-packs/ — EUDR SHA-256 hashed document packs on Shopify
+- Guide: https://apify.momiji-space.com/guides/eudr-weekly-scheduled-gap-review/ — Weekly EUDR gap review for missing supplier, country, or DDS fields
+
+### Green Claims Guard
+- App Store: https://apps.shopify.com/green-claims-guard
+- What it does: Scans catalog and content for green marketing wording, flags it with the cited provision, and exports dated evidence records.
+- Guide: https://apify.momiji-space.com/guides/green-claims-scan-catalog-and-content/ — Scan Shopify catalog and content for green-claim wording
+- Guide: https://apify.momiji-space.com/guides/green-claims-flag-cited-provision-shopify/ — Flag green-claim wording and see which provision it cites
+- Guide: https://apify.momiji-space.com/guides/green-claims-evidence-vault-shopify/ — Dated evidence records for Shopify green claims
+
+### Agentic Catalog by momiji
+- App Store: https://apps.shopify.com/agentic-catalog-readiness
+- What it does: Audits catalog and product-page readiness for AI shopping agents (JSON-LD, Open Graph, policies), with fix guidance, rescans and CSV evidence.
+- Guide: https://apify.momiji-space.com/guides/agentic-catalog-readiness/ — Shopify AI Shopping Agent Readiness: llms.txt, robots.txt, Product JSON-LD
+- Guide: https://apify.momiji-space.com/guides/meta-muse-no-sales-agentic-checklist/ — Sales from ChatGPT but none from Meta or Muse: a Shopify checklist
+- Guide: https://apify.momiji-space.com/guides/agentic-catalog-json-ld-open-graph-completeness/ — Audit Product JSON-LD and Open Graph completeness for AI shopping
+
+### FibreLedger Textile Labels
+- App Store: https://apps.shopify.com/textile-label-guard
+- What it does: Checks textile fibre names against EU Annex I, records French origin and environmental-impact information, and keeps EPR records.
+- Guide: https://apify.momiji-space.com/guides/textile-fibre-label-eu/ — EU textile fibre labels need Annex I names, not trade names
+- Guide: https://apify.momiji-space.com/guides/textile-flag-trade-names-lycra-tencel/ — Flag Lycra and Tencel trade names on Shopify fibre fields
+- Guide: https://apify.momiji-space.com/guides/textile-epr-registration-audit-records/ — Textile EPR registration and audit records on Shopify
+
+### EU Food Info Guard
+- App Store: https://apps.shopify.com/fic-food-info-guard
+- What it does: Reviews allergen, ingredient, nutrition, net quantity, origin, operator and storage gaps on food product pages before display.
+- Guide: https://apify.momiji-space.com/guides/fic-food-allergen-label/ — EU Food Allergen Labelling for Online Shops (FIC 1169/2011)
+- Guide: https://apify.momiji-space.com/guides/fic-food-storage-conditions-gaps/ — Food storage-condition gaps on Shopify product pages
+- Guide: https://apify.momiji-space.com/guides/fic-weekly-scheduled-completeness-reviews/ — Run weekly FIC completeness reviews with an audit trail
+
+### CRALedger Duty Records
+- App Store: https://apps.shopify.com/craledger-duty-records
+- What it does: Tracks Cyber Resilience Act product duties, Article 14 incident deadlines, ENISA SRP draft packs and audit records.
+- Guide: https://apify.momiji-space.com/guides/cra-duty-records-eu/ — CRA duty records before an incident — Article 14 product file
+- Guide: https://apify.momiji-space.com/guides/cra-article-14-incident-deadlines/ — Track CRA Article 14 incident deadlines on the product file
+- Guide: https://apify.momiji-space.com/guides/cra-export-record-packs-audit-evidence/ — Export CRA record packs and chronological audit evidence
+
+### RepairProof EU
+- App Store: https://apps.shopify.com/repairproof-eu
+- What it does: Manages verified repair requests with revision-linked service forms and keeps redacted repair records from intake through return.
+- Guide: https://apify.momiji-space.com/guides/repair-proof-eu-right-to-repair/ — EU right-to-repair proof needs revision-linked forms
+- Guide: https://apify.momiji-space.com/guides/repairproof-verify-purchase-before-repair/ — Verify Shopify purchase before accepting a repair request
+- Guide: https://apify.momiji-space.com/guides/repairproof-redacted-repair-records/ — Redacted repair records from intake through return on Shopify
+
+### CLPLens: CLP Hazard Display
+- App Store: https://apps.shopify.com/clp-hazard-info-display
+- What it does: Records CLP hazard data (pictograms, signal word, H/P statements), syncs app-owned metafields and shows hazard information on the product page.
+- Guide: https://apify.momiji-space.com/guides/clp-hazard-product-page/ — CLP hazard pictograms on the product page, not the parcel
+- Guide: https://apify.momiji-space.com/guides/clp-create-hazard-profiles-ghs/ — Create CLP hazard profiles with GHS pictograms and statements
+- Guide: https://apify.momiji-space.com/guides/clp-app-owned-metafields-hazard-sync/ — Sync CLP hazard display through app-owned product metafields
 
 ## Shopify challenge guides
 - https://apify.momiji-space.com/guides/does-shopify-ship-to-po-boxes/ — Does Shopify ship to PO Boxes?
