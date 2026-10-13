@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Free Shopify staff access review checklist generator</title>
+  <meta name="description" content="Tick who has access to your Shopify admin (staff, collaborators, POS staff, temporary help, people who left) and get a printable access review checklist. Runs in your browser; nothing is sent anywhere.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.ico">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Free Shopify staff access review checklist generator">
+  <meta property="og:description" content="Tick who has access to your Shopify admin and get a printable access review checklist. Runs in your browser; nothing is sent anywhere.">
+  <meta property="og:url" content="https://apify.momiji-space.com/tools/staff-access-review-checklist/">
+  <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/9ea3a49e539bec70dcd6abb7cc7f4746/icon/CLqU3dXo9JQDEAE=.png">
+  <meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://apify.momiji-space.com/tools/staff-access-review-checklist/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://apify.momiji-space.com/"}, {"@type": "ListItem", "position": 2, "name": "Tools", "item": "https://apify.momiji-space.com/tools/"}, {"@type": "ListItem", "position": 3, "name": "Staff access review checklist generator", "item": "https://apify.momiji-space.com/tools/staff-access-review-checklist/"}]}
+  </script>
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Staff Access Audit Guard", "url": "https://apps.shopify.com/momiji-access-audit", "applicationCategory": "BusinessApplication", "operatingSystem": "Shopify", "image": "https://cdn.shopify.com/app-store/listing_images/9ea3a49e539bec70dcd6abb7cc7f4746/icon/CLqU3dXo9JQDEAE=.png"}
+  </script>
+</head>
+<body>
+  <header class="site"><div class="wrap bar"><a class="logo" href="/">momiji-space</a>
+    <nav><a href="/review/">Shopify apps</a><a href="/guides/staff-permissions-audit-checklist/">Staff permissions</a><a href="https://apps.shopify.com/momiji-access-audit?utm_source=momiji-site&amp;utm_medium=tool&amp;utm_campaign=staff-access-review-checklist">Install</a></nav>
+  </div></header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / <a href="/tools/">Tools</a> / Staff access review checklist generator</nav>
+    <p class="eyebrow">Free tool</p>
+    <h1>Staff access review checklist generator</h1>
+    <p class="answer-first"><strong>Direct answer.</strong> Tick the kinds of people who can sign in to your Shopify admin or POS, add the review date and the reviewer, and the page builds a checklist you can print or paste into a ticket: who to list, which permissions to compare against each person&rsquo;s job, whose access to end, and what to write down as evidence. It runs in your browser and sends nothing anywhere.</p>
+    <p class="lede">Each step points to the Shopify Help Center page that describes the setting. It is a review aid, not legal advice and not a security assessment.</p>
+    <section class="tool" aria-labelledby="tool-h">
+      <h2 id="tool-h">Who can sign in to your store?</h2>
+      <fieldset>
+        <legend class="lab">Tick every group that applies</legend>
+        <label><input type="checkbox" id="g-staff" checked> Staff accounts in the admin</label><br>
+        <label><input type="checkbox" id="g-collab"> Collaborator accounts (agencies, developers, freelancers)</label><br>
+        <label><input type="checkbox" id="g-pos"> POS staff</label><br>
+        <label><input type="checkbox" id="g-temp"> Temporary or seasonal staff and contractors</label><br>
+        <label><input type="checkbox" id="g-left"> Someone left or changed role since the last review</label><br>
+        <label><input type="checkbox" id="g-eu"> You sell to customers in the EU or UK (GDPR)</label>
+      </fieldset>
+      <label class="lab" for="f-date">Review date</label>
+      <input type="date" id="f-date">
+      <label class="lab" for="f-who">Reviewer</label>
+      <input type="text" id="f-who" placeholder="Name of the person doing the review" maxlength="80">
+      <div><button type="button" id="run">Build checklist</button><button type="button" id="copy" class="alt">Copy checklist as text</button><button type="button" id="print" class="alt">Print</button></div>
+      <p id="summary" role="status" aria-live="polite"></p>
+      <ol id="out" hidden></ol>
+      <p id="next" hidden>To keep this list current between reviews, with staff and collaborator review reminders and a check of every installed app&rsquo;s access, see <a href="https://apps.shopify.com/momiji-access-audit?utm_source=momiji-site&amp;utm_medium=tool&amp;utm_campaign=staff-access-review-checklist">Staff Access Audit Guard on the Shopify App Store</a>.</p>
+    </section>
+    <h2>Where the steps come from</h2>
+    <ul>
+      <li><a href="https://help.shopify.com/en/manual/your-account/users">Shopify Help Center: users</a> &mdash; staff accounts, collaborator accounts and removing access.</li>
+      <li><a href="https://help.shopify.com/en/manual/your-account/users/roles/permissions">Shopify Help Center: permissions</a> &mdash; what each admin permission allows.</li>
+      <li><a href="https://help.shopify.com/en/manual/your-account/logging-in/secure-sign-in">Shopify Help Center: secure sign-in</a> &mdash; two-step authentication.</li>
+      <li><a href="https://eur-lex.europa.eu/eli/reg/2016/679/oj">GDPR, Regulation (EU) 2016/679</a> &mdash; Article 32 (security of processing) and Article 5(1)(f) (integrity and confidentiality).</li>
+    </ul>
+    <p>How often to review is your decision. This page does not set an interval; write down the one your business, payment provider or auditor expects.</p>
+    <h2>What this page is not</h2>
+    <ul>
+      <li>Not legal advice and not a compliance certificate.</li>
+      <li>Not connected to your store: it does not read staff lists, permissions or logs.</li>
+      <li>Not a data collector: what you type stays in this browser tab.</li>
+    </ul>
+    <h2>Related pages</h2>
+    <ul><li><a href="/guides/staff-permissions-audit-checklist/">Staff permissions audit checklist</a></li><li><a href="/guides/staff-collaborator-access-end-date/">Put an end date on staff and collaborator access</a></li><li><a href="/guides/hide-pos-order-history-temporary-staff/">POS order history and temporary staff</a></li><li><a href="/tools/app-scope-access-reader/">App access scope reader</a></li></ul>
+  </main>
+  <footer class="site"><div class="wrap"><ul><li><a href="/review/">Shopify apps hub</a></li><li><a href="/tools/">Tools</a></li><li><a href="/">Home</a></li></ul></div></footer>
+  <script>
+  (function () {
+    var $ = function (id) { return document.getElementById(id); };
+    var H = 'Shopify Help Center: users', P = 'Shopify Help Center: permissions', S = 'Shopify Help Center: secure sign-in', G = 'GDPR Art. 32 and Art. 5(1)(f)';
+    var STEPS = {
+      base: [
+        ['Export or copy the list of everyone who can sign in (Settings > Users) and save it with today\u2019s date.', H],
+        ['Confirm who the store owner is and that the owner\u2019s contact details are current.', H],
+        ['For each person, write the job they do and compare it with the permissions they hold. Remove any permission the job does not need.', P],
+        ['Check that each person signs in with two-step authentication.', S]
+      ],
+      staff: [['Look for staff accounts that are no longer used and remove or limit them.', H], ['Give extra care to permissions that reach customers, orders, settings, apps and user management.', P]],
+      collab: [['List every collaborator account, the company it belongs to and the work it is for. Remove the ones whose work is finished.', H], ['Check which permissions each collaborator was granted and narrow them to the current task.', P]],
+      pos: [['List POS staff and the POS permissions each one holds; check access to order history and customer details matches the role.', P]],
+      temp: [['Write an end date next to every temporary account and set a reminder to remove access on that date.', H]],
+      left: [['Remove or deactivate the account of everyone who has left, and update permissions for anyone who changed role.', H], ['Change any shared passwords or credentials those people knew, outside Shopify as well.', S]],
+      eu: [['Record that access to personal data is limited to people who need it, as part of your security measures.', G]],
+      end: [['Write down what you changed, who approved it and the date, and keep it with this checklist as evidence.', 'Review record'], ['Set the date of the next review.', 'Your own policy']]
+    };
+    var last = [];
+    function run() {
+      var out = $('out'); out.textContent = ''; last = [];
+      var list = STEPS.base.slice();
+      ['staff','collab','pos','temp','left','eu'].forEach(function (k) { if ($('g-' + k).checked) list = list.concat(STEPS[k]); });
+      list = list.concat(STEPS.end);
+      var head = 'Staff access review' + ($('f-date').value ? ' \u2014 ' + $('f-date').value : '') + ($('f-who').value.trim() ? ' \u2014 reviewer: ' + $('f-who').value.trim() : '');
+      last.push(head);
+      list.forEach(function (s, i) {
+        var li = document.createElement('li'); li.textContent = '\u2610 ' + s[0] + ' ';
+        var src = document.createElement('span'); src.className = 'tag t-lab'; src.textContent = s[1]; li.appendChild(src);
+        out.appendChild(li); last.push((i + 1) + '. [ ] ' + s[0] + ' (' + s[1] + ')');
+      });
+      out.hidden = false; $('next').hidden = false;
+      $('summary').textContent = head + ': ' + list.length + ' steps.';
+    }
+    $('run').addEventListener('click', run);
+    $('copy').addEventListener('click', function () { if (navigator.clipboard && last.length) navigator.clipboard.writeText(last.join('\n')); });
+    $('print').addEventListener('click', function () { window.print(); });
+  })();
+  </script>
+</body>
+</html>
