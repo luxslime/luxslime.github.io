@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/docs-changelog-drift-monitor/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How is Docs & Changelog Drift Scraper different from Website Content Extractor and Article Content Extractor?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Docs & Changelog Drift Scraper (taroyamada/docs-changelog-drift-monitor): This Actor snapshots public release notes, changelogs, migration guides, and docs pages you list on targets[], then emits summary-first rows when those surfaces change. Live key is targets[] — README examples that send urls/emitChangedOnly are not schema fields. Not a private npm/PyPI registry client, not CI, and not authenticated docs. Public HTTP only. Website Content Extractor is for One-shot docs markdown (input urls; HTML; markdown). Not recurring changelog diffs. Article Content Extractor is for Article body extract (input article urls; article HTML; clean article). Not product changelog watches. Status Page Incident Digest Monitor is for Incidents (input status pages; status sites; incident rows). Not docs/changelog drift."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What input is required?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Live required fields: targets. Live schema fields: targets, requestTimeoutSeconds, userAgent, maxChars, delivery, datasetMode, webhookUrl, notifyOnNoChange, snapshotKey, diffMode, summaryMaxLines, concurrency, batchDelayMs, nowIso, dryRun. exampleRunInput watches Next.js release atom + caching docs and Crawlee changelog/upgrade guide. datasetMode default changes_only. email delivery is a placeholder enum. additionalProperties is not documented on this page beyond the live Store schema."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is the best first run?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Use the published Store example run input below. exampleRunInput watches Next.js release atom + caching docs and Crawlee changelog/upgrade guide. datasetMode default changes_only. email delivery is a placeholder enum. Keep the first live run small. Use dryRun when you only need to validate input."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What does a result contain?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "README output fence is truncated or invalid JSON on Store. Illustration head: { \"meta\": { \"generatedAt\": \"2026-04-04T14:33:02.189Z\", \"now\": \"2026-04-04T14:33:02.182Z\", \"input\": { \"targetCount\": 2, \"surfaceCount\": 6, \"delivery\": \"dataset\", \"datasetMode\": \"changes_only\", \"diffMode\": \"line_summary\", \"summaryMaxLines\": 12, \"concurrency\": 2, \"batchDelayMs\": 0, \"dryRun\": false }, \"snapshot\": { \"key\": \"docs-changelog-drift-monitor-local\", \"loadedFrom\": \"local\", \"savedTo\": \"local\" }, \"warnings\": [ \"s… Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do dataset, webhook, and dry-run delivery work?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. datasetMode can limit emits to changes_only versus all. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How is Docs & Changelog Drift Scraper priced?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Billing is pay per event. Live Store card: from $9.00 / 1,000 delivered monitoring result rows ($0.009 per new or changed row). No Actor Start. Unchanged runs are free. Delivered monitoring result row (apify-default-dataset-item) $0.009: Charged only when a new or changed monitoring result row is delivered. Unchanged runs are free. Do not use the README Cost block as live pricing. README Cost quotes actor-start $0.01 + dataset-item $0.003. Live: Delivered monitoring result row $0.009, no start. README Input Examples use urls; live schema requires targets. Platform usage is listed as included on the Store pricing tab."
-        }
-      }
-    ]
-  }
-  </script>
 </head>
 <body>
   <header class="site">

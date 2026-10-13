@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/dockerhub-image-intelligence/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is Docker Image Update Scraper different from GitHub Release & Tag Scraper and npm License & Deprecation Checker?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Docker Image Update Scraper (taroyamada/dockerhub-image-intelligence): This Actor lists public Docker Hub repositories you name (or searchTerms) and optional tags, emitting tag-drift and size/last-updated rows. Public Hub metadata only. Not a private-registry scanner. Not image-content SAST. Not GitHub Releases. GitHub Release & Tag Scraper is for Release/tag diffs (input repositories; GitHub releases; release rows). Not npm/PyPI package metadata. npm License & Deprecation Checker is for npm license/deprecation (input packages; registry.npmjs.org; npm package rows). Not OSV vulnerability matching. OSS Vulnerability Monitor is for OSV/GitHub advisories (input packages; OSV + GitHub Advisories; vuln rows). Not license-policy trees."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: none (see live fields). Live schema fields: repositories, searchTerms, includeTags, maxTagsPerRepo, maxSearchResults, delivery, webhookUrl, dryRun. Public Docker Hub repository slugs and/or search terms additionalProperties is false on the live schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: repositories, searchTerms, includeTags, maxTagsPerRepo, maxSearchResults, delivery, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is Docker Image Update Scraper priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $9.00 / 1,000 result ($0.009 per delivered apify-default-dataset-item). $0.001 Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. result (apify-default-dataset-item) $0.009: Single result in the default dataset. Actor Start (apify-actor-start) $0.001: Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event). Platform usage is listed as included on the Store pricing tab."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/sec-edgar-filings-monitor/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is SEC EDGAR Scraper different from SEC & ESG Report Scraper and SEC Material Contract Intelligence?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "SEC EDGAR Scraper (taroyamada/sec-edgar-filings-monitor): This Actor lists recent SEC EDGAR filings for companies you supply (ticker/CIK), filtered by formTypes and daysBack, and emits source-linked filing rows. Default example watches 8-K and S-1. Not investment advice. Not an ESG report pack (use SEC & ESG Report Scraper). Not Form 4 insider trades or exhibit-contract extraction. SEC & ESG Report Scraper is for ESG/climate packs (input company disclosure targets; SEC EDGAR + reports; disclosure change rows). Not 8-K/S-1 filing alerts alone. SEC Material Contract Intelligence is for SEC exhibit contracts (input tickers / CIKs; SEC EDGAR exhibits; contract-intel rows). Not Form 4 insider trades. SEC Insider Transaction Scraper is for Forms 3/4/5 trades (input issuers; SEC EDGAR ownership; insider-trade rows). Not 8-K material contracts."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: companies. Live schema fields: companies, formTypes, daysBack, maxItems, timeoutMs, delivery, webhookUrl, dryRun. Monitor SEC EDGAR filings for companies. additionalProperties is not documented on this page beyond the live Store schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: companies, formTypes, daysBack, maxItems, delivery, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is SEC EDGAR Scraper priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $3.00 / 1,000 SEC filing row ($0.003 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. SEC filing row (apify-default-dataset-item) $0.003: Charged only for one successfully delivered public SEC EDGAR filing row. Do not use the README Cost block as live pricing. The published README Cost block is stale versus the live Store pricing tab. README Cost still quotes actor-start $0.01. README Cost quotes dataset-item $0.005; live primary is $0.003 (SEC filing row). Live: SEC filing row $0.003. This page quotes live PPE only."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

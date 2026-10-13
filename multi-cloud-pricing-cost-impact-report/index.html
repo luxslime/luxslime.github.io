@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/multi-cloud-pricing-cost-impact-report/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is Multi-Cloud Pricing Cost Impact Report different from AWS Cloud Pricing Cost Impact Report and Azure Retail Price Cost Impact Report?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Multi-Cloud Pricing Cost Impact Report (taroyamada/multi-cloud-pricing-cost-impact-report): Compare official AWS public price-list and Azure Retail Prices data for explicitly normalized workload scenarios. Get source-linked cross-provider cost comparison reports and optional exports. Not an AWS-only SKU watch. Not an Azure-only retail watch. Not AI API token prices. You supply normalized scenarios. AWS Cloud Pricing Cost Impact Report is for AWS public offer files (input scopes; AWS price list; SKU change / cost-impact rows). Not a cross-cloud scenario compare. Azure Retail Price Cost Impact Report is for Azure Retail Prices public API (input scopes; Azure Retail Prices; Price-change / cost-impact rows). Not a cross-cloud scenario compare. AI API Pricing & Model Lifecycle Report is for OpenAI/Anthropic/Gemini public pages (input providers; Official API pricing pages; Model price / lifecycle rows). Not AWS/Azure IaaS SKUs."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: scenarios. Live schema fields: scenarios, monitorKey, initialRunMode, generateReport, emitRawRows, emitExport, emitUnchanged, maxPagesPerScope, maxItemsPerProvider, maxChargeUsd, dryRun. Compare official AWS public price-list and Azure Retail Prices data for explicitly normalized workload scenarios. Get source-linked cross-provider cost comparison reports and optional exports. exampleRunInput keys: scenarios, maxPagesPerScope, maxItemsPerProvider, maxChargeUsd, dryRun. additionalProperties is false on the live schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: scenarios, maxPagesPerScope, maxItemsPerProvider, maxChargeUsd, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is Multi-Cloud Pricing Cost Impact Report priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $6.00 / 1,000 Multi-cloud price row ($0.006 per delivered multi-cloud-price-row); $0.20 per Multi-cloud price change alert; $12.00 per Multi-cloud cost comparison report; $8.00 per Multi-cloud pricing export. No Actor Start. Multi-cloud price row (multi-cloud-price-row) $0.006: Charged only when a multi-cloud price row row is delivered. Multi-cloud price change alert (multi-cloud-price-change-alert) $0.20: Charged only when a multi-cloud price change alert row is delivered. Multi-cloud cost comparison report (multi-cloud-cost-comparison-report) $12.00: Charged only when a multi-cloud cost comparison report row is delivered. Multi-cloud pricing export (multi-cloud-pricing-export) $8.00: Charged only when a multi-cloud pricing export row is delivered. Platform usage is listed as included on the Store pricing tab."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

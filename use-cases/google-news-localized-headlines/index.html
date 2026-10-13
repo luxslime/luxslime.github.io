@@ -6,38 +6,6 @@
   <title>Localized Google News headlines — language and country RSS queries</title>
   <meta name="description" content="Tune Google News RSS by language and country for localized headlines and article URLs. Live Store price $0.003 per successfully parsed RSS article row. Discovery only — not a paid news API and not article HTML cleanup.">
   <link rel="canonical" href="https://apify.momiji-space.com/use-cases/google-news-localized-headlines/">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How do language and country localize Google News RSS results?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The live schema defaults language to en and country to US. Schema descriptions give examples en, ja, de for language and US, JP, GB for country. Together they tune Google News RSS for a region. RSS & Atom Feed Extractor has no language or country fields because it reads feed URLs you already have."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What live input localizes a first paid Google News run?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Required field is queries (maximum 50). Set language and country to the region you want. The cheapest first paid cap is maxItems 1 (schema range 1–100; default 25). If one public RSS article row is parsed, live PPE is $0.003. There is no Actor start event. Do not send unpublished aliases such as maxItemsPerQuery."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Does localization return translated article bodies?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "No. Localization tunes which Google News RSS results you get. Each row is still headline, article URL, publisher, timestamps, snippet, and originating query. There is no published full-article text field and no translation step. Send article URLs to Article Content Extractor afterward."
-        }
-      }
-    ]
-  }
-  </script>
   <style>
     body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
     main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }

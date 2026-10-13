@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/sec-insider-transaction-intelligence/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is SEC Insider Transaction Scraper different from SEC EDGAR Scraper and SEC Material Contract Intelligence?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "SEC Insider Transaction Scraper (taroyamada/sec-insider-transaction-intelligence): This Actor reads official EDGAR ownership forms for issuers you list and emits insider purchase, sale, grant, and holding rows, with optional transactionCodes and minTransactionValue filters. Not investment advice. Not 8-K material contracts. Not a copy of paid insider-trading products. Public EDGAR ownership XML/HTML only. SEC EDGAR Scraper is for 8-K/S-1 filing alerts (input companies; SEC EDGAR; SEC filing rows). Not ESG report packs. SEC Material Contract Intelligence is for SEC exhibit contracts (input tickers / CIKs; SEC EDGAR exhibits; contract-intel rows). Not Form 4 insider trades. Campaign Finance Scraper is for FEC/LDA filings (input feeds / watchTerms; OpenFEC / LDA.gov; campaign digest rows). Not OFAC sanctions or Federal Register."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: issuers. Live schema fields: issuers, formTypes, daysBack, maxFilingsPerIssuer, transactionCodes, minTransactionValue, includeDerivativeTransactions, includeHoldings, requestDelayMs, timeoutMs, secUserAgent, delivery, webhookUrl, dryRun. Track SEC Forms 3, 4, and 5 insider ownership transactions by ticker or CIK using official EDGAR data. additionalProperties is false on the live schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: issuers, formTypes, daysBack, maxFilingsPerIssuer, transactionCodes, minTransactionValue, includeDerivativeTransactions, includeHoldings, requestDelayMs, timeoutMs, delivery, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is SEC Insider Transaction Scraper priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $4.00 / 1,000 result ($0.004 per delivered apify-default-dataset-item). $0.001 Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. result (apify-default-dataset-item) $0.004: Single result in the default dataset. Actor Start (apify-actor-start) $0.001: Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event). Platform usage is listed as included on the Store pricing tab."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

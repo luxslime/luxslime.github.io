@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/fda-drug-shortage-supply-change-report/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is FDA Drug Shortage Supply Change Report different from FDA Warning Letters Scraper and DailyMed Label Change Watch Report?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "FDA Drug Shortage Supply Change Report (taroyamada/fda-drug-shortage-supply-change-report): Monitor official FDA drug-shortage records. Generate source-linked change alerts, supply reports, and optional exports. Not FDA warning letters. Not DailyMed SPL label versions. Not a CPSC/NHTSA product-safety recall digest. You supply watches. FDA Warning Letters Scraper is for FDA warning-letter pages (input search terms; FDA warning letters; Letter rows). Not drug-shortage status. DailyMed Label Change Watch Report is for DailyMed SPL metadata/versions (input watches; DailyMed; Label-change alerts). Not FDA shortage records. Product Safety Recall Scraper is for CPSC and related recalls (input terms; Public recall feeds; Recall rows). Not FDA drug shortages."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: watches. Live schema fields: watches, monitorKey, initialRunMode, generateReport, emitRawRows, emitExport, emitUnchanged, maxRecordsPerWatch, maxChargeUsd, openfdaApiKey, dryRun. Monitor official FDA drug-shortage records. Generate source-linked change alerts, supply reports, and optional exports. exampleRunInput keys: watches, maxRecordsPerWatch, maxChargeUsd, dryRun. additionalProperties is false on the live schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: watches, maxRecordsPerWatch, maxChargeUsd, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is FDA Drug Shortage Supply Change Report priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $5.00 / 1,000 FDA drug shortage row ($0.005 per delivered fda-shortage-row); $0.25 per FDA drug shortage change alert; $10.00 per FDA drug shortage supply report; $6.00 per FDA drug shortage export. No Actor Start. FDA drug shortage row (fda-shortage-row) $0.005: Charged only when a fda drug shortage row row is delivered. FDA drug shortage change alert (fda-shortage-change-alert) $0.25: Charged only when a fda drug shortage change alert row is delivered. FDA drug shortage supply report (fda-shortage-supply-report) $10.00: Charged only when a fda drug shortage supply report row is delivered. FDA drug shortage export (fda-shortage-export) $6.00: Charged only when a fda drug shortage export row is delivered. Platform usage is listed as included on the Store pricing tab."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

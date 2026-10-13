@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/career-site-hiring-lead-intelligence/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How is Career Site Scraper different from Google Maps Lead Enrichment and Contact Page Audit?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "This Actor reads public career, jobs, and hiring pages you supply and returns source-linked job titles, departments, locations, ATS platform hints, remote-work indicators, and hiring-signal tags. Store ID taroyamada/career-site-hiring-lead-intelligence. Google Maps Lead Enrichment appends website, email, phone, social, and health fields to existing local-business lead rows; it does not scrape Google Maps and it does not crawl career boards. Contact Page Audit inventories public business contact channels from contact, about, support, and policy pages; person-level emails are suppressed. Trade Show Exhibitor Intelligence extracts exhibitor booth rows from event pages you supply. Use this Actor for public career-page hiring signals. Use Maps enrichment for existing local-business rows. Use Contact Page Audit for support-channel inventory."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What input is required?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The live input schema has an empty required list. additionalProperties is false. Supply at least one of careerUrls, companyUrls, or companyDomains. Live fields are careerUrls (array; career/jobs/Greenhouse/Lever/Ashby/Workday/hiring pages; schema prefill https://www.ycombinator.com/jobs), companyUrls (array; homepages that discover /careers and /jobs), companyDomains (array; domains probed at /careers and /jobs), searchTerms (array; labels for grouping/notes, not a search engine; schema prefill AI infrastructure hiring), monitorKey (string, default default), initialRunMode (baseline_only or emit_backfill, default baseline_only), emitUnchanged (boolean, default false), limit (integer, default 50), delivery (dataset or webhook, default dataset), webhookUrl (required when delivery is webhook and dryRun is false), dryRun (boolean, default false), and maxChargeUsd (number, default 0.25). Auth, account, sign-in, and sign-up URLs are excluded."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is the best first run?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The published Store Quickstart uses careerUrls https://www.ycombinator.com/jobs, monitorKey yc-hiring-watch, initialRunMode emit_backfill, emitUnchanged false, limit 20, maxChargeUsd 0.1, delivery dataset, and dryRun false. Default initialRunMode is baseline_only: the first successful run stores a snapshot with no dataset rows and no PPE. Unchanged recurring runs with emitUnchanged false write zero rows and zero charges. searchTerms are labels only; they do not query a search engine. Keep the first live backfill small."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What does a result contain?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The published README sample is a job_or_hiring_signal row with companyName, careerUrl, jobTitle, department, location, remote, atsHints, hiringSignals, status, chargedEvent, and sourceUrl. chargedEvent on that sample is company_hiring_signal. The sample is a README illustration, not a live coverage guarantee. There is no published output JSON schema on the Store page. Recurring watches can emit job_delta and hiring_summary events at the same unit price. No personal emails are collected."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do baseline, backfill, and unchanged monitors work?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "initialRunMode default is baseline_only: store a snapshot with no dataset rows and no PPE. emit_backfill emits the first observed hiring rows under limit and maxChargeUsd. emitUnchanged default is false: later runs emit only newly observed hiring rows. Keep monitorKey stable for the same watch. delivery always writes the dataset first; webhook POSTs after dataset output succeeds. dryRun true returns sample rows and skips dataset writes and webhook. Rows beyond maxChargeUsd are no-charge limit_reached diagnostics."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How is Career Site Scraper priced?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Billing is pay per event. The live Store card is from $5.00 / 1,000 company hiring signals. Current PPE: company_hiring_signal (Company hiring signal) $0.005; job_delta (Job delta) $0.005 for a newly detected or changed job row; hiring_summary (Hiring summary) $0.005 for a company-level summary. There is no Actor Start on the current pricing tab. A baseline_only first run and an unchanged poll with emitUnchanged false both cost $0.00. Platform usage is listed as included."
-        }
-      }
-    ]
-  }
-  </script>
 </head>
 <body>
   <header class="site">

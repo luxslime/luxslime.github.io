@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/shopify-store-intelligence/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is Shopify Store Scraper different from Shopify App Store Review Scraper and B2B Pricing Scraper?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Shopify Store Scraper (taroyamada/shopify-store-intelligence): This Actor reads public Shopify JSON endpoints (homepage, /meta.json, /products.json, /collections.json, optional pages/blogs) for storeUrls you already know. No browser and no auth. It is not a store-discovery search engine. Not Shopify App Store reviews. Not checkout, customer, or authenticated Admin API data. Provide known storefront URLs only. Shopify App Store Review Scraper is for App Store reviews (input app URLs; apps.shopify.com; review rows). Not merchant storefront catalogs. B2B Pricing Scraper is for B2B public pricing pages (input competitors[]; public pricing HTML; pricing change rows). Not SaaS terms/feature snapshots. Google Maps Lead Enrichment is for Lead enrichment (input business inputs; enrichment APIs; lead rows). Not Shopify JSON catalogs."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: storeUrls. Live schema fields: storeUrls, productSampleLimit, collectionSampleLimit, includeContentMetadata, contentSampleLimit, timeoutMs, delivery, webhookUrl, dryRun, maxChargeUsd. Inspect known public storefront URLs for Shopify and ecommerce signals additionalProperties is false on the live schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: storeUrls, productSampleLimit, collectionSampleLimit, includeContentMetadata, contentSampleLimit, timeoutMs, delivery, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "README output fence is truncated or invalid JSON on Store. Illustration head: { \"inputUrl\": \"https://example-shop.com\", \"normalizedUrl\": \"https://example-shop.com\", \"hostname\": \"example-shop.com\", \"status\": \"success\", \"chargedEvent\": \"store_enriched\", \"isShopify\": true, \"normalizedDomain\": \"example-shop.com\", \"storeName\": \"Example Shop\", \"currency\": \"USD\",… Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is Shopify Store Scraper priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $10.00 / 1,000 Non-Shopify ecommerce store detected ($0.01 per delivered non_shopify_store_detected). $0.00005 Actor Start. $0.05 per Store enriched. $0.02 per Partial store intelligence. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. Non-Shopify ecommerce store detected (non_shopify_store_detected) $0.01: Useful public ecommerce evidence returned for a non-Shopify storefront, such as cart, checkout, product, pricing, or platform signals. Store enriched (store_enriched) $0.05: A useful Shopify or ecommerce store intelligence result with normalized storefront identity, product/catalog signals, and commercial metadata. Partial store intelligence (store_partial) $0.02: Useful partial public storefront evidence returned when catalog or metadata coverage is limited by endpoint restrictions, timeout, or storefront structure. Actor Start (apify-actor-start) $0.00005: Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event). Platform usage is listed as included on the Store pricing tab."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

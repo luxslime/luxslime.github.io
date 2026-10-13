@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/nhtsa-vehicle-recall-digest/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is NHTSA Recall Scraper different from Product Safety Recall Scraper and FDA Warning Letters Scraper?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "NHTSA Recall Scraper (taroyamada/nhtsa-vehicle-recall-digest): This Actor watches official NHTSA recall and complaint records for vehicle feeds you supply (make/model, optional year) and emits source-linked digest rows. It is vehicle safety data, not CPSC consumer-product recalls. Not legal or safety advice. Not CPSC/FDA product recalls. Not a VIN decoder or crash-reconstruction tool. Product Safety Recall Scraper is for FDA/CPSC product recalls (input feeds / recallClasses; FDA + CPSC public recalls; product-recall rows). Not NHTSA vehicle complaints. FDA Warning Letters Scraper is for FDA warning-letter digests (input feeds / watchTerms; FDA public warning-letter feeds; warning-letter digest rows). Not ClinicalTrials.gov or HHS OCR. HTS Tariff & Trade Scraper is for HTS/USTR changes (input HTS watches; USITC/USTR public data; tariff digest rows). Not OFAC SDN list diffs."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: none (see live fields). Live schema fields: feeds, recallLookbackDays, complaintLookbackDays, maxRecallsPerVehicle, maxComplaintsPerVehicle, maxDiscoveredModelsPerFeed, maxEvidenceItems, complaintAlertThreshold, delivery, webhookUrl, datasetMode, snapshotKey, notifyOnNoNew, requestTimeoutSeconds, batchDelayMs, dryRun, nowIso. Monitor official NHTSA recall and complaint endpoints for watched vehicle, VIN, and manufacturer feeds additionalProperties is false on the live schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: feeds, recallLookbackDays, complaintLookbackDays, complaintAlertThreshold, delivery, datasetMode, snapshotKey, notifyOnNoNew, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. datasetMode can limit emits to changes_only / changed_only / action_needed versus all. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is NHTSA Recall Scraper priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $8.00 / 1,000 NHTSA recall digest row ($0.008 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. NHTSA recall digest row (apify-default-dataset-item) $0.008: Charged only when a recall or complaint digest row is delivered. Do not use the README Cost block as live pricing. The published README Cost block is stale versus the live Store pricing tab. README Cost still quotes actor-start $0.01. README Cost quotes dataset-item $0.003; live primary is $0.008 (NHTSA recall digest row). Live: NHTSA recall digest row $0.008. This page quotes live PPE only."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

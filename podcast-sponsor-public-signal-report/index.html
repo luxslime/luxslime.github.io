@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/podcast-sponsor-public-signal-report/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is Podcast Sponsor Public Signal Report different from Apple Podcasts Scraper and Apple Podcasts Reviews Scraper?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Podcast Sponsor Public Signal Report (taroyamada/podcast-sponsor-public-signal-report): This Actor reads public RSS sponsor signals from feed URLs you supply. Cheapest live path is the sponsor snapshot; keep the $29/$59 reports off until you need them. Not Apple Podcasts search or charts. Not a contact-enrichment or outreach list. Public RSS/show pages only. Informational only. Apple Podcasts Scraper is for iTunes search, charts, episodes (input searchTerm; Apple/iTunes endpoints; Podcast metadata rows). Not RSS-only sponsor evidence. Apple Podcasts Reviews Scraper is for Public review RSS (input collection IDs; Customer Reviews RSS; Review rows). Not sponsor-signal reports. RSS & Atom Feed Extractor is for Known-publisher feed XML (input feed URLs; RSS/Atom XML; Feed item rows). Not sponsor-evidence extraction."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: none (see live fields). Live schema fields: reportTier, rssFeedUrls, applePodcastUrls, showUrls, maxEpisodesPerFeed, maxChargeUsd, maxReports, demoMode, delivery, webhookUrl, dryRun. Create sponsor signal and sponsorship-fit reports from public podcast RSS feeds, Apple Podcast URLs, and official show pages. This actor does not collect personal contact details. exampleRunInput keys: reportTier, rssFeedUrls, maxEpisodesPerFeed, maxChargeUsd, maxReports, demoMode, delivery, dryRun. additionalProperties is false on the live schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: reportTier, rssFeedUrls, maxEpisodesPerFeed, maxChargeUsd, maxReports, demoMode, delivery, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is Podcast Sponsor Public Signal Report priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: $9.00 per Sponsor signal snapshot (sponsor_signal_snapshot); $29 per Show sponsor fit report; $59 per Sponsor watch summary. $0.00005 Actor Start. Actor Start (apify-actor-start) $0.00005: Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event). Sponsor signal snapshot (sponsor_signal_snapshot) $9.00: No-contact public sponsor signal score, sponsor snippets, advertise-page signals, and next actions. Show sponsor fit report (show_sponsor_fit_report) $29: Richer sponsorship-fit report with evidence, fit reasons, source URLs, warnings, and action list. Sponsor watch summary (sponsor_watch_summary) $59: Proof-gated recurring sponsor signal watch summary; runtime-held until adoption proof. Platform usage is listed as included on the Store pricing tab."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

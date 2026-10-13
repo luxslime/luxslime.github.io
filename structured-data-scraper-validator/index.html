@@ -8,62 +8,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/structured-data-scraper-validator/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How is Structured Data Scraper & Validator different from Meta Tag & OpenGraph Scraper and Website Content Extractor?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "This Actor extracts Schema.org JSON-LD and Microdata from page HTML, validates syntax, flags missing types/contexts and recommended properties, and returns a 0-100 score with an A-F grade plus errors and warnings. Required input is urls (maximum 200). The live schema description is: Validate JSON-LD and Microdata structured data across multiple pages. Detect missing or malformed Schema.org markup. Meta Tag & OpenGraph Scraper is a technical SEO metadata audit of HTML head fields: title, description, canonical, robots, charset, viewport, Open Graph, Twitter Card, hreflang, and a JSON-LD type/name listing with issue flags. It does not produce this per-page schema score, Microdata extract, or error/warning lists. Website Content Extractor cleans docs, product, pricing, policy, and help-center pages into markdown or text. It does not extract or validate JSON-LD or Microdata. Use this Actor for schema markup extract-and-validate. Use Meta Tag & OpenGraph Scraper for head OG/Twitter/robots audits. Use Website Content Extractor for body text."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What input is required?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "urls is required: list of page URLs to check for Schema.org structured data (JSON-LD, Microdata). Max 200. Schema editor is stringList. Schema prefill is https://www.google.com, https://github.com. Optional live schema fields are delivery (dataset or webhook, default dataset), webhookUrl (used when delivery is webhook; Slack, Discord, or any HTTP endpoint), concurrency (integer, default 3, minimum 1, maximum 10), dryRun (boolean, default false), and maxChargeUsd (number, default 1, minimum 0). additionalProperties is false. README examples that send includeWarnings, sitemapUrl, limit, vocabularies, or emitNullRateReport are not live schema fields."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Which README input examples are not live schema fields?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "README examples labeled Single page validation, Sitemap-driven crawl, and Audit batch with null-rate report send includeWarnings, sitemapUrl, limit, vocabularies, and emitNullRateReport. Those names are not in the live input schema. additionalProperties is false, so do not send them. The schema-valid README Input Example is urls plus concurrency. The published Store example run input is urls, concurrency, delivery, and dryRun. Live schema also includes maxChargeUsd (default 1), which is not in the README input table."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What does a result row contain?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The published README output table lists meta, results, and per-page fields results[].url, jsonLd, microdata, errors, warnings, score, error, and checkedAt. The published README sample is a single page object (https://www.google.com) with jsonLd type WebSite, context https://schema.org, name Google, _keyCount 7, empty microdata, empty errors and warnings, and score total 80 grade A. error and checkedAt are in the field table and not shown on that sample. The sample is a README illustration, not a live coverage guarantee."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do dataset, webhook, and dry-run delivery work?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "delivery defaults to dataset (saves to Apify Dataset; recommended). Set delivery to webhook and provide webhookUrl to send results to a URL. webhookUrl works with Slack, Discord, or any HTTP endpoint. dryRun true runs without saving results or sending webhooks, for testing. maxChargeUsd defaults to 1 as a safety cap; billable rows beyond that cap are returned as no-charge limit_reached summaries. Store Quickstart: start with Quickstart (Dataset) to validate the score and error model on two public pages; Batch Validation for multi-page quality scoring; Webhook Alert to catch schema errors on recurring runs."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How is Structured Data Scraper & Validator priced?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Billing is pay per event. The published Store card is from $9.00 per 1,000 results. Live Store events are Actor Start at $0.001 (charged when the Actor starts; number of events depends on Actor memory, one event per GB, minimum one event) and result at $0.009 (single result in the default dataset). Platform usage is listed as included on the pricing page. The README Cost section still quotes actor-start $0.01 plus dataset-item $0.003 ($3.01 for 1,000 items); live Store billing currently uses the $9.00 / 1,000 card and the $0.001 / $0.009 events."
-        }
-      }
-    ]
-  }
-  </script>
 </head>
 <body>
   <header class="site">

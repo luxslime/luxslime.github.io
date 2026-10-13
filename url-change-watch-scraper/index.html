@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/url-change-watch-scraper/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is Website Change Monitor different from SaaS Pricing Competitor Monitor and Docs & Changelog Drift Scraper?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Website Change Monitor (taroyamada/url-change-watch-scraper): Watch public page content you are allowed to fetch and emit source-linked change rows when the page diff crosses your settings. Not a SaaS pricing-page specialist (use SaaS Pricing Competitor Monitor). Not a docs/changelog drift Actor. Not a full-site crawler. You supply targets (name + url); live required array is empty. SaaS Pricing Competitor Monitor is for Competitor pricing HTML (input urls; Public pricing pages; Price-change rows). Not a generic page-diff watch. Docs & Changelog Drift Scraper is for Docs/changelog drift (input urls; Public docs HTML; Drift rows). Not an arbitrary URL diff watch. SaaS Pricing Tracker is for SaaS page change alerts (input urls; Public HTML; Page-change rows). Not a generic URL watch with page diffs."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: none (see live fields). Live schema fields: targets, maxTargets, emitSnapshots, generateDigest, stripDates, stripVolatileNumbers, maxDiffSegments, emitUnchanged, dryRun, initialRunMode, snapshotKey, maxChargeUsd. Watch public page content you are allowed to fetch and emit source-linked change rows when the page diff crosses your settings. exampleRunInput keys: targets, maxTargets, emitSnapshots, generateDigest, stripDates, stripVolatileNumbers, maxDiffSegments, emitUnchanged. additionalProperties is false on the live schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: targets, maxTargets, emitSnapshots, generateDigest, stripDates, stripVolatileNumbers, maxDiffSegments, emitUnchanged. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Published README Output Example / Sample Output JSON. Illustration: {   \"rowType\": \"url_change\",   \"billingEventName\": \"url-change-detected\",   \"targetName\": \"Competitor pricing\",   \"sourceUrl\": \"https://example.com/pricing\",   \"changeKind\": \"content_hash_diff\",   \"addedSegments\": [     \"The Pro plan now includes priority support.\"   ],   \"removedSegments\": [     \"The Pro plan includes standard support.\"   ],   \"addedSegmentCount\": 1,   \"removedSegmentCount\": 1,   \"changeRatio\": 0.25,   \"contentHash\": \"bcf38e4a58839f6c7686c3f1\",   \"previousContentHash\": \"dba4a91988d5ed0d5f3dbd31\",   \"checkedAt\": \"2026-07-27T01:00:00.000Z\" }  Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is Website Change Monitor priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $80.00 / 1,000 URL change detected ($0.08 per delivered url-change-detected); $0.02 per URL snapshot; $5.00 per Change digest report. No Actor Start. URL change detected (url-change-detected) $0.08: Charged for each source-linked public page change row. URL snapshot (url-snapshot) $0.02: Charged for each optional successful page snapshot row. Change digest report (change-digest-report) $5.00: Charged for each run-level digest when changes were detected. Platform usage is listed as included on the Store pricing tab."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

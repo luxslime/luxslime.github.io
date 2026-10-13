@@ -8,62 +8,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/dmarc-email-security-checker/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How is DMARC & Email Security Checker different from DNS Propagation Checker and Bulk Phone Format Validator?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "This Actor audits public email-authentication DNS on domains you supply: SPF, DMARC, MX, and optional DKIM, then returns a 0–100 score with an A–F grade. Required input is domains (maximum 500). DNS Propagation Checker queries A, AAAA, MX, TXT, CNAME, NS, and SOA across eight public resolvers for hostnames in domains (maximum 200) to flag resolver disagreement and TTL variation; it is multi-resolver propagation, not email-policy parsing or grading. Bulk Phone Format Validator is offline libphonenumber formatting of phone strings in numbers (maximum 1000); it does not query DNS. Use this Actor for DMARC/SPF/MX posture on authorized domains. Use DNS Propagation Checker after a nameserver or record change. Use Bulk Phone Format Validator for E.164 hygiene."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What input is required?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "domains is required: list of domains to check email security for (maximum 500 per run). Schema prefill is google.com, github.com, example.com. Optional live schema fields are checkDkim (boolean, default true), dkimSelectors (array; schema default list google, default, selector1, selector2, k1, dkim), delivery (dataset or webhook, default dataset), webhookUrl (when delivery is webhook), concurrency (integer, default 5), dryRun (boolean, default false), and maxChargeUsd (number, default 1). additionalProperties is false. README examples that send includeDkimSelectors or resolver are not live schema fields."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What does a result contain?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The published README output table lists meta, results, and per-result domain, mx, spf, dmarc, dkim, score, error, and checkedAt. The published README sample is one domain row with score.total and score.grade, spf.raw / allPolicy / isStrict, dmarc.policy / isEnforced / rua, dkim selector found flags, and mx priority plus exchange. There is no published output JSON schema on the Store page. The sample is a README illustration, not a live coverage guarantee."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Does it check DKIM records, and which selectors?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "DKIM is optional and on by default. checkDkim defaults to true. The schema description for checkDkim is Check for DKIM records (common selectors: google, default, selector1, selector2). dkimSelectors is an optional array of custom selectors; the schema description lists defaults google, default, selector1, selector2, k1, dkim. Key Features states a DKIM multi-selector check that tests 6 common selectors (Google, Microsoft, etc.). Set checkDkim to false to skip DKIM. Live schema names do not include includeDkimSelectors."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Is this a penetration test or a SOC2 certification?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "No. The published FAQ states this Actor performs passive compliance scanning only, with no exploitation, fuzzing, or auth bypass. It produces evidence artifacts suitable for SOC2 CC7.1 (continuous monitoring) and is not itself a SOC2 certification. The README tells security and IT teams to submit domains they own or are authorized to assess, and to scan only sites they have authorization for."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How is DMARC & Email Security Checker priced?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Billing is pay per event. The live Store card is from $7.00 / 1,000 results. Live Store events are Actor Start at $0.001 (charged when the Actor starts; number of events depends on Actor memory, one event per GB, minimum one event) and result at $0.007 (single result in the default dataset). You are not charged for Apify platform usage, only the fixed event price. maxChargeUsd defaults to 1 as a safety cap for billable dataset rows in the run. The README Cost section still quotes actor-start $0.01 plus dataset-item $0.003 ($3.01 for 1,000 items); live Store billing currently lists Actor Start $0.001 and result $0.007."
-        }
-      }
-    ]
-  }
-  </script>
 </head>
 <body>
   <header class="site">

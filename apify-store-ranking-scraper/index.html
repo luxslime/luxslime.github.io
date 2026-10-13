@@ -8,62 +8,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/apify-store-ranking-scraper/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How is Apify Store Ranking Scraper different from Website Content Extractor and review scrapers?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "This Actor queries the official Apify Store API for platform or use-case search terms and returns ranked Store Actor rows. The live Store description is: Scrape Apify Store rankings by platform keyword, compare competitor demand, and find low-maintenance Actor opportunities. It does not fetch arbitrary website HTML and it does not scrape product-review pages. Website Content Extractor cleans docs, product, pricing, policy, and help-center pages you already have (urls, maximum 200) into markdown, text, or HTML. Shopify App Store Review Scraper and G2 & Capterra Review Scraper read public merchant or B2B review listings. Apple Podcasts Reviews Scraper reads Apple/iTunes Customer Reviews RSS JSON. Chrome Web Store Extension Intelligence reads chromewebstore.google.com listing and search HTML — a different catalog, not Apify Store search. Use this Actor to rank Actors already listed on the Apify Store. Use Website Content Extractor for page body cleanup. Use the review landings for review pages."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What input is required?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The live input schema has no required array. Fields are searches (Platform Searches; Apify Store search terms such as youtube transcript, reddit keyword monitor, or meta ad library; editor stringList; prefill those three terms), sortBy (Sort Modes; Store sort modes to query; editor stringList; prefill popularity, newest, lastUpdate), maxResultsPerSearch (integer, default 50, minimum 1, maximum 1000; Maximum Store actors returned per search/sort combination), pricingModel (optional select; default empty string meaning Any; enum empty, FREE, PAY_PER_EVENT, PRICE_PER_DATASET_ITEM, FLAT_PRICE_PER_MONTH), minUsers30Days (integer, default 0, minimum 0, maximum 1000000; Filter out rows below this monthly active user count), includeUnrunnableActors (boolean, default false; Include actors that Apify excludes from automatically runnable search results), and dryRun (boolean, default false; Emit sample rows without calling the Apify Store API). The schema does not set additionalProperties. It does not publish delivery, webhookUrl, or maxChargeUsd. The README Input list also names sort mode relevance; live schema sortBy has no enum, and schema prefill plus Store API examples omit relevance. The Store Quickstart input is only dryRun false."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What does a result row contain?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The published README output list is search, sortBy, rank, slug, title, totalUsers, totalUsers30Days, totalRuns, pricingModel, primaryPriceUsd, opportunityScore, maintenanceHint, url, and scrapedAt. The README What It Does sentence also mentions categories; that name is not in the output field list. There is no published output JSON schema and no sample result object on the Store README. The field list is a README inventory, not a live coverage guarantee. Those user-count and run-count names are columns on each ranked Store Actor row the Actor returns; they are not metrics about this landing or about this Actor's own Store card."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How does dry-run work?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "dryRun is a boolean, default false. The live schema description is: Emit sample rows without calling the Apify Store API. The Store Quickstart uses dryRun false. The README Local Run section states the default input uses dryRun true. Live schema does not include delivery or webhookUrl, so dataset-versus-webhook switching is not a published input on this Actor."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How is Apify Store Ranking Scraper priced?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Billing is pay per event. The live Store card is from $1.00 / 1,000 results. Live Store events are Actor Start at $0.00005 (charged when the Actor starts running; number of events charged depends on Actor memory, one event per GB, minimum one event) and Result at $0.001 (charged automatically for each item saved to the default dataset; this is the primary event). The Store README Pricing section states: This Actor is paid per event. You are not charged for the Apify platform usage, but only a fixed price for specific events. The README Recommended launch pricing list also quotes a future opportunity report event at $0.03 per summary report; that event is not in the live Store pricing events, which currently list only Actor Start and Result."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Does this scrape website content or product reviews?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "No. The README states the Actor queries the official Apify Store API for search terms such as youtube transcript, reddit keyword monitor, and meta ad library. That is Store search ranking for Actors, not page HTML extraction and not review-page scraping. Website body cleanup belongs on Website Content Extractor. Merchant and B2B review pages belong on Shopify App Store Review Scraper or G2 & Capterra Review Scraper. Chrome Web Store listings belong on Chrome Web Store Extension Intelligence."
-        }
-      }
-    ]
-  }
-  </script>
 </head>
 <body>
   <header class="site">

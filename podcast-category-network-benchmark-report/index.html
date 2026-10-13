@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/podcast-category-network-benchmark-report/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is Apple Podcasts Category Benchmark different from Apple Podcasts Chart Scraper and Apple Podcasts Scraper?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Apple Podcasts Category Benchmark (taroyamada/podcast-category-network-benchmark-report): Benchmark Apple Podcasts shows from RSS feeds, show URLs, or search terms you supply. Deliver source-linked show rows, network signals, category reports, and optional exports. Not an iTunes Search/charts dump (use Apple Podcasts Scraper / Chart Scraper). Not a media-buyer shortlist of sponsor-fit shows. You supply feeds or show URLs. Apple Podcasts Chart Scraper is for iTunes chart ranks (input country + chart; iTunes RSS charts; Rank rows). Not an RSS-fed category benchmark. Apple Podcasts Scraper is for Search, episodes, charts, reviews (input term / IDs; iTunes Search/Lookup; Show/episode rows). Not a category network benchmark report. Podcast Media Buyer Shortlist Scraper is for Sponsor-fit shortlist (input feeds / keywords; RSS episode text; Shortlist rows). Not a category benchmark report pack."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: none (see live fields). Live schema fields: rssFeedUrls, showUrls, searchTerms, targetKeywords, maxEpisodesPerFeed, emitShortlistExport, emitUnchanged, dryRun, watchlists, monitorKey, initialRunMode, generateReport, emitRawRows, maxChargeUsd. Benchmark Apple Podcasts shows from RSS feeds, show URLs, or search terms you supply. Deliver source-linked show rows, network signals, category reports, and optional exports. exampleRunInput keys: rssFeedUrls, targetKeywords, maxEpisodesPerFeed, emitShortlistExport, emitUnchanged, dryRun, generateReport, emitRawRows, maxChargeUsd. additionalProperties is false on the live schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: rssFeedUrls, targetKeywords, maxEpisodesPerFeed, emitShortlistExport, emitUnchanged, dryRun, generateReport, emitRawRows, maxChargeUsd. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Published README Output Example / Sample Output JSON. Illustration: [   {     \"rowType\": \"podcast_shortlist_export\",     \"billingEventName\": \"podcast-category-benchmark-report\",     \"sourceName\": \"apple-podcasts-public-metadata-and-rss\",     \"sourceUrl\": \"https://feeds.npr.org/510289/podcast.xml\",     \"candidateCount\": 1,     \"shows\": [       \"Example Business Growth Podcast\"     ],     \"authorizationBasis\": \"public_rss_or_show_page\"   },   {     \"rowType\": \"podcast_benchmark_export\",     \"billingEventName\": \"podcast-benchmark-export\",     \"sourceName\": \"apple-podcasts-public-metadata-and-rss\",     \"sourceUrl\": \"https://feeds.npr.org/510289/podcast.xml\",     \"candidateCount\": 1,     \"benchmarks\": [       {         \"showTitle\": \"Example Business Growth Podcast\",         \"publisher\": \"Example Network\",         \"score\": 72,         \"sourceUrl\": \"https://feeds.example.org/example.xml\"       }     ],     \"authorizationBasis\": \"public_rss_or_show_page\"   } ]  Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is Apple Podcasts Category Benchmark priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $8.00 / 1,000 Podcast show benchmarked ($0.008 per delivered podcast-show-benchmarked); $0.08 per Podcast network signal; $2.50 per Podcast category benchmark report; $2.00 per Podcast benchmark export. No Actor Start. Podcast show benchmarked (podcast-show-benchmarked) $0.008: Charged only when a podcast show benchmarked row is delivered. Podcast network signal (podcast-network-signal) $0.08: Charged only when a podcast network signal row is delivered. Podcast category benchmark report (podcast-category-benchmark-report) $2.50: Charged only when a podcast category benchmark report row is delivered. Podcast benchmark export (podcast-benchmark-export) $2.00: Charged only when a podcast benchmark export row is delivered. Platform usage is listed as included on the Store pricing tab."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

@@ -8,62 +8,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/bulk-url-status-checker/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How is Bulk URL Status Checker different from DNS Propagation Checker, Short URL Resolver, and Wayback Machine Bulk Checker?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "This Actor checks a known URL list for HTTP status, redirect chains, response timing, and broken URL findings. Required input is urls (maximum 1000). It does not crawl pages to discover links. DNS Propagation Checker queries public DNS for hostnames in domains (maximum 200) and does not fetch HTTP(S) HTML. Short URL Resolver & Scraper expands shortened or obfuscated links and logs the hop path; it is unshortening, not a status-QA pass over a known list. Wayback Machine Bulk Checker queries the Internet Archive available endpoint for historical cache availability (maximum 500 URLs) and does not check live HTTP status. Use this Actor for live HTTP QA on URLs you already have."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Does this Actor crawl pages to find broken links?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "No. Pass known URLs in urls (maximum 1000). This Actor does not crawl pages to find broken links. For crawl discovery, use Broken Link Checker. README handoff names for the same URL set are Site QA Broken Link Report, Site QA Content Report, and Site QA Indexability AI Crawler Report. Those are existing hub pages, not this Actor. Do not send includeHealthyRows, maxChargeUsd, or maxRedirects. Those fields are not in the live schema. The README migration example that sets includeHealthyRows is stale."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What input is required?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "urls is required: known URLs to check (maximum 1000 per run). Optional live schema fields are concurrency (integer, default 10), timeoutMs (integer, default 10000), followRedirects (boolean, default true), delivery (dataset or webhook, default dataset), webhookUrl (required when delivery is webhook), and dryRun (boolean, default false). additionalProperties is false. The published input schema does not include includeHealthyRows, maxChargeUsd, maxRedirects, or crawl-related aliases."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What does a result row contain?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The published README output field list is rowType, url, statusCode, finalUrl, redirectChain, responseMs, severity, warnings, and fetchedAt. The published raw status sample wraps rows in a meta object (actorName, actorTitle, bundle, fetchedAt, totalRows). The sample row is rowType url_health_finding with url, statusCode, finalUrl, responseMs, severity, fetchedAt, and actorName; redirectChain is in the field list and not shown on that sample row. warnings appears on the sample as a top-level array. The sample is a README illustration, not a live coverage guarantee."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do dataset, webhook, and dry-run delivery work?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Non-dry-run runs always write canonical URL-level dataset rows first. delivery defaults to dataset. Set delivery to webhook and provide webhookUrl to POST one full payload only after dataset/PPE output succeeds and dryRun is false. dryRun true skips dataset writes and webhook delivery; local output/result.json is still written. The default dataset is the billable surface. Dry runs, validation-only runs, missing-key warnings, and unchanged recurring polls should not write payable default-dataset rows."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How is Bulk URL Status Checker priced?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Billing is pay per event. Try Input: 1 URL ≈ $0.009. From $8.00 / 1,000 results (Start $0.001 + result $0.008). Live Store events are Actor Start at $0.001 (charged when the Actor starts; number of events depends on Actor memory, one event per GB, minimum one event) and result at $0.008 (single result in the default dataset). The README pricing section matches those figures: $0.001 actor start and $0.008 per emitted URL finding row. You are not charged extra for Apify platform usage beyond the included platform usage on the pricing page. Platform usage is listed as included."
-        }
-      }
-    ]
-  }
-  </script>
 </head>
 <body>
   <header class="site">

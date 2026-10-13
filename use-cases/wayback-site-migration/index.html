@@ -6,38 +6,6 @@
   <title>Wayback snapshots for site migration — closest archive date lookup</title>
   <meta name="description" content="Look up Internet Archive snapshots closest to a migration date for URLs you already have. Live Store price $0.008 per successfully delivered Wayback lookup row. Read-only availability — not a CDX dump and not a tool that saves new snapshots.">
   <link rel="canonical" href="https://apify.momiji-space.com/use-cases/wayback-site-migration/">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Can Wayback Machine Bulk Checker map URLs from a site migration?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes, as a closest-snapshot lookup on URLs you already have (maximum 500). Set closest in YYYYMMDD form to find the snapshot nearest that date; leave it empty for the latest. The published README positions this for mapping legacy site structures and auditing historical page versions during migrations or domain changes. It does not crawl the old site, parse sitemap.xml, or dump CDX full history."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What live input finds the snapshot closest to a migration date?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "urls is required. closest is YYYYMMDD (for example 20200101), not YYYY-MM-DD. concurrency defaults to 3 (maximum 5). maxChargeUsd defaults to 1. Live PPE is $0.008 per successfully delivered lookup row. Do not send README aliases such as checkAvailability, includeCdx, maxSnapshotsPerUrl, or compareToLatestLive."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Does a migration lookup return archived HTML for every URL?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "No. The Actor returns structured availability rows using the README output table names url, archived, closestSnapshotUrl, and closestSnapshotDate. It does not fetch cached HTML. Snapshots exist only where the Archive crawled the page. A URL may be unavailable because it was never archived, blocked by robots.txt, or removed by a removal request."
-        }
-      }
-    ]
-  }
-  </script>
   <style>
     body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
     main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }

@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/sec-edgar-material-disclosure-watch-scraper/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is SEC EDGAR Disclosure Candidate Watch different from SEC EDGAR Scraper and SEC Material Contract Intelligence?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "SEC EDGAR Disclosure Candidate Watch (taroyamada/sec-edgar-material-disclosure-watch-scraper): This Actor watches SEC EDGAR public submissions for source-linked disclosure candidates, 8-K item metadata, filing deltas, exhibit links, and portfolio reports with source-linked context only. Not a full EDGAR filing-index monitor (use SEC EDGAR Scraper). Not Forms 3/4/5 insider rows. Not exhibit-contract extraction (use SEC Material Contract Intelligence). Informational only. Not investment advice. The $0.01 SEC filing-detected event is a live primary PPE key, not a stale actor-start. SEC EDGAR Scraper is for 8-K and S-1 filing alerts (input companies; Public EDGAR; Filing-index rows). Not Form D notices or 8-K item candidates. SEC Material Contract Intelligence is for Exhibit/contract leads (input issuers; EDGAR exhibits; Contract intelligence rows). Not Form D or insider Forms 3/4/5. SEC Insider Transaction Scraper is for Forms 3, 4, 5 (input issuers; EDGAR ownership forms; Insider transaction rows). Not Form D exempt offerings."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: none (see live fields). Live schema fields: issuers, formTypes, daysBack, disclosureKeywords, secUserAgent, generateReport, emitUnchanged, dryRun. Watch SEC EDGAR public submissions for source-linked disclosure candidates, 8-K item metadata, filing deltas, exhibit links, and portfolio reports with source-linked context only. exampleRunInput keys: issuers, formTypes, daysBack, disclosureKeywords, secUserAgent, generateReport, emitUnchanged, dryRun. additionalProperties is false on the live schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: issuers, formTypes, daysBack, disclosureKeywords, secUserAgent, generateReport, emitUnchanged, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "README output fence is truncated or invalid JSON on Store. Illustration head: { \"rowType\": \"sec_disclosure_report\", \"billingEventName\": \"sec-disclosure-report\", \"issuer\": \"MSFT\", \"formTypes\": [\"8-K\", \"10-Q\"], \"matchedDisclosureKeywords\": [\"customer agreement\", \"acquisition\"], \"reportSummary\": \"Source-linked disclosure candidates found in recent SEC EDGAR s\u2026 Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is SEC EDGAR Disclosure Candidate Watch priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $10.00 / 1,000 SEC filing detected ($0.01 per delivered sec-filing-detected); $0.35 per SEC disclosure candidate alert; $12 per SEC disclosure report. No Actor Start. SEC filing detected (sec-filing-detected) $0.01: Charged for each new source-linked SEC filing row. SEC disclosure candidate alert (sec-disclosure-candidate-alert) $0.35: Charged for each filing row matching configured disclosure candidate forms, items, or keywords. SEC disclosure report (sec-disclosure-report) $12: Charged for each portfolio-level SEC disclosure report row. Platform usage is listed as included on the Store pricing tab."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

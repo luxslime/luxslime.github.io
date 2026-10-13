@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/tariff-trade-change-digest/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How is HTS Tariff & Trade Scraper different from TED, SAM.gov & Grants Bid Alerts?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "HTS Tariff & Trade Scraper (taroyamada/tariff-trade-change-digest): This Actor builds per-topic digests from the public Federal Register API, USITC HTS REST, and optional USTR RSS context. Keep each topic narrow (one FR query plus a small HTS code set). Not a customs broker, landed-cost engine, or legal opinion. As-published government records only. TED, SAM.gov & Grants Bid Alerts is for Procurement opportunities (input keywords / jurisdictions; SAM/TED/Grants; notice rows). Not HTS/tariff schedule changes."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What input is required?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Live required fields: topics. Live schema fields: topics, watchTerms, lookbackDays, maxDocsPerTopic, maxPagesPerTopic, maxHtsMatchesPerTopic, delivery, webhookUrl, datasetMode, snapshotKey, federalRegisterApiUrl, htsBaseUrl, ustrRssUrl, includeUstrContext, requestTimeoutSeconds, notifyOnNoChange, dryRun, nowIso, fixturePath. exampleRunInput is Section 301 / HTS 9903.88* with USTR context, lookbackDays 45, datasetMode all. Schema defaults lookbackDays 7, datasetMode changed_only, includeUstrContext false. additionalProperties is not documented on this page beyond the live Store schema."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is the best first run?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Use the published Store example run input below. exampleRunInput is Section 301 / HTS 9903.88* with USTR context, lookbackDays 45, datasetMode all. Schema defaults lookbackDays 7, datasetMode changed_only, includeUstrContext false. Keep the first live run small. Use dryRun when you only need to validate input."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What does a result contain?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "README output fence is truncated or invalid JSON on Store. Illustration head: { \"meta\": { \"generatedAt\": \"2026-04-06T05:49:00.539Z\", \"now\": \"2026-04-03T12:00:00.000Z\", \"topicCount\": 1, \"changedTopicCount\": 1, \"actionNeededCount\": 1, \"currentHtsRelease\": \"2026HTSRev4\", \"totalFederalRegisterDocs\": 2, \"newFederalRegisterDocs\": 1, \"totalHtsMatches\": 3, \"htsChangedCount\": 1, \"noticeHitCount\": 1, \"ustrContextCount\": 1, \"snapshot\": { \"key\": \"tariff-trade-local-proof\", \"loadedFrom\": \"local\", \"savedTo… Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do dataset, webhook, and dry-run delivery work?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. datasetMode can limit emits to changes_only versus all. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How is HTS Tariff & Trade Scraper priced?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Billing is pay per event. Live Store card: from $9.00 / 1,000 tariff or trade change rows ($0.009 per successfully delivered new or changed record). No Actor Start. Tariff or trade change row (apify-default-dataset-item) $0.009: Charged for one successfully delivered new or changed public tariff or trade record. Do not use the README Cost block as live pricing. README Cost quotes actor-start $0.01 + dataset-item $0.003. Live: Tariff or trade change row $0.009, no start. Platform usage is listed as included on the Store pricing tab."
-        }
-      }
-    ]
-  }
-  </script>
 </head>
 <body>
   <header class="site">

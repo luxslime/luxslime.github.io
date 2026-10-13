@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/privacy-cookie-compliance-scanner/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How is GDPR & CCPA Cookie Compliance Scraper different from DMARC & Email Security Checker and Trust Center Subprocessor Monitor?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "GDPR & CCPA Cookie Compliance Scraper (taroyamada/privacy-cookie-compliance-scanner): This Actor fetches public homepages (and optional privacy/cookie policy URLs) to look for cookie-banner and policy signals for compliance-audit evidence. Each sites[] item requires homepageUrl; policy URLs auto-discover if omitted. Maximum 100 sites per run. Not a penetration test, consent-management platform, or legal opinion. Passive public-page scanning only. Not itself a SOC2 certification. DMARC & Email Security Checker is for Email DNS posture (input domains; DNS TXT; DMARC/SPF/DKIM rows). Not cookie banners. Trust Center Subprocessor Monitor is for Trust-center vendor lists (input trust-center URLs; public subprocessors pages; vendor-list diffs). Not cookie-banner scans. Website Content Extractor is for Policy page markdown (input urls; HTML body; markdown). Not banner/compliance scoring."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What input is required?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Live required fields: sites. Live schema fields: sites, delivery, webhookUrl, snapshotKey, concurrency, batchDelayMs, requestTimeoutSecs, followRedirects, dryRun. exampleRunInput scans vercel.com with privacyPolicyUrl, region EU, concurrency 1. Schema prefill matches Vercel. Max 100 sites. Only scan properties you are authorized to check. additionalProperties is not documented on this page beyond the live Store schema."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is the best first run?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Use the published Store example run input below. exampleRunInput scans vercel.com with privacyPolicyUrl, region EU, concurrency 1. Schema prefill matches Vercel. Max 100 sites. Only scan properties you are authorized to check. Keep the first live run small. Use dryRun when you only need to validate input."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What does a result contain?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "README output fence is truncated or invalid JSON on Store. Illustration head: { \"meta\": { \"generatedAt\": \"2026-06-01T12:00:00.000Z\", \"totals\": { \"total\": 2, \"initial\": 0, \"ok\": 1, \"changed\": 1, \"error\": 0, \"compliant\": 1, \"partial\": 1, \"non_compliant\": 1, \"unknown\": 0 }, \"severityCounts\": { \"critical\": 0, \"high\": 1, \"watch\": 1, \"info\": 0 }, \"alertCount\": 3, \"executiveSummary\": { \"overallStatus\": \"attention_needed\", \"brief\": \"2 of 2 site(s) need compliance attention. Top issue: Cookie banner p… Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do dataset, webhook, and dry-run delivery work?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How is GDPR & CCPA Cookie Compliance Scraper priced?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Billing is pay per event. Live Store card: from $12.00 / 1,000 results ($0.012 per result) plus Actor Start $0.002. One-site cheapest path ≈ $0.014 if one start + one result. Actor Start (apify-actor-start) $0.002: Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event). result (apify-default-dataset-item) $0.012: Single result in the default dataset. Do not use the README Cost block as live pricing. README Cost quotes actor-start $0.01 + dataset-item $0.003. Live: Actor Start $0.002 + result $0.012. README examples that send urls/includeStorage/acceptConsent are not live schema (use sites[]). Platform usage is listed as included on the Store pricing tab."
-        }
-      }
-    ]
-  }
-  </script>
 </head>
 <body>
   <header class="site">

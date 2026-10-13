@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/campaign-finance-lobbying-digest/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How is Campaign Finance Scraper different from TED, SAM.gov & Grants Bid Alerts and NIH Research Funding Landscape Report?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Campaign Finance Scraper (taroyamada/campaign-finance-lobbying-digest): This Actor watches official OpenFEC committee reports and/or LDA.gov lobbying filings, normalizes evidence, and emits per-feed digests with docket identifiers and source URLs. lda_filings can run anonymously for modest quickstarts; fec_committee needs fecApiKey or FEC_API_KEY. Not legal/compliance advice, not a contribution processor, and not SAM/TED procurement. Unofficial research on public filings. TED, SAM.gov & Grants Bid Alerts is for Procurement notices (input keywords / jurisdictions; SAM/TED/Grants.gov; opportunity rows). Not FEC/LDA campaign filings. NIH Research Funding Landscape Report is for NIH awards (input org/term filters; NIH Reporter; award rows). Not campaign finance."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What input is required?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Live required fields: none (see live fields). Live schema fields: feeds, watchTerms, lookbackDays, maxEvidencePerFeed, maxPagesPerFeed, delivery, webhookUrl, datasetMode, snapshotKey, fecApiKey, ldaApiToken, requestTimeoutSeconds, notifyOnNoNew, dryRun. exampleRunInput uses lda_filings clientName Google. Schema required is empty but feeds minItems 1 when present. notifyOnNoNew default true. Use fec_committee + fecApiKey for OpenFEC. additionalProperties is not documented on this page beyond the live Store schema."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is the best first run?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Use the published Store example run input below. exampleRunInput uses lda_filings clientName Google. Schema required is empty but feeds minItems 1 when present. notifyOnNoNew default true. Use fec_committee + fecApiKey for OpenFEC. Keep the first live run small. Use dryRun when you only need to validate input."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What does a result contain?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "README output fence is truncated or invalid JSON on Store. Illustration head: { \"meta\": { \"generatedAt\": \"2026-04-06T11:48:58.577Z\", \"now\": \"2026-04-25T00:00:00.000Z\", \"feedCount\": 2, \"totalEvidenceCount\": 2, \"newEvidenceCount\": 2, \"actionNeededCount\": 2, \"errorCount\": 0, \"snapshot\": { \"key\": \"campaign-finance-sample\", \"loadedFrom\": \"local\", \"savedTo\": \"local\" }, \"warnings\": [], \"executiveSummary\": { \"overallStatus\": \"action_needed\", \"brief\": \"2 feed(s) require review based on new filings, am… Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do dataset, webhook, and dry-run delivery work?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. datasetMode can limit emits to changes_only versus all. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How is Campaign Finance Scraper priced?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Billing is pay per event. Live Store card: from $10.00 / 1,000 delivered monitoring result rows ($0.01 per new or changed row). No Actor Start. Unchanged runs are free. Delivered monitoring result row (apify-default-dataset-item) $0.01: Charged only when a new or changed monitoring result row is delivered. Unchanged runs are free. Do not use the README Cost block as live pricing. README Cost quotes actor-start $0.01 + dataset-item $0.003. Live: Delivered monitoring result row $0.01, no start. Platform usage is listed as included on the Store pricing tab."
-        }
-      }
-    ]
-  }
-  </script>
 </head>
 <body>
   <header class="site">

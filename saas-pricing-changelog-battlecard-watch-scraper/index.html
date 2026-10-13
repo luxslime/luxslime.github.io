@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/saas-pricing-changelog-battlecard-watch-scraper/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is SaaS Pricing Changelog Battlecard Watch different from SaaS Pricing Tracker and B2B Pricing Scraper?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "SaaS Pricing Changelog Battlecard Watch (taroyamada/saas-pricing-changelog-battlecard-watch-scraper): This Actor unofficially watches public SaaS pricing and changelog pages, then emits source-linked pricing changes and battlecard report rows. Not authenticated billing portals. Not the cheaper SaaS Pricing Tracker row Actor. Not a legal-page SHA256 watcher. Public pages only. SaaS Pricing Tracker is for Public SaaS page change rows (input targets; Public pricing/terms HTML; SaaS change rows). Not premium SHA256 legal diffs or battlecards. B2B Pricing Scraper is for Public subscription-tier changes (input competitors[]; Public pricing HTML; Pricing change rows). Not Shopify catalog maps or ads-library pages. Docs & Changelog Drift Scraper is for API docs/changelog drift (input doc URLs; Public docs HTML; Drift rows). Not legal-page SHA256 diffs."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: none (see live fields). Live schema fields: competitorTargets, trackedTerms, maxTargets, emitSnapshotRows, generateBattlecard, emitExport, emitUnchanged, dryRun, initialRunMode, snapshotKey. Watch public SaaS pricing and changelog pages and emit source-linked battlecard rows. exampleRunInput keys: competitorTargets, trackedTerms, maxTargets, emitSnapshotRows, generateBattlecard, emitExport, emitUnchanged, dryRun. additionalProperties is false on the live schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: competitorTargets, trackedTerms, maxTargets, emitSnapshotRows, generateBattlecard, emitExport, emitUnchanged, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "README output fence is truncated or invalid JSON on Store. Illustration head: { \"actorName\": \"saas-pricing-changelog-battlecard-watch-scraper\", \"rowType\": \"saas_pricing_change\", \"billingEventName\": \"saas-pricing-change-detected\", \"competitorName\": \"Example SaaS\", \"currentPriceSignals\": [\"$39/mo\"], \"sourceUrl\": \"https://example.com/pricing\" } Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is SaaS Pricing Changelog Battlecard Watch priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $30.00 / 1,000 SaaS pricing page snapshot ($0.03 per delivered saas-pricing-page-snapshot); $0.35 per SaaS pricing change detected; $0.15 per SaaS changelog entry detected; $9.00 per SaaS battlecard report; $7.00 per SaaS watch export generated. No Actor Start. SaaS pricing page snapshot (saas-pricing-page-snapshot) $0.03: Charged for each optional source-linked public pricing page snapshot row. SaaS pricing change detected (saas-pricing-change-detected) $0.35: Charged for each source-linked pricing page change row. SaaS changelog entry detected (saas-changelog-entry-detected) $0.15: Charged for each source-linked public changelog entry row. SaaS battlecard report (saas-battlecard-report) $9.00: Charged for each generated competitive pricing and changelog battlecard report row. SaaS watch export generated (saas-watch-export-generated) $7.00: Charged for each generated SaaS watch handoff export row. Platform usage is listed as included on the Store pricing tab."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

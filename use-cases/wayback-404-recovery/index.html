@@ -6,38 +6,6 @@
   <title>Wayback Machine 404 recovery — archive snapshots for broken URLs</title>
   <meta name="description" content="Look up Internet Archive snapshots for broken or deleted URLs you already have. Live Store price $0.008 per successfully delivered Wayback lookup row. Read-only availability — not live HTTP status and not a tool that saves new snapshots.">
   <link rel="canonical" href="https://apify.momiji-space.com/use-cases/wayback-404-recovery/">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Can Wayback Machine Bulk Checker recover content from broken URLs?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "It can report whether the Internet Archive cached those URLs and, when present, return closestSnapshotUrl and closestSnapshotDate. Those are the published README output table names (with url and archived). Required input is urls (maximum 500). Leave closest empty for the latest snapshot. The Actor does not fetch cached HTML, does not extract article bodies, and cannot create new snapshots. Coverage is not guaranteed per URL."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is the cheapest first paid input for 404 archive lookup?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The cheapest first paid path is one urls item. If one lookup row is delivered, live PPE is $0.008. There is no Actor start event. The published Store Quickstart verifies 3 archived URLs (3 × $0.008 = $0.024 if all three are delivered). Live schema names are urls (required), optional closest in YYYYMMDD form, concurrency (default 3), maxChargeUsd (default 1), delivery dataset, and dryRun false."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Is this the same as live HTTP status checking?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "No. Bulk URL Status Checker checks live HTTP status, redirects, and timing on a known list. This Actor queries archive.org/wayback/available. The README 404 Recovery template is for after a broken-link crawl: you already have dead URLs, then you look up archive availability. This Actor cannot Save Page Now."
-        }
-      }
-    ]
-  }
-  </script>
   <style>
     body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
     main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }

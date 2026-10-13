@@ -8,62 +8,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/sitemap-scraper-analyzer/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How is Sitemap Scraper & Analyzer different from Bulk URL Status Checker and Website Content Extractor?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "This Actor reads sitemap.xml and nested sitemap index files to discover URL inventories, site structure, and update patterns. Required input is sitemapUrls. Optional checkStatus sends HEAD requests to test whether discovered URLs return HTTP 200. Bulk URL Status Checker checks a known URL list you already have (urls, maximum 1000) for live HTTP status, redirect chains, response timing, and broken-URL findings; it does not crawl pages and it does not parse sitemap XML to find URLs. Website Content Extractor fetches known page URLs (maximum 200) and returns cleaned markdown, text, or HTML; it does not parse sitemaps. Use this Actor to discover URLs from nested XML sitemaps, then optionally check status and indexability. Use Bulk URL Status Checker when the URL list is already known. Use Website Content Extractor when you need page body content."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What input is required?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "sitemapUrls is required: URLs of sitemap.xml files to analyze. Auto-discovers /sitemap.xml if you provide just a domain. Schema editor is stringList. Schema prefill is https://github.com/sitemap.xml and https://example.com. Optional live schema fields are maxUrls (integer, default 5000, minimum 100, maximum 50000; maximum URLs to process from each sitemap), checkStatus (boolean, default false; send HEAD requests to check if URLs return 200), maxChargeUsd (number, default 1, minimum 0, maximum 100), delivery (dataset or webhook, default dataset), webhookUrl (used when delivery is webhook; Slack, Discord, or any HTTP endpoint), concurrency (integer, default 3, minimum 1, maximum 10), and dryRun (boolean, default false). additionalProperties is false. The live schema description is: Parse and analyze sitemap.xml files. Discover URL structure, update patterns, and site architecture. Supports sitemap index files."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Which README input examples are not live schema fields?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "README examples labeled Single domain audit, Bulk competitor sitemap snapshot, and Lastmod-only diff for drift send domains, expandIndexes, onlyLastmodChanged, and sinceDays. Those names are not in the live input schema. additionalProperties is false, so do not send them. The schema-valid README Input Example is sitemapUrls, maxUrls, checkStatus, and concurrency. The published Store example run input is sitemapUrls, maxUrls, checkStatus, concurrency, delivery, and dryRun. maxChargeUsd is in the live schema and is omitted from that README input table and from the published Store example run input."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What does a result contain?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The published README output table lists meta, results, and per-result sitemapUrl, finalUrl, status, analysis, error, and checkedAt. The published README sample is one sitemap object (https://apify.com/sitemap.xml) with status ok and an analysis object: type urlset, totalUrls 1247, structure.topDirectories with path/count/percentage, structure.depthDistribution, and updateFrequency.lastModRange plus urlsWithLastmod. finalUrl, error, and checkedAt are in the field table and not shown on that sample. The sample is a README illustration, not a live coverage guarantee. There is no separate published dataset/output JSON schema on the Store page beyond that README table and sample."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do dataset, webhook, dry-run, and the charge cap work?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "delivery defaults to dataset (saves to Apify Dataset; recommended). Set delivery to webhook and provide webhookUrl to send results to a URL. webhookUrl works with Slack, Discord, or any HTTP endpoint. dryRun true runs without saving results or sending webhooks, for testing. maxChargeUsd defaults to 1 as a safety cap; results beyond the cap are kept in output as no-charge limit_reached rows. Store Quickstart: start with store-input.example.json to analyze one public sitemap with a small URL cap; then store-input.templates.json with Quickstart (Dataset) for a fast structural audit, Large Site Audit for deeper coverage and status checks, or Webhook Alert for change-driven monitoring."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How is Sitemap Scraper & Analyzer priced?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Billing is pay per event. The published Store card is from $4.00 / 1,000 results. Live Store events are Actor Start at $0.001 (charged when the Actor starts; number of events depends on Actor memory, one event per GB, minimum one event) and result at $0.004 (single result in the default dataset; the pricing page lists Result as $4.00 / 1,000). Platform usage is listed as included on the pricing page. The README Cost section still quotes actor-start $0.01 plus dataset-item $0.003 ($3.01 for 1,000 items); live Store billing currently uses the $4.00 / 1,000 card and the $0.001 / $0.004 events."
-        }
-      }
-    ]
-  }
-  </script>
 </head>
 <body>
   <header class="site">

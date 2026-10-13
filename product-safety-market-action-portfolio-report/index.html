@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/product-safety-market-action-portfolio-report/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is CPSC Recall Portfolio Watch different from CPSC Product Recall Marketplace Watch and NHTSA Recall Scraper?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "CPSC Recall Portfolio Watch — NHTSA Vehicle Safety Alerts (taroyamada/product-safety-market-action-portfolio-report) reads official CPSC, NHTSA, and openFDA enforcement for watchlists you supply. Live PPE is safety-record-row $0.006 (Store primary), market-action-alert $0.20, product-safety-portfolio-report $8, and product-safety-export $5. No Actor Start. CPSC Product Recall Marketplace Watch is a CPSC-only alert/digest/report Actor. NHTSA Recall Scraper and NHTSA Recall & Complaint Watch are NHTSA-focused. Product Safety Recall Scraper is FDA/CPSC digest scraping. Use this Actor for a multi-agency portfolio. Use the CPSC marketplace watch for CPSC-only PPE. Use NHTSA Actors for vehicles only. Not a safety rating."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: watchlists, monitorKey, initialRunMode, generateReport, emitRawRows, emitUnchanged, maxChargeUsd, dryRun. watchlists[] live properties: id, agency (CPSC, NHTSA, FDA), productTypes (FDA: drug, device, or food; max 3), productNames (max 20), keywords (max 20), brands (max 20), classifications (max 5), statuses (max 5), lookbackDays (min 1, max 3650), maxResults (min 1, max 100). Array minItems 1, maxItems 100. Default watchlist is battery CPSC 30d. Optional: emitExport, maxChangedRecords (default 1, min 1, max 1000), requestTimeoutSeconds, rateLimitMs, maxRetries, backoffBaseMs, maxBackoffMs, delivery (dataset or webhook), webhookUrl. Schema default dryRun true and maxChargeUsd 0."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the cheapest first paid Try Input?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live README low-cost trial: one CPSC battery watchlist, emit_backfill, generateReport false, emitRawRows true, emitExport false, maxChangedRecords 1, maxChargeUsd 1, dryRun false. README: safety-record-row $0.006 plus market-action-alert $0.20 when matches exist. Free if baseline_only or unchanged. Set maxChargeUsd to 1 because default 0 blocks paid push."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "README rowType values include product_safety_portfolio_report, safety_record, market_action_alert, and product_safety_export. Every billable row includes stableKey, idempotencyKey, official source URLs, limitations, and prohibitedInterpretations. FDA rows may include fdaProductType, classification, and status. Also deliveryAudit. dataset_schema path only — not served on Store. Treat README samples as illustrations, not a live coverage guarantee."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is CPSC Recall Portfolio Watch priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay-per-event. The live Store card is from $6.00 / 1,000 safety record rows. Live events are safety-record-row $0.006 (Store API primary), market-action-alert $0.20, product-safety-portfolio-report $8, and product-safety-export $5, each charged when that row is delivered. No Actor Start. README USD amounts match. actor.json marks market-action-alert primary; prefer the Store card which marks safety-record-row primary. Store description: safety record row row (duplicated word)."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "delivery defaults to dataset and also accepts webhook. dryRun defaults to true (no network/state/charges). Unchanged-with-a-change only when emitUnchanged is false. Dataset output is the billable surface when rows are written."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/site-qa-indexability-ai-crawler-report-scraper/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is Site QA Indexability AI Crawler Report different from robots.txt Parser & AI Crawler Block Checker and Sitemap Scraper & Analyzer?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Site QA Indexability AI Crawler Report (taroyamada/site-qa-indexability-ai-crawler-report-scraper): This Actor unofficially audits user-supplied public pages, robots.txt, and llms.txt signals for AI crawler indexability issues and source-linked report rows. Not a robots.txt parser-only check (use robots.txt Parser & AI Crawler Block Checker). Not a sitemap enumerator. Not a broken-link crawler. You supply the URLs. robots.txt Parser & AI Crawler Block Checker is for GPTBot/ClaudeBot disallow audits (input origin URLs; robots.txt; Disallow rows). Not an llms.txt + indexability report pack. Sitemap Scraper & Analyzer is for Nested XML sitemap URLs (input sitemap URLs; sitemap.xml; Sitemap URL rows). Not robots/llms.txt indexability issues. Broken Link Checker is for Crawl start URLs for 404s (input start URLs; Linked HTTP statuses; Broken-link rows). Not AI crawler policy checks."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: urls. Live schema fields: urls, aiCrawlerUserAgents, maxPages, checkRobotsTxt, checkLlmsTxt, authorizedUseConfirmed, emitPageRows, generateReport, emitExport, emitUnchanged, dryRun, initialRunMode, snapshotKey. Audit public pages, robots.txt, and llms.txt signals for AI crawler indexability reporting. exampleRunInput keys: urls, maxPages, dryRun. additionalProperties is false on the live schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: urls, maxPages, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "README output fence is truncated or invalid JSON on Store. Illustration head: { \"rowType\": \"ai_crawler_indexability_report\", \"billingEventName\": \"ai-crawler-indexability-report\", \"sourceUrl\": \"https://example.com/robots.txt\", \"checkedUrlCount\": 3, \"issueCount\": 1, \"reportStatus\": \"action_needed\" } Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is Site QA Indexability AI Crawler Report priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $30.00 / 1,000 AI crawler policy checked ($0.03 per delivered ai-crawler-policy-checked); $0.12 per Indexability issue detected; $6.00 per AI crawler indexability report; $8.00 per Indexability export generated. No Actor Start. AI crawler policy checked (ai-crawler-policy-checked) $0.03: Charged for each source-linked robots.txt or llms.txt policy observation row. Indexability issue detected (indexability-issue-detected) $0.12: Charged for each source-linked AI crawler or page indexability issue row. AI crawler indexability report (ai-crawler-indexability-report) $6.00: Charged for each site-level AI crawler indexability report row. Indexability export generated (indexability-export-generated) $8.00: Charged for each generated indexability handoff export row. Platform usage is listed as included on the Store pricing tab."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

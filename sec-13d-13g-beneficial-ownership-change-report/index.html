@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/sec-13d-13g-beneficial-ownership-change-report/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is SEC 13D & 13G Beneficial Ownership Change Report different from SEC EDGAR Scraper and SEC Insider Transaction Scraper?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "SEC 13D & 13G Beneficial Ownership Change Report (taroyamada/sec-13d-13g-beneficial-ownership-change-report): Track issuer watchlists using official SEC EDGAR Schedule 13D, 13D/A, 13G, and 13G/A filings. Receive source-linked beneficial ownership change alerts, reports, and optional exports. Not Form 4 insider trades. Not 13F institutional tables. Not a general 8-K monitor. Live schema requires watchlists and userAgent. SEC EDGAR Scraper is for 8-K and S-1 filing alerts (input tickers / CIKs; EDGAR; Filing rows). Not Schedule 13D/13G. SEC Insider Transaction Scraper is for Form 4 insider trades (input tickers / CIKs; EDGAR Form 4; Transaction rows). Not 13D/13G beneficial ownership. SEC 13F Institutional Holdings Change Report is for 13F holdings tables (input watchlists + userAgent; EDGAR 13F; Holdings-change alerts). Not 13D/13G schedules."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: watchlists, userAgent. Live schema fields: watchlists, lookbackFilings, monitorKey, userAgent, initialRunMode, generateReport, emitRawRows, emitExport, emitUnchanged, maxRequests, requestIntervalMs, maxChargeUsd, dryRun. Track issuer watchlists using official SEC EDGAR Schedule 13D, 13D/A, 13G, and 13G/A filings. Receive source-linked beneficial ownership change alerts, reports, and optional exports. exampleRunInput keys: watchlists, userAgent, maxRequests, maxChargeUsd, dryRun. additionalProperties is false on the live schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: watchlists, userAgent, maxRequests, maxChargeUsd, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is SEC 13D & 13G Beneficial Ownership Change Report priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $6.00 / 1,000 SEC Schedule 13D or 13G filing row ($0.006 per delivered sec-13d-13g-filing-row); $0.35 per SEC beneficial ownership change alert; $15.00 per SEC beneficial ownership change report; $10.00 per SEC beneficial ownership evidence export. No Actor Start. SEC Schedule 13D or 13G filing row (sec-13d-13g-filing-row) $0.006: Charged only when a sec schedule 13d or 13g filing row row is delivered. SEC beneficial ownership change alert (sec-beneficial-ownership-change-alert) $0.35: Charged only when a sec beneficial ownership change alert row is delivered. SEC beneficial ownership change report (sec-ownership-change-report) $15.00: Charged only when a sec beneficial ownership change report row is delivered. SEC beneficial ownership evidence export (sec-ownership-export) $10.00: Charged only when a sec beneficial ownership evidence export row is delivered. Platform usage is listed as included on the Store pricing tab."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

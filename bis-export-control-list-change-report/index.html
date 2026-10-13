@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/bis-export-control-list-change-report/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is BIS Export Control List Change Report different from HTS Tariff & Trade Scraper and Sanctions Change Tracker?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "BIS Export Control List Change Report (taroyamada/bis-export-control-list-change-report): Monitor official BIS Entity List, Denied Persons List, and Unverified List downloads for source-linked descriptive matches and list changes. Not HTS tariff rates. Not OFAC SDN. Not UN Comtrade flows. You supply name/country watchlists against BIS public list files. HTS Tariff & Trade Scraper is for HTS tariff changes (input codes; Public HTS; Tariff-change rows). Not BIS Entity/DPL lists. Sanctions Change Tracker is for OFAC list additions/removals (input names; OFAC public lists; Sanctions-change rows). Not BIS Entity/DPL/UVL. UN Comtrade Trade Flow Change Report is for UN Comtrade preview queries (input watches; UN Comtrade; Trade-flow change rows). Not BIS restricted-party lists."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: watchlists. Live schema fields: watchlists, monitorKey, initialRunMode, generateReport, emitRawRows, emitExport, emitUnchanged, maxRowsPerList, maxChargeUsd, dryRun. Monitor official BIS Entity List, Denied Persons List, and Unverified List downloads for source-linked descriptive matches and list changes. exampleRunInput keys: watchlists, maxRowsPerList, maxChargeUsd, dryRun. additionalProperties is false on the live schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: watchlists, maxRowsPerList, maxChargeUsd, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is BIS Export Control List Change Report priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $8.00 / 1,000 BIS restricted party row ($0.008 per delivered bis-restricted-party-row); $0.50 per BIS list change alert; $18.00 per BIS export control delta report; $10.00 per BIS change export. No Actor Start. BIS restricted party row (bis-restricted-party-row) $0.008: Charged only when a bis restricted party row is delivered. BIS list change alert (bis-list-change-alert) $0.50: Charged only when a bis list change alert is delivered. BIS export control delta report (bis-export-control-delta-report) $18.00: Charged only when a bis export control delta report is delivered. BIS change export (bis-change-export) $10.00: Charged only when a bis change export is delivered. Platform usage is listed as included on the Store pricing tab."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

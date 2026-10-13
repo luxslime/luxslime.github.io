@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/ai-api-pricing-model-lifecycle-report/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is AI API Pricing & Model Lifecycle Report different from SaaS Pricing Competitor Monitor and B2B Pricing Scraper?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "AI API Pricing & Model Lifecycle Report (taroyamada/ai-api-pricing-model-lifecycle-report): Compare and watch official public pricing, model, deprecation, and release-note pages for OpenAI, Anthropic, and Gemini without API keys or model calls. Not a SaaS marketing-page price scrape (use SaaS Pricing Competitor Monitor). Not AWS/Azure cloud SKU prices. It does not accept API keys or send prompts. SaaS Pricing Competitor Monitor is for Competitor marketing price pages (input urls; Public pricing HTML; Price-change rows). Not official AI API model-card prices. B2B Pricing Scraper is for B2B public price pages (input urls; Public HTML; Price rows). Not OpenAI/Anthropic/Gemini model lifecycle. AWS Cloud Pricing Cost Impact Report is for AWS public offer files (input scopes; AWS price list; SKU change / cost-impact rows). Not LLM API token prices."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: none (see live fields). Live schema fields: providers, models, filters, usageProfiles, mode, initialRunMode, generateReport, emitUnchanged, emitRawRows, maxChargeUsd, dryRun, snapshotKey. Compare and watch official public pricing, model, deprecation, and release-note pages for OpenAI, Anthropic, and Gemini without API keys or model calls. exampleRunInput keys: providers, usageProfiles, mode, initialRunMode, generateReport, emitUnchanged, emitRawRows, maxChargeUsd. additionalProperties is false on the live schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: providers, usageProfiles, mode, initialRunMode, generateReport, emitUnchanged, emitRawRows, maxChargeUsd. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is AI API Pricing & Model Lifecycle Report priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $10.00 / 1,000 AI model price row ($0.01 per delivered ai-model-price-row); $0.25 per AI model lifecycle alert; $3.00 per AI API cost comparison report; $5.00 per AI model migration report; $2.00 per AI pricing export. No Actor Start. AI model price row (ai-model-price-row) $0.01: Charged only when a ai model price row row is delivered. AI model lifecycle alert (ai-model-lifecycle-alert) $0.25: Charged only when a ai model lifecycle alert row is delivered. AI API cost comparison report (ai-api-cost-comparison-report) $3.00: Charged only when a ai api cost comparison report row is delivered. AI model migration report (ai-model-migration-report) $5.00: Charged only when a ai model migration report row is delivered. AI pricing export (ai-pricing-export) $2.00: Charged only when a ai pricing export row is delivered. Platform usage is listed as included on the Store pricing tab."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

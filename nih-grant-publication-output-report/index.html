@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/nih-grant-publication-output-report/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is NIH Grant Publication Linkage & Output Report different from NIH RePORTER Funding Landscape Report and PubMed Literature Watch & Research Report?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "NIH Grant Publication Linkage & Output Report (taroyamada/nih-grant-publication-output-report): Monitor NIH RePORTER awards and linked public publication output for watches you configure. Generate source-linked change alerts, output reports, and optional exports. Not an NIH RePORTER funding-landscape pack without publication linkage (use NIH RePORTER Funding Landscape Report). Not a PubMed literature watch. Not a biomedical evidence-gap report. NIH RePORTER Funding Landscape Report is for NIH award landscape (input org / terms; NIH RePORTER; Award report). Not publication-output linkage. PubMed Literature Watch & Research Report is for PubMed query watch (input terms; PubMed; Paper rows). Not NIH RePORTER award linkage. PubMed & Clinical Trials Evidence Gap Report is for PubMed vs trials gap (input query terms; PubMed + ClinicalTrials.gov; Evidence-gap report). Not NIH grant publication output."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: watches. Live schema fields: watches, monitorKey, initialRunMode, generateReport, emitRawRows, emitExport, emitUnchanged, includePubMedMetadata, ncbiEmail, maxProjectsPerWatch, maxPublicationsPerProject, maxChargeUsd, dryRun. Monitor NIH RePORTER awards and linked public publication output for watches you configure. Generate source-linked change alerts, output reports, and optional exports. exampleRunInput keys: watches, monitorKey, initialRunMode, generateReport, emitRawRows, emitExport, emitUnchanged, includePubMedMetadata, maxProjectsPerWatch, maxPublicationsPerProject, maxChargeUsd, dryRun. additionalProperties is false on the live schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: watches, monitorKey, initialRunMode, generateReport, emitRawRows, emitExport, emitUnchanged, includePubMedMetadata, maxProjectsPerWatch, maxPublicationsPerProject, maxChargeUsd, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Published README Output Example / Sample Output JSON. Illustration: {   \"rowType\": \"nih_grant_publication_output_report\",   \"billingEventName\": \"nih-grant-publication-output-report\",   \"report\": {     \"reportType\": \"grant_publication_output_change_report\",     \"selectedProjectCount\": 2,     \"selectedPublicationLinkCount\": 7,     \"newLinkCount\": 7,     \"metadataChangeCount\": 0,     \"byPublicationYear\": [       {         \"key\": \"2026\",         \"count\": 4       },       {         \"key\": \"2025\",         \"count\": 3       }     ],     \"interpretation\": \"Descriptive public link and citation metadata only.\"   },   \"sourceUrl\": \"https://api.reporter.nih.gov/?urls.primaryName=V2.0\" }  Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is NIH Grant Publication Linkage & Output Report priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $8.00 / 1,000 NIH grant-publication link row ($0.008 per delivered nih-grant-publication-link-row); $0.25 per NIH publication output change alert; $15.00 per NIH grant publication output report; $10.00 per NIH grant publication export. No Actor Start. NIH grant-publication link row (nih-grant-publication-link-row) $0.008: Charged only when a nih grant-publication link row is delivered. NIH publication output change alert (nih-publication-output-change-alert) $0.25: Charged only when a nih publication output change alert is delivered. NIH grant publication output report (nih-grant-publication-output-report) $15.00: Charged only when a nih grant publication output report is delivered. NIH grant publication export (nih-grant-publication-export) $10.00: Charged only when a nih grant publication export is delivered. Platform usage is listed as included on the Store pricing tab."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

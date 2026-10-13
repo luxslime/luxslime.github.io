@@ -6,38 +6,6 @@
   <title>G2 reviews scraper — public G2 and Capterra ratings, pros, and cons</title>
   <meta name="description" content="G2 reviews scraper for public G2 and Capterra review-page URLs: product ratings, rating breakdowns, and nested reviews with pros and cons. CSV/JSON. Live PPE: from $3.00 / 1,000 results ($0.003 per result).">
   <link rel="canonical" href="https://apify.momiji-space.com/use-cases/g2-reviews-scraper/">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Can a G2 reviews scraper also pull Capterra reviews in the same run?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes, after a one-URL schema check. G2 & Capterra Review Scraper takes reviewPageUrls in the published formats g2.com/products/{slug}/reviews and capterra.com/p/{id}/{slug}/reviews/. It auto-detects source and normalizes both into one product-row schema. Start with one G2 URL and reviewLimit 1, then mix Capterra only after that row is useful. It is not a Shopify App Store listing tool and not an Apple Podcasts review RSS tool."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What does this G2 reviews scraper return besides a star rating?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Each product row can include source, sourceUrl, productName, vendorName, categoryName, overallRating, totalReviewCount, ratingBreakdown, and nested reviews[] with title, rating, date, author, body, pros, cons, and verified. status is ok, partial, blocked, or error. This is public review-page HTML, not a private G2 or Capterra API. Do not treat intro prose about industry, role, or company size as extra published output fields."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is a first G2 reviews scraper input that stays on the live schema?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Pass one public G2 review-page URL in reviewPageUrls, reviewLimit 1, delivery dataset, and dryRun false. reviewPageUrls is required. Do not send unpublished README aliases such as products, source, slug, maxReviewsPerProduct, or emitDeltas. Live pay-per-event rates are Actor Start $0.001 and result $0.003 (from $3.00 / 1,000 results). The Store Quickstart first-paid line is 1 URL / reviewLimit 1 ≈ $0.01 at current PPE."
-        }
-      }
-    ]
-  }
-  </script>
   <style>
     body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
     main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }

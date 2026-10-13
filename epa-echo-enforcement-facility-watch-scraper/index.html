@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/epa-echo-enforcement-facility-watch-scraper/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is EPA ECHO Facility Watch different from EPA ECHO Enforcement Scraper and FDA Warning Letters Scraper?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "EPA ECHO Facility Watch (taroyamada/epa-echo-enforcement-facility-watch-scraper): This Actor is an EPA ECHO enforcement scraper for facility, compliance, and watch-term matches from public ECHO sources. Paste state/terms and Start. Not the EPA ECHO digest Actor (taroyamada/epa-enforcement-digest) if you only need a simple digest. Not FDA warning letters. Not HHS OCR breaches. Informational only. Not legal or environmental advice. EPA ECHO Enforcement Scraper is for ECHO digest rows (input targets[]; EPA ECHO public pages; ECHO digest rows). Not the facility watch with alert/report PPE. FDA Warning Letters Scraper is for FDA warning-letter digests (input feeds; FDA warning-letter feeds; Warning-letter digest rows). Not CPSC/NHTSA/EPA records. HHS Healthcare Data Breach Change Scraper is for HHS OCR breaches (input portal watch; HHS OCR; Breach change rows). Not EPA ECHO facilities."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: feeds. Live schema fields: feeds, watchTerms, lookbackDays, datasetMode, notifyOnNoNew, emitReport, snapshotKey, requestTimeoutSeconds, dryRun, fixturePath, nowIso, initialRunMode. EPA ECHO Enforcement & Facility Watch Scraper Input. exampleRunInput keys: feeds, dryRun."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: feeds, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "README output fence is truncated or invalid JSON on Store. Illustration head: { \"actorName\": \"epa-echo-enforcement-facility-watch-scraper\", \"rowType\": \"epa_echo_digest\", \"feedId\": \"california-active-facilities\", \"feedName\": \"California active facility watch\", \"checkedAt\": \"2026-05-11T00:00:00.000Z\", \"fetchedAt\": \"2026-05-11T00:00:00.000Z\", \"sourceUrl\": \"ht\u2026 Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. datasetMode can limit emits to changes_only / changed_only / action_needed versus all. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is EPA ECHO Facility Watch priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $100.00 / 1,000 EPA ECHO watch alert ($0.1 per delivered epa-echo-watch-alert); $0.3 per EPA ECHO digest; $7.00 per EPA ECHO report. No Actor Start. EPA ECHO watch alert (epa-echo-watch-alert) $0.1: Charged for each watchlist-matched public EPA ECHO facility or enforcement alert. EPA ECHO digest (epa-echo-digest) $0.3: Charged for each non-empty EPA ECHO digest row. EPA ECHO report (epa-echo-report) $7.00: Charged for each generated EPA ECHO watch report. Platform usage is listed as included on the Store pricing tab."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

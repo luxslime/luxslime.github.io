@@ -8,62 +8,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/ai-brand-visibility-scraper/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How is AI Brand Visibility Scraper different from Google News Scraper and review scrapers?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "This Actor tracks brand organic rankings on Google search results pages and Reddit threads for AI-visibility monitoring. The live Store description is: Track your AI brand's organic rankings across Google SERPs and Reddit threads. Extract precise rank deltas, competitor overlap, and social mentions. The live searchSources description is: Sources to check for each keyword. Starter mode should stay Google-first; add Reddit only after the Google-first run is reliable. Google News Scraper queries Google News RSS for headlines, article URLs, publishers, and timestamps (required queries, maximum 50). That is news-article discovery, not SERP rank tracking. G2 & Capterra Review Scraper and Shopify App Store Review Scraper read public review-page HTML. Apple Podcasts Reviews Scraper reads Apple/iTunes Customer Reviews RSS. This Actor does not accept Google News queries, G2 or Capterra review URLs, Shopify slugs, or podcast IDs."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What input is required?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "brand and keywords are required. additionalProperties is false. Live schema fields are brand (string; prefill OpenAI), brandTerms (array; prefill openai.com, openai), competitors (optional array; each item a string or an object with name and terms[]; prefill empty), keywords (array; prefill ai api pricing), searchSources (array; prefill google), requestTimeoutSeconds (integer, default 30, minimum 5, maximum 120), maxResultsPerKeyword (integer, default 10, minimum 5, maximum 20), userAgent (optional string), delivery (dataset, webhook, or email; default dataset), datasetMode (changes_only or all; default changes_only), webhookUrl (required when delivery is webhook), emailTo (required when delivery is email), notifyOnNoChange (boolean, default false), snapshotKey (string, default ai-visibility-snapshots), nowIso (optional ISO timestamp), and dryRun (boolean, default false). The published input schema does not include queries, surfaces, extractAiOverviewCitations, or chatgpt."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What does a visibility result contain?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The published README output table lists meta, results, and per-row fields: id, name, kind, keyword, source, status, visibilityStatus, changed, previousBrandRank, currentBrandRank, rankChange, previousCompetitorCount, currentCompetitorCount, capturedAt, previousCapturedAt, searchUrl, matchedBrandUrl, summary, trend, actionItems, topResults, warning, error, and priority. The truncated README sample also shows meta.generatedAt, meta.now, meta.input, meta.snapshot, meta.warnings, meta.totals (targets, changed, initial, unchanged, errors, improved, declined, stable, newAppearances, disappeared), and meta.executiveSummary.overallStatus. There is no published output JSON schema on the Store page. The sample is a README illustration, not a live coverage guarantee."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Does this Actor query ChatGPT or an AI search API?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "No. The live Store description names Google SERPs and Reddit threads. The live searchSources field description names Google-first starter mode, then Reddit. The live input schema has no ChatGPT, AI Overview, or search-API field. A README Input Examples block titled ChatGPT search rank focus uses unpublished names queries, surfaces, and extractAiOverviewCitations. additionalProperties is false, so those names are not live schema fields. The Store title includes ChatGPT Search Rank as a listing title; that is not a published ChatGPT API integration."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do dataset, webhook, email, and changes_only delivery work?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "delivery defaults to dataset. Enum is dataset, webhook, and email. webhookUrl is required when delivery is webhook. emailTo is required when delivery is email. datasetMode defaults to changes_only; enum is changes_only and all. Starter mode should keep changes_only. notifyOnNoChange defaults to false; when false, webhook/email mode skips if no event items were produced. dryRun true skips delivery side effects and snapshot saves. Store Quickstart starts with a one-keyword, Google-first, brand-only run, then optional upgrades: Competitor Snapshot, Weekly Executive Email, Webhook Alert, and Brand vs Competitors (Google + Reddit) only after the Google-first canary is stable."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How is AI Brand Visibility Scraper priced?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Billing is pay-per-event. The live Store card is $20.00 / 1,000 ai visibility result rows. The billed event is AI visibility result row at $0.02, charged only when a visibility result row is delivered. Unchanged monitoring runs are free. Current PPE lists only that event (no actor-start). You are not charged for Apify platform usage, only the fixed event price. The README Cost section still quotes actor-start $0.01 plus dataset-item $0.003 ($3.01 for 1,000 items); those figures are not the live Store rates."
-        }
-      }
-    ]
-  }
-  </script>
 </head>
 <body>
   <header class="site">

@@ -8,62 +8,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/hhs-healthcare-data-breach-scraper/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How is HHS Healthcare Data Breach Change Scraper different from Google News Scraper and Article Content Extractor?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "This Actor monitors the public HHS OCR Breach Portal for newly published HIPAA breach disclosures and source-linked changes. It is not a news-query discovery layer and not an article HTML cleaner. Live schema description: produce one summary digest row per query window from a date window, optional state and entity filters, and watch terms. Google News Scraper queries Google News RSS (queries) and returns headlines, article URLs, publishers, timestamps, and snippets. Article Content Extractor fetches public news, blog, newsroom, and press URLs and extracts headline, byline, publish date, article body, excerpt, and hero image. RSS & Atom Feed Extractor parses known-publisher feed XML. Website Content Extractor cleans docs, product, pricing, policy, and help-center HTML. This Actor does not accept Google News queries, article URL lists, or feed URLs. It does not clean article HTML."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What input is required?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The published input schema has an empty required list. additionalProperties is false. Live fields are lookbackDays (integer, default 30, minimum 1, maximum 730), entityKeywords (string, default empty), stateFilter (string, default empty; comma-separated two-letter US state codes such as CA,TX,NY), minIndividualsAffected (integer, default 500, minimum 0, maximum 10000000; the HHS portal only lists breaches affecting 500+, so values below 500 have no effect), maxBreachesInEvidence (integer, default 50, minimum 1, maximum 200), watchTerms (string, default empty; comma-separated terms that set actionNeeded true when found in entity names or breach types), requestTimeoutSeconds (integer, default 45, minimum 10, maximum 120), delivery (dataset or webhook, default dataset), datasetMode (all, changes_only, or action_needed, default changes_only), webhookUrl (required when delivery is webhook), notifyOnNoChange (boolean, default false), snapshotKey (string, default hhs-breach-monitor-snapshots), nowIso (optional ISO 8601 timestamp for testing), and dryRun (boolean, default false). README examples that send states or sinceDays are not live schema fields."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What does a digest row contain?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The published README output table lists queryId, source, checkedAt, windowStart, windowEnd, executiveSummary, status, actionNeeded, totalBreachCount, newBreachCount, totalIndividualsAffected, breachTypeSummary, topEntities, watchTermHits, recommendedActions, changedSinceLastRun, evidence, and meta. Nested topEntities fields in that table are entityName, state, individualsAffected, breachType, and submissionDate. The Actor produces one summary row per configured query window rather than charging per raw table cell. The published README sample uses source hhs_ocr_breach_portal and is a README illustration, not a live coverage guarantee."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How does changes_only recurring monitoring work?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "datasetMode default is changes_only: emit the digest only when new breaches appeared since last run. all always emits the digest row. action_needed emits only when actionNeeded is true. Keep snapshotKey constant across runs for change detection (schema default hhs-breach-monitor-snapshots). The published README says the default changes_only mode is designed for recurring runs: unchanged checks write zero Dataset rows and incur zero result charges, and a stable recurring run captures zero result charges. Recurring change detection emits a digest only for a first baseline or a changed disclosure set. Schema starter path: default lookback and dataset delivery. Recurring path: add keyword filters and webhook after the first run proves value."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How is HHS Healthcare Data Breach Change Scraper priced?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Billing is pay-per-event. The live Store card is $10.00 / 1,000 healthcare breach change rows. The current Store event is Healthcare breach change row at $0.01, charged for one successfully delivered new or changed public HHS breach disclosure row. The published README says unchanged checks in the default changes_only mode write zero Dataset rows and incur zero result charges. The published README Cost section lists actor-start at $0.01 and dataset-item at $0.003 per output item; those figures do not match the live Store pricing tab."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do dataset, webhook, and dry-run delivery work?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "delivery defaults to dataset and writes the digest to the Apify dataset. webhook POSTs the digest to webhookUrl (required when delivery is webhook). The published Store quickstart says results appear in the Apify Dataset and can be sent to a webhook after the Dataset charge is captured. notifyOnNoChange default is false: when false, webhook delivery is skipped if no new breaches since last run. dryRun true saves no snapshots and fires no webhook. Use dryRun to validate before committing to a schedule."
-        }
-      }
-    ]
-  }
-  </script>
 </head>
 <body>
   <header class="site">

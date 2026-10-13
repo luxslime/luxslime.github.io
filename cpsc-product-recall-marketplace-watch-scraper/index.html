@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/cpsc-product-recall-marketplace-watch-scraper/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is CPSC Product Recall Marketplace Watch different from Product Safety Recall Scraper and NHTSA Recall Scraper?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "CPSC Product Recall Marketplace Watch (taroyamada/cpsc-product-recall-marketplace-watch-scraper): This Actor tracks official CPSC recall records by product, brand, category, and marketplace watch terms with source-linked alert and report rows. Not FDA warning letters. Not NHTSA vehicle recalls. Not a marketplace listing scraper. Informational only. Not legal or safety advice. Product Safety Recall Scraper is for FDA/CPSC recall digests (input feeds; FDA/CPSC recall feeds; Recall digest rows). Not a CPSC marketplace watch with alert/report PPE. NHTSA Recall Scraper is for NHTSA recall digests (input vehicle watches; NHTSA public APIs; Recall digest rows). Not the alert/digest/report watch Actor. FDA Warning Letters Scraper is for FDA warning-letter digests (input feeds; FDA warning-letter feeds; Warning-letter digest rows). Not CPSC/NHTSA/EPA records."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: feeds. Live schema fields: feeds, watchTerms, lookbackDays, datasetMode, notifyOnNoNew, emitReport, snapshotKey, requestTimeoutSeconds, dryRun, fixturePath, nowIso, initialRunMode. CPSC Product Recall Marketplace Watch Scraper Input. exampleRunInput keys: feeds, dryRun."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: feeds, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "README output fence is truncated or invalid JSON on Store. Illustration head: { \"actorName\": \"cpsc-product-recall-marketplace-watch-scraper\", \"rowType\": \"cpsc_recall_digest\", \"feedId\": \"children-products\", \"feedName\": \"Children product recall watch\", \"checkedAt\": \"2026-05-11T00:00:00.000Z\", \"fetchedAt\": \"2026-05-11T00:00:00.000Z\", \"sourceUrl\": \"https://www\u2026 Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. datasetMode can limit emits to changes_only / changed_only / action_needed versus all. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is CPSC Product Recall Marketplace Watch priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $80.00 / 1,000 CPSC recall alert ($0.08 per delivered cpsc-recall-alert); $0.25 per CPSC recall digest; $5.00 per CPSC recall report. No Actor Start. CPSC recall alert (cpsc-recall-alert) $0.08: Charged for each watchlist-matched public CPSC recall alert. CPSC recall digest (cpsc-recall-digest) $0.25: Charged for each non-empty CPSC recall digest row. CPSC recall report (cpsc-recall-report) $5.00: Charged for each generated product recall watch report. Platform usage is listed as included on the Store pricing tab."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

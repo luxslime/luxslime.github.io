@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/ad-landing-page-offer-intelligence/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is Ad Landing Page Offer Intelligence different from Website Content Extractor and Article Content Extractor?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Ad Landing Page Offer Intelligence (taroyamada/ad-landing-page-offer-intelligence): This Actor analyzes user-provided landing pages and pasted ad copy for offer, CTA, proof, pricing, and CRO gaps without scraping ad libraries. Not an ads-library crawler (use Ads Library Competitive Intelligence on URLs you supply). Not a website-to-markdown dump. Not authenticated ad-manager access. Website Content Extractor is for One-shot page-to-markdown (input urls; Page HTML; Markdown/text). Not recurring pricing/legal diffs or RAG audits. Article Content Extractor is for News/blog HTML cleanup (input urls; Article HTML; Headline/byline/body). Not landing-page CRO reports. B2B Pricing Scraper is for Public subscription-tier changes (input competitors[]; Public pricing HTML; Pricing change rows). Not Shopify catalog maps or ads-library pages."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: none (see live fields). Live schema fields: landingPageUrls, adCopy, reportTier, maxChargeUsd, demoMode, dryRun, maxReports, maxPagesPerReport, includeCtaAudit, includeOfferMatrix, sourceDatasetId, webhookUrl. exampleRunInput keys: landingPageUrls, adCopy, reportTier, maxChargeUsd, maxReports, demoMode, dryRun."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: landingPageUrls, adCopy, reportTier, maxChargeUsd, maxReports, demoMode, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. webhookUrl is on the live schema for optional POST delivery. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is Ad Landing Page Offer Intelligence priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: $3.00 per Landing offer report (landing_offer_report); $15 per CRO gap report pack. $0.00005 Actor Start. Actor Start (apify-actor-start) $0.00005: Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event). Landing offer report (landing_offer_report) $3.00: Landing page offer, proof, CTA, and CRO snapshot. CRO gap report pack (cro_gap_report_pack) $15: CRO gap pack with ad-message match, offer clarity, proof, CTA, and page recommendations. Platform usage is listed as included on the Store pricing tab."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

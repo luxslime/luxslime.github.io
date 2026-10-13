@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/security-headers-checker/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How is Security Headers Checker different from SSL/TLS Certificate Scraper and DMARC & Email Security Checker?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Security Headers Checker — OWASP HSTS CSP Bulk Audit (taroyamada/security-headers-checker): This Actor requests the URLs you supply, reads HTTP response headers, and scores them against OWASP-oriented directives such as HSTS and CSP. Maximum 200 URLs per run. Not a penetration test, fuzzer, or authenticated scan. Passive header inspection only; only scan sites you are authorized to check. SSL/TLS Certificate Scraper is for TLS cert expiry and fingerprints (input domains (max 200); TLS handshake, not HTTP headers; cert rows). Not OWASP header grades. DMARC & Email Security Checker is for DMARC/SPF/DKIM DNS (input domains; DNS TXT; email-auth rows). Not HTTP security headers. Bulk URL Status Checker is for HTTP status on a known list (input urls (max 1000); HTTP status/redirects; status rows). Not header-policy scoring."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What input is required?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Live required fields: urls. Live schema fields: urls, followRedirects, delivery, webhookUrl, snapshotKey, concurrency, dryRun. exampleRunInput audits google.com, github.com, cloudflare.com with concurrency 3. Schema prefill uses example.com as the third URL and concurrency default 5. Max 200 URLs. additionalProperties is not documented on this page beyond the live Store schema."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is the best first run?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Use the published Store example run input below. exampleRunInput audits google.com, github.com, cloudflare.com with concurrency 3. Schema prefill uses example.com as the third URL and concurrency default 5. Max 200 URLs. Keep the first live run small. Use dryRun when you only need to validate input."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What does a result contain?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do dataset, webhook, and dry-run delivery work?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How is Security Headers Checker priced?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Billing is pay per event. Live Store card: from $7.00 / 1,000 results ($0.007 per result) plus Actor Start $0.001. Actor Start (apify-actor-start) $0.001: Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event). result (apify-default-dataset-item) $0.007: Single result in the default dataset. Do not use the README Cost block as live pricing. README Cost quotes actor-start $0.01 + dataset-item $0.003. Live: Actor Start $0.001 + result $0.007. Platform usage is listed as included on the Store pricing tab."
-        }
-      }
-    ]
-  }
-  </script>
 </head>
 <body>
   <header class="site">
