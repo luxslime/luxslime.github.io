@@ -4,17 +4,17 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Hold PO box ship-to orders billed to a commercial suite</title>
-  <meta name="description" content="Shopify has no commercial-suite detector. Flow can hold fulfillment after the order exists. AddressFence is billing checkout rules, not a hold. Not legal advice.">
+  <meta name="description" content="Shopify has no commercial-suite detector. Flow can hold fulfillment after the order exists. Free on AddressFence blocks shipping PO Boxes and parcel lockers at checkout; billing-address rules are on a paid plan, and the app is not a hold. Not legal advice.">
   <meta name="robots" content="index,follow">
   <link rel="icon" href="/favicon.ico" sizes="any">
   <meta property="og:type" content="article">
   <meta property="og:title" content="Hold PO box ship-to orders billed to a commercial suite">
-  <meta property="og:description" content="Shopify has no commercial-suite detector. Flow can hold fulfillment after the order exists. AddressFence is billing checkout rules, not a hold. Not legal advice.">
+  <meta property="og:description" content="Shopify has no commercial-suite detector. Flow can hold fulfillment after the order exists. Free on AddressFence blocks shipping PO Boxes and parcel lockers at checkout; billing-address rules are on a paid plan, and the app is not a hold. Not legal advice.">
   <meta property="og:url" content="https://apify.momiji-space.com/guides/hold-po-box-ship-commercial-billing-review/">
   <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/27f7c111c94acf4b22bfef9207351043/promotional_image/CLDLhsPS7ZQDEAE=.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Hold PO box ship-to orders billed to a commercial suite">
-  <meta name="twitter:description" content="Shopify has no commercial-suite detector. Flow can hold fulfillment after the order exists. AddressFence is billing checkout rules, not a hold. Not legal advice.">
+  <meta name="twitter:description" content="Shopify has no commercial-suite detector. Flow can hold fulfillment after the order exists. Free on AddressFence blocks shipping PO Boxes and parcel lockers at checkout; billing-address rules are on a paid plan, and the app is not a hold. Not legal advice.">
   <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/27f7c111c94acf4b22bfef9207351043/promotional_image/CLDLhsPS7ZQDEAE=.png">
   <link rel="canonical" href="https://apify.momiji-space.com/guides/hold-po-box-ship-commercial-billing-review/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
@@ -65,7 +65,7 @@
     <p class="eyebrow">Hold for review, not a checkout block</p>
     <h1>Hold a PO box ship-to billed to a commercial suite — Flow hold is not a checkout rule</h1>
     <p class="answer-first"><strong>Direct answer.</strong> Shopify has no documented “commercial suite” address type and no one-click hold for “ship to a PO box, bill to a commercial suite.” A checkout address blocker on shipping can stop a PO box before the order exists; that is a block, not a review hold. After the order exists, <a href="https://help.shopify.com/en/manual/shopify-flow/reference/actions/hold-fulfillment">Hold fulfillment order</a> in Shopify Flow sets the order On hold until you release it. Flow conditions can read order shipping and billing address fields — Help Center examples include <code>order.shippingAddress.country</code> and comparing billing country to shipping country on <a href="https://help.shopify.com/en/manual/shopify-flow/reference/conditions">Conditions in Shopify Flow</a>. Shopify’s fraud panel is a platform risk label, not your store’s address-pair policy. This page is not legal advice and not a fraud determination.</p>
-    <p class="lede"><strong>PO Box Blocker — AddressFence</strong> (<a href="https://apps.shopify.com/address-guard?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=hold-po-box-ship-commercial-billing-review">Shopify App Store</a> · <a href="https://apps.shopify.com/address-guard/reviews?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=hold-po-box-ship-commercial-billing-review">Write a review</a>) publishes billing-address rules — built-in checkout rules cannot target billing — and a street-number check, then tests any address in the simulator before you publish, with one-click rollback. It does not hold fulfillment and it does not detect a commercial suite. On this pattern the billing address is a commercial suite, not a billing PO box, so a billing PO box rule would not match. This page is hold-for-review after checkout — not the billing-PO-box how-to.</p>
+    <p class="lede"><strong>PO Box Blocker — AddressFence</strong> (<a href="https://apps.shopify.com/address-guard?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=hold-po-box-ship-commercial-billing-review">Shopify App Store</a> · <a href="https://apps.shopify.com/address-guard/reviews?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=hold-po-box-ship-commercial-billing-review">Write a review</a>). Free blocks PO Boxes and parcel lockers on the shipping address at checkout, plus a small set of ZIP rules. Street-number checks and billing-address rules are on a paid plan. It tests any address in the simulator before you publish, with one-click rollback. It does not hold fulfillment and it does not detect a commercial suite. On this pattern the billing address is a commercial suite, not a billing PO box, so a billing PO box rule would not match. This page is hold-for-review after checkout — not the billing-PO-box how-to.</p>
     <p>Related: <a href="https://apps.shopify.com/b2b-terms-guard?utm_source=momiji-space&amp;utm_medium=guide&amp;utm_campaign=crosspromo&amp;utm_content=hold-po-box-ship-commercial-billing-review">B2B PO Guard — Require PO</a> — B2B purchase order number required at company checkout.</p>
     <p><strong>Free check first:</strong> <a href="/tools/po-box-address-checker/">PO box and street number address checker</a> runs in your browser and sends nothing. Paste addresses and see which look like a PO box or lack a street number.</p>
 
@@ -85,7 +85,7 @@
     <h2>What this page is not</h2>
     <ul>
       <li>Not legal advice, a fraud score, or a chargeback decision.</li>
-      <li>Not a claim that AddressFence holds orders or detects commercial suites. The listing is billing-address rules and a street-number check.</li>
+      <li>Not a claim that AddressFence holds orders or detects commercial suites. Billing-address rules and a street-number check are on a paid plan. Free blocks shipping PO Boxes and parcel lockers, plus a small set of ZIP rules.</li>
       <li>Not the shipping-only checkout block. That split is <a href="/guides/po-box-shipping-rate-vs-checkout-validation/">shipping-rate hide vs checkout validation vs AddressFence</a>.</li>
       <li>Not “does Shopify ship to PO Boxes?” That URL is <a href="/guides/does-shopify-ship-to-po-boxes/">Does Shopify ship to PO Boxes?</a>.</li>
     </ul>
@@ -102,7 +102,7 @@
       <li><a href="/review/">Shopify apps hub</a></li>
       <li><a href="/tools/">Tools</a></li>
     </ul>
-    <p class="note">Not legal advice. Not a fraud determination. Confirm the live Flow hold and checkout-address Help Center pages before you treat a workflow as catching a commercial suite. AddressFence tests and publishes billing-address rules; it does not hold fulfillment.</p>
+    <p class="note">Not legal advice. Not a fraud determination. Confirm the live Flow hold and checkout-address Help Center pages before you treat a workflow as catching a commercial suite. Free on AddressFence blocks shipping PO Boxes and parcel lockers, plus a small set of ZIP rules. Billing-address rules are on a paid plan. It does not hold fulfillment.</p>
   </main>
   <footer class="site">
     <div class="wrap">
