@@ -91,6 +91,7 @@ PO-ABC123
       <p id="err" role="alert"></p>
       <p id="summary" role="status" aria-live="polite"></p>
       <div class="result-scroll"><table id="out" hidden><thead><tr><th scope="col">Row</th><th scope="col">PO number</th><th scope="col">Result</th><th scope="col">Why</th></tr></thead><tbody></tbody></table></div>
+      <p id="po-pass-install" hidden><a href="https://apps.shopify.com/b2b-terms-guard?utm_source=momiji-site&amp;utm_medium=tool&amp;utm_campaign=po-tester-result">This rule works on your samples. Apply it to real B2B orders, with duplicate-PO checks, in B2B PO Guard — Require PO →</a></p>
       <p>To preview a PO number format for B2B checkout, see <a href="https://apps.shopify.com/b2b-terms-guard?utm_source=momiji-site&amp;utm_medium=tool&amp;utm_campaign=po-number-format-tester">B2B PO Guard — Require PO</a>.</p>
     </section>
 
@@ -190,10 +191,11 @@ function buildRe(src, ignoreCase) {
         tr.appendChild(a); tr.appendChild(b); tr.appendChild(c); tr.appendChild(d); body.appendChild(tr);
       });
       out.hidden = n === 0;
+      var passInstall = $('po-pass-install'); if (passInstall) passInstall.hidden = !(n > 0 && pass > 0);
       sum.textContent = n ? n + ' rows: ' + pass + ' pass, ' + fail + ' fail.' : 'Paste at least one PO number.';
     }
     $('run').addEventListener('click', run);
-    $('clear').addEventListener('click', function () { $('list').value = ''; body.textContent = ''; out.hidden = true; sum.textContent = ''; err.textContent = ''; last = []; });
+    $('clear').addEventListener('click', function () { $('list').value = ''; body.textContent = ''; out.hidden = true; sum.textContent = ''; err.textContent = ''; last = []; var passInstall = $('po-pass-install'); if (passInstall) passInstall.hidden = true; });
     $('copy').addEventListener('click', function () { if (navigator.clipboard && last.length) navigator.clipboard.writeText(last.join('\n')); });
     run();
   })();
