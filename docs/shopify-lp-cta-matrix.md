@@ -4,13 +4,13 @@ Interim problem-query guide LPs on `apify.momiji-space.com`. Full rewrite planne
 
 | App (listing name) | Guide slug | App Store URL |
 | --- | --- | --- |
-| AddressFence: PO Box Guard | `/guides/block-po-box-billing-address/` | https://apps.shopify.com/address-guard |
+| PO Box Blocker — AddressFence | `/guides/block-po-box-billing-address/` | https://apps.shopify.com/address-guard |
 | Prop 65 Warning Manager | `/guides/prop-65-product-page-warning-2028/` | https://apps.shopify.com/momiji-prop-65-warning-manager |
 | Green Claims Guard | `/guides/eu-generic-green-claims-ban/` | https://apps.shopify.com/green-claims-guard |
 | EUDR Records Manager | `/guides/eudr-dds-lot-registry/` | https://apps.shopify.com/eudr-records-manager |
-| Access Audit Guard | `/guides/access-audit-admin/` (alias `/guides/access-audit-shopify-admin/` redirects here) | https://apps.shopify.com/momiji-access-audit |
-| B2B Terms & PO Guard | `/guides/b2b-po-number-required/` | https://apps.shopify.com/b2b-terms-guard |
-| Agentic Catalog Readiness | `/guides/agentic-catalog-readiness/` | https://apps.shopify.com/agentic-catalog-readiness |
+| Staff Access Audit Guard | `/guides/access-audit-admin/` (alias `/guides/access-audit-shopify-admin/` redirects here) | https://apps.shopify.com/momiji-access-audit |
+| B2B PO Guard — Require PO | `/guides/b2b-po-number-required/` | https://apps.shopify.com/b2b-terms-guard |
+| Agentic Catalog by momiji | `/guides/agentic-catalog-readiness/` | https://apps.shopify.com/agentic-catalog-readiness |
 | CLPLens: CLP Hazard Display | `/guides/clp-hazard-product-page/` | https://apps.shopify.com/clp-hazard-info-display |
 | FibreLedger Textile Labels | `/guides/textile-fibre-label-eu/` | https://apps.shopify.com/textile-label-guard |
 | EU Food Info Guard | `/guides/fic-food-allergen-label/` | https://apps.shopify.com/fic-food-info-guard |
