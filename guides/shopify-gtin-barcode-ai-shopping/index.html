@@ -125,6 +125,7 @@
     </div>
     <p>The same barcode value cannot be used twice on the same product or variant. Existing barcodes stay in place; the first barcode is still the one used wherever a single barcode is expected (labels, sales-channel feeds, and apps that have not moved to the full set).</p>
     <p><a class="cta" href="https://apps.shopify.com/agentic-catalog-readiness?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=shopify-gtin-barcode-ai-shopping">Install Agentic Catalog by momiji → run check → fix first flagged gap</a></p>
+    <p class="note"><a href="https://apps.shopify.com/agentic-catalog-readiness/reviews?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=shopify-gtin-barcode-ai-shopping">Write a review</a></p>
 
     <h2>API note: prefer <code>barcodes</code>; <code>barcode</code> is only the first entry</h2>
     <p>The developer changelog <a href="https://shopify.dev/changelog/product-variant-barcode-is-being-replaced-by-barcodes">ProductVariant.barcode is being replaced by barcodes</a> (API version 2026-10) deprecates <code>ProductVariant.barcode</code>. Reading <code>barcode</code> returns only the first entry in the <code>barcodes</code> connection. Integrations that sync identifiers to an ERP, marketplace, POS, or supplier feed should read <code>barcodes</code>, or they silently miss every barcode after the first.</p>
