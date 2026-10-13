@@ -4,17 +4,17 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Preview a Shopify B2B PO rule before you publish</title>
-  <meta name="description" content="Preview any PO rule live against a sample number before you publish. D2C stays untouched. Free includes 1 live PO rule, up to 50 orders/mo. Deposit guardrails and review routing are paid features. Not legal advice.">
+  <meta name="description" content="Preview any PO rule live against a sample number before you publish. D2C stays untouched. Not legal advice.">
   <meta name="robots" content="index,follow">
   <link rel="icon" href="/favicon.ico">
   <meta property="og:type" content="article">
   <meta property="og:title" content="Preview a Shopify B2B PO rule before you publish">
-  <meta property="og:description" content="Preview any PO rule live against a sample number before you publish. D2C stays untouched. Free includes 1 live PO rule, up to 50 orders/mo. Deposit guardrails and review routing are paid features. Not legal advice.">
+  <meta property="og:description" content="Preview any PO rule live against a sample number before you publish. D2C stays untouched. Not legal advice.">
   <meta property="og:url" content="https://apify.momiji-space.com/guides/b2b-po-rule-live-preview/">
   <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/0d5bee841b158614f7a791277c9b589e/promotional_image/CJrF7JSn6JQDEAE=.png">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Preview a Shopify B2B PO rule before you publish">
-  <meta name="twitter:description" content="Preview any PO rule live against a sample number before you publish. D2C stays untouched. Free includes 1 live PO rule, up to 50 orders/mo. Deposit guardrails and review routing are paid features. Not legal advice.">
+  <meta name="twitter:description" content="Preview any PO rule live against a sample number before you publish. D2C stays untouched. Not legal advice.">
   <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/0d5bee841b158614f7a791277c9b589e/promotional_image/CJrF7JSn6JQDEAE=.png">
   <link rel="canonical" href="https://apify.momiji-space.com/guides/b2b-po-rule-live-preview/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
@@ -25,7 +25,7 @@
   ]}
   </script>
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"B2B PO Guard - Require PO","description":"Validate PO numbers, deposits, Net terms, order review, and D2C no-op behavior for Shopify native B2B checkout workflows. Validates PO numbers by format, prefix, regex, length, and uniqueness. Previews any PO rule live against a sample number before you publish. Free includes 1 live PO rule, up to 50 orders/mo. Deposit guardrails and review routing are paid features.","url":"https://apps.shopify.com/b2b-terms-guard","applicationCategory":"BusinessApplication","operatingSystem":"Shopify","image":"https://cdn.shopify.com/app-store/listing_images/0d5bee841b158614f7a791277c9b589e/icon/CMiBo7bN5JQDEAE=.png"}
+  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"B2B PO Guard - Require PO","description":"Validate PO numbers, deposits, Net terms, order review, and D2C no-op behavior for Shopify native B2B checkout workflows. Checks PO numbers by format, prefix, regex, length, and uniqueness. Previews any PO rule live against a sample number before you publish.","url":"https://apps.shopify.com/b2b-terms-guard","applicationCategory":"BusinessApplication","operatingSystem":"Shopify","image":"https://cdn.shopify.com/app-store/listing_images/0d5bee841b158614f7a791277c9b589e/icon/CMiBo7bN5JQDEAE=.png"}
   </script>
 </head>
 <body>
@@ -36,16 +36,17 @@
     <nav><a href="/">Home</a> / <a href="/guides/">Guides</a> / <a href="/guides/b2b-po-number-required/">B2B PO</a> / Live preview</nav>
     <p class="eyebrow">PO rule live preview</p>
     <h1>Preview any PO rule against a sample number before you publish - do not learn the regex on a live company cart</h1>
-    <p class="lede"><strong>B2B PO Guard - Require PO</strong> (<a href="https://apps.shopify.com/b2b-terms-guard?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=b2b-po-rule-live-preview">Shopify App Store</a>) validates purchase-order numbers by format, prefix, regex, length, and uniqueness, and previews any PO rule live against a sample number before you publish. D2C and no-company checkouts stay untouched. Free includes 1 live PO rule, up to 50 orders/mo. Deposit guardrails and review routing are paid features. This page is not legal advice.</p>
+    <p class="lede"><strong>Short answer:</strong> test the PO rule on two sample numbers, one that should pass and one that should fail, before you publish it. If either result surprises you, fix the rule there, not on a live company cart.</p>
+    <p><strong>B2B PO Guard - Require PO</strong> (<a href="https://apps.shopify.com/b2b-terms-guard?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=b2b-po-rule-live-preview">Shopify App Store</a>) checks purchase-order numbers by format, prefix, regex, length, and uniqueness, flags numbers that do not match, and previews any PO rule live against a sample number before you publish. D2C and no-company checkouts stay untouched. This page is not legal advice.</p>
     <p>Related: <a href="https://apps.shopify.com/address-guard?utm_source=momiji-space&amp;utm_medium=guide&amp;utm_campaign=crosspromo&amp;utm_content=b2b-po-rule-live-preview">PO Box Blocker — AddressFence</a> — PO box blocker for the billing address, not just shipping.</p>
     <p><strong>Free check first:</strong> <a href="/tools/po-number-format-tester/">PO number format tester</a> runs in your browser and sends nothing. Test prefix, length, characters, regex and duplicates on sample PO numbers.</p>
 
-    <h2>Build the rule, preview a sample, then publish</h2>
+    <h2>Why preview first</h2>
     <p>Format, prefix, regex, length, and uniqueness are easy to get wrong on the first try. Run the <strong>live preview</strong> against a sample number that should pass and one that should fail before the rule goes live. That preview job is separate from the <a href="/guides/b2b-po-number-required/">require-PO how-to</a> and from <a href="/guides/b2b-d2c-noop-checkout/">D2C no-op</a> testing after publish.</p>
     <p><a class="cta" href="https://apps.shopify.com/b2b-terms-guard?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=b2b-po-rule-live-preview">Install B2B PO Guard -> preview rule -> publish</a></p>
     <p class="note"><a href="https://apps.shopify.com/b2b-terms-guard/reviews?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=b2b-po-rule-live-preview">Write a review</a></p>
 
-    <h2>Sequence</h2>
+    <h2>Steps</h2>
     <ol>
       <li>Set the PO validation rule (format, prefix, regex, length, uniqueness as needed).</li>
       <li>Preview the rule live against sample numbers before you publish.</li>
@@ -77,7 +78,6 @@
       <li><a href="/guides/b2b-d2c-noop-checkout/">D2C no-op for B2B PO rules</a></li>
       <li><a href="https://apps.shopify.com/b2b-terms-guard?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=b2b-po-rule-live-preview">B2B PO Guard - Require PO</a></li>
     </ul>
-    <p class="note">Free includes 1 live PO rule, up to 50 orders/mo. Deposit guardrails and review routing are paid features.</p>
   </main>
   <footer class="site"><div class="wrap"><ul><li><a href="/review/">Shopify apps hub</a></li><li><a href="/tools/">Tools</a></li><li><a href="/">Home</a></li></ul></div></footer>
 <script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "10aeccbd602743299692f41113bc3b55"}'></script>
