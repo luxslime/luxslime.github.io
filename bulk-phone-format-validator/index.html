@@ -8,62 +8,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/bulk-phone-format-validator/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How is Bulk Phone Format Validator different from Contact Page Audit & Business Channel Extractor?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "This Actor is offline format validation of phone strings you already have. Required input is numbers (maximum 1000). It runs Google libphonenumber locally, with no network lookup, and returns E.164 / international / national formatting, country, and number-type signals. It does not fetch pages, inventory public business channels, or discover people or numbers. Contact Page Audit & Business Channel Extractor inventories public business contact channels from contact, about, support, policy, and company pages you supply (urls, maximum 100) and emits public_contact_channel rows (support path, phone, social URLs). Use this Actor to normalize an authorized phone-string list. Use Contact Page Audit when the job is a reviewable inventory of public business channels on pages."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What input is required?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "numbers is required: phone numbers to validate (max 1000). Schema prefill is +14155552671. Optional live schema fields are defaultCountry (string, default US; ISO country code for numbers without a country prefix), delivery (dataset or webhook, default dataset), webhookUrl (when delivery is webhook), and dryRun (boolean, default false). README examples that send phones, includeCarrier, or normalizeOnly are not live schema fields."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What does a result row contain?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The published README field table lists input, valid, e164, country, countryName, carrier, lineType, and error. The published README sample uses input, isValid, type (for example FIXED_LINE), formatted.e164, formatted.international, formatted.national, country (full name), and countryCode (ISO). There is no published output JSON schema on the Store page. The sample is a README illustration, not a live coverage guarantee."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Does it discover people or verify that a number is in service?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "No. The Store description states it returns E.164 formatting, country, and number type without discovering people or numbers. The README states format validation only: it does not verify the number is in service, does not call the number, and does not perform HLR lookups. A valid number has a correct country code, valid length, and matching numbering plan, and may still be unassigned. All validation runs locally with google-libphonenumber; phone strings are not sent to an external lookup API."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How is Bulk Phone Format Validator priced?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Billing is pay-per-event. The live Store card is $2.00 / 1,000 phone format validation results. The billed event is Phone format validation result at $0.002, charged only for one delivered offline format-validation row. You are not charged for Apify platform usage, only the fixed event price. The README Cost section still quotes actor-start $0.01 plus dataset-item $0.002 ($2.01 for 1,000 items); live Store billing currently lists only the $0.002 Phone format validation result event."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do dataset, webhook, and dry-run delivery work?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "delivery defaults to dataset. Set delivery to webhook and provide webhookUrl to POST results. dryRun true runs without saving results (for testing). The Store Quickstart starts with Quickstart (10 Sample Numbers) to verify E.164 output and type detection, then Lead Validation Before Dialing, Bulk CRM Cleanup (set defaultCountry to your primary market), or International Normalize (defaultCountry: US fallback)."
-        }
-      }
-    ]
-  }
-  </script>
 </head>
 <body>
   <header class="site">

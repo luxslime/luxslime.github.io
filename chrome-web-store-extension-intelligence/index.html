@@ -8,62 +8,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/chrome-web-store-extension-intelligence/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How is Chrome Web Store Extension Intelligence different from Shopify App Store Review Scraper and G2 & Capterra Review Scraper?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "This Actor reads public chromewebstore.google.com listing and search HTML. Inputs are extensionUrls (Chrome Web Store detail URLs) and searchTerms (search listings and normalize the first results page). Each extension row covers listing metadata such as extensionId, name, description, category, rating, reviewCount, users, version, permissionsHints, hostPermissionsHints, websiteUrl, privacyPolicyUrl, lastUpdatedAt, and searchTerm, plus meta diagnostics for search coverage and public-surface limitations. Shopify App Store Review Scraper reads apps.shopify.com/{slug} merchant listings (appUrls) and delivers app-level rating, pricing-hint, AI-summary, and theme-rollup reports. G2 & Capterra Review Scraper reads public G2 and Capterra product review pages (reviewPageUrls) and normalizes B2B ratings and review rows with pros and cons. This Actor does not accept Shopify slugs, G2 or Capterra review URLs, podcast IDs, or Apple show URLs. It is Chrome Web Store extension detail and search metadata, not those review stores."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What input is required?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The published input schema has an empty required list. Fields are extensionUrls (Chrome Web Store detail URLs), searchTerms (search Chrome Web Store listings and normalize the first results page), maxSearchResults (integer, default 20, minimum 1, maximum 60), delivery (dataset or webhook, default dataset), webhookUrl (when delivery is webhook), and dryRun (boolean, default false). additionalProperties is false. Schema prefill is the Google Translate detail URL and the search term translate. The published input schema does not include extensionIds, slugs, maxPages, or reviewLimit."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What does an extension row contain?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The published README lists extensionId, name, description, category, rating, reviewCount, users, version, permissionsHints, hostPermissionsHints, websiteUrl, privacyPolicyUrl, lastUpdatedAt, and searchTerm. It also returns meta diagnostics for search coverage and public-surface limitations. There is no separate published dataset/output JSON schema on the Store page. Some fields, especially permissions and version, are only available on detail pages."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What do search terms scrape?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Search terms scrape the first search page and normalize visible result cards. maxSearchResults is the maximum extensions to capture per search term (default 20, minimum 1, maximum 60). The Actor works from the public chromewebstore.google.com HTML only, without authentication."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How is Chrome Web Store Extension Intelligence priced?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Billing is pay-per-event. The published Store card is from $3.00 per 1,000 results. Published events are Actor Start at $0.001 (charged when the Actor starts; number of events depends on Actor memory, one event per GB, minimum one event) and result at $0.003 (single result in the default dataset). You are not charged for Apify platform usage, only the fixed event price."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do dataset, webhook, and dry-run delivery work?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "delivery defaults to dataset. Set delivery to webhook and provide webhookUrl to POST results when delivery is webhook. dryRun true runs without saving results to the dataset."
-        }
-      }
-    ]
-  }
-  </script>
 </head>
 <body>
   <header class="site">

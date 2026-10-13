@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/fdic-ncua-peer-financial-trend-report/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is FDIC & NCUA Peer Financial Trend Report different from US Treasury Data Scraper and SEC EDGAR Scraper?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "FDIC & NCUA Peer Financial Trend Report (taroyamada/fdic-ncua-peer-financial-trend-report): Compare bounded same-source bank or credit-union peer watches across explicit quarterly metrics and periods. Receive source-linked changes, peer percentiles, reports, and exports. Not US Treasury Fiscal Data. Not SEC EDGAR 8-K. Not XBRL public-company facts. You supply FDIC certs or NCUA charter numbers. US Treasury Data Scraper is for Treasury Fiscal Data (input datasets; Treasury API; Series rows). Not FDIC/NCUA call reports. SEC EDGAR Scraper is for 8-K and S-1 filing alerts (input tickers / CIKs; EDGAR; Filing rows). Not bank call-report peers. SEC XBRL Peer Financial Change Report is for Public-company XBRL facts (input watchlists + userAgent; SEC company facts; Metric-change alerts). Not FDIC/NCUA institutions."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: watches. Live schema fields: watches, monitorKey, initialRunMode, generateReport, emitRawRows, emitExport, includeInstitutionDirectory, emitUnchanged, maxChargeUsd, maxRequests, requestIntervalMs, dryRun. Compare bounded same-source bank or credit-union peer watches across explicit quarterly metrics and periods. Receive source-linked changes, peer percentiles, reports, and exports. exampleRunInput keys: watches, maxChargeUsd, maxRequests, dryRun. additionalProperties is false on the live schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: watches, maxChargeUsd, maxRequests, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is FDIC & NCUA Peer Financial Trend Report priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $10.00 / 1,000 Institution financial row ($0.01 per delivered institution-financial-row); $0.50 per Institution peer change alert; $18.00 per Financial peer trend report; $10.00 per Financial peer export. No Actor Start. Institution financial row (institution-financial-row) $0.01: Charged only when a institution financial row is delivered. Institution peer change alert (institution-peer-change-alert) $0.50: Charged only when a institution peer change alert is delivered. Financial peer trend report (financial-peer-trend-report) $18.00: Charged only when a financial peer trend report is delivered. Financial peer export (financial-peer-export) $10.00: Charged only when a financial peer export is delivered. Platform usage is listed as included on the Store pricing tab."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

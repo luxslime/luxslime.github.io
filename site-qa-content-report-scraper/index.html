@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/site-qa-content-report-scraper/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is Site QA Content Report different from Website Content Extractor and Article Content Extractor?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Site QA Content Report (taroyamada/site-qa-content-report-scraper): Audit public web pages for content quality issues and generate source-linked QA report rows. Not a page-to-markdown dump (use Website Content Extractor). Not article boilerplate cleanup (use Article Content Extractor). Not a RAG readiness scoring pack. You supply the URLs. Website Content Extractor is for One-shot page-to-markdown (input urls; Page HTML; Markdown/text). Not content-quality issue reports. Article Content Extractor is for News/blog HTML cleanup (input urls; Article HTML; Headline/byline/body). Not site QA content reports. Website RAG Readiness Audit is for RAG coverage and chunking risk (input urls / domain; Public pages; RAG snapshot/readiness reports). Not generic content-quality issue rows."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: urls. Live schema fields: urls, maxPages, maxLinksPerPage, emitPageRows, generateReport, emitExport, emitUnchanged, dryRun. Audit public web pages for content quality issues and generate source-linked QA report rows. exampleRunInput keys: urls, maxPages, maxLinksPerPage, dryRun. additionalProperties is not set to false on this schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: urls, maxPages, maxLinksPerPage, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Published README Output Example / Sample Output JSON. Illustration: {   \"rowType\": \"site_qa_report\",   \"billingEventName\": \"site-qa-report-generated\",   \"sourceUrl\": \"https://example.com/?siteQaCanary=content-v2\",   \"checkedUrlCount\": 1,   \"issueCount\": 2,   \"reportStatus\": \"action_needed\" }  Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is Site QA Content Report priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $10.00 / 1,000 Site page extracted ($0.01 per delivered site-page-extracted); $0.08 per Site QA issue detected; $5.00 per Site QA report generated; $7.00 per Site export generated. No Actor Start. Site page extracted (site-page-extracted) $0.01: Charged for each optional raw public page snapshot row. Site QA issue detected (site-qa-issue-detected) $0.08: Charged for each source-linked page QA issue row. Site QA report generated (site-qa-report-generated) $5.00: Charged for each site-level QA report row. Site export generated (site-export-generated) $7.00: Charged for each generated QA export row. Platform usage is listed as included on the Store pricing tab."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

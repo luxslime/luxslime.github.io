@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/product-safety-recall-digest/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is Product Safety Recall Scraper different from NHTSA Recall Scraper and FDA Warning Letters Scraper?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Product Safety Recall Scraper (taroyamada/product-safety-recall-digest): This Actor scrapes official FDA and CPSC public recall databases and emits source-linked digest rows (alerts, docket numbers, agency dates). Default feeds cover those public recall sources when you leave feeds empty per the live schema. Not NHTSA vehicle complaints. Not legal advice. Not a takedown or marketplace-enforcement tool. NHTSA Recall Scraper is for NHTSA recalls/complaints (input vehicle feeds; NHTSA public APIs; recall digest rows). Not CPSC consumer-product recalls. FDA Warning Letters Scraper is for FDA warning-letter digests (input feeds / watchTerms; FDA public warning-letter feeds; warning-letter digest rows). Not ClinicalTrials.gov or HHS OCR. Shopify Store Scraper is for Public Shopify catalogs (input storeUrls; Shopify JSON endpoints; store/catalog rows). Not Shopify App Store reviews."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: none (see live fields). Live schema fields: feeds, lookbackDays, recallClasses, maxRecallsPerFeed, delivery, webhookUrl, datasetMode, snapshotKey, notifyOnNoNew, requestTimeoutSeconds, batchDelayMs, dryRun, nowIso. Quickstart: leave feeds empty to monitor all 4 default sources (CPSC + FDA food/drug/device), set lookbackDays=30, recallClasses=[\"I\",\"II\"], and schedule recurring runs additionalProperties is false on the live schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: lookbackDays, recallClasses, maxRecallsPerFeed, delivery, datasetMode, snapshotKey, notifyOnNoNew, batchDelayMs, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. datasetMode can limit emits to changes_only / changed_only / action_needed versus all. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is Product Safety Recall Scraper priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $9.00 / 1,000 Delivered monitoring result row ($0.009 per delivered apify-default-dataset-item). No Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. Delivered monitoring result row (apify-default-dataset-item) $0.009: Charged only when a new or changed monitoring result row is delivered. Unchanged runs are free. Do not use the README Cost block as live pricing. The published README Cost block is stale versus the live Store pricing tab. README Cost still quotes actor-start $0.01. README Cost quotes dataset-item $0.003; live primary is $0.009 (Delivered monitoring result row). Live: Delivered monitoring result row $0.009. This page quotes live PPE only."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

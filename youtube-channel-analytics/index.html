@@ -8,62 +8,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/youtube-channel-analytics/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How is YouTube Channel Analytics Scraper different from YouTube Transcript Scraper?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "This Actor reads public YouTube channel pages. Required input is channelUrls (channel URLs or bare @handles). It returns channel-level public metrics, recent long-form uploads from the Videos tab, and optional Shorts from the Shorts tab. YouTube Transcript Scraper extracts public caption tracks. Its live inputs are videoUrls, videoIds, playlistUrls, and/or channelUrls. It is HTTP-first, does not use a browser, and returns one row per video with full text, timed segments, and formatted SRT, VTT, or plain text. Both Actors can accept channel URLs, but this Actor does not expand channels into caption rows and does not return transcripts. Use this page for competitor cadence and upload mix. Use YouTube Transcript Scraper when the job is video captions."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Do I need a YouTube Data API key or OAuth?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "No. The published README states the Actor collects public metrics without OAuth tokens or YouTube Data API keys. It crawls public channel surfaces: @handle, /channel/, /user/, /c/ URLs, and bare @handles."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What input is required?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "channelUrls is required: one or more YouTube channel URLs or bare @handles. Optional published schema fields are videoLimit (integer, default 8, minimum 1, maximum 25; recent items per section), includeShorts (boolean, default true), timeoutMs (integer, default 20000, minimum 5000, maximum 60000), delivery (dataset or webhook, default dataset), webhookUrl (when delivery is webhook), dryRun (boolean, default false), and maxChargeUsd (number, default 1, minimum 0). additionalProperties is false. README examples that use channels, includeUploadCadence, or includeRecentVideos are not live schema fields."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What does a result contain?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The published README sample is a meta object plus channels[]. meta includes generatedAt, implementationStatus, totalSources, totals (resolved channels, uploads, Shorts, content, warningCount), limits, and notes. Each channels[] item includes inputUrl, status, channel metadata (channelId, title, handle, canonicalUrl, subscriberCountText, totalViewCountText), recentUploads (videoId, title, viewCountText, durationText, keywords), recentShorts (videoId, isShort), rollups (totalResolvedVideos, recentPostingCadenceHint), availability (videosTab, shortsTab, aboutTab), and warnings. README prose also names numeric subscriber count when public, avatar/banner, description/about fields, about-page links, thumbnail, and publish/upload dates when public. There is no published output JSON schema on the Store page. Status values are ok, partial, missing, blocked, invalid, and error."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Can it return YouTube Studio analytics or hidden subscriber counts?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "No. Because the Actor uses public pages only, it cannot provide private YouTube Studio analytics such as watch time, revenue, CTR, impressions, audience demographics, traffic sources, or hidden subscriber counts. Subscriber and view figures exist when YouTube exposes them. Posting cadence is a hint inferred from recent public labels, not official Studio analytics."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How is YouTube Channel Analytics Scraper priced?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Billing is pay per event. The published Store card is from $8.00 per 1,000 results. Published events are Actor Start at $0.001 (charged when the Actor starts; number of events depends on Actor memory, one event per GB, minimum one event) and result at $0.008 (single result in the default dataset). The cheapest first paid path is one channelUrls item. Keep videoLimit at 1 (schema minimum) and includeShorts false when you only need long-form. If that run charges one Actor Start event and writes one default-dataset result, those two events add to $0.001 + $0.008 = $0.009. Extra result events apply if more default-dataset items are written. You are not charged for Apify platform usage, only the fixed event price."
-        }
-      }
-    ]
-  }
-  </script>
 </head>
 <body>
   <header class="site">

@@ -8,62 +8,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/trade-show-exhibitor-intelligence/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How is Trade Show Exhibitor Intelligence different from Tech Events & CFP Calendar Scraper and Contact Page Audit & Business Channel Extractor?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "This Actor extracts exhibitor company and booth fields from public event, sponsor, and exhibitor pages using direct-source URLs or domains you supply, plus same-domain exhibitor links found on those pages. Live schema sources are urls (event exhibitor directory, exhibitor profile, sponsor, or booth listing URLs; maxItems 100) and domains (optional bare event domains, maxItems 100). Published Store description: company names, categories, countries/regions, URLs, social links, and booth information. Tech Events & CFP Calendar Scraper aggregates developer conferences, meetups, and Call for Papers deadlines from confs.tech by topic; required input is topics, not exhibitor page URLs. Contact Page Audit & Business Channel Extractor inventories public business contact channels (support paths, phones, socials) from contact, about, and support pages; person-level emails are suppressed. This Actor is booth and company extraction from supplied exhibitor sources, not a developer speaking calendar and not a contact-page channel audit."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What input is required?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The published input schema has an empty required list. Schema description: provide at least one public event/exhibitor URL or event domain. Live fields are urls (string array, default [], maxItems 100; Public event exhibitor directory, exhibitor profile, sponsor, or booth listing URLs to fetch directly. No search engine discovery is used. Prefill https://www.ces.tech/exhibitors/ and https://www.bio.org/events/bio-international-convention/exhibitor-directory), domains (string array, default [], maxItems 100; optional bare event domains normalized to https://domain/ and inspected for same-domain exhibitor or directory links only; prefill ces.tech, bio.org), eventName (string, default empty; optional event or trade show name used as a parsing hint and fallback eventName field), countryRegionHint (string, default empty; optional country, state, or region used only as a local classification hint when that text appears on the page), maxLinkedPages (integer, default 2, minimum 0, maximum 8), maxResults (integer, default 25, minimum 1, maximum 250), and dryRun (boolean, default false). additionalProperties is false. The published input schema does not include delivery, webhookUrl, search queries, topics, or authentication fields."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What does a result row contain?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The published Store README lists company name, event name, profile URL, and website; categories, country or region, social URLs, booth hall, booth number, and booth label; and description, confidence, status, chargedEvent, sourceUrls, and errors on every dataset row. The published dataset overview view (Trade Show Exhibitor Profiles) lists companyName, eventName, profileUrl, website, categories, countryRegion, booth, boothHall, boothNumber, socialUrls, confidence, status, chargedEvent, sourceUrls, and errors. There is no published output JSON schema sample object on the Store README. The overview field list is the published dataset view, not a live coverage guarantee for every source page."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Does it use search engines or private exhibitor databases?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "No. The live Store README states V1 is direct-source only: it uses URLs or domains you provide plus same-domain exhibitor links found on those pages. It does not use search engines, private portals, authentication, or paid event databases. The live schema description repeats: no search engines, no private portals, no authentication, and no paid/private exhibitor data collection. urls are fetched directly; domains are inspected for same-domain exhibitor or directory links only."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How is Trade Show Exhibitor Intelligence priced?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Billing is pay per event. Live Store events are Exhibitor profile enriched at $0.03 ($30.00 / 1,000): a public exhibitor page or directory entry was structured into company, booth, category, country, URL, or social fields; Partial exhibitor profile at $0.012 ($12.00 / 1,000): a public exhibitor source produced partial but useful exhibitor intelligence fields; and Actor Start at $0.00005, charged when the Actor starts running (number of events depends on Actor memory, one event per GB, minimum one event). Platform usage is listed as included on the pricing page. The README PPE section matches those charged events as exhibitor_profile_enriched (useful enriched exhibitor profile) and exhibitor_partial (useful partial exhibitor evidence). invalid, blocked, not_found, not_exhibitor_page, and error are no-charge diagnostic rows."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do dry runs and no-charge diagnostic rows work?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "dryRun true validates input and writes local output without sending dataset rows or charging custom PPE events. Enriched and useful partial rows are charged with custom PPE events; invalid, blocked, not_found, not_exhibitor_page, and error rows are no-charge diagnostics. The published input schema does not include delivery or webhookUrl. The README says keep maxLinkedPages low for cheap proof runs."
-        }
-      }
-    ]
-  }
-  </script>
 </head>
 <body>
   <header class="site">

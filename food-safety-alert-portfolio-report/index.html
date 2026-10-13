@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/food-safety-alert-portfolio-report/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is UK FSA Food Safety Alert Portfolio Report different from CPSC Recall Portfolio Watch and Product Safety Recall Scraper?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "UK FSA Food Safety Alert Portfolio Report (taroyamada/food-safety-alert-portfolio-report) reads the official UK FSA Food Alerts JSON API (AA, PRIN, FAFA only). Live PPE is food-safety-alert-row $0.008 (Store primary), food-safety-change-alert $0.25, food-safety-portfolio-report $12, and food-safety-export $8. No Actor Start. CPSC Recall Portfolio Watch is US CPSC/NHTSA/openFDA enforcement. Product Safety Recall Scraper is FDA/CPSC digest scraping. CPSC Product Recall Marketplace Watch is CPSC-only. Use this Actor for UK FSA Food Alerts. Use the US Actors for CPSC/NHTSA/FDA. No RASFF scrape. No business-identity inference."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: watchlists, monitorKey, initialRunMode, generateReport, emitRawRows, emitUnchanged, maxChargeUsd, dryRun. watchlists[] required id. Optional: name (max 160), alertTypes (max 3; AA/PRIN/FAFA), allergens (max 20), hazards (max 20), products (max 20), searchTerms (max 20), modifiedSince (ISO), lookbackDays (1–3650, default 30), maxResults (1–100, default 25). Array minItems 1, maxItems 100. Prefill is all-uk-alerts AA/PRIN/FAFA 30d max 25. Optional: emitExport, maxChangedRecords (default 25, min 1, max 1000), requestTimeoutSeconds, rateLimitMs, maxRetries, backoffBaseMs, maxBackoffMs, delivery, webhookUrl. initialRunMode: baseline_only, emit_current_window, or emit_backfill."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the cheapest first paid Try Input?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "baseline_only is free. Skip the $12 report and $8 export. README: changed runs emit food_safety_change_alert ($0.25) even when raw rows are off. emitRawRows false avoids extra $0.008. Cap at 1 change. Default maxChargeUsd 1 covers $0.25. Use one AA-only watchlist, emit_backfill, generateReport false, maxChangedRecords 1, dryRun false."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "README: first changed-run row is food_safety_portfolio_report, then food_safety_change_alert, optional food_safety_alert, optional food_safety_export. Each billable row includes stableKey, idempotencyKey, official source URLs, limitations, and prohibited interpretations. There is no published output JSON schema on the Store page. Treat README samples as illustrations, not a live coverage guarantee."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is UK FSA Food Safety Alert Portfolio Report priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay-per-event. The live Store card is from $8.00 / 1,000 food safety alert rows. Live events are food-safety-alert-row $0.008 (Store API primary), food-safety-change-alert $0.25, food-safety-portfolio-report $12, and food-safety-export $8, each charged when delivered. No Actor Start. README USD amounts match. actor.json marks food-safety-change-alert primary; prefer the Store card which marks food-safety-alert-row primary."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "delivery defaults to dataset and also accepts webhook. dryRun is a fixture path: no network/state/charges. Unchanged context only if another alert changed when emitUnchanged is false. Dataset output is the billable surface when rows are written. maxChangedRecords fails closed if the change set exceeds the cap."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

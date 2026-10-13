@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/clinical-trials-pipeline-monitor/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How is ClinicalTrials.gov Sponsor Pipeline Scraper different from PubMed Literature Watch and Biomedical Trial Literature Evidence Report?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "ClinicalTrials.gov Sponsor Pipeline Scraper (taroyamada/clinical-trials-pipeline-monitor): This Actor queries the official ClinicalTrials.gov API v2 with a watchlist of condition/phase/status queries, flags sponsor watch-terms, and emits digest rows for new or changed studies. No API key is required. Not a patient-matching, IRB, or recruitment-operations tool. Not PubMed literature or NIH Reporter awards. Results are as-published CT.gov records, not medical advice. PubMed Literature Watch is for PubMed citation metadata watches (input search terms / PMIDs; NCBI PubMed; citation rows). Not CT.gov recruitment pipelines. Biomedical Trial Literature Evidence Report is for Capped evidence reports across trial/literature sources (input report inputs; linked public biomedical sources; evidence rows/reports). Not a raw CT.gov watchlist digest. NIH Research Funding Landscape Report is for NIH Reporter award landscape (input org/term filters; NIH Reporter; award rows/reports). Not trial recruitment status."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What input is required?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Live required fields: watchlist. Live schema fields: watchlist, watchTerms, maxStudiesPerQuery, delivery, webhookUrl, datasetMode, snapshotKey, clinicalTrialsApiUrl, requestTimeoutSeconds, notifyOnNoNew, dryRun, nowIso, fixtureDir. exampleRunInput uses one diabetes PHASE3/4 recruiting query plus sponsor watchTerms, datasetMode all, notifyOnNoNew true. Schema default datasetMode is new_only and notifyOnNoNew false. additionalProperties is not documented on this page beyond the live Store schema."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is the best first run?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Use the published Store example run input below. exampleRunInput uses one diabetes PHASE3/4 recruiting query plus sponsor watchTerms, datasetMode all, notifyOnNoNew true. Schema default datasetMode is new_only and notifyOnNoNew false. Keep the first live run small. Use dryRun when you only need to validate input."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What does a result contain?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do dataset, webhook, and dry-run delivery work?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. datasetMode can limit emits to changes_only versus all. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How is ClinicalTrials.gov Sponsor Pipeline Scraper priced?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Billing is pay per event. Live Store card: from $10.00 / 1,000 clinical trial change rows ($0.01 per delivered new or changed study row). No Actor Start. Clinical trial change row (apify-default-dataset-item) $0.01: Charged for one successfully delivered new or changed ClinicalTrials.gov study row. Do not use the README Cost block as live pricing. README Cost quotes actor-start $0.01 + dataset-item $0.003. Live: Clinical trial change row $0.01, no start. Platform usage is listed as included on the Store pricing tab."
-        }
-      }
-    ]
-  }
-  </script>
 </head>
 <body>
   <header class="site">

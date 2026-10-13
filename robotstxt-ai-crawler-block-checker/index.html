@@ -8,62 +8,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/robotstxt-ai-crawler-block-checker/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How is robots.txt Parser & AI Crawler Block Checker different from Meta Tag & OpenGraph Scraper and Sitemap Scraper & Analyzer?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "This Actor fetches and parses robots.txt files. It extracts per-user-agent allow/disallow rules, restricted paths, and crawl-delay directives, then reports per-bot dispositions (blocked, partially blocked, allowed) for AI crawlers such as GPTBot, ClaudeBot, and Google-Extended. Meta Tag & OpenGraph Scraper audits HTML head tags on known page URLs: title, canonical, the HTML robots meta tag, Open Graph, Twitter Card, hreflang, and JSON-LD. That robots field is page-head metadata, not a robots.txt file. Sitemap Scraper & Analyzer reads sitemap.xml and nested sitemap indexes to discover URL inventories; it does not parse robots.txt AI crawler policies. Use this Actor to audit crawl policies in robots.txt, including GPTBot/ClaudeBot disallow. Use Meta Tag & OpenGraph Scraper for page head tags. Use Sitemap Scraper & Analyzer for XML sitemap URL discovery."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What input is required?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "domains is required: a list of domains to analyze robots.txt for AI crawler policies, maximum 500. Live schema fields are domains, delivery (dataset or webhook, default dataset; in demoMode, delivery is always dataset), webhookUrl (used when delivery is webhook; Slack, Discord, or any HTTP endpoint), snapshotKey (default robotstxt-snapshots; record key inside the fixed robotstxt-ai-checker-state Key-Value Store), datasetMode (all or changes_only; live schema default changes_only), concurrency (integer, default 5, minimum 1, maximum 10), dryRun (boolean, default false), and demoMode (boolean, default false; checks only 1 domain, returns compact policy fields, and disables webhook/snapshot writes). additionalProperties is false. Schema prefill is google.com, github.com, nytimes.com, openai.com. The live schema description is: Analyze robots.txt files for AI crawler blocking policies. Track which sites block GPTBot, ClaudeBot, Google-Extended, and 13 more. The README input table still lists datasetMode default as all; the live schema default is changes_only."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Which README input examples are not live schema fields?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "README examples labeled Single domain AI bot audit, Bulk competitor sites, and All-AI-bot policy snapshot send bots, emitPerBotDisposition, and detectAllAiBots. Those names are not in the live input schema. additionalProperties is false, so do not send them. Schema-valid published inputs use domains plus optional delivery, webhookUrl, snapshotKey, datasetMode, concurrency, dryRun, and demoMode. The Store Quickstart JSON uses the schema prefill domains with delivery dataset, snapshotKey robotstxt-snapshots, datasetMode all, concurrency 5, dryRun false, and demoMode false. The published Store example run input uses domains openai.com, github.com, nytimes.com with demoMode true, concurrency 3, and dryRun false."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What does a result contain?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The published README output table lists meta, results, and per-result domain, status, summary, aiPolicies, changes, checkedAt, actorName, rowType, sourceUrl, fetchedAt, warnings, chargedEvent, billingEventName, demoApplied, detailsMasked, and error. Published rowType values are robots_txt_policy_snapshot, robots_txt_missing, robots_txt_error, or robots_txt_invalid_domain. chargedEvent is apify-default-dataset-item for billed Dataset rows, otherwise null. billingEventName is apify-default-dataset-item. sourceUrl is the validated final robots.txt URL. The published Store sample is truncated after the first GPTBot aiPolicies object. It shows a demoMode openai.com row with status ok, summary.totalCrawlers 16, blocked 0, partialBlock 16, allowed 0, changed 0, and GPTBot blocked false, partialBlock true, allowed false. meta.limits in that sample are maxDomains 1, compactPolicies true, webhookEnabled false, snapshotWriteEnabled false. The sample is a README illustration, not a live coverage guarantee."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do datasetMode, demoMode, snapshots, and delivery work?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Live schema default datasetMode is changes_only: it emits only changed results and emits zero rows and zero charges when nothing changed. all emits every result. The README Monitoring Contract and README input table still call all the default; the live schema default is changes_only. Snapshots persist in the fixed named Key-Value Store robotstxt-ai-checker-state; snapshotKey selects only the record inside that store (default robotstxt-snapshots). The snapshot write is not a Dataset event. demoMode true checks only 1 domain, returns compact policy fields, and disables webhook/snapshot writes. delivery defaults to dataset; webhook sends to webhookUrl. In demoMode, delivery is always dataset. dryRun true runs without saving results or sending webhooks. Store Quickstart starts with store-input.example.json at demoMode true, then store-input.templates.json: Demo Quickstart, Production Monitor, or Webhook Alert."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How is robots.txt Parser & AI Crawler Block Checker priced?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Billing is pay per event. The published Store card is $11.00 / 1,000 robots.txt AI policy rows. The billed event is robots.txt AI policy row at $0.011, charged for one delivered source-linked robots.txt AI crawler policy or missing-file row. The README Cost section names apify-default-dataset-item at $0.011 per delivered result and gives 1,000 delivered items = $11.00 as the example after scheduled start-fee removal. The same README notes that current transition pricing may include a temporary legacy start fee until that update activates. changes_only runs with no changed domains emit zero rows and incur zero result charges. The fixed snapshot write is not a Dataset event. No subscription is required."
-        }
-      }
-    ]
-  }
-  </script>
 </head>
 <body>
   <header class="site">

@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/website-rag-readiness-audit/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is Website RAG Readiness Audit different from Website Content Extractor and Article Content Extractor?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Website RAG Readiness Audit (taroyamada/website-rag-readiness-audit): This Actor turns public website URLs into a decision-ready RAG readiness audit with coverage, chunking risk, retrieval cleanup actions, and source URLs. No user API key required. Not a general website-to-markdown dump (use Website Content Extractor). Not article boilerplate cleanup (use Article Content Extractor). Not a JSON-LD validator. Website Content Extractor is for One-shot page-to-markdown (input urls; Page HTML; Markdown/text). Not recurring pricing/legal diffs or RAG audits. Article Content Extractor is for News/blog HTML cleanup (input urls; Article HTML; Headline/byline/body). Not landing-page CRO reports. Structured Data Scraper & Validator is for JSON-LD / Microdata audits (input urls; Page head/body schema; Schema validation rows). Not RAG readiness reports."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: none (see live fields). Live schema fields: urls, domain, reportTier, seedQuestions, maxPages, maxReports, maxChargeUsd, demoMode, dryRun, sourceDatasetId. exampleRunInput keys: reportTier, maxPages, maxReports, maxChargeUsd, demoMode, dryRun."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: reportTier, maxPages, maxReports, maxChargeUsd, demoMode, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is Website RAG Readiness Audit priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: $9.00 per Website RAG snapshot report (website_rag_snapshot_report); $29 per Website RAG readiness report. $0.001 Actor Start. Actor Start (apify-actor-start) $0.001: Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event). Website RAG snapshot report (website_rag_snapshot_report) $9.00: One public website RAG snapshot with coverage score, warnings, source URLs, and prioritized cleanup actions. Website RAG readiness report (website_rag_readiness_report) $29: One deeper website RAG readiness report with chunking risks, retrieval QA actions, and implementation priorities. Platform usage is listed as included on the Store pricing tab."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

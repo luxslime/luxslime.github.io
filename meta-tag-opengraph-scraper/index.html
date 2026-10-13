@@ -8,62 +8,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/meta-tag-opengraph-scraper/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How is Meta Tag & OpenGraph Scraper different from Website Content Extractor?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "This Actor is a technical SEO metadata audit. It parses HTML head content for title, meta description, canonical, robots, charset, viewport, Open Graph, Twitter Card, hreflang, and schema.org JSON-LD, then flags issues such as truncated titles, missing canonicals, missing social preview images, and hreflang errors. Website Content Extractor cleans docs, product, pricing, policy, and help-center pages into markdown or text. It does not produce this metadata-and-issue audit row. Use this Actor when you need what a crawler or social platform sees in the head. Use Website Content Extractor when you need the page body as cleaned content."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do I start a run?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Open the Actor on the Apify Store and supply urls (required, maximum 500). The live input schema sets concurrency default 5 (minimum 1, maximum 10), timeoutMs default 10000 (1000–30000), delivery default dataset (dataset or webhook), optional webhookUrl when delivery is webhook, and dryRun default false. additionalProperties is false. Do not send unpublished aliases such as includeOpenGraph, emitSeoWarnings, or detectDuplicateTitles. Store Quickstart starts with the 3-demo-URL template; SEO Audit uses 50+ URLs; Open Graph Monitor is the published path for ongoing social sharing validation."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What does a result row contain?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The published README output table lists url, title, description, canonical, ogTitle, ogDescription, ogImage, twitterCard, twitterTitle, robots, and lang. The published output example uses nested objects instead: og (title, image, type), twitter (card), hreflang (lang and href), jsonLd (@type and name), and issues. Key Features also lists keywords, viewport, and charset. The sample is a README illustration, not a live coverage guarantee. There is no published full-page markdown or article-body field."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What issues are flagged?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The published FAQ lists truncated titles (over 60 characters), missing description, missing canonical, missing og:image, and duplicate meta description. Key Features also lists missing canonical, truncated titles, missing OG image, and hreflang errors. Use-case copy also covers missing descriptions and malformed structured data on product pages. Catch truncated page titles, missing canonical links, broken social preview images, or accidental noindex directives before they affect search or shares."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Does it render JavaScript or follow redirects?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "It follows redirects: meta tags are extracted from the final URL. It does not render JavaScript. Tags are extracted from the initial HTML only. Tags injected client-side are not captured."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How is Meta Tag & OpenGraph Scraper priced?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Billing is pay per event. The published Store card is $3.00 per 1,000 page metadata audits. The billed event is Page metadata audit at $0.003, charged only for one delivered metadata and issue audit row. You are not charged for Apify platform usage, only the fixed event price."
-        }
-      }
-    ]
-  }
-  </script>
 </head>
 <body>
   <header class="site">

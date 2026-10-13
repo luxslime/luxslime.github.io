@@ -8,62 +8,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/contact-details-extractor/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How is Contact Page Audit & Business Channel Extractor different from Website Content Extractor and Meta Tag & OpenGraph Scraper?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "This Actor inventories public business contact channels from contact, about, support, policy, and company pages you supply. Required input is urls (maximum 100). Each published row is a public_contact_channel observation: supportChannel, phone, socialUrls, domain, sourceUrl, confidence, warnings, and fetchedAt. Person-level email candidates are suppressed. Website Content Extractor cleans docs, product, pricing, policy, and help-center HTML into markdown, text, or HTML (max 200 URLs) and does not emit this contact-channel inventory. Meta Tag & OpenGraph Scraper audits head metadata — title, canonical, robots, Open Graph, Twitter Card, hreflang, and schema.org JSON-LD — and does not extract support forms, phones, or social profiles as business channels. Use this Actor for contact-channel QA and account hygiene. Use Website Content Extractor for cleaned page body. Use Meta Tag & OpenGraph Scraper for crawler/social head metadata."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What input is required?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "urls is required: one to 100 contact, about, support, or company HTTP(S) URLs. Optional live schema fields are concurrency (integer, default 5, minimum 1, maximum 5), timeoutMs (integer, default 15000, minimum 1000, maximum 30000), delivery (dataset or webhook, default dataset), webhookUrl (when delivery is webhook and dryRun is false), dryRun (boolean, default false), and maxChargeUsd (number, default 1, minimum 0). Schema prefill is https://www.icann.org/contact and https://automattic.com/contact/. README examples that send domains and paths instead of urls are not live schema fields."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What does a result row contain?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The published README field list is rowType, domain, sourceUrl, supportChannel, phone, socialUrls, confidence, warnings, and fetchedAt. The published sample wraps rows in a meta object (actorName, actorTitle, bundle, fetchedAt, totalRows). Sample rowType is public_contact_channel. Rows also include source URLs, fetch timestamps, warnings when a source is partial, and stable IDs when the workflow supports recurring change detection. The sample is a README illustration, not a live coverage guarantee. There is no published full-page markdown or meta-tag audit field."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Are person-level emails collected?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "No. The live input schema states person-level email candidates are suppressed. The README states the Actor emits public business contact-channel rows only; person-level private-contact candidates are suppressed and counted in warnings. Individual contact harvesting, personal profile collection, bulk promotional messaging, and consent-free communication workflows are outside the intended use."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How is Contact Page Audit & Business Channel Extractor priced?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Billing is pay-per-event. Live Store events are Actor Start at $0.001 (charged when the Actor starts; number of events depends on Actor memory, one event per GB, minimum one event) and result at $0.002 (single result in the default dataset). That is $2.00 per 1,000 results plus start. The README pricing section still quotes $0.008 per verified public business contact-channel row; live Store billing for a default-dataset result is $0.002. Empty scans, person-level-only pages, unverified rows, and policy-suppressed candidates should not create dataset charges. maxChargeUsd defaults to 1; billable rows beyond that cap are returned as no-charge limit_reached summaries."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do dataset, webhook, dry runs, and the charge cap work?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "delivery defaults to dataset. Non-dry-run Apify runs write canonical dataset rows first. webhook delivery POSTs one full payload only after dataset output succeeds, when delivery is webhook, webhookUrl is set, and dryRun is false. dryRun true skips dataset writes and webhook delivery; local output/result.json is still written. maxChargeUsd is a safety cap for the run (default 1, minimum 0). The default dataset is the billable surface. Dry runs, validation-only runs, missing-key warnings, and unchanged recurring polls should not write payable default-dataset rows."
-        }
-      }
-    ]
-  }
-  </script>
 </head>
 <body>
   <header class="site">

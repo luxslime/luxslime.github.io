@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/dailymed-label-change-watch-report/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is DailyMed Label Change Watch Report different from FDA Warning Letters Scraper and FDA Orange Book Patent & Exclusivity Change Report?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "DailyMed Label Change Watch Report (taroyamada/dailymed-label-change-watch-report): Monitor official DailyMed SPL metadata and version history for selected drugs, labelers, NDCs, applications, or Set IDs. Receive source-linked label-change alerts, impact reports, and optional exports. Not FDA warning letters. Not Orange Book patents. Not FDA shortage records. You supply DailyMed watches. FDA Warning Letters Scraper is for FDA warning-letter pages (input search terms; FDA warning letters; Letter rows). Not DailyMed SPL versions. FDA Orange Book Patent & Exclusivity Change Report is for Orange Book patents/exclusivity (input watches; FDA Orange Book; Patent/exclusivity alerts). Not DailyMed labels. FDA Drug Shortage Supply Change Report is for FDA shortage records (input watches; FDA shortages; Shortage-change alerts). Not DailyMed label versions."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: watches. Live schema fields: watches, monitorKey, initialRunMode, nameType, includeHistory, generateReport, emitRawRows, emitExport, emitUnchanged, maxRecordsPerWatch, maxHistoryEntries, maxChargeUsd, dryRun. Monitor official DailyMed SPL metadata and version history for selected drugs, labelers, NDCs, applications, or Set IDs. Receive source-linked label-change alerts, impact reports, and optional exports. exampleRunInput keys: watches, maxRecordsPerWatch, maxHistoryEntries, maxChargeUsd, dryRun. additionalProperties is false on the live schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: watches, maxRecordsPerWatch, maxHistoryEntries, maxChargeUsd, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is DailyMed Label Change Watch Report priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $5.00 / 1,000 DailyMed label row ($0.005 per delivered dailymed-label-row); $0.20 per DailyMed label change alert; $10.00 per DailyMed label impact report; $6.00 per DailyMed label export. No Actor Start. DailyMed label row (dailymed-label-row) $0.005: Charged only when a dailymed label row row is delivered. DailyMed label change alert (dailymed-label-change-alert) $0.20: Charged only when a dailymed label change alert row is delivered. DailyMed label impact report (dailymed-label-impact-report) $10.00: Charged only when a dailymed label impact report row is delivered. DailyMed label export (dailymed-label-export) $6.00: Charged only when a dailymed label export row is delivered. Platform usage is listed as included on the Store pricing tab."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

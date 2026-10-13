@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/regulatory-obligation-change-impact-report/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is eCFR & Federal Register Change Report different from eCFR CFR Section Change Watch and Federal Register Scraper?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "eCFR & Federal Register Change Report (taroyamada/regulatory-obligation-change-impact-report) compares official eCFR text and Federal Register metadata for CFR watchlists. Live PPE is regulatory-change-row $0.008 (Store primary), obligation-impact-alert $0.30, regulatory-impact-report $12, and regulatory-impact-export $7. No Actor Start. eCFR CFR Section Change Watch is an official eCFR API section watcher with its own alert/digest/report events. Federal Register Scraper is FR items. Regulatory Alerts Scraper is a broader alerts Actor. Use this Actor for obligation-impact watchlists. Use the eCFR section watcher for eCFR-only section diffs. Use Federal Register Scraper for FR-only rows. Not legal advice."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: watchlists, monitorKey, initialRunMode, generateReport, emitRawRows, emitUnchanged, maxChargeUsd, dryRun. watchlists is JSON (minItems 1, maxItems 100); default item is benzene 29 CFR 1910. Optional: emitExport (default false), delivery (dataset or webhook; default dataset), webhookUrl, requestTimeoutSeconds (default 30, min 2, max 120), rateLimitMs (default 250), maxRetries (default 2), backoffBaseMs (default 250), maxBackoffMs (default 4000), maxFederalRegisterDocuments (default 1, min 1, max 100), lookbackDays (default 30, min 1, max 365). Schema default dryRun is true and maxChargeUsd is 0."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the cheapest first paid Try Input?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Copied from the live README Start with a low-cost paid trial: one benzene watchlist, emit_backfill, generateReport false, emitRawRows true, emitExport false, maxFederalRegisterDocuments 1, lookbackDays 30, maxChargeUsd 1, dryRun false. README states it delivers regulatory-change-row $0.008 plus obligation-impact-alert $0.30 when starter evidence matches. baseline_only and unchanged runs are free, not a paid try. maxChargeUsd must be greater than 0 or the plan cannot push (default 0)."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "README fields include rowType, billingEventName, stableKey, sourceUrls, watchlistId, obligationId, cfrCitation, observationKind, changeKinds, watchTermHits, checkedAt, limitations, and prohibitedInterpretations. actor.json datasetSchema is only a relative path to dataset_schema.json — the file is not served on the Store. Treat README samples as illustrations, not a live coverage guarantee."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is eCFR & Federal Register Change Report priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay-per-event. The live Store card is from $8.00 / 1,000 regulatory change rows. Live events are regulatory-change-row $0.008 (Store API primary), obligation-impact-alert $0.30, regulatory-impact-report $12, and regulatory-impact-export $7, each charged only when that row is delivered. No Actor Start. README USD amounts match. actor.json chargeEvents marks obligation-impact-alert as primary; prefer the Store/API card which marks regulatory-change-row as primary. Store event description has a duplicated word (regulatory change row row)."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "delivery defaults to dataset and also accepts webhook. webhookUrl is the HTTPS handoff when delivery is webhook. dryRun defaults to true (no network / state / charges). Unchanged runs still suppressed when emitUnchanged is false. Dataset output is the billable surface when rows are written."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

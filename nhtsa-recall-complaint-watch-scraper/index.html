@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/nhtsa-recall-complaint-watch-scraper/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is NHTSA Recall & Complaint Watch different from NHTSA Recall Scraper and Product Safety Recall Scraper?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "NHTSA Recall & Complaint Watch (taroyamada/nhtsa-recall-complaint-watch-scraper): This Actor tracks official NHTSA recall and complaint records by make, model, model year, campaign, and component watch terms. Not the NHTSA digest Actor (taroyamada/nhtsa-vehicle-recall-digest). Not CPSC product recalls. Not FDA warning letters. Informational only. Not safety or legal advice. NHTSA Recall Scraper is for NHTSA recall digests (input vehicle watches; NHTSA public APIs; Recall digest rows). Not the alert/digest/report watch Actor. Product Safety Recall Scraper is for FDA/CPSC recall digests (input feeds; FDA/CPSC recall feeds; Recall digest rows). Not a CPSC marketplace watch with alert/report PPE. FDA Warning Letters Scraper is for FDA warning-letter digests (input feeds; FDA warning-letter feeds; Warning-letter digest rows). Not CPSC/NHTSA/EPA records."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: feeds. Live schema fields: feeds, watchTerms, lookbackDays, datasetMode, notifyOnNoNew, emitReport, snapshotKey, requestTimeoutSeconds, dryRun, fixturePath, nowIso, initialRunMode. NHTSA Recall & Complaint Watch Scraper Input. exampleRunInput keys: feeds, dryRun."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: feeds, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "README output fence is truncated or invalid JSON on Store. Illustration head: { \"actorName\": \"nhtsa-recall-complaint-watch-scraper\", \"rowType\": \"nhtsa_watch_digest\", \"feedId\": \"accord-2020\", \"feedName\": \"2020 Honda Accord watch\", \"checkedAt\": \"2026-05-11T00:00:00.000Z\", \"fetchedAt\": \"2026-05-11T00:00:00.000Z\", \"sourceUrl\": \"https://api.nhtsa.gov/recalls/re\u2026 Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. datasetMode can limit emits to changes_only / changed_only / action_needed versus all. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is NHTSA Recall & Complaint Watch priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $80.00 / 1,000 NHTSA watch alert ($0.08 per delivered nhtsa-watch-alert); $0.25 per NHTSA digest; $5.00 per NHTSA report. No Actor Start. NHTSA watch alert (nhtsa-watch-alert) $0.08: Charged for each watchlist-matched public NHTSA recall or complaint alert. NHTSA digest (nhtsa-digest) $0.25: Charged for each non-empty NHTSA recall or complaint digest row. NHTSA report (nhtsa-report) $5.00: Charged for each generated NHTSA watch report. Platform usage is listed as included on the Store pricing tab."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

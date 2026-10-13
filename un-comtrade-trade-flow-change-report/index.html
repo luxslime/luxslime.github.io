@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/un-comtrade-trade-flow-change-report/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is UN Comtrade Trade Flow Change Report different from HTS Tariff & Trade Scraper and BIS Export Control List Change Report?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "UN Comtrade Trade Flow Change Report (taroyamada/un-comtrade-trade-flow-change-report): Monitor bounded official UN Comtrade preview queries for new, changed, or removed trade-flow records and generate source-linked trend reports and optional exports. Not HTS tariff-rate changes (use HTS Tariff & Trade Scraper). Not BIS restricted-party lists. Not OFAC sanctions additions. You supply reporter/partner/HS watches. HTS Tariff & Trade Scraper is for HTS tariff changes (input codes; Public HTS; Tariff-change rows). Not UN Comtrade flow tables. BIS Export Control List Change Report is for BIS Entity/DPL/UVL lists (input watchlists; BIS public lists; List-change alerts). Not Comtrade trade flows. Sanctions Change Tracker is for OFAC list additions/removals (input names; OFAC public lists; Sanctions-change rows). Not UN Comtrade flows."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: watches. Live schema fields: watches, monitorKey, initialRunMode, generateReport, emitRawRows, emitExport, emitUnchanged, maxChargeUsd, requestTimeoutSeconds, maxRetries, dryRun. Monitor bounded official UN Comtrade preview queries for new, changed, or removed trade-flow records and generate source-linked trend reports and optional exports. exampleRunInput keys: watches, maxChargeUsd, maxRetries, dryRun. additionalProperties is false on the live schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: watches, maxChargeUsd, maxRetries, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Published README Output Example / Sample Output JSON. Illustration: {   \"rowType\": \"trade_trend_report\",   \"billingEventName\": \"trade-trend-report\",   \"report\": {     \"reportType\": \"bounded_trade_flow_change_report\",     \"queryCount\": 1,     \"changedRecordCount\": 2,     \"newRecordCount\": 1,     \"updatedRecordCount\": 1,     \"removedRecordCount\": 0,     \"byFlow\": [       {         \"key\": \"X\",         \"count\": 2       }     ],     \"coverageNote\": \"Official preview response only; one product and one period per request, max 500 records, not comprehensive trade data.\"   } }  Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is UN Comtrade Trade Flow Change Report priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $6.00 / 1,000 Trade flow row ($0.006 per delivered trade-flow-row); $0.20 per Trade flow change alert; $12.00 per Trade trend report; $8.00 per Trade export. No Actor Start. Trade flow row (trade-flow-row) $0.006: Charged only when a trade flow row is delivered. Trade flow change alert (trade-flow-change-alert) $0.20: Charged only when a trade flow change alert is delivered. Trade trend report (trade-trend-report) $12.00: Charged only when a trade trend report is delivered. Trade export (trade-export-generated) $8.00: Charged only when a trade export is delivered. Platform usage is listed as included on the Store pricing tab."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

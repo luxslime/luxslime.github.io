@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/csv-data-cleaner/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How is CSV Cleaner different from Bulk Email Syntax & MX Validator and Bulk Phone Format Validator?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "This Actor cleans a user-supplied CSV table: trim whitespace, drop empty rows, deduplicate selected columns, and sort. It does not collect third-party data. Store ID taroyamada/csv-data-cleaner. Bulk Email Syntax & MX Validator checks email strings you already have for RFC syntax, DNS MX, and disposable domains; it does not parse CSV tables. Bulk Phone Format Validator formats phone strings to E.164 offline; it does not clean CSV. Pass the cleaned table onward to those Actors when the columns are emails or phones. This is table hygiene on data you provide, not enrichment."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What input is required?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The live input schema has no required array. Supply csvUrl or csvData. Live fields are csvUrl (string; URL to fetch CSV), csvData (string; raw CSV alternative), delimiter (string, default comma), trimWhitespace (boolean, default true), removeEmpty (boolean, default true), dedupColumns (array; columns to dedupe by), sortBy (string), sortOrder (asc or desc, default asc), delivery (dataset or webhook, default dataset), webhookUrl (when delivery is webhook), and dryRun (boolean, default false). README names datasetId, detectTypesOnly, normalizeNulls, dedupeRows, transformations, and removeDuplicates are not live schema fields. Do not invent them. additionalProperties is not set to false on this schema."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What does a result contain?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The published README output table lists rowNumber, data, changes[], dropped, and dropReason. A separate README sample shows aggregate inputRows, outputRows, duplicatesRemoved, emptyRowsRemoved, and cleanedData[]. Those are two published shapes; treat both as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Does this Actor fetch third-party data or validate types?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "No. User-supplied tables only; no third-party enrichment API. There is no type validation. Local files are not accepted as uploads; fetch via a public csvUrl or paste csvData. The schema delimiter field is configurable (default comma). A README FAQ that says TSV is not supported directly conflicts with that delimiter field; prefer the live schema. README also notes in-memory processing and approximate size guidance; those are README claims, not live schema limits."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How is CSV Cleaner & Deduplication Tool priced?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Billing is pay per event. The live Store card is $1.00 / 1,000 cleaned csv rows. The billed event is Cleaned CSV row (apify-default-dataset-item) at $0.001. There is no Actor Start on the current pricing tab. The README Cost section that still quotes actor-start $0.01 plus dataset-item $0.001 ($1.01 per 1,000) is stale versus live Store rates."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do dataset, webhook, and dry-run delivery work?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "delivery defaults to dataset. Set delivery to webhook and provide webhookUrl to POST results. dryRun true runs without saving results. Schema default dryRun is false. The published Store example run input uses inline csvData with a duplicate name row, trimWhitespace true, removeEmpty true, dedupColumns name, sortBy name, delivery dataset, and dryRun false."
-        }
-      }
-    ]
-  }
-  </script>
 </head>
 <body>
   <header class="site">

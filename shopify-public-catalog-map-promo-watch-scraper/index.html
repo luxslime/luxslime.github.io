@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/shopify-public-catalog-map-promo-watch-scraper/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is Shopify Public Catalog Map & Promo Watch different from Shopify Store Scraper and Shopify App Store Review Scraper?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Shopify Public Catalog Map & Promo Watch (taroyamada/shopify-public-catalog-map-promo-watch-scraper): This Actor unofficially maps user-supplied public Shopify storefront catalogs and detects source-linked promo, collection, and catalog map changes. Not Shopify App Store reviews. Not Shopify Admin/API. Not a store-discovery search engine. Confirm authorizedUseConfirmed. Public storefront JSON/HTML only. Shopify Store Scraper is for Public storefront JSON metadata (input storeUrls; Shopify JSON endpoints; Store intelligence rows). Not catalog-map / promo watch events. Shopify App Store Review Scraper is for apps.shopify.com reviews (input app URLs; apps.shopify.com; App review rows). Not merchant storefront catalogs. B2B Pricing Scraper is for Public subscription-tier changes (input competitors[]; Public pricing HTML; Pricing change rows). Not Shopify catalog maps or ads-library pages."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: none (see live fields). Live schema fields: storeDomains, collectionHandles, promoKeywords, maxProductsPerStore, emitBaselineSummary, emitProductRows, generateReport, authorizedUseConfirmed, emitUnchanged, dryRun, initialRunMode, snapshotKey. Map user-supplied public Shopify catalog surfaces and promo signals. exampleRunInput keys: storeDomains, promoKeywords, maxProductsPerStore, emitBaselineSummary, emitProductRows, generateReport, authorizedUseConfirmed, emitUnchanged. additionalProperties is false on the live schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: storeDomains, promoKeywords, maxProductsPerStore, emitBaselineSummary, emitProductRows, generateReport, authorizedUseConfirmed, emitUnchanged. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "README output fence is truncated or invalid JSON on Store. Illustration head: { \"actorName\": \"shopify-public-catalog-map-promo-watch-scraper\", \"rowType\": \"shopify_promo_signal\", \"billingEventName\": \"shopify-promo-signal-detected\", \"storeDomain\": \"example.myshopify.com\", \"promoKeywordHits\": [\"bundle\"], \"sourceUrl\": \"https://example.myshopify.com/products/sa\u2026 Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is Shopify Public Catalog Map & Promo Watch priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $80.00 / 1,000 Shopify catalog map generated ($0.08 per delivered shopify-catalog-map-generated); $0.06 per Shopify promo signal detected; $0.05 per Shopify catalog map change detected; $0.004 per Shopify product map item; $5.00 per Shopify promo watch report. No Actor Start. Shopify catalog map generated (shopify-catalog-map-generated) $0.08: Charged for each storefront-level public catalog map summary row. Shopify promo signal detected (shopify-promo-signal-detected) $0.06: Charged for each source-linked product, collection, or price-promo signal. Shopify catalog map change detected (shopify-catalog-map-change-detected) $0.05: Charged for each new, removed, or changed product map signal. Shopify product map item (shopify-product-map-item) $0.004: Charged for each optional public product map item row when explicitly enabled. Shopify promo watch report (shopify-promo-watch-report) $5.00: Charged for each store-level promo watch report row. Platform usage is listed as included on the Store pricing tab."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

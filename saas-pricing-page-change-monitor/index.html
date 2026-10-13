@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/saas-pricing-page-change-monitor/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is SaaS Pricing Competitor Monitor different from SaaS Pricing Tracker and B2B Pricing Scraper?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "SaaS Pricing Competitor Monitor (taroyamada/saas-pricing-page-change-monitor): This Actor is a SaaS pricing competitor monitor: track plan and price page changes from competitor URLs you paste. Not the SHA256 legal-page watcher (Website Terms & Policy Scraper). Not B2B public-catalog pricing (use B2B Pricing Scraper). Not authenticated billing portals. SaaS Pricing Tracker is for Public SaaS page change rows (input targets; Public pricing/terms HTML; SaaS change rows). Not premium SHA256 legal diffs or battlecards. B2B Pricing Scraper is for Public subscription-tier changes (input competitors[]; Public pricing HTML; Pricing change rows). Not Shopify catalog maps or ads-library pages. Docs & Changelog Drift Scraper is for API docs/changelog drift (input doc URLs; Public docs HTML; Drift rows). Not legal-page SHA256 diffs."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: none (see live fields). Live schema fields: pricingPageUrls, competitors, watchMode, previousSnapshotText, reportTier, maxChargeUsd, demoMode, dryRun, maxReports, sourceDatasetId, webhookUrl. exampleRunInput keys: pricingPageUrls, competitors, previousSnapshotText, reportTier, maxChargeUsd, maxReports, demoMode, dryRun."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: pricingPageUrls, competitors, previousSnapshotText, reportTier, maxChargeUsd, maxReports, demoMode, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. webhookUrl is on the live schema for optional POST delivery. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is SaaS Pricing Competitor Monitor priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: $3.00 per Pricing snapshot report (pricing_snapshot_report); $15 per Competitor pricing report. $0.00005 Actor Start. Actor Start (apify-actor-start) $0.00005: Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event). Pricing snapshot report (pricing_snapshot_report) $3.00: Single public pricing snapshot with plans, price mentions, and pricing-page signals. Competitor pricing report (competitor_pricing_report) $15: Competitor pricing comparison report with change signals and positioning notes. Platform usage is listed as included on the Store pricing tab."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/trust-center-subprocessor-monitor/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How is Subprocessor & Trust Center Scraper different from HHS Healthcare Data Breach Change Scraper and Website Content Extractor?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "This Actor fetches public vendor trust-center, subprocessor, security, and DPA pages you list and emits severity-scored JSON digests with change flags, delta summaries, and remediation guidance. Required input is vendors. Store ID taroyamada/trust-center-subprocessor-monitor. HHS Healthcare Data Breach Change Scraper monitors the public HHS OCR Breach Portal, not vendor trust pages. Website Content Extractor cleans docs/policy HTML into markdown or text; it does not compute subprocessor diffs. SaaS Status Page & Incident Scraper monitors status pages for outages, not DPA text. DMARC and SSL Actors check DNS and TLS, not trust-center HTML."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What input is required?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "vendors is required. Each vendor can use shorthand trustCenterUrl, subprocessorsUrl, securityUrl, dpaUrl, or urlPacks. One vendor plus subprocessorsUrl is enough. Optional live fields are requestTimeoutSeconds (default 30), userAgent, maxChars (default 40000), delivery (dataset, webhook, or email; email is a placeholder and is not implemented), datasetMode (action_needed, changes_only, or all; default changes_only), webhookUrl, notifyOnNoChange (default false), snapshotKey (default trust-center-subprocessor-monitor-snapshots), diffMode (line_summary or hash_only; default line_summary), summaryMaxLines (default 15), concurrency (default 3), batchDelayMs (default 500), nowIso, and dryRun (default false). additionalProperties is false. README examples that send urls[], emitTextDiff, or emitChangedOnly are not live schema fields."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What does a monitoring result contain?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Published README fields include meta, actionNeeded[] (vendorId, vendorName, owner, severity, status, reason, changedPacks, recommendedActions, executiveSummary), and results. The published sample is truncated; treat it as an illustration, not a live coverage guarantee. There is no published output JSON schema on the Store page. changedSinceLastRun-style flags are intended for Jira or security dashboards."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do changes_only, snapshots, and webhooks work?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "datasetMode default is changes_only: emit only when pages changed. all always emits. action_needed emits only when actionNeeded is true. Unchanged runs are free on the live Store event. Keep snapshotKey constant to preserve the baseline; change it to reset. notifyOnNoChange default is false: skip webhook if no change and no action. dryRun true does not persist or deliver. delivery email is documented as a placeholder and is not implemented; use dataset or webhook."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Is this a pentest or a SOC2 certification?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "No. Passive public pages only. Not a pentest: no exploitation, fuzzing, or auth bypass. Published FAQ: evidence artifacts may support SOC2 workflows; the Actor is not itself a SOC2 certification. Scan only pages you are authorized to monitor under your own policy."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How is Subprocessor & Trust Center Scraper priced?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Billing is pay per event. The live Store card is $10.00 / 1,000 delivered monitoring result rows. The billed event is Delivered monitoring result row (apify-default-dataset-item) at $0.01, charged only when a new or changed monitoring result row is delivered. Unchanged runs are free. There is no Actor Start on the current pricing tab. The README Cost section that still quotes $0.01 start plus $0.003 per item is stale."
-        }
-      }
-    ]
-  }
-  </script>
 </head>
 <body>
   <header class="site">

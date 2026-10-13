@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/rdap-domain-monitor/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How is RDAP Domain Expiry & Whois Scraper different from SSL/TLS Certificate Scraper and DNS Propagation Checker?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "This Actor looks up domains you already have through RDAP: expiry timestamps, registrar, registrant/ownership, nameservers, change history, and expiry warnings. Required input is domains (maximum 500). Store ID taroyamada/rdap-domain-monitor. SSL/TLS Certificate Scraper inspects TLS certificates on hostnames (maximum 200): expiry, issuer, SHA-256 fingerprints, optional Google Web Risk; it does not query RDAP. DNS Propagation Checker queries public A/AAAA/MX/TXT/CNAME/NS/SOA across eight resolvers (maximum 200) and does not fetch RDAP registration records. DMARC & Email Security Checker grades SPF, DMARC, MX, and optional DKIM on domains. Use this Actor for RDAP expiry and ownership monitoring."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What input is required?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "domains is required: domain names to look up via RDAP, maximum 500 per run. Schema prefill is example.com and example.org. Optional live schema fields are checkOwnership (boolean, default true), expiryWarningDays (integer, default 30), delivery (dataset or webhook, default dataset), webhookUrl (required when delivery is webhook), snapshotKey (string, default rdap-domain-snapshots), concurrency (integer, default 3), emitUnchanged (boolean, default false), and dryRun (boolean, default false). additionalProperties is false. The published Store example run input uses expiryWarningDays 120 and snapshotKey rdap-domain-monitor-snapshots; those values override the schema defaults. This is an RDAP protocol lookup, not an HTML crawl."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What does a monitoring result contain?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The published README output table lists meta and results[]. Fields per result are domain, status, rdap, changes, warnings, checkedAt, and error. The README sample uses fictional dates and is truncated; treat it as an illustration, not a live coverage guarantee. There is no published output JSON schema on the Store page. Lookup failures stay in the free OUTPUT diagnostic record and are never billed as result rows."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do unchanged rows, snapshots, and webhooks work?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Recurring runs write only initial or changed successful checks to the billable Dataset by default. Stable checks produce 0 Dataset rows and 0 result charges. emitUnchanged defaults to false; keep it off for recurring monitoring. Keep snapshotKey constant across runs for change detection (schema default rdap-domain-snapshots). delivery defaults to dataset. Set delivery to webhook and provide webhookUrl to POST the same summary-plus-results JSON. dryRun true skips saving snapshots and sending webhooks."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How is RDAP Domain Expiry & Whois Scraper priced?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Billing is pay per event. The live Store card is $9.00 / 1,000 delivered monitoring result rows. The billed event is Delivered monitoring result row (apify-default-dataset-item) at $0.009, charged only when a new or changed monitoring result row is delivered. Unchanged runs are free. There is no Actor Start on the current pricing tab. The README Cost section that still quotes actor-start $0.01 plus dataset-item $0.003 is stale; those figures are not the live Store rates."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Does this Actor crawl websites or solve CAPTCHAs?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "No. It looks up registration data through RDAP for hostnames you supply. It is not a page crawler, not HTTP status QA, not TLS handshake inspection, and not a CAPTCHA or anti-bot bypass. Keep concurrency low (README tip: typically 1–10, often at or below 5). Unreachable lookups produce an error row; other domains continue."
-        }
-      }
-    ]
-  }
-  </script>
 </head>
 <body>
   <header class="site">

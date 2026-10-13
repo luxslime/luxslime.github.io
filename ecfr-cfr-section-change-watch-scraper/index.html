@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/ecfr-cfr-section-change-watch-scraper/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is eCFR CFR Section Change Watch different from Federal Register Scraper and Regulatory Alerts Scraper?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "eCFR CFR Section Change Watch (taroyamada/ecfr-cfr-section-change-watch-scraper): This Actor tracks selected CFR titles, parts, and sections from the official eCFR API and emits source-linked change rows for regulatory operations review. Not Federal Register notices (use Federal Register Scraper). Not a general government-page watchlist (use Regulatory Alerts Scraper). Informational only. Not legal advice. Federal Register Scraper is for FR rules and notices (input watch terms; Federal Register; FR digest rows). Not eCFR section diffs. Regulatory Alerts Scraper is for Government page watchlists (input page URLs; Public agency HTML; Page-change rows). Not official eCFR API section watches. FDA Warning Letters Scraper is for FDA warning-letter digests (input feeds; FDA warning-letter feeds; Warning-letter digest rows). Not CPSC/NHTSA/EPA records."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: feeds. Live schema fields: feeds, watchTerms, datasetMode, notifyOnNoNew, snapshotKey, ecfrContentApiUrl, ecfrVersionsApiUrl, requestTimeoutSeconds, delivery, webhookUrl, dryRun, fixturePath, nowIso. exampleRunInput keys: feeds, dryRun."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: feeds, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "README output fence is truncated or invalid JSON on Store. Illustration head: { \"actorName\": \"ecfr-cfr-section-change-watch-scraper\", \"rowType\": \"ecfr_digest\", \"feedId\": \"21-cfr-11\", \"feedName\": \"21 CFR Part 11\", \"checkedAt\": \"2026-05-07T00:00:00.000Z\", \"status\": \"action_needed\", \"newDocCount\": 1, \"totalDocCount\": 1, \"changedSinceLastRun\": true, \"actionNee\u2026 Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. datasetMode can limit emits to changes_only / changed_only / action_needed versus all. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is eCFR CFR Section Change Watch priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $60.00 / 1,000 eCFR change alert ($0.06 per delivered ecfr-change-alert); $0.35 per eCFR digest; $3.00 per eCFR report. No Actor Start. eCFR change alert (ecfr-change-alert) $0.06: Charged for each watchlist-matched CFR section change alert. eCFR digest (ecfr-digest) $0.35: Charged for each non-empty CFR change digest row. eCFR report (ecfr-report) $3.00: Charged for each generated CFR watchlist report. Platform usage is listed as included on the Store pricing tab."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

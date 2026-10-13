@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/ads-library-competitive-intelligence/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is Ads Library Competitive Intelligence different from Chrome Web Store Extension Intelligence and B2B Pricing Scraper?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Ads Library Competitive Intelligence (taroyamada/ads-library-competitive-intelligence): This Actor is a direct-source parser for user-provided public ad-library pages, exports, and saved HTML snapshots. It structures ad creatives and advertiser signals without search, crawling, login, browser automation, pagination, or API replay. Not an ads-library search engine. Not landing-page CRO analysis. Not authenticated ads-manager access. You must supply the source URLs or HTML. Chrome Web Store Extension Intelligence is for Extension listing metadata (input extension URLs; Chrome Web Store HTML; Extension metadata). Not ads-library creatives. B2B Pricing Scraper is for Public subscription-tier changes (input competitors[]; Public pricing HTML; Pricing change rows). Not Shopify catalog maps or ads-library pages. Website Content Extractor is for One-shot page-to-markdown (input urls; Page HTML; Markdown/text). Not recurring pricing/legal diffs or RAG audits."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: none (see live fields). Live schema fields: sourceUrls, htmlSnapshots, savedHtmlFiles, brandHints, maxAdsPerSource, maxSources, dryRun. Provide at least one user-supplied public ad-library/export URL, HTML snapshot, or saved HTML/export file. V1 is direct-source only: no search engines, no browser automation, no login, no pagination, no GraphQL replay, and no scraping of Meta/Google/LinkedIn beyond the exact user-provided public source. ad_creative_profile and ad_library_partial rows are charged; invalid, blocked, not_found, not_ad_library, and error rows are no-charge diagnostics. Every row includes status, chargedEvent, sourceUrls, and errors. exampleRunInput keys: sourceUrls, maxAdsPerSource, maxSources, dryRun. additionalProperties is false on the live schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: sourceUrls, maxAdsPerSource, maxSources, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is Ads Library Competitive Intelligence priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $20.00 / 1,000 Ad creative profile ($0.02 per delivered ad_creative_profile); $0.008 per Partial ad library intelligence. $0.00005 Actor Start. Actor Start (apify-actor-start) $0.00005: Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event). Ad creative profile (ad_creative_profile) $0.02: A normalized ad creative row was extracted from a user-provided public ad-library page, export, or saved HTML snapshot. Partial ad library intelligence (ad_library_partial) $0.008: Useful ad-library level evidence was extracted when a complete ad creative row was not available. Platform usage is listed as included on the Store pricing tab."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

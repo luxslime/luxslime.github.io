@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/ftc-enforcement-case-delta-report/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is FTC Enforcement Case Delta & Report different from EPA ECHO Enforcement Scraper and Regulatory Alerts Scraper?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "FTC Enforcement Case Delta & Report (taroyamada/ftc-enforcement-case-delta-report): Track source-linked changes on the FTC public Cases and Proceedings page and receive structured case alerts, evidence summaries, and exports. Not EPA ECHO facility enforcement. Not a Federal Register digest. Not a general regulatory-alert scraper. No actor-start event on live PPE. EPA ECHO Enforcement Scraper is for EPA ECHO enforcement (input facilities / terms; ECHO public data; Enforcement rows). Not FTC case dockets. Regulatory Alerts Scraper is for Regulatory alert pages (input urls / terms; Public regulatory pages; Alert rows). Not FTC Cases and Proceedings. Federal Register Scraper is for Federal Register documents (input terms; Federal Register; Document rows). Not FTC enforcement cases."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: none (see live fields). Live schema fields: searchTerms, actionTypes, caseStatuses, updatedSince, maxPages, maxCases, monitorKey, initialRunMode, emitUnchanged, emitRawRows, generateReport, emitExport, maxChargeUsd, dryRun. Track source-linked changes on the FTC public Cases and Proceedings page and receive structured case alerts, evidence summaries, and exports. exampleRunInput keys: maxPages, maxCases, monitorKey, initialRunMode, emitUnchanged, emitRawRows, generateReport, emitExport. additionalProperties is false on the live schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: maxPages, maxCases, monitorKey, initialRunMode, emitUnchanged, emitRawRows, generateReport, emitExport. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is FTC Enforcement Case Delta & Report priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $6.00 / 1,000 FTC case row ($0.006 per delivered ftc-case-row); $0.20 per FTC case change alert; $12.00 per FTC enforcement evidence report; $8.00 per FTC case export. No Actor Start. FTC case row (ftc-case-row) $0.006: Charged for an optional source-linked changed FTC case row. FTC case change alert (ftc-case-change-alert) $0.20: Charged for each new or changed public FTC case alert. FTC enforcement evidence report (ftc-enforcement-report) $12.00: Charged for each source-linked FTC case change evidence report. FTC case export (ftc-export-generated) $8.00: Charged for each structured export of changed FTC case records and source links. Platform usage is listed as included on the Store pricing tab."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

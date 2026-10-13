@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/email-deliverability-portfolio-audit/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is Bulk Email DNS Audit Scraper different from DMARC & Email Security Checker and Bulk Email Syntax & MX Validator?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Bulk Email DNS Audit Scraper (taroyamada/email-deliverability-portfolio-audit): This Actor resolves DNS for domains you supply and extracts SPF, DKIM (optional selectors), DMARC, and BIMI records into deliverability-readiness rows. It is a domain DNS audit, not an email-address syntax validator. Not inbox placement testing. Not a bulk email sender. Not the Bulk Email Syntax & MX Validator (addresses). Distinct from DMARC & Email Security Checker’s lighter SPF/DMARC/MX path. DMARC & Email Security Checker is for SPF/DMARC/MX check (input domains; DNS TXT; email-auth rows). Not a full BIMI/DKIM portfolio audit. Bulk Email Syntax & MX Validator is for Address syntax + MX (input emails; user-supplied addresses; syntax/MX rows). Not domain SPF/DMARC/BIMI. SSL/TLS Certificate Scraper is for TLS cert expiry (input domains; TLS handshake; cert rows). Not DNS email-auth records."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: domains. Live schema fields: domains, followRedirects, checkDkim, dkimSelectors, checkBimi, delivery, webhookUrl, snapshotKey, concurrency, dryRun. Audit email deliverability readiness for one domain or a small portfolio using stable public DNS, transport, and sender-readiness signals. additionalProperties is false on the live schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: domains, followRedirects, checkDkim, checkBimi, delivery, snapshotKey, concurrency, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is Bulk Email DNS Audit Scraper priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $9.00 / 1,000 result ($0.009 per delivered apify-default-dataset-item). $0.001 Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. result (apify-default-dataset-item) $0.009: Single result in the default dataset. Actor Start (apify-actor-start) $0.001: Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event). Do not use the README Cost block as live pricing. The published README Cost block is stale versus the live Store pricing tab. README Cost quotes actor-start $0.01; live Actor Start is $0.001. README Cost quotes dataset-item $0.003; live primary is $0.009 (result). Live: result $0.009, Actor Start $0.001. This page quotes live PPE only."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

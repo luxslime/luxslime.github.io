@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/public-vendor-registry-intelligence/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is Public Vendor Registry Intelligence different from TED, SAM.gov & Grants Bid Alerts and Government Contract Award Change Report?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Public Vendor Registry Intelligence (taroyamada/public-vendor-registry-intelligence): This Actor extracts procurement-ready B2B fields from public vendor registry, supplier portal, and supplier registration pages using direct-source URLs only. No search-engine discovery. Not SAM.gov opportunity search. Not authenticated supplier portals. Direct-source URLs only. TED, SAM.gov & Grants Bid Alerts is for Open opportunities / tenders (input keywords / jurisdictions; SAM/TED/Grants notices; Opportunity rows). Not vendor-pursuit profiles, Form D notices, or post-award spend reports. Government Contract Award Change Report is for Post-award spend/award changes (input feeds; TED / USASpending awards; Award change rows). Not open bid queues. Trade Show Exhibitor Intelligence is for Booth fields from supplied URLs (input exhibitor URLs; User-supplied show pages; Exhibitor rows). Not ATS job boards."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: none (see live fields). Live schema fields: urls, domains, buyerType, region, maxLinkedPages, maxResults, dryRun. Provide at least one public vendor registry URL or procurement domain. V1 is direct-source only: no search engines, no private portals, no authentication, and no paid/private supplier data collection. Enriched and useful partial rows are charged with custom PPE events; invalid, blocked, not_found, not_vendor_registry, and error rows are no-charge diagnostics. exampleRunInput keys: urls, domains, maxLinkedPages, maxResults, dryRun. additionalProperties is false on the live schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: urls, domains, maxLinkedPages, maxResults, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is Public Vendor Registry Intelligence priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $45.00 / 1,000 Vendor registry profile enriched ($0.045 per delivered vendor_profile_enriched); $0.02 per Partial vendor registry profile. $0.00005 Actor Start. Actor Start (apify-actor-start) $0.00005: Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event). Vendor registry profile enriched (vendor_profile_enriched) $0.045: A public vendor registry, supplier portal, or registration page was structured into procurement-ready fields. Partial vendor registry profile (vendor_partial) $0.02: A public vendor registry or supplier page produced partial but useful procurement-ready fields. Platform usage is listed as included on the Store pricing tab."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

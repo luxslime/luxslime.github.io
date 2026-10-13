@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/status-page-incident-digest-monitor/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How is SaaS Status Page & Incident Scraper different from HHS Healthcare Data Breach Change Scraper and RSS Feed Extractor?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "This Actor fetches public vendor status pages and optional incident RSS/JSON feeds, then emits one executive digest per vendor: current state, incident counts, affected components, recommended actions, and evidence. Required input is vendors (objects with statusPageUrl). Store ID taroyamada/status-page-incident-digest-monitor. HHS Healthcare Data Breach Change Scraper monitors the public HHS OCR Breach Portal, not SaaS status pages. RSS & Atom Feed Extractor parses known-publisher feed XML for headlines and item URLs; it is not a vendor-incident digest. Google News Scraper is query-based news RSS. Use this Actor for third-party SaaS/cloud status pages you list."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What input is required?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "vendors is required: an array of objects. Each vendor must have statusPageUrl; incidentFeedUrl, id, name, criticality, owner, and tags are optional. Schema prefill is Stripe at https://status.stripe.com with history RSS. Optional live fields are requestTimeoutSeconds (integer, default 30), userAgent, maxIncidentsPerVendor (integer, default 10), incidentLookbackDays (integer, default 30; 0 means all), delivery (dataset or webhook, default dataset), datasetMode (all, changes_only, or action_needed, default all), webhookUrl, notifyOnNoChange (boolean, default false), snapshotKey (string, default status-page-incident-snapshots), concurrency (integer, default 3), nowIso, and dryRun (boolean, default false). additionalProperties is false. README examples that send vendors as strings, incidentSinceDays, or emitChangedOnly are not live schema fields."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What does a digest contain?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Published README fields include vendorId, vendorName, checkedAt, executiveSummary, incidentState, incidentCount, affectedComponents, actionNeeded, recommendedActions, changedSinceLastRun, evidence, and meta (statusPageUrl, incidentFeedUrl, criticality, owner, tags, parseSource, fingerprint, previousFingerprint, isFirstRun). The published Stripe sample is a README illustration, not a live coverage guarantee. Unreachable pages set incidentState unknown and actionNeeded true."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do datasetMode, snapshots, and webhooks work?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "datasetMode default is all: always emit the digest. changes_only emits when the fingerprint changed. action_needed emits only when actionNeeded is true. Keep snapshotKey constant for change detection (schema default status-page-incident-snapshots; Store example run uses status-page-incident-quickstart). notifyOnNoChange default is false: skip webhook when nothing changed. dryRun true saves no snapshots and fires no webhook. HTTP plus JSON/RSS parsing; no headless browser."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How is SaaS Status Page & Incident Scraper priced?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Billing is pay per event. The live Store card is $8.00 / 1,000 status incident digests. The billed event is Status incident digest (apify-default-dataset-item) at $0.008, charged for one delivered vendor status baseline or changed incident digest. There is no Actor Start on the current pricing tab. The README Cost section that still quotes $0.01 start plus $0.003 per item is stale."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Does this Actor log into vendor portals or render a browser?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "No. It uses HTTP plus JSON/RSS parsing without a headless browser. It is not for authenticated internal portals and it does not bypass anti-bot. incidentFeedUrl is optional. Only scan public status pages you are authorized to monitor."
-        }
-      }
-    ]
-  }
-  </script>
 </head>
 <body>
   <header class="site">

@@ -6,38 +6,6 @@
   <title>Apple Podcasts reviews scraper — rating, review text, and storefront</title>
   <meta name="description" content="Apple Podcasts reviews scraper for official iTunes Customer Reviews RSS: rating, review text, storefront, and source URL. Snapshot, delta monitor, or one summary report. Pricing: see Store.">
   <link rel="canonical" href="https://apify.momiji-space.com/use-cases/apple-podcast-reviews/">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Can I scrape Apple Podcasts reviews without a collection ID?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "No. Apple Podcasts Reviews Scraper requires podcastIds: numeric iTunes collection ID strings. Take an ID from an Apple Podcasts URL (id1535809341 becomes 1535809341) or get IDs first with Apple Podcasts Scraper search or lookupIds. It does not accept show URLs, searchTerm, or episode feeds. At most 25 unique IDs, 10 countries, and 10 pages per show/country pair; over-limit input fails instead of being silently truncated."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is the difference between review rows and a podcast review report?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Default snapshot delivery is podcast_review rows: reviewerName, rating, title, content, storefront, sourceUrl, and fetchedAt. Set generateReport true to deliver exactly one podcast_review_report (counts, average, five-point distribution, latest date, and up to ten low-rating samples with source URLs). Raw reviews then stay in the runtime reviews array and are not written to the default dataset. mode=monitor can emit only new or changed reviews after a baseline_only first run."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Does this Apple Podcasts reviews scraper also scrape G2 or Shopify reviews?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "No. This Actor reads official iTunes Customer Reviews RSS JSON for podcast collection IDs and storefronts only. G2 and Capterra product review pages belong on G2 & Capterra Review Scraper. Shopify App Store merchant listings belong on Shopify App Store Review Scraper. Use the Review Intelligence pack to choose among those three sources."
-        }
-      }
-    ]
-  }
-  </script>
   <style>
     body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
     main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }

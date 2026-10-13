@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/sec-13f-institutional-holdings-change-report/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is SEC 13F Institutional Holdings Change Report different from SEC EDGAR Scraper and SEC Insider Transaction Scraper?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "SEC 13F Institutional Holdings Change Report (taroyamada/sec-13f-institutional-holdings-change-report): Track institutional 13F holdings using official SEC EDGAR filings. Receive source-linked holding-change alerts, reports, and optional exports. Not a general EDGAR 8-K/S-1 monitor. Not Form 4 insider transactions. Not Schedule 13D/13G beneficial-ownership. You supply filer watchlists. Live schema requires userAgent. SEC EDGAR Scraper is for 8-K and S-1 filing alerts (input tickers / CIKs; EDGAR; Filing rows). Not 13F holdings tables. SEC Insider Transaction Scraper is for Form 4 insider trades (input tickers / CIKs; EDGAR Form 4; Transaction rows). Not 13F institutional holdings. SEC 13D & 13G Beneficial Ownership Change Report is for Schedule 13D/13G (input watchlists + userAgent; EDGAR 13D/13G; Ownership-change alerts). Not 13F table holdings."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: watchlists, userAgent. Live schema fields: watchlists, lookbackFilings, monitorKey, userAgent, initialRunMode, generateReport, emitRawRows, emitExport, emitUnchanged, maxRequests, requestIntervalMs, maxChargeUsd, dryRun. Track institutional 13F holdings using official SEC EDGAR filings. Receive source-linked holding-change alerts, reports, and optional exports. exampleRunInput keys: watchlists, userAgent, maxRequests, maxChargeUsd, dryRun. additionalProperties is false on the live schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: watchlists, userAgent, maxRequests, maxChargeUsd, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is SEC 13F Institutional Holdings Change Report priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $6.00 / 1,000 SEC 13F holding row ($0.006 per delivered sec-13f-holding-row); $0.25 per SEC 13F holdings change alert; $12.00 per SEC 13F portfolio change report; $8.00 per SEC 13F evidence export. No Actor Start. SEC 13F holding row (sec-13f-holding-row) $0.006: Charged only when a sec 13f holding row row is delivered. SEC 13F holdings change alert (sec-13f-holdings-change-alert) $0.25: Charged only when a sec 13f holdings change alert row is delivered. SEC 13F portfolio change report (sec-13f-portfolio-change-report) $12.00: Charged only when a sec 13f portfolio change report row is delivered. SEC 13F evidence export (sec-13f-export) $8.00: Charged only when a sec 13f evidence export row is delivered. Platform usage is listed as included on the Store pricing tab."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

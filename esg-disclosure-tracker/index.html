@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/esg-disclosure-tracker/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How is SEC & ESG Report Scraper different from TED, SAM.gov & Grants Bid Alerts and NIH Research Funding Landscape Report?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "SEC & ESG Report Scraper (taroyamada/esg-disclosure-tracker): This Actor monitors company disclosure packs you configure: sustainability/IR URLs and optional SEC EDGAR submissions by CIK and form types. It snapshots extracted text and emits company-level change rows. Not a GHG inventory, ESG rating, or legal/audit opinion. Public IR pages and EDGAR only. TED, SAM.gov & Grants Bid Alerts is for Procurement notices (input keywords; SAM/TED/Grants; opportunity rows). Not SEC ESG disclosures. NIH Research Funding Landscape Report is for NIH awards (input org/term filters; NIH Reporter; award rows). Not corporate ESG filings. Website Content Extractor is for One-shot page markdown (input urls; HTML; markdown). Not recurring EDGAR/IR diffs."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What input is required?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Live required fields: companies. Live schema fields: companies, requestTimeoutSeconds, maxChars, delivery, datasetMode, webhookUrl, notifyOnNoChange, snapshotKey, diffMode, summaryMaxLines, concurrency, batchDelayMs, dryRun, nowIso. exampleRunInput monitors Microsoft sustainability URL plus CIK 789019 10-K/10-Q/8-K. datasetMode default changes_only. email delivery is a placeholder enum. additionalProperties is not documented on this page beyond the live Store schema."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is the best first run?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Use the published Store example run input below. exampleRunInput monitors Microsoft sustainability URL plus CIK 789019 10-K/10-Q/8-K. datasetMode default changes_only. email delivery is a placeholder enum. Keep the first live run small. Use dryRun when you only need to validate input."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What does a result contain?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "README output fence is truncated or invalid JSON on Store. Illustration head: { \"meta\": { \"generatedAt\": \"2026-04-05T13:28:06.026Z\", \"now\": \"2026-03-25T12:00:00.000Z\", \"input\": { \"companyCount\": 2, \"surfaceCount\": 5, \"delivery\": \"dataset\", \"datasetMode\": \"all\", \"diffMode\": \"line_summary\", \"summaryMaxLines\": 12, \"concurrency\": 2, \"batchDelayMs\": 0, \"dryRun\": false }, \"snapshot\": { \"key\": \"local-esg-disclosure-proof\", \"loadedFrom\": \"local\", \"savedTo\": \"local\" }, \"warnings\": [], \"totals\": { \"com… Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do dataset, webhook, and dry-run delivery work?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. datasetMode can limit emits to changes_only versus all. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How is SEC & ESG Report Scraper priced?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Billing is pay per event. Live Store card: from $10.00 / 1,000 delivered monitoring result rows ($0.01 per new or changed company row). No Actor Start. Unchanged runs are free. Delivered monitoring result row (apify-default-dataset-item) $0.01: Charged only when a new or changed monitoring result row is delivered. Unchanged runs are free. Do not use the README Cost block as live pricing. README Cost quotes actor-start $0.01 + dataset-item $0.003. Live: Delivered monitoring result row $0.01, no start. Platform usage is listed as included on the Store pricing tab."
-        }
-      }
-    ]
-  }
-  </script>
 </head>
 <body>
   <header class="site">

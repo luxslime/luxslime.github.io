@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/fda-510k-device-clearance-landscape-report/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is FDA 510(k) Device Clearance Landscape Report different from FDA Warning Letters Scraper and USPTO Patent Search Scraper?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "FDA 510(k) Device Clearance Landscape Report (taroyamada/fda-510k-device-clearance-landscape-report): Monitor official FDA 510(k) device clearance records. Generate source-linked change alerts, landscape reports, and optional exports. Not FDA warning letters. Not USPTO patents. Not a ClinicalTrials.gov pipeline. You supply watches against public 510(k) data. FDA Warning Letters Scraper is for FDA warning-letter pages (input search terms; FDA warning letters; Letter rows). Not 510(k) clearance landscape. USPTO Patent Search Scraper is for USPTO patent search (input queries; USPTO public search; Patent rows). Not FDA device clearances. ClinicalTrials.gov Sponsor Pipeline Scraper is for Sponsor study inventory (input sponsors / conditions; ClinicalTrials.gov; Study rows). Not 510(k) device clearances."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: watches. Live schema fields: watches, monitorKey, initialRunMode, generateReport, emitRawRows, emitExport, emitUnchanged, maxRecordsPerWatch, maxChargeUsd, openfdaApiKey, dryRun. Monitor official FDA 510(k) device clearance records. Generate source-linked change alerts, landscape reports, and optional exports. exampleRunInput keys: watches, maxRecordsPerWatch, maxChargeUsd, dryRun. additionalProperties is false on the live schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: watches, maxRecordsPerWatch, maxChargeUsd, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is FDA 510(k) Device Clearance Landscape Report priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $4.00 / 1,000 FDA 510(k) row ($0.004 per delivered fda-510k-row); $0.20 per FDA clearance change alert; $10.00 per FDA clearance landscape report; $6.00 per FDA clearance export. No Actor Start. FDA 510(k) row (fda-510k-row) $0.004: Charged only when a fda 510(k) row row is delivered. FDA clearance change alert (fda-clearance-change-alert) $0.20: Charged only when a fda clearance change alert row is delivered. FDA clearance landscape report (fda-clearance-landscape-report) $10.00: Charged only when a fda clearance landscape report row is delivered. FDA clearance export (fda-clearance-export) $6.00: Charged only when a fda clearance export row is delivered. Platform usage is listed as included on the Store pricing tab."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

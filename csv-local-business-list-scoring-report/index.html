@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/csv-local-business-list-scoring-report/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is CSV Local Business List Scoring Report different from CSV Cleaner & Deduplication Tool and Google Maps Lead Enrichment?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "CSV Local Business List Scoring Report (taroyamada/csv-local-business-list-scoring-report): This Actor turns pasted CSV business lists into CRM hygiene, local SEO gap, and prioritization reports without scraping Google Maps or extracting contacts. Does not scrape Google Maps. Does not extract emails/phones from the web. Not a CSV cleaner (use CSV Cleaner & Deduplication Tool). You paste the list. CSV Cleaner & Deduplication Tool is for Trim/dedupe/sort user CSV (input CSV text; User-supplied CSV; Cleaned CSV rows). Not local-SEO scoring reports. Google Maps Lead Enrichment is for Enrich existing leads (input business inputs; Enrichment APIs; Lead rows). Does not scrape Maps or ATS boards. Contact Page Audit is for Public contact-channel extract (input page URLs; Public contact pages; Channel rows). Not CSV list scoring."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: none (see live fields). Live schema fields: csvText, businesses, reportTier, maxChargeUsd, demoMode, dryRun, maxReports, sourceDatasetId, webhookUrl. exampleRunInput keys: csvText, reportTier, maxChargeUsd, maxReports, demoMode, dryRun."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: csvText, reportTier, maxChargeUsd, maxReports, demoMode, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. webhookUrl is on the live schema for optional POST delivery. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is CSV Local Business List Scoring Report priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: $3.00 per Lead scoring report (lead_scoring_report); $15 per Agency lead gap report. $0.00005 Actor Start. Actor Start (apify-actor-start) $0.00005: Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event). Lead scoring report (lead_scoring_report) $3.00: CSV lead scoring report with priority buckets and basic local SEO/list hygiene gaps. Agency lead gap report (agency_lead_gap_report) $15: Agency-ready segment comparison with list quality, SEO gaps, and suggested client/audience buckets. Platform usage is listed as included on the Store pricing tab."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

@@ -8,62 +8,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/dns-propagation-checker/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How is DNS Propagation Checker different from Website Content Extractor?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "This Actor queries public DNS. Required input is domains (maximum 200 hostnames), not page URLs. It looks up A, AAAA, MX, TXT, CNAME, NS, and SOA records across eight public resolvers using Node.js dns.Resolver and does not fetch HTTP(S) HTML. Website Content Extractor fetches public docs, product, pricing, policy, and help-center URLs and returns cleaned markdown, text, or HTML. Use this Actor to verify nameserver and record propagation. Use Website Content Extractor when you need page content."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Why query 8 public resolvers instead of one lookup?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "DNS caching varies by resolver. Checking multiple resolvers shows which ones have updated after a change. The published resolvers are Google, Cloudflare, Quad9, OpenDNS, Cisco Umbrella, Level3, Verisign, and Dyn. README examples compare 8.8.8.8, 1.1.1.1, and 208.67.222.222. This is not a geographic probe: all queried resolvers are major public ones."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What input is required?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "domains is required: up to 200 hostnames. Optional published schema fields are recordTypes (supported: A, AAAA, MX, TXT, CNAME, NS, SOA; schema prefill A and MX; README default A), delivery (dataset or webhook, default dataset), webhookUrl (when delivery is webhook), dryRun (boolean, default false), and maxChargeUsd (number, default 1, minimum 0). additionalProperties is false. README examples that include waitForFullPropagation or resolvers are not live schema fields."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What does a result contain?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The published README field table lists domain, recordType, resolver, values, ttl, queryTimeMs, and error. The published README sample is one row per domain and record type with a resolvers array (name, ip, values, ttl), plus isConsistent and inconsistencies. There is no separate published dataset or output JSON schema on the Store page. The sample is a README illustration, not a live coverage guarantee."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Does it check geographic, private, or DNSSEC records?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "No geographic check: all resolvers queried are major public ones. Private or internal DNS is not supported; those names return NXDOMAIN. DNSSEC chain verification is not currently supported. Typical propagation time is TTL-dependent; the README states most DNS changes propagate globally within 1-24 hours. Low TTLs under 300 seconds propagate fast; high TTLs over 3600 seconds may take hours globally."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How is DNS Propagation Checker priced?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Billing is pay per event. The published Store price is $8.00 per 1,000 DNS propagation results. The billed event is DNS propagation result at $0.008, charged only for one successfully delivered DNS propagation result row. You are not charged for Apify platform usage, only the fixed event price. maxChargeUsd defaults to 1 as a safety cap for billable dataset rows in the run. Dry runs do not save results."
-        }
-      }
-    ]
-  }
-  </script>
 </head>
 <body>
   <header class="site">

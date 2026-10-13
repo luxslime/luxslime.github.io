@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/sec-form-d-offering-notices-scraper/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is SEC Form D Exempt Offering Notices different from SEC EDGAR Scraper and SEC Insider Transaction Scraper?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "SEC Form D Exempt Offering Notices (taroyamada/sec-form-d-offering-notices-scraper): This Actor tracks as-filed SEC Form D and D/A exempt offering notices from EDGAR with stable IDs for recurring regulatory trigger monitoring. Not 8-K/S-1 filing-index alerts. Not Forms 3/4/5. Not exhibit-contract extraction. Informational only. Not investment advice. SEC EDGAR Scraper is for 8-K and S-1 filing alerts (input companies; Public EDGAR; Filing-index rows). Not Form D notices or 8-K item candidates. SEC Insider Transaction Scraper is for Forms 3, 4, 5 (input issuers; EDGAR ownership forms; Insider transaction rows). Not Form D exempt offerings. SEC Material Contract Intelligence is for Exhibit/contract leads (input issuers; EDGAR exhibits; Contract intelligence rows). Not Form D or insider Forms 3/4/5."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: none (see live fields). Live schema fields: mode, issuers, daysBack, secUserAgent, knownStableIds, maxChargeUsd, limit, firstRunMode, delivery, webhookUrl, dryRun. Track as-filed SEC Form D and D/A exempt offering notices from official EDGAR sources for regulatory trigger monitoring. exampleRunInput keys: mode, issuers, knownStableIds, daysBack, limit, secUserAgent, firstRunMode, delivery, dryRun, maxChargeUsd. additionalProperties is false on the live schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: mode, issuers, knownStableIds, daysBack, limit, secUserAgent, firstRunMode, delivery, dryRun, maxChargeUsd. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "README output fence is truncated or invalid JSON on Store. Illustration head: { \"meta\": { \"actorName\": \"sec-form-d-offering-notices-scraper\", \"actorTitle\": \"SEC Form D Exempt Offering Notices Scraper\", \"bundle\": \"Regulatory Trigger Pack\", \"fetchedAt\": \"2026-05-06T00:00:00.000Z\", \"totalRows\": 1 }, \"rows\": [ { \"actorName\": \"sec-form-d-offering-notices-scrape\u2026 Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is SEC Form D Exempt Offering Notices priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $8.00 / 1,000 result ($0.008 per delivered apify-default-dataset-item). $0.00005 Actor Start. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE. Actor Start (apify-actor-start) $0.00005: Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event). result (apify-default-dataset-item) $0.008: Single result in the default dataset. README quotes $0.001 actor start; live Store Actor Start is $0.00005. README quotes $0.025 per emitted trigger row; live primary is $0.008 (result). This page quotes live PPE only. Platform usage is listed as included on the Store pricing tab."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

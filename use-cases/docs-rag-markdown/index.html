@@ -6,38 +6,6 @@
   <title>Website content extractor for docs and help-center RAG — markdown source rows</title>
   <meta name="description" content="Website content extractor for docs and help-center RAG: fetch public docs, pricing, policy, and help-center URLs you already have and return cleaned markdown. Live Store price from $9.00 / 1,000 results.">
   <link rel="canonical" href="https://apify.momiji-space.com/use-cases/docs-rag-markdown/">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Can this website extractor feed a docs and help-center RAG corpus?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes, as a bounded source step. Website Content Extractor fetches public docs, pricing, product, policy, and help-center URLs you already have and returns structured web_content rows: title, markdown or text, wordCount, metadata, sourceUrl, and fetchedAt. outputFormat defaults to markdown, which the live input schema recommends for first-run proof and downstream reuse. It is not a search surface, a full-site crawler, or a buyer-facing Site QA or RAG report Actor. You supply the URL list (maximum 200). Failed or no-content rows stay out of the default dataset."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Why not send news or blog URLs to Website Content Extractor?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Those URLs are article-shaped. Article Content Extractor is for news, blog, newsroom, and press pages when you need headline, byline, publish date, article body, excerpt, and hero image (maximum 300). Website Content Extractor is for broader site pages that are not article-shaped (maximum 200). For news and blog RAG, use the article extractor use case. Route docs, pricing, policy, and product pages here."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is the cheapest first paid website extractor input for RAG?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The published Store Quickstart is one urls item, outputFormat markdown, delivery dataset, and dryRun false. Leave generateReport and emitExport off; those belong on a linked report Actor. Live PPE is $0.009 per useful content row plus Actor Start $0.001. That is a paid run only when dryRun is false and a useful content row is written."
-        }
-      }
-    ]
-  }
-  </script>
   <style>
     body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
     main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }

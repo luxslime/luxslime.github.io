@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/apple-app-store-intelligence/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How is Apple App Store Scraper different from Chrome Web Store Extension Intelligence and Website Content Extractor?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Apple App Store Scraper — Ratings, Reviews & Metadata (taroyamada/apple-app-store-intelligence): This Actor uses public iTunes lookup plus RSS customer-review feeds for App Store URLs or numeric IDs. reviewLimit defaults to 100 (max 500, RSS ~500 per storefront). maxChargeUsd default 1 fails closed with no-charge limit_reached summaries. Not Google Play, Chrome Web Store, or a private App Store Connect export. Public lookup/RSS only. Chrome Web Store Extension Intelligence is for Chrome extensions (input extensionUrls / searchTerms; Chrome Web Store HTML; extension metadata). Not Apple App Store. Website Content Extractor is for Generic page markdown (input urls; HTML body; markdown). Not iTunes lookup/RSS reviews."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What input is required?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Live required fields: appUrls. Live schema fields: appUrls, country, reviewLimit, timeoutMs, delivery, webhookUrl, dryRun, maxChargeUsd. exampleRunInput is Spotify US URL, reviewLimit 50. Schema default reviewLimit 100 and maxChargeUsd 1. Prefer keeping first runs under the cap. additionalProperties is not documented on this page beyond the live Store schema."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is the best first run?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Use the published Store example run input below. exampleRunInput is Spotify US URL, reviewLimit 50. Schema default reviewLimit 100 and maxChargeUsd 1. Prefer keeping first runs under the cap. Keep the first live run small. Use dryRun when you only need to validate input."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What does a result contain?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "README sample uses ellipses and is not valid JSON. Illustration keys: appId, url, country, retrievedAt, metadata (name, developer, bundleId, primaryGenre, icon, version, ageRating, languageCodes), rating, pricing, reviewSamples, rollups.themes. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do dataset, webhook, and dry-run delivery work?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How is Apple App Store Scraper priced?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Billing is pay per event. Live Store card: from $9.00 / 1,000 results ($0.009 per result) plus Actor Start $0.001. First paid 1-app path ≈ $0.010 if one start + one result, subject to reviewLimit rows actually written. Actor Start (apify-actor-start) $0.001: Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event). result (apify-default-dataset-item) $0.009: Single result in the default dataset. Do not use the README Cost block as live pricing. README does not quote this Actor’s live PPE. It advertises follow-on listing-gap $9/$29. Live card: Actor Start $0.001 + result $0.009 (apify-actor-start, apify-default-dataset-item). Platform usage is listed as included on the Store pricing tab."
-        }
-      }
-    ]
-  }
-  </script>
 </head>
 <body>
   <header class="site">

@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/saas-change-monitor-actor/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How is SaaS Pricing Tracker different from Website Content Extractor and Status Page Incident Digest Monitor?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "SaaS Pricing Tracker — Competitor Page Change Alerts (taroyamada/saas-change-monitor-actor): This Actor fetches public SaaS pricing, terms, and feature pages, snapshots extracted text, and emits source-linked change rows when the page hash or filtered text drifts. Live input is a targets[] list of id, name, kind, and url — not a top-level urls array. Not an authenticated customer portal, CPQ, or invoice scraper. Not a PDF-contract parser. Public web only; aggressive bot walls may block fetches. Website Content Extractor is for One-shot page-to-markdown (input urls; page HTML; markdown/text). Not recurring pricing diffs. Status Page Incident Digest Monitor is for Vendor status-page incidents (input status page feeds/URLs; status.io-style public pages; incident digest rows). Not pricing/terms copy diffs. Trust Center Subprocessor Monitor is for Trust-center vendor lists (input trust-center URLs; public subprocessors pages; subprocessor change rows). Not plan-price text diffs."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What input is required?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Live required fields: targets. Live schema fields: targets, requestTimeoutSeconds, userAgent, maxChars, delivery, datasetMode, webhookUrl, notifyOnNoChange, snapshotKey, nowIso, dryRun. Published exampleRunInput uses three targets (Stripe pricing, Linear terms, Vercel features) with include/exclude patterns. Schema prefill is Notion pricing. datasetMode default changes_only. delivery enum includes email as a placeholder path. additionalProperties is not documented on this page beyond the live Store schema."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is the best first run?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Use the published Store example run input below. Published exampleRunInput uses three targets (Stripe pricing, Linear terms, Vercel features) with include/exclude patterns. Schema prefill is Notion pricing. datasetMode default changes_only. delivery enum includes email as a placeholder path. Keep the first live run small. Use dryRun when you only need to validate input."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What does a result contain?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "README output fence is truncated or invalid JSON on Store. Illustration head: { \"meta\": { \"generatedAt\": \"2026-03-13T09:40:25.990Z\", \"now\": \"2026-03-13T09:40:25.951Z\", \"input\": { \"targets\": [ { \"id\": \"notion-pricing\", \"name\": \"Notion Pricing\", \"kind\": \"price\", \"url\": \"\" }, { \"id\": \"linear-terms\", \"name\": \"Linear Terms\", \"kind\": \"terms\", \"url\": \"\" } ], \"requestTimeoutSeconds\": 30, \"maxChars\": 25000, \"delivery\": \"dataset\", \"datasetMode\": \"all\", \"dryRun\": false }, \"snapshot\": { \"key\": \"saas-chan… Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do dataset, webhook, and dry-run delivery work?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. datasetMode can limit emits to changes_only versus all. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How is SaaS Pricing Tracker priced?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Billing is pay per event. Live Store card: from $1.00 / 1,000 SaaS change rows ($0.001 per delivered apify-default-dataset-item). No Actor Start. Unchanged datasetMode=changes_only runs can emit zero rows and zero charge. SaaS change row (apify-default-dataset-item) $0.001: Charged only when a source-linked SaaS page change row is delivered. Do not use the README Cost block as live pricing. README Cost still quotes actor-start $0.01 + dataset-item $0.003 ($3.01 / 1,000). Live Store: SaaS change row $0.001, no start. README Input Examples use urls/emitTextDiff; live schema requires targets and has no emitTextDiff. Platform usage is listed as included on the Store pricing tab."
-        }
-      }
-    ]
-  }
-  </script>
 </head>
 <body>
   <header class="site">

@@ -6,38 +6,6 @@
   <title>Monitor publisher and newsroom RSS feeds — filtered item URLs</title>
   <meta name="description" content="Monitor public publisher and company newsroom RSS or Atom feeds you already have. Live Store price $0.001 per successfully parsed feed item. Discovery only — not Google News search and not article HTML cleanup.">
   <link rel="canonical" href="https://apify.momiji-space.com/use-cases/rss-newsroom-monitoring/">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Can RSS & Atom Feed Extractor monitor publisher and company newsroom feeds?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes, when you already have those publishers' public RSS or Atom URLs. Required input is feedUrls (maximum 50). The Actor parses feed XML and returns item titles, links, publication timestamps, summaries, encoded content when available, categories or tags, and matchedKeywords when an include-list is set. It does not crawl website HTML, query Google News, or extract full article bodies from those links."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is the cheapest first paid input for newsroom RSS monitoring?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The cheapest first paid cap is one feedUrls item with maxItemsPerFeed 1 (schema minimum 1–200). If one public feed item is parsed, live PPE is $0.001. There is no Actor start event. The published Store Quickstart is two publisher feeds at the same rate. Live schema names are feedUrls (required), optional keywords, maxItemsPerFeed (default 25), deduplicate (default true), delivery dataset, and dryRun false."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Does newsroom RSS monitoring return cleaned article bodies?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "No. This Actor is a feed discovery layer. Encoded content in a feed row, when present, is still feed XML content. Send news, blog, and press links to Article Content Extractor. Send docs, product, or policy links to Website Content Extractor. Use Google News Scraper when you do not have feed URLs yet."
-        }
-      }
-    ]
-  }
-  </script>
   <style>
     body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
     main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }

@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/site-governance-monitor/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How is Site Governance Monitor different from robots.txt Parser & AI Crawler Block Checker and Sitemap Scraper & Analyzer?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Site Governance Monitor — Robots, Sitemap & Schema (taroyamada/site-governance-monitor): This Actor checks domains you supply for robots.txt AI-crawler rules, sitemap.xml health, and JSON-LD/Microdata on sampled paths (homepage-first by default). One summary-first payload per domain with alerts. Not a sitewide HTML crawl, not a known-URL status checker, and not a standalone robots.txt-only AI policy audit. Homepage-first samplePaths default to [/]. robots.txt Parser & AI Crawler Block Checker is for robots.txt AI policy only (input domains max 500; robots.txt; per-bot allow/disallow rows). Not sitemap+schema bundle. Sitemap Scraper & Analyzer is for sitemap.xml URL inventory (input sitemapUrls; sitemap XML; URL inventory). Not robots+schema governance score. Broken Link Checker is for HTML crawl for 404s (input startUrls max 10; crawled HTML anchors; broken-link rows). Not robots/sitemap/schema bundle."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What input is required?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Live required fields: domains. Live schema fields: domains, samplePaths, delivery, webhookUrl, snapshotKey, checkAiBots, checkSchema, checkSitemap, followRedirects, concurrency, batchDelayMs, requestTimeoutSecs, maxSitemapUrls, emitUnchanged, dryRun. exampleRunInput is vercel.com, samplePaths [/], all three checks true, concurrency 1, maxSitemapUrls 5000. Schema concurrency default 3. Keep snapshotKey stable across deploys. additionalProperties is not documented on this page beyond the live Store schema."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is the best first run?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Use the published Store example run input below. exampleRunInput is vercel.com, samplePaths [/], all three checks true, concurrency 1, maxSitemapUrls 5000. Schema concurrency default 3. Keep snapshotKey stable across deploys. Keep the first live run small. Use dryRun when you only need to validate input."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What does a result contain?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do dataset, webhook, and dry-run delivery work?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. emitUnchanged controls whether unchanged watches write rows. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How is Site Governance Monitor priced?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Billing is pay per event. Live Store card: from $9.00 / 1,000 delivered monitoring result rows ($0.009 per new or changed row). No Actor Start. Unchanged runs with emitUnchanged false are free. Delivered monitoring result row (apify-default-dataset-item) $0.009: Charged only when a new or changed monitoring result row is delivered. Unchanged runs are free. Do not use the README Cost block as live pricing. README Cost quotes actor-start $0.01 + dataset-item $0.003. Live: Delivered monitoring result row $0.009, no start. README Input Examples that send urls are not live schema (use domains + samplePaths). Platform usage is listed as included on the Store pricing tab."
-        }
-      }
-    ]
-  }
-  </script>
 </head>
 <body>
   <header class="site">

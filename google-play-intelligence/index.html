@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/google-play-intelligence/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How is Google Play App Scraper different from Chrome Web Store Extension Intelligence and Website Content Extractor?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Google Play App Scraper — Ratings, Installs & ASO (taroyamada/google-play-intelligence): This Actor reads public Google Play listing HTML/storefront data for package IDs or Play URLs and returns metadata, install ranges, pricing flags, and optional embedded review snippets. Review samples are limited to cards in the initial HTML. Not Apple App Store, Chrome Web Store, or a full Play review-pagination crawler. Not ranking/ASO keyword volume. Chrome Web Store Extension Intelligence is for Chrome extensions (input extensionUrls / searchTerms; Chrome Web Store; extension rows). Not Google Play packages. Website Content Extractor is for Generic page markdown (input urls; HTML body; markdown). Not Play storefront fields."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What input is required?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Live required fields: appUrls. Live schema fields: appUrls, country, language, reviewLimit, timeoutMs, delivery, webhookUrl, dryRun. exampleRunInput uses com.spotify.music plus a Duolingo Play URL, reviewLimit 5. Schema default reviewLimit 20; set 0 to skip samples. country/language default us/en. additionalProperties is not documented on this page beyond the live Store schema."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is the best first run?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Use the published Store example run input below. exampleRunInput uses com.spotify.music plus a Duolingo Play URL, reviewLimit 5. Schema default reviewLimit 20; set 0 to skip samples. country/language default us/en. Keep the first live run small. Use dryRun when you only need to validate input."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What does a result contain?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do dataset, webhook, and dry-run delivery work?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "delivery defaults to dataset on the live schema. Dataset output is the billable surface when rows are written. webhookUrl is used when delivery is webhook (and typically not during dryRun). dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How is Google Play App Scraper priced?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Billing is pay per event. Live Store card: from $3.00 / 1,000 results ($0.003 per Result) plus Actor Start $0.00005. Cheapest one-app paid path ≈ $0.00305 if one start + one result. Actor Start (apify-actor-start) $0.00005: Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event). Result (apify-default-dataset-item) $0.003: Charged automatically for each item saved to the default dataset. Do not use the README Cost block as live pricing. README does not quote this Actor’s live PPE. It advertises follow-on listing-gap $9/$29. Live card: Actor Start $0.00005 + Result $0.003 (apify-actor-start, apify-default-dataset-item). Platform usage is listed as included on the Store pricing tab."
-        }
-      }
-    ]
-  }
-  </script>
 </head>
 <body>
   <header class="site">

@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/cisa-kev-asset-remediation-report/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is CISA KEV Asset Remediation Report different from OSS Vulnerability Monitor and PyPI & npm Dependency Risk Report?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "CISA KEV Asset Remediation Report (taroyamada/cisa-kev-asset-remediation-report) joins a buyer-supplied inventory to the official CISA KEV catalog. Live PPE is kev-asset-potential-match $0.06 (Store primary), kev-deadline-alert $0.35, kev-remediation-report $12, and kev-remediation-export $8. No Actor Start. OSS Vulnerability Monitor is OSV/GitHub package CVEs. PyPI & npm Dependency Risk Report is pinned upgrade risk. Security Headers Checker is HTTP headers. Use this Actor for CISA KEV inventory joins. Use OSS Vulnerability Monitor for package CVEs. Matches are never assertions that an asset is vulnerable or compromised."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: assets, monitorKey, initialRunMode, generateReport, emitPotentialMatches, includeDeadlineAlerts, emitUnchanged, maxChargeUsd, dryRun. assets[] required per item: assetId. Optional per item: vendor, product, aliases (max 10), vendorAliases (max 10), versions (max 20), cpe, environment, label. Array minItems 1, maxItems 250. Default sample is Apache Log4j2. initialRunMode: baseline_only (save baseline only) or emit_backfill (emit current matches). Optional: deadlineWithinDays (default 30), emitExport (default false), requestTimeoutSeconds, rateLimitMs, maxRetries, backoffBaseMs, maxBackoffMs, delivery (dataset or webhook), webhookUrl. Schema default generateReport is true; default dryRun is false; default maxChargeUsd is 50."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the cheapest first paid Try Input?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "baseline_only is free — not a paid try. Skip the $12 report, $0.35 alerts, and $8 export. One asset, emit_backfill, generateReport false, includeDeadlineAlerts false, emitExport false, dryRun false, maxChargeUsd 3. Unit: $0.06 per delivered potential match."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "README row types include kev_remediation_report; kev_asset_potential_match (asset join, CVE, vendor/product, description, requiredAction, dueDate, source URL, review labels); kev_deadline_alert; and kev_remediation_export. There is no published output JSON schema on the Store page. Treat README samples as illustrations, not a live coverage guarantee."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is CISA KEV Asset Remediation Report priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay-per-event. The live Store card is from $60.00 / 1,000 kev asset potential matches. Live events are kev-asset-potential-match $0.06 (Store API primary), kev-deadline-alert $0.35, kev-remediation-report $12 (Store title: KEV remediation review report; README/actor.json: KEV remediation report), and kev-remediation-export $8, each charged when delivered. No Actor Start. README USD amounts match. actor.json marks kev-deadline-alert primary; prefer the Store card which marks kev-asset-potential-match primary."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "delivery defaults to dataset and also accepts webhook. dryRun is a fixture path: no network/state/charges. emitUnchanged is accepted but ignored for billing; unchanged still 0 charge. Dataset output is the billable surface when rows are written."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

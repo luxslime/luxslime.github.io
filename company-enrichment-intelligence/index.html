@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/company-enrichment-intelligence/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is Company Domain Tech, DNS & Security Audit different from DMARC & Email Security Checker and SSL/TLS Certificate Scraper?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Company Domain Tech, DNS & Security Audit (taroyamada/company-enrichment-intelligence) audits domains you supply against the company website and public registries. Live PPE is Actor Start $0.005 per GB plus company-basic $0.02 or company-full $0.08 per domain that returns data. DMARC & Email Security Checker grades SPF/DMARC/MX (optional DKIM) only. SSL/TLS Certificate Scraper pulls certificates only. RDAP Domain Expiry & Whois Scraper is RDAP expiry only. DNS Propagation Checker is multi-resolver A/NS/SOA agreement. Use this Actor for a combined company-domain audit. Use the specialized Actors when you only need one signal family."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "The live schema required array is empty. Live fields are domains (default empty array; prefill stripe.com, notion.so; www and duplicates removed), auditLevel (basic, security_audit, or techstack_report; default techstack_report), proxy (default useApifyProxy false), and dryRun (default true). Live schema does not document which auditLevel value maps to company-basic versus company-full. README maps company-basic to DNS/TLS/RDAP/firmographics/site and company-full to a full report including tech stack and schema.org. Store company-full text says verified public business contact signals (wording differs from README). Prefer live Store event titles; treat auditLevel basic as the cheapest domain event path."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the cheapest first paid Try Input?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "One domain, auditLevel basic, proxy useApifyProxy false, dryRun false. Domain event is $0.02 if data is returned (company-basic), plus Actor Start at $0.005 times GB. Default memory 4096 MB means four start events ($0.020) if you leave memory at default. Schema default dryRun true is not a paid try."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "README sample fields include rowType, billingEventName (company-basic or company-full), domain, companyName, description, website (reachable, finalUrl, title), dns (mx, mailProvider, spf, dmarc), rdap (registrar, createdDate, ageYears), ssl (issuer, daysToExpiry, sans), techStack, schemaOrg, site (hasRobots, hasSitemap, sitemapUrlCount), completeness, and signalsResolved. There is no published output JSON schema on the Store page. Treat README samples as illustrations, not a live coverage guarantee."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is Company Domain Tech, DNS & Security Audit priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay-per-event. Live Store events are Actor Start $0.005 (every live run; one event per GB, minimum one; default 4096 MB → 4 events if default memory is used), company-basic $0.02 once per domain for firmographics, tech stack, DNS, and SSL signals (no charge if the domain returns no data), and company-full $0.08 once per domain for full enrichment including verified public business contact signals on the Store card (no charge if no data). README Pricing table has no Actor Start — prefer the live Store card for the start fee. actor.json billing lists only company-basic / company-full. dryRun true: README says no live calls or billing."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "This schema does not expose a delivery enum. Dataset output is the billable surface when rows are written. dryRun defaults to true and must be false for a paid run. Optional proxy uses the Apify proxy editor object; default is useApifyProxy false."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

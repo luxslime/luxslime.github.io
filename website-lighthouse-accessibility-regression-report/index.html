@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/website-lighthouse-accessibility-regression-report/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is the Lighthouse Regression Report different from Website Accessibility Checker and Technical SEO & AI Crawler Audit?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "WCAG Accessibility Checker — Lighthouse Regression Report (taroyamada/website-lighthouse-accessibility-regression-report) runs Lighthouse and axe-core on authorized URLs/sitemaps. Live PPE is lighthouse-audit-completed $0.08 (primary), accessibility-audit-completed $0.05, quality-regression-alert $0.20, site-quality-report $3, and portfolio-export $5. No Actor Start. Website Accessibility Checker is WCAG 2.1 URL grades with Actor Start $0.002/GB plus result $0.015. Technical SEO & AI Crawler Audit is canonical/noindex/robots regressions. Use this Actor for Lighthouse-plus-axe. Use Website Accessibility Checker for WCAG-only URL audits. Use Technical SEO for indexability regressions."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "The live schema has no required array. Live fields are urls (default https://example.com/), sitemapUrl (default empty), maxPages (default 5, min 1, max 50), strategy (mobile, desktop, both; default mobile), runMode (audit or monitor; default audit), monitorKey, initialRunMode (baseline_only or emit_backfill; default baseline_only), scoreDropThreshold (default 5, min 1, max 50), generateReport (default true), generateExport (default false), emitUnchanged (default false), authorizedUseConfirmed (default false; required for live runs), maxChargeUsd (default 0, min 0, max 1000), timeoutMs (default 90000, min 30000, max 180000), and dryRun (default true)."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the cheapest first paid Try Input?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Flip defaults: dryRun false, generateReport false (skip $3), generateExport false (skip $5), authorizedUseConfirmed true, maxPages 1, strategy mobile, runMode audit. README: completed Lighthouse $0.08 plus axe $0.05 equals $0.13 if both complete. No regression alert on a first audit with no prior baseline. maxChargeUsd 1 is a safety cap on this try path (schema default 0 means Apify run limit only)."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "README sample includes rowType site_quality_report, billingEventName site-quality-report, auditedPageCount, averageScores (performance, accessibility, bestPractices, seo), regressionCount, seriousViolationCount, summary, and sourceUrl. There is no published output JSON schema on the Store page. Treat README samples as illustrations, not a live coverage guarantee."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is the Lighthouse Regression Report priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay-per-event. The live Store card is from $80.00 / 1,000 lighthouse page audits. Live events are lighthouse-audit-completed $0.08 per completed page × device-strategy Lighthouse audit (failed pages not billed), accessibility-audit-completed $0.05 per completed axe-core audit, quality-regression-alert $0.20 for a material score drop or newly serious finding, site-quality-report $3 when generateReport is on, and portfolio-export $5 when generateExport is on. No Actor Start. README event keys and USD match. Store titles say Website quality report / Website audit export versus README site-quality-report / portfolio-export (same keys)."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "This schema does not expose a delivery enum. Dataset output is the billable surface when rows are written. dryRun defaults to true (illustrative rows; no fetch / no charge). Live runs require authorizedUseConfirmed true. Unchanged monitor runs write zero rows and zero charges when emitUnchanged is false."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">

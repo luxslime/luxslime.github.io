@@ -6,38 +6,6 @@
   <title>SAM.gov and TED bid-alert queue — source-linked procurement notices</title>
   <meta name="description" content="SAM.gov and TED bid-alert queue: start TED-only, then add SAM.gov opportunities with an API key. Live Store price $8.00 / 1,000 procurement opportunity or alert rows.">
   <link rel="canonical" href="https://apify.momiji-space.com/use-cases/sam-gov-bid-alerts/">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Can this Actor queue SAM.gov and TED bid alerts?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes, as a bounded procurement queue. TED, SAM.gov & Grants Bid Alerts Scraper searches official notice APIs — TED by default, SAM.gov when a samApiKey is present, and Grants.gov as an additive lane — and returns a summary-first queue: meta.executiveSummary, notices[], alerts[], and warnings[] or errors[] when a source is missing, throttled, or degraded. It is not a scrape of SAM.gov or TED HTML UIs, not Google News RSS, and not PubMed. Start TED-only with no external key, then add us once a SAM.gov API key is available."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Why not use Google News or PubMed for procurement watch?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Those Actors are different source lanes. Google News Scraper returns headlines and article URLs from queries; it does not read TED, SAM.gov, or Grants.gov notice APIs. PubMed Literature Watch queries NCBI E-utilities for citation metadata; it is not a bid queue. For public-sector tenders and opportunities, use this procurement Actor."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is the TED-only first paid bid-alert input?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The published Store Quickstart is TED-only: jurisdictions eu, keywords cloud,cybersecurity,IT services, cpvCodes 72000000,72220000, daysAhead 21, maxItemsPerSource 40, minValue 100000, and delivery dataset. Leave generateReport and emitExport off. Live PPE is $0.008 per delivered procurement opportunity or alert row. There is no live start charge. An empty result emits zero rows and zero charges."
-        }
-      }
-    ]
-  }
-  </script>
   <style>
     body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f7; color: #202223; }
     main { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }

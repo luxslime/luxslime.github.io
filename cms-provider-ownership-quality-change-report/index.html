@@ -9,62 +9,6 @@
   <link rel="canonical" href="https://apify.momiji-space.com/cms-provider-ownership-quality-change-report/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
   <link rel="stylesheet" href="/assets/css/actor-landing.css">
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is CMS Provider Ownership & Quality Change Report different from Medicare Coverage Change Impact Report and HHS Healthcare Data Breach Change Scraper?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "CMS Provider Ownership & Quality Change Report (taroyamada/cms-provider-ownership-quality-change-report): Monitor public CMS nursing-home facility snapshots for ownership and quality/rating changes, then receive source-linked alerts, portfolio reports, and optional exports. Not Medicare NCD/NCA coverage. Not HHS breach submissions. Not NIH RePORTER awards. You supply state/facility watches. Medicare Coverage Change Impact Report is for CMS NCD/NCA coverage (input watches; CMS coverage records; Coverage-change alerts). Not nursing-home ownership/quality. HHS Healthcare Data Breach Change Scraper is for HHS breach submissions (input terms; HHS breach portal; Breach-change rows). Not CMS facility ratings. NIH RePORTER Funding Landscape Report is for NIH award landscape (input org / terms; NIH RePORTER; Award report). Not CMS provider quality."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What input is required?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Live required fields: watches. Live schema fields: watches, monitorKey, initialRunMode, includeOwnership, includeQuality, generateReport, emitRawRows, emitExport, emitUnchanged, maxRecordsPerWatch, maxOwnershipRowsPerWatch, maxChargeUsd, dryRun. Monitor public CMS nursing-home facility snapshots for ownership and quality/rating changes, then receive source-linked alerts, portfolio reports, and optional exports. exampleRunInput keys: watches, maxRecordsPerWatch, maxOwnershipRowsPerWatch, maxChargeUsd, dryRun. additionalProperties is false on the live schema."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the best first run?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use the published Store example run input below. exampleRunInput keys: watches, maxRecordsPerWatch, maxOwnershipRowsPerWatch, maxChargeUsd, dryRun. Keep the first live run small. Use dryRun when you only need to validate input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a result contain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Published README Output Example / Sample Output JSON. Treat README samples as illustrations, not a live coverage guarantee. There is no published output JSON schema on the Store page."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do dataset, webhook, and dry-run delivery work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Dataset output is the billable surface when rows are written. See live PPE for which events bill. dryRun true validates or samples without the usual dataset/webhook side effects described on the Store schema. Unchanged runs that write zero default-dataset rows typically charge $0.00 on current PPE."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is CMS Provider Ownership & Quality Change Report priced?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Billing is pay per event. Live Store card: from $5.00 / 1,000 CMS provider row ($0.005 per delivered cms-provider-row); $0.25 per CMS provider change alert; $10.00 per CMS provider ownership and quality report; $6.00 per CMS provider export. No Actor Start. CMS provider row (cms-provider-row) $0.005: Charged only when a cms provider row row is delivered. CMS provider change alert (cms-provider-change-alert) $0.25: Charged only when a cms provider change alert row is delivered. CMS provider ownership and quality report (cms-provider-ownership-quality-report) $10.00: Charged only when a cms provider ownership and quality report row is delivered. CMS provider export (cms-provider-export) $6.00: Charged only when a cms provider export row is delivered. Platform usage is listed as included on the Store pricing tab."
-      }
-    }
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="site">
