@@ -39,6 +39,7 @@
     @media (prefers-reduced-motion:reduce){.tool button{transition:none}.tool button:hover{transform:none}}
       .t-gen{background:#fff4d6;color:#6b4e00}.t-off{background:#e6edff;color:#1d3a8a}.t-lab{background:#eee;color:#333}
     .tool td.s{font-size:.85rem;color:var(--muted,#4e586e)}
+    .catalog-scan-link{font-weight:700}
   </style>
   <script type="application/ld+json">
   {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://apify.momiji-space.com/"}, {"@type": "ListItem", "position": 2, "name": "Tools", "item": "https://apify.momiji-space.com/tools/"}, {"@type": "ListItem", "position": 3, "name": "Product JSON-LD field checker", "item": "https://apify.momiji-space.com/tools/product-json-ld-field-checker/"}]}
@@ -80,7 +81,7 @@
       <div><button type="button" id="run">Check the fields</button><button type="button" id="clear" class="alt">Clear text</button><button type="button" id="copy" class="alt">Copy results as text</button></div>
       <p id="summary" role="status" aria-live="polite"></p>
       <table id="out" hidden><thead><tr><th scope="col">Field or prompt</th><th scope="col">In your data?</th><th scope="col">Where to read and what to ask</th></tr></thead><tbody></tbody></table>
-      <p>To check every product in your catalog, not just one page, see <a href="https://apps.shopify.com/agentic-catalog-readiness?utm_source=momiji-site&amp;utm_medium=tool&amp;utm_campaign=product-json-ld-field-checker">Agentic Catalog by momiji</a>.</p>
+      <p id="catalog-gap-install" hidden><a class="catalog-scan-link" href="https://apps.shopify.com/agentic-catalog-readiness?utm_source=momiji-site&amp;utm_medium=tool&amp;utm_campaign=product-json-ld-field-checker">Install Agentic Catalog by momiji to scan the whole catalog</a></p>
     </section>
     <p><a class="cta" href="https://apps.shopify.com/agentic-catalog-readiness?utm_source=momiji-site&amp;utm_medium=tool&amp;utm_campaign=product-json-ld-field-checker">Install Agentic Catalog by momiji → JSON-LD and Open Graph audit</a></p>
     <h2>Where the checks come from</h2>
@@ -210,9 +211,11 @@ function summarise(rows) {
       });
       out.hidden = rows.length === 0;
       sum.textContent = !text.trim() ? 'Paste product JSON-LD or data first.' : summarise(rows);
+      var gapInstall = $('catalog-gap-install');
+      if (gapInstall) gapInstall.hidden = !rows.some(function (r) { return r.g === 'gap'; });
     }
     $('run').addEventListener('click', run);
-    $('clear').addEventListener('click', function () { $('copy-in').value = ''; body.textContent = ''; out.hidden = true; sum.textContent = ''; last = []; });
+    $('clear').addEventListener('click', function () { $('copy-in').value = ''; body.textContent = ''; out.hidden = true; sum.textContent = ''; last = []; var gapInstall = $('catalog-gap-install'); if (gapInstall) gapInstall.hidden = true; });
     $('copy').addEventListener('click', function () { if (navigator.clipboard && last.length) navigator.clipboard.writeText(last.join('\n')); });
     run();
   })();
