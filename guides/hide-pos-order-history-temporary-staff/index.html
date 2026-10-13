@@ -74,12 +74,31 @@
     <p>Native Shopify <strong>cannot</strong> hide that location’s past orders from a staff member who is ringing sales. The orders permission set on the Help Center page does not include a “view order history” or “hide past orders” row. Customer privacy for past purchases is therefore not a POS toggle you missed.</p>
     <p>There is also no date-range limit: the <a href="https://help.shopify.com/en/manual/your-account/users/roles/permissions/pos-permissions">POS permissions list</a> does not include a setting that shows only today&rsquo;s or the last few days&rsquo; orders. The options documented today are role-level only: deny Manage orders at all locations, deny Return and exchange orders, review View customer details, and suspend the staff account when the temporary period ends (<a href="https://help.shopify.com/en/manual/your-account/users/roles/permissions">Users and permissions</a>).</p>
 
-    <h2>Checklist: limit what temporary staff can do</h2>
+    <h2>The Community request this page answers</h2>
+<p>In the Shopify Community thread <a href="https://community.shopify.com/t/feature-request-restrict-access-to-order-history-in-shopify-pos-pro/695367/1">Feature Request: Restrict Access to Order History in Shopify POS Pro</a> (opened 10 October 2026), a merchant asked for a permission that lets temporary or part-time staff check out sales without browsing past orders, including orders from their own location. A later reply asked for a limit to today&rsquo;s or the last few days&rsquo; orders. The thread contains no Shopify answer, and the permission table below still has no such row.</p>
+<h2>Every documented POS permission worth reviewing for temporary staff</h2>
+<p>Shopify&rsquo;s <a href="https://help.shopify.com/en/manual/your-account/users/roles/permissions/pos-permissions">Point of Sale permissions</a> page says POS roles are available only for locations on the Shopify POS Pro subscription. On those roles, these documented permissions reduce what a temporary cashier can see or change. None of them hides the device location&rsquo;s past orders.</p>
+<ul>
+<li><strong>Manage orders at all locations</strong> &mdash; Denied: staff manage only orders made at the device&rsquo;s location.</li>
+<li><strong>Switch device&rsquo;s location</strong> &mdash; Denied: staff cannot change the device&rsquo;s location setting. Without this, the location limit above is easy to step around.</li>
+<li><strong>Return and exchange orders</strong> &mdash; Denied: staff cannot refund or exchange orders.</li>
+<li><strong>Manage draft orders</strong> &mdash; Denied: staff cannot view, retrieve or edit draft orders from other retail locations, or draft orders created from admin.</li>
+<li><strong>View customer details</strong> &mdash; Denied: staff cannot view the customer&rsquo;s email address, phone number and shipping address.</li>
+<li><strong>View abandoned checkouts</strong> &mdash; Denied: staff cannot view a customer&rsquo;s online cart items from abandoned checkouts.</li>
+<li><strong>Manage saved carts</strong> &mdash; Denied: cart sharing is hidden and staff cannot view the recent cart list.</li>
+<li><strong>View analytics for device&rsquo;s location</strong> &mdash; Denied: staff cannot view the Daily Sales report for their location.</li>
+<li><strong>View payment tracking session history</strong> &mdash; Denied: staff cannot view details of previous payment tracking sessions.</li>
+</ul>
+<p>Shopify also says that while POS permissions control who can perform an action, you can review which staff member performed a high-risk register action in the activity log for Shopify POS. That is a record after the fact, not a block.</p>
+<h2>Where Staff Access Audit Guard fits</h2>
+<p>Staff Access Audit Guard is an audit tool. It reviews installed-app access, granted scopes, staff access records and ownership evidence, so you can see who still has access after a seasonal block ends. It does not restrict access, change POS roles, or hide order history. Restricting access is done only in Shopify&rsquo;s own roles and user settings above.</p>
+<h2>Checklist: limit what temporary staff can do</h2>
     <ul>
       <li>Open the POS role Shopify documents, not only Settings &gt; Users admin roles. Admin permissions and POS roles are different records — see <a href="/guides/shopify-pos-staff-permissions/">POS roles vs admin staff permissions</a>.</li>
       <li>Set <strong>Manage orders at all locations</strong> to Denied so seasonal staff do not browse other locations’ orders.</li>
       <li>Set <strong>Return and exchange orders</strong> to Denied unless that person should refund.</li>
-      <li>Review <strong>View customer details</strong> if the job does not need email, phone, or shipping address on the register.</li>
+      <li>Set <strong>Switch device&rsquo;s location</strong> to Denied so the location limit holds.</li>
+<li>Review <strong>View customer details</strong> if the job does not need email, phone, or shipping address on the register.</li>
       <li>When the shift block ends, suspend or remove the user in Settings &gt; Users. There is no calendar end date on the POS role — that gap is <a href="/guides/staff-collaborator-access-end-date/">set an end date on staff or collaborator access</a>. For the full removal steps, use the <a href="/guides/staff-permissions-audit-checklist/">staff permissions audit checklist</a>.</li>
     </ul>
 
@@ -95,7 +114,8 @@
     <ul>
       <li><a href="/tools/app-scope-access-reader/">App access scope reader</a> &mdash; paste scopes and see which touch customer data</li>
       <li><a href="/guides/shopify-pos-staff-permissions/">Shopify POS staff permissions</a> &mdash; POS roles vs admin permissions</li>
-      <li><a href="/guides/staff-collaborator-access-end-date/">Set an end date on staff or collaborator access</a></li>
+      <li><a href="https://community.shopify.com/t/feature-request-restrict-access-to-order-history-in-shopify-pos-pro/695367/1">Shopify Community thread 695367</a> &mdash; the original request</li>
+<li><a href="/guides/staff-collaborator-access-end-date/">Set an end date on staff or collaborator access</a></li>
       <li><a href="https://help.shopify.com/en/manual/your-account/users/roles/permissions/pos-permissions">Point of Sale permissions</a></li>
       <li><a href="https://help.shopify.com/en/manual/sell-in-person/shopify-pos/staff-management/pos-roles">Understanding Shopify POS staff management</a></li>
       <li><a href="https://apps.shopify.com/momiji-access-audit?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=hide-pos-order-history-temporary-staff">Staff Access Audit Guard</a> &mdash; live App Store listing</li>
