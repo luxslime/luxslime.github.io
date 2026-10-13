@@ -4,17 +4,17 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Hide past POS order history from temporary staff</title>
-  <meta name="description" content="POS roles have no hide-order-history permission. Temporary staff still see that location’s past orders. Staff Access Audit Guard does not change POS roles. Not legal advice.">
+  <meta name="description" content="POS roles have no hide-history or date-range permission. Temporary staff still see that location’s past orders. Staff Access Audit Guard does not change POS roles. Not legal advice.">
   <meta name="robots" content="index,follow">
   <link rel="icon" href="/favicon.ico" sizes="any">
   <meta property="og:type" content="article">
   <meta property="og:title" content="Hide past POS order history from temporary staff">
-  <meta property="og:description" content="POS roles have no hide-order-history permission. Temporary staff still see that location’s past orders. Staff Access Audit Guard does not change POS roles. Not legal advice.">
+  <meta property="og:description" content="POS roles have no hide-history or date-range permission. Temporary staff still see that location’s past orders. Staff Access Audit Guard does not change POS roles. Not legal advice.">
   <meta property="og:url" content="https://apify.momiji-space.com/guides/hide-pos-order-history-temporary-staff/">
   <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/9ea3a49e539bec70dcd6abb7cc7f4746/promotional_image/CL_Eloyu9ZQDEAE=.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Hide past POS order history from temporary staff">
-  <meta name="twitter:description" content="POS roles have no hide-order-history permission. Temporary staff still see that location’s past orders. Staff Access Audit Guard does not change POS roles. Not legal advice.">
+  <meta name="twitter:description" content="POS roles have no hide-history or date-range permission. Temporary staff still see that location’s past orders. Staff Access Audit Guard does not change POS roles. Not legal advice.">
   <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/9ea3a49e539bec70dcd6abb7cc7f4746/promotional_image/CL_Eloyu9ZQDEAE=.png">
   <link rel="canonical" href="https://apify.momiji-space.com/guides/hide-pos-order-history-temporary-staff/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
@@ -71,6 +71,7 @@
     <h2>What native Shopify can and cannot do</h2>
     <p>Native Shopify <strong>can</strong> assign a POS role with named register permissions. Shopify documents that you assign a role, not individual POS permissions, on <a href="https://help.shopify.com/en/manual/sell-in-person/shopify-pos/staff-management/pos-roles">Understanding Shopify POS staff management</a>. POS roles are documented for some location subscriptions. On that role you can deny <strong>Manage orders at all locations</strong> so staff manage only orders made at the device’s location, and you can deny <strong>Return and exchange orders</strong> so they cannot refund. You can also deny <strong>View customer details</strong>, which Shopify describes as restricting the customer’s email, phone, and shipping address on POS — that is customer contact fields, not the order list.</p>
     <p>Native Shopify <strong>cannot</strong> hide that location’s past orders from a staff member who is ringing sales. The orders permission set on the Help Center page does not include a “view order history” or “hide past orders” row. Customer privacy for past purchases is therefore not a POS toggle you missed.</p>
+    <p>There is also no date-range limit: the <a href="https://help.shopify.com/en/manual/your-account/users/roles/permissions/pos-permissions">POS permissions list</a> does not include a setting that shows only today&rsquo;s or the last few days&rsquo; orders. The options documented today are role-level only: deny Manage orders at all locations, deny Return and exchange orders, review View customer details, and suspend the staff account when the temporary period ends (<a href="https://help.shopify.com/en/manual/your-account/users/roles/permissions">Users and permissions</a>).</p>
 
     <h2>Checklist: limit what temporary staff can do</h2>
     <ul>
@@ -78,7 +79,7 @@
       <li>Set <strong>Manage orders at all locations</strong> to Denied so seasonal staff do not browse other locations’ orders.</li>
       <li>Set <strong>Return and exchange orders</strong> to Denied unless that person should refund.</li>
       <li>Review <strong>View customer details</strong> if the job does not need email, phone, or shipping address on the register.</li>
-      <li>When the shift block ends, suspend or remove the user in Settings &gt; Users. There is no calendar end date on the POS role — that gap is <a href="/guides/staff-collaborator-access-end-date/">set an end date on staff or collaborator access</a>.</li>
+      <li>When the shift block ends, suspend or remove the user in Settings &gt; Users. There is no calendar end date on the POS role — that gap is <a href="/guides/staff-collaborator-access-end-date/">set an end date on staff or collaborator access</a>. For the full removal steps, use the <a href="/guides/staff-permissions-audit-checklist/">staff permissions audit checklist</a>.</li>
     </ul>
 
     <h2>What this page is not</h2>

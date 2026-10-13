@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Does Shopify ship to PO Boxes?</title>
-  <meta name="description" content="Shopify does not ship parcels. Whether a PO Box gets a parcel depends on the carrier. UPS and FedEx state their own PO Box rules. Not legal advice.">
+  <title>Does Shopify ship to PO Boxes? Customer PO Boxes vs your own ship-from address</title>
+  <meta name="description" content="Carriers decide PO Box delivery. Shopify Shipping labels take your origin and return address from Settings &gt; Locations; UPS and return labels need a street address. Not legal advice.">
   <meta name="robots" content="index,follow">
   <link rel="icon" href="/favicon.ico" sizes="any">
   <meta property="og:type" content="article">
-  <meta property="og:title" content="Does Shopify ship to PO Boxes?">
-  <meta property="og:description" content="Shopify does not ship parcels. Whether a PO Box gets a parcel depends on the carrier. UPS and FedEx state their own PO Box rules. Not legal advice.">
+  <meta property="og:title" content="Does Shopify ship to PO Boxes? Customer PO Boxes vs your own ship-from address">
+  <meta property="og:description" content="Carriers decide PO Box delivery. Shopify Shipping labels take your origin and return address from Settings &gt; Locations; UPS and return labels need a street address. Not legal advice.">
   <meta property="og:url" content="https://apify.momiji-space.com/guides/does-shopify-ship-to-po-boxes/">
   <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/27f7c111c94acf4b22bfef9207351043/promotional_image/CLDLhsPS7ZQDEAE=.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Does Shopify ship to PO Boxes?">
-  <meta name="twitter:description" content="Shopify does not ship parcels. Whether a PO Box gets a parcel depends on the carrier. UPS and FedEx state their own PO Box rules. Not legal advice.">
+  <meta name="twitter:title" content="Does Shopify ship to PO Boxes? Customer PO Boxes vs your own ship-from address">
+  <meta name="twitter:description" content="Carriers decide PO Box delivery. Shopify Shipping labels take your origin and return address from Settings &gt; Locations; UPS and return labels need a street address. Not legal advice.">
   <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/27f7c111c94acf4b22bfef9207351043/promotional_image/CLDLhsPS7ZQDEAE=.png">
   <link rel="canonical" href="https://apify.momiji-space.com/guides/does-shopify-ship-to-po-boxes/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
@@ -81,6 +81,10 @@
     </ul>
     <p>This page does not state a DHL, Royal Mail, or other-carrier PO Box rule. If you cannot open that carrier&rsquo;s own current terms, treat delivery to a PO Box as unconfirmed.</p>
 
+    <h2>Using your own PO Box as the ship-from or return address</h2>
+    <p>Shopify Shipping takes the origin and return address printed on a label from your fulfillment location in Settings &gt; Locations. To change it, you update that location; labels bought before the change are not updated (<a href="https://help.shopify.com/en/manual/fulfillment/fulfilling-orders/shipping-labels/managing-labels/printing-shipping-documents">Shopify Help: printing shipping documents</a>). For UPS labels bought through Shopify, Shopify states that UPS doesn&rsquo;t support PO box addresses as the shipping origin (<a href="https://help.shopify.com/en/manual/fulfillment/fulfilling-orders/shipping-labels/shipping-carriers/ups/united-states">Shopify Help: UPS in the United States</a>). Shopify return labels need a valid US street address on the location; PO Boxes aren&rsquo;t valid return addresses (<a href="https://help.shopify.com/en/manual/fulfillment/fulfilling-orders/shipping-labels/buying-labels/return-labels">Shopify Help: return labels</a>). The public contact address on your store is a separate setting.</p>
+    <p>PO Box Blocker &mdash; AddressFence checks customer addresses at checkout. It does not hide or change your own ship-from or return address. For address formats, see <a href="/guides/po-box-address-format/">PO Box address formats</a> and <a href="/guides/shopify-address-validation-checkout/">Shopify address validation at checkout</a>.</p>
+
     <h2>Shipping block vs billing block</h2>
     <p>A shipping-only PO Box block can still leave a PO Box on the card billing address. Requiring shipping and billing to match is not a PO Box detector. Those jobs sit on <a href="/guides/block-po-box-billing-address/">block PO Box on billing</a> and <a href="/guides/addressfence-billing-match-not-po-box/">billing match is not a PO Box block</a>. AddressFence is the listing this site already uses for billing-address rules.</p>
 
@@ -104,6 +108,8 @@
       <li><a href="https://changelog.shopify.com/posts/checkout-blocks-block-non-compliant-shipping-addresses-at-checkout">Shopify Changelog: Checkout Blocks address format validation</a></li>
       <li><a href="https://help.shopify.com/en/manual/checkout-settings/checkout-blocks/customizations/address-format-validation">Shopify Help: address format validation</a></li>
       <li><a href="https://apps.shopify.com/address-guard?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=does-shopify-ship-to-po-boxes">PO Box Blocker — AddressFence</a> &mdash; live App Store listing</li>
+      <li><a href="/guides/po-box-address-format/">PO Box address formats</a></li>
+      <li><a href="/guides/shopify-address-validation-checkout/">Shopify address validation at checkout</a></li>
       <li><a href="/review/">Shopify apps hub</a></li>
       <li><a href="/tools/">Tools</a></li>
     </ul>
