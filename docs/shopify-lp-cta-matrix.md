@@ -24,6 +24,7 @@ Related acquisition pages (same handles; do not invent new listing URLs):
 | Page | Slug |
 | --- | --- |
 | Leftover Admin access checklist | `/guides/staff-permissions-audit-checklist/` |
+| Temporary POS staff role checklist | `/guides/pos-temporary-staff-role-checklist/` |
 | PO Box rate hide vs checkout validation vs AddressFence | `/guides/po-box-shipping-rate-vs-checkout-validation/` |
 | Prop 65 native disclosures vs approval + audit log | `/guides/prop-65-native-disclosures-vs-audit-log/` |
 | EUDR scope 30 Dec 2026 vs mid-2027 | `/guides/eudr-scope-2026-2027/` |
