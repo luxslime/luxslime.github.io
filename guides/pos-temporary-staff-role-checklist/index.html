@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Create a temporary POS role for checkout without broad order access</title>
+  <meta name="description" content="Create a Point of Sale role for temporary staff, leave Manage orders at all locations off, verify on the register, and reopen that role on a 30/90-day cadence. Not legal advice.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Create a temporary POS role for checkout without broad order access">
+  <meta property="og:description" content="Create a Point of Sale role for temporary staff, leave Manage orders at all locations off, verify on the register, and reopen that role on a 30/90-day cadence. Not legal advice.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/pos-temporary-staff-role-checklist/">
+  <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/9ea3a49e539bec70dcd6abb7cc7f4746/promotional_image/CL_Eloyu9ZQDEAE=.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Create a temporary POS role for checkout without broad order access">
+  <meta name="twitter:description" content="Create a Point of Sale role for temporary staff, leave Manage orders at all locations off, verify on the register, and reopen that role on a 30/90-day cadence. Not legal advice.">
+  <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/9ea3a49e539bec70dcd6abb7cc7f4746/promotional_image/CL_Eloyu9ZQDEAE=.png">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/pos-temporary-staff-role-checklist/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://apify.momiji-space.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Guides",
+        "item": "https://apify.momiji-space.com/guides/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Temporary POS staff role checklist",
+        "item": "https://apify.momiji-space.com/guides/pos-temporary-staff-role-checklist/"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Staff Access Audit Guard",
+    "url": "https://apps.shopify.com/momiji-access-audit",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Shopify",
+    "image": "https://cdn.shopify.com/app-store/listing_images/9ea3a49e539bec70dcd6abb7cc7f4746/icon/CLqU3dXo9JQDEAE=.png"
+  }
+  </script>
+</head>
+<body>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/review/">Shopify apps</a>
+        <a href="/guides/pos-temporary-staff-role-checklist/" aria-current="page">Temporary POS role</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / <a href="/guides/">Guides</a> / Temporary POS staff role checklist</nav>
+    <p class="eyebrow">Temporary and part-time POS staff</p>
+    <h1>Temporary staff can ring sales on a Point of Sale role — leave Manage orders at all locations off, then re-check it</h1>
+    <p class="answer-first"><strong>Direct answer.</strong> Yes, temporary or part-time staff can process sales without a store-wide order list: create a custom <strong>Point of sale</strong> role, set <strong>Manage orders at all locations</strong> to Denied, and assign that role to a Point of Sale user. Shopify documents Denied as “staff can manage only the orders that were made at the device’s location,” not as a hide-history or “today only” switch. They still see that location’s past orders. Confirm the live Help Center pages; Shopify can change labels. This page is not legal advice and not a privacy attestation.</p>
+    <p class="lede"><strong>Staff Access Audit Guard</strong> reviews installed-app access, granted scopes, staff access records, and ownership evidence without reading customer or order data. It flags protected customer-data and broad-write access and tracks staff access with 30/90-day review reminders. It does not read POS permission checkboxes, change POS roles, or hide order history. Use the reminder to reopen the temporary role. This page is the setup and re-check — not the missing-permission explainer and not the leftover-admin score.</p>
+
+    <h2>What you are setting up</h2>
+    <p>In the Shopify Community thread <a href="https://community.shopify.com/t/feature-request-restrict-access-to-order-history-in-shopify-pos-pro/695367">Feature Request: Restrict Access to Order History in Shopify POS Pro</a>, QicoBay (10 October 2026) asked for a permission so temporary or part-time staff can check out without browsing historical orders, including orders from their own location. hizachlee (12 October 2026) wrote that there isn’t a permission for that yet, and that a custom role with “Manage orders at all locations” set to Denied and “Return and exchange orders” turned off still leaves that location’s order history visible. QicoBay then asked for a limit to today’s or the last few days’ orders. The thread has no Shopify staff reply.</p>
+    <p>Why that role still matters: Help Center’s <a href="https://help.shopify.com/en/manual/your-account/users/roles/permissions/pos-permissions">Point of Sale permissions</a> table splits “manage orders everywhere” from checkout. Denying the broad order permission does not turn off ringing a sale. The gap — no hide-history row and no date range — is <a href="/guides/hide-pos-order-history-temporary-staff/">hide past POS order history from temporary staff</a>. How POS roles differ from admin staff permissions is <a href="/guides/shopify-pos-staff-permissions/">Shopify POS staff permissions</a>.</p>
+    <p>Help Center’s <a href="https://help.shopify.com/en/manual/your-account/users/roles/role-categories">Role categories</a> page says POS roles and POS-only staff are available when the store has the Point of Sale channel and at least one location on the Shopify POS Pro subscription. <a href="https://help.shopify.com/en/manual/sell-in-person/shopify-pos/staff-management/understanding-pos-staff-management">Understanding Shopify POS staff management</a> says a POS role applies at POS Pro locations, and that POS roles do not apply on POS Lite locations. This page does not compare subscriptions and does not list prices.</p>
+
+    <h2>1. Create the temporary Point of Sale role</h2>
+    <p><a href="https://help.shopify.com/en/manual/your-account/users/roles/manage-roles">Managing roles</a> documents the create path. You assign a role; you do not attach individual POS permissions to one person.</p>
+    <ol>
+      <li>From Shopify admin, go to <strong>Settings &gt; Users</strong>.</li>
+      <li>Click <strong>Roles</strong>, then <strong>Add role</strong>.</li>
+      <li>Select the <strong>Point of sale</strong> role category. A role has one category, so this role cannot also hold store-admin permissions.</li>
+      <li>Name it something you will search for later, such as <strong>Temporary cashier</strong>, and describe who it is for.</li>
+      <li>Set the permissions in the next section, then click <strong>Save</strong>.</li>
+    </ol>
+    <p>Do not edit a Shopify-managed role. Help Center says those cannot be modified. If a custom manager role is close, <strong>Actions &gt; Duplicate</strong>, rename the copy, then turn the broad permissions off on the copy.</p>
+
+    <h2>2. Permissions to leave off</h2>
+    <p>On that Point of sale role, set these to <strong>Denied</strong>. Labels are from the <a href="https://help.shopify.com/en/manual/your-account/users/roles/permissions/pos-permissions">Point of Sale permissions</a> table.</p>
+    <ul>
+      <li><strong>Manage orders at all locations</strong> — Denied. Staff manage only orders made at the device’s location. Allowed lets them manage orders regardless of the device’s location.</li>
+      <li><strong>Switch device’s location</strong> — Denied. Otherwise the location limit is easy to step around.</li>
+      <li><strong>Return and exchange orders</strong> — Denied, unless this person should refund. Also leave Denied the return rows beside it if they are shown: Return ineligible items, Create unverified returns, Complete in-progress returns, Manage item restock, Remove unfulfilled items, and Cancel.</li>
+      <li><strong>Manage draft orders</strong> — Denied. Help Center says denied staff cannot access draft orders created in admin, or view, retrieve, and edit draft orders from other retail locations.</li>
+      <li><strong>Fulfill shipping and pickup orders</strong> and <strong>Reassign or cancel fulfillment</strong> — Denied, unless this shift fulfills pickup or reroutes orders.</li>
+      <li><strong>View analytics for device’s location</strong> and <strong>View payment tracking session history</strong> — Denied. Those are sales and register history, not the cart.</li>
+      <li><strong>View customer details</strong> and <strong>View abandoned checkouts</strong> — Denied if the job does not need the customer’s email, phone, shipping address, or online cart.</li>
+      <li><strong>Manager approval</strong> — Denied. Temporary staff should not approve someone else’s restricted action by PIN.</li>
+    </ul>
+    <p>Leave ordinary checkout available. Help Center does not list a separate “process sale” permission, and denying Manage orders at all locations does not, by itself, block a sale at the device. Leave <strong>Add custom sales</strong>, <strong>Apply custom discounts</strong>, and <strong>Apply discount codes</strong> Denied unless this person should change the price. Discount and refund approval is covered on <a href="/guides/shopify-pos-staff-permissions/">POS roles vs admin staff permissions</a>.</p>
+
+    <h2>3. Assign a Point of Sale user, not an admin user</h2>
+    <p><a href="https://help.shopify.com/en/manual/sell-in-person/shopify-pos/staff-management/add-staff">Inviting users</a> documents two account types. An admin user can hold a POS role and a store role. A Point of Sale user can hold only POS roles, uses a PIN, and does not need an email. Help Center’s staff-management page says POS app-only staff do not have access to Shopify admin or the Point of Sale channel, and that someone with admin access can still view analytics and location details there.</p>
+    <ol>
+      <li>Go to <strong>Settings &gt; Users</strong> and click <strong>Add users</strong>.</li>
+      <li>In User details, select <strong>Point of Sale user</strong> (not Admin user).</li>
+      <li>Enter the first and last name, then click <strong>Add</strong>. Shopify generates a PIN.</li>
+      <li>Under <strong>Roles</strong> or <strong>Roles and groups</strong>, click <strong>Assign</strong> and select the temporary Point of sale role only.</li>
+      <li>Tell the person the PIN, then click <strong>Save</strong>.</li>
+    </ol>
+    <p>Assigning a retail location limits where that PIN can sign in. Help Center says it does not hide inventory at other locations, and that orders from other locations still require <strong>Manage orders at all locations</strong>. If this person must be an admin user, do not also assign a store role that includes Orders. A tight POS role does not remove admin order access.</p>
+
+    <h2>4. Verify on the register</h2>
+    <ol>
+      <li>Sign in on the device with the temporary PIN, at a location where the POS role applies.</li>
+      <li>Ring a test sale the way this person will, and confirm checkout still completes.</li>
+      <li>Open orders. A known order from another location should not be manageable. An older order from this device’s location should still be visible. That remaining history is expected — see <a href="/guides/hide-pos-order-history-temporary-staff/">the hide-history gap</a>.</li>
+      <li>Try a return and a device-location change. Both should be denied if you left those permissions off.</li>
+      <li>If the account is an admin user, sign in to Shopify admin as that user and confirm Orders is not granted by a store role.</li>
+    </ol>
+
+    <h2>5. List the roles that are still broad, then set a 30/90-day reopen</h2>
+    <p>The native list of risky POS roles is in Shopify, not in an app:</p>
+    <ol>
+      <li>Go to <strong>Settings &gt; Users &gt; Roles</strong> and open every <strong>Point of sale</strong> role, including copies of manager roles.</li>
+      <li>Write down any role that still has <strong>Manage orders at all locations</strong> set to Allowed, and any temporary person who is an Admin user.</li>
+      <li>When the shift block ends, suspend or remove that user. Shopify does not store an end date on the role. Removal is <a href="/guides/staff-collaborator-access-end-date/">set an end date on staff or collaborator access</a>.</li>
+    </ol>
+    <p>Staff Access Audit Guard is the reopen habit for the people and the apps. It lists staff access records and granted scopes, flags protected customer-data and broad-write access, and tracks 30/90-day review reminders. It does not open the POS permission table, so it will not show “Manage orders at all locations” for you. An overdue reminder does not suspend anyone — that distinction is <a href="/guides/access-audit-30-90-day-review-reminders/">30/90-day review reminders vs collaborator expiry</a>.</p>
+    <p>Use the staff list to see who still has a login after the season. Use the scope list for a second path to historical orders: installed apps with <code>read_orders</code> or <code>read_all_orders</code>. What those scopes cover is <a href="/guides/shopify-app-access-scopes-explained/">Shopify app access scopes</a>. The audit app itself does not read customer or order data.</p>
+    <p>At 30 days and again at 90 days, reopen <strong>Settings &gt; Users &gt; Roles</strong>, confirm the temporary role is still Denied on the list above, and confirm seasonal people are still Point of Sale users. Then suspend anyone whose shifts have ended.</p>
+    <p><a class="cta" href="https://apps.shopify.com/momiji-access-audit?utm_source=momiji&amp;utm_medium=guide&amp;utm_campaign=pos-temporary-staff-role-checklist">Install Staff Access Audit Guard</a></p>
+
+    <h2>What this page is not</h2>
+    <ul>
+      <li>Not a claim that Shopify can hide this location’s past orders or limit history to today. That limit is still a feature request.</li>
+      <li>Not the leftover Admin access score. That URL is <a href="/guides/staff-permissions-audit-checklist/">staff permissions audit checklist</a>.</li>
+      <li>Not legal advice, a privacy attestation, or employee monitoring.</li>
+      <li>Not a subscription comparison, and not a price.</li>
+    </ul>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/guides/hide-pos-order-history-temporary-staff/">Hide past POS order history from temporary staff</a> — the missing permission, not these setup steps</li>
+      <li><a href="/guides/shopify-pos-staff-permissions/">Shopify POS staff permissions</a> — POS roles vs admin permissions</li>
+      <li><a href="/guides/access-audit-30-90-day-review-reminders/">30/90-day review reminders vs collaborator expiry</a></li>
+      <li><a href="/guides/staff-collaborator-access-end-date/">Set an end date on staff or collaborator access</a></li>
+      <li><a href="/guides/shopify-app-access-scopes-explained/">Shopify app access scopes</a> — <code>read_orders</code> and <code>read_all_orders</code></li>
+      <li><a href="/tools/staff-access-review-checklist/">Staff access review checklist generator</a></li>
+      <li><a href="https://community.shopify.com/t/feature-request-restrict-access-to-order-history-in-shopify-pos-pro/695367">Shopify Community thread 695367</a></li>
+      <li><a href="https://help.shopify.com/en/manual/your-account/users/roles/permissions/pos-permissions">Point of Sale permissions</a></li>
+      <li><a href="https://help.shopify.com/en/manual/your-account/users/roles/manage-roles">Managing roles</a></li>
+      <li><a href="https://help.shopify.com/en/manual/sell-in-person/shopify-pos/staff-management/add-staff">Inviting users</a></li>
+      <li><a href="/review/">Shopify apps hub</a></li>
+    </ul>
+    <p class="note">Not legal advice. Not a privacy attestation. Confirm the live Help Center pages before you treat a role as hiding past orders. The app reviews access you already granted. It does not change POS roles or hide order history. This page does not list prices.</p>
+  </main>
+  <footer class="site">
+    <div class="wrap">
+      <ul>
+        <li><a href="/review/">Shopify apps hub</a></li>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </footer>
+<script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "10aeccbd602743299692f41113bc3b55"}'></script>
+</body>
+</html>
