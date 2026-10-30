@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ClinicalTrials.gov pipeline monitor vs ParseForge scraper</title>
+  <meta name="description" content="Store-facts: taroyamada clinical trial change rows ($10/1k) vs parseforge/clinicaltrials-scraper bulk trials ($8/1k). Change watch vs one-shot export.">
+  <link rel="canonical" href="https://apify.momiji-space.com/compare/clinical-trials-pipeline-vs-parseforge/">
+  <meta property="og:title" content="ClinicalTrials.gov pipeline monitor vs ParseForge scraper">
+  <meta property="og:description" content="Store-facts: taroyamada clinical trial change rows ($10/1k) vs parseforge/clinicaltrials-scraper bulk trials ($8/1k). Change watch vs one-shot export.">
+  <meta property="og:url" content="https://apify.momiji-space.com/compare/clinical-trials-pipeline-vs-parseforge/">
+  <meta property="og:type" content="article">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+</head>
+<body>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/review/">Shopify apps</a>
+        <a href="/compare/" aria-current="page">Compare</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / <a href="/compare/">Compare</a> / Clinical pipeline vs ParseForge</nav>
+    <p class="eyebrow">Public listing facts · last updated 2026-10-30 (Asia/Tokyo)</p>
+    <h1>ClinicalTrials.gov sponsor pipeline monitor vs ParseForge scraper</h1>
+    <p class="lede">ClinicalTrials.gov Sponsor Pipeline Scraper (<code>taroyamada/clinical-trials-pipeline-monitor</code>) is the change-row alternative to <code>parseforge/clinicaltrials-scraper</code> when the job is watching new or changed studies on a sponsor/condition watchlist. ParseForge’s Store card is a bulk ClinicalTrials.gov scrape at <strong>$8.00 / 1,000 results</strong>. Ours publishes <strong>$10.00 / 1,000 clinical trial change rows</strong> with no API key or login.</p>
+
+    <h2>Public Store facts side by side</h2>
+    <p>Both Actors read ClinicalTrials.gov without an API key. The billed unit differs: bulk result rows versus delivered new or changed study rows.</p>
+    <div class="card">
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th><a href="https://apify.com/parseforge/clinicaltrials-scraper">parseforge/clinicaltrials-scraper</a></th>
+          <th><a href="https://apify.com/taroyamada/clinical-trials-pipeline-monitor">taroyamada/clinical-trials-pipeline-monitor</a></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Live Store title</td>
+          <td>ClinicalTrials.gov Scraper - Trials Data, No API Key</td>
+          <td>ClinicalTrials.gov Sponsor Pipeline Scraper</td>
+        </tr>
+        <tr>
+          <td>Published PPE</td>
+          <td class="price">$8.00 / 1,000 results</td>
+          <td class="price">$10.00 / 1,000 clinical trial change rows</td>
+        </tr>
+        <tr>
+          <td>Job on the Store card / site listing</td>
+          <td>Scrape trials by condition, intervention, location, phase, sponsor, or date; export CSV/JSON/Excel/XML</td>
+          <td>Watchlist of condition/phase/status queries; digest rows for new or changed studies; sponsor watch-terms (site listing)</td>
+        </tr>
+        <tr>
+          <td>API key</td>
+          <td>No API key or registration</td>
+          <td>No API key / no login</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="note">Sources: both Store pages read on 2026-10-30. Site facts for ours also match <a href="/clinical-trials-pipeline-monitor/">ClinicalTrials.gov Sponsor Pipeline Scraper</a>.</p>
+
+    <h2>When is the pipeline monitor the better fit?</h2>
+    <p>Choose the pipeline monitor when you need recurring digests of <strong>new or changed</strong> studies against a watchlist and will pay per change row. Choose ParseForge when you need a one-shot bulk pull of trial records by filters and the $8.00 / 1,000 results card is the better fit.</p>
+
+    <p><a class="cta" href="https://apify.com/taroyamada/clinical-trials-pipeline-monitor">Open ClinicalTrials.gov Sponsor Pipeline Scraper on Apify Store</a></p>
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/clinical-trials-pipeline-monitor/">ClinicalTrials.gov Sponsor Pipeline Scraper</a></li>
+      <li><a href="/clinical-trials-fda-watch-monitor/">Clinical Trial &amp; FDA Signal Alerts</a></li>
+      <li><a href="/compare/">All compares</a></li>
+    </ul>
+    <p class="note">Claims on this page come from public Apify Store or Shopify App Store listings read on 2026-10-30 (Asia/Tokyo) and from this site’s published product pages. Confirm live listing pricing before you run or install. Yen figures are what the App Store showed in this locale on that date.</p>
+  </main>
+</body>
+</html>
