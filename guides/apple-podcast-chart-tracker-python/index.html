@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Use Apple Podcasts Chart Tracker with Python — apify-client steps</title>
+  <meta name="description" content="Run taroyamada/apple-podcast-chart-tracker with apify-client. First proof ≈ $0.003 (us + limit 1). Dataset item $0.003; movement report $2.5 when enabled.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/apple-podcast-chart-tracker-python/">
+  <meta property="og:title" content="Use Apple Podcasts Chart Tracker with Python — apify-client steps">
+  <meta property="og:description" content="Run taroyamada/apple-podcast-chart-tracker with apify-client. First proof ≈ $0.003 (us + limit 1). Dataset item $0.003; movement report $2.5 when enabled.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/apple-podcast-chart-tracker-python/">
+  <meta property="og:type" content="article">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <link rel="stylesheet" href="/assets/css/actor-landing.css">
+</head>
+<body>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/guides/">Guides</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / <a href="/guides/">Guides</a> / Apple Podcasts Chart Tracker in Python</nav>
+    <p class="eyebrow">Python ・ iTunes charts ・ apify-client</p>
+    <h1>How to use Apple Podcasts Chart Tracker with Python</h1>
+    <div class="answer-block">
+      <p class="lede">Apple Podcasts Top Charts Scraper (<code>taroyamada/apple-podcast-chart-tracker</code>) runs from Python with <code>apify-client</code>. Call <code>client.actor(...).call(...)</code>, then iterate chart rows (rank, show title, country, source URL). Pricing: <strong>$0.003</strong> per delivered default-dataset item; optional <strong>podcast-chart-movement-report</strong> <strong>$2.5</strong> per delivered report when you enable it with a monitor key. Store quickstart: first paid proof ≈ <strong>$0.003</strong> (countries <code>us</code>, limit 1, movement OFF). No Apple API key or login.</p>
+      <p class="cta-row"><a class="cta" href="https://apify.com/taroyamada/apple-podcast-chart-tracker/input">Open Apple Podcasts Chart Tracker Input on Apify Store</a></p>
+      <p class="updated">Last updated: 2026-10-30 (Asia/Tokyo). Integration steps verified on Apify docs and the Actor Store listing the same day.</p>
+    </div>
+
+    <h2>What this script does</h2>
+    <p>Python fetches public Apple Podcasts / iTunes Top Podcasts chart JSON for storefront countries you list, then prints rank rows. Leave movement reports off until a snapshot succeeds. It is not Apple Podcasts Scraper search and not the reviews monitor.</p>
+    <div class="card">
+    <table>
+      <thead><tr><th>Piece</th><th>Role</th></tr></thead>
+      <tbody>
+        <tr><td>Python client</td><td><code>pip install apify-client</code></td></tr>
+        <tr><td>Actor</td><td><code>taroyamada/apple-podcast-chart-tracker</code> — country charts → rank rows</td></tr>
+        <tr><td>First proof input</td><td><code>countries</code> <code>["us"]</code>; <code>limit</code> 1; <code>generateMovementReport</code> false; <code>dryRun</code> false</td></tr>
+        <tr><td>Useful fields</td><td>rank, show title, artist/network, show id, country, sourceUrl, fetchedAt</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h2>Install and authenticate</h2>
+    <ol>
+      <li><code>pip install apify-client</code></li>
+      <li>Export <code>APIFY_TOKEN</code> from Console <strong>Settings → API &amp; Integrations</strong>. Do not commit the token.</li>
+    </ol>
+
+    <h2>Minimal first-run script</h2>
+<pre><code>import os
+from apify_client import ApifyClient
+
+client = ApifyClient(os.environ["APIFY_TOKEN"])
+
+run_input = {
+    "countries": ["us"],
+    "limit": 1,
+    "generateMovementReport": False,
+    "delivery": "dataset",
+    "dryRun": False,
+    "maxChargeUsd": 0.05,
+}
+
+run = client.actor("taroyamada/apple-podcast-chart-tracker").call(run_input=run_input)
+print(f"dataset: https://console.apify.com/storage/datasets/{run['defaultDatasetId']}")
+
+for item in client.dataset(run["defaultDatasetId"]).iterate_items():
+    print(item)
+</code></pre>
+
+    <h2>After the snapshot works</h2>
+    <p>Raise <code>limit</code> (max 200) or add more countries (max 20) only after one row is useful. Movement reports: set a stable <code>monitorKey</code> and <code>generateMovementReport</code> true — the listing charges <strong>$2.5</strong> per delivered movement report. Keep <code>maxChargeUsd</code> low until you intend that charge.</p>
+
+    <h2>Not this path</h2>
+    <ul>
+      <li>Not Apple Podcasts Scraper (<code>searchTerm</code> / episodes) — different Actor.</li>
+      <li>Do not invent unpublished aliases such as <code>searchTerm</code> or <code>lookupIds</code> on this chart Actor.</li>
+      <li>Never edit the Actor on Apify from this guide; read-only Store usage only.</li>
+    </ul>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper landing</a></li>
+      <li><a href="/guides/apple-podcasts-langchain-rag/">Apple Podcasts Scraper with LangChain</a></li>
+      <li><a href="/guides/apple-podcasts-webhooks/">Deliver Apple Podcasts results with webhooks</a></li>
+      <li><a href="/guides/website-content-extractor-python/">Website Content Extractor with Python</a></li>
+      <li><a href="/guides/clinical-trials-python/">ClinicalTrials.gov monitor with Python</a></li>
+      <li><a href="/tools/">Tools catalog</a></li>
+    </ul>
+    <p class="note">Pricing and input from apify.com/taroyamada/apple-podcast-chart-tracker on 2026-10-30 (Asia/Tokyo). Python client from Apify docs.</p>
+  </main>
+  <footer class="site"><div class="wrap"><ul><li><a href="/tools/">Tools catalog</a></li><li><a href="/guides/">Guides</a></li><li><a href="/">Home</a></li></ul></div></footer>
+</body>
+</html>

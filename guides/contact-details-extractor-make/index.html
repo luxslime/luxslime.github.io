@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Use Contact Details Extractor in Make — Apify module steps</title>
+  <meta name="description" content="Run taroyamada/contact-details-extractor from Make: Run an Actor → Get Dataset Items. First proof ≈ $0.005 (start $0.001 + 2×$0.002).">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/contact-details-extractor-make/">
+  <meta property="og:title" content="Use Contact Details Extractor in Make — Apify module steps">
+  <meta property="og:description" content="Run taroyamada/contact-details-extractor from Make: Run an Actor → Get Dataset Items. First proof ≈ $0.005 (start $0.001 + 2×$0.002).">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/contact-details-extractor-make/">
+  <meta property="og:type" content="article">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <link rel="stylesheet" href="/assets/css/actor-landing.css">
+</head>
+<body>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/guides/">Guides</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / <a href="/guides/">Guides</a> / Contact Details Extractor in Make</nav>
+    <p class="eyebrow">Make ・ contact page audit ・ Apify module</p>
+    <h1>How to use Contact Details Extractor in Make</h1>
+    <div class="answer-block">
+      <p class="lede">Contact Page Audit &amp; Business Channel Extractor (<code>taroyamada/contact-details-extractor</code>) runs inside Make through Apify’s official module. Connect with OAuth or an API token, add <strong>Run an Actor</strong>, then <strong>Get Dataset Items</strong>, and map public business emails, phones, and social URLs into Sheets or your CRM. Pricing page: <strong>result</strong> $0.002 per default-dataset row; <strong>Actor Start</strong> $0.001 per GB (minimum one event). Store quickstart: first paid proof ≈ <strong>$0.005</strong> for the two prefilled contact pages. No API key or login on the target sites.</p>
+      <p class="cta-row"><a class="cta" href="https://apify.com/taroyamada/contact-details-extractor/input">Open Contact Details Extractor Input on Apify Store</a></p>
+      <p class="updated">Last updated: 2026-10-30 (Asia/Tokyo). Integration steps verified on Apify docs and the Actor Store listing the same day.</p>
+    </div>
+
+    <h2>What this scenario does</h2>
+    <p>Make starts a bounded audit on public contact/about/support URLs you supply, then exports one structured row per page. Person-level private email candidates stay suppressed per the listing. It is not a full-site crawler and not Phone Number Validator.</p>
+    <div class="card">
+    <table>
+      <thead><tr><th>Piece</th><th>Role</th></tr></thead>
+      <tbody>
+        <tr><td>Make Apify module</td><td>Official Apify app on Make (docs.apify.com/integrations/make)</td></tr>
+        <tr><td>Actor</td><td><code>taroyamada/contact-details-extractor</code> — contact/about/support URLs → channel rows</td></tr>
+        <tr><td>First proof input</td><td>Leave prefilled <code>urls</code> (ICANN + Automattic contact); <code>delivery</code> <code>dataset</code>; <code>dryRun</code> false</td></tr>
+        <tr><td>Useful fields</td><td>Public business emails, phones, social profile URLs, support-channel type, source URL, warnings</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h2>Connect Apify to Make</h2>
+    <ol>
+      <li>In a Make scenario, search for <strong>Apify</strong> and add a module.</li>
+      <li>Open Connection. Prefer <strong>OAuth</strong>, or paste an Apify API token from Console <strong>Settings → API &amp; Integrations</strong>.</li>
+      <li>Save the connection.</li>
+    </ol>
+
+    <h2>Synchronous path (short proof)</h2>
+    <ol>
+      <li>Add <strong>Run an Actor</strong>. Select <code>taroyamada/contact-details-extractor</code>.</li>
+      <li>Set <strong>Run synchronously</strong> to Yes only when the run fits Make’s plan timeout; otherwise use Watch Actor Runs.</li>
+      <li>Override input with the Store quickstart (two prefilled contact URLs) or your authorized contact pages.</li>
+      <li>Add <strong>Get Dataset Items</strong>. Map Dataset ID from the Run module.</li>
+      <li>Map email, phone, social, and source URL fields into Google Sheets, HubSpot, or Slack.</li>
+    </ol>
+    <p>Suggested Input override (Store prefill shape):</p>
+<pre><code>{
+  "urls": [
+    "https://www.icann.org/contact",
+    "https://automattic.com/contact/"
+  ],
+  "concurrency": 5,
+  "timeoutMs": 15000,
+  "delivery": "dataset",
+  "dryRun": false,
+  "maxChargeUsd": 0.01
+}</code></pre>
+
+    <h2>Asynchronous path</h2>
+    <ol>
+      <li>Start the Actor from Apify Console, a schedule, or another scenario.</li>
+      <li>In Make, add trigger <strong>Watch Actor Runs</strong> for this Actor (Succeeded).</li>
+      <li>Add <strong>Get Dataset Items</strong> using the trigger’s default dataset ID.</li>
+    </ol>
+
+    <h2>Not this path</h2>
+    <ul>
+      <li>Not Phone Number Validator (bulk E.164 format check) — different Actor.</li>
+      <li>Do not invent unpublished crawl fields such as <code>startUrls</code> or <code>followLinks</code>.</li>
+      <li>Never edit the Actor on Apify from this guide; read-only Store usage only.</li>
+    </ul>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/contact-details-extractor/">Contact Details Extractor landing</a></li>
+      <li><a href="/guides/article-extractor-make/">Article Content Extractor in Make</a></li>
+      <li><a href="/guides/saas-change-monitor-make/">SaaS Change Monitor in Make</a></li>
+      <li><a href="/guides/phone-number-validator-zapier/">Phone Number Validator in Zapier</a></li>
+      <li><a href="/tools/">Tools catalog</a></li>
+    </ul>
+    <p class="note">Pricing and input from apify.com/taroyamada/contact-details-extractor on 2026-10-30 (Asia/Tokyo). Make steps from Apify docs. Not legal advice.</p>
+  </main>
+  <footer class="site"><div class="wrap"><ul><li><a href="/tools/">Tools catalog</a></li><li><a href="/guides/">Guides</a></li><li><a href="/">Home</a></li></ul></div></footer>
+</body>
+</html>

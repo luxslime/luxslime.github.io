@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Use Phone Number Validator in Zapier — Finished run to Sheets</title>
+  <meta name="description" content="Wire taroyamada/phone-number-validator into Zapier: Finished Actor run + Fetch dataset items. First proof ≈ $0.002 per delivered validation row.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/phone-number-validator-zapier/">
+  <meta property="og:title" content="Use Phone Number Validator in Zapier — Finished run to Sheets">
+  <meta property="og:description" content="Wire taroyamada/phone-number-validator into Zapier: Finished Actor run + Fetch dataset items. First proof ≈ $0.002 per delivered validation row.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/phone-number-validator-zapier/">
+  <meta property="og:type" content="article">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <link rel="stylesheet" href="/assets/css/actor-landing.css">
+</head>
+<body>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/guides/">Guides</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / <a href="/guides/">Guides</a> / Phone Number Validator in Zapier</nav>
+    <p class="eyebrow">Zapier ・ E.164 phone cleanup ・ Apify app</p>
+    <h1>How to use Phone Number Validator in Zapier</h1>
+    <div class="answer-block">
+      <p class="lede">Phone Number Validator (<code>taroyamada/phone-number-validator</code>) connects to Zapier through Apify’s official Zapier app. Use trigger <strong>Finished Actor run</strong>, then <strong>Fetch dataset items</strong>, and map E.164 / international / national formats into Google Sheets or your CRM. Pricing: <strong>$0.002</strong> per delivered offline format-validation row. Store quickstart: first paid proof ≈ <strong>$0.002</strong> for the one prefilled number. Offline libphonenumber — no carrier lookup API key required on your side.</p>
+      <p class="cta-row"><a class="cta" href="https://apify.com/taroyamada/phone-number-validator/input">Open Phone Number Validator Input on Apify Store</a></p>
+      <p class="updated">Last updated: 2026-10-30 (Asia/Tokyo). Integration steps verified on Apify docs and the Actor Store listing the same day.</p>
+    </div>
+
+    <h2>What this Zap does</h2>
+    <p>Zapier reacts when a validation run finishes, then writes structured phone rows (region, E.164, line-type signals when available, validation status) to Sheets or a CRM. It validates formats offline; it is not Contact Details Extractor (page crawl).</p>
+    <div class="card">
+    <table>
+      <thead><tr><th>Piece</th><th>Role</th></tr></thead>
+      <tbody>
+        <tr><td>Zapier Apify app</td><td>Official Apify integration (docs.apify.com/platform/integrations/zapier)</td></tr>
+        <tr><td>Actor</td><td><code>taroyamada/phone-number-validator</code> — phone strings → format rows</td></tr>
+        <tr><td>First proof input</td><td>Leave prefilled <code>numbers</code> <code>+14155552671</code>; <code>defaultCountry</code> US; <code>dryRun</code> false</td></tr>
+        <tr><td>Useful fields</td><td>E.164, international, national formats, country/calling code, line classification, validation status</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h2>Connect Apify with Zapier</h2>
+    <ol>
+      <li>Create a Zap. Choose Apify as the trigger or action.</li>
+      <li>Connect to Apify → Allow Access.</li>
+      <li>Use <strong>Test Trigger</strong> after you have at least one Console run.</li>
+    </ol>
+
+    <h2>Cleanup path: Finished Actor run → Sheets</h2>
+    <ol>
+      <li>Trigger: Apify <strong>Finished Actor run</strong>. Select <code>taroyamada/phone-number-validator</code>.</li>
+      <li>Add Apify <strong>Fetch dataset items</strong> for the finished run’s default dataset.</li>
+      <li>Add Google Sheets (or HubSpot). Map E.164, national format, country, and validation status.</li>
+      <li>Publish. Start the Actor from Console or from a Zap <strong>Run Actor</strong> step with your number list.</li>
+    </ol>
+
+    <h2>Optional: start a one-number proof from Zapier</h2>
+    <ol>
+      <li>Action: Apify <strong>Run Actor</strong>. Select the same Actor.</li>
+      <li>Prefer async + Finished trigger — Zapier sync has a hard 30 second timeout.</li>
+    </ol>
+<pre><code>{
+  "numbers": ["+14155552671"],
+  "defaultCountry": "US",
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p>Paste up to 1–1,000 user-supplied numbers per the Store input after one row is useful.</p>
+
+    <h2>Not this path</h2>
+    <ul>
+      <li>Not a live carrier HLR lookup product beyond what the listing documents for offline libphonenumber signals.</li>
+      <li>Not Contact Details Extractor page crawling.</li>
+      <li>Do not invent unpublished input aliases; use the Store Input schema.</li>
+      <li>Never edit the Actor on Apify from this guide; read-only Store usage only.</li>
+    </ul>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/bulk-phone-format-validator/">Bulk Phone Format Validator landing</a></li>
+      <li><a href="/guides/ted-sam-zapier/">TED + SAM bid alerts in Zapier</a></li>
+      <li><a href="/guides/contact-details-extractor-make/">Contact Details Extractor in Make</a></li>
+      <li><a href="/contact-details-extractor/">Contact Details Extractor landing</a></li>
+      <li><a href="/tools/">Tools catalog</a></li>
+    </ul>
+    <p class="note">Pricing and input from apify.com/taroyamada/phone-number-validator on 2026-10-30 (Asia/Tokyo). Zapier steps from Apify docs.</p>
+  </main>
+  <footer class="site"><div class="wrap"><ul><li><a href="/tools/">Tools catalog</a></li><li><a href="/guides/">Guides</a></li><li><a href="/">Home</a></li></ul></div></footer>
+</body>
+</html>
