@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Use HHS Healthcare Data Breach Monitor in Make — Watch Actor Runs</title>
+  <meta name="description" content="Wire taroyamada/data-breach-disclosure-monitor into Make: Watch Actor Runs + Get Dataset Items for HHS OCR digests. $10.00 / 1,000 change rows.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/hhs-breach-make/">
+  <meta property="og:title" content="Use HHS Healthcare Data Breach Monitor in Make — Watch Actor Runs">
+  <meta property="og:description" content="Wire taroyamada/data-breach-disclosure-monitor into Make: Watch Actor Runs + Get Dataset Items for HHS OCR digests. $10.00 / 1,000 change rows.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/hhs-breach-make/">
+  <meta property="og:type" content="article">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <link rel="stylesheet" href="/assets/css/actor-landing.css">
+</head>
+<body>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/guides/">Guides</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / <a href="/guides/">Guides</a> / HHS breach in Make</nav>
+    <p class="eyebrow">Make ・ HHS OCR ・ breach digests</p>
+    <h1>How to use HHS Healthcare Data Breach Change Scraper in Make</h1>
+    <div class="answer-block">
+      <p class="lede">HHS Healthcare Data Breach Change Scraper (<code>taroyamada/data-breach-disclosure-monitor</code>) runs inside Make through Apify's official module. For overnight portal checks, prefer trigger <strong>Watch Actor Runs</strong>, then <strong>Get Dataset Items</strong>, and map disclosure digests into Sheets or Slack. Short proof runs can use <strong>Run an Actor</strong> with sync only when they fit Make's plan timeout. Listing: <strong>$10.00 / 1,000 healthcare breach change rows</strong> ($0.01 per successfully delivered new or changed public HHS breach disclosure row).</p>
+      <p class="cta-row"><a class="cta" href="https://apify.com/taroyamada/data-breach-disclosure-monitor/input">Open HHS Healthcare Data Breach Monitor Input on Apify Store</a></p>
+      <p class="updated">Last updated: 2026-10-30 (Asia/Tokyo). Integration steps verified on Apify docs the same day.</p>
+    </div>
+
+    <h2>What this scenario does</h2>
+    <p>Make watches finished runs of the HHS OCR Breach Portal monitor, then exports source-linked disclosure digests (affected-entity counts, incident types, change evidence). It tracks newly published portal disclosures. It does not query Google News and does not accept article URL lists.</p>
+    <div class="card">
+    <table>
+      <thead><tr><th>Piece</th><th>Role</th></tr></thead>
+      <tbody>
+        <tr><td>Make Apify module</td><td>Official Apify app on Make (docs.apify.com/platform/integrations/make)</td></tr>
+        <tr><td>Actor</td><td><code>taroyamada/data-breach-disclosure-monitor</code> — public HHS OCR breach digests</td></tr>
+        <tr><td>First proof input</td><td><code>lookbackDays</code> 30; <code>minIndividualsAffected</code> 500; <code>datasetMode</code> <code>all</code></td></tr>
+        <tr><td>Useful fields</td><td>Entity name, state, individuals affected, incident type, change evidence, source links</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h2>Connect Apify to Make</h2>
+    <p>Steps below match Apify's Make integration doc read on 2026-10-30.</p>
+    <ol>
+      <li>In a Make scenario, search the module bar for <strong>Apify</strong> and add a module.</li>
+      <li>Open Connection. Prefer <strong>OAuth</strong>. Or paste an Apify API token from Console <strong>Settings → API &amp; Integrations</strong>.</li>
+      <li>Save the connection.</li>
+    </ol>
+
+    <h2>Asynchronous path (scheduled portal checks)</h2>
+    <ol>
+      <li>Start the Actor from Apify Console, a schedule, or another scenario with the input below.</li>
+      <li>In Make, add trigger <strong>Watch Actor Runs</strong> for <code>taroyamada/data-breach-disclosure-monitor</code>.</li>
+      <li>Add <strong>Get Dataset Items</strong>. Map Dataset ID from the trigger's default dataset variable.</li>
+      <li>Map entity, state, individuals affected, and source URL fields into Google Sheets, Slack, or your SIEM webhook.</li>
+    </ol>
+    <p>Suggested first input:</p>
+<pre><code>{
+  "lookbackDays": 30,
+  "entityKeywords": "",
+  "stateFilter": "",
+  "minIndividualsAffected": 500,
+  "maxBreachesInEvidence": 50,
+  "watchTerms": "",
+  "requestTimeoutSeconds": 45,
+  "delivery": "dataset",
+  "datasetMode": "all",
+  "notifyOnNoChange": false,
+  "snapshotKey": "hhs-breach-monitor-snapshots",
+  "dryRun": false
+}</code></pre>
+
+    <h2>Synchronous path (short proofs only)</h2>
+    <ol>
+      <li>Add <strong>Run an Actor</strong>. Select the same Actor. Set <strong>Run synchronously</strong> to Yes only when you expect the run to finish inside Make's plan timeout.</li>
+      <li>If the run may exceed the timeout, use the async path above instead (Apify documents a hard sync timeout that varies by Make plan).</li>
+      <li>Add <strong>Get Dataset Items</strong> using the Run module's default dataset ID, then map the same fields.</li>
+    </ol>
+    <p>Make's listed Apify actions also include Run a Task, Scrape Single URL, and Make an API Call; searches include Get Dataset Items. Triggers: Watch Actor Runs and Watch Task Runs.</p>
+
+    <h2>Not this path</h2>
+    <ul>
+      <li>Not Google News queries, article URL lists, or RSS feeds.</li>
+      <li>Not SaaS status-page or trust-center monitors — those are different Actors on this site.</li>
+      <li>Do not invent unpublished input aliases; use the Store Input schema.</li>
+    </ul>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/hhs-healthcare-data-breach-scraper/">HHS Healthcare Data Breach landing</a></li>
+      <li><a href="/status-page-incident-digest-monitor/">SaaS Status Page &amp; Incident Scraper</a></li>
+      <li><a href="/trust-center-subprocessor-monitor/">Subprocessor &amp; Trust Center Scraper</a></li>
+      <li><a href="https://docs.apify.com/platform/integrations/make">Apify Make integration (official docs)</a></li>
+    </ul>
+    <p class="note">Actor facts on this page come from this site's published listing pages. Integration steps come from Apify's public docs read on 2026-10-30 (Asia/Tokyo): <a href="https://docs.apify.com/platform/integrations/make">Make</a>, <a href="https://docs.apify.com/platform/integrations/zapier">Zapier</a>, <a href="https://docs.apify.com/integrations/n8n">n8n</a>. Confirm live Store input and pricing before you run.</p>
+  </main>
+</body>
+</html>
