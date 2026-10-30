@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Use RSS Feed Aggregator in n8n — Apify node steps</title>
+  <meta name="description" content="Run taroyamada/rss-feed-aggregator from n8n with @apify/n8n-nodes-apify. First proof ≈ $0.005 (5 items × $0.001). From $1/1k.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/rss-feed-aggregator-n8n/">
+  <meta property="og:title" content="Use RSS Feed Aggregator in n8n — Apify node steps">
+  <meta property="og:description" content="Run taroyamada/rss-feed-aggregator from n8n with @apify/n8n-nodes-apify. First proof ≈ $0.005 (5 items × $0.001). From $1/1k.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/rss-feed-aggregator-n8n/">
+  <meta property="og:type" content="article">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <link rel="stylesheet" href="/assets/css/actor-landing.css">
+</head>
+<body>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/guides/">Guides</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / <a href="/guides/">Guides</a> / RSS Feed Aggregator in n8n</nav>
+    <p class="eyebrow">n8n ・ RSS / Atom ・ Apify node</p>
+    <h1>How to use RSS Feed Aggregator in n8n</h1>
+    <div class="answer-block">
+      <p class="lede">RSS Feed Scraper (<code>taroyamada/rss-feed-aggregator</code>) runs inside n8n through Apify’s official community node <code>@apify/n8n-nodes-apify</code>. Install the node, authenticate with an Apify API token, choose <strong>Run an Actor</strong> (or <strong>Run an Actor and get dataset</strong>), then map title, link, and date into Sheets, Slack, or Article Content Extractor. Pricing: <strong>$0.001</strong> per successfully parsed public feed item; Store quickstart first proof ≈ <strong>$0.005</strong> (prefilled HN feed, maxItemsPerFeed 5). Listing also states from <strong>USD 1/1k</strong>. No API key or login on the feeds.</p>
+      <p class="cta-row"><a class="cta" href="https://apify.com/taroyamada/rss-feed-aggregator/input">Open RSS Feed Aggregator Input on Apify Store</a></p>
+      <p class="updated">Last updated: 2026-10-30 (Asia/Tokyo). Integration steps verified on Apify docs and the Actor Store listing the same day.</p>
+    </div>
+
+    <h2>What this workflow does</h2>
+    <p>n8n pulls items from public RSS/Atom feeds you list, optionally filters by keywords, deduplicates across feeds, then passes rows downstream. It is a URL-discovery layer — not Article Content Extractor and not Website Content Extractor.</p>
+    <div class="card">
+    <table>
+      <thead><tr><th>Piece</th><th>Role</th></tr></thead>
+      <tbody>
+        <tr><td>n8n Apify node</td><td>Official community package <code>@apify/n8n-nodes-apify</code> (docs.apify.com/integrations/n8n)</td></tr>
+        <tr><td>Actor</td><td><code>taroyamada/rss-feed-aggregator</code> — feed URLs → item rows</td></tr>
+        <tr><td>First proof input</td><td>Leave prefilled <code>feedUrls</code> HN RSS; <code>maxItemsPerFeed</code> 5; <code>deduplicate</code> true; <code>dryRun</code> false</td></tr>
+        <tr><td>Useful fields</td><td>title, link, date, author, summary, matchedKeywords (when keywords set)</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h2>Install the Apify node in n8n</h2>
+    <h3>Self-hosted</h3>
+    <ol>
+      <li>Open n8n → <strong>Settings → Community Nodes → Install</strong>.</li>
+      <li>Enter <code>@apify/n8n-nodes-apify</code>, accept community-node risk, Install.</li>
+    </ol>
+    <h3>n8n Cloud</h3>
+    <ol>
+      <li>Open the Canvas nodes panel → search <strong>Apify</strong> → <strong>Install node</strong>.</li>
+    </ol>
+
+    <h2>Authenticate</h2>
+    <ol>
+      <li><strong>Create Credential</strong> → <strong>Apify API</strong>.</li>
+      <li>Paste your token from Apify Console <strong>Settings → API &amp; Integrations</strong>.</li>
+    </ol>
+
+    <h2>Build the feed workflow</h2>
+    <ol>
+      <li>Add Apify → <strong>Run an Actor</strong> (or <strong>Run an Actor and get dataset</strong>).</li>
+      <li>Select <code>taroyamada/rss-feed-aggregator</code>.</li>
+      <li>Set Custom input to the JSON below.</li>
+      <li>If you used plain Run an Actor, add <strong>Get Dataset Items</strong> with Dataset ID = previous <code>defaultDatasetId</code>.</li>
+      <li>Optional next step: pass <code>link</code> into Article Content Extractor for full body Markdown.</li>
+    </ol>
+<pre><code>{
+  "feedUrls": ["https://hnrss.org/frontpage"],
+  "maxItemsPerFeed": 5,
+  "deduplicate": true,
+  "timeoutMs": 15000,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+
+    <h2>Not this path</h2>
+    <ul>
+      <li>Not Google News query discovery — use a news Actor if you need query search.</li>
+      <li>Do not invent unpublished aliases such as <code>startUrls</code> instead of <code>feedUrls</code>.</li>
+      <li>Never edit the Actor on Apify from this guide; read-only Store usage only.</li>
+    </ul>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/rss-atom-feed-extractor/">RSS / Atom Feed Extractor landing</a></li>
+      <li><a href="/guides/youtube-transcript-n8n/">YouTube Transcript Scraper in n8n</a></li>
+      <li><a href="/guides/article-extractor-make/">Article Content Extractor in Make</a></li>
+      <li><a href="/guides/website-content-extractor-python/">Website Content Extractor with Python</a></li>
+      <li><a href="/tools/">Tools catalog</a></li>
+    </ul>
+    <p class="note">Pricing and input from apify.com/taroyamada/rss-feed-aggregator on 2026-10-30 (Asia/Tokyo). n8n steps from Apify docs.</p>
+  </main>
+  <footer class="site"><div class="wrap"><ul><li><a href="/tools/">Tools catalog</a></li><li><a href="/guides/">Guides</a></li><li><a href="/">Home</a></li></ul></div></footer>
+</body>
+</html>
