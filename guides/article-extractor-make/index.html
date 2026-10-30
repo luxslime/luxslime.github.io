@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Use Article Content Extractor in Make — Apify module steps</title>
+  <meta name="description" content="Run taroyamada/article-content-extractor from Make with the official Apify module. Run an Actor → Get Dataset Items. One URL ≈ $0.008; from $8.00 / 1,000 useful rows.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/article-extractor-make/">
+  <meta property="og:title" content="Use Article Content Extractor in Make — Apify module steps">
+  <meta property="og:description" content="Run taroyamada/article-content-extractor from Make with the official Apify module. Run an Actor → Get Dataset Items. One URL ≈ $0.008; from $8.00 / 1,000 useful rows.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/article-extractor-make/">
+  <meta property="og:type" content="article">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <link rel="stylesheet" href="/assets/css/actor-landing.css">
+</head>
+<body>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/guides/">Guides</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / <a href="/guides/">Guides</a> / Article Extractor in Make</nav>
+    <p class="eyebrow">Make · article Markdown · Apify module</p>
+    <h1>How to use Article Content Extractor in Make</h1>
+    <div class="answer-block">
+      <p class="lede">Article Content Extractor (<code>taroyamada/article-content-extractor</code>) runs inside Make through Apify’s official module. Connect with OAuth (recommended) or an API token, add <strong>Run an Actor</strong>, then <strong>Get Dataset Items</strong>, and map <code>articleText</code> (Markdown by default) into Sheets or your RAG store. For long runs past Make’s sync timeout, use <strong>Watch Actor Runs</strong> instead. Listing: about <strong>$0.008</strong> per useful article URL; from <strong>$8.00 / 1,000 useful rows</strong>.</p>
+      <p class="cta-row"><a class="cta" href="https://apify.com/taroyamada/article-content-extractor/input">Open Article Content Extractor Input on Apify Store</a></p>
+      <p class="updated">Last updated: 2026-10-30 (Asia/Tokyo). Integration steps verified on Apify docs the same day.</p>
+    </div>
+
+    <h2>What this scenario does</h2>
+    <p>Make starts a bounded HTML cleanup on public news, blog, newsroom, or press URLs you already have, then writes headline, byline, date, and Markdown body into the next module. It is not Google News discovery and not a full-site crawler. Docs and help-center pages belong on Website Content Extractor.</p>
+    <div class="card">
+    <table>
+      <thead><tr><th>Piece</th><th>Role</th></tr></thead>
+      <tbody>
+        <tr><td>Make Apify module</td><td>Official Apify app on Make (docs.apify.com/integrations/make)</td></tr>
+        <tr><td>Actor</td><td><code>taroyamada/article-content-extractor</code> — article-shaped URLs → structured rows</td></tr>
+        <tr><td>First proof input</td><td>One <code>urls</code> item; <code>outputFormat</code> <code>markdown</code>; report/export off</td></tr>
+        <tr><td>Useful fields</td><td><code>headline</code>, <code>author</code>, <code>publishedAt</code>, <code>articleText</code>, <code>sourceUrl</code></td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h2>Connect Apify to Make</h2>
+    <p>Steps below match Apify’s Make integration doc read on 2026-10-30.</p>
+    <ol>
+      <li>In a Make scenario, search the module bar for <strong>Apify</strong> and add a module.</li>
+      <li>Open Connection. Prefer <strong>OAuth</strong>. Or paste an Apify API token from Console <strong>Settings → API &amp; Integrations</strong>.</li>
+      <li>Save the connection.</li>
+    </ol>
+
+    <h2>Synchronous path (short runs)</h2>
+    <ol>
+      <li>Add <strong>Run an Actor</strong>. Select <code>taroyamada/article-content-extractor</code>.</li>
+      <li>Set <strong>Run synchronously</strong> to Yes only when you expect the run to finish inside Make’s plan timeout. If it may exceed the timeout, use the async path below.</li>
+      <li>Override input JSON with one public article URL (leave <code>generateReport</code> / <code>emitExport</code> false).</li>
+      <li>Add <strong>Get Dataset Items</strong>. Map Dataset ID from the Run module’s default dataset variable.</li>
+      <li>Map <code>articleText</code>, <code>headline</code>, and <code>sourceUrl</code> into Google Sheets, Airtable, or your vector ingest webhook.</li>
+    </ol>
+    <p>Suggested Input override:</p>
+<pre><code>{
+  "urls": [
+    "https://en.wikipedia.org/wiki/Web_scraping"
+  ],
+  "outputFormat": "markdown",
+  "includeImages": false,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+
+    <h2>Asynchronous path (long or scheduled runs)</h2>
+    <ol>
+      <li>Start the Actor from Apify Console, a schedule, or another scenario.</li>
+      <li>In Make, add trigger <strong>Watch Actor Runs</strong> for this Actor.</li>
+      <li>Add <strong>Get Dataset Items</strong> using the trigger’s default dataset ID.</li>
+      <li>Continue with the same field mapping as the sync path.</li>
+    </ol>
+    <p>Make’s listed Apify actions also include Run a Task, Scrape Single URL, and Make an API Call; searches include Get Dataset Items. Triggers: Watch Actor Runs and Watch Task Runs.</p>
+
+    <h2>Not this path</h2>
+    <ul>
+      <li>Not Google News <code>queries</code> or RSS <code>feedUrls</code> — discover URLs first, then extract here.</li>
+      <li>Not Website Content Extractor fields (<code>includeMetadata</code>, <code>maxChargeUsd</code>, HTML emit).</li>
+      <li>Failed or no-content fetches stay out of the default dataset (not billed as useful rows).</li>
+    </ul>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/article-content-extractor/">Article Content Extractor landing</a></li>
+      <li><a href="/guides/article-url-to-markdown-rag/">Article URL to Markdown for RAG</a></li>
+      <li><a href="/guides/article-extractor-first-paid-run/">Cheapest first paid run</a></li>
+      <li><a href="https://docs.apify.com/integrations/make">Apify Make integration (official docs)</a></li>
+    </ul>
+    <p class="note">Actor facts on this page come from this site’s published listing pages. Integration steps come from Apify’s public docs read on 2026-10-30 (Asia/Tokyo): <a href="https://docs.apify.com/integrations/n8n">n8n</a>, <a href="https://docs.apify.com/integrations/make">Make</a>, <a href="https://docs.apify.com/integrations/langchain">LangChain</a>, and <a href="https://docs.apify.com/mcp">MCP</a>. Confirm live Store input and pricing before you run.</p>
+  </main>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Use YouTube Transcript Scraper in n8n — Apify node steps</title>
+  <meta name="description" content="Run taroyamada/youtube-transcript-bulk-api from n8n with the official Apify community node. Install @apify/n8n-nodes-apify, Run Actor, Get Dataset Items. One video ≈ $0.00255.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/youtube-transcript-n8n/">
+  <meta property="og:title" content="Use YouTube Transcript Scraper in n8n — Apify node steps">
+  <meta property="og:description" content="Run taroyamada/youtube-transcript-bulk-api from n8n with the official Apify community node. Install @apify/n8n-nodes-apify, Run Actor, Get Dataset Items. One video ≈ $0.00255.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/youtube-transcript-n8n/">
+  <meta property="og:type" content="article">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <link rel="stylesheet" href="/assets/css/actor-landing.css">
+</head>
+<body>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/guides/">Guides</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / <a href="/guides/">Guides</a> / YouTube Transcript in n8n</nav>
+    <p class="eyebrow">n8n · YouTube captions · Apify node</p>
+    <h1>How to use YouTube Transcript Scraper in n8n</h1>
+    <div class="answer-block">
+      <p class="lede">YouTube Transcript Scraper (<code>taroyamada/youtube-transcript-bulk-api</code>) runs inside n8n through Apify’s official community node <code>@apify/n8n-nodes-apify</code>. Install the node, authenticate with an Apify API token, choose <strong>Run an Actor</strong> (or <strong>Run an Actor and get dataset</strong>), then map <code>fullText</code> / segments into Sheets, Slack, or a vector store. Listing price: about <strong>$0.00255</strong> for one video URL (Start $0.00005 + Result $0.0025); from <strong>$2.50 / 1,000 results</strong>.</p>
+      <p class="cta-row"><a class="cta" href="https://apify.com/taroyamada/youtube-transcript-bulk-api/input">Open YouTube Transcript Scraper Input on Apify Store</a></p>
+      <p class="updated">Last updated: 2026-10-30 (Asia/Tokyo). Integration steps verified on Apify docs the same day.</p>
+    </div>
+
+    <h2>What this workflow does</h2>
+    <p>n8n triggers a bulk caption extract on public YouTube URLs you already have, then passes dataset rows to the next node. The Actor is HTTP-first: public caption tracks only, no browser login, no video/audio download. It is not Website Content Extractor and not a channel-analytics Actor.</p>
+    <div class="card">
+    <table>
+      <thead><tr><th>Piece</th><th>Role</th></tr></thead>
+      <tbody>
+        <tr><td>n8n Apify node</td><td>Official community package <code>@apify/n8n-nodes-apify</code> (docs.apify.com/integrations/n8n)</td></tr>
+        <tr><td>Actor</td><td><code>taroyamada/youtube-transcript-bulk-api</code> — video / playlist / channel → caption rows</td></tr>
+        <tr><td>First proof input</td><td>One <code>videoUrls</code> watch URL; <code>language</code> <code>en</code>; <code>outputFormat</code> <code>json</code>; <code>dryRun</code> false</td></tr>
+        <tr><td>Useful fields</td><td><code>videoId</code>, <code>videoTitle</code>, <code>fullText</code>, <code>segments</code>, <code>formattedTranscript</code></td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h2>Install the Apify node in n8n</h2>
+    <p>Steps below match Apify’s n8n integration doc read on 2026-10-30.</p>
+    <h3>Self-hosted</h3>
+    <ol>
+      <li>Open your n8n instance.</li>
+      <li>Go to <strong>Settings → Community Nodes → Install</strong>.</li>
+      <li>Enter <code>@apify/n8n-nodes-apify</code> (latest), accept community-node risk, Install.</li>
+    </ol>
+    <h3>n8n Cloud</h3>
+    <ol>
+      <li>Open the Canvas nodes panel.</li>
+      <li>Search for <strong>Apify</strong> in the community registry.</li>
+      <li>Click <strong>Install node</strong>. Instance owners must keep verified community nodes visible in Cloud Admin.</li>
+    </ol>
+
+    <h2>Authenticate</h2>
+    <ol>
+      <li>In n8n, <strong>Create Credential</strong> → search <strong>Apify API</strong>.</li>
+      <li>Paste your Apify API token from Apify Console (<strong>Settings → API &amp; Integrations</strong>).</li>
+      <li>Save. On n8n Cloud only, <strong>Apify OAuth2 API</strong> is also available.</li>
+    </ol>
+
+    <h2>Build the caption workflow</h2>
+    <ol>
+      <li>Create a workflow. Add node → search <strong>Apify</strong>.</li>
+      <li>Pick <strong>Run an Actor</strong> (or <strong>Run an Actor and get dataset</strong> if you want items in one step).</li>
+      <li>Select Actor <code>taroyamada/youtube-transcript-bulk-api</code>.</li>
+      <li>Set <strong>Custom input</strong> to the JSON below (or leave empty to use the Actor’s saved default run config).</li>
+      <li>If you used plain <strong>Run an Actor</strong>, add <strong>Get Dataset Items</strong> and set Dataset ID to the previous node’s <code>defaultDatasetId</code>.</li>
+      <li>Optional: use trigger <strong>On new Apify Event</strong> with Event Type <strong>Succeeded</strong> when a Console or schedule run finishes.</li>
+      <li>Map <code>fullText</code> or <code>formattedTranscript</code> into Google Sheets, Notion, Slack, or your embed pipeline.</li>
+    </ol>
+    <p>Suggested first Custom input (listing prefill watch URL):</p>
+<pre><code>{
+  "videoUrls": [
+    "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+  ],
+  "language": "en",
+  "includeAutoGenerated": true,
+  "outputFormat": "json",
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p>Age-restricted, private, deleted, or captionless videos return error rows instead of failing the whole run. Raise <code>maxVideos</code> or add playlists only after one row is useful.</p>
+
+    <h2>Not this path</h2>
+    <ul>
+      <li>Not a video/audio downloader — captions only.</li>
+      <li>Not Website Content Extractor (page HTML) or Article Content Extractor (news/blog body).</li>
+      <li>Do not invent unpublished input aliases such as <code>startUrls</code> or <code>captionsOnly</code>.</li>
+    </ul>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/youtube-transcript-scraper/">YouTube Transcript Scraper landing</a></li>
+      <li><a href="/use-cases/youtube-transcript-rag/">YouTube transcript extractor for RAG</a></li>
+      <li><a href="/compare/youtube-transcript-vs-pintostudio/">Compare vs pintostudio transcript scraper</a></li>
+      <li><a href="https://docs.apify.com/integrations/n8n">Apify n8n integration (official docs)</a></li>
+    </ul>
+    <p class="note">Actor facts on this page come from this site’s published listing pages. Integration steps come from Apify’s public docs read on 2026-10-30 (Asia/Tokyo): <a href="https://docs.apify.com/integrations/n8n">n8n</a>, <a href="https://docs.apify.com/integrations/make">Make</a>, <a href="https://docs.apify.com/integrations/langchain">LangChain</a>, and <a href="https://docs.apify.com/mcp">MCP</a>. Confirm live Store input and pricing before you run.</p>
+  </main>
+</body>
+</html>
