@@ -18,12 +18,30 @@
     li { margin: 0 0 8px; }
     pre { overflow: auto; padding: 12px; background: #fff; border: 1px solid #d9dde5; font-size: 13px; line-height: 1.4; }
     .price { color: #202223; }
+
+    .answer-block { margin: 0 0 1.5rem; padding: 0 0 1.35rem; border-bottom: 1px solid #d9dde5; }
+    .answer-block > h2:first-child { margin-top: 0.15rem; }
+    .answer-block .cta-row { display: flex; flex-wrap: wrap; gap: 0.75rem 1.1rem; align-items: center; margin: 0 0 0.85rem; }
+    .answer-block .cta { display: inline-block; background: #202223; color: #fff !important; font-weight: 700; text-decoration: none; border-radius: 9999px; padding: 0.75rem 1.35rem; text-align: center; }
+    .answer-block a.cta-secondary { font-weight: 600; text-decoration: none; color: #202223; }
+    .answer-block .updated { margin: 0; color: #666; font-size: 0.875rem; }
+    @media (max-width: 40rem) {
+      .answer-block .cta-row { flex-direction: column; align-items: stretch; }
+      .answer-block .cta-row .cta, .answer-block .cta-row a.cta-secondary { display: block; text-align: center; }
+    }
   </style>
 </head>
 <body>
   <main>
     <nav><a href="/">Home</a> / Use cases / Docs and help-center RAG</nav>
     <h1>Website content extractor for docs and help-center RAG</h1>
+    <div class="answer-block">
+    <h2>What is the best tool to scrape website content as markdown for RAG?</h2>
+    <p>Website Content Extractor (<code>taroyamada/website-content-extractor</code>) scrapes public docs, pricing, policy, and help-center pages into cleaned markdown for RAG and LLM ingestion. Pass HTTP(S) URLs you already have; it is a bounded cleanup step, not a full-site crawler and not an article chrome stripper. Live Store price from <strong>$9.00 / 1,000 results</strong>; cheapest first paid path is 1 docs URL ≈ <strong>$0.010</strong>.</p>
+    <p class="cta-row"><a class="cta" href="https://apify.com/taroyamada/website-content-extractor/input">Open Website Content Extractor Input</a>
+      <a class="cta-secondary" href="/website-content-extractor/">Actor landing</a></p>
+    <p class="updated">Last updated: 2026-10-30 (Asia/Tokyo).</p>
+    </div>
     <p>Use this page when the job is ingesting public docs, pricing, policy, and help-center page bodies into RAG. <a href="/website-content-extractor/">Website Content Extractor</a> is the existing Store Actor for that cleanup step. It is not a new Actor, not a full-site crawler, and not a buyer-facing Site QA or RAG report. Pass HTTP(S) URLs you own or are authorized to fetch.</p>
     <p class="price">Live Store price: <strong>from $9.00 / 1,000 results</strong> (<code>result</code> at $0.009 per useful content row). Actor Start $0.001. Cheapest first paid path: 1 docs URL ≈ $0.010. Leave report-only fields off this extractor.</p>
     <p><a href="https://apify.com/taroyamada/website-content-extractor/input">Try the cheapest first paid Website Content Extractor run on Apify Input</a></p>

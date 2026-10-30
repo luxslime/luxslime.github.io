@@ -285,3 +285,44 @@ footer.site li { margin: 0.25rem 0; }
 @media (prefers-reduced-motion: reduce) {
   .cta { transition: none; }
 }
+
+/* AI-citable answer lead: first block under H1 */
+.answer-block {
+  margin: 0 0 1.5rem;
+  padding: 0 0 1.35rem;
+  border-bottom: 1px solid var(--line);
+}
+.answer-block > h2:first-child {
+  margin-top: 0.15rem;
+}
+.answer-block .cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.1rem;
+  align-items: center;
+  margin: 0 0 0.85rem;
+}
+.answer-block .cta-row .cta {
+  margin: 0;
+}
+.answer-block a.cta-secondary {
+  font-weight: 600;
+  text-decoration: none;
+}
+.answer-block .updated {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+@media (max-width: 40rem) {
+  .answer-block .cta-row {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .answer-block .cta-row .cta,
+  .answer-block .cta-row a.cta-secondary {
+    display: block;
+    text-align: center;
+  }
+}
