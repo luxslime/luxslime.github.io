@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Use TED SAM Bid Alerts in Zapier — Finished Actor run to Slack or Sheets</title>
+  <meta name="description" content="Wire taroyamada/procurement-intel-actor into Zapier: Finished Actor run trigger, Fetch dataset items, Slack or Sheets. TED-only first paid run about $0.008.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/ted-sam-zapier/">
+  <meta property="og:title" content="Use TED SAM Bid Alerts in Zapier — Finished Actor run to Slack or Sheets">
+  <meta property="og:description" content="Wire taroyamada/procurement-intel-actor into Zapier: Finished Actor run trigger, Fetch dataset items, Slack or Sheets. TED-only first paid run about $0.008.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/ted-sam-zapier/">
+  <meta property="og:type" content="article">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <link rel="stylesheet" href="/assets/css/actor-landing.css">
+</head>
+<body>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/guides/">Guides</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / <a href="/guides/">Guides</a> / TED/SAM in Zapier</nav>
+    <p class="eyebrow">Zapier ・ TED / SAM.gov ・ bid alerts</p>
+    <h1>How to use TED + SAM bid alerts in Zapier</h1>
+    <div class="answer-block">
+      <p class="lede">SAM.gov Scraper / TED+SAM bid alerts (<code>taroyamada/procurement-intel-actor</code>) connects to Zapier through Apify's official Zapier app. Use trigger <strong>Finished Actor run</strong> (or <strong>Finished task run</strong>), then search <strong>Fetch dataset items</strong>, and map notice rows into Slack, Gmail, or Google Sheets. Listing: about <strong>$0.008</strong> for one TED opportunity with report/export off; from <strong>$8.00 / 1,000 rows</strong>. No live Actor Start charge.</p>
+      <p class="cta-row"><a class="cta" href="https://apify.com/taroyamada/procurement-intel-actor/input">Open TED + SAM Bid Alerts Input on Apify Store</a></p>
+      <p class="updated">Last updated: 2026-10-30 (Asia/Tokyo). Integration steps verified on Apify docs the same day.</p>
+    </div>
+
+    <h2>What this Zap does</h2>
+    <p>Zapier reacts when a Console, schedule, or Zap <strong>Run Actor</strong> run of this procurement Actor finishes, then pulls notice rows from the default dataset. The Actor searches official TED, SAM.gov, and Grants.gov / Simpler.Grants.gov notice APIs. It is not Google News discovery and not an article extractor.</p>
+    <div class="card">
+    <table>
+      <thead><tr><th>Piece</th><th>Role</th></tr></thead>
+      <tbody>
+        <tr><td>Zapier Apify app</td><td>Official Apify integration on Zapier (docs.apify.com/platform/integrations/zapier)</td></tr>
+        <tr><td>Actor</td><td><code>taroyamada/procurement-intel-actor</code> — TED / SAM.gov / Grants.gov notice rows</td></tr>
+        <tr><td>First proof input</td><td><code>jurisdictions</code> <code>eu</code>; one keyword; <code>maxItemsPerSource</code> 1; report/export off</td></tr>
+        <tr><td>Useful fields</td><td>Notice title, source, deadline, and opportunity identifiers from delivered <code>notices[]</code> rows</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h2>Connect Apify with Zapier</h2>
+    <p>Steps below match Apify's Zapier integration doc read on 2026-10-30.</p>
+    <ol>
+      <li>In Zapier, create a Zap. Choose Apify as the <strong>trigger</strong> or as an <strong>action</strong>.</li>
+      <li>Click <strong>Select</strong> next to Connect to Apify (or pick an existing connection).</li>
+      <li>Choose the Apify account, review shared scopes, click <strong>Allow Access</strong>.</li>
+      <li>Use <strong>Test Trigger</strong> so Zapier can prefill data from existing Actor runs. If you have no runs yet, start one in Apify Console, then retest.</li>
+    </ol>
+
+    <h2>Alert path: Finished Actor run → Slack or Sheets</h2>
+    <ol>
+      <li>Trigger: Apify <strong>Finished Actor run</strong>. Select <code>taroyamada/procurement-intel-actor</code> (or <strong>Finished task run</strong> if you saved a task).</li>
+      <li>Add search step Apify <strong>Fetch dataset items</strong>. Point it at the finished run's default dataset (from the trigger payload).</li>
+      <li>Add Slack, Gmail, or Google Sheets. Map title, source, deadline, and deep link fields from each dataset item.</li>
+      <li>Publish the Zap. Schedule or start the Actor in Apify Console (or from another Zap) so the Finished trigger fires.</li>
+    </ol>
+
+    <h2>Optional: start a TED-only proof from Zapier</h2>
+    <ol>
+      <li>Action: Apify <strong>Run Actor</strong>. Select the same Actor.</li>
+      <li>Fill Actor input. You may run synchronously or asynchronously. Synchronous runs have a <strong>hard 30 second timeout</strong> in Zapier; if the Actor needs longer, run async and rely on <strong>Finished Actor run</strong> + <strong>Fetch dataset items</strong>.</li>
+      <li>Test the step, then publish.</li>
+    </ol>
+    <p>Suggested first input (TED-only, one row, report/export off):</p>
+<pre><code>{
+  "jurisdictions": "eu",
+  "keywords": "cybersecurity",
+  "daysAhead": 7,
+  "maxItemsPerSource": 1,
+  "generateReport": false,
+  "emitExport": false,
+  "delivery": "dataset",
+  "dryRun": false
+}</code></pre>
+    <p>Add Grants.gov, then the US / SAM.gov lane with a SAM.gov key, only after one TED row is useful. Without a SAM.gov key, the Actor warns and skips the US source instead of failing the whole run.</p>
+
+    <h2>Not this path</h2>
+    <ul>
+      <li>Not Google News <code>queries</code> or article URL extraction.</li>
+      <li>Not a full federal API client you host yourself — this is the Store Actor wired through Zapier's Apify app.</li>
+      <li>Do not invent unpublished input aliases; use the Store Input schema.</li>
+    </ul>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/ted-sam-grants-bid-alerts/">TED + SAM + Grants bid alerts landing</a></li>
+      <li><a href="/guides/sam-gov-naics-bid-alerts-csv/">SAM.gov NAICS bid alerts as CSV</a></li>
+      <li><a href="/guides/ted-sam-bid-desk-deadlines/">TED/SAM bid desk deadlines</a></li>
+      <li><a href="https://docs.apify.com/platform/integrations/zapier">Apify Zapier integration (official docs)</a></li>
+    </ul>
+    <p class="note">Actor facts on this page come from this site's published listing pages. Integration steps come from Apify's public docs read on 2026-10-30 (Asia/Tokyo): <a href="https://docs.apify.com/platform/integrations/zapier">Zapier</a>, <a href="https://docs.apify.com/platform/integrations/make">Make</a>, <a href="https://docs.apify.com/integrations/n8n">n8n</a>. Confirm live Store input and pricing before you run.</p>
+  </main>
+</body>
+</html>

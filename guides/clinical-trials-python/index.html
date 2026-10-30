@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Use ClinicalTrials.gov Pipeline Monitor with Python apify-client</title>
+  <meta name="description" content="Run taroyamada/clinical-trials-pipeline-monitor from Python with ApifyClient.actor().call() and dataset.list_items(). From $10.00 / 1,000 change rows.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/clinical-trials-python/">
+  <meta property="og:title" content="Use ClinicalTrials.gov Pipeline Monitor with Python apify-client">
+  <meta property="og:description" content="Run taroyamada/clinical-trials-pipeline-monitor from Python with ApifyClient.actor().call() and dataset.list_items(). From $10.00 / 1,000 change rows.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/clinical-trials-python/">
+  <meta property="og:type" content="article">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <link rel="stylesheet" href="/assets/css/actor-landing.css">
+</head>
+<body>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/guides/">Guides</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / <a href="/guides/">Guides</a> / Clinical trials in Python</nav>
+    <p class="eyebrow">Python ・ ClinicalTrials.gov ・ apify-client</p>
+    <h1>How to use ClinicalTrials.gov Sponsor Pipeline Monitor with Python</h1>
+    <div class="answer-block">
+      <p class="lede">ClinicalTrials.gov Sponsor Pipeline Scraper (<code>taroyamada/clinical-trials-pipeline-monitor</code>) runs from Python through the official <code>apify-client</code> package. Authenticate with an Apify API token, call <code>client.actor(...).call(run_input=...)</code>, then <code>client.dataset(run['defaultDatasetId']).list_items()</code> for new or changed study rows. Listing: from <strong>$10.00 / 1,000 clinical trial change rows</strong> ($0.01 per delivered new or changed study row). No Actor Start. No ClinicalTrials.gov API key required.</p>
+      <p class="cta-row"><a class="cta" href="https://apify.com/taroyamada/clinical-trials-pipeline-monitor/input">Open ClinicalTrials.gov Pipeline Monitor Input on Apify Store</a></p>
+      <p class="updated">Last updated: 2026-10-30 (Asia/Tokyo). Integration steps verified on Apify docs the same day.</p>
+    </div>
+
+    <h2>What this script does</h2>
+    <p>A short Python job starts a watchlist query against the official ClinicalTrials.gov API v2, waits for the run, and prints digest rows for new or changed studies (plus sponsor watch-terms). It is not PubMed literature watch and not a bulk historical dump Actor.</p>
+    <div class="card">
+    <table>
+      <thead><tr><th>Piece</th><th>Role</th></tr></thead>
+      <tbody>
+        <tr><td>Python client</td><td><code>apify-client</code> on PyPI (docs.apify.com/api/client/python)</td></tr>
+        <tr><td>Actor</td><td><code>taroyamada/clinical-trials-pipeline-monitor</code> — CT.gov v2 watchlist digests</td></tr>
+        <tr><td>First proof input</td><td>One <code>watchlist</code> entry; modest <code>maxStudiesPerQuery</code>; <code>datasetMode</code> <code>all</code></td></tr>
+        <tr><td>Useful fields</td><td>NCT id, title, status/phase change evidence, sponsor watch hits from delivered change rows</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h2>Install and authenticate</h2>
+    <p>Steps below match Apify's Python client quick start read on 2026-10-30. Requires Python 3.11+.</p>
+    <ol>
+      <li><code>pip install apify-client</code> (or <code>conda install conda-forge::apify-client</code>).</li>
+      <li>Copy an API token from Apify Console <strong>Settings → Integrations</strong> (Integrations tab).</li>
+      <li>Initialize <code>ApifyClient(TOKEN)</code>. Do not ship the token in browser-side code.</li>
+    </ol>
+
+    <h2>Run the Actor and read the dataset</h2>
+    <p>Pattern from the official quick start: <code>actor().call(run_input=...)</code> starts the Actor and waits; then <code>dataset(...).list_items()</code> reads the default dataset.</p>
+<pre><code>from apify_client import ApifyClient
+
+TOKEN = "MY-APIFY-TOKEN"  # Console → Settings → Integrations
+
+def main() -> None:
+    client = ApifyClient(TOKEN)
+    run_input = {
+        "watchlist": [
+            {
+                "id": "diabetes-recruiting",
+                "name": "Diabetes Recruiting Studies",
+                "condition": "diabetes",
+                "recruitmentStatus": "RECRUITING",
+                "phase": "PHASE3,PHASE4",
+            }
+        ],
+        "watchTerms": "Pfizer,Eli Lilly,Novo Nordisk,AstraZeneca",
+        "maxStudiesPerQuery": 50,
+        "delivery": "dataset",
+        "datasetMode": "all",
+        "snapshotKey": "clinical-trials-monitor-quickstart",
+        "notifyOnNoNew": True,
+        "dryRun": False,
+    }
+    run = client.actor("taroyamada/clinical-trials-pipeline-monitor").call(
+        run_input=run_input
+    )
+    if run is None:
+        print("Actor run failed.")
+        return
+    items = client.dataset(run["defaultDatasetId"]).list_items().items
+    for row in items:
+        print(row)
+
+if __name__ == "__main__":
+    main()</code></pre>
+    <p>Optional: pass <code>wait_duration</code> (a <code>datetime.timedelta</code>) to <code>call()</code> if you want a client-side wait cap, as shown in Apify's "Pass input to an Actor" guide. Raise watchlist size only after one digest looks right. Prefer <code>datasetMode</code> that matches how you bill change rows on the live Store pricing tab.</p>
+
+    <h2>Not this path</h2>
+    <ul>
+      <li>Not PubMed PMID packs — use PubMed Literature Watch for papers.</li>
+      <li>Not a browser scraper of ClinicalTrials.gov HTML; this Actor uses the official API v2.</li>
+      <li>Do not invent unpublished input aliases; use the Store Input schema.</li>
+    </ul>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/clinical-trials-pipeline-monitor/">ClinicalTrials.gov Sponsor Pipeline landing</a></li>
+      <li><a href="/compare/clinical-trials-pipeline-vs-parseforge/">Clinical pipeline vs ParseForge</a></li>
+      <li><a href="/pubmed-literature-watch/">PubMed Literature Watch</a></li>
+      <li><a href="https://docs.apify.com/api/client/python/docs/introduction/quick-start">Apify Python client quick start (official docs)</a></li>
+    </ul>
+    <p class="note">Actor facts on this page come from this site's published listing pages. Integration steps come from Apify's public docs read on 2026-10-30 (Asia/Tokyo): <a href="https://docs.apify.com/api/client/python/docs/introduction/quick-start">Python client</a>, <a href="https://docs.apify.com/api/client/python/docs/guides/passing-input-to-actor">Pass input to an Actor</a>. Confirm live Store input and pricing before you run.</p>
+  </main>
+</body>
+</html>
