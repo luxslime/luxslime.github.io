@@ -25,12 +25,12 @@
   ]}
   </script>
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"B2B PO Guard — Require PO","description":"Validate PO numbers, deposits, Net terms, order review, and D2C no-op behavior for Shopify native B2B checkout workflows.","url":"https://apps.shopify.com/b2b-terms-guard","applicationCategory":"BusinessApplication","operatingSystem":"Shopify","image":"https://cdn.shopify.com/app-store/listing_images/0d5bee841b158614f7a791277c9b589e/icon/CMiBo7bN5JQDEAE=.png"}
+  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"B2B PO Guard — Require PO","description":"Validate PO numbers, deposits, Net terms, order review, and D2C no-op behavior for Shopify native B2B checkout workflows.","url":"https://apps.shopify.com/b2b-terms-guard?utm_source=momiji-guides&amp;utm_medium=guide&amp;utm_campaign=b2b-po-number-uniqueness-duplicate","applicationCategory":"BusinessApplication","operatingSystem":"Shopify","image":"https://cdn.shopify.com/app-store/listing_images/0d5bee841b158614f7a791277c9b589e/icon/CMiBo7bN5JQDEAE=.png"}
   </script>
 </head>
 <body>
   <header class="site"><div class="wrap bar"><a class="logo" href="/">momiji-space</a>
-    <nav><a href="/review/">Shopify apps</a><a href="/guides/b2b-po-number-required/">Require PO</a><a href="https://apps.shopify.com/b2b-terms-guard?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=b2b-po-number-uniqueness-duplicate">Install</a></nav>
+    <nav><a href="/review/">Shopify apps</a><a href="/guides/b2b-po-number-required/">Require PO</a><a href="https://apps.shopify.com/b2b-terms-guard?utm_source=momiji-guides&amp;utm_medium=guide&amp;utm_campaign=b2b-po-number-uniqueness-duplicate">Install</a></nav>
   </div></header>
   <main class="wrap">
     <nav><a href="/">Home</a> / <a href="/guides/">Guides</a> / <a href="/guides/b2b-po-number-required/">Require PO</a> / PO uniqueness</nav>
@@ -38,14 +38,14 @@
     <h1>Native Net Terms do not stop a reused PO number — uniqueness is a separate checkout rule</h1>
     <p>Shopify's native Net Terms do not reject a PO number that was already used; you need a checkout validation rule that checks the PO number against previously used numbers and blocks the company checkout when it matches. B2B PO Guard — Require PO validates PO numbers by format, prefix, regex, length, and uniqueness, and previews any PO rule live against a sample number before you publish.</p>
     <p class="lede"><strong>Short answer:</strong> Shopify Net Terms do not stop a buyer from reusing a PO number. To catch duplicates, add a uniqueness check to the PO rule so a number already used on an earlier order is flagged at checkout.</p>
-    <p><strong>B2B PO Guard — Require PO</strong> (<a href="https://apps.shopify.com/b2b-terms-guard?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=b2b-po-number-uniqueness-duplicate">Shopify App Store</a>) validates purchase-order numbers by format, prefix, regex, length, and uniqueness, previews a PO rule against a sample number before you publish, sets deposit percentage guardrails, and routes oversized B2B orders for review. It works alongside native Net Terms. D2C and no-company checkouts stay untouched. This page is not legal advice.</p>
-    <p>Related: <a href="https://apps.shopify.com/address-guard?utm_source=momiji-space&amp;utm_medium=guide&amp;utm_campaign=crosspromo&amp;utm_content=b2b-po-number-uniqueness-duplicate">PO Box Blocker — AddressFence</a> — Free blocks PO Boxes and parcel lockers on the shipping address at checkout, plus a small set of ZIP rules. Street-number checks and billing-address rules are on a paid plan.</p>
+    <p><strong>B2B PO Guard — Require PO</strong> (<a href="https://apps.shopify.com/b2b-terms-guard?utm_source=momiji-guides&amp;utm_medium=guide&amp;utm_campaign=b2b-po-number-uniqueness-duplicate">Shopify App Store</a>) validates purchase-order numbers by format, prefix, regex, length, and uniqueness, previews a PO rule against a sample number before you publish, sets deposit percentage guardrails, and routes oversized B2B orders for review. It works alongside native Net Terms. D2C and no-company checkouts stay untouched. This page is not legal advice.</p>
+    <p>Related: <a href="https://apps.shopify.com/address-guard?utm_source=momiji-guides&amp;utm_medium=guide&amp;utm_campaign=b2b-po-number-uniqueness-duplicate">PO Box Blocker — AddressFence</a> — Free blocks PO Boxes and parcel lockers on the shipping address at checkout, plus a small set of ZIP rules. Street-number checks and billing-address rules are on a paid plan.</p>
     <p><strong>Free check first:</strong> <a href="/tools/po-number-format-tester/">PO number format tester</a> runs in your browser and sends nothing. Test prefix, length, characters, regex and duplicates on sample PO numbers.</p>
 
     <h2>Uniqueness is not the same job as “PO required” or Net Terms</h2>
     <p>Native company payment terms control <strong>when</strong> the company pays. A required-PO rule rejects empty or malformed strings. <strong>Uniqueness</strong> rejects a number the buyer has already used — format/prefix/regex/length can still pass while a duplicate slips through unless uniqueness is part of the published rule. Preview a sample number before you publish.</p>
-    <p><a class="cta" href="https://apps.shopify.com/b2b-terms-guard?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=b2b-po-number-uniqueness-duplicate">Install B2B PO Guard — Require PO</a></p>
-    <p class="note"><a href="https://apps.shopify.com/b2b-terms-guard/reviews?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=b2b-po-number-uniqueness-duplicate">Write a review</a></p>
+    <p><a class="cta" href="https://apps.shopify.com/b2b-terms-guard?utm_source=momiji-guides&amp;utm_medium=guide&amp;utm_campaign=b2b-po-number-uniqueness-duplicate">Install B2B PO Guard — Require PO</a></p>
+    <p class="note"><a href="https://apps.shopify.com/b2b-terms-guard/reviews?utm_source=momiji-guides&amp;utm_medium=guide&amp;utm_campaign=b2b-po-number-uniqueness-duplicate">Write a review</a></p>
 
     <h2>How to add uniqueness to the PO rule</h2>
     <ol>
@@ -54,7 +54,7 @@
       <li>Publish for company checkout; D2C and no-company checkouts stay untouched.</li>
       <li>Keep Net Terms, deposit %, and order-review holds as separate jobs when you need them.</li>
     </ol>
-    <p><a class="cta" href="https://apps.shopify.com/b2b-terms-guard?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=b2b-po-number-uniqueness-duplicate">Install B2B PO Guard — Require PO</a></p>
+    <p><a class="cta" href="https://apps.shopify.com/b2b-terms-guard?utm_source=momiji-guides&amp;utm_medium=guide&amp;utm_campaign=b2b-po-number-uniqueness-duplicate">Install B2B PO Guard — Require PO</a></p>
 
     <h2>Not the same as require-PO, deposit %, order review, or D2C no-op</h2>
     <ul>
@@ -63,7 +63,7 @@
       <li><strong>Deposit %</strong> — not uniqueness. See <a href="/guides/b2b-deposit-percentage-checkout/">deposit percentage at checkout</a>.</li>
       <li><strong>D2C no-op</strong> — rules must not fire on D2C. See <a href="/guides/b2b-d2c-noop-checkout/">B2B D2C no-op</a>.</li>
     </ul>
-    <p><a class="cta" href="https://apps.shopify.com/b2b-terms-guard?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=b2b-po-number-uniqueness-duplicate">Install B2B PO Guard — Require PO</a></p>
+    <p><a class="cta" href="https://apps.shopify.com/b2b-terms-guard?utm_source=momiji-guides&amp;utm_medium=guide&amp;utm_campaign=b2b-po-number-uniqueness-duplicate">Install B2B PO Guard — Require PO</a></p>
 
     <h2>What this page is not</h2>
     <ul>
@@ -71,7 +71,7 @@
       <li>Not native Net Terms, and not a payment gateway.</li>
       <li>Not a substitute for the require-PO, preview, deposit, or D2C siblings.</li>
     </ul>
-    <p><a class="cta" href="https://apps.shopify.com/b2b-terms-guard?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=b2b-po-number-uniqueness-duplicate">Install B2B PO Guard — Require PO</a></p>
+    <p><a class="cta" href="https://apps.shopify.com/b2b-terms-guard?utm_source=momiji-guides&amp;utm_medium=guide&amp;utm_campaign=b2b-po-number-uniqueness-duplicate">Install B2B PO Guard — Require PO</a></p>
 
     <p>Paste a list of sample numbers into the <a href="/tools/po-number-format-tester/">free PO number format tester</a> to see which ones repeat.</p>
 
@@ -80,7 +80,7 @@
       <li><a href="/guides/b2b-po-number-required/">B2B checkout can skip a PO number unless a rule requires it</a></li>
       <li><a href="/guides/b2b-po-rule-live-preview/">Preview a Shopify B2B PO rule before you publish</a></li>
       <li><a href="/guides/b2b-deposit-percentage-checkout/">B2B deposit percentage at checkout</a></li>
-      <li><a href="https://apps.shopify.com/b2b-terms-guard?utm_source=momiji-site&amp;utm_medium=guide&amp;utm_campaign=b2b-po-number-uniqueness-duplicate">B2B PO Guard — Require PO</a></li>
+      <li><a href="https://apps.shopify.com/b2b-terms-guard?utm_source=momiji-guides&amp;utm_medium=guide&amp;utm_campaign=b2b-po-number-uniqueness-duplicate">B2B PO Guard — Require PO</a></li>
     </ul>
     <p class="note">Not credit insurance. Native Net Terms do not validate PO uniqueness. Preview a sample number before you leave a rule published.</p>
   </main>
