@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ChatGPT shows the wrong price or stock for my Shopify product</title>
+  <meta name="description" content="Wrong ChatGPT price or availability often means Catalog data, Catalog Mapping delay, or a crawl/JSON-LD mismatch — not a broken theme alone. Check admin Catalog preview, then live structured data.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="ChatGPT shows the wrong price or stock for my Shopify product">
+  <meta property="og:description" content="Wrong ChatGPT price or availability often means Catalog data, Catalog Mapping delay, or a crawl/JSON-LD mismatch — not a broken theme alone. Check admin Catalog preview, then live structured data.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/chatgpt-wrong-price-stock-shopify-catalog/">
+  <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/e390016f3b8dd309f00b480bdb35cc95/promotional_image/COPW_P3S7ZQDEAE=.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ChatGPT shows the wrong price or stock for my Shopify product">
+  <meta name="twitter:description" content="Wrong ChatGPT price or availability often means Catalog data, Catalog Mapping delay, or a crawl/JSON-LD mismatch — not a broken theme alone. Check admin Catalog preview, then live structured data.">
+  <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/e390016f3b8dd309f00b480bdb35cc95/promotional_image/COPW_P3S7ZQDEAE=.png">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/chatgpt-wrong-price-stock-shopify-catalog/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://apify.momiji-space.com/"},
+      {"@type": "ListItem", "position": 2, "name": "Wrong price or stock in ChatGPT", "item": "https://apify.momiji-space.com/guides/chatgpt-wrong-price-stock-shopify-catalog/"}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Agentic Catalog by momiji",
+    "description": "Check llms.txt, AI crawler access and JSON-LD for ChatGPT.",
+    "url": "https://apps.shopify.com/agentic-catalog-readiness?utm_source=momiji-guides&amp;utm_medium=guide&amp;utm_campaign=chatgpt-wrong-price-stock-shopify-catalog",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Shopify",
+    "featureList": [
+      "Checks llms.txt and robots.txt rules for GPTBot, ClaudeBot, and PerplexityBot.",
+      "Audits Product JSON-LD and Open Graph completeness on live product pages.",
+      "Schedules daily or weekly scans with email alerts on score changes."
+    ],
+    "image": "https://cdn.shopify.com/app-store/listing_images/e390016f3b8dd309f00b480bdb35cc95/icon/CMHlurDN5JQDEAE=.png"
+  }
+  </script>
+</head>
+<body>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/review/">Shopify apps</a>
+        <a href="/guides/">Guides</a>
+        <a href="https://apps.shopify.com/agentic-catalog-readiness?utm_source=momiji-guides&amp;utm_medium=guide&amp;utm_campaign=chatgpt-wrong-price-stock-shopify-catalog">Install</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / <a href="/guides/">Guides</a> / Wrong price or stock in ChatGPT</nav>
+    <p class="eyebrow">Agentic Catalog ・ ChatGPT ・ Catalog mapping</p>
+    <h1>ChatGPT shows the wrong price or stock for my Shopify product</h1>
+    <div class="answer-block">
+      <p class="answer-first"><strong>Direct answer.</strong> When ChatGPT states a price or availability that does not match your storefront, treat Catalog syndication and open-web crawl as separate sources. Shopify Help says Catalog continuously updates inventory and prices for agentic channels, and that custom titles/descriptions should be fixed on the Channel mapping page when data lives in metafields or metaobjects &mdash; mapping changes are processed with a delay. Community threads (for example LLM &ldquo;out of stock&rdquo; answers while the PDP is in stock) point merchants to Sales channels &rarr; Agentic and Catalog Mapping, not only theme code. <strong>Agentic Catalog by momiji</strong> does not edit Catalog Mapping; it audits what live product pages emit (Product JSON-LD and Open Graph), plus llms.txt and AI crawler robots rules, so you can see crawl-side mismatches after you correct admin data. Listing: Free (5 scans/mo); Pro $9.99/mo scheduled + alerts; $24.99/mo CSV.</p>
+      <p class="cta-row"><a class="cta" href="https://apps.shopify.com/agentic-catalog-readiness?utm_source=momiji-guides&amp;utm_medium=guide&amp;utm_campaign=chatgpt-wrong-price-stock-shopify-catalog">Install Agentic Catalog on the Shopify App Store</a></p>
+      <p class="updated">Last updated: 2026-10-30 (Asia/Tokyo). Merchant-question evidence and App Store listing facts checked the same day.</p>
+    </div>
+
+    <h2>Why merchants ask this</h2>
+    <p>Merchant English includes &ldquo;ChatGPT wrong price,&rdquo; &ldquo;LLM thinks my product is out of stock,&rdquo; and &ldquo;Catalog is integrated but the answer is still wrong.&rdquo; Shopify Community and public Reddit threads (checked 2026-10-30) describe stale stock answers that robots.txt cannot fix because Catalog, not the theme HTML alone, feeds agentic channels.</p>
+
+    <h2>Checklist (Catalog first, then crawl)</h2>
+    <ol>
+      <li><strong>Admin product truth.</strong> Confirm variant price and inventory in Shopify Admin match what you expect for the market ChatGPT is answering for.</li>
+      <li><strong>Catalog Mapping.</strong> If title, description, or category come from metafields/metaobjects, open Sales channels &rarr; Agentic &rarr; Review product data mapping (Shopify Help). Preview the product; change one source; wait for Catalog preview before re-testing ChatGPT.</li>
+      <li><strong>Compare-at vs price.</strong> Help notes you can choose whether Catalog uses price or compare-at as the list price for sale presentation.</li>
+      <li><strong>Propagation delay.</strong> Shopify documents mapping delay; do not treat an immediate ChatGPT retry as proof the mapping failed.</li>
+      <li><strong>Live page structured data.</strong> Compare Offer price / availability in Product JSON-LD on the live PDP with Admin. Agentic Catalog audits JSON-LD and Open Graph completeness on live URLs and can re-scan after fixes.</li>
+    </ol>
+
+    <h2>What Agentic Catalog can and cannot do here</h2>
+    <ul>
+      <li><strong>Can:</strong> Flag incomplete or inconsistent Product JSON-LD / Open Graph on live pages; check llms.txt and AI crawler robots; score policy/shipping/tax/domain/product data; schedule scans; export CSV evidence on the higher plan.</li>
+      <li><strong>Cannot:</strong> Rewrite Shopify Catalog Mapping, force ChatGPT to refresh a card, or guarantee that a corrected Admin field appears in the next ChatGPT answer.</li>
+    </ul>
+    <div class="card">
+    <table>
+      <thead><tr><th>Plan</th><th>What the listing includes</th></tr></thead>
+      <tbody>
+        <tr><td>Free</td><td>5 scans/mo: llms.txt + robots + JSON-LD</td></tr>
+        <tr><td>Pro &mdash; $9.99/mo (or $99/year)</td><td>Scheduled scans + alerts</td></tr>
+        <tr><td>$24.99/mo</td><td>CSV evidence per product</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h2>What this page is not</h2>
+    <ul>
+      <li>Not a Shop AI bundle-copy fix &mdash; see <a href="/guides/shop-ai-wrong-product-bundle-info-fix-product-data/">Shop AI wrong product or bundle info</a>.</li>
+      <li>Not Meta / Muse direct-checkout debugging &mdash; see <a href="/guides/meta-muse-no-sales-agentic-checklist/">Meta / Muse checklist</a>.</li>
+      <li>Not a promise that ChatGPT will mirror Admin within a fixed number of hours.</li>
+    </ul>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/guides/why-shopify-product-not-showing-in-chatgpt/">Why isn&rsquo;t my product showing in ChatGPT?</a></li>
+      <li><a href="/guides/shopify-chatgpt-do-i-need-openai-product-feed/">Do Shopify merchants need a separate OpenAI feed?</a></li>
+      <li><a href="/guides/agentic-catalog-json-ld-open-graph-completeness/">JSON-LD and Open Graph completeness</a></li>
+      <li><a href="/guides/how-to-check-shopify-chatgpt-shopping-readiness/">ChatGPT shopping readiness scan</a></li>
+      <li><a href="/guides/shopify-agentic-storefronts/">Agentic storefronts vs crawl</a></li>
+    </ul>
+    <p class="note">Catalog mapping and continuous price/inventory updates from Shopify Help (Catalog and product discovery for agentic storefronts; Shopify Catalog) checked 2026-10-30 (Asia/Tokyo). Merchant phrasing from Shopify Community LLM stock threads and public Reddit Catalog threads the same day. Listing features and prices from apps.shopify.com/agentic-catalog-readiness. Not a ranking or sync-SLA promise.</p>
+  </main>
+  <footer class="site"><div class="wrap"><ul><li><a href="/review/">Shopify apps hub</a></li><li><a href="/tools/">Tools</a></li><li><a href="/">Home</a></li></ul></div></footer>
+</body>
+</html>
