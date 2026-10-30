@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How to import EUDR supplier lots by CSV on Shopify</title>
+  <meta name="description" content="Import EUDR supplier and commodity lots by atomic CSV with EUDR Records Manager. One bad row blocks the batch. Free: 3 suppliers + 10 lots; Starter adds hashed packs + CSV.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="How to import EUDR supplier lots by CSV on Shopify">
+  <meta property="og:description" content="Import EUDR supplier and commodity lots by atomic CSV with EUDR Records Manager. One bad row blocks the batch. Free: 3 suppliers + 10 lots; Starter adds hashed packs + CSV.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/how-to-import-eudr-supplier-lots-csv-shopify/">
+  <meta property="og:image" content="https://cdn.shopify.com/app-store/listing_images/6eb84e4af85790ce7a2dde5c9adee4f3/icon/CKf1oNyRk5UDEAE=.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How to import EUDR supplier lots by CSV on Shopify">
+  <meta name="twitter:description" content="Import EUDR supplier and commodity lots by atomic CSV with EUDR Records Manager. One bad row blocks the batch. Free: 3 suppliers + 10 lots; Starter adds hashed packs + CSV.">
+  <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/6eb84e4af85790ce7a2dde5c9adee4f3/icon/CKf1oNyRk5UDEAE=.png">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/how-to-import-eudr-supplier-lots-csv-shopify/">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://apify.momiji-space.com/"},
+      {"@type": "ListItem", "position": 2, "name": "Import EUDR lots by CSV", "item": "https://apify.momiji-space.com/guides/how-to-import-eudr-supplier-lots-csv-shopify/"}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "EUDR Records Manager",
+    "description": "EUDR deforestation records — DDS refs, supplier lots",
+    "url": "https://apps.shopify.com/eudr-records-manager?utm_source=momiji-guides&amp;utm_medium=guide&amp;utm_campaign=how-to-import-eudr-supplier-lots-csv-shopify",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Shopify",
+    "featureList": [
+      "Supplier and commodity-lot registry with DDS reference numbers per product.",
+      "Atomic CSV import: one bad row blocks the whole batch, never a partial write.",
+      "SHA-256 hashed document packs - every export matches back to its source records."
+    ],
+    "image": "https://cdn.shopify.com/app-store/listing_images/6eb84e4af85790ce7a2dde5c9adee4f3/icon/CKf1oNyRk5UDEAE=.png"
+  }
+  </script>
+</head>
+<body>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/review/">Shopify apps</a>
+        <a href="/guides/">Guides</a>
+        <a href="https://apps.shopify.com/eudr-records-manager?utm_source=momiji-guides&amp;utm_medium=guide&amp;utm_campaign=how-to-import-eudr-supplier-lots-csv-shopify">Install</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / <a href="/guides/">Guides</a> / Import EUDR lots by CSV</nav>
+    <p class="eyebrow">EUDR Records Manager · atomic CSV · supplier lots</p>
+    <h1>How to import EUDR supplier lots by CSV on Shopify</h1>
+    <div class="answer-block">
+      <p class="answer-first"><strong>Direct answer.</strong> Shopify Admin has no EUDR supplier-lot CSV importer. To load supplier and commodity lots with DDS reference numbers in bulk, install <strong>EUDR Records Manager</strong> (App Store: eudr-records-manager) and use atomic CSV import: one bad row blocks the whole batch so you never get a partial write. Free includes 3 suppliers + 10 lots + DDS registry. Starter ($29/mo, or $290/year) adds hashed packs + CSV. Growth ($79/mo, or $790/year) adds weekly gap flags. The app stores records; it does not submit a DDS to the EU information system for you.</p>
+      <p class="cta-row"><a class="cta" href="https://apps.shopify.com/eudr-records-manager?utm_source=momiji-guides&amp;utm_medium=guide&amp;utm_campaign=how-to-import-eudr-supplier-lots-csv-shopify">Install EUDR Records Manager on the Shopify App Store</a></p>
+      <p class="updated">Last updated: 2026-10-30 (Asia/Tokyo). Merchant-question evidence and App Store listing facts checked the same day.</p>
+    </div>
+
+    <h2>Why merchants ask this</h2>
+    <p>EUDR enforcement for many operators starts 30 December 2026. Merchants with dozens of supplier lots need a bulk load path, not one row at a time in Admin. Search interest in “EUDR DDS lot”, “supplier lot CSV”, and “Shopify EUDR records” maps to that import job. This how-to is the atomic CSV path — not the weekly gap review and not the SHA-256 pack export.</p>
+
+    <h2>Steps — atomic CSV import</h2>
+    <ol>
+      <li>Install EUDR Records Manager from the Shopify App Store (handle: eudr-records-manager).</li>
+      <li>Prepare a CSV with supplier, lot, production country, and DDS reference fields your registry expects.</li>
+      <li>Run atomic CSV import. If any row fails validation, fix the file and re-import the whole batch — nothing partial is written.</li>
+      <li>Confirm each lot shows supplier, country, and DDS reference. On Growth, turn on weekly gap flags for missing fields.</li>
+    </ol>
+
+    <h2>What the listing plans include</h2>
+    <div class="card">
+    <table>
+      <thead><tr><th>Plan</th><th>What the listing includes</th></tr></thead>
+      <tbody>
+        <tr><td>Free</td><td>3 suppliers + 10 lots + DDS registry</td></tr>
+        <tr><td>Starter — $29/mo (or $290/year)</td><td>Beyond Free: hashed packs + CSV (14-day free trial)</td></tr>
+        <tr><td>Growth — $79/mo (or $790/year)</td><td>Beyond Starter: weekly gap flags (14-day free trial)</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h2>What this page is not</h2>
+    <ul>
+      <li>Not a DDS filing tool — you submit the due diligence statement in the EU information system and store the reference you receive. See <a href="/guides/eudr-dds-reference-number/">DDS reference number</a>.</li>
+      <li>Not the weekly gap-review how-to — see <a href="/guides/eudr-weekly-scheduled-gap-review/">weekly gap review</a>.</li>
+      <li>Not SHA-256 hashed document pack export — see <a href="/guides/eudr-sha256-hashed-document-packs/">hashed document packs</a>.</li>
+      <li>Not a food-labelling or EU repair-request app.</li>
+    </ul>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/guides/eudr-dds-lot-registry/">Store EUDR DDS lot references by 30 December 2026</a></li>
+      <li><a href="/guides/eudr-weekly-scheduled-gap-review/">Weekly EUDR gap review</a></li>
+      <li><a href="/guides/eudr-audit-trail-supplier-lot-document-export/">EUDR audit trail for supplier, lot, document, export</a></li>
+      <li><a href="/guides/eudr-records-manager-vs-eudr-guard/">EUDR Records Manager vs EUDR Guard</a></li>
+      <li><a href="/guides/eudr-scope-2026-2027/">EUDR scope 2026 vs 2027</a></li>
+    </ul>
+    <p class="note">Listing features and prices from apps.shopify.com/eudr-records-manager on 2026-10-30 (Asia/Tokyo). Not legal advice. EUDR dates cite the listing and Regulation (EU) 2023/1115 context on sibling guides.</p>
+  </main>
+  <footer class="site"><div class="wrap"><ul><li><a href="/review/">Shopify apps hub</a></li><li><a href="/tools/">Tools</a></li><li><a href="/">Home</a></li></ul></div></footer>
+</body>
+</html>
