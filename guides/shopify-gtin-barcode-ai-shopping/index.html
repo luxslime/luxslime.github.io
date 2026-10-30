@@ -18,6 +18,7 @@
   <meta name="twitter:image" content="https://cdn.shopify.com/app-store/listing_images/e390016f3b8dd309f00b480bdb35cc95/promotional_image/COPW_P3S7ZQDEAE=.png">
   <link rel="canonical" href="https://apify.momiji-space.com/guides/shopify-gtin-barcode-ai-shopping/">
   <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <link rel="stylesheet" href="/assets/css/actor-landing.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -72,7 +73,15 @@
   <main class="wrap">
     <nav><a href="/">Home</a> / <a href="/guides/">Guides</a> / <a href="/guides/agentic-catalog-readiness/">Catalog readiness</a> / GTIN / barcode</nav>
     <p class="eyebrow">Shopify GTIN / barcode for AI shopping agents</p>
-    <h1>GTIN is an AI-catalog input — put the GS1 barcode first when you store more than one</h1>
+        <h1>GTIN is an AI-catalog input — put the GS1 barcode first when you store more than one</h1>
+    <div class="answer-block">
+    <h2>Do Shopify products need a GTIN barcode for AI shopping?</h2>
+    <p>Shopify Help lists Barcode (ISBN, UPC, GTIN, etc.) among AI platform product inputs — a checklist, not a ranking promise. When a variant stores more than one barcode, channels that expect a single value read the <strong>first</strong>, so put the GS1 GTIN (8, 12, 13, or 14 digits) first. <strong>Agentic Catalog by momiji</strong> scores <code>llms.txt</code>, AI-crawler <code>robots.txt</code>, and live Product JSON-LD / Open Graph; it does not edit barcode UX, mint GS1 numbers, or guarantee approval.</p>
+    <p class="cta-row"><a class="cta" href="https://apps.shopify.com/agentic-catalog-readiness?utm_source=momiji-guides&amp;utm_medium=guide&amp;utm_campaign=shopify-gtin-barcode-ai-shopping">Open Agentic Catalog on the Shopify App Store</a>
+      <a class="cta-secondary" href="/guides/agentic-catalog-readiness/">AI catalog readiness guide</a></p>
+    <p class="updated">Last updated: 2026-10-30 (Asia/Tokyo).</p>
+    </div>
+
     <p>When a Shopify variant stores more than one barcode, channels that still expect a single value read the <strong>first</strong> barcode. Put the manufacturer GS1 GTIN (8, 12, 13, or 14 digits) first, and keep private-label or internal codes after it. Barcode is one input to AI shopping channels, not a ranking or approval promise.</p>
     <p class="lede"><strong>Agentic Catalog by momiji</strong> (<a href="https://apps.shopify.com/agentic-catalog-readiness?utm_source=momiji-guides&amp;utm_medium=guide&amp;utm_campaign=shopify-gtin-barcode-ai-shopping">Shopify App Store</a>) is a Shopify app that scores readiness including <code>llms.txt</code> and <code>robots.txt</code> rules for GPTBot, ClaudeBot, and PerplexityBot, plus live Product JSON-LD and Open Graph checks, as listed. It does not edit Shopify Admin’s barcode field UX, does not guarantee Google Shopping or AI-agent approval, and does not mint GS1 numbers. Confirm live listing text rather than this page. This guide does not add prices or a plan matrix.</p>
     <p>Related: <a href="https://apps.shopify.com/momiji-access-audit?utm_source=momiji-guides&amp;utm_medium=guide&amp;utm_campaign=shopify-gtin-barcode-ai-shopping">Staff Access Audit Guard</a> — Staff access audit for permission drift after the last review.</p>
