@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Use Apple Podcasts Scraper with LangChain and RAG — call_actor steps</title>
+  <meta name="description" content="Load taroyamada/apple-podcast-scraper rows into LangChain Documents via langchain-apify ApifyWrapper.call_actor or ApifyActorsTool. Optional MCP at mcp.apify.com. First search ≈ $0.0125.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/apple-podcasts-langchain-rag/">
+  <meta property="og:title" content="Use Apple Podcasts Scraper with LangChain and RAG — call_actor steps">
+  <meta property="og:description" content="Load taroyamada/apple-podcast-scraper rows into LangChain Documents via langchain-apify ApifyWrapper.call_actor or ApifyActorsTool. Optional MCP at mcp.apify.com. First search ≈ $0.0125.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/apple-podcasts-langchain-rag/">
+  <meta property="og:type" content="article">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <link rel="stylesheet" href="/assets/css/actor-landing.css">
+</head>
+<body>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/guides/">Guides</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / <a href="/guides/">Guides</a> / Apple Podcasts in LangChain / RAG</nav>
+    <p class="eyebrow">LangChain · RAG · Apple Podcasts · MCP</p>
+    <h1>How to use Apple Podcasts Scraper with LangChain and RAG</h1>
+    <div class="answer-block">
+      <p class="lede">Apple Podcasts Scraper (<code>taroyamada/apple-podcast-scraper</code>) feeds LangChain RAG by calling any Store Actor through <code>langchain-apify</code>: <code>ApifyWrapper.call_actor</code> maps dataset items into <code>Document</code> objects, or <code>ApifyActorsTool</code> wraps the Actor for an agent. Optional: connect Apify’s MCP server at <code>https://mcp.apify.com</code> and use <code>call-actor</code> + <code>get-dataset-items</code>. Listing first search with limit 3 is about <strong>$0.0125</strong>; from <strong>$2.50 / 1,000 results</strong>.</p>
+      <p class="cta-row"><a class="cta" href="https://apify.com/taroyamada/apple-podcast-scraper/input">Open Apple Podcasts Scraper Input on Apify Store</a></p>
+      <p class="updated">Last updated: 2026-10-30 (Asia/Tokyo). Integration steps verified on Apify docs the same day.</p>
+    </div>
+
+    <h2>What this path does</h2>
+    <p>You pull public Apple Podcasts search, chart, or lookup rows (optional recent episode titles) into LangChain documents for retrieval or agent tools. The Actor uses official iTunes Search / Lookup plus RSS when episodes are on. No Apple ID, no proxy, no review text on this Actor — reviews belong on Apple Podcasts Reviews Scraper.</p>
+    <div class="card">
+    <table>
+      <thead><tr><th>Piece</th><th>Role</th></tr></thead>
+      <tbody>
+        <tr><td>Package</td><td><code>pip install langchain-apify</code> (Python; docs.apify.com/integrations/langchain)</td></tr>
+        <tr><td>Actor</td><td><code>taroyamada/apple-podcast-scraper</code></td></tr>
+        <tr><td>First proof input</td><td><code>searchTerm</code> + <code>limit</code> 3; <code>includeEpisodes</code> false</td></tr>
+        <tr><td>Document fields</td><td>Map <code>showName</code>, <code>publisher</code>, <code>sourceUrl</code>, optional <code>episodeTitle</code></td></tr>
+        <tr><td>MCP (optional)</td><td><code>https://mcp.apify.com</code> — <code>call-actor</code> then <code>get-dataset-items</code></td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h2>Load podcast rows into a vector index</h2>
+    <p>Apify’s LangChain doc states you can use all Apify Actors as document loaders via <code>ApifyWrapper.call_actor</code>. Token goes in <code>APIFY_TOKEN</code> (Console → API &amp; Integrations). Pattern verified on 2026-10-30:</p>
+<pre><code>import os
+from langchain_apify import ApifyWrapper
+from langchain_core.documents import Document
+from langchain_core.vectorstores import InMemoryVectorStore
+from langchain_openai.embeddings import OpenAIEmbeddings
+
+os.environ["APIFY_TOKEN"] = "Your Apify API token"
+
+apify = ApifyWrapper()
+loader = apify.call_actor(
+    actor_id="taroyamada/apple-podcast-scraper",
+    run_input={
+        "searchTerm": "technology",
+        "country": "us",
+        "limit": 3,
+        "includeEpisodes": False,
+    },
+    dataset_mapping_function=lambda item: Document(
+        page_content=(item.get("showName") or "")
+        + " — "
+        + (item.get("publisher") or ""),
+        metadata={
+            "source": item.get("sourceUrl"),
+            "collectionId": item.get("collectionId"),
+            "country": item.get("country"),
+        },
+    ),
+)
+vector_store = InMemoryVectorStore.from_documents(
+    loader.load(), OpenAIEmbeddings()
+)
+retriever = vector_store.as_retriever()</code></pre>
+    <p>Raise <code>limit</code>, add <code>chartRequests</code>, or set <code>includeEpisodes</code> true only after three search rows look right. Chart snapshots on this Actor do not compute rank movement.</p>
+
+    <h2>Call the Actor as a LangChain tool</h2>
+    <p>For agents, Apify documents <code>ApifyActorsTool</code> for any Store Actor without a dedicated wrapper:</p>
+<pre><code>from langchain_apify import ApifyActorsTool
+
+tool = ApifyActorsTool("taroyamada/apple-podcast-scraper")
+result = tool.invoke({
+    "run_input": {
+        "searchTerm": "technology",
+        "country": "us",
+        "limit": 3,
+        "includeEpisodes": False,
+    }
+})</code></pre>
+    <p>Core helpers such as <code>ApifyRunActorAndGetDatasetTool</code> also run any Actor by ID. Dedicated YouTube/search tools in <code>APIFY_SEARCH_TOOLS</code> wrap other Actors — not this podcast scraper — so use <code>ApifyActorsTool</code> or <code>call_actor</code> here.</p>
+
+    <h2>Optional: Apify MCP server</h2>
+    <p>From Apify’s MCP doc (2026-10-30): add <code>https://mcp.apify.com</code> to your MCP client (OAuth recommended, or Bearer token). Default tools include <code>search-actors</code>, <code>fetch-actor-details</code>, and <code>call-actor</code>. <code>call-actor</code> returns run status and storage IDs; read rows with <code>get-dataset-items</code> and the run’s <code>datasetId</code>. You can pin tools, for example <code>https://mcp.apify.com?tools=actors,docs,taroyamada/apple-podcast-scraper</code>.</p>
+
+    <h2>Not this path</h2>
+    <ul>
+      <li>Not review text — use <a href="/apple-podcasts-reviews-scraper/">Apple Podcasts Reviews Scraper</a>.</li>
+      <li>Not chart movement reports — use <a href="/apple-podcasts-chart-scraper/">Apple Podcasts Chart Scraper</a>.</li>
+      <li>Do not pass unpublished RSS URL fields; published inputs are <code>searchTerm</code>, <code>chartRequests</code>, <code>lookupIds</code>.</li>
+    </ul>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/apple-podcasts-scraper/">Apple Podcasts Scraper landing</a></li>
+      <li><a href="/guides/apple-podcasts-search/">Apple Podcasts search discovery</a></li>
+      <li><a href="/guides/apple-podcasts-webhooks/">Deliver Apple Podcasts results with webhooks</a></li>
+      <li><a href="https://docs.apify.com/integrations/langchain">Apify LangChain integration (official docs)</a></li>
+      <li><a href="https://docs.apify.com/mcp">Apify MCP server (official docs)</a></li>
+    </ul>
+    <p class="note">Actor facts on this page come from this site’s published listing pages. Integration steps come from Apify’s public docs read on 2026-10-30 (Asia/Tokyo): <a href="https://docs.apify.com/integrations/n8n">n8n</a>, <a href="https://docs.apify.com/integrations/make">Make</a>, <a href="https://docs.apify.com/integrations/langchain">LangChain</a>, and <a href="https://docs.apify.com/mcp">MCP</a>. Confirm live Store input and pricing before you run.</p>
+  </main>
+</body>
+</html>
