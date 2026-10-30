@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Use SaaS Pricing Competitor Monitor in Make — Apify module steps</title>
+  <meta name="description" content="Run taroyamada/saas-change-monitor-actor from Make: Run an Actor or Watch Actor Runs, then Get Dataset Items. Listing: $1.00 / 1,000 saas change rows.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/saas-change-monitor-make/">
+  <meta property="og:title" content="Use SaaS Pricing Competitor Monitor in Make — Apify module steps">
+  <meta property="og:description" content="Run taroyamada/saas-change-monitor-actor from Make: Run an Actor or Watch Actor Runs, then Get Dataset Items. Listing: $1.00 / 1,000 saas change rows.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/saas-change-monitor-make/">
+  <meta property="og:type" content="article">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <link rel="stylesheet" href="/assets/css/actor-landing.css">
+</head>
+<body>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/guides/">Guides</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / <a href="/guides/">Guides</a> / SaaS Change Monitor in Make</nav>
+    <p class="eyebrow">Make ・ SaaS pricing watch ・ Apify module</p>
+    <h1>How to use SaaS Pricing Competitor Monitor in Make</h1>
+    <div class="answer-block">
+      <p class="lede">SaaS Pricing Competitor Monitor (<code>taroyamada/saas-change-monitor-actor</code>) runs inside Make through Apify’s official module. Connect with OAuth or an API token, add <strong>Run an Actor</strong> (short proof) or trigger <strong>Watch Actor Runs</strong> (scheduled Console runs), then <strong>Get Dataset Items</strong> and map <code>status</code>, <code>changed</code>, and <code>changeSummary</code> into Sheets or Slack. Store listing: <strong>$1.00 / 1,000 saas change rows</strong>. No API key or login is required on the watched public pages.</p>
+      <p class="cta-row"><a class="cta" href="https://apify.com/taroyamada/saas-change-monitor-actor/input">Open SaaS Change Monitor Input on Apify Store</a></p>
+      <p class="updated">Last updated: 2026-10-30 (Asia/Tokyo). Integration steps verified on Apify docs and the Actor Store listing the same day.</p>
+    </div>
+
+    <h2>What this scenario does</h2>
+    <p>Make starts or watches a pricing/terms/features page monitor, then exports change rows (<code>initial</code>, <code>changed</code>, or <code>unchanged</code>) with hashes and added/removed line counts. It is public-web only. It does not log into vendor portals.</p>
+    <div class="card">
+    <table>
+      <thead><tr><th>Piece</th><th>Role</th></tr></thead>
+      <tbody>
+        <tr><td>Make Apify module</td><td>Official Apify app on Make (docs.apify.com/integrations/make)</td></tr>
+        <tr><td>Actor</td><td><code>taroyamada/saas-change-monitor-actor</code> — watched public URLs → change rows</td></tr>
+        <tr><td>First proof input</td><td>One <code>targets</code> item (Notion or Stripe pricing prefill); <code>datasetMode</code> <code>all</code> for the first baseline; <code>dryRun</code> false</td></tr>
+        <tr><td>Useful fields</td><td><code>id</code>, <code>name</code>, <code>kind</code>, <code>status</code>, <code>changed</code>, <code>hash</code>, <code>changeSummary</code>, <code>finalUrl</code></td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h2>Connect Apify to Make</h2>
+    <p>Steps match Apify’s Make integration doc read on 2026-10-30.</p>
+    <ol>
+      <li>In a Make scenario, search for <strong>Apify</strong> and add a module.</li>
+      <li>Open Connection. Prefer <strong>OAuth</strong>, or paste an Apify API token from Console <strong>Settings → API &amp; Integrations</strong>.</li>
+      <li>Save the connection.</li>
+    </ol>
+
+    <h2>Synchronous path (first baseline)</h2>
+    <ol>
+      <li>Add <strong>Run an Actor</strong>. Select <code>taroyamada/saas-change-monitor-actor</code>.</li>
+      <li>Set <strong>Run synchronously</strong> to Yes only when the run fits Make’s plan timeout; otherwise use Watch Actor Runs.</li>
+      <li>Override input with one public pricing target and <code>datasetMode</code> <code>all</code> so the first baseline row is delivered.</li>
+      <li>Add <strong>Get Dataset Items</strong>. Map Dataset ID from the Run module.</li>
+      <li>Map <code>name</code>, <code>status</code>, <code>changed</code>, and <code>preview</code> into Google Sheets or Slack.</li>
+    </ol>
+    <p>Suggested Input override (Store example shape):</p>
+<pre><code>{
+  "targets": [
+    {
+      "id": "notion-pricing",
+      "name": "Notion Pricing",
+      "kind": "price",
+      "url": "https://www.notion.so/pricing",
+      "includePatterns": ["price", "free", "business", "enterprise"],
+      "excludePatterns": ["cookie", "login"]
+    }
+  ],
+  "requestTimeoutSeconds": 30,
+  "maxChars": 25000,
+  "delivery": "dataset",
+  "datasetMode": "all",
+  "notifyOnNoChange": false,
+  "snapshotKey": "saas-change-make-first-run",
+  "dryRun": false
+}</code></pre>
+
+    <h2>Asynchronous path (scheduled watches)</h2>
+    <ol>
+      <li>Schedule the Actor in Apify Console (daily/weekly) with <code>datasetMode</code> <code>changes_only</code> after the baseline exists.</li>
+      <li>In Make, add trigger <strong>Watch Actor Runs</strong> for this Actor (Succeeded).</li>
+      <li>Add <strong>Get Dataset Items</strong> using the trigger’s default dataset ID.</li>
+      <li>Optional: filter items where <code>changed</code> is true before Slack notify.</li>
+    </ol>
+    <p>Webhook delivery is also on the listing (<code>delivery</code> <code>webhook</code> + <code>webhookUrl</code>). Prefer dataset + Watch Actor Runs for Make until the payload shape is approved.</p>
+
+    <h2>Not this path</h2>
+    <ul>
+      <li>Not authenticated vendor portals or PDF-only contract hosts.</li>
+      <li>Do not invent unpublished target fields beyond the Store schema (<code>id</code>, <code>name</code>, <code>kind</code>, <code>url</code>, patterns, <code>maxChars</code>).</li>
+      <li>Not Website Content Extractor (one-shot page markdown) — this Actor compares snapshots over time.</li>
+      <li>Never edit the Actor on Apify from this guide; read-only Store usage only. </li>
+    </ul>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/saas-change-monitor-actor/">SaaS Change Monitor landing</a></li>
+      <li><a href="/saas-pricing-page-change-monitor/">SaaS pricing page change monitor</a></li>
+      <li><a href="/guides/article-extractor-make/">Article Content Extractor in Make</a></li>
+      <li><a href="/guides/hhs-breach-make/">HHS breach monitor in Make</a></li>
+      <li><a href="/guides/how-to-import-clp-hazard-profiles-csv-shopify/">Import CLP hazard profiles by CSV</a></li>
+      <li><a href="/tools/">Tools catalog</a></li>
+    </ul>
+    <p class="note">Pricing and input fields from apify.com/taroyamada/saas-change-monitor-actor on 2026-10-30 (Asia/Tokyo). Make steps from Apify docs. Not legal or competitive-intelligence advice.</p>
+  </main>
+  <footer class="site"><div class="wrap"><ul><li><a href="/tools/">Tools catalog</a></li><li><a href="/guides/">Guides</a></li><li><a href="/">Home</a></li></ul></div></footer>
+</body>
+</html>

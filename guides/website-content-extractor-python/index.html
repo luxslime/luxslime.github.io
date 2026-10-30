@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Use Website Content Extractor with Python — apify-client steps</title>
+  <meta name="description" content="Run taroyamada/website-content-extractor with apify-client in Python. One URL ≈ USD 0.01 (Start $0.001 + result $0.009). From $9.00 / 1,000 results.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://apify.momiji-space.com/guides/website-content-extractor-python/">
+  <meta property="og:title" content="Use Website Content Extractor with Python — apify-client steps">
+  <meta property="og:description" content="Run taroyamada/website-content-extractor with apify-client in Python. One URL ≈ USD 0.01 (Start $0.001 + result $0.009). From $9.00 / 1,000 results.">
+  <meta property="og:url" content="https://apify.momiji-space.com/guides/website-content-extractor-python/">
+  <meta property="og:type" content="article">
+  <link rel="stylesheet" href="/assets/css/challenge-guide.css">
+  <link rel="stylesheet" href="/assets/css/actor-landing.css">
+</head>
+<body>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="logo" href="/">momiji-space</a>
+      <nav>
+        <a href="/tools/">Tools</a>
+        <a href="/guides/">Guides</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <nav><a href="/">Home</a> / <a href="/guides/">Guides</a> / Website Content Extractor in Python</nav>
+    <p class="eyebrow">Python ・ docs to Markdown ・ apify-client</p>
+    <h1>How to use Website Content Extractor with Python</h1>
+    <div class="answer-block">
+      <p class="lede">Website Content Extractor (<code>taroyamada/website-content-extractor</code>) runs from Python with the official <code>apify-client</code> package. Call <code>client.actor(...).call(...)</code>, then iterate the default dataset for <code>title</code>, <code>markdown</code>/<code>text</code>, and <code>wordCount</code>. Store listing: from <strong>$9.00 / 1,000 results</strong>; paid first proof ≈ <strong>USD 0.01</strong> for one URL (Actor Start USD 0.001 + 1×USD 0.009). No API key or login is required on the target sites — you supply public URLs you are allowed to fetch.</p>
+      <p class="cta-row"><a class="cta" href="https://apify.com/taroyamada/website-content-extractor/input">Open Website Content Extractor Input on Apify Store</a></p>
+      <p class="updated">Last updated: 2026-10-30 (Asia/Tokyo). Integration steps verified on Apify docs and the Actor Store listing the same day.</p>
+    </div>
+
+    <h2>What this script does</h2>
+    <p>Python starts a bounded page extract on public docs, pricing, or help URLs you already have, then prints dataset rows for RAG or QA handoff. It is not Article Content Extractor (news/blog body) and not a full-site crawler. Prefer article-content-extractor for article-shaped URLs.</p>
+    <div class="card">
+    <table>
+      <thead><tr><th>Piece</th><th>Role</th></tr></thead>
+      <tbody>
+        <tr><td>Python client</td><td><code>pip install apify-client</code> (docs.apify.com/api/client/python)</td></tr>
+        <tr><td>Actor</td><td><code>taroyamada/website-content-extractor</code> — public page URLs → markdown/text rows</td></tr>
+        <tr><td>First proof input</td><td>One <code>urls</code> item; <code>outputFormat</code> <code>markdown</code>; <code>delivery</code> <code>dataset</code>; <code>dryRun</code> false</td></tr>
+        <tr><td>Useful fields</td><td><code>url</code>, <code>title</code>, <code>markdown</code> / <code>text</code>, <code>wordCount</code>, <code>sourceUrl</code>, <code>fetchedAt</code></td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h2>Install and authenticate</h2>
+    <ol>
+      <li>Create a virtualenv and run <code>pip install apify-client</code>.</li>
+      <li>Copy an Apify API token from Console <strong>Settings → API &amp; Integrations</strong>.</li>
+      <li>Export it as <code>APIFY_TOKEN</code> (or pass it to <code>ApifyClient(...)</code>). Do not commit the token.</li>
+    </ol>
+
+    <h2>Minimal first-run script</h2>
+    <p>Input matches the Store listing quickstart (one public URL). Cost for one successful page is about USD 0.01 per the listing.</p>
+<pre><code>import os
+from apify_client import ApifyClient
+
+client = ApifyClient(os.environ["APIFY_TOKEN"])
+
+run_input = {
+    "urls": ["https://docs.apify.com/platform/actors"],
+    "outputFormat": "markdown",
+    "includeMetadata": True,
+    "delivery": "dataset",
+    "dryRun": False,
+    "maxChargeUsd": 0.02,
+}
+
+run = client.actor("taroyamada/website-content-extractor").call(run_input=run_input)
+print(f"dataset: https://console.apify.com/storage/datasets/{run['defaultDatasetId']}")
+
+for item in client.dataset(run["defaultDatasetId"]).iterate_items():
+    print(item.get("title"), item.get("wordCount"), item.get("url"))
+</code></pre>
+
+    <h2>Docs batch (two pages)</h2>
+    <p>Each successful page is one result event at USD 0.009 plus the Actor Start USD 0.001. Example from the listing: two Apify docs pages → about USD 0.019 when both succeed.</p>
+<pre><code>run_input = {
+    "urls": [
+        "https://docs.apify.com/platform/actors",
+        "https://docs.apify.com/platform/storage/dataset",
+    ],
+    "outputFormat": "markdown",
+    "includeMetadata": True,
+    "delivery": "dataset",
+    "dryRun": False,
+}
+</code></pre>
+
+    <h2>Not this path</h2>
+    <ul>
+      <li>Not Article Content Extractor — use that Actor for news/blog/press URLs.</li>
+      <li>Do not invent unpublished fields such as <code>startUrls</code> or <code>crawlWholeSite</code>.</li>
+      <li>Linked Site QA / RAG report Actors are separate runs with their own inputs and prices — do not add report-only fields to this extractor.</li>
+      <li>Never edit the Actor on Apify from this guide; read-only Store usage only.</li>
+    </ul>
+
+    <h2>Related pages</h2>
+    <ul>
+      <li><a href="/website-content-extractor/">Website Content Extractor landing</a></li>
+      <li><a href="/guides/article-extractor-make/">Article Content Extractor in Make</a></li>
+      <li><a href="/website-rag-readiness-audit/">Website RAG readiness audit</a></li>
+      <li><a href="/guides/how-to-export-agentic-catalog-csv-evidence-shopify/">Export Agentic Catalog CSV evidence</a></li>
+      <li><a href="/tools/">Tools catalog</a></li>
+    </ul>
+    <p class="note">Pricing and input fields from apify.com/taroyamada/website-content-extractor on 2026-10-30 (Asia/Tokyo). Python client steps from Apify docs. Not legal advice.</p>
+  </main>
+  <footer class="site"><div class="wrap"><ul><li><a href="/tools/">Tools catalog</a></li><li><a href="/guides/">Guides</a></li><li><a href="/">Home</a></li></ul></div></footer>
+</body>
+</html>
