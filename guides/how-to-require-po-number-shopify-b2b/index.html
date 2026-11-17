@@ -59,24 +59,30 @@
   </header>
   <main class="wrap">
     <nav><a href="/">Home</a> / <a href="/guides/">Guides</a> / Require PO on B2B checkout</nav>
-    <p class="eyebrow">B2B PO Guard · purchase order · checkout</p>
+    <p class="eyebrow">B2B PO Guard — Require PO · purchase order · checkout</p>
     <h1>How to require a PO number on Shopify B2B checkout</h1>
     <div class="answer-block">
-      <p class="answer-first"><strong>Direct answer.</strong> You do not need to write a Shopify Function or Cart and Checkout Validation Function to require a purchase-order number on B2B checkout. Install <strong>B2B PO Guard – Require PO</strong> (App Store: <code>b2b-terms-guard</code>), create one live PO rule that rejects blank or malformed PO numbers in the in-app live preview, then publish. D2C and no-company checkouts stay untouched.</p>
-      <p class="cta-row"><a class="cta" href="https://apps.shopify.com/b2b-terms-guard?utm_source=momiji-guides&amp;utm_medium=guide&amp;utm_campaign=how-to-require-po-number-shopify-b2b">Install B2B PO Guard on the Shopify App Store</a></p>
-      <p class="updated">Last updated: 2026-10-30 (Asia/Tokyo). Merchant-question evidence and App Store listing facts checked the same day.</p>
+      <p class="answer-first"><strong>Direct answer.</strong> Shopify's B2B PO number field is optional by default, so requiring it takes a checkout rule or an app: B2B PO Guard — Require PO (App Store handle b2b-terms-guard; not the separate "B2B PO Guard" listing) checks PO numbers on B2B company orders and flags missing, malformed, or duplicate values before they reach invoicing, with each rule previewed live against a sample number before you publish. Checkout enforcement runs on Shopify Plus B2B; PO rules work on every plan, and D2C and no-company checkouts stay untouched.</p>
+      <p class="cta-row"><a class="cta" href="https://apps.shopify.com/b2b-terms-guard?utm_source=momiji-guides&amp;utm_medium=guide&amp;utm_campaign=how-to-require-po-number-shopify-b2b">Install B2B PO Guard — Require PO on the Shopify App Store</a></p>
+      <p class="updated">Last updated: 2026-11-17 (Asia/Tokyo).</p>
     </div>
 
     <h2>Why merchants ask this</h2>
     <p>Wholesale buyers often finish checkout without a PO, then finance chases a number that never existed. Search demand for “require PO number Shopify B2B” and “Shopify B2B purchase order required” stays high because native Net Terms alone do not validate the PO field. This page is the merchant how-to for requiring that number — not the format-regex sibling and not deposit routing.</p>
 
-    <h2>Steps — require a PO number with B2B PO Guard</h2>
+    <h2>Steps — require a PO number with B2B PO Guard — Require PO</h2>
     <ol>
-      <li>Install B2B PO Guard from the Shopify App Store (handle: b2b-terms-guard).</li>
+      <li>Install B2B PO Guard — Require PO from the Shopify App Store (handle: b2b-terms-guard).</li>
       <li>Open the PO rules screen and create a rule that requires a non-empty PO number on B2B company checkout.</li>
       <li>Use live preview with a sample number you expect from buyers (and with a blank sample) before you publish.</li>
       <li>Publish the one live rule on the free plan. Confirm a B2B company checkout asks for the PO and a D2C cart still completes without it.</li>
     </ol>
+
+    <h2>First wholesale order as a draft order</h2>
+    <p>Shopify’s B2B terminology page says orders that customers send by phone or email, instead of through the online store, can be created as draft orders. From Orders → Drafts, create the order, select the B2B customer and the company location, and add the products. A purchase-order number on that draft is optional. <a href="https://help.shopify.com/en/manual/b2b/getting-started/terminology">B2B terminology</a> · <a href="https://help.shopify.com/en/manual/b2b/checkout-and-orders/draft-orders">Creating B2B orders using draft orders</a>.</p>
+    <p>To put the order on net terms, in the Payment section select <strong>Payment due later</strong>, then choose a term. If that company location already has terms, Shopify fills the term from the location. Save, then send an invoice or accept payment. <strong>Mark as paid</strong> is for payment you have already received outside Shopify: it records the order as Paid and does not capture the amount again. It does not assign a net term. An order created with Payment due later stays Payment pending until it is paid. <a href="https://help.shopify.com/en/manual/fulfillment/managing-orders/payments/deferred-payments">Deferred payments</a> · <a href="https://help.shopify.com/en/manual/fulfillment/managing-orders/order-status">Order statuses</a>.</p>
+    <p>If the draft is in a currency other than the store currency, Shopify says you can collect payment only by credit card or by marking the order as paid. <a href="https://help.shopify.com/en/manual/b2b/checkout-and-orders/draft-orders">Creating B2B orders using draft orders</a>.</p>
+    <p>On a company location or a B2B draft, the terms Shopify lists are no payment terms (due immediately), net 7, net 15, net 30, net 45, net 60, net 90, and due on fulfillment. A fixed date can be set on an individual draft order, not on the company location. Net periods start on the day the order is placed. Net 14 and end-of-month are not on that list. <a href="https://help.shopify.com/en/manual/b2b/checkout-and-orders/payment-terms">Payment terms in B2B</a>.</p>
 
     <h2>What the listing plans include</h2>
     <div class="card">
@@ -92,7 +98,7 @@
 
     <h2>What this page is not</h2>
     <ul>
-      <li>Not a Net Terms setup guide — B2B PO Guard works alongside native Net Terms; it does not replace them. See <a href="/guides/b2b-alongside-native-net-terms/">alongside native Net Terms</a>.</li>
+      <li>Not a Net Terms setup guide — B2B PO Guard — Require PO works alongside native Net Terms; it does not replace them. See <a href="/guides/b2b-alongside-native-net-terms/">alongside native Net Terms</a>.</li>
       <li>Not format / prefix / regex / uniqueness deep-dive — see <a href="/guides/b2b-po-format-prefix-regex-length/">PO format rules</a> and <a href="/guides/b2b-po-number-uniqueness-duplicate/">uniqueness</a>.</li>
       <li>Not deposit % or manual review routing — those are Pro jobs on <a href="/guides/b2b-deposit-percentage-checkout/">deposit</a> and <a href="/guides/b2b-order-review-threshold-checkout/">review threshold</a>.</li>
       <li>Not a food-labelling or EU repair-request app.</li>
@@ -102,7 +108,7 @@
     <ul>
       <li><a href="/guides/b2b-po-number-required/">B2B checkout can skip a PO unless a rule requires it</a></li>
       <li><a href="/guides/b2b-po-rule-live-preview/">Preview a PO rule live before publish</a></li>
-      <li><a href="/guides/b2b-po-guard-vs-po-validator/">B2B PO Guard vs PO Validator</a></li>
+      <li><a href="/guides/b2b-po-guard-vs-po-validator/">B2B PO Guard — Require PO vs PO Validator</a></li>
       <li><a href="/guides/purchase-order-number-vs-invoice-number/">Purchase order number vs invoice number</a></li>
       <li><a href="/guides/b2b-d2c-noop-checkout/">D2C and no-company checkouts stay untouched</a></li>
     </ul>
